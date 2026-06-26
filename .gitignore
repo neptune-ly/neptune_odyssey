@@ -1,0 +1,26 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# build outputs
+dist/
+build/web/
+*.tsbuildinfo
+coverage/
+
+# dart / flutter
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+**/doc/api/
+
+# editor / os
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# misc
+extracted/

@@ -1,0 +1,62 @@
+{
+  "$schema": "neptune.tenant.config/v1",
+  "extends": "neptune-core@A",
+  "tenant": {
+    "id": "neptune-corporate",
+    "displayName": "Neptune Corporate",
+    "institution": "Neptune Holdings LY",
+    "market": "LY",
+    "status": "reference",
+    "verifiedDomains": ["neptune.ly"],
+    "note": "Same Neptune brand, corporate flavor. Dense, permissioned, workflow-driven."
+  },
+  "brand": {
+    "theme": "neptune",
+    "wordmark": "Neptune",
+    "shortName": "Neptune Business",
+    "logoMark": "markNeptune",
+    "palette": { "primaryHue": 258, "tertiaryHue": 200, "seed": "signal-blue" },
+    "fonts": { "display": "Hanken Grotesk", "text": "Hanken Grotesk", "num": "Hanken Grotesk", "displayAr": "IBM Plex Sans Arabic", "textAr": "IBM Plex Sans Arabic" },
+    "shapeScale": 1.0,
+    "cornerFamily": { "xs": 8, "sm": 12, "md": 16, "lg": 24, "xl": 32, "2xl": 44 },
+    "motif": "sonar tide-rings",
+    "heroEmblem": "depth rings",
+    "motionPersonality": "smooth-fluid",
+    "glassTint": "oceanic",
+    "cardArt": "treasury KPI surfaces",
+    "loginShell": "domain-aware business sign-in",
+    "dashboardHero": "treasury cash-position dashboard",
+    "navAccent": "secondary-container",
+    "tone": "precise, accountable, operational"
+  },
+  "productFlavor": { "active": "corporate-web", "density": "dense", "platforms": ["web"] },
+  "features": {
+    "accounts": true, "cards": { "virtual": true, "physical": true, "freeze": true, "limits": true },
+    "wallet": false, "qrNfc": false, "bills": false, "vouchers": false, "goals": false, "statements": true,
+    "transfers": { "internal": true, "local": true, "intl": true, "swift": true, "wu": false, "onepay": false },
+    "beneficiaries": true, "bulk": true, "batches": { "salary": true, "supplier": true, "fileUpload": true, "repairRows": true },
+    "approvals": { "makerChecker": true, "multiLevel": true, "approvalMatrix": true },
+    "userManagement": true, "roles": true, "reports": true, "customReports": true, "costCenters": true,
+    "audit": true, "insights": false, "securityCenter": true, "multiSession": true, "notifications": true
+  },
+  "content": {
+    "en": { "loginHeadline": "Treasury, control and clarity for your whole organisation.", "tierLabel": "Admin · Maker", "primaryCta": "New batch", "orgLabel": "Neptune Holdings LY" },
+    "ar": { "loginHeadline": "الخزينة والتحكم والوضوح لمؤسستك بالكامل.", "tierLabel": "مشرف · منشئ", "primaryCta": "دفعة جديدة", "orgLabel": "نبتون القابضة" }
+  },
+  "compliance": {
+    "currency": "LYD", "locale": "en-LY", "ibanFormat": "LY## #### #### #### #### ####", "phoneFormat": "+218 9# ### ####",
+    "idFormat": "commercial registration", "kyc": "KYB corporate", "dailyLimit": 5000000,
+    "approvalLimits": [ { "uptoLYD": 50000, "approvals": 1 }, { "uptoLYD": 500000, "approvals": 2 }, { "aboveLYD": 500000, "approvals": 3 } ],
+    "workingDays": ["Sun", "Mon", "Tue", "Wed", "Thu"], "cutoffs": { "local": "14:30", "swift": "12:30", "salary": "11:00" },
+    "statementFormat": "PDF/CSV/XLSX/MT940", "auditRetentionMonths": 120, "numerals": "latin"
+  },
+  "platformOverrides": {
+    "flutter": { "themeExtension": "NeptuneTheme", "useMaterial3": true, "note": "corporate is web-only" },
+    "web": { "cssVarsTheme": "neptune", "sidebarWidth": 256, "tableDensity": "dense", "breakpoints": { "sm": 600, "md": 905, "lg": 1240, "xl": 1640 } }
+  },
+  "levers": {
+    "moved": ["color", "shape", "typography", "logo", "motif", "cardArt", "loginShell", "dashboardHero", "contentTone"],
+    "count": 9,
+    "rule": "≥6 of 12 — PASS (distinct corporate dashboard hero + tone vs Neptune Retail)"
+  }
+}

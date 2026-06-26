@@ -1,0 +1,58 @@
+{
+  "$schema": "neptune.tenant.config/v1",
+  "extends": "neptune-core@A",
+  "tenant": {
+    "id": "neptune-retail",
+    "displayName": "Neptune Retail",
+    "institution": "Neptune Holdings LY",
+    "market": "LY",
+    "status": "reference",
+    "note": "Platform baseline. The retail experience before a bank adds its voice."
+  },
+  "brand": {
+    "theme": "neptune",
+    "wordmark": "Neptune",
+    "shortName": "Neptune",
+    "logoMark": "markNeptune",
+    "palette": { "primaryHue": 258, "tertiaryHue": 200, "seed": "signal-blue", "accents": ["#2A6FDB", "aqua"] },
+    "fonts": { "display": "Hanken Grotesk", "text": "Hanken Grotesk", "num": "Hanken Grotesk", "displayAr": "IBM Plex Sans Arabic", "textAr": "IBM Plex Sans Arabic" },
+    "shapeScale": 1.0,
+    "cornerFamily": { "xs": 8, "sm": 12, "md": 16, "lg": 24, "xl": 32, "2xl": 44 },
+    "motif": "sonar tide-rings",
+    "heroEmblem": "depth rings",
+    "motionPersonality": "smooth-fluid",
+    "glassTint": "oceanic",
+    "cardArt": "gradient-primary-to-tertiary",
+    "loginShell": "depth-emblem panel",
+    "dashboardHero": "balance-first account cards",
+    "navAccent": "primary",
+    "tone": "clear, confident, calm"
+  },
+  "productFlavor": { "active": "retail-mobile+retail-web", "density": "comfortable", "platforms": ["flutter", "web"] },
+  "features": {
+    "accounts": true, "cards": { "virtual": true, "physical": true, "freeze": true, "limits": true },
+    "wallet": false, "qrNfc": true, "bills": true, "vouchers": true, "goals": true, "statements": true,
+    "transfers": { "internal": true, "local": true, "intl": true, "swift": true, "wu": true, "onepay": true },
+    "beneficiaries": true, "bulk": false, "approvals": false, "userManagement": false, "reports": false, "audit": false,
+    "insights": true, "securityCenter": true, "multiSession": true, "notifications": true
+  },
+  "content": {
+    "en": { "loginHeadline": "Your money, beautifully in your control.", "tierLabel": "Neptune Member", "primaryCta": "New transfer", "currencyName": "Libyan Dinar" },
+    "ar": { "loginHeadline": "أموالك، تحت سيطرتك تمامًا.", "tierLabel": "عضو نبتون", "primaryCta": "تحويل جديد", "currencyName": "دينار ليبي" }
+  },
+  "compliance": {
+    "currency": "LYD", "locale": "en-LY", "ibanFormat": "LY## #### #### #### #### ####", "phoneFormat": "+218 9# ### ####",
+    "idFormat": "12-digit national ID", "kyc": "tier-based", "dailyLimit": 50000, "approvalLimits": null,
+    "workingDays": ["Sun", "Mon", "Tue", "Wed", "Thu"], "cutoffs": { "local": "15:00", "swift": "13:00" },
+    "statementFormat": "PDF/CSV", "auditRetentionMonths": 84, "numerals": "latin-or-arabic"
+  },
+  "platformOverrides": {
+    "flutter": { "themeExtension": "NeptuneTheme", "useMaterial3": true, "colorSchemeSeedHue": 258 },
+    "web": { "cssVarsTheme": "neptune", "sidebarWidth": 256, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
+  },
+  "levers": {
+    "moved": ["color", "shape", "typography", "logo", "motif", "cardArt", "loginShell"],
+    "count": 7,
+    "rule": "≥6 of 12 — PASS (this is the baseline tenant)"
+  }
+}

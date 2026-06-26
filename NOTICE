@@ -1,0 +1,24 @@
+Neptune Odyssey
+Copyright (c) 2026 Neptune.Fintech (https://neptune.ly). All rights reserved.
+
+This product includes the Neptune Odyssey design system and its generated
+libraries, configuration files, documentation, and reference implementations.
+
+Neptune Odyssey is licensed under the Neptune Odyssey Community License v1.0
+(see the LICENSE file). It is source-available, NOT an OSI-approved open-source
+license:
+
+  • Free to use, modify, and ship — including commercially — IF your use is
+    non-commercial OR your organization's gross revenue is under USD $25,000/yr.
+  • At or above that threshold for commercial use, a separate commercial license
+    is required. Contact: licensing@neptune.fintech.
+  • Keep the attribution. Do not represent the system as your own. Do not use the
+    Neptune.Fintech names, logos, or marks beyond the attribution required.
+
+"Neptune Odyssey" and "Neptune.Fintech" are names and marks of the Licensor.
+
+The example brands in this repository — including "neptune" (the platform
+baseline skin), "Andalus Bank", "Nuran", and "First Gulf Libyan (FGLB)" — are
+REFERENCE ILLUSTRATIONS ONLY. They demonstrate the white-label theming engine
+(the same-but-distinct rule) and convey no rights and imply no affiliation,
+endorsement, or partnership with any real institution.
