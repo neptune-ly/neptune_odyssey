@@ -1,0 +1,9 @@
+{
+  "name": "@neptune-odyssey/docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Neptune Odyssey written system (docs/) + the .dc.html living references (the visual contract).",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly"
+}

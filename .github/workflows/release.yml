@@ -1,0 +1,65 @@
+name: Release
+
+# Publish on a version tag. Requires repo secrets:
+#   NPM_TOKEN          — npm automation token for the @neptune-odyssey scope
+#   PUB_CREDENTIALS    — contents of ~/.config/dart/pub-credentials.json (pub.dev)
+# No secrets touch any developer machine; publishing only happens from CI on a tag.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  npm:
+    name: Publish JS packages to npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          registry-url: "https://registry.npmjs.org"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r --filter "./packages/**" run build
+      - name: Guard — NPM_TOKEN present
+        run: |
+          if [ -z "${NPM_TOKEN}" ]; then
+            echo "::error::NPM_TOKEN secret is not set — add it in repo settings to publish."
+            exit 1
+          fi
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish (public, non-private packages only)
+        run: pnpm -r --filter "./packages/**" publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  pub_dev:
+    name: Publish Flutter package to pub.dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.4
+          channel: stable
+      - name: Restore pub credentials
+        run: |
+          if [ -z "${PUB_CREDENTIALS}" ]; then
+            echo "::error::PUB_CREDENTIALS secret is not set — add it to publish to pub.dev."
+            exit 1
+          fi
+          mkdir -p "$HOME/.config/dart"
+          printf '%s' "${PUB_CREDENTIALS}" > "$HOME/.config/dart/pub-credentials.json"
+        env:
+          PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
+      - working-directory: packages/neptune_flutter_ui
+        run: flutter pub get
+      - name: Publish
+        working-directory: packages/neptune_flutter_ui
+        run: flutter pub publish --force

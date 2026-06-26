@@ -1,0 +1,8 @@
+{
+  "name": "@neptune-odyssey/react-native-ui",
+  "version": "0.0.0-roadmap",
+  "private": true,
+  "description": "ROADMAP (not in v1.0.0): React Native components over @neptune-odyssey/tokens. See ../ROADMAP.md.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)"
+}
