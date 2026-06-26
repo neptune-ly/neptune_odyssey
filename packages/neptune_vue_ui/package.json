@@ -1,0 +1,49 @@
+{
+  "name": "@neptune-odyssey/vue-ui",
+  "version": "1.0.0",
+  "description": "Neptune Odyssey Vue 3 layer — typed wrappers, a theme provider, and a composable over the framework-agnostic web kit.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neptune-ly/neptune_odyssey.git",
+    "directory": "packages/neptune_vue_ui"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "@neptune-odyssey/web-ui/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "LICENSE", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "dependencies": {
+    "@neptune-odyssey/tokens": "workspace:^",
+    "@neptune-odyssey/web-ui": "workspace:^"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8",
+    "vue": "^3.5.13"
+  }
+}

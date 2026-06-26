@@ -8,7 +8,6 @@
 // deterministically through the shared OKLCH ramp. Same brandprint ⇒ identical
 // theme on every platform.
 
-import 'dart:ui' show FontFeature;
 import 'package:flutter/material.dart';
 
 import '../brandprint/codec.dart';

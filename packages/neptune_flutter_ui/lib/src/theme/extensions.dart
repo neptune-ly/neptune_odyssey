@@ -4,7 +4,6 @@
 // ColorScheme), the per-brand corner family, the brand type set, and brand
 // motion. Read these from Theme.of(context) — never hard-code a value.
 
-import 'dart:ui' show FontFeature;
 import 'package:flutter/material.dart';
 
 /// The `success` colour role + its on/container variants. Not part of M3's
