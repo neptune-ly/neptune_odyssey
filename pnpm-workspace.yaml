@@ -1,10 +1,4 @@
 packages:
-  - "packages/neptune_tokens"
-  - "packages/neptune_web_ui"
-  - "packages/neptune_svelte_ui"
-  - "packages/neptune_vue_ui"
-  - "packages/neptune_brand_configs"
-  - "packages/neptune_product_configs"
-  - "apps/configurator"
-  - "roadmap/neptune_react_ui"
-  - "roadmap/neptune_react_native_ui"
+  - "packages/*"
+  - "apps/*"
+  - "roadmap/*"

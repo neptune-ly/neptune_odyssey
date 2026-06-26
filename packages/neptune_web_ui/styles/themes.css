@@ -1,0 +1,246 @@
+/* Neptune Odyssey — theme token layer · © Neptune.Fintech · v1.0.0
+   M3 + M3 Expressive · 4 brands (neptune/andalus/nuran/fglb) · light+dark · LTR/RTL
+   Apply on a wrapper: <body data-theme="andalus" data-mode="dark" dir="rtl"> */
+
+/* ====== NEPTUNE DESIGN SYSTEM — token layer ====== */
+:root,[data-theme="neptune"]{
+  --md-sys-color-primary: oklch(0.48 0.15 258); --md-sys-color-on-primary: oklch(0.99 0.02 258);
+  --md-sys-color-primary-container: oklch(0.91 0.07 258); --md-sys-color-on-primary-container: oklch(0.22 0.13 258);
+  --md-sys-color-secondary: oklch(0.5 0.06 258); --md-sys-color-on-secondary: oklch(0.99 0.02 258);
+  --md-sys-color-secondary-container: oklch(0.92 0.035 258); --md-sys-color-on-secondary-container: oklch(0.25 0.05 258);
+  --md-sys-color-tertiary: oklch(0.55 0.1 200); --md-sys-color-on-tertiary: oklch(0.99 0.02 200);
+  --md-sys-color-tertiary-container: oklch(0.9 0.06 200); --md-sys-color-on-tertiary-container: oklch(0.24 0.08 200);
+  --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
+  --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
+  --md-sys-color-success: oklch(0.58 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
+  --md-sys-color-success-container: oklch(0.9 0.07 152); --md-sys-color-on-success-container: oklch(0.26 0.1 152);
+  --md-sys-color-background: oklch(0.985 0.006 258); --md-sys-color-on-background: oklch(0.16 0.02 258);
+  --md-sys-color-surface: oklch(0.985 0.006 258); --md-sys-color-on-surface: oklch(0.16 0.02 258);
+  --md-sys-color-surface-variant: oklch(0.9 0.018 258); --md-sys-color-on-surface-variant: oklch(0.4 0.025 258);
+  --md-sys-color-outline: oklch(0.62 0.02 258); --md-sys-color-outline-variant: oklch(0.86 0.015 258);
+  --md-sys-color-surface-container-lowest: oklch(1 0 0); --md-sys-color-surface-container-low: oklch(0.965 0.006 258);
+  --md-sys-color-surface-container: oklch(0.945 0.008 258); --md-sys-color-surface-container-high: oklch(0.925 0.01 258);
+  --md-sys-color-surface-container-highest: oklch(0.905 0.012 258);
+  --md-sys-color-inverse-surface: oklch(0.24 0.02 258); --md-sys-color-inverse-on-surface: oklch(0.96 0.006 258);
+  --md-sys-color-inverse-primary: oklch(0.82 0.12 258); --md-sys-color-scrim: oklch(0.08 0.02 258);
+  --npt-font-display:'Hanken Grotesk'; --npt-font-text:'Hanken Grotesk'; --npt-font-num:'Hanken Grotesk';
+  --npt-font-display-ar:'IBM Plex Sans Arabic'; --npt-font-text-ar:'IBM Plex Sans Arabic';
+  --npt-corner-xs-base:8px; --npt-corner-sm-base:12px; --npt-corner-md-base:16px; --npt-corner-lg-base:24px; --npt-corner-xl-base:32px; --npt-corner-2xl-base:44px; --npt-corner-full:999px;
+  --npt-display-tracking:-0.02em; --npt-display-weight:700;
+  --npt-shape-scale:1; --npt-spring:cubic-bezier(.34,1.56,.64,1); --npt-spring-dur:.4s;
+  /* lever · motion feel (Neptune: smooth-fluid) */
+  --npt-ease-standard:cubic-bezier(.2,0,0,1); --npt-ease-emphasized:cubic-bezier(.2,0,0,1); --npt-ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --npt-dur-fast:240ms; --npt-dur-standard:300ms; --npt-dur-slow:500ms;
+  /* lever · glass tint (Neptune: oceanic) */
+  --npt-glass-tint:color-mix(in oklab, var(--md-sys-color-primary) 8%, color-mix(in oklab, var(--md-sys-color-surface) 70%, transparent)); --npt-glass-blur:18px;
+  /* lever · named treatments (login shell / dashboard hero / content tone) */
+  --npt-login-shell:depth-emblem; --npt-dashboard-hero:balance-cards; --npt-content-tone:clear-calm;
+  /* brand expression — signature motif (Neptune: sonar tide-rings) */
+  --npt-motif: repeating-radial-gradient(circle at 86% 6%, color-mix(in oklab,currentColor 11%,transparent) 0 1.5px, transparent 1.5px 27px);
+  --npt-motif-size: auto; --npt-motif-strength: .9;
+  --npt-hero-emblem: radial-gradient(circle at 50% 50%, color-mix(in oklab,currentColor 14%,transparent) 0 1px, transparent 1px 9px, color-mix(in oklab,currentColor 12%,transparent) 9px 10px, transparent 10px 20px, color-mix(in oklab,currentColor 10%,transparent) 20px 21px, transparent 21px);
+}
+/* client customization: corner family scales with --npt-shape-scale (full stays a pill) */
+[data-theme]{
+  --npt-corner-xs: calc(var(--npt-corner-xs-base,8px) * var(--npt-shape-scale,1));
+  --npt-corner-sm: calc(var(--npt-corner-sm-base,12px) * var(--npt-shape-scale,1));
+  --npt-corner-md: calc(var(--npt-corner-md-base,16px) * var(--npt-shape-scale,1));
+  --npt-corner-lg: calc(var(--npt-corner-lg-base,24px) * var(--npt-shape-scale,1));
+  --npt-corner-xl: calc(var(--npt-corner-xl-base,32px) * var(--npt-shape-scale,1));
+  --npt-corner-2xl: calc(var(--npt-corner-2xl-base,44px) * var(--npt-shape-scale,1));
+}
+[data-theme="neptune"][data-mode="dark"]{
+  --md-sys-color-primary: oklch(0.8 0.12 258); --md-sys-color-on-primary: oklch(0.2 0.1 258);
+  --md-sys-color-primary-container: oklch(0.36 0.12 258); --md-sys-color-on-primary-container: oklch(0.9 0.07 258);
+  --md-sys-color-secondary: oklch(0.82 0.04 258); --md-sys-color-on-secondary: oklch(0.22 0.04 258);
+  --md-sys-color-secondary-container: oklch(0.34 0.04 258); --md-sys-color-on-secondary-container: oklch(0.9 0.035 258);
+  --md-sys-color-tertiary: oklch(0.82 0.08 200); --md-sys-color-on-tertiary: oklch(0.22 0.06 200);
+  --md-sys-color-tertiary-container: oklch(0.34 0.07 200); --md-sys-color-on-tertiary-container: oklch(0.9 0.06 200);
+  --md-sys-color-error: oklch(0.78 0.13 27); --md-sys-color-on-error: oklch(0.24 0.1 27);
+  --md-sys-color-error-container: oklch(0.36 0.14 27); --md-sys-color-on-error-container: oklch(0.92 0.06 27);
+  --md-sys-color-success: oklch(0.78 0.12 152); --md-sys-color-on-success: oklch(0.22 0.08 152);
+  --md-sys-color-success-container: oklch(0.34 0.1 152); --md-sys-color-on-success-container: oklch(0.9 0.07 152);
+  --md-sys-color-background: oklch(0.13 0.012 258); --md-sys-color-on-background: oklch(0.92 0.01 258);
+  --md-sys-color-surface: oklch(0.13 0.012 258); --md-sys-color-on-surface: oklch(0.92 0.01 258);
+  --md-sys-color-surface-variant: oklch(0.34 0.02 258); --md-sys-color-on-surface-variant: oklch(0.78 0.02 258);
+  --md-sys-color-outline: oklch(0.58 0.02 258); --md-sys-color-outline-variant: oklch(0.32 0.02 258);
+  --md-sys-color-surface-container-lowest: oklch(0.09 0.012 258); --md-sys-color-surface-container-low: oklch(0.16 0.014 258);
+  --md-sys-color-surface-container: oklch(0.18 0.016 258); --md-sys-color-surface-container-high: oklch(0.22 0.018 258);
+  --md-sys-color-surface-container-highest: oklch(0.27 0.02 258);
+  --md-sys-color-inverse-surface: oklch(0.92 0.01 258); --md-sys-color-inverse-on-surface: oklch(0.2 0.02 258);
+  --md-sys-color-inverse-primary: oklch(0.48 0.15 258); --md-sys-color-scrim: oklch(0 0 0);
+}
+[data-theme="andalus"]{
+  --md-sys-color-primary: oklch(0.5 0.12 162); --md-sys-color-on-primary: oklch(0.99 0.02 162);
+  --md-sys-color-primary-container: oklch(0.9 0.08 162); --md-sys-color-on-primary-container: oklch(0.24 0.1 162);
+  --md-sys-color-secondary: oklch(0.52 0.05 162); --md-sys-color-on-secondary: oklch(0.99 0.02 162);
+  --md-sys-color-secondary-container: oklch(0.91 0.04 162); --md-sys-color-on-secondary-container: oklch(0.26 0.05 162);
+  --md-sys-color-tertiary: oklch(0.62 0.12 86); --md-sys-color-on-tertiary: oklch(0.99 0.02 86);
+  --md-sys-color-tertiary-container: oklch(0.9 0.09 86); --md-sys-color-on-tertiary-container: oklch(0.3 0.09 86);
+  --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
+  --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
+  --md-sys-color-success: oklch(0.56 0.13 150); --md-sys-color-on-success: oklch(0.99 0.02 150);
+  --md-sys-color-success-container: oklch(0.9 0.07 150); --md-sys-color-on-success-container: oklch(0.26 0.1 150);
+  --md-sys-color-background: oklch(0.985 0.01 150); --md-sys-color-on-background: oklch(0.18 0.02 150);
+  --md-sys-color-surface: oklch(0.985 0.01 150); --md-sys-color-on-surface: oklch(0.18 0.02 150);
+  --md-sys-color-surface-variant: oklch(0.9 0.025 150); --md-sys-color-on-surface-variant: oklch(0.4 0.03 150);
+  --md-sys-color-outline: oklch(0.62 0.025 150); --md-sys-color-outline-variant: oklch(0.86 0.02 150);
+  --md-sys-color-surface-container-lowest: oklch(1 0 0); --md-sys-color-surface-container-low: oklch(0.965 0.012 150);
+  --md-sys-color-surface-container: oklch(0.945 0.016 150); --md-sys-color-surface-container-high: oklch(0.925 0.02 150);
+  --md-sys-color-surface-container-highest: oklch(0.905 0.024 150);
+  --md-sys-color-inverse-surface: oklch(0.26 0.02 150); --md-sys-color-inverse-on-surface: oklch(0.96 0.01 150);
+  --md-sys-color-inverse-primary: oklch(0.82 0.1 162); --md-sys-color-scrim: oklch(0.08 0.02 150);
+  --npt-font-display:'Bricolage Grotesque'; --npt-font-text:'Hanken Grotesk'; --npt-font-num:'Hanken Grotesk';
+  --npt-font-display-ar:'Reem Kufi'; --npt-font-text-ar:'Tajawal';
+  --npt-corner-xs-base:12px; --npt-corner-sm-base:18px; --npt-corner-md-base:26px; --npt-corner-lg-base:34px; --npt-corner-xl-base:44px; --npt-corner-2xl-base:56px; --npt-corner-full:999px;
+  --npt-display-tracking:-0.01em; --npt-display-weight:700;
+  /* lever · motion feel (Andalus: calm-graceful) */
+  --npt-ease-standard:cubic-bezier(.25,0,.2,1); --npt-ease-emphasized:cubic-bezier(.2,0,.1,1); --npt-ease-spring:cubic-bezier(.3,1.3,.5,1);
+  --npt-dur-fast:280ms; --npt-dur-standard:340ms; --npt-dur-slow:560ms;
+  /* lever · glass tint (Andalus: warm-amber) */
+  --npt-glass-tint:color-mix(in oklab, var(--md-sys-color-tertiary) 9%, color-mix(in oklab, var(--md-sys-color-surface) 72%, transparent)); --npt-glass-blur:16px;
+  /* lever · named treatments */
+  --npt-login-shell:arcade-arches; --npt-dashboard-hero:warm-balance-cards; --npt-content-tone:warm-hospitable;
+  /* brand expression — signature motif (Andalus: heritage arcade of arches) */
+  --npt-motif: radial-gradient(circle at 50% 100%, transparent 0 12px, color-mix(in oklab,currentColor 13%,transparent) 12px 13.5px, transparent 14.5px);
+  --npt-motif-size: 40px 32px; --npt-motif-strength: 1;
+  --npt-hero-emblem: radial-gradient(circle at 50% 118%, transparent 0 34px, color-mix(in oklab,currentColor 16%,transparent) 34px 36px, transparent 37px 52px, color-mix(in oklab,currentColor 12%,transparent) 52px 54px, transparent 55px);
+}
+[data-theme="andalus"][data-mode="dark"]{
+  --md-sys-color-primary: oklch(0.82 0.11 162); --md-sys-color-on-primary: oklch(0.22 0.08 162);
+  --md-sys-color-primary-container: oklch(0.36 0.1 162); --md-sys-color-on-primary-container: oklch(0.9 0.08 162);
+  --md-sys-color-secondary: oklch(0.82 0.045 162); --md-sys-color-on-secondary: oklch(0.24 0.04 162);
+  --md-sys-color-secondary-container: oklch(0.34 0.045 162); --md-sys-color-on-secondary-container: oklch(0.9 0.04 162);
+  --md-sys-color-tertiary: oklch(0.82 0.1 86); --md-sys-color-on-tertiary: oklch(0.26 0.08 86);
+  --md-sys-color-tertiary-container: oklch(0.4 0.09 86); --md-sys-color-on-tertiary-container: oklch(0.92 0.08 86);
+  --md-sys-color-error: oklch(0.78 0.13 27); --md-sys-color-on-error: oklch(0.24 0.1 27);
+  --md-sys-color-error-container: oklch(0.36 0.14 27); --md-sys-color-on-error-container: oklch(0.92 0.06 27);
+  --md-sys-color-success: oklch(0.78 0.12 150); --md-sys-color-on-success: oklch(0.22 0.08 150);
+  --md-sys-color-success-container: oklch(0.34 0.1 150); --md-sys-color-on-success-container: oklch(0.9 0.07 150);
+  --md-sys-color-background: oklch(0.14 0.014 150); --md-sys-color-on-background: oklch(0.92 0.012 150);
+  --md-sys-color-surface: oklch(0.14 0.014 150); --md-sys-color-on-surface: oklch(0.92 0.012 150);
+  --md-sys-color-surface-variant: oklch(0.34 0.022 150); --md-sys-color-on-surface-variant: oklch(0.78 0.022 150);
+  --md-sys-color-outline: oklch(0.58 0.022 150); --md-sys-color-outline-variant: oklch(0.32 0.022 150);
+  --md-sys-color-surface-container-lowest: oklch(0.1 0.014 150); --md-sys-color-surface-container-low: oklch(0.17 0.016 150);
+  --md-sys-color-surface-container: oklch(0.19 0.018 150); --md-sys-color-surface-container-high: oklch(0.23 0.02 150);
+  --md-sys-color-surface-container-highest: oklch(0.28 0.022 150);
+  --md-sys-color-inverse-surface: oklch(0.92 0.012 150); --md-sys-color-inverse-on-surface: oklch(0.22 0.02 150);
+  --md-sys-color-inverse-primary: oklch(0.5 0.12 162); --md-sys-color-scrim: oklch(0 0 0);
+}
+[data-theme="nuran"]{
+  --md-sys-color-primary: oklch(0.52 0.18 292); --md-sys-color-on-primary: oklch(0.99 0.02 292);
+  --md-sys-color-primary-container: oklch(0.91 0.08 292); --md-sys-color-on-primary-container: oklch(0.26 0.16 292);
+  --md-sys-color-secondary: oklch(0.54 0.06 292); --md-sys-color-on-secondary: oklch(0.99 0.02 292);
+  --md-sys-color-secondary-container: oklch(0.92 0.04 292); --md-sys-color-on-secondary-container: oklch(0.28 0.06 292);
+  --md-sys-color-tertiary: oklch(0.6 0.16 350); --md-sys-color-on-tertiary: oklch(0.99 0.02 350);
+  --md-sys-color-tertiary-container: oklch(0.91 0.08 350); --md-sys-color-on-tertiary-container: oklch(0.3 0.13 350);
+  --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
+  --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
+  --md-sys-color-success: oklch(0.58 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
+  --md-sys-color-success-container: oklch(0.9 0.07 152); --md-sys-color-on-success-container: oklch(0.26 0.1 152);
+  --md-sys-color-background: oklch(0.985 0.008 300); --md-sys-color-on-background: oklch(0.16 0.02 300);
+  --md-sys-color-surface: oklch(0.985 0.008 300); --md-sys-color-on-surface: oklch(0.16 0.02 300);
+  --md-sys-color-surface-variant: oklch(0.9 0.022 300); --md-sys-color-on-surface-variant: oklch(0.4 0.03 300);
+  --md-sys-color-outline: oklch(0.62 0.025 300); --md-sys-color-outline-variant: oklch(0.86 0.018 300);
+  --md-sys-color-surface-container-lowest: oklch(1 0 0); --md-sys-color-surface-container-low: oklch(0.965 0.008 300);
+  --md-sys-color-surface-container: oklch(0.945 0.012 300); --md-sys-color-surface-container-high: oklch(0.925 0.016 300);
+  --md-sys-color-surface-container-highest: oklch(0.905 0.02 300);
+  --md-sys-color-inverse-surface: oklch(0.24 0.02 300); --md-sys-color-inverse-on-surface: oklch(0.96 0.008 300);
+  --md-sys-color-inverse-primary: oklch(0.82 0.14 292); --md-sys-color-scrim: oklch(0.08 0.02 300);
+  --npt-font-display:'Space Grotesk'; --npt-font-text:'Hanken Grotesk'; --npt-font-num:'Space Grotesk';
+  --npt-font-display-ar:'Readex Pro'; --npt-font-text-ar:'Readex Pro';
+  --npt-corner-xs-base:4px; --npt-corner-sm-base:8px; --npt-corner-md-base:12px; --npt-corner-lg-base:18px; --npt-corner-xl-base:26px; --npt-corner-2xl-base:36px; --npt-corner-full:999px;
+  --npt-display-tracking:-0.03em; --npt-display-weight:600;
+  /* lever · motion feel (Nuran: light-quick-crisp) */
+  --npt-ease-standard:cubic-bezier(.2,0,0,1); --npt-ease-emphasized:cubic-bezier(.2,0,0,1); --npt-ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --npt-dur-fast:200ms; --npt-dur-standard:240ms; --npt-dur-slow:400ms;
+  /* lever · glass tint (Nuran: violet-luminous) */
+  --npt-glass-tint:color-mix(in oklab, var(--md-sys-color-primary) 12%, color-mix(in oklab, var(--md-sys-color-surface) 62%, transparent)); --npt-glass-blur:22px;
+  /* lever · named treatments */
+  --npt-login-shell:light-grid-spark; --npt-dashboard-hero:wallet-hero; --npt-content-tone:light-instant;
+  /* brand expression — signature motif (Nuran: crisp digital light-grid) */
+  --npt-motif: linear-gradient(color-mix(in oklab,currentColor 8%,transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab,currentColor 8%,transparent) 1px, transparent 1px);
+  --npt-motif-size: 23px 23px; --npt-motif-strength: 1;
+  --npt-hero-emblem: linear-gradient(125deg, transparent 38%, color-mix(in oklab,currentColor 16%,transparent) 49%, color-mix(in oklab,currentColor 4%,transparent) 50%, transparent 62%);
+}
+[data-theme="nuran"][data-mode="dark"]{
+  --md-sys-color-primary: oklch(0.8 0.15 292); --md-sys-color-on-primary: oklch(0.22 0.12 292);
+  --md-sys-color-primary-container: oklch(0.38 0.14 292); --md-sys-color-on-primary-container: oklch(0.9 0.08 292);
+  --md-sys-color-secondary: oklch(0.82 0.05 292); --md-sys-color-on-secondary: oklch(0.24 0.05 292);
+  --md-sys-color-secondary-container: oklch(0.36 0.05 292); --md-sys-color-on-secondary-container: oklch(0.9 0.04 292);
+  --md-sys-color-tertiary: oklch(0.8 0.13 350); --md-sys-color-on-tertiary: oklch(0.24 0.1 350);
+  --md-sys-color-tertiary-container: oklch(0.4 0.13 350); --md-sys-color-on-tertiary-container: oklch(0.92 0.08 350);
+  --md-sys-color-error: oklch(0.78 0.13 27); --md-sys-color-on-error: oklch(0.24 0.1 27);
+  --md-sys-color-error-container: oklch(0.36 0.14 27); --md-sys-color-on-error-container: oklch(0.92 0.06 27);
+  --md-sys-color-success: oklch(0.78 0.12 152); --md-sys-color-on-success: oklch(0.22 0.08 152);
+  --md-sys-color-success-container: oklch(0.34 0.1 152); --md-sys-color-on-success-container: oklch(0.9 0.07 152);
+  --md-sys-color-background: oklch(0.13 0.014 300); --md-sys-color-on-background: oklch(0.92 0.012 300);
+  --md-sys-color-surface: oklch(0.13 0.014 300); --md-sys-color-on-surface: oklch(0.92 0.012 300);
+  --md-sys-color-surface-variant: oklch(0.34 0.024 300); --md-sys-color-on-surface-variant: oklch(0.78 0.024 300);
+  --md-sys-color-outline: oklch(0.58 0.024 300); --md-sys-color-outline-variant: oklch(0.32 0.024 300);
+  --md-sys-color-surface-container-lowest: oklch(0.09 0.014 300); --md-sys-color-surface-container-low: oklch(0.16 0.016 300);
+  --md-sys-color-surface-container: oklch(0.18 0.018 300); --md-sys-color-surface-container-high: oklch(0.22 0.02 300);
+  --md-sys-color-surface-container-highest: oklch(0.27 0.022 300);
+  --md-sys-color-inverse-surface: oklch(0.92 0.012 300); --md-sys-color-inverse-on-surface: oklch(0.2 0.02 300);
+  --md-sys-color-inverse-primary: oklch(0.52 0.18 292); --md-sys-color-scrim: oklch(0 0 0);
+}
+[data-theme="fglb"]{
+  --md-sys-color-primary: oklch(0.42 0.13 248); --md-sys-color-on-primary: oklch(0.99 0.02 248);
+  --md-sys-color-primary-container: oklch(0.89 0.07 248); --md-sys-color-on-primary-container: oklch(0.2 0.12 248);
+  --md-sys-color-secondary: oklch(0.5 0.05 248); --md-sys-color-on-secondary: oklch(0.99 0.02 248);
+  --md-sys-color-secondary-container: oklch(0.91 0.035 250); --md-sys-color-on-secondary-container: oklch(0.24 0.05 248);
+  --md-sys-color-tertiary: oklch(0.66 0.12 85); --md-sys-color-on-tertiary: oklch(0.99 0.02 85);
+  --md-sys-color-tertiary-container: oklch(0.9 0.09 85); --md-sys-color-on-tertiary-container: oklch(0.32 0.09 85);
+  --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
+  --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
+  --md-sys-color-success: oklch(0.58 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
+  --md-sys-color-success-container: oklch(0.9 0.07 152); --md-sys-color-on-success-container: oklch(0.26 0.1 152);
+  --md-sys-color-background: oklch(0.985 0.005 245); --md-sys-color-on-background: oklch(0.15 0.02 248);
+  --md-sys-color-surface: oklch(0.985 0.005 245); --md-sys-color-on-surface: oklch(0.15 0.02 248);
+  --md-sys-color-surface-variant: oklch(0.9 0.016 245); --md-sys-color-on-surface-variant: oklch(0.4 0.025 248);
+  --md-sys-color-outline: oklch(0.62 0.02 245); --md-sys-color-outline-variant: oklch(0.86 0.014 245);
+  --md-sys-color-surface-container-lowest: oklch(1 0 0); --md-sys-color-surface-container-low: oklch(0.965 0.005 245);
+  --md-sys-color-surface-container: oklch(0.945 0.007 245); --md-sys-color-surface-container-high: oklch(0.925 0.009 245);
+  --md-sys-color-surface-container-highest: oklch(0.905 0.011 245);
+  --md-sys-color-inverse-surface: oklch(0.22 0.02 248); --md-sys-color-inverse-on-surface: oklch(0.96 0.005 245);
+  --md-sys-color-inverse-primary: oklch(0.78 0.11 248); --md-sys-color-scrim: oklch(0.06 0.02 248);
+  --npt-font-display:'Sora'; --npt-font-text:'Hanken Grotesk'; --npt-font-num:'Sora';
+  --npt-font-display-ar:'Noto Kufi Arabic'; --npt-font-text-ar:'IBM Plex Sans Arabic';
+  --npt-corner-xs-base:6px; --npt-corner-sm-base:10px; --npt-corner-md-base:14px; --npt-corner-lg-base:20px; --npt-corner-xl-base:28px; --npt-corner-2xl-base:38px; --npt-corner-full:999px;
+  --npt-display-tracking:-0.02em; --npt-display-weight:700;
+  /* lever · motion feel (FGLB: stable-minimal-authoritative) */
+  --npt-ease-standard:cubic-bezier(.3,0,.2,1); --npt-ease-emphasized:cubic-bezier(.25,0,.15,1); --npt-ease-spring:cubic-bezier(.2,.9,.3,1);
+  --npt-dur-fast:240ms; --npt-dur-standard:280ms; --npt-dur-slow:460ms;
+  /* lever · glass tint (FGLB: navy-steel) */
+  --npt-glass-tint:color-mix(in oklab, var(--md-sys-color-primary) 7%, color-mix(in oklab, var(--md-sys-color-surface) 76%, transparent)); --npt-glass-blur:14px;
+  /* lever · named treatments */
+  --npt-login-shell:shield-guilloche; --npt-dashboard-hero:restrained-balance; --npt-content-tone:formal-authoritative;
+  /* brand expression — signature motif (FGLB: secure guilloché / shield) */
+  --npt-motif: repeating-linear-gradient(45deg, color-mix(in oklab,currentColor 7%,transparent) 0 1px, transparent 1px 12px), repeating-linear-gradient(-45deg, color-mix(in oklab,currentColor 7%,transparent) 0 1px, transparent 1px 12px);
+  --npt-motif-size: auto; --npt-motif-strength: .85;
+  --npt-hero-emblem: linear-gradient(135deg, transparent 45%, color-mix(in oklab,currentColor 15%,transparent) 47% 49%, transparent 51%), linear-gradient(-135deg, transparent 45%, color-mix(in oklab,currentColor 15%,transparent) 47% 49%, transparent 51%), linear-gradient(135deg, transparent 62%, color-mix(in oklab,currentColor 9%,transparent) 64% 66%, transparent 68%);
+}
+[data-theme="fglb"][data-mode="dark"]{
+  --md-sys-color-primary: oklch(0.78 0.11 248); --md-sys-color-on-primary: oklch(0.18 0.09 248);
+  --md-sys-color-primary-container: oklch(0.34 0.11 248); --md-sys-color-on-primary-container: oklch(0.88 0.07 248);
+  --md-sys-color-secondary: oklch(0.82 0.04 248); --md-sys-color-on-secondary: oklch(0.22 0.04 248);
+  --md-sys-color-secondary-container: oklch(0.33 0.04 248); --md-sys-color-on-secondary-container: oklch(0.9 0.035 248);
+  --md-sys-color-tertiary: oklch(0.82 0.11 85); --md-sys-color-on-tertiary: oklch(0.24 0.08 85);
+  --md-sys-color-tertiary-container: oklch(0.4 0.1 85); --md-sys-color-on-tertiary-container: oklch(0.92 0.08 85);
+  --md-sys-color-error: oklch(0.78 0.13 27); --md-sys-color-on-error: oklch(0.24 0.1 27);
+  --md-sys-color-error-container: oklch(0.36 0.14 27); --md-sys-color-on-error-container: oklch(0.92 0.06 27);
+  --md-sys-color-success: oklch(0.78 0.12 152); --md-sys-color-on-success: oklch(0.22 0.08 152);
+  --md-sys-color-success-container: oklch(0.34 0.1 152); --md-sys-color-on-success-container: oklch(0.9 0.07 152);
+  --md-sys-color-background: oklch(0.12 0.012 248); --md-sys-color-on-background: oklch(0.92 0.01 245);
+  --md-sys-color-surface: oklch(0.12 0.012 248); --md-sys-color-on-surface: oklch(0.92 0.01 245);
+  --md-sys-color-surface-variant: oklch(0.33 0.02 248); --md-sys-color-on-surface-variant: oklch(0.78 0.02 245);
+  --md-sys-color-outline: oklch(0.58 0.02 245); --md-sys-color-outline-variant: oklch(0.31 0.02 245);
+  --md-sys-color-surface-container-lowest: oklch(0.08 0.012 248); --md-sys-color-surface-container-low: oklch(0.15 0.014 248);
+  --md-sys-color-surface-container: oklch(0.17 0.016 248); --md-sys-color-surface-container-high: oklch(0.21 0.018 248);
+  --md-sys-color-surface-container-highest: oklch(0.26 0.02 248);
+  --md-sys-color-inverse-surface: oklch(0.92 0.01 245); --md-sys-color-inverse-on-surface: oklch(0.2 0.02 248);
+  --md-sys-color-inverse-primary: oklch(0.42 0.13 248); --md-sys-color-scrim: oklch(0 0 0);
+}
+
+/* RTL font swap */
+[data-theme][dir="rtl"]{ --npt-font-display:var(--npt-font-display-ar); --npt-font-text:var(--npt-font-text-ar); --npt-font-num:var(--npt-font-text-ar); }
