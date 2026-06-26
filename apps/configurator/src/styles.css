@@ -1,0 +1,397 @@
+/* © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0 */
+
+/* The configurator chrome is intentionally neutral so it never competes with the
+   themed live preview. It is NOT itself a Neptune Odyssey theme. */
+
+:root {
+  --cfg-bg: #0f1115;
+  --cfg-surface: #171a21;
+  --cfg-surface-2: #1f242e;
+  --cfg-border: #2a303c;
+  --cfg-text: #e7eaf0;
+  --cfg-text-dim: #9aa3b2;
+  --cfg-accent: #6ea8fe;
+  --cfg-pass: #3ad29f;
+  --cfg-fail: #ff6b6b;
+  --cfg-radius: 12px;
+  --cfg-focus: 2px solid var(--cfg-accent);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--cfg-bg);
+  color: var(--cfg-text);
+  font-family:
+    system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+:focus-visible {
+  outline: var(--cfg-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.app {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(360px, 1.1fr);
+  gap: 24px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 24px;
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+}
+
+.app__header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.app__header h1 {
+  font-size: 20px;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.app__header p {
+  margin: 0;
+  color: var(--cfg-text-dim);
+}
+
+/* ── Panels ─────────────────────────────────────────────────────────────── */
+.panel {
+  background: var(--cfg-surface);
+  border: 1px solid var(--cfg-border);
+  border-radius: var(--cfg-radius);
+  padding: 16px;
+}
+.panel--controls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.panel--preview {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Control groups ─────────────────────────────────────────────────────── */
+details.group {
+  border-top: 1px solid var(--cfg-border);
+}
+details.group:first-of-type {
+  border-top: none;
+}
+details.group > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 12px 4px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+details.group > summary::-webkit-details-marker {
+  display: none;
+}
+details.group > summary::before {
+  content: "▸";
+  color: var(--cfg-text-dim);
+  transition: transform 0.15s ease;
+}
+details.group[open] > summary::before {
+  transform: rotate(90deg);
+}
+.group__body {
+  padding: 4px 4px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.field > label,
+.field__label {
+  font-size: 12px;
+  color: var(--cfg-text-dim);
+  font-weight: 500;
+}
+.field__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+select,
+input[type="number"],
+input[type="text"] {
+  background: var(--cfg-surface-2);
+  color: var(--cfg-text);
+  border: 1px solid var(--cfg-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  width: 100%;
+}
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--cfg-accent);
+}
+input[type="checkbox"] {
+  accent-color: var(--cfg-accent);
+  width: 16px;
+  height: 16px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* ── Seed editor ────────────────────────────────────────────────────────── */
+.seed {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.seed__swatch {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  border: 1px solid var(--cfg-border);
+}
+.seed__sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.slider {
+  display: grid;
+  grid-template-columns: 16px 1fr 52px;
+  gap: 8px;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+.slider > .slider__key {
+  color: var(--cfg-text-dim);
+  font-size: 12px;
+}
+.slider > output {
+  text-align: right;
+  color: var(--cfg-text);
+  font-size: 12px;
+}
+
+/* ── Toggle pills ───────────────────────────────────────────────────────── */
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--cfg-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.segmented button {
+  background: transparent;
+  color: var(--cfg-text-dim);
+  border: none;
+  padding: 6px 14px;
+  cursor: pointer;
+  font: inherit;
+}
+.segmented button[aria-pressed="true"] {
+  background: var(--cfg-accent);
+  color: #06121f;
+  font-weight: 600;
+}
+.toggles {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* ── Brandprint output ──────────────────────────────────────────────────── */
+.brandprint__string {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  background: var(--cfg-surface-2);
+  border: 1px solid var(--cfg-border);
+  border-radius: 8px;
+  padding: 10px;
+  word-break: break-all;
+  user-select: all;
+}
+.btn {
+  background: var(--cfg-accent);
+  color: #06121f;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn--ghost {
+  background: var(--cfg-surface-2);
+  color: var(--cfg-text);
+  border: 1px solid var(--cfg-border);
+}
+.btn:hover {
+  filter: brightness(1.06);
+}
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.error-text {
+  color: var(--cfg-fail);
+  font-size: 12px;
+  min-height: 1.2em;
+}
+.ok-text {
+  color: var(--cfg-pass);
+  font-size: 12px;
+  min-height: 1.2em;
+}
+
+/* ── Contrast report ────────────────────────────────────────────────────── */
+.contrast {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.contrast__warn {
+  background: color-mix(in srgb, var(--cfg-fail) 18%, var(--cfg-surface));
+  border: 1px solid var(--cfg-fail);
+  color: #ffd9d9;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+}
+.contrast__warn--ok {
+  background: color-mix(in srgb, var(--cfg-pass) 14%, var(--cfg-surface));
+  border-color: var(--cfg-pass);
+  color: #d9fff0;
+}
+.contrast__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--cfg-border);
+  font-variant-numeric: tabular-nums;
+}
+.contrast__row:last-child {
+  border-bottom: none;
+}
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 9px;
+  letter-spacing: 0.03em;
+}
+.badge--pass {
+  background: color-mix(in srgb, var(--cfg-pass) 22%, transparent);
+  color: var(--cfg-pass);
+}
+.badge--fail {
+  background: color-mix(in srgb, var(--cfg-fail) 22%, transparent);
+  color: var(--cfg-fail);
+}
+
+/* ── Live preview frame ─────────────────────────────────────────────────── */
+.preview-frame {
+  border: 1px solid var(--cfg-border);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--md-sys-color-background, #fff);
+}
+.preview {
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: var(--npt-font-text, system-ui);
+}
+.preview__scroll {
+  flex: 1 1 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: auto;
+}
+.preview__section-title {
+  font-family: var(--npt-font-display, system-ui);
+  font-weight: var(--npt-display-weight, 700);
+  letter-spacing: var(--npt-display-tracking, -0.02em);
+  font-size: 16px;
+  margin: 4px 0 0;
+  color: var(--md-sys-color-on-background);
+}
+.preview__quick {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.preview__list {
+  background: var(--md-sys-color-surface);
+  border-radius: var(--npt-corner-lg, 24px);
+  padding: 4px 12px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "neptune.tenant.config/v1",
+  "extends": "neptune-core@A",
+  "tenant": {
+    "id": "nuran-wallet",
+    "displayName": "Nuran Wallet",
+    "institution": "Nuran",
+    "market": "LY",
+    "status": "reference",
+    "note": "Digital-first wallet. Balance-led, payment-led, faster and lighter than banking — never relabeled banking."
+  },
+  "brand": {
+    "theme": "nuran",
+    "wordmark": "Nuran",
+    "shortName": "Nuran",
+    "logoMark": "markNuran",
+    "palette": { "primaryHue": 292, "tertiaryHue": 350, "seed": "violet", "accents": ["violet", "luminous-rose"] },
+    "fonts": { "display": "Space Grotesk", "text": "Hanken Grotesk", "num": "Space Grotesk", "displayAr": "Readex Pro", "textAr": "Readex Pro" },
+    "shapeScale": 1.0,
+    "cornerFamily": { "xs": 4, "sm": 8, "md": 12, "lg": 18, "xl": 26, "2xl": 36, "note": "crisp, precise" },
+    "motif": "crisp digital light-grid",
+    "heroEmblem": "spark / star",
+    "motionPersonality": "light-quick-crisp",
+    "glassTint": "violet-luminous",
+    "cardArt": "spark gradient",
+    "loginShell": "light-grid spark panel",
+    "dashboardHero": "wallet balance hero + add-money",
+    "navAccent": "primary",
+    "tone": "light, optimistic, instant"
+  },
+  "productFlavor": { "active": "wallet-mobile+wallet-web", "density": "comfortable-light", "platforms": ["flutter", "web"] },
+  "features": {
+    "accounts": false, "cards": { "linked": true, "virtual": true, "physical": false, "freeze": true, "limits": true },
+    "wallet": true, "balanceHero": true, "addMoney": true, "topUp": true, "sendRequest": true,
+    "qrNfc": true, "merchantPay": true, "vouchers": true, "promos": true, "goals": false, "statements": false,
+    "transfers": { "internal": false, "local": true, "intl": false, "swift": false, "wu": false, "onepay": true },
+    "beneficiaries": true, "bulk": false, "approvals": false, "userManagement": false, "reports": false, "audit": false,
+    "activity": true, "limits": true, "securityCenter": true, "multiSession": true, "notifications": true
+  },
+  "content": {
+    "en": { "loginHeadline": "Pay, top up and split — in a tap.", "tierLabel": "Nuran Plus", "primaryCta": "Add money", "balanceLabel": "Wallet balance", "currencyName": "Libyan Dinar" },
+    "ar": { "loginHeadline": "ادفع واشحن وقسّم — بلمسة.", "tierLabel": "نوران بلس", "primaryCta": "إضافة أموال", "balanceLabel": "رصيد المحفظة", "currencyName": "دينار ليبي" }
+  },
+  "compliance": {
+    "currency": "LYD", "locale": "en-LY", "ibanFormat": "wallet-id or +218 mobile", "phoneFormat": "+218 9# ### ####",
+    "idFormat": "national ID (eKYC)", "kyc": "eKYC tiered wallet limits",
+    "dailyLimit": 5000, "monthlyLimit": 30000, "walletCeilingLYD": 15000, "approvalLimits": null,
+    "workingDays": ["everyday"], "cutoffs": { "instant": "24/7" },
+    "statementFormat": "in-app activity only", "auditRetentionMonths": 60, "numerals": "latin"
+  },
+  "platformOverrides": {
+    "flutter": { "themeExtension": "NuranTheme", "useMaterial3": true, "colorSchemeSeedHue": 292 },
+    "web": { "cssVarsTheme": "nuran", "shell": "centered-app", "maxContentWidth": 1080, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
+  },
+  "levers": {
+    "moved": ["color", "shape", "typography", "logo", "motif", "cardArt", "loginShell", "motion", "dashboardHero", "contentTone"],
+    "count": 10,
+    "rule": "≥6 of 12 — PASS (violet+rose, crisp 12px, Space Grotesk, light-grid motif, wallet hero — a different product entirely)"
+  }
+}

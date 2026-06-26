@@ -1,0 +1,42 @@
+{
+  "name": "@neptune-odyssey/product-configs",
+  "version": "1.0.0",
+  "description": "Neptune Odyssey product-flavor + feature-flag layer — typed flavor, density, and feature lookups per tenant.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neptune-ly/neptune_odyssey.git",
+    "directory": "packages/neptune_product_configs"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "LICENSE", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@neptune-odyssey/brand-configs": "workspace:^"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

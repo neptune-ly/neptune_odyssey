@@ -1,0 +1,58 @@
+{
+  "$schema": "neptune.tenant.config/v1",
+  "extends": "neptune-core@A",
+  "tenant": {
+    "id": "andalus-retail",
+    "displayName": "Andalus Retail",
+    "institution": "Andalus Bank",
+    "market": "LY",
+    "status": "reference",
+    "note": "Heritage retail bank. Warm, rooted, Mediterranean. Same structure, fully re-skinned."
+  },
+  "brand": {
+    "theme": "andalus",
+    "wordmark": "Andalus Bank",
+    "shortName": "Andalus",
+    "logoMark": "markAndalus",
+    "palette": { "primaryHue": 162, "tertiaryHue": 86, "seed": "emerald", "accents": ["emerald", "warm-gold"] },
+    "fonts": { "display": "Bricolage Grotesque", "text": "Hanken Grotesk", "num": "Hanken Grotesk", "displayAr": "Reem Kufi", "textAr": "Tajawal" },
+    "shapeScale": 1.0,
+    "cornerFamily": { "xs": 12, "sm": 18, "md": 26, "lg": 34, "xl": 44, "2xl": 56, "note": "organic, larger radii" },
+    "motif": "heritage arcade of arches",
+    "heroEmblem": "arch silhouette",
+    "motionPersonality": "calm-graceful",
+    "glassTint": "warm-amber",
+    "cardArt": "emerald-gold woven",
+    "loginShell": "arcade arches panel",
+    "dashboardHero": "warm balance-first cards",
+    "navAccent": "primary",
+    "tone": "warm, hospitable, trusted"
+  },
+  "productFlavor": { "active": "retail-mobile+retail-web", "density": "comfortable", "platforms": ["flutter", "web"] },
+  "features": {
+    "accounts": true, "cards": { "virtual": true, "physical": true, "freeze": true, "limits": true },
+    "wallet": false, "qrNfc": true, "bills": true, "vouchers": false, "goals": true, "statements": true,
+    "transfers": { "internal": true, "local": true, "intl": true, "swift": true, "wu": true, "onepay": false },
+    "beneficiaries": true, "bulk": false, "approvals": false, "userManagement": false, "reports": false, "audit": false,
+    "insights": true, "securityCenter": true, "multiSession": true, "notifications": true
+  },
+  "content": {
+    "en": { "loginHeadline": "Banking with heritage, built for today.", "tierLabel": "Andalus Gold", "primaryCta": "New transfer", "currencyName": "Libyan Dinar" },
+    "ar": { "loginHeadline": "مصرفية بعراقة، صُممت لليوم.", "tierLabel": "أندلس الذهبية", "primaryCta": "تحويل جديد", "currencyName": "دينار ليبي" }
+  },
+  "compliance": {
+    "currency": "LYD", "locale": "ar-LY", "ibanFormat": "LY## #### #### #### #### ####", "phoneFormat": "+218 9# ### ####",
+    "idFormat": "12-digit national ID", "kyc": "tier-based", "dailyLimit": 40000, "approvalLimits": null,
+    "workingDays": ["Sun", "Mon", "Tue", "Wed", "Thu"], "cutoffs": { "local": "15:00", "swift": "13:00" },
+    "statementFormat": "PDF/CSV", "auditRetentionMonths": 84, "numerals": "arabic-default"
+  },
+  "platformOverrides": {
+    "flutter": { "themeExtension": "AndalusTheme", "useMaterial3": true, "colorSchemeSeedHue": 162 },
+    "web": { "cssVarsTheme": "andalus", "sidebarWidth": 256, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
+  },
+  "levers": {
+    "moved": ["color", "shape", "typography", "logo", "motif", "cardArt", "loginShell", "motion", "contentTone"],
+    "count": 9,
+    "rule": "≥6 of 12 — PASS (emerald+gold, organic 26px corners, Bricolage/Reem Kufi, arch motif, graceful motion)"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "neptune.tenant.config/v1",
+  "extends": "neptune-core@A",
+  "tenant": {
+    "id": "fglb-retail",
+    "displayName": "FGLB Retail",
+    "institution": "First Gulf Libyan Bank",
+    "market": "LY",
+    "status": "reference",
+    "note": "Institutional, secure, corporate-stable. Conservative retail with an authoritative voice."
+  },
+  "brand": {
+    "theme": "fglb",
+    "wordmark": "First Gulf Libyan",
+    "shortName": "FGLB",
+    "logoMark": "markFglb",
+    "palette": { "primaryHue": 248, "tertiaryHue": 85, "seed": "navy", "accents": ["navy", "gold", "neutral"] },
+    "fonts": { "display": "Sora", "text": "Hanken Grotesk", "num": "Sora", "displayAr": "Noto Kufi Arabic", "textAr": "IBM Plex Sans Arabic" },
+    "shapeScale": 1.0,
+    "cornerFamily": { "xs": 6, "sm": 10, "md": 14, "lg": 20, "xl": 28, "2xl": 38, "note": "structured" },
+    "motif": "secure guilloché / shield hatch",
+    "heroEmblem": "shield chevrons",
+    "motionPersonality": "stable-minimal-authoritative",
+    "glassTint": "navy-steel",
+    "cardArt": "navy-gold institutional",
+    "loginShell": "shield guilloché panel",
+    "dashboardHero": "balance-first, restrained",
+    "navAccent": "primary",
+    "tone": "formal, secure, authoritative"
+  },
+  "productFlavor": { "active": "retail-mobile+retail-web", "density": "comfortable", "platforms": ["flutter", "web"] },
+  "features": {
+    "accounts": true, "cards": { "virtual": false, "physical": true, "freeze": true, "limits": true },
+    "wallet": false, "qrNfc": true, "bills": true, "vouchers": false, "goals": false, "statements": true,
+    "transfers": { "internal": true, "local": true, "intl": true, "swift": true, "wu": false, "onepay": false },
+    "beneficiaries": true, "bulk": false, "approvals": false, "userManagement": false, "reports": false, "audit": false,
+    "insights": true, "securityCenter": true, "multiSession": true, "notifications": true
+  },
+  "content": {
+    "en": { "loginHeadline": "Stability you can bank on.", "tierLabel": "FGLB Premier", "primaryCta": "New transfer", "currencyName": "Libyan Dinar" },
+    "ar": { "loginHeadline": "استقرار يمكنك الاعتماد عليه.", "tierLabel": "إف جي إل بي بريمير", "primaryCta": "تحويل جديد", "currencyName": "دينار ليبي" }
+  },
+  "compliance": {
+    "currency": "LYD", "locale": "en-LY", "ibanFormat": "LY## #### #### #### #### ####", "phoneFormat": "+218 9# ### ####",
+    "idFormat": "12-digit national ID", "kyc": "branch-grade tiered", "dailyLimit": 35000, "approvalLimits": null,
+    "workingDays": ["Sun", "Mon", "Tue", "Wed", "Thu"], "cutoffs": { "local": "14:00", "swift": "12:00" },
+    "statementFormat": "PDF/MT940", "auditRetentionMonths": 120, "numerals": "latin-or-arabic"
+  },
+  "platformOverrides": {
+    "flutter": { "themeExtension": "FglbTheme", "useMaterial3": true, "colorSchemeSeedHue": 248 },
+    "web": { "cssVarsTheme": "fglb", "sidebarWidth": 256, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
+  },
+  "levers": {
+    "moved": ["color", "shape", "typography", "logo", "motif", "cardArt", "loginShell", "motion", "contentTone"],
+    "count": 9,
+    "rule": "≥6 of 12 — PASS (navy+gold, structured 14px, Sora/Noto Kufi, shield guilloché motif, authoritative tone)"
+  }
+}

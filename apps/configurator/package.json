@@ -1,0 +1,27 @@
+{
+  "name": "@neptune-odyssey/configurator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Neptune Odyssey theme configurator — a client-only web app to pick theme inputs, preview live, and copy a NO1- brandprint.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@neptune-odyssey/tokens": "workspace:^",
+    "@neptune-odyssey/web-ui": "workspace:^"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}

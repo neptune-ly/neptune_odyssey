@@ -1,0 +1,42 @@
+{
+  "name": "@neptune-odyssey/brand-configs",
+  "version": "1.0.0",
+  "description": "Neptune Odyssey reference tenant configs (5 banks) + a loader that maps each tenant to a portable brandprint. A new bank is one config, never a fork.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neptune-ly/neptune_odyssey.git",
+    "directory": "packages/neptune_brand_configs"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "configs", "LICENSE", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@neptune-odyssey/tokens": "workspace:^"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}
