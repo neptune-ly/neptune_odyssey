@@ -3,6 +3,14 @@
 All notable changes to Neptune Odyssey are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com); the system follows [Semantic Versioning](https://semver.org) against the token layer (see `docs/09-governance-and-versioning.md`).
 
+## [Unreleased]
+
+### Added
+- **`@neptune-odyssey/react-ui`** — React layer, promoted from the roadmap. A thin wrapper over `@neptune-odyssey/web-ui`: `<NeptuneProvider>`, a `useNeptuneTheme` hook, and typed `Npt*` component wrappers, with the same three-way theming surface (brand id / config / brandprint). No new color math — it inherits the determinism contract from `@neptune-odyssey/tokens`, mirroring the Vue layer. Builds and tests green in CI.
+
+### Changed
+- Roadmap now lists **React Native** and **Kotlin Multiplatform** only; React moved to `packages/` and is documented as Stable in the README.
+
 ## [1.0.0] — 2026-06-26
 
 First stable release of **Neptune Odyssey**, the Neptune.Fintech white-label banking design system.

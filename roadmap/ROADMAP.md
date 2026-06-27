@@ -7,9 +7,13 @@ contract for free — *same brandprint ⇒ same theme* extends to them with no n
 
 | Target | Package | Strategy |
 |--------|---------|----------|
-| **React** | `@neptune-odyssey/react-ui` | Thin wrappers over the `@neptune-odyssey/web-ui` custom elements + a `<NeptuneProvider>` calling `applyTheme`. Mirrors the Vue layer. |
 | **React Native** | `@neptune-odyssey/react-native-ui` | Native components reading a JS theme object from `buildTheme()`; reuses `tokens` resolved palettes + brandprint codec. No web custom elements. |
 | **Kotlin Multiplatform** | `neptune-odyssey-kmp` | Compose Multiplatform + web. Port the OKLCH→sRGB + brandprint codec to Kotlin (golden-tested against `build/tokens.resolved.json` and the JS reference, exactly as the Dart port was). |
+
+> **Promoted:** **React** (`@neptune-odyssey/react-ui`) is now a shipped package under
+> [`packages/`](../packages/neptune_react_ui) — a thin layer over `@neptune-odyssey/web-ui`
+> (`<NeptuneProvider>` + `useNeptuneTheme` + typed wrappers), mirroring the Vue layer. It adds
+> no color math, so it inherits the determinism contract from `tokens` unchanged.
 
 ## The bar for promoting a target to stable
 
