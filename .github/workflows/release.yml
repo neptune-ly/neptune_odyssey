@@ -14,6 +14,9 @@ jobs:
   npm:
     name: Publish JS packages to npm
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for npm provenance attestation
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -34,10 +37,11 @@ jobs:
           fi
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish (public, non-private packages only)
+      - name: Publish (public, non-private packages only, with provenance)
         run: pnpm -r --filter "./packages/**" publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
 
   pub_dev:
     name: Publish Flutter package to pub.dev
