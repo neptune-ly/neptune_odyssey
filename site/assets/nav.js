@@ -8,6 +8,7 @@
     ["get-started.html", "Get started", "get-started"],
     ["foundations.html", "Foundations", "foundations"],
     ["components.html", "Components", "components"],
+    ["templates.html", "Templates", "templates"],
     ["icons.html", "Icons", "icons"],
     ["develop.html", "Develop", "develop"],
     ["configurator/", "Theme builder", "configurator"],

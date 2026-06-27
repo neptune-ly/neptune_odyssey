@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Templates — Neptune Odyssey</title>
+<meta name="description" content="Production-ready, copy-paste full screens built from real Neptune Odyssey components — themed by one brandprint, RTL-ready, light and dark.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Grotesk:wght@400..700&family=Sora:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens/themes.css">
+<link rel="stylesheet" href="tokens/system.css">
+<link rel="stylesheet" href="assets/docs.css">
+<style>
+  /* templates.html — page-only chrome · © 2026 Neptune.Fintech (neptune.ly) */
+  .tpl-controls{position:sticky;top:calc(var(--nav-h));z-index:20;margin:0 0 26px;
+    border:1px solid var(--line);border-radius:16px;background:color-mix(in oklab,var(--bg) 92%,transparent);
+    backdrop-filter:blur(10px)}
+  .tpl-controls .demo__bar{border-bottom:none;border-radius:16px;gap:16px;padding:12px 16px}
+  .tpl-controls .ctl{display:inline-flex;align-items:center;gap:8px}
+  .tpl-controls label.ctl-label,.tpl-controls .ctl-label{font-weight:700;color:var(--ink);font-size:13px}
+  .tpl-controls select{padding:7px 10px;border:1px solid var(--line);border-radius:9px;
+    background:var(--surface);color:var(--ink);font-weight:600}
+  .tpl-controls .grow{flex:1}
+
+  .tpl-desc{margin:2px 0 0;font-size:15px}
+  .cat-eyebrow{font-family:var(--rounded);font-size:12px;font-weight:800;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--brand-coral);margin:48px 0 -4px}
+
+  /* The stage hosts a device/browser frame; the frame paints the themed surface. */
+  .demo__stage{align-items:flex-start;min-height:120px;padding:26px;
+    background:var(--bg-2);transition:background-color .25s ease;overflow:auto}
+
+  /* ── Phone frame ── */
+  .phone{inline-size:374px;max-inline-size:100%;flex:0 0 auto;margin-inline:auto;
+    border:1px solid var(--md-sys-color-outline-variant);border-radius:38px;overflow:hidden;
+    background:var(--md-sys-color-surface);color:var(--md-sys-color-on-surface);
+    box-shadow:0 30px 70px -34px rgba(7,49,95,.5);position:relative}
+  .phone__notch{position:absolute;top:10px;inset-inline:0;margin-inline:auto;inline-size:120px;height:24px;
+    border-radius:999px;background:var(--md-sys-color-surface-container-highest);z-index:3;pointer-events:none}
+  .phone__scroll{block-size:740px;max-block-size:74vh;overflow-y:auto;overflow-x:hidden;
+    scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+  .phone__body{padding:54px 18px 18px;display:flex;flex-direction:column;gap:16px}
+  .phone__bottom{position:sticky;bottom:0;z-index:2}
+
+  /* ── Browser frame (web templates) ── */
+  .browser{inline-size:min(980px,100%);flex:0 0 auto;margin-inline:auto;
+    border:1px solid var(--md-sys-color-outline-variant);border-radius:18px;overflow:hidden;
+    background:var(--md-sys-color-surface);color:var(--md-sys-color-on-surface);
+    box-shadow:0 30px 70px -40px rgba(7,49,95,.5)}
+  .browser__bar{display:flex;align-items:center;gap:10px;padding:11px 16px;
+    background:var(--md-sys-color-surface-container);border-bottom:1px solid var(--md-sys-color-outline-variant)}
+  .browser__dots{display:inline-flex;gap:7px}
+  .browser__dots i{inline-size:11px;block-size:11px;border-radius:50%;
+    background:var(--md-sys-color-outline-variant)}
+  .browser__url{flex:1;min-inline-size:0;display:flex;align-items:center;gap:8px;
+    padding:7px 14px;border-radius:999px;background:var(--md-sys-color-surface-container-high);
+    color:var(--md-sys-color-on-surface-variant);font-size:13px;
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .browser__body{block-size:620px;max-block-size:72vh;overflow:auto}
+
+  /* Web shell laid out inside the browser body (the npt-app-shell drives this). */
+  .webshell{display:grid;grid-template-columns:248px 1fr;min-block-size:100%}
+  .webshell__nav{border-inline-end:1px solid var(--md-sys-color-outline-variant);
+    background:var(--md-sys-color-surface-container-low)}
+  .webshell__main{padding:26px 28px;min-inline-size:0;background:var(--md-sys-color-surface)}
+  @media(max-width:640px){.webshell{grid-template-columns:1fr}.webshell__nav{display:none}}
+
+  /* In-screen helpers (generic, themed) */
+  .scr-pad{padding:20px 20px 0}
+  .scr-h{font-family:var(--npt-font-display);font-weight:700;letter-spacing:-.02em;
+    color:var(--md-sys-color-on-surface);margin:0}
+  .scr-sub{font-family:var(--npt-font-text);color:var(--md-sys-color-on-surface-variant);margin:6px 0 0;font-size:14px}
+  .scr-lockup{display:flex;align-items:center;gap:12px}
+  .scr-mark{inline-size:46px;block-size:46px;border-radius:14px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--md-sys-color-primary),var(--md-sys-color-tertiary));
+    color:var(--md-sys-color-on-primary);font-family:var(--npt-font-display);font-weight:800;font-size:22px}
+  .scr-row{display:flex;align-items:center;gap:12px}
+  .scr-list{background:var(--md-sys-color-surface);border-radius:18px;
+    border:1px solid var(--md-sys-color-outline-variant);overflow:hidden;padding:0 10px}
+  .scr-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .scr-stack{display:flex;flex-direction:column;gap:14px}
+  .scr-label{font-family:var(--npt-font-text);font-size:13px;font-weight:600;
+    color:var(--md-sys-color-on-surface-variant);margin:2px 2px 0}
+  .scr-capture{aspect-ratio:1.58;border-radius:18px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:8px;text-align:center;
+    border:2px dashed var(--md-sys-color-outline);color:var(--md-sys-color-on-surface-variant);
+    background:var(--md-sys-color-surface-container-low);font-family:var(--npt-font-text);font-size:13px;padding:14px}
+  .scr-capture.selfie{aspect-ratio:1;border-radius:999px;inline-size:170px;margin-inline:auto}
+  .scr-capture .big{font-size:30px;line-height:1;color:var(--md-sys-color-primary)}
+  .scr-cta{margin-top:auto}
+  .scr-icn{display:inline-grid;place-items:center}
+  .seg{align-items:center}
+</style>
+</head>
+<body>
+<div class="dwrap"><aside class="dside">
+  <h4>Set the theme</h4>
+  <a href="#top">Global controls</a>
+  <h4>Onboarding</h4>
+  <a href="#auth">Auth / Login</a>
+  <a href="#kyc">KYC / Onboarding</a>
+  <h4>Banking app</h4>
+  <a href="#dashboard">Retail dashboard</a>
+  <a href="#cards">Cards</a>
+  <a href="#transfer">Transfer flow</a>
+  <a href="#wallet">Wallet home</a>
+  <h4>Corporate</h4>
+  <a href="#corporate">Corporate approvals</a>
+</aside><main class="dmain" id="top">
+  <p class="eyebrow">Templates</p>
+  <h1>Production-ready screens</h1>
+  <p class="dlede">Copy a screen, paste it into your app, ship it. Every template is real components — themed by one brandprint, RTL-ready, light/dark.</p>
+
+  <!-- ============ GLOBAL THEME CONTROLS ============ -->
+  <div class="tpl-controls">
+    <div class="demo__bar">
+      <span class="ctl">
+        <label class="ctl-label" for="gBrand">Brand</label>
+        <select id="gBrand" aria-label="Reference brand">
+          <option value="neptune">Neptune</option>
+          <option value="triton">Triton</option>
+          <option value="nereid">Nereid</option>
+          <option value="proteus">Proteus</option>
+        </select>
+      </span>
+      <span class="grow"></span>
+      <span class="ctl">
+        <span class="ctl-label">Mode</span>
+        <span class="seg" id="gMode" role="group" aria-label="Light or dark mode">
+          <button type="button" data-mode="light" aria-pressed="true">Light</button>
+          <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+        </span>
+      </span>
+      <span class="ctl">
+        <span class="ctl-label">Direction</span>
+        <span class="seg" id="gDir" role="group" aria-label="Text direction">
+          <button type="button" data-dir="ltr" aria-pressed="true">LTR</button>
+          <button type="button" data-dir="rtl" aria-pressed="false">RTL</button>
+        </span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Every template frame below re-skins with the controls above. -->
+  <div id="frames" data-theme="neptune" data-mode="light" dir="ltr">
+
+  <!-- ====================================================== ONBOARDING -->
+  <p class="cat-eyebrow">Onboarding</p>
+
+  <!-- =================================================================== AUTH -->
+  <h2 id="auth">Auth / Login</h2>
+  <p class="tpl-desc">Brand lockup, a phone or IBAN field, then a one-time-code step — login flowing into OTP verification.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Sign-in → verify</span></div>
+    <div class="demo__stage">
+      <div class="phone" aria-label="Auth screen">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll"><div class="phone__body">
+          <div class="scr-lockup" style="margin-top:6px">
+            <span class="scr-mark">N</span>
+            <div>
+              <p class="scr-h" style="font-size:22px">Welcome back</p>
+              <p class="scr-sub">Sign in to your account</p>
+            </div>
+          </div>
+
+          <div class="scr-stack" style="margin-top:8px">
+            <npt-text-field label="Mobile number" value="+218 91 234 5678" placeholder="+218 .."></npt-text-field>
+            <npt-iban-field label="IBAN (optional)" country="LY" value="LY83002048000020100120361"></npt-iban-field>
+            <npt-button variant="filled" style="display:block">Send code</npt-button>
+          </div>
+
+          <npt-divider></npt-divider>
+
+          <div>
+            <p class="scr-label">Enter the 6-digit code sent to your phone</p>
+            <div style="margin-top:10px;display:flex;justify-content:center">
+              <npt-otp-input length="6" value="3915"></npt-otp-input>
+            </div>
+          </div>
+          <npt-button variant="filled" style="display:block">Verify &amp; continue</npt-button>
+          <npt-button variant="text" style="display:block;text-align:center">Resend code</npt-button>
+        </div></div>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- Auth / Login → OTP --&gt;
+&lt;div class="scr-lockup"&gt;
+  &lt;span class="scr-mark"&gt;N&lt;/span&gt;
+  &lt;div&gt;&lt;h1&gt;Welcome back&lt;/h1&gt;&lt;p&gt;Sign in to your account&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;npt-text-field label="Mobile number" value="+218 91 234 5678" placeholder="+218 .."&gt;&lt;/npt-text-field&gt;
+&lt;npt-iban-field label="IBAN (optional)" country="LY" value="LY83002048000020100120361"&gt;&lt;/npt-iban-field&gt;
+&lt;npt-button variant="filled"&gt;Send code&lt;/npt-button&gt;
+
+&lt;npt-divider&gt;&lt;/npt-divider&gt;
+
+&lt;p&gt;Enter the 6-digit code sent to your phone&lt;/p&gt;
+&lt;npt-otp-input length="6" value="3915"&gt;&lt;/npt-otp-input&gt;
+&lt;npt-button variant="filled"&gt;Verify &amp;amp; continue&lt;/npt-button&gt;
+&lt;npt-button variant="text"&gt;Resend code&lt;/npt-button&gt;</pre></div>
+  </div>
+
+  <!-- =================================================================== KYC -->
+  <h2 id="kyc">KYC / Onboarding</h2>
+  <p class="tpl-desc">Identity capture and liveness placeholders, the account-tier limit meter, a progress stepper and a primary CTA.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Verify your identity</span></div>
+    <div class="demo__stage">
+      <div class="phone" aria-label="KYC onboarding screen">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll"><div class="phone__body">
+          <div style="margin-top:6px">
+            <npt-stepper steps="Identity,Selfie,Review" active="1"></npt-stepper>
+          </div>
+
+          <div>
+            <p class="scr-h" style="font-size:20px">Verify your identity</p>
+            <p class="scr-sub">We need a clear photo of your ID and a quick selfie.</p>
+          </div>
+
+          <div>
+            <p class="scr-label">National ID / passport</p>
+            <div class="scr-capture" style="margin-top:8px">
+              <npt-icon name="card-add" size="30" class="big"></npt-icon>
+              <span>Tap to capture the front of your ID</span>
+              <npt-status-chip status="success">Front captured</npt-status-chip>
+            </div>
+          </div>
+
+          <div>
+            <p class="scr-label" style="text-align:center">Liveness selfie</p>
+            <div class="scr-capture selfie" style="margin-top:8px">
+              <npt-icon name="face-id" size="30" class="big"></npt-icon>
+              <span>Center your face</span>
+            </div>
+          </div>
+
+          <npt-limit-meter label="Account tier" value="40" amount="Tier 2 of 3"></npt-limit-meter>
+
+          <npt-alert tone="info" title="Why we ask">Your documents are encrypted and checked against the issuing authority. This usually takes under a minute.</npt-alert>
+
+          <npt-button variant="filled" style="display:block">Continue</npt-button>
+        </div></div>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- KYC / Onboarding --&gt;
+&lt;npt-stepper steps="Identity,Selfie,Review" active="1"&gt;&lt;/npt-stepper&gt;
+
+&lt;h1&gt;Verify your identity&lt;/h1&gt;
+&lt;p&gt;We need a clear photo of your ID and a quick selfie.&lt;/p&gt;
+
+&lt;div class="scr-capture"&gt;
+  &lt;npt-icon name="card-add" size="30"&gt;&lt;/npt-icon&gt;
+  &lt;span&gt;Tap to capture the front of your ID&lt;/span&gt;
+  &lt;npt-status-chip status="success"&gt;Front captured&lt;/npt-status-chip&gt;
+&lt;/div&gt;
+
+&lt;div class="scr-capture selfie"&gt;
+  &lt;npt-icon name="face-id" size="30"&gt;&lt;/npt-icon&gt;
+  &lt;span&gt;Center your face&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;npt-limit-meter label="Account tier" value="40" amount="Tier 2 of 3"&gt;&lt;/npt-limit-meter&gt;
+&lt;npt-alert tone="info" title="Why we ask"&gt;Your documents are encrypted…&lt;/npt-alert&gt;
+&lt;npt-button variant="filled"&gt;Continue&lt;/npt-button&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== BANKING APP -->
+  <p class="cat-eyebrow">Banking app</p>
+
+  <!-- =================================================================== DASHBOARD -->
+  <h2 id="dashboard">Retail dashboard</h2>
+  <p class="tpl-desc">The home screen: app bar, a hero balance, quick actions, two metric tiles with a sparkline, a transactions list and bottom navigation.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Mobile · home</span></div>
+    <div class="demo__stage">
+      <div class="phone" aria-label="Retail dashboard screen">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll">
+          <div style="padding-top:36px"></div>
+          <npt-app-bar title="Good morning, Sami">
+            <npt-icon-button slot="leading" label="Profile">
+              <npt-avatar initials="SA" size="sm" label="Sami"></npt-avatar>
+            </npt-icon-button>
+            <npt-icon-button slot="trailing" variant="tonal" label="Search">
+              <npt-icon name="qr-code" size="20"></npt-icon>
+            </npt-icon-button>
+          </npt-app-bar>
+
+          <div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:16px">
+            <npt-balance-card hero label="Available balance" amount="12,480.50" currency="LYD" account="•••• 4821"></npt-balance-card>
+
+            <npt-quick-actions style="--npt-quick-actions-cols:4">
+              <npt-quick-action label="Send"><npt-icon slot="icon" name="arrow-right" size="24"></npt-icon></npt-quick-action>
+              <npt-quick-action label="Top up"><npt-icon slot="icon" name="cash-stack" size="24"></npt-icon></npt-quick-action>
+              <npt-quick-action label="Pay"><npt-icon slot="icon" name="qr-code" size="24"></npt-icon></npt-quick-action>
+              <npt-quick-action label="Swap"><npt-icon slot="icon" name="swap-exchange" size="24"></npt-icon></npt-quick-action>
+            </npt-quick-actions>
+
+            <div class="scr-grid2">
+              <npt-stat-card label="Spending" value="1,940" unit="LYD" delta="-8.2%">
+                <npt-sparkline slot="chart" points="8,6,7,5,6,4,3" label="7-day spending"></npt-sparkline>
+              </npt-stat-card>
+              <npt-stat-card label="Income" value="3,200" unit="LYD" delta="+4.1%">
+                <npt-sparkline slot="chart" points="3,4,4,6,5,7,8" label="7-day income"></npt-sparkline>
+              </npt-stat-card>
+            </div>
+
+            <div>
+              <div class="scr-row" style="justify-content:space-between;margin:2px 2px 8px">
+                <span class="scr-h" style="font-size:16px">Recent activity</span>
+                <npt-button variant="text">See all</npt-button>
+              </div>
+              <div class="scr-list">
+                <npt-transaction-row title="Salary" subtitle="Today · Transfer" amount="+3,200.00" currency="LYD" credit></npt-transaction-row>
+                <npt-transaction-row title="Grocery Market" subtitle="Today · Card" amount="-42.10" currency="LYD"></npt-transaction-row>
+                <npt-transaction-row title="Electricity" subtitle="Yesterday · Bill" amount="-86.20" currency="LYD"></npt-transaction-row>
+                <npt-transaction-row title="Coffee Bar" subtitle="Yesterday · Card" amount="-4.50" currency="LYD"></npt-transaction-row>
+              </div>
+            </div>
+          </div>
+
+          <div class="phone__bottom">
+            <npt-nav-bar>
+              <npt-nav-item label="Home" active><npt-icon name="chart-line" size="22"></npt-icon></npt-nav-item>
+              <npt-nav-item label="Cards"><npt-icon name="card-add" size="22"></npt-icon></npt-nav-item>
+              <npt-nav-item label="Pay"><npt-icon name="qr-code" size="22"></npt-icon></npt-nav-item>
+              <npt-nav-item label="More"><npt-icon name="more-horizontal" size="22"></npt-icon></npt-nav-item>
+            </npt-nav-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- Retail dashboard (mobile) --&gt;
+&lt;npt-app-bar title="Good morning, Sami"&gt;
+  &lt;npt-icon-button slot="leading" label="Profile"&gt;
+    &lt;npt-avatar initials="SA" size="sm" label="Sami"&gt;&lt;/npt-avatar&gt;
+  &lt;/npt-icon-button&gt;
+  &lt;npt-icon-button slot="trailing" variant="tonal" label="Search"&gt;
+    &lt;npt-icon name="qr-code" size="20"&gt;&lt;/npt-icon&gt;
+  &lt;/npt-icon-button&gt;
+&lt;/npt-app-bar&gt;
+
+&lt;npt-balance-card hero label="Available balance" amount="12,480.50" currency="LYD" account="•••• 4821"&gt;&lt;/npt-balance-card&gt;
+
+&lt;npt-quick-actions style="--npt-quick-actions-cols:4"&gt;
+  &lt;npt-quick-action label="Send"&gt;&lt;npt-icon slot="icon" name="arrow-right" size="24"&gt;&lt;/npt-icon&gt;&lt;/npt-quick-action&gt;
+  &lt;npt-quick-action label="Top up"&gt;&lt;npt-icon slot="icon" name="cash-stack" size="24"&gt;&lt;/npt-icon&gt;&lt;/npt-quick-action&gt;
+  &lt;npt-quick-action label="Pay"&gt;&lt;npt-icon slot="icon" name="qr-code" size="24"&gt;&lt;/npt-icon&gt;&lt;/npt-quick-action&gt;
+  &lt;npt-quick-action label="Swap"&gt;&lt;npt-icon slot="icon" name="swap-exchange" size="24"&gt;&lt;/npt-icon&gt;&lt;/npt-quick-action&gt;
+&lt;/npt-quick-actions&gt;
+
+&lt;npt-stat-card label="Spending" value="1,940" unit="LYD" delta="-8.2%"&gt;
+  &lt;npt-sparkline slot="chart" points="8,6,7,5,6,4,3"&gt;&lt;/npt-sparkline&gt;
+&lt;/npt-stat-card&gt;
+
+&lt;npt-transaction-row title="Salary" subtitle="Today · Transfer" amount="+3,200.00" currency="LYD" credit&gt;&lt;/npt-transaction-row&gt;
+&lt;npt-transaction-row title="Coffee Bar" subtitle="Yesterday · Card" amount="-4.50" currency="LYD"&gt;&lt;/npt-transaction-row&gt;
+
+&lt;npt-nav-bar&gt;
+  &lt;npt-nav-item label="Home" active&gt;&lt;npt-icon name="chart-line" size="22"&gt;&lt;/npt-icon&gt;&lt;/npt-nav-item&gt;
+  &lt;npt-nav-item label="Cards"&gt;&lt;npt-icon name="card-add" size="22"&gt;&lt;/npt-icon&gt;&lt;/npt-nav-item&gt;
+  &lt;npt-nav-item label="Pay"&gt;&lt;npt-icon name="qr-code" size="22"&gt;&lt;/npt-icon&gt;&lt;/npt-nav-item&gt;
+  &lt;npt-nav-item label="More"&gt;&lt;npt-icon name="more-horizontal" size="22"&gt;&lt;/npt-icon&gt;&lt;/npt-nav-item&gt;
+&lt;/npt-nav-bar&gt;</pre></div>
+  </div>
+
+  <!-- =================================================================== CARDS -->
+  <h2 id="cards">Cards</h2>
+  <p class="tpl-desc">A virtual card visual, its freeze/limits controls, a spend meter, the saved-cards list with scheme brand marks, and an add-card tile.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Mobile · cards</span></div>
+    <div class="demo__stage">
+      <div class="phone" aria-label="Cards screen">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll"><div class="phone__body">
+          <div class="scr-row" style="justify-content:space-between;margin-top:4px">
+            <span class="scr-h" style="font-size:20px">Your cards</span>
+            <npt-tier-badge tier="Virtual" tone="primary"></npt-tier-badge>
+          </div>
+
+          <npt-card-art variant="virtual" holder="SAMI A. NOURI" last4="4821" expiry="08/29" scheme="VISA">
+            <span slot="brand"><npt-brand-mark name="visa" height="22"></npt-brand-mark></span>
+          </npt-card-art>
+
+          <npt-card-controls></npt-card-controls>
+
+          <npt-limit-meter label="Monthly card spend" value="62" amount="620 / 1,000 LYD"></npt-limit-meter>
+
+          <div>
+            <p class="scr-label">Saved cards</p>
+            <div class="scr-list" style="margin-top:8px">
+              <npt-card-row interactive label="Everyday Visa" last4="4821" scheme="VISA">
+                <span slot="brand"><npt-brand-mark name="visa" height="20"></npt-brand-mark></span>
+              </npt-card-row>
+              <npt-card-row interactive label="Savings Mastercard" last4="2207" scheme="MASTERCARD">
+                <span slot="brand"><npt-brand-mark name="mastercard" height="20"></npt-brand-mark></span>
+              </npt-card-row>
+              <npt-card-row interactive label="Business card" last4="9930" scheme="UNIONPAY">
+                <span slot="brand"><npt-brand-mark name="unionpay" height="20"></npt-brand-mark></span>
+              </npt-card-row>
+            </div>
+          </div>
+
+          <npt-add-card>Add a new card</npt-add-card>
+        </div></div>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- Cards --&gt;
+&lt;npt-card-art variant="virtual" holder="SAMI A. NOURI" last4="4821" expiry="08/29" scheme="VISA"&gt;
+  &lt;span slot="brand"&gt;&lt;npt-brand-mark name="visa" height="22"&gt;&lt;/npt-brand-mark&gt;&lt;/span&gt;
+&lt;/npt-card-art&gt;
+
+&lt;npt-card-controls&gt;&lt;/npt-card-controls&gt;
+&lt;npt-limit-meter label="Monthly card spend" value="62" amount="620 / 1,000 LYD"&gt;&lt;/npt-limit-meter&gt;
+
+&lt;npt-card-row interactive label="Everyday Visa" last4="4821" scheme="VISA"&gt;
+  &lt;span slot="brand"&gt;&lt;npt-brand-mark name="visa" height="20"&gt;&lt;/npt-brand-mark&gt;&lt;/span&gt;
+&lt;/npt-card-row&gt;
+&lt;npt-card-row interactive label="Savings Mastercard" last4="2207" scheme="MASTERCARD"&gt;
+  &lt;span slot="brand"&gt;&lt;npt-brand-mark name="mastercard" height="20"&gt;&lt;/npt-brand-mark&gt;&lt;/span&gt;
+&lt;/npt-card-row&gt;
+
+&lt;npt-add-card&gt;Add a new card&lt;/npt-add-card&gt;
+
+&lt;!-- Or build the brand mark in JS: --&gt;
+&lt;script&gt;el.innerHTML = Neptune.brandMarkSvg("visa", { height: 20 });&lt;/script&gt;</pre></div>
+  </div>
+
+  <!-- =================================================================== TRANSFER -->
+  <h2 id="transfer">Transfer flow</h2>
+  <p class="tpl-desc">Three stages — Amount, Review, Done — with the amount input, a method row and beneficiary tile, the review summary with a total, and a success hero.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Mobile · send money</span></div>
+    <div class="demo__stage" style="gap:18px;flex-wrap:wrap;justify-content:center">
+
+      <!-- Step 1 · Amount -->
+      <div class="phone" aria-label="Transfer — amount">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll"><div class="phone__body">
+          <npt-stepper steps="Amount,Review,Done" active="0"></npt-stepper>
+          <p class="scr-label">You send</p>
+          <npt-amount-input currency="LYD" value="1250.00"></npt-amount-input>
+
+          <p class="scr-label" style="margin-top:6px">To</p>
+          <div class="scr-list"><npt-beneficiary-tile name="Mona Karim" account="•••• 4821" favorite></npt-beneficiary-tile></div>
+
+          <p class="scr-label" style="margin-top:6px">Method</p>
+          <npt-method-row title="Instant transfer" subtitle="Arrives in seconds" recommended>
+            <span slot="icon"><npt-icon name="swap-exchange" size="18"></npt-icon></span>
+          </npt-method-row>
+
+          <npt-button variant="filled" class="scr-cta" style="display:block">Review transfer</npt-button>
+        </div></div>
+      </div>
+
+      <!-- Step 2 · Review -->
+      <div class="phone" aria-label="Transfer — review">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll"><div class="phone__body">
+          <npt-stepper steps="Amount,Review,Done" active="1"></npt-stepper>
+          <p class="scr-h" style="font-size:20px">Review &amp; confirm</p>
+          <npt-transfer-review
+            rows='[{"label":"To","value":"Mona Karim"},{"label":"Account","value":"•••• 4821"},{"label":"Amount","value":"1,250.00 LYD"},{"label":"Fee","value":"0.00 LYD"}]'
+            total="1,250.00" currency="LYD" total-label="Total to pay"></npt-transfer-review>
+          <npt-alert tone="warning" title="Double-check the details">Transfers can't be reversed once sent.</npt-alert>
+          <div class="scr-row" style="gap:10px;margin-top:auto">
+            <npt-button variant="text">Back</npt-button>
+            <npt-button variant="filled" style="flex:1">Confirm &amp; send</npt-button>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- Step 3 · Done -->
+      <div class="phone" aria-label="Transfer — done">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll"><div class="phone__body" style="justify-content:center;min-height:640px">
+          <npt-stepper steps="Amount,Review,Done" active="2"></npt-stepper>
+          <npt-success title="Transfer sent" message="1,250.00 LYD is on its way to Mona Karim.">
+            <npt-button slot="actions" variant="filled">Done</npt-button>
+            <npt-button slot="actions" variant="text">View receipt</npt-button>
+          </npt-success>
+        </div></div>
+      </div>
+
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- Transfer flow: Amount → Review → Done --&gt;
+
+&lt;!-- 1 · Amount --&gt;
+&lt;npt-stepper steps="Amount,Review,Done" active="0"&gt;&lt;/npt-stepper&gt;
+&lt;npt-amount-input currency="LYD" value="1250.00"&gt;&lt;/npt-amount-input&gt;
+&lt;npt-beneficiary-tile name="Mona Karim" account="•••• 4821" favorite&gt;&lt;/npt-beneficiary-tile&gt;
+&lt;npt-method-row title="Instant transfer" subtitle="Arrives in seconds" recommended&gt;
+  &lt;span slot="icon"&gt;&lt;npt-icon name="swap-exchange" size="18"&gt;&lt;/npt-icon&gt;&lt;/span&gt;
+&lt;/npt-method-row&gt;
+
+&lt;!-- 2 · Review --&gt;
+&lt;npt-stepper steps="Amount,Review,Done" active="1"&gt;&lt;/npt-stepper&gt;
+&lt;npt-transfer-review
+  rows='[{"label":"To","value":"Mona Karim"},{"label":"Amount","value":"1,250.00 LYD"},{"label":"Fee","value":"0.00 LYD"}]'
+  total="1,250.00" currency="LYD" total-label="Total to pay"&gt;&lt;/npt-transfer-review&gt;
+
+&lt;!-- 3 · Done --&gt;
+&lt;npt-stepper steps="Amount,Review,Done" active="2"&gt;&lt;/npt-stepper&gt;
+&lt;npt-success title="Transfer sent" message="1,250.00 LYD is on its way to Mona Karim."&gt;
+  &lt;npt-button slot="actions" variant="filled"&gt;Done&lt;/npt-button&gt;
+  &lt;npt-button slot="actions" variant="text"&gt;View receipt&lt;/npt-button&gt;
+&lt;/npt-success&gt;</pre></div>
+  </div>
+
+  <!-- =================================================================== WALLET -->
+  <h2 id="wallet">Wallet home</h2>
+  <p class="tpl-desc">A payment-led wallet: balance, Add money / Send / Request actions, recent merchants, a scan-to-pay panel and a reward voucher.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Mobile · wallet</span></div>
+    <div class="demo__stage">
+      <div class="phone" aria-label="Wallet home screen">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll"><div class="phone__body">
+          <div class="scr-row" style="justify-content:space-between;margin-top:4px">
+            <span class="scr-h" style="font-size:20px">Wallet</span>
+            <npt-tier-badge tier="Gold" tone="gold"></npt-tier-badge>
+          </div>
+
+          <npt-balance-card hero label="Wallet balance" amount="845.20" currency="LYD"></npt-balance-card>
+
+          <npt-quick-actions style="--npt-quick-actions-cols:3">
+            <npt-quick-action label="Add money"><npt-icon slot="icon" name="cash-stack" size="24"></npt-icon></npt-quick-action>
+            <npt-quick-action label="Send"><npt-icon slot="icon" name="arrow-right" size="24"></npt-icon></npt-quick-action>
+            <npt-quick-action label="Request"><npt-icon slot="icon" name="arrow-left" size="24"></npt-icon></npt-quick-action>
+          </npt-quick-actions>
+
+          <div>
+            <p class="scr-label">Recent</p>
+            <div class="scr-list" style="margin-top:8px">
+              <npt-merchant-row name="Corner Grocery" category="Groceries" amount="-42.00" currency="LYD" time="14:32"></npt-merchant-row>
+              <npt-merchant-row name="City Transit" category="Transport" amount="-3.50" currency="LYD" time="08:10"></npt-merchant-row>
+              <npt-merchant-row name="Refund · Marketplace" category="Shopping" amount="+18.00" currency="LYD" time="Yest." pending></npt-merchant-row>
+            </div>
+          </div>
+
+          <npt-qr-pay amount="42.00" currency="LYD" merchant="Scan a merchant code to pay">
+            <span slot="qr"><npt-icon name="qr-code" size="120"></npt-icon></span>
+            <npt-button slot="action" variant="filled">Scan to pay</npt-button>
+          </npt-qr-pay>
+
+          <npt-voucher-card title="Cashback reward" value="−5%" code="WALLET5" expiry="Exp 31 Dec">
+            5% back on your next 3 wallet payments.
+          </npt-voucher-card>
+        </div></div>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- Wallet home (payment-led) --&gt;
+&lt;npt-balance-card hero label="Wallet balance" amount="845.20" currency="LYD"&gt;&lt;/npt-balance-card&gt;
+
+&lt;npt-quick-actions style="--npt-quick-actions-cols:3"&gt;
+  &lt;npt-quick-action label="Add money"&gt;&lt;npt-icon slot="icon" name="cash-stack" size="24"&gt;&lt;/npt-icon&gt;&lt;/npt-quick-action&gt;
+  &lt;npt-quick-action label="Send"&gt;&lt;npt-icon slot="icon" name="arrow-right" size="24"&gt;&lt;/npt-icon&gt;&lt;/npt-quick-action&gt;
+  &lt;npt-quick-action label="Request"&gt;&lt;npt-icon slot="icon" name="arrow-left" size="24"&gt;&lt;/npt-icon&gt;&lt;/npt-quick-action&gt;
+&lt;/npt-quick-actions&gt;
+
+&lt;npt-merchant-row name="Corner Grocery" category="Groceries" amount="-42.00" currency="LYD" time="14:32"&gt;&lt;/npt-merchant-row&gt;
+&lt;npt-merchant-row name="Refund · Marketplace" category="Shopping" amount="+18.00" currency="LYD" time="Yest." pending&gt;&lt;/npt-merchant-row&gt;
+
+&lt;npt-qr-pay amount="42.00" currency="LYD" merchant="Scan a merchant code to pay"&gt;
+  &lt;span slot="qr"&gt;&lt;npt-icon name="qr-code" size="120"&gt;&lt;/npt-icon&gt;&lt;/span&gt;
+  &lt;npt-button slot="action" variant="filled"&gt;Scan to pay&lt;/npt-button&gt;
+&lt;/npt-qr-pay&gt;
+
+&lt;npt-voucher-card title="Cashback reward" value="−5%" code="WALLET5" expiry="Exp 31 Dec"&gt;
+  5% back on your next 3 wallet payments.
+&lt;/npt-voucher-card&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== CORPORATE -->
+  <p class="cat-eyebrow">Corporate</p>
+
+  <!-- =================================================================== CORPORATE APPROVALS -->
+  <h2 id="corporate">Corporate approvals (web)</h2>
+  <p class="tpl-desc">A desktop console: side navigation, a page header, the maker-checker approvals queue, a bulk-payment batch with required approvals, and an audit trail.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Web · back office</span></div>
+    <div class="demo__stage">
+      <div class="browser" aria-label="Corporate approvals console">
+        <div class="browser__bar">
+          <span class="browser__dots"><i></i><i></i><i></i></span>
+          <span class="browser__url"><npt-icon name="security-shield" size="14"></npt-icon> console.neptune.ly/approvals</span>
+        </div>
+        <div class="browser__body">
+          <div class="webshell">
+            <div class="webshell__nav">
+              <npt-side-nav>
+                <npt-side-nav-item label="Dashboard"><span slot="icon"><npt-icon name="chart-line" size="20"></npt-icon></span></npt-side-nav-item>
+                <npt-side-nav-item label="Approvals" active>
+                  <span slot="icon"><npt-icon name="success-check" size="20"></npt-icon></span>
+                  <npt-badge slot="leading" tone="primary">3</npt-badge>
+                </npt-side-nav-item>
+                <npt-side-nav-item label="Payments"><span slot="icon"><npt-icon name="swap-exchange" size="20"></npt-icon></span></npt-side-nav-item>
+                <npt-side-nav-item label="Reports"><span slot="icon"><npt-icon name="chart-pie" size="20"></npt-icon></span></npt-side-nav-item>
+                <npt-side-nav-item label="Team"><span slot="icon"><npt-icon name="more-horizontal" size="20"></npt-icon></span></npt-side-nav-item>
+              </npt-side-nav>
+            </div>
+            <div class="webshell__main">
+              <npt-page-header title="Approvals" subtitle="Maker-checker queue · 3 awaiting your decision">
+                <npt-button slot="actions" variant="tonal">Filters</npt-button>
+                <npt-button slot="actions" variant="filled">Approve all</npt-button>
+              </npt-page-header>
+
+              <div class="scr-stack">
+                <npt-approval-item title="Vendor payment — Atlas Supplies" amount="48,200.00" currency="LYD" maker="Made by Omar F." status="pending"></npt-approval-item>
+                <npt-approval-item title="Payroll top-up — June" amount="12,750.00" currency="LYD" maker="Made by Layla B." status="pending"></npt-approval-item>
+                <npt-approval-item title="Refund batch — Q2 returns" amount="3,180.00" currency="LYD" maker="Made by Sami A." status="approved"></npt-approval-item>
+              </div>
+
+              <div style="margin-top:22px">
+                <h3 class="scr-h" style="font-size:16px;margin-bottom:10px">Pending batch</h3>
+                <npt-batch-card filename="payroll-jun.csv" totalamount="1,204,800.00" currency="LYD"
+                  payeecount="312" requiredapprovals="2" validated="308" warnings="3" errors="1">
+                  <npt-button slot="action" variant="filled">Submit batch</npt-button>
+                </npt-batch-card>
+              </div>
+
+              <div style="margin-top:22px">
+                <h3 class="scr-h" style="font-size:16px;margin-bottom:6px">Audit trail</h3>
+                <div role="list">
+                  <npt-audit-row actor="Layla B." action="approved payment" target="#PAY-3192" time="14:02"></npt-audit-row>
+                  <npt-audit-row actor="Omar F." action="submitted batch" target="payroll-jun.csv" time="13:48"></npt-audit-row>
+                  <npt-audit-row actor="Sami A." action="rejected payment" target="#PAY-3188" time="11:20"></npt-audit-row>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- Corporate approvals (web) --&gt;
+&lt;npt-side-nav&gt;
+  &lt;npt-side-nav-item label="Approvals" active&gt;
+    &lt;span slot="icon"&gt;&lt;npt-icon name="success-check" size="20"&gt;&lt;/npt-icon&gt;&lt;/span&gt;
+    &lt;npt-badge slot="leading" tone="primary"&gt;3&lt;/npt-badge&gt;
+  &lt;/npt-side-nav-item&gt;
+  &lt;npt-side-nav-item label="Payments"&gt;…&lt;/npt-side-nav-item&gt;
+&lt;/npt-side-nav&gt;
+
+&lt;npt-page-header title="Approvals" subtitle="Maker-checker queue · 3 awaiting your decision"&gt;
+  &lt;npt-button slot="actions" variant="tonal"&gt;Filters&lt;/npt-button&gt;
+  &lt;npt-button slot="actions" variant="filled"&gt;Approve all&lt;/npt-button&gt;
+&lt;/npt-page-header&gt;
+
+&lt;npt-approval-item title="Vendor payment — Atlas Supplies" amount="48,200.00" currency="LYD"
+  maker="Made by Omar F." status="pending"&gt;&lt;/npt-approval-item&gt;
+
+&lt;npt-batch-card filename="payroll-jun.csv" totalamount="1,204,800.00" currency="LYD"
+  payeecount="312" requiredapprovals="2" validated="308" warnings="3" errors="1"&gt;
+  &lt;npt-button slot="action" variant="filled"&gt;Submit batch&lt;/npt-button&gt;
+&lt;/npt-batch-card&gt;
+
+&lt;npt-audit-row actor="Layla B." action="approved payment" target="#PAY-3192" time="14:02"&gt;&lt;/npt-audit-row&gt;</pre></div>
+  </div>
+
+  </div><!-- /#frames -->
+</main></div>
+
+<footer class="dfoot"><div class="dwrap dwrap--plain">© 2026 Neptune.Fintech — Financial Technology &amp; Solutions · <a href="https://github.com/neptune-ly/neptune_odyssey">GitHub</a> · <a href="https://github.com/neptune-ly/neptune_odyssey/blob/main/LICENSE">License</a>. The reference themes (neptune/triton/nereid/proteus) are illustrations only; sample names and amounts are fictitious.</div></footer>
+
+<script src="assets/neptune.js"></script>
+<script>
+// © 2026 Neptune.Fintech (neptune.ly)
+// templates.html interactivity — one set of controls re-skins every template frame.
+(function () {
+  "use strict";
+  var frames = document.getElementById("frames");
+  var state = { brand: "neptune", mode: "light", dir: "ltr" };
+
+  function applyTheme() {
+    // Prefer the bundled helper; always reflect data-attributes so themes.css
+    // keys off data-theme / data-mode / dir on this single wrapper.
+    if (window.Neptune && typeof window.Neptune.applyTheme === "function") {
+      try { window.Neptune.applyTheme(frames, state.brand, { mode: state.mode, dir: state.dir }); }
+      catch (e) { /* fall through to attribute mode */ }
+    }
+    frames.setAttribute("data-theme", state.brand);
+    frames.setAttribute("data-mode", state.mode);
+    frames.setAttribute("dir", state.dir);
+  }
+
+  var brandSel = document.getElementById("gBrand");
+  if (brandSel) brandSel.addEventListener("change", function () { state.brand = brandSel.value; applyTheme(); });
+
+  function wireSeg(id, key, attr) {
+    var seg = document.getElementById(id);
+    if (!seg) return;
+    seg.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[" + attr + "]");
+      if (!btn) return;
+      state[key] = btn.getAttribute(attr);
+      seg.querySelectorAll("button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+      applyTheme();
+    });
+  }
+  wireSeg("gMode", "mode", "data-mode");
+  wireSeg("gDir", "dir", "data-dir");
+  applyTheme();
+})();
+</script>
+<script src="assets/nav.js" data-active="templates"></script>
+</body>
+</html>

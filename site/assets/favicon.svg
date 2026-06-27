@@ -1,7 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Neptune">
-  <rect width="64" height="64" rx="16" fill="#07315F"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Neptune">
+  <rect width="48" height="48" rx="13" fill="#07315F"/>
+  <!-- Neptune trident (sea god) -->
+  <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M24 11 V37"/>
+    <path d="M15 21 H33"/>
+    <path d="M15 21 V14.5"/>
+    <path d="M33 21 V14.5"/>
+    <path d="M20.5 37 H27.5"/>
+  </g>
   <!-- the signature coral dot -->
-  <circle cx="44" cy="40" r="9" fill="#EB4E4D"/>
-  <text x="14" y="42" font-family="'SF Compact Rounded', ui-rounded, 'Baloo 2', system-ui, sans-serif"
-        font-size="34" font-weight="800" fill="#FFFFFF">N</text>
+  <circle cx="37.5" cy="11.5" r="3.3" fill="#EB4E4D"/>
 </svg>

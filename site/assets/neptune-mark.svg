@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Neptune mark">
+  <!-- transparent trident mark for light surfaces -->
+  <g stroke="#07315F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M24 9 V38"/>
+    <path d="M14 20 H34"/>
+    <path d="M14 20 V12.5"/>
+    <path d="M34 20 V12.5"/>
+    <path d="M20 38 H28"/>
+  </g>
+  <circle cx="38.5" cy="10" r="3.4" fill="#EB4E4D"/>
+</svg>
