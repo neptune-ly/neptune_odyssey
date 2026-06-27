@@ -1,0 +1,61 @@
+{
+  "name": "@neptune.fintech/create-neptune",
+  "version": "2.0.0",
+  "description": "Scaffold a themed Neptune Odyssey starter app — Web, React, Vue, Svelte, React Native or Flutter — with the provider wired, a sample dashboard, styles imported and a brandprint set. `npm create @neptune.fintech` / `npx @neptune.fintech/create-neptune`.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neptune-ly/neptune_odyssey.git",
+    "directory": "packages/create-neptune"
+  },
+  "keywords": [
+    "neptune",
+    "fintech",
+    "design-system",
+    "scaffold",
+    "starter",
+    "create",
+    "boilerplate",
+    "material-3",
+    "white-label"
+  ],
+  "type": "module",
+  "bin": {
+    "create-neptune": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "templates",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

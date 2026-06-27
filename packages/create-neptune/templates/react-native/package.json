@@ -1,0 +1,24 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "description": "{{PROJECT_TITLE}} — a Neptune Odyssey starter (React Native / Expo).",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@neptune.fintech/react-native-ui": "{{V_RN_UI}}",
+    "expo": "{{V_EXPO}}",
+    "expo-status-bar": "{{V_EXPO_STATUS_BAR}}",
+    "react": "{{V_REACT}}",
+    "react-native": "0.76.5"
+  },
+  "devDependencies": {
+    "@types/react": "{{V_REACT_TYPES}}",
+    "typescript": "{{V_TYPESCRIPT}}"
+  }
+}

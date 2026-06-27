@@ -1,0 +1,21 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "{{PROJECT_TITLE}} — a Neptune Odyssey starter (web).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@neptune.fintech/icons": "{{V_ICONS}}",
+    "@neptune.fintech/tokens": "{{V_TOKENS}}",
+    "@neptune.fintech/web-ui": "{{V_WEB_UI}}"
+  },
+  "devDependencies": {
+    "typescript": "{{V_TYPESCRIPT}}",
+    "vite": "{{V_VITE}}"
+  }
+}

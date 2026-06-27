@@ -1,0 +1,24 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "{{PROJECT_TITLE}} — a Neptune Odyssey starter (Vue 3).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@neptune.fintech/icons": "{{V_ICONS}}",
+    "@neptune.fintech/vue-ui": "{{V_VUE_UI}}",
+    "@neptune.fintech/web-ui": "{{V_WEB_UI}}",
+    "vue": "{{V_VUE}}"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "{{V_VITE_VUE}}",
+    "typescript": "{{V_TYPESCRIPT}}",
+    "vite": "{{V_VITE}}",
+    "vue-tsc": "{{V_VUE_TSC}}"
+  }
+}

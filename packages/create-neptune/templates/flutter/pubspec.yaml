@@ -1,0 +1,27 @@
+name: {{PROJECT_NAME_SNAKE}}
+description: "{{PROJECT_TITLE}} — a Neptune Odyssey starter (Flutter)."
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # neptune_flutter_ui is not on pub.dev yet, so we pull it from git. Once it is
+  # published you can replace this with:  neptune_flutter_ui: {{V_FLUTTER}}
+  neptune_flutter_ui:
+    git:
+      url: https://github.com/neptune-ly/neptune_odyssey.git
+      path: packages/neptune_flutter_ui
+      ref: main
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

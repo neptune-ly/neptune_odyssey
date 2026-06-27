@@ -1,0 +1,26 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "{{PROJECT_TITLE}} — a Neptune Odyssey starter (React).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@neptune.fintech/icons": "{{V_ICONS}}",
+    "@neptune.fintech/react-ui": "{{V_REACT_UI}}",
+    "@neptune.fintech/web-ui": "{{V_WEB_UI}}",
+    "react": "{{V_REACT}}",
+    "react-dom": "{{V_REACT_DOM}}"
+  },
+  "devDependencies": {
+    "@types/react": "{{V_REACT_TYPES}}",
+    "@types/react-dom": "{{V_REACT_DOM_TYPES}}",
+    "@vitejs/plugin-react": "{{V_VITE_REACT}}",
+    "typescript": "{{V_TYPESCRIPT}}",
+    "vite": "{{V_VITE}}"
+  }
+}

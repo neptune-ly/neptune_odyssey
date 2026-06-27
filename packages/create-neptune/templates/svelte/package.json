@@ -1,0 +1,25 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "{{PROJECT_TITLE}} — a Neptune Odyssey starter (Svelte 5).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@neptune.fintech/icons": "{{V_ICONS}}",
+    "@neptune.fintech/svelte-ui": "{{V_SVELTE_UI}}",
+    "@neptune.fintech/web-ui": "{{V_WEB_UI}}"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "{{V_VITE_SVELTE}}",
+    "svelte": "{{V_SVELTE}}",
+    "svelte-check": "{{V_SVELTE_CHECK}}",
+    "typescript": "{{V_TYPESCRIPT}}",
+    "vite": "{{V_VITE}}"
+  }
+}
