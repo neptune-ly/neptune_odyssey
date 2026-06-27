@@ -80,6 +80,59 @@
   <h4>Financial</h4>
   <a href="#balance-card">Balance card</a>
   <a href="#transaction-row">Transaction row</a>
+  <h4>Money inputs</h4>
+  <a href="#amount-input">Amount input</a>
+  <a href="#currency-field">Currency field</a>
+  <a href="#iban-field">IBAN field</a>
+  <a href="#otp-input">OTP input</a>
+  <a href="#pin-input">PIN input</a>
+  <a href="#amount-keypad">Amount keypad</a>
+  <h4>Cards</h4>
+  <a href="#card-art">Card art</a>
+  <a href="#card-row">Card row</a>
+  <a href="#add-card">Add card</a>
+  <a href="#card-controls">Card controls</a>
+  <h4>Money movement</h4>
+  <a href="#stepper">Stepper</a>
+  <a href="#transfer-review">Transfer review</a>
+  <a href="#success">Success</a>
+  <a href="#receipt">Receipt</a>
+  <a href="#beneficiary-tile">Beneficiary tile</a>
+  <a href="#method-row">Method row</a>
+  <h4>Data &amp; insight</h4>
+  <a href="#data-table">Data table</a>
+  <a href="#stat-card">Stat card</a>
+  <a href="#sparkline">Sparkline</a>
+  <a href="#donut">Donut</a>
+  <a href="#limit-meter">Limit meter</a>
+  <a href="#trend">Trend</a>
+  <h4>Feedback &amp; status</h4>
+  <a href="#skeleton">Skeleton</a>
+  <a href="#empty-state">Empty state</a>
+  <a href="#alert">Alert</a>
+  <a href="#status-chip">Status chip</a>
+  <a href="#toast">Toast</a>
+  <h4>Corporate</h4>
+  <a href="#approval-item">Approval item</a>
+  <a href="#batch-card">Batch card</a>
+  <a href="#audit-row">Audit row</a>
+  <a href="#user-row">User row</a>
+  <a href="#permission-toggle">Permission toggle</a>
+  <a href="#workflow-status">Workflow status</a>
+  <h4>Shell &amp; layout</h4>
+  <a href="#app-shell">App shell</a>
+  <a href="#page-header">Page header</a>
+  <a href="#section">Section</a>
+  <a href="#side-nav">Side nav</a>
+  <a href="#search-field">Search field</a>
+  <a href="#toolbar">Toolbar</a>
+  <h4>Wallet &amp; pay</h4>
+  <a href="#quick-actions">Quick actions</a>
+  <a href="#merchant-row">Merchant row</a>
+  <a href="#voucher-card">Voucher card</a>
+  <a href="#qr-pay">QR pay</a>
+  <a href="#topup-row">Top-up row</a>
+  <a href="#tier-badge">Tier badge</a>
 </aside><main class="dmain" id="gallery-top">
   <p class="eyebrow">Components</p>
   <h1>The Neptune Odyssey gallery</h1>
@@ -736,6 +789,846 @@
     </div>
     <div class="code"><button class="copy">Copy</button><pre>&lt;npt-transaction-row title="Salary" subtitle="Today · Transfer"
   amount="+3,200.00" currency="LYD" credit&gt;&lt;/npt-transaction-row&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== MONEY INPUTS -->
+  <p class="cat-eyebrow">Money inputs</p>
+
+  <!-- Amount input -->
+  <h2 id="amount-input">Amount input</h2>
+  <p class="comp-desc">Large amount entry with a currency affix and big tabular figures. Sanitises to digits + one decimal point.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-amount"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-amount-input id="d-amount" class="stage-panel" currency="LYD" value="1250.00" placeholder="0.00"></npt-amount-input>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-amount-input currency="LYD" value="1250.00" placeholder="0.00"&gt;&lt;/npt-amount-input&gt;</pre></div>
+  </div>
+
+  <!-- Currency field -->
+  <h2 id="currency-field">Currency field</h2>
+  <p class="comp-desc">Labelled outlined money field with a trailing currency code and a helper/error line.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" id="d-currency-error"> show error</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-currency"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-currency-field id="d-currency" class="stage-panel" label="Amount" value="250.00" currency="LYD" helper="Available 12,480.50"></npt-currency-field>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-currency-field label="Amount" value="250.00" currency="LYD"
+  helper="Available 12,480.50"&gt;&lt;/npt-currency-field&gt;</pre></div>
+  </div>
+
+  <!-- IBAN field -->
+  <h2 id="iban-field">IBAN field</h2>
+  <p class="comp-desc">Groups the IBAN into blocks of four as you type and reflects ISO 7064 (mod-97) valid / invalid state.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">type a Libyan IBAN to see validation</span></div>
+    <div class="demo__stage col">
+      <npt-iban-field id="d-iban" class="stage-panel" label="IBAN" country="LY" value="LY83002048000020100120361"></npt-iban-field>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-iban-field label="IBAN" country="LY"&gt;&lt;/npt-iban-field&gt;</pre></div>
+  </div>
+
+  <!-- OTP input -->
+  <h2 id="otp-input">OTP input</h2>
+  <p class="comp-desc">Separate single-character boxes with auto-advance, backspace-rewind and paste-fill. <code>masked</code> hides the digits.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">length</span>
+      <select data-attr="length" data-target="#d-otp">
+        <option value="6">6</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="masked" data-target="#d-otp"> masked</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-otp"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-otp-input id="d-otp" length="6" value="12"></npt-otp-input>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-otp-input length="6"&gt;&lt;/npt-otp-input&gt;</pre></div>
+  </div>
+
+  <!-- PIN input -->
+  <h2 id="pin-input">PIN input</h2>
+  <p class="comp-desc">Like the OTP input but always masked with dots; defaults to four boxes.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">length</span>
+      <select data-attr="length" data-target="#d-pin">
+        <option value="4">4</option>
+        <option value="6">6</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-pin"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-pin-input id="d-pin" length="4"></npt-pin-input>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-pin-input length="4"&gt;&lt;/npt-pin-input&gt;</pre></div>
+  </div>
+
+  <!-- Amount keypad -->
+  <h2 id="amount-keypad">Amount keypad</h2>
+  <p class="comp-desc">Numeric keypad (0–9, decimal point, backspace). Each press updates a running value; great paired with the amount input.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">running value: <code id="d-keypad-out">0</code></span>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-keypad"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-amount-keypad id="d-keypad" class="stage-panel" value=""></npt-amount-keypad>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-amount-keypad value=""&gt;&lt;/npt-amount-keypad&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== CARDS -->
+  <p class="cat-eyebrow">Cards</p>
+
+  <!-- Card art -->
+  <h2 id="card-art">Card art</h2>
+  <p class="comp-desc">Payment-card visual on the brand gradient. <code>variant</code> switches physical / virtual / frozen; the <code>brand</code> slot holds the scheme mark.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-card-art">
+        <option value="physical">physical</option>
+        <option value="virtual">virtual</option>
+        <option value="frozen">frozen</option>
+      </select>
+    </div>
+    <div class="demo__stage">
+      <npt-card-art id="d-card-art" class="stage-card" holder="A. KELLER" last4="4821" expiry="08/29" scheme="VISA" variant="physical">
+        <span slot="brand" data-brand-mark="visa">VISA</span>
+      </npt-card-art>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-card-art holder="A. KELLER" last4="4821" expiry="08/29" scheme="VISA" variant="physical"&gt;
+  &lt;span slot="brand"&gt;&lt;/span&gt;
+  &lt;script&gt;el.querySelector('[slot=brand]').innerHTML = Neptune.brandMarkSvg("visa", { height: 22 });&lt;/script&gt;
+&lt;/npt-card-art&gt;</pre></div>
+  </div>
+
+  <!-- Card row -->
+  <h2 id="card-row">Card row</h2>
+  <p class="comp-desc">Saved-card list item with a leading scheme mark and trailing chevron. <code>interactive</code> makes the whole row a button.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="interactive" data-target=".d-card-row" checked> interactive</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;overflow:hidden;border:1px solid var(--md-sys-color-outline-variant);padding:0 8px">
+        <npt-card-row class="d-card-row" interactive label="Salary card" last4="4821" scheme="VISA">
+          <span slot="brand" data-brand-mark="visa">V</span>
+        </npt-card-row>
+        <npt-card-row class="d-card-row" interactive label="Travel card" last4="7702" scheme="MASTERCARD">
+          <span slot="brand" data-brand-mark="mastercard">M</span>
+        </npt-card-row>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-card-row interactive label="Salary card" last4="4821" scheme="VISA"&gt;
+  &lt;span slot="brand"&gt;&lt;/span&gt;
+&lt;/npt-card-row&gt;</pre></div>
+  </div>
+
+  <!-- Add card -->
+  <h2 id="add-card">Add card</h2>
+  <p class="comp-desc">Dashed call-to-action tile with a leading +; behaves as a button and emits an <code>add</code> event.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-add-card"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-add-card id="d-add-card" class="stage-panel">Add a new card</npt-add-card>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-add-card&gt;Add a new card&lt;/npt-add-card&gt;</pre></div>
+  </div>
+
+  <!-- Card controls -->
+  <h2 id="card-controls">Card controls</h2>
+  <p class="comp-desc">Row of toggle actions (Freeze, Limits, Details, PIN). <code>frozen</code> flips the first action to Unfreeze.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="frozen" data-target="#d-card-controls"> frozen</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-card-controls id="d-card-controls" class="stage-wide"></npt-card-controls>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-card-controls&gt;&lt;/npt-card-controls&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== MONEY MOVEMENT -->
+  <p class="cat-eyebrow">Money movement</p>
+
+  <!-- Stepper -->
+  <h2 id="stepper">Stepper</h2>
+  <p class="comp-desc">Horizontal progress indicator with numbered nodes; drive it from <code>steps</code> + <code>active</code>, or with light-DOM <code>npt-step</code> children.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">active</span>
+      <select data-attr="active" data-target="#d-stepper">
+        <option value="0">0</option>
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+      </select>
+    </div>
+    <div class="demo__stage col">
+      <npt-stepper id="d-stepper" class="stage-wide" active="1">
+        <npt-step>Amount</npt-step>
+        <npt-step>Review</npt-step>
+        <npt-step>Done</npt-step>
+      </npt-stepper>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-stepper active="1" steps="Amount,Review,Done"&gt;&lt;/npt-stepper&gt;</pre></div>
+  </div>
+
+  <!-- Transfer review -->
+  <h2 id="transfer-review">Transfer review</h2>
+  <p class="comp-desc">Key/value summary with a highlighted total footer. Rows come from a JSON <code>rows</code> attribute.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">summary of a pending transfer</span></div>
+    <div class="demo__stage col">
+      <npt-transfer-review id="d-review" class="stage-panel"
+        rows='[{"label":"To","value":"Mona Karim"},{"label":"Account","value":"•••• 4821"},{"label":"Fee","value":"0.00 LYD"}]'
+        total="1,250.00" currency="LYD" total-label="Total"></npt-transfer-review>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-transfer-review
+  rows='[{"label":"To","value":"Mona Karim"},{"label":"Fee","value":"0.00 LYD"}]'
+  total="1,250.00" currency="LYD"&gt;&lt;/npt-transfer-review&gt;</pre></div>
+  </div>
+
+  <!-- Success -->
+  <h2 id="success">Success</h2>
+  <p class="comp-desc">Success hero with a spring-in check (honours reduced motion); actions go in the <code>actions</code> slot.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">terminal confirmation screen</span></div>
+    <div class="demo__stage col">
+      <npt-success id="d-success" class="stage-panel" title="Transfer sent" message="Your money is on the way to Mona Karim.">
+        <npt-button slot="actions" variant="filled">Done</npt-button>
+        <npt-button slot="actions" variant="text">View receipt</npt-button>
+      </npt-success>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-success title="Transfer sent" message="Your money is on the way."&gt;
+  &lt;npt-button slot="actions" variant="filled"&gt;Done&lt;/npt-button&gt;
+&lt;/npt-success&gt;</pre></div>
+  </div>
+
+  <!-- Receipt -->
+  <h2 id="receipt">Receipt</h2>
+  <p class="comp-desc">Receipt card with a dashed tear divider and a coloured status dot; extra rows via the default slot.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">post-payment receipt</span></div>
+    <div class="demo__stage col">
+      <npt-receipt id="d-receipt" class="stage-panel" merchant="Acme Store" amount="42.00" currency="LYD"
+        date="27 Jun 2026" status="Completed" reference="TX-9931"></npt-receipt>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-receipt merchant="Acme Store" amount="42.00" currency="LYD"
+  date="27 Jun 2026" status="Completed" reference="TX-9931"&gt;&lt;/npt-receipt&gt;</pre></div>
+  </div>
+
+  <!-- Beneficiary tile -->
+  <h2 id="beneficiary-tile">Beneficiary tile</h2>
+  <p class="comp-desc">Initials avatar + name + masked account + trailing chevron. <code>favorite</code> adds a star badge.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="favorite" data-target="#d-beneficiary" checked> favorite</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-panel" style="background:var(--md-sys-color-surface);border-radius:16px;border:1px solid var(--md-sys-color-outline-variant);padding:4px 8px">
+        <npt-beneficiary-tile id="d-beneficiary" name="Mona Karim" account="•••• 4821" favorite></npt-beneficiary-tile>
+        <npt-beneficiary-tile name="Ali Saleh" account="•••• 7702"></npt-beneficiary-tile>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-beneficiary-tile name="Mona Karim" account="•••• 4821" favorite&gt;&lt;/npt-beneficiary-tile&gt;</pre></div>
+  </div>
+
+  <!-- Method row -->
+  <h2 id="method-row">Method row</h2>
+  <p class="comp-desc">Transfer-method row with a leading <code>icon</code> slot, title/subtitle and a Recommended badge.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="recommended" data-target="#d-method" checked> recommended</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="display:flex;flex-direction:column;gap:8px">
+        <npt-method-row id="d-method" title="Bank transfer" subtitle="1–2 business days" recommended>
+          <span slot="icon">🏦</span>
+        </npt-method-row>
+        <npt-method-row title="Instant card" subtitle="Arrives in seconds · 1% fee">
+          <span slot="icon">⚡</span>
+        </npt-method-row>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-method-row title="Bank transfer" subtitle="1–2 business days" recommended&gt;
+  &lt;span slot="icon"&gt;🏦&lt;/span&gt;
+&lt;/npt-method-row&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== DATA & INSIGHT -->
+  <p class="cat-eyebrow">Data &amp; insight</p>
+
+  <!-- Data table -->
+  <h2 id="data-table">Data table</h2>
+  <p class="comp-desc">Dense table with a sticky header, zebra rows and row hover. Drive it from <code>columns</code> + <code>rows</code>, or project a light-DOM <code>&lt;table&gt;</code>.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="dense" data-target="#d-table"> dense</label>
+      <label class="chk"><input type="checkbox" data-bool="sticky" data-target="#d-table" checked> sticky header</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-data-table id="d-table" class="stage-wide" caption="Recent activity" sticky
+        columns='[{"key":"name","label":"Merchant"},{"key":"date","label":"Date"},{"key":"amt","label":"Amount","numeric":true}]'
+        rows='[{"name":"Coffee Bar","date":"27 Jun","amt":"-4.50"},{"name":"Salary","date":"25 Jun","amt":"+3,200.00"},{"name":"Electricity","date":"22 Jun","amt":"-86.20"}]'></npt-data-table>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-data-table caption="Recent activity" sticky
+  columns='[{"key":"name","label":"Merchant"},{"key":"amt","label":"Amount","numeric":true}]'
+  rows='[{"name":"Coffee Bar","amt":"-4.50"}]'&gt;&lt;/npt-data-table&gt;</pre></div>
+  </div>
+
+  <!-- Stat card -->
+  <h2 id="stat-card">Stat card</h2>
+  <p class="comp-desc">A metric tile; <code>delta</code> colours by leading sign. Drop an <code>npt-sparkline</code> into the <code>chart</code> slot.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">label / value / unit / delta + spark</span></div>
+    <div class="demo__stage">
+      <npt-stat-card class="stage-card" label="Revenue" value="48,210" unit="LYD" delta="+12.4%">
+        <npt-sparkline slot="chart" points="3,5,4,7,8,6,9" label="7-day revenue"></npt-sparkline>
+      </npt-stat-card>
+      <npt-stat-card class="stage-card" label="Refunds" value="1,204" unit="LYD" delta="-3.1%">
+        <npt-sparkline slot="chart" points="9,7,8,5,6,4,3" label="7-day refunds"></npt-sparkline>
+      </npt-stat-card>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-stat-card label="Revenue" value="48,210" unit="LYD" delta="+12.4%"&gt;
+  &lt;npt-sparkline slot="chart" points="3,5,4,7,8"&gt;&lt;/npt-sparkline&gt;
+&lt;/npt-stat-card&gt;</pre></div>
+  </div>
+
+  <!-- Sparkline -->
+  <h2 id="sparkline">Sparkline</h2>
+  <p class="comp-desc">Inline SVG line, no axes. Stroke inherits <code>currentColor</code> (primary by default).</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">comma-separated points</span></div>
+    <div class="demo__stage">
+      <npt-sparkline points="3,5,4,7,8,6,9,7,10" label="trend up" style="--npt-sparkline-w:160px;--npt-sparkline-h:44px"></npt-sparkline>
+      <npt-sparkline points="9,8,9,6,7,5,4,5,3" label="trend down" style="--npt-sparkline-w:160px;--npt-sparkline-h:44px;color:var(--md-sys-color-error)"></npt-sparkline>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-sparkline points="3,5,4,7,8,6,9" label="7-day"&gt;&lt;/npt-sparkline&gt;</pre></div>
+  </div>
+
+  <!-- Donut -->
+  <h2 id="donut">Donut</h2>
+  <p class="comp-desc">SVG ring; each segment <code>role</code> maps to an allow-listed M3 colour. Centre content via the <code>center</code> slot.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">segments drive the ring</span></div>
+    <div class="demo__stage">
+      <npt-donut thickness="8" label="Budget used"
+        segments='[{"value":62,"role":"primary"},{"value":38,"role":"surface-container-highest"}]'
+        style="--npt-donut-size:140px">
+        <strong slot="center" style="font-size:20px">62%</strong>
+      </npt-donut>
+      <npt-donut thickness="8" label="Category split"
+        segments='[{"value":40,"role":"primary"},{"value":35,"role":"tertiary"},{"value":25,"role":"secondary"}]'
+        style="--npt-donut-size:140px">
+        <span slot="center" style="font-size:13px">Spend</span>
+      </npt-donut>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-donut thickness="8"
+  segments='[{"value":62,"role":"primary"},{"value":38,"role":"surface-container-highest"}]'&gt;
+  &lt;strong slot="center"&gt;62%&lt;/strong&gt;
+&lt;/npt-donut&gt;</pre></div>
+  </div>
+
+  <!-- Limit meter -->
+  <h2 id="limit-meter">Limit meter</h2>
+  <p class="comp-desc">Labelled progress meter (0–100). <code>warn</code> flips near-full (≥90%) to the error colour.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">value</span>
+      <select data-attr="value" data-target="#d-limit">
+        <option value="40">40</option>
+        <option value="82" selected>82</option>
+        <option value="95">95</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="warn" data-target="#d-limit" checked> warn</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-limit-meter id="d-limit" class="stage-wide" label="Card spend" value="82" amount="820 / 1,000 LYD" warn></npt-limit-meter>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-limit-meter label="Card spend" value="82" amount="820 / 1,000 LYD" warn&gt;&lt;/npt-limit-meter&gt;</pre></div>
+  </div>
+
+  <!-- Trend -->
+  <h2 id="trend">Trend</h2>
+  <p class="comp-desc">Small up/down chip. <code>down</code> (or a leading − in <code>value</code>) uses error, else success.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="down" data-target="#d-trend"> down</label>
+    </div>
+    <div class="demo__stage">
+      <npt-trend id="d-trend" value="+2.4%"></npt-trend>
+      <npt-trend value="-1.1%" down></npt-trend>
+      <npt-trend value="+18.0%"></npt-trend>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-trend value="+2.4%"&gt;&lt;/npt-trend&gt;
+&lt;npt-trend value="-1.1%" down&gt;&lt;/npt-trend&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== FEEDBACK & STATUS -->
+  <p class="cat-eyebrow">Feedback &amp; status</p>
+
+  <!-- Skeleton -->
+  <h2 id="skeleton">Skeleton</h2>
+  <p class="comp-desc">Shimmer placeholder. <code>text</code> repeats <code>lines</code> bars; <code>circle</code> / <code>rect</code> are single shapes. Reduced motion → static.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-skeleton">
+        <option value="text">text</option>
+        <option value="rect">rect</option>
+        <option value="circle">circle</option>
+      </select>
+    </div>
+    <div class="demo__stage col">
+      <npt-skeleton id="d-skeleton" class="stage-wide" variant="text" lines="3"></npt-skeleton>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-skeleton variant="text" lines="3"&gt;&lt;/npt-skeleton&gt;
+&lt;npt-skeleton variant="circle" width="48px"&gt;&lt;/npt-skeleton&gt;</pre></div>
+  </div>
+
+  <!-- Empty state -->
+  <h2 id="empty-state">Empty state</h2>
+  <p class="comp-desc">Centred placeholder for empty collections; <code>icon</code> and <code>actions</code> slots.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">title + body + slots</span></div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;border:1px solid var(--md-sys-color-outline-variant)">
+        <npt-empty-state title="No transactions yet" body="When you send or receive money it will show up here.">
+          <span slot="icon">📭</span>
+          <npt-button slot="actions" variant="filled">New transfer</npt-button>
+        </npt-empty-state>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-empty-state title="No transactions yet" body="…"&gt;
+  &lt;span slot="icon"&gt;📭&lt;/span&gt;
+  &lt;npt-button slot="actions" variant="filled"&gt;New transfer&lt;/npt-button&gt;
+&lt;/npt-empty-state&gt;</pre></div>
+  </div>
+
+  <!-- Alert -->
+  <h2 id="alert">Alert</h2>
+  <p class="comp-desc">Inline tonal banner with an accent bar; <code>dismissible</code> shows a close button. Tones: info, success, warning, error.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">tone</span>
+      <select data-attr="tone" data-target="#d-alert">
+        <option value="info">info</option>
+        <option value="success">success</option>
+        <option value="warning">warning</option>
+        <option value="error">error</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="dismissible" data-target="#d-alert" checked> dismissible</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-alert id="d-alert" class="stage-wide" tone="info" title="Heads up" dismissible>Your statement for May is ready to download.</npt-alert>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-alert tone="success" title="Done" dismissible&gt;Transfer completed.&lt;/npt-alert&gt;</pre></div>
+  </div>
+
+  <!-- Status chip -->
+  <h2 id="status-chip">Status chip</h2>
+  <p class="comp-desc">Status pill with a coloured dot. Statuses: success, pending, failed, info, neutral.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">status</span>
+      <select data-attr="status" data-target="#d-status-chip">
+        <option value="success">success</option>
+        <option value="pending">pending</option>
+        <option value="failed">failed</option>
+        <option value="info">info</option>
+        <option value="neutral">neutral</option>
+      </select>
+    </div>
+    <div class="demo__stage">
+      <npt-status-chip id="d-status-chip" status="success">Settled</npt-status-chip>
+      <npt-status-chip status="pending">Pending</npt-status-chip>
+      <npt-status-chip status="failed">Failed</npt-status-chip>
+      <npt-status-chip status="info">In review</npt-status-chip>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-status-chip status="success"&gt;Settled&lt;/npt-status-chip&gt;</pre></div>
+  </div>
+
+  <!-- Toast -->
+  <h2 id="toast">Toast</h2>
+  <p class="comp-desc">Fixed bottom toast that auto-hides after <code>timeout</code> ms (0 disables). Stack several inside an <code>npt-toast-host</code>.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">tone</span>
+      <select id="d-toast-tone">
+        <option value="info">info</option>
+        <option value="success">success</option>
+        <option value="warning">warning</option>
+        <option value="error">error</option>
+      </select>
+      <npt-button id="d-toast-open" variant="filled">Show toast</npt-button>
+    </div>
+    <div class="demo__stage"><span class="lbl" style="color:var(--md-sys-color-on-surface-variant)">The toast rises from the bottom edge and auto-dismisses.</span></div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-toast-host&gt;
+  &lt;npt-toast open message="Saved" tone="success" timeout="4000"&gt;
+    &lt;npt-button slot="action" variant="text"&gt;Undo&lt;/npt-button&gt;
+  &lt;/npt-toast&gt;
+&lt;/npt-toast-host&gt;</pre></div>
+  </div>
+  <npt-toast-host id="d-toast-host">
+    <npt-toast id="d-toast" message="Transfer sent to •••• 4821" tone="info" timeout="4000">
+      <npt-button slot="action" variant="text">Undo</npt-button>
+    </npt-toast>
+  </npt-toast-host>
+
+  <!-- ====================================================== CORPORATE -->
+  <p class="cat-eyebrow">Corporate &amp; back-office</p>
+
+  <!-- Approval item -->
+  <h2 id="approval-item">Approval item</h2>
+  <p class="comp-desc">A maker-checker queue item with Approve / Reject buttons. <code>status</code> hides the buttons and reflects the outcome.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">status</span>
+      <select data-attr="status" data-target="#d-approval">
+        <option value="pending">pending</option>
+        <option value="approved">approved</option>
+        <option value="rejected">rejected</option>
+      </select>
+    </div>
+    <div class="demo__stage col">
+      <npt-approval-item id="d-approval" class="stage-wide" title="Vendor payment — ACME" amount="48,200.00" currency="LYD"
+        maker="Mona Khaled" status="pending"></npt-approval-item>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-approval-item title="Vendor payment — ACME" amount="48,200.00"
+  currency="LYD" maker="Mona Khaled" status="pending"&gt;&lt;/npt-approval-item&gt;</pre></div>
+  </div>
+
+  <!-- Batch card -->
+  <h2 id="batch-card">Batch card</h2>
+  <p class="comp-desc">A bulk-payment batch summary with validated / warnings / errors counts and an <code>action</code> slot for the CTA.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">payroll batch summary</span></div>
+    <div class="demo__stage col">
+      <npt-batch-card id="d-batch" class="stage-panel" filename="payroll-jun.csv" totalAmount="1,204,800.00" currency="LYD"
+        payeeCount="312" requiredApprovals="2" validated="308" warnings="3" errors="1">
+        <npt-button slot="action" variant="filled">Submit batch</npt-button>
+      </npt-batch-card>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-batch-card filename="payroll-jun.csv" totalAmount="1,204,800.00" currency="LYD"
+  payeeCount="312" requiredApprovals="2" validated="308" warnings="3" errors="1"&gt;
+  &lt;npt-button slot="action" variant="filled"&gt;Submit batch&lt;/npt-button&gt;
+&lt;/npt-batch-card&gt;</pre></div>
+  </div>
+
+  <!-- Audit row -->
+  <h2 id="audit-row">Audit row</h2>
+  <p class="comp-desc">A compact audit-log line with a leading status dot, actor, action, target and timestamp.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">audit trail rows</span></div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;border:1px solid var(--md-sys-color-outline-variant);padding:0 8px">
+        <npt-audit-row actor="Mona Khaled" action="approved payment" target="#PAY-3192" time="2026-06-27 14:02"></npt-audit-row>
+        <npt-audit-row actor="Ali Saleh" action="created batch" target="payroll-jun.csv" time="2026-06-27 13:48"></npt-audit-row>
+        <npt-audit-row actor="System" action="ran reconciliation" time="2026-06-27 13:00"></npt-audit-row>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-audit-row actor="Mona Khaled" action="approved payment"
+  target="#PAY-3192" time="2026-06-27 14:02"&gt;&lt;/npt-audit-row&gt;</pre></div>
+  </div>
+
+  <!-- User row -->
+  <h2 id="user-row">User row</h2>
+  <p class="comp-desc">A user-admin row: avatar/initials, name + email, role chip and an <code>actions</code> slot. <code>suspended</code> dims it and shows a chip.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="suspended" data-target="#d-user"> suspended</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;border:1px solid var(--md-sys-color-outline-variant);padding:0 8px">
+        <npt-user-row id="d-user" name="Mona Khaled" email="mona@bank.ly" role="Checker" initials="MK">
+          <npt-icon-button slot="actions" variant="standard" label="More">⋯</npt-icon-button>
+        </npt-user-row>
+        <npt-user-row name="Ali Saleh" email="ali@bank.ly" role="Maker" initials="AS">
+          <npt-icon-button slot="actions" variant="standard" label="More">⋯</npt-icon-button>
+        </npt-user-row>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-user-row name="Mona Khaled" email="mona@bank.ly" role="Checker" initials="MK"&gt;
+  &lt;npt-icon-button slot="actions" label="More"&gt;⋯&lt;/npt-icon-button&gt;
+&lt;/npt-user-row&gt;</pre></div>
+  </div>
+
+  <!-- Permission toggle -->
+  <h2 id="permission-toggle">Permission toggle</h2>
+  <p class="comp-desc">Label + description + a switch-like toggle. Emits <code>change</code> when toggled.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="checked" data-target="#d-permission" checked> checked</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-permission"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="display:flex;flex-direction:column;gap:4px">
+        <npt-permission-toggle id="d-permission" label="Approve payments"
+          description="Allow this role to release outgoing transfers" checked></npt-permission-toggle>
+        <npt-permission-toggle label="Manage users"
+          description="Add, suspend and edit team members"></npt-permission-toggle>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-permission-toggle label="Approve payments"
+  description="Allow this role to release outgoing transfers" checked&gt;&lt;/npt-permission-toggle&gt;</pre></div>
+  </div>
+
+  <!-- Workflow status -->
+  <h2 id="workflow-status">Workflow status</h2>
+  <p class="comp-desc">A compact multi-step status indicator; <code>active</code> is the zero-based current step. Earlier steps render complete.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">active</span>
+      <select data-attr="active" data-target="#d-workflow">
+        <option value="0">0</option>
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+      </select>
+    </div>
+    <div class="demo__stage col">
+      <npt-workflow-status id="d-workflow" class="stage-wide" steps="Submitted,Checked,Approved" active="1"></npt-workflow-status>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-workflow-status steps="Submitted,Checked,Approved" active="1"&gt;&lt;/npt-workflow-status&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== SHELL & LAYOUT -->
+  <p class="cat-eyebrow">Shell &amp; layout</p>
+
+  <!-- App shell -->
+  <h2 id="app-shell">App shell</h2>
+  <p class="comp-desc">The application frame: a sticky <code>header</code>, an inline-start <code>nav</code> sidebar (collapses via <code>rail</code>) and the content region.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="rail" data-target="#d-shell"> rail (collapse nav)</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="border:1px solid var(--md-sys-color-outline-variant);border-radius:16px;overflow:hidden;height:280px">
+        <npt-app-shell id="d-shell" style="block-size:100%">
+          <npt-toolbar slot="header">
+            <span slot="start" style="font-family:var(--npt-font-display);font-weight:700">Neptune Bank</span>
+            <npt-icon-button slot="end" variant="tonal" label="Notifications">🔔</npt-icon-button>
+          </npt-toolbar>
+          <npt-side-nav slot="nav">
+            <npt-side-nav-item label="Dashboard" active><span slot="icon">▦</span></npt-side-nav-item>
+            <npt-side-nav-item label="Payments"><span slot="icon">⇄</span></npt-side-nav-item>
+            <npt-side-nav-item label="Cards"><span slot="icon">▭</span></npt-side-nav-item>
+          </npt-side-nav>
+          <npt-page-header title="Dashboard" subtitle="Welcome back"></npt-page-header>
+        </npt-app-shell>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-app-shell&gt;
+  &lt;header slot="header"&gt;…&lt;/header&gt;
+  &lt;npt-side-nav slot="nav"&gt;…&lt;/npt-side-nav&gt;
+  …content…
+&lt;/npt-app-shell&gt;</pre></div>
+  </div>
+
+  <!-- Page header -->
+  <h2 id="page-header">Page header</h2>
+  <p class="comp-desc">The page-level masthead. Display-font title with an optional <code>breadcrumb</code> above and <code>actions</code> inline-end.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">title + subtitle + actions</span></div>
+    <div class="demo__stage col">
+      <npt-page-header class="stage-wide" title="Accounts" subtitle="All your balances in one place">
+        <span slot="breadcrumb">Home · Accounts</span>
+        <npt-button slot="actions" variant="filled">New account</npt-button>
+      </npt-page-header>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-page-header title="Accounts" subtitle="All your balances"&gt;
+  &lt;span slot="breadcrumb"&gt;Home · Accounts&lt;/span&gt;
+  &lt;npt-button slot="actions" variant="filled"&gt;New account&lt;/npt-button&gt;
+&lt;/npt-page-header&gt;</pre></div>
+  </div>
+
+  <!-- Section -->
+  <h2 id="section">Section</h2>
+  <p class="comp-desc">A titled content section with an optional supporting description and a default slot for the body.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">title + description + body</span></div>
+    <div class="demo__stage col">
+      <npt-section class="stage-wide" title="Recent activity" description="Last 30 days">
+        <npt-card variant="tonal">
+          <p style="margin:0">Section bodies hold any content — lists, cards, tables.</p>
+        </npt-card>
+      </npt-section>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-section title="Recent activity" description="Last 30 days"&gt;
+  …body…
+&lt;/npt-section&gt;</pre></div>
+  </div>
+
+  <!-- Side nav -->
+  <h2 id="side-nav">Side nav</h2>
+  <p class="comp-desc">The vertical sidebar nav built from <code>npt-side-nav-item</code>s. Clicking one activates it exclusively; <code>icon</code> and <code>leading</code> slots.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">click an item to activate</span></div>
+    <div class="demo__stage">
+      <div class="stage-panel" style="border:1px solid var(--md-sys-color-outline-variant);border-radius:16px;overflow:hidden">
+        <npt-side-nav>
+          <npt-side-nav-item label="Dashboard" active><span slot="icon">▦</span></npt-side-nav-item>
+          <npt-side-nav-item label="Payments"><span slot="icon">⇄</span><npt-badge slot="leading" tone="primary">3</npt-badge></npt-side-nav-item>
+          <npt-side-nav-item label="Cards"><span slot="icon">▭</span></npt-side-nav-item>
+          <npt-side-nav-item label="Settings"><span slot="icon">⚙</span></npt-side-nav-item>
+        </npt-side-nav>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-side-nav&gt;
+  &lt;npt-side-nav-item label="Dashboard" active&gt;&lt;span slot="icon"&gt;▦&lt;/span&gt;&lt;/npt-side-nav-item&gt;
+  &lt;npt-side-nav-item label="Payments"&gt;&lt;npt-badge slot="leading"&gt;3&lt;/npt-badge&gt;&lt;/npt-side-nav-item&gt;
+&lt;/npt-side-nav&gt;</pre></div>
+  </div>
+
+  <!-- Search field -->
+  <h2 id="search-field">Search field</h2>
+  <p class="comp-desc">Search input with a leading magnifier and a clear control. Emits a debounced <code>search</code> event.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-search"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-search-field id="d-search" class="stage-panel" placeholder="Search accounts" value="Salary"></npt-search-field>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-search-field placeholder="Search accounts"&gt;&lt;/npt-search-field&gt;</pre></div>
+  </div>
+
+  <!-- Toolbar -->
+  <h2 id="toolbar">Toolbar</h2>
+  <p class="comp-desc">A horizontal toolbar surface with <code>start</code> / <code>center</code> / <code>end</code> regions; start &amp; end mirror in RTL.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">start / center / end slots</span></div>
+    <div class="demo__stage col">
+      <npt-toolbar class="stage-wide">
+        <npt-icon-button slot="start" variant="standard" label="Menu">☰</npt-icon-button>
+        <span slot="center" style="font-family:var(--npt-font-display);font-weight:700">Transfers</span>
+        <npt-icon-button slot="end" variant="tonal" label="Filter">⌗</npt-icon-button>
+        <npt-icon-button slot="end" variant="standard" label="More">⋯</npt-icon-button>
+      </npt-toolbar>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-toolbar&gt;
+  &lt;npt-icon-button slot="start" label="Menu"&gt;☰&lt;/npt-icon-button&gt;
+  &lt;span slot="center"&gt;Transfers&lt;/span&gt;
+  &lt;npt-icon-button slot="end" label="More"&gt;⋯&lt;/npt-icon-button&gt;
+&lt;/npt-toolbar&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== WALLET & PAY -->
+  <p class="cat-eyebrow">Wallet &amp; pay</p>
+
+  <!-- Quick actions -->
+  <h2 id="quick-actions">Quick actions</h2>
+  <p class="comp-desc">A responsive grid of action tiles built from <code>npt-quick-action</code>s; clicking one emits <code>select</code> with its label.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">last picked: <code id="d-quick-out">—</code></span></div>
+    <div class="demo__stage col">
+      <npt-quick-actions id="d-quick" class="stage-wide">
+        <npt-quick-action label="Send"><span slot="icon">↑</span></npt-quick-action>
+        <npt-quick-action label="Request"><span slot="icon">↓</span></npt-quick-action>
+        <npt-quick-action label="Pay bill"><span slot="icon">🧾</span></npt-quick-action>
+        <npt-quick-action label="Top up"><span slot="icon">＋</span></npt-quick-action>
+      </npt-quick-actions>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-quick-actions&gt;
+  &lt;npt-quick-action label="Send"&gt;&lt;span slot="icon"&gt;↑&lt;/span&gt;&lt;/npt-quick-action&gt;
+  &lt;npt-quick-action label="Request"&gt;&lt;span slot="icon"&gt;↓&lt;/span&gt;&lt;/npt-quick-action&gt;
+&lt;/npt-quick-actions&gt;</pre></div>
+  </div>
+
+  <!-- Merchant row -->
+  <h2 id="merchant-row">Merchant row</h2>
+  <p class="comp-desc">A transaction row with a <code>logo</code> slot (falls back to initials), category and trailing amount/time. <code>pending</code> dims it.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="pending" data-target="#d-merchant"> pending</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;border:1px solid var(--md-sys-color-outline-variant);padding:0 8px">
+        <npt-merchant-row id="d-merchant" name="Acme Groceries" category="Groceries" amount="-42.00" currency="LYD" time="14:32"></npt-merchant-row>
+        <npt-merchant-row name="Salary" category="Income" amount="+3,200.00" currency="LYD" time="09:00"></npt-merchant-row>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-merchant-row name="Acme Groceries" category="Groceries"
+  amount="-42.00" currency="LYD" time="14:32"&gt;&lt;/npt-merchant-row&gt;</pre></div>
+  </div>
+
+  <!-- Voucher card -->
+  <h2 id="voucher-card">Voucher card</h2>
+  <p class="comp-desc">A coupon visual with punched dashed-notch edges; value stub, title, code chip and expiry.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">promo / loyalty voucher</span></div>
+    <div class="demo__stage col">
+      <npt-voucher-card class="stage-panel" title="20% off your next top-up" value="−20%" code="NEPTUNE20" expiry="Exp 31 Dec">
+        Valid on wallet top-ups over 50 LYD.
+      </npt-voucher-card>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-voucher-card title="20% off" value="−20%" code="NEPTUNE20" expiry="Exp 31 Dec"&gt;
+  Valid on wallet top-ups over 50 LYD.
+&lt;/npt-voucher-card&gt;</pre></div>
+  </div>
+
+  <!-- QR pay -->
+  <h2 id="qr-pay">QR pay</h2>
+  <p class="comp-desc">Payment panel: a bordered <code>qr</code> area, the amount + merchant, and a primary <code>action</code> slot.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">scan-to-pay panel</span></div>
+    <div class="demo__stage col">
+      <npt-qr-pay class="stage-card" amount="42.00" currency="LYD" merchant="Acme Store">
+        <npt-button slot="action" variant="filled">Pay 42.00 LYD</npt-button>
+      </npt-qr-pay>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-qr-pay amount="42.00" currency="LYD" merchant="Acme Store"&gt;
+  &lt;img slot="qr" src="…" alt="QR code" /&gt;
+  &lt;npt-button slot="action" variant="filled"&gt;Pay&lt;/npt-button&gt;
+&lt;/npt-qr-pay&gt;</pre></div>
+  </div>
+
+  <!-- Top-up row -->
+  <h2 id="topup-row">Top-up row</h2>
+  <p class="comp-desc">A selectable top-up option: <code>icon</code> slot + provider label + trailing chevron (flips in RTL).</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-topup"> disable last</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="display:flex;flex-direction:column;gap:8px">
+        <npt-topup-row provider="Vodafone Cash"><span slot="icon">📱</span></npt-topup-row>
+        <npt-topup-row provider="Bank transfer"><span slot="icon">🏦</span></npt-topup-row>
+        <npt-topup-row id="d-topup" provider="Voucher code"><span slot="icon">🎟</span></npt-topup-row>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-topup-row provider="Vodafone Cash"&gt;&lt;span slot="icon"&gt;📱&lt;/span&gt;&lt;/npt-topup-row&gt;</pre></div>
+  </div>
+
+  <!-- Tier badge -->
+  <h2 id="tier-badge">Tier badge</h2>
+  <p class="comp-desc">A small premium-membership pill. Tones: gold, silver, primary, neutral.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">tone</span>
+      <select data-attr="tone" data-target="#d-tier">
+        <option value="gold">gold</option>
+        <option value="silver">silver</option>
+        <option value="primary">primary</option>
+        <option value="neutral">neutral</option>
+      </select>
+    </div>
+    <div class="demo__stage">
+      <npt-tier-badge id="d-tier" tier="Gold" tone="gold"></npt-tier-badge>
+      <npt-tier-badge tier="Silver" tone="silver"></npt-tier-badge>
+      <npt-tier-badge tier="Platinum" tone="primary"></npt-tier-badge>
+      <npt-tier-badge tier="Standard" tone="neutral"></npt-tier-badge>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-tier-badge tier="Gold" tone="gold"&gt;&lt;/npt-tier-badge&gt;</pre></div>
   </div>
 
   </div><!-- /#gallery -->

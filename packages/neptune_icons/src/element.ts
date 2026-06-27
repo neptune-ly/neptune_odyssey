@@ -12,7 +12,8 @@
 // the DOM at import time; registerIcons() is a no-op outside the browser.
 
 import { iconSvg, isIconName } from "./svg.js";
-import { brandMarkSvg, isBrandMarkName } from "./brand-marks.js";
+import { brandMarkSvg, isBrandMarkName, hasBrandMarkOverride } from "./brand-marks.js";
+import type { BrandMarkVariant, BrandMarkName } from "./brand-marks.js";
 
 const TAG = "npt-icon";
 const BRAND_TAG = "npt-brand-mark";
@@ -110,17 +111,24 @@ function brandStyleSheet(): CSSStyleSheet | null {
 }
 
 /**
- * <npt-brand-mark name="visa" height="24"></npt-brand-mark>
+ * <npt-brand-mark name="visa" height="24" variant="color"></npt-brand-mark>
  *
- * Renders a complete MULTICOLOUR third-party brand mark (identification
- * placeholder). Unlike <npt-icon> these are NOT themeable by currentColor.
+ * Renders a third-party brand mark (identification placeholder) in one of three
+ * variants:
+ *  - `color`   — multicolour (NOT themeable by currentColor). The default.
+ *  - `mono`    — flat silhouette in `currentColor` (themeable like an icon).
+ *  - `outline` — line style in `currentColor` (themeable like an icon).
+ *
+ * If an official asset was registered via registerBrandMark(), it is rendered
+ * instead of the bundled placeholder.
  *
  * Reactive attributes:
- *  - `name`   — a BrandMarkName; unknown names render nothing.
- *  - `height` — px, default 24. Width scales to preserve aspect ratio.
+ *  - `name`    — a BrandMarkName; unknown names render nothing.
+ *  - `height`  — px, default 24. Width scales to preserve aspect ratio.
+ *  - `variant` — color | mono | outline; default color.
  */
 export class NptBrandMark extends HTMLElement {
-  static observedAttributes = ["name", "height"];
+  static observedAttributes = ["name", "height", "variant"];
 
   private root: ShadowRoot;
 
@@ -151,6 +159,14 @@ export class NptBrandMark extends HTMLElement {
     this.setAttribute("height", String(v));
   }
 
+  get variant(): BrandMarkVariant {
+    const v = this.getAttribute("variant");
+    return v === "mono" || v === "outline" ? v : "color";
+  }
+  set variant(v: BrandMarkVariant) {
+    this.setAttribute("variant", v);
+  }
+
   private update(): void {
     const s = brandStyleSheet();
     if (s) this.root.adoptedStyleSheets = [s];
@@ -159,7 +175,12 @@ export class NptBrandMark extends HTMLElement {
     (this.root.host as HTMLElement).style.setProperty("--_h", `${height}px`);
 
     const name = this.name;
-    this.root.innerHTML = isBrandMarkName(name) ? brandMarkSvg(name, { height }) : "";
+    const variant = this.variant;
+    // Render known placeholders OR any name that has a registered override.
+    this.root.innerHTML =
+      isBrandMarkName(name) || hasBrandMarkOverride(name)
+        ? brandMarkSvg(name as BrandMarkName, { height, variant })
+        : "";
   }
 }
 

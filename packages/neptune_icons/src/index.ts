@@ -17,11 +17,21 @@ export type { IconSvgOptions } from "./svg.js";
 export { NptIcon, registerIcons } from "./element.js";
 
 // ── Brand marks (third-party trademarks — identification placeholders) ──
-// NOT original Neptune artwork and NOT under the Neptune Odyssey Community
-// License. See brand-marks.ts and NOTICE-brand-marks.md.
-export { BRAND_MARKS, BRAND_MARK_NAMES, brandMarkSvg, isBrandMarkName } from "./brand-marks.js";
-export type { BrandMarkName, BrandMarkOptions } from "./brand-marks.js";
+// Original simplified geometric placeholders (NOT traced from official art) and
+// NOT under the Neptune Odyssey Community License. Each renders in three
+// variants — color | mono | outline. Licensed users SHOULD swap in official
+// artwork with registerBrandMark(). See brand-marks.ts and NOTICE-brand-marks.md.
+export {
+  BRAND_MARKS,
+  BRAND_MARK_NAMES,
+  brandMarkSvg,
+  isBrandMarkName,
+  registerBrandMark,
+  unregisterBrandMark,
+  hasBrandMarkOverride,
+} from "./brand-marks.js";
+export type { BrandMarkName, BrandMarkOptions, BrandMarkVariant } from "./brand-marks.js";
 export { NptBrandMark, registerBrandMarks, register } from "./element.js";
 
 /** Semantic version of the icon family (kept in lockstep with package.json). */
-export const ICONS_VERSION = "2.1.0";
+export const ICONS_VERSION = "2.2.0";

@@ -147,6 +147,15 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
   <div class="dcard" style="border-color:color-mix(in oklab,var(--brand-coral) 40%,var(--line));background:color-mix(in oklab,var(--brand-coral) 5%,#fff)">
     <strong>⚠︎ Third-party trademarks.</strong> These are simplified <b>identification marks / placeholders</b>, owned by their respective brands and <b>not</b> covered by the Neptune Odyssey license. In production, use each brand's <b>official assets</b> per their guidelines. The Libyan marks (NUMO, Moamalat, LyPay, OnePay…) are neutral placeholders to replace with official artwork.
   </div>
+  <div class="toolbar__group" style="margin-top:16px">
+    <span>Variant</span>
+    <span class="swatch-seg" id="brandVariantSeg" role="group" aria-label="Brand mark variant">
+      <button type="button" data-variant="color" aria-pressed="true">Colour</button>
+      <button type="button" data-variant="mono" aria-pressed="false">Mono</button>
+      <button type="button" data-variant="outline" aria-pressed="false">Outline</button>
+    </span>
+  </div>
+  <p class="count">Colour shows brand colours · mono &amp; outline ink with <code>currentColor</code> (themeable). Click a mark to copy its element.</p>
   <div id="brandgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px"></div>
 
   <div class="dgrid" style="margin-top:30px">
@@ -163,26 +172,41 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
 <script>
 // © 2026 Neptune.Fintech (neptune.ly) — render the payment/brand marks grid
 (function(){
-  function render(){
+  var variant = 'color';
+  function paint(){
     var N = window.Neptune, host = document.getElementById('brandgrid');
-    if (!host || !N || !N.BRAND_MARK_NAMES) { return setTimeout(render, 120); }
+    if (!host || !N || !N.BRAND_MARK_NAMES) { return false; }
     host.innerHTML = N.BRAND_MARK_NAMES.map(function(name){
-      var svg = ''; try { svg = N.brandMarkSvg(name, { height: 26 }); } catch (e) {}
+      var svg = ''; try { svg = N.brandMarkSvg(name, { height: 26, variant: variant }); } catch (e) {}
       return '<button type="button" class="brandcell" data-name="'+name+'" aria-label="Copy '+name+' brand mark" '+
         'style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border:1px solid var(--line);'+
         'border-radius:14px;background:var(--surface);cursor:pointer;min-height:84px;justify-content:center">'+
-        '<span style="display:flex;align-items:center;height:30px">'+svg+'</span>'+
+        '<span style="display:flex;align-items:center;height:30px;color:var(--ink-1)">'+svg+'</span>'+
         '<span style="font-size:11.5px;font-weight:600;color:var(--ink-2)">'+name+'</span></button>';
     }).join('');
+    return true;
+  }
+  function start(){
+    if (!paint()) { return setTimeout(start, 120); }
+    var host = document.getElementById('brandgrid');
     host.addEventListener('click', function(e){
       var b = e.target.closest('.brandcell'); if(!b) return;
-      var snippet = '<npt-brand-mark name="'+b.getAttribute('data-name')+'"></npt-brand-mark>';
+      var attr = variant === 'color' ? '' : ' variant="'+variant+'"';
+      var snippet = '<npt-brand-mark name="'+b.getAttribute('data-name')+'"'+attr+'></npt-brand-mark>';
       var done = function(){ var s=b.querySelector('span:last-child'); var t=s.textContent; s.textContent='Copied ✓';
         setTimeout(function(){ s.textContent=t; }, 1200); };
       if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(snippet).then(done,done); else done();
     });
+    var seg = document.getElementById('brandVariantSeg');
+    if (seg) seg.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-variant]'); if(!btn) return;
+      variant = btn.getAttribute('data-variant');
+      Array.prototype.forEach.call(seg.querySelectorAll('button'), function(x){
+        x.setAttribute('aria-pressed', String(x === btn)); });
+      paint();
+    });
   }
-  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', render); else render();
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 <script src="assets/nav.js" data-active="icons"></script>
