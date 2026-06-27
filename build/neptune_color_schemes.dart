@@ -77,7 +77,7 @@ const ColorScheme _neptuneDark = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme _andalusLight = ColorScheme(
+const ColorScheme _tritonLight = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF00774E),
   onPrimary: Color(0xFFF1FFF8),
@@ -114,7 +114,7 @@ const ColorScheme _andalusLight = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme _andalusDark = ColorScheme(
+const ColorScheme _tritonDark = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFF7DDBAE),
   onPrimary: Color(0xFF00250E),
@@ -151,7 +151,7 @@ const ColorScheme _andalusDark = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme _nuranLight = ColorScheme(
+const ColorScheme _nereidLight = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF6F4CC6),
   onPrimary: Color(0xFFFCFAFF),
@@ -188,7 +188,7 @@ const ColorScheme _nuranLight = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme _nuranDark = ColorScheme(
+const ColorScheme _nereidDark = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFFC0AAFF),
   onPrimary: Color(0xFF20014C),
@@ -225,7 +225,7 @@ const ColorScheme _nuranDark = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme _fglbLight = ColorScheme(
+const ColorScheme _proteusLight = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF004F8F),
   onPrimary: Color(0xFFF2FDFF),
@@ -262,7 +262,7 @@ const ColorScheme _fglbLight = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme _fglbDark = ColorScheme(
+const ColorScheme _proteusDark = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFF7DBDFB),
   onPrimary: Color(0xFF001036),
@@ -302,7 +302,7 @@ const ColorScheme _fglbDark = ColorScheme(
 /// Brand id → (light, dark) ColorScheme. Drive the app theme from this map.
 const Map<String, (ColorScheme light, ColorScheme dark)> neptuneSchemes = {
   'neptune': (_neptuneLight, _neptuneDark),
-  'andalus': (_andalusLight, _andalusDark),
-  'nuran': (_nuranLight, _nuranDark),
-  'fglb': (_fglbLight, _fglbDark),
+  'triton': (_tritonLight, _tritonDark),
+  'nereid': (_nereidLight, _nereidDark),
+  'proteus': (_proteusLight, _proteusDark),
 };

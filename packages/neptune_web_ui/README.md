@@ -24,7 +24,7 @@ import "@neptune.fintech/web-ui/styles.css"; // ships themes.css + system.css
 import { applyTheme, registerAll } from "@neptune.fintech/web-ui";
 
 registerAll();                                       // define the custom elements
-applyTheme(document.documentElement, "andalus", { mode: "system", dir: "auto" });
+applyTheme(document.documentElement, "triton", { mode: "system", dir: "auto" });
 ```
 
 ```html

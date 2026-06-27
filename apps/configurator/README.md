@@ -25,7 +25,7 @@ Or, inside `apps/configurator/`: `pnpm dev`.
 
 ## The brandprint workflow
 
-1. **Start from a reference brand** (`neptune` / `andalus` / `nuran` / `fglb`) to
+1. **Start from a reference brand** (`neptune` / `triton` / `nereid` / `proteus`) to
    load its config into the controls.
 2. **Tune** the inputs:
    - Primary & tertiary **OKLCH seeds** (L / C / H sliders, live swatch).

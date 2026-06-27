@@ -23,7 +23,7 @@ import { NeptuneProvider, NptBalanceCard, NptButton } from "@neptune.fintech/rea
 
 export function App() {
   return (
-    <NeptuneProvider theme="andalus" mode="system" dir="auto">
+    <NeptuneProvider theme="triton" mode="system" dir="auto">
       <NptBalanceCard hero label="Available balance" amount="12,480.50" currency="LYD" />
       <NptButton variant="filled">New transfer</NptButton>
     </NeptuneProvider>

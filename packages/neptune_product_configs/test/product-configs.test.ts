@@ -3,7 +3,7 @@ import { getProductConfig, isFeatureEnabled, enabledFeatures } from "../src/inde
 
 describe("@neptune.fintech/product-configs", () => {
   it("wallet flavor enables wallet features; retail does not", () => {
-    expect(isFeatureEnabled("nuran-wallet", "wallet")).toBe(true);
+    expect(isFeatureEnabled("nereid-wallet", "wallet")).toBe(true);
     expect(isFeatureEnabled("neptune-retail", "wallet")).toBe(false);
   });
 
@@ -26,7 +26,7 @@ describe("@neptune.fintech/product-configs", () => {
   });
 
   it("enabledFeatures returns only the on flags", () => {
-    const feats = enabledFeatures("nuran-wallet");
+    const feats = enabledFeatures("nereid-wallet");
     expect(feats).toContain("wallet");
     expect(feats).not.toContain("approvals");
   });

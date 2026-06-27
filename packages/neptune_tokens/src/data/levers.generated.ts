@@ -66,7 +66,7 @@ export const BRAND_SHAPE = {
     "2xl": "44px",
     "full": "9999px"
   },
-  "andalus": {
+  "triton": {
     "xs": "12px",
     "sm": "18px",
     "md": "26px",
@@ -75,7 +75,7 @@ export const BRAND_SHAPE = {
     "2xl": "56px",
     "full": "9999px"
   },
-  "nuran": {
+  "nereid": {
     "xs": "4px",
     "sm": "8px",
     "md": "12px",
@@ -84,7 +84,7 @@ export const BRAND_SHAPE = {
     "2xl": "36px",
     "full": "9999px"
   },
-  "fglb": {
+  "proteus": {
     "xs": "6px",
     "sm": "10px",
     "md": "14px",
@@ -103,21 +103,21 @@ export const BRAND_TYPE = {
     "displayWeight": 700,
     "displayTracking": "-0.02em"
   },
-  "andalus": {
+  "triton": {
     "display": "Bricolage Grotesque",
     "text": "Hanken Grotesk",
     "num": "Hanken Grotesk",
     "displayWeight": 700,
     "displayTracking": "-0.01em"
   },
-  "nuran": {
+  "nereid": {
     "display": "Space Grotesk",
     "text": "Hanken Grotesk",
     "num": "Space Grotesk",
     "displayWeight": 600,
     "displayTracking": "-0.03em"
   },
-  "fglb": {
+  "proteus": {
     "display": "Sora",
     "text": "Hanken Grotesk",
     "num": "Sora",

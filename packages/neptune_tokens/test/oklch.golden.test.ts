@@ -37,15 +37,15 @@ function parseRoles(body: string): Record<string, { L: number; C: number; H: num
 }
 const baseSel: Record<string, string> = {
   neptune: ':root,[data-theme="neptune"]',
-  andalus: '[data-theme="andalus"]',
-  nuran: '[data-theme="nuran"]',
-  fglb: '[data-theme="fglb"]',
+  triton: '[data-theme="triton"]',
+  nereid: '[data-theme="nereid"]',
+  proteus: '[data-theme="proteus"]',
 };
 const darkSel: Record<string, string> = {
   neptune: '[data-theme="neptune"][data-mode="dark"]',
-  andalus: '[data-theme="andalus"][data-mode="dark"]',
-  nuran: '[data-theme="nuran"][data-mode="dark"]',
-  fglb: '[data-theme="fglb"][data-mode="dark"]',
+  triton: '[data-theme="triton"][data-mode="dark"]',
+  nereid: '[data-theme="nereid"][data-mode="dark"]',
+  proteus: '[data-theme="proteus"][data-mode="dark"]',
 };
 
 const chanDelta = (a: string, b: string): [number, number, number] => {

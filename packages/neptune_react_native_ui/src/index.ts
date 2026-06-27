@@ -37,4 +37,4 @@ export type {
   Palette,
 } from "@neptune.fintech/tokens";
 
-export const REACT_NATIVE_UI_VERSION = "1.0.0";
+export const REACT_NATIVE_UI_VERSION = "2.0.0";

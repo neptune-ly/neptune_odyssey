@@ -58,4 +58,4 @@ export function passesSameButDistinct(id: TenantId): boolean {
   return TENANTS[id].levers.count >= 6;
 }
 
-export const BRAND_CONFIGS_VERSION = "1.0.0";
+export const BRAND_CONFIGS_VERSION = "2.0.0";

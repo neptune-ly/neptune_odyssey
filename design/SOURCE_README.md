@@ -18,9 +18,9 @@ Four reference brands ship in the box, each moving **≥ 6 of 12** brand levers 
 | Brand | Personality | Signature |
 |-------|-------------|-----------|
 | **Neptune** | Platform core | Signal blue · soft 16px corners · Hanken Grotesk · sonar tide-rings |
-| **Andalus Bank** | Heritage · Islamic retail | Emerald + gold · organic 26px corners · Bricolage Grotesque · arcade of arches |
-| **Nuran** | Digital-first | Violet + rose · crisp 12px corners · Space Grotesk · digital light-grid |
-| **FGLB** | Premium · Gulf | Navy + gold · structured 14px corners · Sora · secure guilloché |
+| **Triton Bank** | Heritage | Emerald + gold · organic 26px corners · Bricolage Grotesque · soft arc rings |
+| **Nereid** | Digital-first | Violet + rose · crisp 12px corners · Space Grotesk · digital light-grid |
+| **Proteus** | Premium · institutional | Navy + gold · structured 14px corners · Sora · secure guilloché |
 
 A new bank is **one tenant config set**, never a fork. See `configs/`.
 
@@ -33,7 +33,7 @@ A new bank is **one tenant config set**, never a fork. See `configs/`.
 | `Neptune Wallet Web.dc.html` | Living web reference — payment-led wallet (a sibling product, not relabeled banking). |
 | `tokens/themes.css` | The theme token layer — every `--md-sys-color-*`, shape and type token, per brand, light + dark. Source of truth for values. |
 | `tokens/tokens.json` | Machine-readable token export for codegen / Style Dictionary. |
-| `configs/*.tenant.json` | Five reference tenant configs (Neptune Retail/Corporate, Andalus Retail, Nuran Wallet, FGLB Retail) + a live theme loader (`tenants.js`). |
+| `configs/*.tenant.json` | Five reference tenant configs (Neptune Retail/Corporate, Triton Retail, Nereid Wallet, Proteus Retail) + a live theme loader (`tenants.js`). |
 | `tools/brandprint.js` | The **brandprint** codec — a deterministic `NO1-…` theme string (pick levers → string → identical theme anywhere). See `docs/11`. |
 | `build/` | Generated token output — `tokens.resolved.json` (OKLCH→hex/ARGB) + Flutter `ColorScheme`s / `ThemeExtension`s. |
 | `HANDOFF_PROMPT.md` | The full build brief for Claude Code (libraries, frameworks, configurator, publish). |

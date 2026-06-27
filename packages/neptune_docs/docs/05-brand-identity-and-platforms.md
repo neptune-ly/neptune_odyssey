@@ -4,19 +4,19 @@ Neptune's promise: **every bank looks like itself, not like every other Neptune 
 
 ## The six identity levers (in order of recognisability)
 
-1. **Logomark + wordmark** — a distinct mark in the brand's display face, shown top-left of the home app bar and on auth/splash. This is the fastest "which bank am I in?" signal. *(In the reference: Neptune trident, Andalus arch, Nuran star, FGLB hexagon shield.)*
-2. **Signature motif** — the per-brand CSS texture behind heroes/cards (`--npt-motif` + `--npt-hero-emblem`): Neptune sonar rings, Andalus heritage arches, Nuran light-grid, FGLB concentric gulf. Carries the brand even with the logo off-screen.
+1. **Logomark + wordmark** — a distinct mark in the brand's display face, shown top-left of the home app bar and on auth/splash. This is the fastest "which bank am I in?" signal. *(In the reference: Neptune trident, Triton arch, Nereid star, Proteus hexagon shield.)*
+2. **Signature motif** — the per-brand CSS texture behind heroes/cards (`--npt-motif` + `--npt-hero-emblem`): Neptune sonar rings, Triton soft arcs, Nereid light-grid, Proteus concentric rings. Carries the brand even with the logo off-screen.
 3. **Colour** — full M3 tonal palette from the brand seed (light + dark), not just a primary swap.
 4. **Shape** — the corner-radius family (crisp → organic). Reshapes every card, button, sheet.
 5. **Type** — display + Arabic display face. The headline voice.
-6. **Motion & voice** — spring feel + copy tone (Andalus warm/heritage, Nuran precise/digital, FGLB formal/premium).
+6. **Motion & voice** — spring feel + copy tone (Triton warm/calm, Nereid precise/digital, Proteus formal/premium).
 
 **Rule:** a new brand must move **at least levers 1–4**. Colour-only is forbidden — that's the template trap we exist to kill.
 
 ## Onboarding a new bank — checklist
 
 1. **Seed & palette** — brand primary (OKLCH) + tertiary accent → generate full role set, light + dark (see `03-theming-white-label.md`).
-2. **Shape family** — pick xs…2xl to match personality (digital=tight, heritage=generous).
+2. **Shape family** — pick xs…2xl to match personality (digital=tight, coastal=generous).
 3. **Type** — display + text + Arabic display (`-ar`) faces; set display weight/tracking.
 4. **Logomark** — author the mark (24×24, stroke-based to inherit colour) + wordmark string.
 5. **Motif + emblem** — design the signature texture (pure CSS gradients, `currentColor`).
@@ -28,7 +28,7 @@ Neptune's promise: **every bank looks like itself, not like every other Neptune 
 
 The same component kit assembles into two distinct products. Selected at build/flavour time (`ProductMode`), never a user toggle.
 
-### Banking (a licensed bank — NUB, Andalus, Nuran, FGLB…)
+### Banking (a licensed bank — NUB, Triton, Nereid, Proteus…)
 - **Identity:** full brand (all six levers), formal/secure tone.
 - **Home:** multi-account carousel, IBAN, "Total balance".
 - **Lead actions:** Send · Request · Pay bill · Scan & Pay.

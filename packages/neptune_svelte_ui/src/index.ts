@@ -11,4 +11,4 @@ export { applyTheme, registerAll } from "@neptune.fintech/web-ui";
 export type { ThemeInput, ModeOption, DirOption, NeptuneTheme } from "@neptune.fintech/web-ui";
 export { buildTheme, brandprintFor, encode, decode } from "@neptune.fintech/tokens";
 
-export const SVELTE_UI_VERSION = "1.0.0";
+export const SVELTE_UI_VERSION = "2.0.0";

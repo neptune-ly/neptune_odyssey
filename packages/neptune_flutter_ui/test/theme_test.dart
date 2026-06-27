@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
 
-const _goldenAndalus = 'NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA';
+const _goldenTriton = 'NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA';
 
 void main() {
   group('NeptuneTheme', () {
-    test('light(andalus) builds with correct M3 colors + extensions', () {
-      final theme = NeptuneTheme.light('andalus');
+    test('light(triton) builds with correct M3 colors + extensions', () {
+      final theme = NeptuneTheme.light('triton');
       expect(theme.useMaterial3, isTrue);
       expect(theme.colorScheme.brightness, Brightness.light);
       expect(theme.colorScheme.primary.toARGB32(), 0xFF00774E);
@@ -19,16 +19,16 @@ void main() {
       expect(theme.extension<NptMotion>(), isNotNull);
     });
 
-    test('dark(andalus) builds with dark scheme', () {
-      final theme = NeptuneTheme.dark('andalus');
+    test('dark(triton) builds with dark scheme', () {
+      final theme = NeptuneTheme.dark('triton');
       expect(theme.colorScheme.brightness, Brightness.dark);
       expect(theme.colorScheme.primary.toARGB32(), 0xFF7DDBAE);
     });
 
-    test('fromBrandprint(goldenAndalus) == light(andalus) primary', () {
+    test('fromBrandprint(goldenTriton) == light(triton) primary', () {
       final fromBp =
-          NeptuneTheme.fromBrandprint(_goldenAndalus, brightness: Brightness.light);
-      final fromBrand = NeptuneTheme.light('andalus');
+          NeptuneTheme.fromBrandprint(_goldenTriton, brightness: Brightness.light);
+      final fromBrand = NeptuneTheme.light('triton');
       expect(fromBp.colorScheme.primary.toARGB32(),
           fromBrand.colorScheme.primary.toARGB32());
       // The brandprint resolves to the pinned reference scheme, so the whole
@@ -71,7 +71,7 @@ void main() {
     testWidgets('widgets render under the theme (LTR + RTL)', (tester) async {
       for (final dir in [TextDirection.ltr, TextDirection.rtl]) {
         await tester.pumpWidget(MaterialApp(
-          theme: NeptuneTheme.light('nuran'),
+          theme: NeptuneTheme.light('nereid'),
           home: Directionality(
             textDirection: dir,
             child: Scaffold(

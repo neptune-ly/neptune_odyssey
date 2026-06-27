@@ -105,11 +105,25 @@
 
   /* ── Frameworks ────────────────────────────────────────────────────────── */
   .frameworks{margin-top:56px}
-  .fwgrid{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-  .fw{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:14px;border:1px solid var(--line);
-    background:var(--surface);font-weight:700;font-size:14px;color:var(--brand-navy)}
-  .fw b{color:var(--brand-coral)}
-  .fw.soon{color:var(--ink-3);font-weight:600}
+  .installgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:22px}
+  .inst{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+  .inst__head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .inst__name{font-family:var(--rounded);font-weight:800;font-size:15px;color:var(--brand-navy)}
+  .inst__tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);
+    background:var(--bg-2);border-radius:999px;padding:3px 9px}
+  .inst__cmd{display:flex;align-items:center;gap:8px;background:#0b1f38;border-radius:11px;padding:10px 12px;overflow:hidden}
+  .inst__cmd code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;color:#cfe3ff;
+    white-space:nowrap;overflow-x:auto;flex:1;scrollbar-width:none}
+  .inst__cmd code::-webkit-scrollbar{display:none}
+  .inst__cmd code .tok{color:#7fd0ff}
+  .copy{flex:0 0 auto;border:none;cursor:pointer;border-radius:8px;padding:7px 12px;font-weight:700;font-size:12px;
+    font-family:var(--body);background:var(--brand-coral);color:#fff;transition:transform .12s ease,background .2s ease}
+  .copy:hover{transform:translateY(-1px)}
+  .copy.copied{background:var(--brand-teal)}
+  .install-note{margin-top:18px;color:var(--ink-2);font-size:13.5px;line-height:1.6}
+  .install-note code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--bg-2);
+    padding:2px 7px;border-radius:7px;color:var(--brand-navy)}
+  .install-note a{color:var(--brand-coral);font-weight:700}
 
   /* ── Footer ────────────────────────────────────────────────────────────── */
   footer{border-top:1px solid var(--line);margin-top:64px;padding:36px 0 60px;color:var(--ink-2);font-size:13.5px}
@@ -191,18 +205,19 @@
       </div>
     </section>
 
-    <section class="frameworks">
+    <section class="frameworks" id="install">
       <p class="sec-h">Ship it</p>
-      <h2 class="sec-t">One brandprint, every framework</h2>
-      <p class="sec-p">The same <code>NO1-…</code> string produces the identical theme everywhere — guaranteed by golden tests.</p>
-      <div class="fwgrid">
-        <span class="fw"><b>Flutter</b> · pub.dev</span>
-        <span class="fw"><b>Web</b> · custom elements</span>
-        <span class="fw"><b>Svelte</b></span>
-        <span class="fw"><b>Vue 3</b></span>
-        <span class="fw"><b>React</b></span>
-        <span class="fw soon">React Native · roadmap</span>
-        <span class="fw soon">Kotlin Multiplatform · roadmap</span>
+      <h2 class="sec-t">Install — one brandprint, every framework</h2>
+      <p class="sec-p">The same <code>NO1-…</code> string produces the identical theme everywhere. Pick your stack and copy:</p>
+
+      <div class="installgrid" id="installgrid">
+        <!-- cards injected by script (so each gets a working Copy button) -->
+      </div>
+
+      <div class="install-note">
+        Published on npm under <a href="https://www.npmjs.com/org/neptune.fintech" target="_blank" rel="noopener"><b>@neptune.fintech</b></a>.
+        Then theme it: <code>applyTheme(root, "neptune")</code> · <code>NeptuneTheme.light('neptune')</code> — or paste a brandprint from the
+        <a href="configurator/">theme builder</a>.
       </div>
     </section>
 
@@ -210,7 +225,7 @@
       <div class="frow">
         <div>
           <span class="logo" style="font-size:20px">Neptune<span class="dot" style="width:6px;height:6px"></span><small style="font-size:10px">Odyssey</small></span>
-          <div class="lic"><b>© 2026 Neptune.Fintech</b> — Financial Technology &amp; Solutions. Neptune Odyssey is source-available under the <b>Neptune Odyssey Community License v1.0</b>: free for non-commercial use and organisations under USD&nbsp;$25k/yr; a commercial licence is required above that. “Neptune Odyssey” and “Neptune.Fintech” are marks of the Licensor. The reference brands (neptune/andalus/nuran/fglb) are illustrations only.</div>
+          <div class="lic"><b>© 2026 Neptune.Fintech</b> — Financial Technology &amp; Solutions. Neptune Odyssey is source-available under the <b>Neptune Odyssey Community License v1.0</b>: free for non-commercial use and organisations under USD&nbsp;$25k/yr; a commercial licence is required above that. “Neptune Odyssey” and “Neptune.Fintech” are marks of the Licensor. The reference brands (neptune/triton/nereid/proteus) are illustrations only.</div>
         </div>
         <div class="flinks">
           <a href="https://github.com/neptune-ly/neptune_odyssey" target="_blank" rel="noopener">GitHub</a>
@@ -225,7 +240,7 @@
   <script>
     // four-brand swatch row — reads the real design tokens by flipping data-theme on a hidden probe
     (function(){
-      var brands=[['neptune','Neptune'],['andalus','Andalus'],['nuran','Nuran'],['fglb','FGLB']];
+      var brands=[['neptune','Neptune'],['triton','Triton'],['nereid','Nereid'],['proteus','Proteus']];
       var link=document.createElement('link');link.rel='stylesheet';link.href='tokens/themes.css';document.head.appendChild(link);
       var host=document.getElementById('swatches');
       var done=false;
@@ -233,7 +248,7 @@
         if(done) return;
         var probe=document.createElement('div');probe.style.display='none';document.body.appendChild(probe);
         // verify themes.css is actually applied before committing
-        probe.setAttribute('data-theme','andalus');probe.setAttribute('data-mode','light');
+        probe.setAttribute('data-theme','triton');probe.setAttribute('data-mode','light');
         var test=getComputedStyle(probe).getPropertyValue('--md-sys-color-primary').trim();
         if(test.indexOf('162')<0 && test.indexOf('a7')<0 && test.indexOf('77')<0){ probe.remove(); return; } // not loaded yet
         done=true; host.innerHTML='';
@@ -251,6 +266,38 @@
       link.addEventListener('load',paint);
       var tries=0,iv=setInterval(function(){ paint(); if(done||++tries>30) clearInterval(iv); },120);
       paint();
+    })();
+
+    // Install cards + one-click copy
+    (function(){
+      var pkgs=[
+        ['Core','tokens · color + brandprint','npm i @neptune.fintech/tokens'],
+        ['Web','custom elements + applyTheme','npm i @neptune.fintech/web-ui'],
+        ['React','provider + useNeptuneTheme','npm i @neptune.fintech/react-ui react'],
+        ['Vue 3','provider + typed wrappers','npm i @neptune.fintech/vue-ui vue'],
+        ['Svelte','use:theme action','npm i @neptune.fintech/svelte-ui svelte'],
+        ['React Native','native components','npm i @neptune.fintech/react-native-ui react react-native'],
+        ['Flutter','ThemeData + widgets','flutter pub add neptune_flutter_ui'],
+        ['Configs','tenants + feature flags','npm i @neptune.fintech/brand-configs @neptune.fintech/product-configs'],
+      ];
+      var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+      var grid=document.getElementById('installgrid');
+      if(!grid) return;
+      grid.innerHTML=pkgs.map(function(p){
+        return '<div class="inst"><div class="inst__head"><span class="inst__name">'+esc(p[0])+'</span>'+
+          '<span class="inst__tag">'+esc(p[1])+'</span></div>'+
+          '<div class="inst__cmd"><code>'+esc(p[2])+'</code>'+
+          '<button class="copy" type="button" data-cmd="'+esc(p[2])+'" aria-label="Copy '+esc(p[0])+' install command">Copy</button></div></div>';
+      }).join('');
+      grid.addEventListener('click',function(e){
+        var b=e.target.closest('.copy'); if(!b) return;
+        var cmd=b.getAttribute('data-cmd');
+        var done=function(){ b.textContent='Copied!'; b.classList.add('copied');
+          setTimeout(function(){ b.textContent='Copy'; b.classList.remove('copied'); },1400); };
+        if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(cmd).then(done,done); }
+        else { var ta=document.createElement('textarea'); ta.value=cmd; document.body.appendChild(ta); ta.select();
+          try{document.execCommand('copy');}catch(_){} ta.remove(); done(); }
+      });
     })();
   </script>
 </body>

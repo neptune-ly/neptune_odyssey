@@ -43,7 +43,7 @@ The platform is **multi-tenant by configuration, not by fork.** Eight layers:
 | **G · Layout Density** | comfortable/compact mobile, retail-web standard, corporate-web dense, executive, ops table-heavy | per product |
 | **H · Platform Adapter** | Flutter tokens/ThemeExtension/widgets, web CSS vars/components, Figma vars, Storybook, QA specs | per platform |
 
-**Config artifacts** (one set per tenant): `tenant.config.json`, `brand.tokens.json`, `product-flavor.config.json`, `features.config.json`, `content.en.json`, `content.ar.json`, `compliance.config.json`, `platform-overrides.flutter.json`, `platform-overrides.web.json`. Author 5 reference sets: Neptune Retail, Neptune Corporate, Andalus Retail, Nuran Wallet, FGLB Retail.
+**Config artifacts** (one set per tenant): `tenant.config.json`, `brand.tokens.json`, `product-flavor.config.json`, `features.config.json`, `content.en.json`, `content.ar.json`, `compliance.config.json`, `platform-overrides.flutter.json`, `platform-overrides.web.json`. Author 5 reference sets: Neptune Retail, Neptune Corporate, Triton Retail, Nereid Wallet, Proteus Retail.
 
 ## 5. The Same-but-Distinct rule (non-negotiable)
 
@@ -60,9 +60,9 @@ This rule is what makes the platform sellable many times without looking sold-ma
 | Brand | Personality | Color | Motif | Shape | Motion |
 |---|---|---|---|---|---|
 | **Neptune** | oceanic, premium, confident, calm, futuristic | deep blue + aqua | trident / tide-rings / depth | soft 16px | smooth, confident, fluid |
-| **Andalus** | warm, heritage, Mediterranean, human | emerald + warm neutral/gold | arches / Islamic geometry | organic 26px | calm, graceful |
-| **Nuran** | light, digital, youthful, optimistic | violet + luminous white | star / spark | crisp 12px | light, quick, crisp |
-| **FGLB** | institutional, secure, corporate, stable | navy + gold + neutral | shield / hexagon | structured 14px | stable, minimal, authoritative |
+| **Triton** | warm, fresh, calm, human | emerald + warm neutral/gold | arches / concentric arcs | organic 26px | calm, graceful |
+| **Nereid** | light, digital, youthful, optimistic | violet + luminous white | star / spark | crisp 12px | light, quick, crisp |
+| **Proteus** | institutional, secure, corporate, stable | navy + gold + neutral | shield / hexagon | structured 14px | stable, minimal, authoritative |
 
 Each documents: brand story, color/type/shape/motion tokens, surface recipes, card art, empty states, login, mobile home hero, web dashboard hero, icon accent, illustration direction, *what can change* vs *what must stay consistent*.
 
@@ -101,7 +101,7 @@ Each documents: purpose, anatomy, variants, states, tokens, a11y, RTL, mobile, w
 
 ## 12. Motion
 
-M3E principles + Neptune personality. Motion clarifies hierarchy, guides attention, confirms actions, feels premium, **never slows a banking task**, and **respects reduced-motion**. Define durations, easings, page/sheet transitions, card reveal, balance mask/unmask, payment success/failure, QR↔NFC switch, approval transition, batch-validation animation, skeletons. Personalities: Neptune *smooth/fluid* · Andalus *calm/graceful* · Nuran *light/crisp* · FGLB *stable/authoritative*.
+M3E principles + Neptune personality. Motion clarifies hierarchy, guides attention, confirms actions, feels premium, **never slows a banking task**, and **respects reduced-motion**. Define durations, easings, page/sheet transitions, card reveal, balance mask/unmask, payment success/failure, QR↔NFC switch, approval transition, batch-validation animation, skeletons. Personalities: Neptune *smooth/fluid* · Triton *calm/graceful* · Nereid *light/crisp* · Proteus *stable/authoritative*.
 
 ## 13. Accessibility & RTL
 

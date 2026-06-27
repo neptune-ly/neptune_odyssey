@@ -20,7 +20,7 @@ light/dark × LTR/RTL across the product types · [**Theme builder**](https://ne
 > required above that. Keep the attribution; don't pass it off as your own; don't use the
 > Neptune.Fintech marks. This is how the project stays **public yet protected**.
 
-The four example brands — `neptune`, `andalus`, `nuran`, `fglb` — are **reference
+The four example brands — `neptune`, `triton`, `nereid`, `proteus` — are **reference
 illustrations only**. They exist to prove the white-label engine (the same-but-distinct
 rule: every brand moves ≥ 6 of 12 levers). They are not real partner products and convey
 no rights. The system itself belongs to no bank — it is Neptune.Fintech's platform.
@@ -32,7 +32,7 @@ colours, shape, type and the five expression levers in the configurator → copy
 brandprint → paste it into any Odyssey library and get the **identical** theme.
 
 ```
-NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA   →   the Andalus reference theme, everywhere
+NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA   →   the Triton reference theme, everywhere
 ```
 
 Same string ⇒ same theme on every platform. That guarantee is enforced by golden tests.
@@ -60,15 +60,15 @@ All JS/TS packages are **live on npm** under [`@neptune.fintech`](https://www.np
 
 ```ts
 // web / svelte / vue
-applyTheme(root, "andalus", { mode: "system", dir: "auto" }); // 1 · reference brand id
+applyTheme(root, "triton", { mode: "system", dir: "auto" }); // 1 · reference brand id
 applyTheme(root, "NO1-AYB4AK…");                               // 2 · brandprint string
 applyTheme(root, { primary:{L,C,H}, corners:{…}, motion:"calm-graceful", … }); // 3 · config
 ```
 ```dart
 // flutter
 MaterialApp(
-  theme: NeptuneTheme.light('andalus'),
-  darkTheme: NeptuneTheme.dark('andalus'),
+  theme: NeptuneTheme.light('triton'),
+  darkTheme: NeptuneTheme.dark('triton'),
   // or NeptuneTheme.fromBrandprint('NO1-…'), or NeptuneTheme.fromConfig(cfg)
 );
 ```

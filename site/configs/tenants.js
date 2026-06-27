@@ -20,26 +20,26 @@
       features: { wallet: false, vouchers: false, merchantPay: false, topUp: false, addMoney: false, qrNfc: false },
       levers: 9
     },
-    "andalus-retail": {
-      id: "andalus-retail", label: "Andalus Retail", institution: "Andalus Bank",
-      theme: "andalus", flavor: "retail", shapeScale: 1.0,
-      currency: "LYD", tier: "Andalus Gold", tone: "warm, hospitable, trusted",
+    "triton-retail": {
+      id: "triton-retail", label: "Triton Retail", institution: "Triton Bank",
+      theme: "triton", flavor: "retail", shapeScale: 1.0,
+      currency: "LYD", tier: "Triton Gold", tone: "warm, hospitable, trusted",
       balanceLabel: "Available balance", primaryCta: "New transfer",
       features: { wallet: false, vouchers: false, merchantPay: false, topUp: false, addMoney: true, qrNfc: true },
       levers: 9
     },
-    "nuran-wallet": {
-      id: "nuran-wallet", label: "Nuran Wallet", institution: "Nuran",
-      theme: "nuran", flavor: "wallet", shapeScale: 1.0,
-      currency: "LYD", tier: "Nuran Plus", tone: "light, optimistic, instant",
+    "nereid-wallet": {
+      id: "nereid-wallet", label: "Nereid Wallet", institution: "Nereid",
+      theme: "nereid", flavor: "wallet", shapeScale: 1.0,
+      currency: "LYD", tier: "Nereid Plus", tone: "light, optimistic, instant",
       balanceLabel: "Wallet balance", primaryCta: "Add money",
       features: { wallet: true, vouchers: true, merchantPay: true, topUp: true, addMoney: true, qrNfc: true },
       levers: 10
     },
-    "fglb-retail": {
-      id: "fglb-retail", label: "FGLB Retail", institution: "First Gulf Libyan Bank",
-      theme: "fglb", flavor: "retail", shapeScale: 1.0,
-      currency: "LYD", tier: "FGLB Premier", tone: "formal, secure, authoritative",
+    "proteus-retail": {
+      id: "proteus-retail", label: "Proteus Retail", institution: "Proteus",
+      theme: "proteus", flavor: "retail", shapeScale: 1.0,
+      currency: "LYD", tier: "Proteus Premier", tone: "formal, secure, authoritative",
       balanceLabel: "Available balance", primaryCta: "New transfer",
       features: { wallet: false, vouchers: false, merchantPay: false, topUp: false, addMoney: true, qrNfc: true },
       levers: 9

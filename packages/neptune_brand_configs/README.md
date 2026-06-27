@@ -5,7 +5,7 @@ The five reference **tenant configs** for [Neptune Odyssey](https://neptune.ly) 
 A new bank is **one tenant config — never a fork**.
 
 > Source-available under the **Neptune Odyssey Community License v1.0** (see `LICENSE`).
-> The example tenants (Neptune Retail/Corporate, Andalus, Nuran, FGLB) are reference
+> The example tenants (Neptune Retail/Corporate, Triton, Nereid, Proteus) are reference
 > illustrations only — they demonstrate the same-but-distinct rule (≥6 of 12 levers).
 
 ## Install
@@ -23,7 +23,7 @@ import { applyTheme } from "@neptune.fintech/web-ui";
 for (const t of listTenants()) console.log(t.id, t.brand, t.flavor, t.leversMoved);
 
 // theme any library from a tenant id — same brandprint everywhere
-applyTheme(document.documentElement, themeInputForTenant("andalus-retail"), { mode: "system" });
+applyTheme(document.documentElement, themeInputForTenant("triton-retail"), { mode: "system" });
 ```
 
 `getTenant(id)` returns the full config (brand levers, product flavor, feature flags,

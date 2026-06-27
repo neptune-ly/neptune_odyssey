@@ -44,7 +44,7 @@ Every component is theme-driven and ships in light/dark, LTR/RTL. Anatomy + stat
 ## Product modes — Banking vs Wallet
 
 One app, two product personalities (a build/launch switch, not a runtime user toggle):
-- **Banking** (NUB, Andalus, Nuran, FGLB…): multi-account carousel, IBAN, transfers (incl. SWIFT/Western Union), full card management. Quick actions lead with **Send · Request · Pay bill · Scan & Pay**.
+- **Banking** (NUB, Triton, Nereid, Proteus…): multi-account carousel, IBAN, transfers (incl. SWIFT/Western Union), full card management. Quick actions lead with **Send · Request · Pay bill · Scan & Pay**.
 - **Wallet** (a fintech wallet product): single **Wallet balance** hero with a prominent **Add money** CTA on the card; quick actions lead with **Top up**. Both have cards.
 The two share 100% of components — only the home composition, hero caption and lead actions differ. Implement as a `ProductMode` enum that selects a layout config, never a fork.
 

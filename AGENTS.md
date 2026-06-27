@@ -18,7 +18,7 @@ If a bank wants to look different, that is a theme change — not a component fo
 
 ## Source of truth
 
-1. `tokens/themes.css` — exact values for every `--md-sys-color-*`, corner and font, per brand (neptune/andalus/nuran/fglb), light + dark.
+1. `tokens/themes.css` — exact values for every `--md-sys-color-*`, corner and font, per brand (neptune/triton/nereid/proteus), light + dark.
 2. `tokens/tokens.json` — same data, structured for codegen.
 3. `Neptune Design System.dc.html` (mobile), `Neptune Web Banking.dc.html` (web), `Neptune Wallet Web.dc.html` (wallet) — the visual contract. If your build doesn't match them, your build is wrong.
 4. `configs/*.tenant.json` — the five reference tenants. A bank is one config set, never a fork.

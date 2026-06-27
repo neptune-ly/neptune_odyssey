@@ -427,7 +427,7 @@ select.wl-sel{appearance:none;-webkit-appearance:none}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:880}}">
 class Component extends DCLogic {
-  state = { mode:'light', dir:'ltr', tenant:'nuran-wallet', authed:false, nav:'home',
+  state = { mode:'light', dir:'ltr', tenant:'nereid-wallet', authed:false, nav:'home',
     masked:false, payTab:'qr', sendMode:'send', addOpen:false, amount:'', toSel:0, op:0, topupSel:'10',
     actFilter:'all', addSrc:0, phone:'', pin:'', toast:'' };
 
@@ -435,12 +435,12 @@ class Component extends DCLogic {
     return (typeof window!=='undefined' && window.NEPTUNE_TENANTS) ? window.NEPTUNE_TENANTS : {
       'neptune-retail':{id:'neptune-retail',label:'Neptune Retail',institution:'Neptune Holdings LY',theme:'neptune',currency:'LYD',tier:'Neptune Member',balanceLabel:'Available balance',features:{vouchers:true,merchantPay:false,topUp:false},levers:7},
       'neptune-corporate':{id:'neptune-corporate',label:'Neptune Corporate',institution:'Neptune Holdings LY',theme:'neptune',currency:'LYD',tier:'Admin · Maker',balanceLabel:'Total position',features:{vouchers:false,merchantPay:false,topUp:false},levers:9},
-      'andalus-retail':{id:'andalus-retail',label:'Andalus Retail',institution:'Andalus Bank',theme:'andalus',currency:'LYD',tier:'Andalus Gold',balanceLabel:'Available balance',features:{vouchers:false,merchantPay:false,topUp:false},levers:9},
-      'nuran-wallet':{id:'nuran-wallet',label:'Nuran Wallet',institution:'Nuran',theme:'nuran',currency:'LYD',tier:'Nuran Plus',balanceLabel:'Wallet balance',features:{vouchers:true,merchantPay:true,topUp:true},levers:10},
-      'fglb-retail':{id:'fglb-retail',label:'FGLB Retail',institution:'First Gulf Libyan Bank',theme:'fglb',currency:'LYD',tier:'FGLB Premier',balanceLabel:'Available balance',features:{vouchers:false,merchantPay:false,topUp:false},levers:9}
+      'triton-retail':{id:'triton-retail',label:'Triton Retail',institution:'Triton Bank',theme:'triton',currency:'LYD',tier:'Triton Gold',balanceLabel:'Available balance',features:{vouchers:false,merchantPay:false,topUp:false},levers:9},
+      'nereid-wallet':{id:'nereid-wallet',label:'Nereid Wallet',institution:'Nereid',theme:'nereid',currency:'LYD',tier:'Nereid Plus',balanceLabel:'Wallet balance',features:{vouchers:true,merchantPay:true,topUp:true},levers:10},
+      'proteus-retail':{id:'proteus-retail',label:'Proteus Retail',institution:'Proteus Bank',theme:'proteus',currency:'LYD',tier:'Proteus Premier',balanceLabel:'Available balance',features:{vouchers:false,merchantPay:false,topUp:false},levers:9}
     };
   }
-  tn(){ const t=this.tenants(); return t[this.state.tenant]||t['nuran-wallet']; }
+  tn(){ const t=this.tenants(); return t[this.state.tenant]||t['nereid-wallet']; }
 
   icon(name, size=20, sw=1.8){
     const P=d=>['path',{d}], C=(cx,cy,r)=>['circle',{cx,cy,r}], L=(x1,y1,x2,y2)=>['line',{x1,y1,x2,y2}], R=(x,y,w,h,rx)=>['rect',{x,y,width:w,height:h,rx}];
@@ -478,9 +478,9 @@ class Component extends DCLogic {
       check:[P('M20 6 9 17l-5-5')],
       bank:[L(3,21,21,21),L(4,10,4,17),L(9,10,9,17),L(15,10,15,17),L(20,10,20,17),P('M12 3 21 8H3z')],
       markNeptune:[P('M12 2v20'),P('M6 6c0 5 6 5 6 10'),P('M18 6c0 5-6 5-6 10'),L(5,21,19,21)],
-      markAndalus:[P('M5 21V12a7 7 0 0 1 14 0v9'),P('M12 21v-7'),L(4,21,20,21)],
-      markNuran:[P('M12 2l2.4 6.2L21 9l-5 4 1.6 7L12 16.6 6.4 20 8 13 3 9l6.6-.8z')],
-      markFglb:[P('M12 2l8 4.5v9L12 22 4 15.5v-9z'),P('M12 7v10'),P('M8 9.2v5.6'),P('M16 9.2v5.6')],
+      markTriton:[P('M5 21V12a7 7 0 0 1 14 0v9'),P('M12 21v-7'),L(4,21,20,21)],
+      markNereid:[P('M12 2l2.4 6.2L21 9l-5 4 1.6 7L12 16.6 6.4 20 8 13 3 9l6.6-.8z')],
+      markProteus:[P('M12 2l8 4.5v9L12 22 4 15.5v-9z'),P('M12 7v10'),P('M8 9.2v5.6'),P('M16 9.2v5.6')],
     };
     const parts=(d[name]||[]).map((p,i)=>{const[t,a]=p;return React.createElement(t,{key:i,...(typeof a==='string'?{d:a}:a)});});
     return React.createElement('svg',{width:size,height:size,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:sw,strokeLinecap:'round',strokeLinejoin:'round'},parts);
@@ -589,7 +589,7 @@ class Component extends DCLogic {
       flashSplit:()=>this.flash('New split request started'),
 
       // topup
-      operators:[{name:'Almadar',icon:'phone'},{name:'Libyana',icon:'phone'},{name:'Madar',icon:'phone'}].map((o,i)=>({name:o.name,iconEl:mk(o.icon,18),pick:()=>this.setState({op:i}),
+      operators:[{name:'Mobile A',icon:'phone'},{name:'Mobile B',icon:'phone'},{name:'Madar',icon:'phone'}].map((o,i)=>({name:o.name,iconEl:mk(o.icon,18),pick:()=>this.setState({op:i}),
         bg:this.state.op===i?'var(--md-sys-color-primary-container)':'var(--md-sys-color-surface-container)', fg:'var(--md-sys-color-on-surface)', bd:this.state.op===i?'var(--md-sys-color-primary)':'var(--md-sys-color-outline-variant)',
         dotBg:this.state.op===i?'var(--md-sys-color-primary)':'var(--md-sys-color-surface-container-high)', dotFg:this.state.op===i?'var(--md-sys-color-on-primary)':'var(--md-sys-color-on-surface-variant)'})),
       topupAmounts:['5','10','20','30','50','100'].map(a=>({label:a,pick:()=>this.setState({topupSel:a}),
@@ -602,7 +602,7 @@ class Component extends DCLogic {
         {name:'Jumia',sub:'Online shopping',value:'25 LYD off',exp:'30 Jun',icon:'bag',accent:'tertiary'},
         {name:'Cafe Tripoli',sub:'Dining reward',value:'1 free coffee',exp:'12 Jul',icon:'coffee',accent:'primary'},
         {name:'GoCab',sub:'Ride credit',value:'15 LYD off',exp:'05 Jul',icon:'car',accent:'secondary'},
-        {name:'Almadar',sub:'Airtime bonus',value:'10% extra',exp:'20 Jul',icon:'phone',accent:'tertiary'},
+        {name:'Mobile A',sub:'Airtime bonus',value:'10% extra',exp:'20 Jul',icon:'phone',accent:'tertiary'},
       ].map(x=>({name:x.name,sub:x.sub,value:x.value,exp:x.exp,iconEl:mk(x.icon,22),
         bg:'var(--md-sys-color-surface-container-low)', fg:'var(--md-sys-color-on-surface)',
         iconBg:'var(--md-sys-color-'+x.accent+'-container)', iconFg:'var(--md-sys-color-on-'+x.accent+'-container)',
@@ -649,7 +649,7 @@ class Component extends DCLogic {
     const data=[
       {name:'Sara Adel',sub:'Received · Today',amt:'+120.00 LYD',icon:'request',iconBg:'var(--md-sys-color-success-container)',iconFg:'var(--md-sys-color-on-success-container)',pos:true,date:'Today',pending:false},
       {name:'Al Mahaba Market',sub:'Merchant · Today',amt:'−42.00 LYD',icon:'bag',iconBg:'var(--md-sys-color-surface-container-high)',iconFg:'var(--md-sys-color-on-surface)',pos:false,date:'Today',pending:false},
-      {name:'Almadar top-up',sub:'Airtime · Yesterday',amt:'−20.00 LYD',icon:'phone',iconBg:'var(--md-sys-color-surface-container-high)',iconFg:'var(--md-sys-color-on-surface)',pos:false,date:'Yest.',pending:false},
+      {name:'Mobile A top-up',sub:'Airtime · Yesterday',amt:'−20.00 LYD',icon:'phone',iconBg:'var(--md-sys-color-surface-container-high)',iconFg:'var(--md-sys-color-on-surface)',pos:false,date:'Yest.',pending:false},
       {name:'Omar Faraj',sub:'Split request · Pending',amt:'40.00 LYD',icon:'request',iconBg:'var(--md-sys-color-tertiary-container)',iconFg:'var(--md-sys-color-on-tertiary-container)',pos:false,date:'Yest.',pending:true},
       {name:'Cafe Tripoli',sub:'QR pay · Mon',amt:'−9.50 LYD',icon:'coffee',iconBg:'var(--md-sys-color-surface-container-high)',iconFg:'var(--md-sys-color-on-surface)',pos:false,date:'Mon',pending:false},
       {name:'Add money',sub:'From Visa •••• 7281 · Mon',amt:'+200.00 LYD',icon:'plus',iconBg:'var(--md-sys-color-success-container)',iconFg:'var(--md-sys-color-on-success-container)',pos:true,date:'Mon',pending:false},

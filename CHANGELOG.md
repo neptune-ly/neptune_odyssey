@@ -3,6 +3,25 @@
 All notable changes to Neptune Odyssey are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com); the system follows [Semantic Versioning](https://semver.org) against the token layer (see `docs/09-governance-and-versioning.md`).
 
+## [2.0.0] — 2026-06-27
+
+### Changed (breaking)
+- **Renamed the three non-Neptune reference themes** to neutral, Neptune-coined demo names (after
+  Neptune's moons) so the system never ships names or identities it does not own. The example skins
+  exist purely to demonstrate white-labelling ("same component, four skins"):
+  - `andalus` → **`triton`** (emerald demo) · `nuran` → **`nereid`** (violet demo) ·
+    `fglb` → **`proteus`** (navy demo). `neptune` is unchanged.
+  - All brand ids, `[data-theme="…"]` selectors, tenant config files/ids, generated data, Flutter
+    schemes, docs and the live pages were updated. **Brandprint strings are unchanged** (they encode
+    seeds, not names), so a saved `NO1-…` still resolves identically.
+- **Removed every real-institution name and culture/region-specific framing** from the code,
+  libraries, descriptions and pages. The example tenants are reference illustrations only.
+
+### Migration
+- Replace `"andalus"`/`"nuran"`/`"fglb"` brand ids with `"triton"`/`"nereid"`/`"proteus"`
+  (e.g. `applyTheme(root, "triton")`, `NeptuneTheme.light('triton')`, `[data-theme="triton"]`).
+- 1.0.0 is deprecated on npm.
+
 ## [Unreleased]
 
 ### Added
@@ -17,8 +36,8 @@ First stable release of **Neptune Odyssey**, the Neptune.Fintech white-label ban
 
 ### Added
 - **Brand identity** — the system is now **Neptune Odyssey**, published under Neptune.Fintech. Versioning, component status and a governance gate.
-- **Four reference brands** — Neptune, Andalus, Nuran and **FGLB** (First Gulf Libyan), each a full M3 tonal palette × light/dark with its own corner family, type set, motif and hero emblem. FGLB is now first-class throughout (motif + emblem tokens added).
-- **Five reference tenant configs** (`configs/`) — Neptune Retail, Neptune Corporate, Andalus Retail, Nuran Wallet, FGLB Retail — covering all eight white-label config layers, each documenting the brand levers it moves (≥ 6 of 12). Plus a runtime registry + live theme loader (`configs/tenants.js`).
+- **Four reference brands** — Neptune, Triton, Nereid and **Proteus** (Proteus), each a full M3 tonal palette × light/dark with its own corner family, type set, motif and hero emblem. Proteus is now first-class throughout (motif + emblem tokens added).
+- **Five reference tenant configs** (`configs/`) — Neptune Retail, Neptune Corporate, Triton Retail, Nereid Wallet, Proteus Retail — covering all eight white-label config layers, each documenting the brand levers it moves (≥ 6 of 12). Plus a runtime registry + live theme loader (`configs/tenants.js`).
 - **Neptune Wallet Web** (`Neptune Wallet Web.dc.html`) — a payment-led wallet web reference (balance hero, add money, top-up, send/request, QR/NFC merchant pay, vouchers, activity, limits, linked cards), wired to the live tenant loader. A sibling product to retail web, not relabeled banking.
 - **Corporate web depth** — audit-trail screen, editable approval-matrix editor, and a repair-failed-rows flow in bulk payments.
 - **Documentation-grade reference sections** in the mobile DC — named principles, M3 state-layer + focus specs, live motion curves, the 4-pt spacing scale, an accessibility panel (contrast pairs, touch targets, checks), component anatomy, the 12-lever same-but-distinct grid, and a governance/status board.
@@ -42,7 +61,7 @@ First stable release of **Neptune Odyssey**, the Neptune.Fintech white-label ban
 ### Changed
 - Rebranded the mobile reference header/footer to Neptune Odyssey · Neptune.Fintech, with a version badge.
 - Corrected the brand count from 3 → 4 across the hero, headings and counters.
-- `CLAUDE.md` and `AGENTS.md` updated for Odyssey, FGLB and the new docs.
+- `CLAUDE.md` and `AGENTS.md` updated for Odyssey, Proteus and the new docs.
 
 ### Notes
 - All components ship **Stable** in v1.0.0 — no Beta surfaces.

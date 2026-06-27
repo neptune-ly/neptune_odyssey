@@ -12,7 +12,7 @@ import { buildTheme, decode } from "@neptune.fintech/tokens";
 describe("@neptune.fintech/brand-configs", () => {
   it("ships the 5 reference tenants", () => {
     expect(TENANT_IDS).toHaveLength(5);
-    expect(TENANT_IDS).toContain("nuran-wallet");
+    expect(TENANT_IDS).toContain("nereid-wallet");
   });
 
   it("every tenant satisfies the same-but-distinct rule (≥6 of 12 levers)", () => {
@@ -31,7 +31,7 @@ describe("@neptune.fintech/brand-configs", () => {
 
   it("listTenants returns display metadata", () => {
     const list = listTenants();
-    expect(list.find((t) => t.id === "andalus-retail")?.brand).toBe("andalus");
+    expect(list.find((t) => t.id === "triton-retail")?.brand).toBe("triton");
     expect(getTenant("neptune-corporate").productFlavor.active).toContain("corporate");
   });
 });

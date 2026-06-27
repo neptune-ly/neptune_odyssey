@@ -351,22 +351,22 @@ export const TENANTS = {
       "rule": "≥6 of 12 — PASS (distinct corporate dashboard hero + tone vs Neptune Retail)"
     }
   },
-  "andalus-retail": {
+  "triton-retail": {
     "$schema": "neptune.tenant.config/v1",
     "extends": "neptune-core@A",
     "tenant": {
-      "id": "andalus-retail",
-      "displayName": "Andalus Retail",
-      "institution": "Andalus Bank",
+      "id": "triton-retail",
+      "displayName": "Triton Retail",
+      "institution": "Triton Bank",
       "market": "LY",
       "status": "reference",
-      "note": "Heritage retail bank. Warm, rooted, Mediterranean. Same structure, fully re-skinned."
+      "note": "Retail demo brand. Warm, rooted, coastal. Same structure, fully re-skinned."
     },
     "brand": {
-      "theme": "andalus",
-      "wordmark": "Andalus Bank",
-      "shortName": "Andalus",
-      "logoMark": "markAndalus",
+      "theme": "triton",
+      "wordmark": "Triton Bank",
+      "shortName": "Triton",
+      "logoMark": "markTriton",
       "palette": {
         "primaryHue": 162,
         "tertiaryHue": 86,
@@ -393,7 +393,7 @@ export const TENANTS = {
         "2xl": 56,
         "note": "organic, larger radii"
       },
-      "motif": "heritage arcade of arches",
+      "motif": "coastal soft arc rings",
       "heroEmblem": "arch silhouette",
       "motionPersonality": "calm-graceful",
       "glassTint": "warm-amber",
@@ -446,8 +446,8 @@ export const TENANTS = {
     },
     "content": {
       "en": {
-        "loginHeadline": "Banking with heritage, built for today.",
-        "tierLabel": "Andalus Gold",
+        "loginHeadline": "Banking with coastal, built for today.",
+        "tierLabel": "Triton Gold",
         "primaryCta": "New transfer",
         "currencyName": "Libyan Dinar"
       },
@@ -484,12 +484,12 @@ export const TENANTS = {
     },
     "platformOverrides": {
       "flutter": {
-        "themeExtension": "AndalusTheme",
+        "themeExtension": "TritonTheme",
         "useMaterial3": true,
         "colorSchemeSeedHue": 162
       },
       "web": {
-        "cssVarsTheme": "andalus",
+        "cssVarsTheme": "triton",
         "sidebarWidth": 256,
         "breakpoints": {
           "sm": 600,
@@ -514,22 +514,22 @@ export const TENANTS = {
       "rule": "≥6 of 12 — PASS (emerald+gold, organic 26px corners, Bricolage/Reem Kufi, arch motif, graceful motion)"
     }
   },
-  "nuran-wallet": {
+  "nereid-wallet": {
     "$schema": "neptune.tenant.config/v1",
     "extends": "neptune-core@A",
     "tenant": {
-      "id": "nuran-wallet",
-      "displayName": "Nuran Wallet",
-      "institution": "Nuran",
+      "id": "nereid-wallet",
+      "displayName": "Nereid Wallet",
+      "institution": "Nereid",
       "market": "LY",
       "status": "reference",
       "note": "Digital-first wallet. Balance-led, payment-led, faster and lighter than banking — never relabeled banking."
     },
     "brand": {
-      "theme": "nuran",
-      "wordmark": "Nuran",
-      "shortName": "Nuran",
-      "logoMark": "markNuran",
+      "theme": "nereid",
+      "wordmark": "Nereid",
+      "shortName": "Nereid",
+      "logoMark": "markNereid",
       "palette": {
         "primaryHue": 292,
         "tertiaryHue": 350,
@@ -617,7 +617,7 @@ export const TENANTS = {
     "content": {
       "en": {
         "loginHeadline": "Pay, top up and split — in a tap.",
-        "tierLabel": "Nuran Plus",
+        "tierLabel": "Nereid Plus",
         "primaryCta": "Add money",
         "balanceLabel": "Wallet balance",
         "currencyName": "Libyan Dinar"
@@ -653,12 +653,12 @@ export const TENANTS = {
     },
     "platformOverrides": {
       "flutter": {
-        "themeExtension": "NuranTheme",
+        "themeExtension": "NereidTheme",
         "useMaterial3": true,
         "colorSchemeSeedHue": 292
       },
       "web": {
-        "cssVarsTheme": "nuran",
+        "cssVarsTheme": "nereid",
         "shell": "centered-app",
         "maxContentWidth": 1080,
         "breakpoints": {
@@ -685,22 +685,22 @@ export const TENANTS = {
       "rule": "≥6 of 12 — PASS (violet+rose, crisp 12px, Space Grotesk, light-grid motif, wallet hero — a different product entirely)"
     }
   },
-  "fglb-retail": {
+  "proteus-retail": {
     "$schema": "neptune.tenant.config/v1",
     "extends": "neptune-core@A",
     "tenant": {
-      "id": "fglb-retail",
-      "displayName": "FGLB Retail",
-      "institution": "First Gulf Libyan Bank",
+      "id": "proteus-retail",
+      "displayName": "Proteus Retail",
+      "institution": "Proteus",
       "market": "LY",
       "status": "reference",
       "note": "Institutional, secure, corporate-stable. Conservative retail with an authoritative voice."
     },
     "brand": {
-      "theme": "fglb",
-      "wordmark": "First Gulf Libyan",
-      "shortName": "FGLB",
-      "logoMark": "markFglb",
+      "theme": "proteus",
+      "wordmark": "Proteus",
+      "shortName": "Proteus",
+      "logoMark": "markProteus",
       "palette": {
         "primaryHue": 248,
         "tertiaryHue": 85,
@@ -782,7 +782,7 @@ export const TENANTS = {
     "content": {
       "en": {
         "loginHeadline": "Stability you can bank on.",
-        "tierLabel": "FGLB Premier",
+        "tierLabel": "Proteus Premier",
         "primaryCta": "New transfer",
         "currencyName": "Libyan Dinar"
       },
@@ -819,12 +819,12 @@ export const TENANTS = {
     },
     "platformOverrides": {
       "flutter": {
-        "themeExtension": "FglbTheme",
+        "themeExtension": "ProteusTheme",
         "useMaterial3": true,
         "colorSchemeSeedHue": 248
       },
       "web": {
-        "cssVarsTheme": "fglb",
+        "cssVarsTheme": "proteus",
         "sidebarWidth": 256,
         "breakpoints": {
           "sm": 600,

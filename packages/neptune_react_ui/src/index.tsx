@@ -30,7 +30,7 @@ function themeKey(input: ThemeInput): string {
  * Apply a theme to an element ref (or the document root) reactively.
  *
  * @example
- * const ref = useNeptuneTheme("andalus", { mode: "system", dir: "auto" });
+ * const ref = useNeptuneTheme("triton", { mode: "system", dir: "auto" });
  * return <main ref={ref}>…</main>;
  */
 export function useNeptuneTheme<T extends HTMLElement = HTMLElement>(
@@ -61,7 +61,7 @@ export interface NeptuneProviderProps {
 }
 
 /**
- * <NeptuneProvider theme="andalus" mode="system" dir="auto"> … </NeptuneProvider>
+ * <NeptuneProvider theme="triton" mode="system" dir="auto"> … </NeptuneProvider>
  * Wraps its children in a themed <div> and registers the custom elements on mount.
  */
 export const NeptuneProvider = forwardRef<HTMLDivElement, NeptuneProviderProps>(
@@ -118,4 +118,4 @@ export { applyTheme, registerAll } from "@neptune.fintech/web-ui";
 export type { ThemeInput, ModeOption, DirOption } from "@neptune.fintech/web-ui";
 export { buildTheme, brandprintFor, encode, decode } from "@neptune.fintech/tokens";
 
-export const REACT_UI_VERSION = "1.0.0";
+export const REACT_UI_VERSION = "2.0.0";

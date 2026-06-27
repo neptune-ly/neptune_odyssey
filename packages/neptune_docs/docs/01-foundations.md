@@ -32,8 +32,8 @@ Two-font model per brand: a **display** face (headlines, balances, brand moments
 | Brand | Display | Text | Numerals |
 |-------|---------|------|----------|
 | Neptune | Hanken Grotesk | Hanken Grotesk | Hanken Grotesk |
-| Andalus | Bricolage Grotesque | Hanken Grotesk | Hanken Grotesk |
-| Nuran | Space Grotesk | Hanken Grotesk | Space Grotesk |
+| Triton | Bricolage Grotesque | Hanken Grotesk | Hanken Grotesk |
+| Nereid | Space Grotesk | Hanken Grotesk | Space Grotesk |
 
 ### Type scale (M3)
 | Role | Size / line | Weight |
@@ -46,13 +46,13 @@ Two-font model per brand: a **display** face (headlines, balances, brand moments
 | Body medium | 14 / 20 | 400 |
 | Label large | 14 / 20 | 600 |
 
-`display weight` and display letter-spacing are themed (Neptune 700/-0.02em, Andalus 700/-0.01em, Nuran 600/-0.03em). Always use **tabular figures** for money so digits don't jiggle.
+`display weight` and display letter-spacing are themed (Neptune 700/-0.02em, Triton 700/-0.01em, Nereid 600/-0.03em). Always use **tabular figures** for money so digits don't jiggle.
 
 ## Shape — the per-brand corner family
 
 The single most visible white-label lever after colour. One scale, retuned per brand.
 
-| Token | Neptune | Andalus | Nuran |
+| Token | Neptune | Triton | Nereid |
 |-------|---------|---------|-------|
 | xs | 8 | 12 | 4 |
 | sm | 12 | 18 | 8 |
@@ -90,6 +90,6 @@ Colour, shape and type make banks *different*; the **motif** makes each one *rec
 | `--npt-motif-strength` | Opacity multiplier (0–1) to dial the texture up or down per brand. |
 | `--npt-hero-emblem` | A larger single-gradient "emblem" anchored in a corner of the hero — the brand's hero gesture. |
 
-Current signatures: **Neptune** sonar tide-rings · **Andalus** heritage arcade of arches · **Nuran** crisp digital light-grid + light sweep.
+Current signatures: **Neptune** sonar tide-rings · **Triton** coastal soft arc rings · **Nereid** crisp digital light-grid + light sweep.
 
 **The rule:** the motif lives entirely in tokens. The hero and card markup is one shared overlay `<span>` reading these vars — no per-bank component code. A new bank gets its character by authoring four token values, nothing more.

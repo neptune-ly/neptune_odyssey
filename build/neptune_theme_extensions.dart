@@ -45,21 +45,21 @@ const NeptuneColors neptuneSuccessDark = NeptuneColors(success: Color(0xFF79CE91
 const NeptuneShapes neptuneShapes = NeptuneShapes(xs: 8, sm: 12, md: 16, lg: 24, xl: 32, xxl: 44);
 const NeptuneType neptuneType = NeptuneType(display: 'Hanken Grotesk', text: 'Hanken Grotesk', num: 'Hanken Grotesk');
 
-// andalus
-const NeptuneColors andalusSuccessLight = NeptuneColors(success: Color(0xFF2D8949), onSuccess: Color(0xFFF3FFF5), successContainer: Color(0xFFBEECC6), onSuccessContainer: Color(0xFF003003));
-const NeptuneColors andalusSuccessDark = NeptuneColors(success: Color(0xFF7CCD8E), onSuccess: Color(0xFF002403), successContainer: Color(0xFF004519), onSuccessContainer: Color(0xFFBEECC6));
-const NeptuneShapes andalusShapes = NeptuneShapes(xs: 12, sm: 18, md: 26, lg: 34, xl: 44, xxl: 56);
-const NeptuneType andalusType = NeptuneType(display: 'Bricolage Grotesque', text: 'Hanken Grotesk', num: 'Hanken Grotesk');
+// triton
+const NeptuneColors tritonSuccessLight = NeptuneColors(success: Color(0xFF2D8949), onSuccess: Color(0xFFF3FFF5), successContainer: Color(0xFFBEECC6), onSuccessContainer: Color(0xFF003003));
+const NeptuneColors tritonSuccessDark = NeptuneColors(success: Color(0xFF7CCD8E), onSuccess: Color(0xFF002403), successContainer: Color(0xFF004519), onSuccessContainer: Color(0xFFBEECC6));
+const NeptuneShapes tritonShapes = NeptuneShapes(xs: 12, sm: 18, md: 26, lg: 34, xl: 44, xxl: 56);
+const NeptuneType tritonType = NeptuneType(display: 'Bricolage Grotesque', text: 'Hanken Grotesk', num: 'Hanken Grotesk');
 
-// nuran
-const NeptuneColors nuranSuccessLight = NeptuneColors(success: Color(0xFF2E9052), onSuccess: Color(0xFFF2FFF5), successContainer: Color(0xFFBCECC8), onSuccessContainer: Color(0xFF003006));
-const NeptuneColors nuranSuccessDark = NeptuneColors(success: Color(0xFF79CE91), onSuccess: Color(0xFF002405), successContainer: Color(0xFF00461B), onSuccessContainer: Color(0xFFBCECC8));
-const NeptuneShapes nuranShapes = NeptuneShapes(xs: 4, sm: 8, md: 12, lg: 18, xl: 26, xxl: 36);
-const NeptuneType nuranType = NeptuneType(display: 'Space Grotesk', text: 'Hanken Grotesk', num: 'Space Grotesk');
+// nereid
+const NeptuneColors nereidSuccessLight = NeptuneColors(success: Color(0xFF2E9052), onSuccess: Color(0xFFF2FFF5), successContainer: Color(0xFFBCECC8), onSuccessContainer: Color(0xFF003006));
+const NeptuneColors nereidSuccessDark = NeptuneColors(success: Color(0xFF79CE91), onSuccess: Color(0xFF002405), successContainer: Color(0xFF00461B), onSuccessContainer: Color(0xFFBCECC8));
+const NeptuneShapes nereidShapes = NeptuneShapes(xs: 4, sm: 8, md: 12, lg: 18, xl: 26, xxl: 36);
+const NeptuneType nereidType = NeptuneType(display: 'Space Grotesk', text: 'Hanken Grotesk', num: 'Space Grotesk');
 
-// fglb
-const NeptuneColors fglbSuccessLight = NeptuneColors(success: Color(0xFF2E9052), onSuccess: Color(0xFFF2FFF5), successContainer: Color(0xFFBCECC8), onSuccessContainer: Color(0xFF003006));
-const NeptuneColors fglbSuccessDark = NeptuneColors(success: Color(0xFF79CE91), onSuccess: Color(0xFF002405), successContainer: Color(0xFF00461B), onSuccessContainer: Color(0xFFBCECC8));
-const NeptuneShapes fglbShapes = NeptuneShapes(xs: 6, sm: 10, md: 14, lg: 20, xl: 28, xxl: 38);
-const NeptuneType fglbType = NeptuneType(display: 'Sora', text: 'Hanken Grotesk', num: 'Sora');
+// proteus
+const NeptuneColors proteusSuccessLight = NeptuneColors(success: Color(0xFF2E9052), onSuccess: Color(0xFFF2FFF5), successContainer: Color(0xFFBCECC8), onSuccessContainer: Color(0xFF003006));
+const NeptuneColors proteusSuccessDark = NeptuneColors(success: Color(0xFF79CE91), onSuccess: Color(0xFF002405), successContainer: Color(0xFF00461B), onSuccessContainer: Color(0xFFBCECC8));
+const NeptuneShapes proteusShapes = NeptuneShapes(xs: 6, sm: 10, md: 14, lg: 20, xl: 28, xxl: 38);
+const NeptuneType proteusType = NeptuneType(display: 'Sora', text: 'Hanken Grotesk', num: 'Sora');
 

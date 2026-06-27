@@ -52,7 +52,7 @@ export function getProductConfig(id: TenantId): ProductConfig {
 
 /**
  * Is a feature enabled for a tenant? Accepts a dot-path, e.g.
- * `isFeatureEnabled("nuran-wallet", "wallet")` or `"cards.freeze"`.
+ * `isFeatureEnabled("nereid-wallet", "wallet")` or `"cards.freeze"`.
  */
 export function isFeatureEnabled(id: TenantId, featurePath: string): boolean {
   return CONFIGS[id].features[featurePath] ?? false;
@@ -65,4 +65,4 @@ export function enabledFeatures(id: TenantId): string[] {
     .map(([k]) => k);
 }
 
-export const PRODUCT_CONFIGS_VERSION = "1.0.0";
+export const PRODUCT_CONFIGS_VERSION = "2.0.0";

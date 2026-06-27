@@ -31,7 +31,7 @@ export interface ThemeHandle {
   dispose(): void;
 }
 
-const REFERENCE_BRANDS = new Set(["neptune", "andalus", "nuran", "fglb"]);
+const REFERENCE_BRANDS = new Set(["neptune", "triton", "nereid", "proteus"]);
 
 function prefersDark(): boolean {
   return typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches;
@@ -89,7 +89,7 @@ function writeVars(root: HTMLElement, theme: NeptuneTheme): void {
  * Apply a Neptune Odyssey theme to a root element.
  *
  * @example
- * applyTheme(document.documentElement, "andalus", { mode: "system", dir: "auto" });
+ * applyTheme(document.documentElement, "triton", { mode: "system", dir: "auto" });
  * applyTheme(root, "NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA");
  * applyTheme(root, { primary: {L,C,H}, tertiary: {…}, corners: {…}, … });
  */

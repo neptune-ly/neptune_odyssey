@@ -11,13 +11,13 @@ describe("applyTheme — reference brands (zero-JS reskin)", () => {
   });
 
   it("sets data-theme/data-mode/dir for a brand id without writing vars", () => {
-    const h = applyTheme(root, "andalus", { mode: "dark", dir: "rtl" });
-    expect(root.dataset.theme).toBe("andalus");
+    const h = applyTheme(root, "triton", { mode: "dark", dir: "rtl" });
+    expect(root.dataset.theme).toBe("triton");
     expect(root.dataset.mode).toBe("dark");
     expect(root.getAttribute("dir")).toBe("rtl");
     // reference brands rely on the shipped themes.css — no inline color vars
     expect(root.style.getPropertyValue("--md-sys-color-primary")).toBe("");
-    expect(h.theme.brand).toBe("andalus");
+    expect(h.theme.brand).toBe("triton");
   });
 
   it("setMode flips only the mode attribute", () => {
@@ -36,10 +36,10 @@ describe("applyTheme — brandprint + custom config write resolved vars", () => 
 
   it("a brandprint string resolves and applies (custom path writes vars)", () => {
     // A reference brand's brandprint round-trips to that brand's pinned palette.
-    const h = applyTheme(root, brandprintFor("nuran"), { mode: "light" });
+    const h = applyTheme(root, brandprintFor("nereid"), { mode: "light" });
     expect(h.theme.colors.primary).toMatch(/^#[0-9a-f]{6}$/);
     expect(root.dataset.theme).toBe("custom");
-    // nuran primary (light) is pinned
+    // nereid primary (light) is pinned
     expect(root.style.getPropertyValue("--md-sys-color-primary").trim()).toBe(h.theme.colors.primary);
     expect(root.style.getPropertyValue("--npt-corner-md-base").trim()).toBe(`${h.theme.shape.md}px`);
     expect(root.style.getPropertyValue("--npt-font-display").trim()).toContain("Space Grotesk");

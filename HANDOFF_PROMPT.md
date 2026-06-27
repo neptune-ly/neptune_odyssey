@@ -36,7 +36,7 @@ The design is fully specified already. Do **not** redesign. Match the reference 
 
 ## Four brands, every build
 
-`neptune` · `andalus` · `nuran` · `fglb` — each a full M3 tonal palette × **light/dark**,
+`neptune` · `triton` · `nereid` · `proteus` — each a full M3 tonal palette × **light/dark**,
 its own corner family, type set, motif, and the five "expression" levers (login shell,
 dashboard hero, motion feel, glass tint, content tone) now tokenised in `tokens/themes.css`
 (`--npt-*`). Everything must work in **LTR and RTL** (logical properties only; Arabic faces swap).
@@ -74,7 +74,7 @@ runtime CSS-in-JS. Publish-ready (`package.json` `exports`, types, `sideEffects:
 
 Every library must accept a theme **three** ways, in increasing power, with one consistent surface:
 
-1. **Brand id** — `"neptune" | "andalus" | "nuran" | "fglb"` (the built-in reference brands).
+1. **Brand id** — `"neptune" | "triton" | "nereid" | "proteus"` (the built-in reference brands).
 2. **Config object** — the full lever set (seeds, corners, type, the five enums, flags).
 3. **Brandprint string** — `"NO1-…"`; decode → config → theme. This is the headline feature:
    *pick a theme in the online configurator, copy the string, paste it into the app, get the
@@ -86,15 +86,15 @@ Sketches (match per-framework idioms):
 
 ```ts
 // web / svelte / vue  — driven entirely by data-attributes + CSS variables
-applyTheme(root, "andalus", { mode: "system", dir: "auto" });
+applyTheme(root, "triton", { mode: "system", dir: "auto" });
 applyTheme(root, "NO1-AYygAQ…");                 // brandprint
 applyTheme(root, { primary:{L,C,H}, corners:{…}, motion:"calm-graceful", … });
 ```
 ```dart
 // flutter
 MaterialApp(
-  theme: NeptuneTheme.light('andalus'),
-  darkTheme: NeptuneTheme.dark('andalus'),
+  theme: NeptuneTheme.light('triton'),
+  darkTheme: NeptuneTheme.dark('triton'),
   // or: NeptuneTheme.fromBrandprint('NO1-…') , or NeptuneTheme.fromConfig(cfg)
 );
 ```

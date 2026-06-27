@@ -21,7 +21,7 @@ pnpm add @neptune.fintech/svelte-ui svelte
   import { theme } from "@neptune.fintech/svelte-ui";
 </script>
 
-<div use:theme={{ input: "andalus", mode: "system", dir: "auto" }}>
+<div use:theme={{ input: "triton", mode: "system", dir: "auto" }}>
   <npt-balance-card hero label="Available balance" amount="12,480.50" currency="LYD" />
   <npt-button variant="filled">New transfer</npt-button>
 </div>

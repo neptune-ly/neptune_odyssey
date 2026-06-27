@@ -17,4 +17,4 @@ export { RESOLVED } from "./data/resolved.generated.js";
 export { BRAND_CONFIG, BRAND_BRANDPRINT } from "./data/brands.generated.js";
 export { MOTION_PRESETS, BRAND_SHAPE, BRAND_TYPE, REFERENCE_SCALE } from "./data/levers.generated.js";
 
-export const TOKENS_VERSION = "1.0.0";
+export const TOKENS_VERSION = "2.0.0";

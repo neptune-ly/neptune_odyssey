@@ -19,13 +19,13 @@ describe("@neptune.fintech/vue-ui surface", () => {
   it("re-exports a working theming surface", () => {
     const root = document.createElement("div");
     document.body.appendChild(root);
-    const h = applyTheme(root, "fglb", { mode: "light" });
-    expect(root.dataset.theme).toBe("fglb");
-    expect(buildTheme("fglb").brand).toBe("fglb");
-    expect(h.theme.brand).toBe("fglb");
+    const h = applyTheme(root, "proteus", { mode: "light" });
+    expect(root.dataset.theme).toBe("proteus");
+    expect(buildTheme("proteus").brand).toBe("proteus");
+    expect(h.theme.brand).toBe("proteus");
   });
 
   it("is version 1.0.0 (stable)", () => {
-    expect(VUE_UI_VERSION).toBe("1.0.0");
+    expect(VUE_UI_VERSION).toBe("2.0.0");
   });
 });

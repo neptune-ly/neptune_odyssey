@@ -2,18 +2,18 @@
   "$schema": "neptune.tenant.config/v1",
   "extends": "neptune-core@A",
   "tenant": {
-    "id": "fglb-retail",
-    "displayName": "FGLB Retail",
-    "institution": "First Gulf Libyan Bank",
+    "id": "proteus-retail",
+    "displayName": "Proteus Retail",
+    "institution": "Proteus",
     "market": "LY",
     "status": "reference",
     "note": "Institutional, secure, corporate-stable. Conservative retail with an authoritative voice."
   },
   "brand": {
-    "theme": "fglb",
-    "wordmark": "First Gulf Libyan",
-    "shortName": "FGLB",
-    "logoMark": "markFglb",
+    "theme": "proteus",
+    "wordmark": "Proteus",
+    "shortName": "Proteus",
+    "logoMark": "markProteus",
     "palette": { "primaryHue": 248, "tertiaryHue": 85, "seed": "navy", "accents": ["navy", "gold", "neutral"] },
     "fonts": { "display": "Sora", "text": "Hanken Grotesk", "num": "Sora", "displayAr": "Noto Kufi Arabic", "textAr": "IBM Plex Sans Arabic" },
     "shapeScale": 1.0,
@@ -37,7 +37,7 @@
     "insights": true, "securityCenter": true, "multiSession": true, "notifications": true
   },
   "content": {
-    "en": { "loginHeadline": "Stability you can bank on.", "tierLabel": "FGLB Premier", "primaryCta": "New transfer", "currencyName": "Libyan Dinar" },
+    "en": { "loginHeadline": "Stability you can bank on.", "tierLabel": "Proteus Premier", "primaryCta": "New transfer", "currencyName": "Libyan Dinar" },
     "ar": { "loginHeadline": "استقرار يمكنك الاعتماد عليه.", "tierLabel": "إف جي إل بي بريمير", "primaryCta": "تحويل جديد", "currencyName": "دينار ليبي" }
   },
   "compliance": {
@@ -47,8 +47,8 @@
     "statementFormat": "PDF/MT940", "auditRetentionMonths": 120, "numerals": "latin-or-arabic"
   },
   "platformOverrides": {
-    "flutter": { "themeExtension": "FglbTheme", "useMaterial3": true, "colorSchemeSeedHue": 248 },
-    "web": { "cssVarsTheme": "fglb", "sidebarWidth": 256, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
+    "flutter": { "themeExtension": "ProteusTheme", "useMaterial3": true, "colorSchemeSeedHue": 248 },
+    "web": { "cssVarsTheme": "proteus", "sidebarWidth": 256, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
   },
   "levers": {
     "moved": ["color", "shape", "typography", "logo", "motif", "cardArt", "loginShell", "motion", "contentTone"],

@@ -21,10 +21,10 @@ describe("@neptune.fintech/react-ui surface", () => {
   it("re-exports a working theming surface", () => {
     const root = document.createElement("div");
     document.body.appendChild(root);
-    const h = applyTheme(root, "fglb", { mode: "light" });
-    expect(root.dataset.theme).toBe("fglb");
-    expect(buildTheme("fglb").brand).toBe("fglb");
-    expect(h.theme.brand).toBe("fglb");
+    const h = applyTheme(root, "proteus", { mode: "light" });
+    expect(root.dataset.theme).toBe("proteus");
+    expect(buildTheme("proteus").brand).toBe("proteus");
+    expect(h.theme.brand).toBe("proteus");
   });
 
   it("NeptuneProvider applies the theme to its themed root on mount", () => {
@@ -34,19 +34,19 @@ describe("@neptune.fintech/react-ui surface", () => {
     const { container } = render(
       createElement(
         NeptuneProvider,
-        { theme: "andalus", mode: "light", dir: "ltr" },
+        { theme: "triton", mode: "light", dir: "ltr" },
         createElement("span", null, "New transfer"),
       ),
     );
     const root = container.querySelector(".neptune-provider") as HTMLElement;
     expect(root).not.toBeNull();
-    expect(root.dataset.theme).toBe("andalus");
+    expect(root.dataset.theme).toBe("triton");
     expect(root.dataset.mode).toBe("light");
     expect(root.getAttribute("dir")).toBe("ltr");
     cleanup();
   });
 
   it("is version 1.0.0 (stable)", () => {
-    expect(REACT_UI_VERSION).toBe("1.0.0");
+    expect(REACT_UI_VERSION).toBe("2.0.0");
   });
 });

@@ -28,17 +28,28 @@ import "@neptune.fintech/web-ui/styles.css";
 
 import "./styles.css";
 import { evaluateContrast } from "./contrast.js";
+import { srgbToOklch } from "./oklch-inverse.js";
 
 registerAll();
 
-type Brand = "neptune" | "andalus" | "nuran" | "fglb";
-const BRANDS: Brand[] = ["neptune", "andalus", "nuran", "fglb"];
+type Brand = "neptune" | "triton" | "nereid" | "proteus";
+const BRANDS: Brand[] = ["neptune", "triton", "nereid", "proteus"];
+const BRAND_LABELS: Record<Brand, string> = {
+  neptune: "Neptune",
+  triton: "Triton",
+  nereid: "Nereid",
+  proteus: "Proteus",
+};
 const CORNER_KEYS = ["xs", "sm", "md", "lg", "xl", "xxl"] as const;
+
+type PreviewScreen = "retail" | "wallet" | "cards";
 
 interface AppState {
   config: BrandprintConfig;
   mode: ModeOption;
   dir: DirOption;
+  activeBrand: Brand | null;
+  screen: PreviewScreen;
 }
 
 /** Deep-clone a brandprint config so editing controls never mutate BRAND_CONFIG. */
@@ -64,6 +75,8 @@ const state: AppState = {
   config: cloneConfig(BRAND_CONFIG.neptune!),
   mode: "light",
   dir: "ltr",
+  activeBrand: "neptune",
+  screen: "retail",
 };
 
 // ── DOM helpers ────────────────────────────────────────────────────────────
@@ -117,14 +130,41 @@ function field(label: string, control: HTMLElement): HTMLElement {
   ]);
 }
 
-// ── Seed (OKLCH) editor ─────────────────────────────────────────────────────
+/**
+ * Wire a button so that clicking it copies `getText()` to the clipboard and
+ * flashes a transient "Copied ✓" confirmation in `status`. Reused by every
+ * copy affordance (brandprint + each snippet).
+ */
+function wireCopy(button: HTMLElement, status: HTMLElement, getText: () => string): void {
+  button.addEventListener("click", async () => {
+    const text = getText();
+    try {
+      await navigator.clipboard.writeText(text);
+      status.textContent = "Copied ✓";
+      status.classList.add("copied-flash");
+    } catch {
+      status.textContent = "Press ⌘/Ctrl+C";
+    }
+    window.setTimeout(() => {
+      status.textContent = "";
+      status.classList.remove("copied-flash");
+    }, 1800);
+  });
+}
+
+// ── Seed (OKLCH) editor with two-way colour picker ──────────────────────────
 interface SeedRefs {
   swatch: HTMLElement;
   redraw: () => void;
 }
 
 function seedEditor(which: "primary" | "tertiary"): { node: HTMLElement; refs: SeedRefs } {
-  const swatch = el("div", { class: "seed__swatch", "aria-hidden": "true" });
+  const colorInput = el("input", {
+    type: "color",
+    class: "seed__picker",
+    "aria-label": `${which} colour picker`,
+  }) as HTMLInputElement;
+  const swatch = el("label", { class: "seed__swatch" }, [colorInput]);
   const sliders = el("div", { class: "seed__sliders" });
 
   const channels: { key: "L" | "C" | "H"; min: number; max: number; step: number }[] = [
@@ -136,15 +176,28 @@ function seedEditor(which: "primary" | "tertiary"): { node: HTMLElement; refs: S
   const outputs: Record<string, HTMLOutputElement> = {};
   const inputs: Record<string, HTMLInputElement> = {};
 
+  const fmt = (key: "L" | "C" | "H", v: number) =>
+    key === "H" ? String(Math.round(v)) : v.toFixed(key === "L" ? 2 : 3);
+
   const redraw = () => {
     const seed = state.config[which];
-    swatch.style.background = oklchToHex(seed);
+    const hex = oklchToHex(seed);
+    swatch.style.background = hex;
+    colorInput.value = hex;
     for (const { key } of channels) {
       inputs[key]!.value = String(seed[key]);
-      outputs[key]!.textContent =
-        key === "H" ? String(Math.round(seed[key])) : seed[key].toFixed(key === "L" ? 2 : 3);
+      outputs[key]!.textContent = fmt(key, seed[key]);
     }
   };
+
+  // Colour picker → seed (hex → OKLCH), moves the sliders.
+  colorInput.addEventListener("input", () => {
+    const o = srgbToOklch(colorInput.value);
+    state.config[which] = { L: o.L, C: o.C, H: o.H };
+    state.activeBrand = null;
+    redraw();
+    update();
+  });
 
   for (const ch of channels) {
     const input = el("input", {
@@ -153,15 +206,17 @@ function seedEditor(which: "primary" | "tertiary"): { node: HTMLElement; refs: S
       max: String(ch.max),
       step: String(ch.step),
       "aria-label": `${which} ${ch.key}`,
-    });
-    const out = el("output");
+    }) as HTMLInputElement;
+    const out = el("output") as HTMLOutputElement;
     input.addEventListener("input", () => {
-      state.config[which][ch.key] = Number(input.value);
-      out.textContent =
-        ch.key === "H"
-          ? String(Math.round(Number(input.value)))
-          : Number(input.value).toFixed(ch.key === "L" ? 2 : 3);
-      swatch.style.background = oklchToHex(state.config[which]);
+      const v = Number(input.value);
+      state.config[which][ch.key] = v;
+      out.textContent = fmt(ch.key, v);
+      // Slider → colour picker (OKLCH → hex), two-way sync.
+      const hex = oklchToHex(state.config[which]);
+      swatch.style.background = hex;
+      colorInput.value = hex;
+      state.activeBrand = null;
       update();
     });
     inputs[ch.key] = input;
@@ -187,27 +242,57 @@ const tertiarySeed = seedEditor("tertiary");
 // references that need repopulating after a brand load / paste
 const repopulators: (() => void)[] = [primarySeed.refs.redraw, tertiarySeed.refs.redraw];
 
+let brandChipsEl: HTMLElement;
+
+/** Load a reference brand into state and refresh every control. */
+function loadBrand(b: Brand): void {
+  state.config = cloneConfig(BRAND_CONFIG[b]!);
+  state.mode = state.config.defaultDark ? "dark" : "light";
+  state.dir = state.config.defaultRtl ? "rtl" : "ltr";
+  state.activeBrand = b;
+  repopulateAll();
+  update();
+}
+
+function buildBrandChips(): HTMLElement {
+  brandChipsEl = el("div", { class: "brand-chips", role: "group", "aria-label": "Brand presets" });
+  for (const b of BRANDS) {
+    const dot = el("span", { class: "brand-chip__dot", "aria-hidden": "true" });
+    dot.style.background = oklchToHex(BRAND_CONFIG[b]!.primary);
+    const chip = el("button", {
+      type: "button",
+      class: "brand-chip",
+      "data-brand": b,
+    }, [dot, BRAND_LABELS[b]]);
+    chip.addEventListener("click", () => loadBrand(b));
+    brandChipsEl.append(chip);
+  }
+  return brandChipsEl;
+}
+
+function syncBrandChips(): void {
+  if (!brandChipsEl) return;
+  for (const chip of Array.from(brandChipsEl.children) as HTMLElement[]) {
+    const isActive = chip.dataset.brand === state.activeBrand;
+    chip.setAttribute("aria-pressed", String(isActive));
+  }
+}
+repopulators.push(syncBrandChips);
+
 function buildControls(): HTMLElement {
   const panel = el("div", { class: "panel panel--controls" });
 
-  // Reference brand
-  const brandSel = selectFrom(BRANDS, "neptune", (v) => {
-    state.config = cloneConfig(BRAND_CONFIG[v]!);
-    state.mode = state.config.defaultDark ? "dark" : "light";
-    state.dir = state.config.defaultRtl ? "rtl" : "ltr";
-    repopulateAll();
-    update();
-  });
-  brandSel.id = "brand-select";
+  // Brand preset chips + randomize at the very top.
+  const randomizeBtn = el("button", { type: "button", class: "btn btn--surprise" }, ["🎲 Surprise me"]);
+  randomizeBtn.addEventListener("click", randomize);
   panel.append(
-    group(
-      "Reference brand",
-      true,
-      field("Start from", brandSel),
-    ),
+    el("div", { class: "controls__top" }, [
+      buildBrandChips(),
+      randomizeBtn,
+    ]),
   );
 
-  // Seeds
+  // Seeds + colour pickers
   panel.append(
     group(
       "Colour seeds (OKLCH)",
@@ -221,9 +306,10 @@ function buildControls(): HTMLElement {
   const cornerInputs: Record<string, HTMLInputElement> = {};
   const cornerGrid = el("div", { class: "grid-3" });
   for (const k of CORNER_KEYS) {
-    const input = el("input", { type: "number", min: "0", max: "255", step: "1" });
+    const input = el("input", { type: "number", min: "0", max: "255", step: "1" }) as HTMLInputElement;
     input.addEventListener("input", () => {
       state.config.corners[k] = clampInt(Number(input.value), 0, 255);
+      state.activeBrand = null;
       update();
     });
     cornerInputs[k] = input;
@@ -239,14 +325,17 @@ function buildControls(): HTMLElement {
   const fontSels: Record<"display" | "text" | "num", HTMLSelectElement> = {
     display: selectFrom(FONTS, state.config.fonts.display, (v) => {
       state.config.fonts.display = v as BrandprintConfig["fonts"]["display"];
+      state.activeBrand = null;
       update();
     }),
     text: selectFrom(FONTS, state.config.fonts.text, (v) => {
       state.config.fonts.text = v as BrandprintConfig["fonts"]["text"];
+      state.activeBrand = null;
       update();
     }),
     num: selectFrom(FONTS, state.config.fonts.num, (v) => {
       state.config.fonts.num = v as BrandprintConfig["fonts"]["num"];
+      state.activeBrand = null;
       update();
     }),
   };
@@ -258,18 +347,20 @@ function buildControls(): HTMLElement {
   });
 
   // Type expression
-  const weightInput = el("input", { type: "range", min: "100", max: "900", step: "100", "aria-label": "Display weight" });
+  const weightInput = el("input", { type: "range", min: "100", max: "900", step: "100", "aria-label": "Display weight" }) as HTMLInputElement;
   const weightOut = el("output");
   weightInput.addEventListener("input", () => {
     state.config.displayWeight = Number(weightInput.value);
     weightOut.textContent = weightInput.value;
+    state.activeBrand = null;
     update();
   });
-  const trackInput = el("input", { type: "range", min: "-0.05", max: "0.05", step: "0.005", "aria-label": "Display tracking" });
+  const trackInput = el("input", { type: "range", min: "-0.05", max: "0.05", step: "0.005", "aria-label": "Display tracking" }) as HTMLInputElement;
   const trackOut = el("output");
   trackInput.addEventListener("input", () => {
     state.config.displayTracking = Number(trackInput.value);
     trackOut.textContent = `${Number(trackInput.value).toFixed(3)}em`;
+    state.activeBrand = null;
     update();
   });
   repopulators.push(() => {
@@ -308,6 +399,7 @@ function buildControls(): HTMLElement {
   for (const def of leverDefs) {
     const sel = selectFrom(def.values, String(state.config[def.key]), (v) => {
       (state.config[def.key] as unknown) = v;
+      state.activeBrand = null;
       update();
     });
     leverSels[def.key] = sel;
@@ -343,14 +435,16 @@ function buildControls(): HTMLElement {
   });
 
   // Flags
-  const darkChk = el("input", { type: "checkbox", id: "flag-dark" });
+  const darkChk = el("input", { type: "checkbox", id: "flag-dark" }) as HTMLInputElement;
   darkChk.addEventListener("change", () => {
     state.config.defaultDark = darkChk.checked;
+    state.activeBrand = null;
     update();
   });
-  const rtlChk = el("input", { type: "checkbox", id: "flag-rtl" });
+  const rtlChk = el("input", { type: "checkbox", id: "flag-rtl" }) as HTMLInputElement;
   rtlChk.addEventListener("change", () => {
     state.config.defaultRtl = rtlChk.checked;
+    state.activeBrand = null;
     update();
   });
   repopulators.push(() => {
@@ -391,7 +485,7 @@ function segmented(
   const seg = el("div", { class: "segmented", role: "group", "aria-label": label });
   const buttons: HTMLButtonElement[] = [];
   for (const v of values) {
-    const b = el("button", { type: "button" }, [v]);
+    const b = el("button", { type: "button" }, [v]) as HTMLButtonElement;
     b.addEventListener("click", () => {
       set(v);
       sync();
@@ -411,12 +505,7 @@ function segmented(
 }
 
 function repopulateAll(): void {
-  const brandSel = document.getElementById("brand-select") as HTMLSelectElement | null;
   for (const r of repopulators) r();
-  // Keep the brand dropdown reflecting whatever was loaded; default keeps its value.
-  if (brandSel) {
-    // no-op: brand select is the source for loads; leave as-is.
-  }
 }
 
 function clampInt(n: number, lo: number, hi: number): number {
@@ -424,9 +513,45 @@ function clampInt(n: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, Math.round(n)));
 }
 
+// ── Randomize ───────────────────────────────────────────────────────────────
+function pick<T>(arr: readonly T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)]!;
+}
+function rand(lo: number, hi: number): number {
+  return lo + Math.random() * (hi - lo);
+}
+
+/** A few pleasant corner families to draw from when randomizing. */
+const CORNER_PRESETS: BrandprintConfig["corners"][] = [
+  { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 }, // soft modern
+  { xs: 2, sm: 4, md: 8, lg: 12, xl: 16, xxl: 20 }, // crisp
+  { xs: 8, sm: 12, md: 18, lg: 28, xl: 40, xxl: 999 }, // rounded/pill
+  { xs: 0, sm: 2, md: 4, lg: 8, xl: 12, xxl: 16 }, // architectural
+];
+
+/** Pick pleasant random seeds + levers + fonts and re-render. */
+function randomize(): void {
+  const hP = rand(0, 360);
+  // complementary-ish tertiary hue (±150..210° from primary).
+  const hT = (hP + rand(150, 210)) % 360;
+  state.config.primary = { L: rand(0.45, 0.6), C: rand(0.08, 0.2), H: Math.round(hP) };
+  state.config.tertiary = { L: rand(0.45, 0.6), C: rand(0.08, 0.2), H: Math.round(hT) };
+  state.config.corners = { ...pick(CORNER_PRESETS) };
+  state.config.fonts = { display: pick(FONTS), text: pick(FONTS), num: pick(FONTS) };
+  state.config.loginShell = pick(LOGIN);
+  state.config.dashboardHero = pick(HERO);
+  state.config.contentTone = pick(TONE);
+  state.config.glassTint = pick(GLASS);
+  state.config.motion = pick(MOTION);
+  state.config.displayWeight = pick([400, 500, 600, 700, 800]);
+  state.config.displayTracking = Number(rand(-0.03, 0.01).toFixed(3));
+  state.activeBrand = null;
+  repopulateAll();
+  update();
+}
+
 // ── Brandprint output / paste ───────────────────────────────────────────────
 let brandprintStringEl: HTMLElement;
-let copyStatusEl: HTMLElement;
 let pasteInput: HTMLInputElement;
 let pasteErrorEl: HTMLElement;
 
@@ -438,24 +563,9 @@ function buildBrandprintPanel(): HTMLElement {
     "aria-label": "Current brandprint",
   });
 
-  const copyBtn = el("button", { class: "btn", type: "button" }, ["Copy"]);
-  copyStatusEl = el("span", { class: "ok-text", role: "status", "aria-live": "polite" });
-  copyBtn.addEventListener("click", async () => {
-    const text = brandprintStringEl.textContent ?? "";
-    try {
-      await navigator.clipboard.writeText(text);
-      copyStatusEl.textContent = "Copied ✓";
-    } catch {
-      // Fallback: select for manual copy.
-      const range = document.createRange();
-      range.selectNodeContents(brandprintStringEl);
-      const sel = window.getSelection();
-      sel?.removeAllRanges();
-      sel?.addRange(range);
-      copyStatusEl.textContent = "Selected — press ⌘/Ctrl+C";
-    }
-    window.setTimeout(() => (copyStatusEl.textContent = ""), 2200);
-  });
+  const copyBtn = el("button", { class: "btn btn--copy", type: "button" }, ["Copy brandprint"]);
+  const copyStatus = el("span", { class: "ok-text", role: "status", "aria-live": "polite" });
+  wireCopy(copyBtn, copyStatus, () => brandprintStringEl.textContent ?? "");
 
   pasteInput = el("input", {
     type: "text",
@@ -464,7 +574,7 @@ function buildBrandprintPanel(): HTMLElement {
     spellcheck: "false",
     autocapitalize: "off",
     autocomplete: "off",
-  });
+  }) as HTMLInputElement;
   const loadBtn = el("button", { class: "btn btn--ghost", type: "button" }, ["Load"]);
   pasteErrorEl = el("p", { class: "error-text", role: "alert", "aria-live": "assertive" });
   const doLoad = () => loadBrandprint(pasteInput.value.trim());
@@ -473,10 +583,13 @@ function buildBrandprintPanel(): HTMLElement {
     if ((e as KeyboardEvent).key === "Enter") doLoad();
   });
 
-  return el("div", { class: "panel" }, [
-    el("h2", { class: "preview__section-title" }, ["Brandprint"]),
-    brandprintStringEl,
-    el("div", { class: "row" }, [copyBtn, copyStatusEl]),
+  return el("div", { class: "panel panel--brandprint" }, [
+    el("h2", { class: "panel__title" }, ["Your brandprint"]),
+    el("p", { class: "panel__hint" }, ["This string rebuilds the exact theme in any Odyssey library."]),
+    el("div", { class: "brandprint__hero" }, [
+      brandprintStringEl,
+      el("div", { class: "brandprint__actions" }, [copyBtn, copyStatus]),
+    ]),
     el("div", { class: "field" }, [
       el("span", { class: "field__label" }, ["Load from string"]),
       el("div", { class: "row" }, [pasteInput, loadBtn]),
@@ -499,19 +612,15 @@ function loadBrandprint(str: string): void {
     state.config = cloneConfig(cfg);
     state.mode = cfg.defaultDark ? "dark" : "light";
     state.dir = cfg.defaultRtl ? "rtl" : "ltr";
+    state.activeBrand = null;
     repopulateAll();
     update();
     // Round-trip sanity: a valid brandprint must re-encode to the SAME canonical string.
     const reencoded = encode(state.config);
-    if (reencoded !== str) {
-      pasteErrorEl.classList.remove("error-text");
-      pasteErrorEl.classList.add("ok-text");
-      pasteErrorEl.textContent = `Loaded (canonical form: ${reencoded})`;
-    } else {
-      pasteErrorEl.classList.remove("error-text");
-      pasteErrorEl.classList.add("ok-text");
-      pasteErrorEl.textContent = "Loaded ✓";
-    }
+    pasteErrorEl.classList.remove("error-text");
+    pasteErrorEl.classList.add("ok-text");
+    pasteErrorEl.textContent =
+      reencoded !== str ? `Loaded (canonical form: ${reencoded})` : "Loaded ✓";
     window.setTimeout(() => {
       pasteErrorEl.textContent = "";
       pasteErrorEl.classList.remove("ok-text");
@@ -524,22 +633,154 @@ function loadBrandprint(str: string): void {
   }
 }
 
+// ── "Use this theme" code snippets ───────────────────────────────────────────
+interface SnippetDef {
+  id: string;
+  label: string;
+  code: (bp: string) => string;
+}
+
+const SNIPPETS: SnippetDef[] = [
+  {
+    id: "web",
+    label: "Web (vanilla)",
+    code: (bp) =>
+      `import { applyTheme } from "@neptune.fintech/web-ui";\n\napplyTheme(document.documentElement, "${bp}");`,
+  },
+  {
+    id: "react",
+    label: "React",
+    code: (bp) =>
+      `import { NeptuneProvider } from "@neptune.fintech/react-ui";\n\n<NeptuneProvider input="${bp}">\n  <App />\n</NeptuneProvider>`,
+  },
+  {
+    id: "vue",
+    label: "Vue",
+    code: (bp) =>
+      `import { NeptuneProvider } from "@neptune.fintech/vue-ui";\n\n<NeptuneProvider theme="${bp}">\n  <App />\n</NeptuneProvider>`,
+  },
+  {
+    id: "svelte",
+    label: "Svelte",
+    code: (bp) =>
+      `import { theme } from "@neptune.fintech/svelte-ui";\n\n<div use:theme={{ input: "${bp}" }}>\n  <App />\n</div>`,
+  },
+  {
+    id: "flutter",
+    label: "Flutter",
+    code: (bp) =>
+      `import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';\n\nfinal theme = NeptuneTheme.fromBrandprint('${bp}');`,
+  },
+];
+
+interface SnippetRefs {
+  node: HTMLElement;
+  redraw: (bp: string) => void;
+}
+
+function buildSnippetsPanel(): SnippetRefs {
+  const tabs = el("div", { class: "segmented snippets__tabs", role: "tablist", "aria-label": "Framework" });
+  const codeEl = el("pre", { class: "snippet__code" }, [el("code", {}, [""])]);
+  const code = codeEl.firstElementChild as HTMLElement;
+  const copyBtn = el("button", { class: "btn btn--copy snippet__copy", type: "button" }, ["Copy"]);
+  const copyStatus = el("span", { class: "ok-text", role: "status", "aria-live": "polite" });
+  wireCopy(copyBtn, copyStatus, () => code.textContent ?? "");
+
+  let active = SNIPPETS[0]!.id;
+  let currentBp = "";
+  const tabButtons: HTMLButtonElement[] = [];
+
+  const paint = () => {
+    const def = SNIPPETS.find((s) => s.id === active)!;
+    code.textContent = def.code(currentBp);
+    tabButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.id === active)));
+  };
+
+  for (const s of SNIPPETS) {
+    const b = el("button", { type: "button", "data-id": s.id, role: "tab" }, [s.label]) as HTMLButtonElement;
+    b.addEventListener("click", () => {
+      active = s.id;
+      paint();
+    });
+    tabButtons.push(b);
+    tabs.append(b);
+  }
+
+  const node = el("div", { class: "panel panel--snippets" }, [
+    el("h2", { class: "panel__title" }, ["Use this theme"]),
+    el("p", { class: "panel__hint" }, ["Drop your brandprint into any Neptune Odyssey library."]),
+    tabs,
+    el("div", { class: "snippet__frame" }, [
+      codeEl,
+      el("div", { class: "snippet__actions" }, [copyBtn, copyStatus]),
+    ]),
+  ]);
+
+  return {
+    node,
+    redraw: (bp: string) => {
+      currentBp = bp;
+      paint();
+    },
+  };
+}
+
+let snippets: SnippetRefs;
+
 // ── Live preview ────────────────────────────────────────────────────────────
 let previewRoot: HTMLElement;
+let screenSeg: { node: HTMLElement; sync: () => void };
 
 function buildPreview(): HTMLElement {
   previewRoot = el("div", { class: "preview" });
   const frame = el("div", { class: "preview-frame" }, [previewRoot]);
+
+  screenSeg = segmented(
+    "Preview screen",
+    ["retail", "wallet", "cards"],
+    () => state.screen,
+    (v) => {
+      state.screen = v as PreviewScreen;
+      renderPreview();
+    },
+  );
+  screenSeg.node.classList.add("preview__switcher");
+
   return el("div", { class: "panel panel--preview" }, [
-    el("h2", { class: "preview__section-title" }, ["Live preview"]),
+    el("div", { class: "preview__head" }, [
+      el("h2", { class: "panel__title" }, ["Live preview"]),
+      screenSeg.node,
+    ]),
     frame,
     buildContrastPanel(),
   ]);
 }
 
-function renderPreview(): void {
-  previewRoot.textContent = "";
+function btn(label: string, variant: string): HTMLElement {
+  return el("npt-button", { variant }, [label]);
+}
+function chip(label: string, selected = false): HTMLElement {
+  const c = el("npt-chip", {}, [label]);
+  if (selected) c.setAttribute("selected", "");
+  return c;
+}
+function navBar(active: "Home" | "Cards" | "Pay" | "More"): HTMLElement {
+  const nav = el("npt-nav-bar");
+  for (const [label, glyph] of [
+    ["Home", "⌂"],
+    ["Cards", "▭"],
+    ["Pay", "↗"],
+    ["More", "⋯"],
+  ] as const) {
+    const item = el("npt-nav-item", { label }, [glyph]);
+    if (active === label) item.setAttribute("active", "");
+    nav.append(item);
+  }
+  return nav;
+}
 
+/** Retail banking: balance, quick actions, activity feed, quick transfer. */
+function retailScreen(): { bar: HTMLElement; scroll: HTMLElement; nav: HTMLElement } {
   const appBar = el("npt-app-bar", { title: "Accounts" });
   appBar.append(el("npt-badge", { tone: "neutral", slot: "trailing" }, ["LYD"]));
 
@@ -565,9 +806,9 @@ function renderPreview(): void {
 
   const txns = el("div", { class: "preview__list" });
   const data: [string, string, string, boolean][] = [
-    ["Salary — Andalus Bank", "Today · Transfer", "+3,200.00", true],
+    ["Salary — Triton Bank", "Today · Transfer", "+3,200.00", true],
     ["Tazweed Market", "Today · Card", "-46.25", false],
-    ["Almadar Top-up", "Yesterday · Bill", "-30.00", false],
+    ["Mobile A Top-up", "Yesterday · Bill", "-30.00", false],
     ["Refund — Souq", "Mon · Card", "+18.90", true],
   ];
   for (const [title, subtitle, amount, credit] of data) {
@@ -576,22 +817,7 @@ function renderPreview(): void {
     txns.append(row);
   }
 
-  const tf = el("npt-text-field", {
-    label: "Send to IBAN",
-    placeholder: "LY.. .... .... ....",
-  });
-
-  const nav = el("npt-nav-bar");
-  for (const [label, glyph, active] of [
-    ["Home", "⌂", true],
-    ["Cards", "▭", false],
-    ["Pay", "↗", false],
-    ["More", "⋯", false],
-  ] as const) {
-    const item = el("npt-nav-item", { label }, [glyph]);
-    if (active) item.setAttribute("active", "");
-    nav.append(item);
-  }
+  const tf = el("npt-text-field", { label: "Send to IBAN", placeholder: "LY.. .... .... ...." });
 
   const scroll = el("div", { class: "preview__scroll" }, [
     balance,
@@ -602,17 +828,121 @@ function renderPreview(): void {
     el("p", { class: "preview__section-title" }, ["Quick transfer"]),
     tf,
   ]);
-
-  previewRoot.append(appBar, scroll, nav);
+  return { bar: appBar, scroll, nav: navBar("Home") };
 }
 
-function btn(label: string, variant: string): HTMLElement {
-  return el("npt-button", { variant }, [label]);
+/** Wallet: balance hero, Add money/Send/Request, pay merchants row. */
+function walletScreen(): { bar: HTMLElement; scroll: HTMLElement; nav: HTMLElement } {
+  const appBar = el("npt-app-bar", { title: "Wallet" });
+  appBar.append(el("npt-badge", { tone: "primary", slot: "trailing" }, ["LYD"]));
+
+  const balance = el("npt-balance-card", {
+    label: "Wallet balance",
+    amount: "842.00",
+    currency: "LYD",
+    account: "@yusra.lyd",
+    hero: "",
+  });
+
+  const actions = el("div", { class: "preview__quick" }, [
+    btn("Add money", "filled"),
+    btn("Send", "tonal"),
+    btn("Request", "outlined"),
+  ]);
+
+  const merchants = el("div", { class: "preview__merchants" });
+  for (const [name, glyph] of [
+    ["Mobile A", "📱"],
+    ["Mobile B", "📶"],
+    ["GECOL", "💡"],
+    ["Water", "💧"],
+  ] as const) {
+    merchants.append(
+      el("npt-card", { variant: "tonal", class: "preview__merchant" }, [
+        el("span", { class: "preview__merchant-glyph", "aria-hidden": "true" }, [glyph]),
+        el("span", { class: "preview__merchant-name" }, [name]),
+      ]),
+    );
+  }
+
+  const recent = el("div", { class: "preview__list" });
+  for (const [title, subtitle, amount, credit] of [
+    ["Top-up — Mobile A", "Today · Wallet", "-15.00", false],
+    ["From Hana", "Today · Request", "+50.00", true],
+    ["Coffee — Casa", "Yesterday · QR", "-8.50", false],
+  ] as [string, string, string, boolean][]) {
+    const row = el("npt-transaction-row", { title, subtitle, amount, currency: "LYD" });
+    if (credit) row.setAttribute("credit", "");
+    recent.append(row);
+  }
+
+  const scroll = el("div", { class: "preview__scroll" }, [
+    balance,
+    actions,
+    el("p", { class: "preview__section-title" }, ["Pay a merchant"]),
+    merchants,
+    el("p", { class: "preview__section-title" }, ["Recent"]),
+    recent,
+  ]);
+  return { bar: appBar, scroll, nav: navBar("Pay") };
 }
-function chip(label: string, selected = false): HTMLElement {
-  const c = el("npt-chip", {}, [label]);
-  if (selected) c.setAttribute("selected", "");
-  return c;
+
+/** Cards: a virtual card hero, controls, and recent card spend. */
+function cardsScreen(): { bar: HTMLElement; scroll: HTMLElement; nav: HTMLElement } {
+  const appBar = el("npt-app-bar", { title: "Cards" });
+  appBar.append(el("npt-badge", { tone: "success", slot: "trailing" }, ["Active"]));
+
+  const card = el("npt-card", { variant: "elevated", class: "preview__plastic" }, [
+    el("div", { class: "preview__plastic-top" }, [
+      el("span", { class: "preview__plastic-brand" }, ["Neptune"]),
+      el("span", { class: "preview__plastic-chip", "aria-hidden": "true" }),
+    ]),
+    el("div", { class: "preview__plastic-num" }, ["4821  ••••  ••••  3390"]),
+    el("div", { class: "preview__plastic-row" }, [
+      el("span", {}, ["YUSRA A."]),
+      el("span", {}, ["08/29"]),
+    ]),
+  ]);
+
+  const controls = el("div", { class: "preview__quick" }, [
+    btn("Freeze", "filled"),
+    btn("Limits", "tonal"),
+    btn("Details", "outlined"),
+  ]);
+
+  const chips = el("div", { class: "preview__quick" }, [
+    chip("Virtual", true),
+    chip("Online"),
+    chip("Contactless"),
+  ]);
+
+  const spend = el("div", { class: "preview__list" });
+  for (const [title, subtitle, amount] of [
+    ["Tazweed Market", "Today · Contactless", "-46.25"],
+    ["Souq Online", "Yesterday · Online", "-129.00"],
+    ["Casa Coffee", "Mon · Contactless", "-8.50"],
+  ] as [string, string, string][]) {
+    spend.append(el("npt-transaction-row", { title, subtitle, amount, currency: "LYD" }));
+  }
+
+  const scroll = el("div", { class: "preview__scroll" }, [
+    card,
+    controls,
+    el("p", { class: "preview__section-title" }, ["Card type"]),
+    chips,
+    el("p", { class: "preview__section-title" }, ["Recent spend"]),
+    spend,
+  ]);
+  return { bar: appBar, scroll, nav: navBar("Cards") };
+}
+
+function renderPreview(): void {
+  previewRoot.textContent = "";
+  screenSeg?.sync();
+  const compose =
+    state.screen === "wallet" ? walletScreen : state.screen === "cards" ? cardsScreen : retailScreen;
+  const { bar, scroll, nav } = compose();
+  previewRoot.append(bar, scroll, nav);
 }
 
 // ── Contrast (AA) report ────────────────────────────────────────────────────
@@ -622,8 +952,8 @@ let contrastWarnEl: HTMLElement;
 function buildContrastPanel(): HTMLElement {
   contrastWarnEl = el("div", { class: "contrast__warn", role: "status", "aria-live": "polite" });
   contrastBodyEl = el("div", { class: "contrast" });
-  return el("div", { class: "panel" }, [
-    el("h2", { class: "preview__section-title" }, ["AA contrast (resolved palette)"]),
+  return el("div", { class: "panel panel--contrast" }, [
+    el("h2", { class: "panel__title" }, ["AA contrast (resolved palette)"]),
     contrastWarnEl,
     contrastBodyEl,
   ]);
@@ -662,8 +992,13 @@ function update(): void {
   // 2. Re-render preview markup (so direction/structure refreshes).
   renderPreview();
   // 3. Brandprint string.
-  brandprintStringEl.textContent = encode(state.config);
-  // 4. Contrast report.
+  const bp = encode(state.config);
+  brandprintStringEl.textContent = bp;
+  // 4. Snippets reflect the current brandprint.
+  snippets.redraw(bp);
+  // 5. Active-brand chip highlight.
+  syncBrandChips();
+  // 6. Contrast report.
   renderContrast();
 }
 
@@ -686,12 +1021,13 @@ function main(): void {
     ]),
   );
 
-  // Left column: controls + brandprint. Right column (sticky): the live preview.
+  // Left column: controls + brandprint + snippets. Right column (sticky): preview.
   const controls = buildControls();
   const brandprint = buildBrandprintPanel();
+  snippets = buildSnippetsPanel();
   const preview = buildPreview();
   app.append(
-    el("div", { class: "col col--left" }, [controls, brandprint]),
+    el("div", { class: "col col--left" }, [controls, brandprint, snippets.node]),
     el("div", { class: "col col--right" }, [preview]),
   );
 

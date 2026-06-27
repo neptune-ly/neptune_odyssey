@@ -3,7 +3,7 @@
 Neptune Odyssey is the design system **by Neptune.Fintech** (Financial Technology & Solutions,
 [neptune.ly](https://neptune.ly)). This file records the official Neptune corporate identity used
 for the project's own chrome (the site, the configurator, attribution) — distinct from the four
-**reference tenant themes** (neptune/andalus/nuran/fglb) that the design system ships to demonstrate
+**reference tenant themes** (neptune/triton/nereid/proteus) that the design system ships to demonstrate
 white-labelling. Those reference brands are illustrations only.
 
 > Source of truth: the Neptune Brand Identity Guidelines (2026). This is a summary for engineering;

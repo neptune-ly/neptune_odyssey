@@ -37,7 +37,7 @@ function themeKey(input: ThemeInput): string {
  * Resolve a theme from any of the three inputs and provide it to descendants.
  *
  * @example
- * <NeptuneProvider input="andalus" mode="light" dir="ltr">
+ * <NeptuneProvider input="triton" mode="light" dir="ltr">
  *   <App />
  * </NeptuneProvider>
  */

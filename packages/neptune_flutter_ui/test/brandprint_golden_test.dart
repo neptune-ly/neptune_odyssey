@@ -81,7 +81,7 @@ void main() {
   });
 
   group('brandprint error handling', () {
-    final valid = brands['andalus']['brandprint'] as String;
+    final valid = brands['triton']['brandprint'] as String;
 
     test('throws on bad prefix', () {
       expect(() => Brandprint.decode('XX1-${valid.substring(4)}'),

@@ -1,6 +1,6 @@
 // Neptune Odyssey — shared token types · © 2026 Neptune.Fintech (neptune.ly)
 
-export const BRANDS = ["neptune", "andalus", "nuran", "fglb"] as const;
+export const BRANDS = ["neptune", "triton", "nereid", "proteus"] as const;
 export type Brand = (typeof BRANDS)[number];
 
 export const MODES = ["light", "dark"] as const;

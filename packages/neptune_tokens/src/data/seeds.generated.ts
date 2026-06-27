@@ -14,7 +14,7 @@ export const BRAND_SEEDS = {
       "H": 200
     }
   },
-  "andalus": {
+  "triton": {
     "primary": {
       "L": 0.5,
       "C": 0.12,
@@ -26,7 +26,7 @@ export const BRAND_SEEDS = {
       "H": 86
     }
   },
-  "nuran": {
+  "nereid": {
     "primary": {
       "L": 0.52,
       "C": 0.18,
@@ -38,7 +38,7 @@ export const BRAND_SEEDS = {
       "H": 350
     }
   },
-  "fglb": {
+  "proteus": {
     "primary": {
       "L": 0.42,
       "C": 0.13,

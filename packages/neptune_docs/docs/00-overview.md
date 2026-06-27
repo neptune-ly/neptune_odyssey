@@ -31,9 +31,9 @@ A customer must never feel *"this is the same app with a different logo."* They 
 | Brand | Personality | Color | Shape | Display type | Motif |
 |---|---|---|---|---|---|
 | **Neptune** | oceanic, premium, calm | signal blue + aqua | soft 16px | Hanken Grotesk | sonar tide-rings |
-| **Andalus** | heritage, warm, Mediterranean | emerald + gold | organic 26px | Bricolage Grotesque | arcade of arches |
-| **Nuran** | digital, youthful, luminous | violet + rose | crisp 12px | Space Grotesk | light-grid spark |
-| **FGLB** | institutional, secure, stable | navy + gold | structured 14px | Sora | shield guilloché |
+| **Triton** | warm, fresh, coastal | emerald + gold | organic 26px | Bricolage Grotesque | soft arc rings |
+| **Nereid** | digital, youthful, luminous | violet + rose | crisp 12px | Space Grotesk | light-grid spark |
+| **Proteus** | institutional, secure, stable | navy + gold | structured 14px | Sora | shield guilloché |
 
 Each moves **≥6 of the 12 brand levers** (color · shape · type · logo · motif · card art · illustration · motion · login world · dashboard hero · nav accent · content tone). Color-only customization cannot ship.
 

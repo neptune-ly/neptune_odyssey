@@ -1,7 +1,7 @@
 // Neptune Odyssey — the unified theming surface · © 2026 Neptune.Fintech (neptune.ly)
 //
 // One API, three ways to theme (docs · HANDOFF_PROMPT "The theming API"):
-//   1. brand id      — "neptune" | "andalus" | "nuran" | "fglb"
+//   1. brand id      — "neptune" | "triton" | "nereid" | "proteus"
 //   2. config object — a full BrandprintConfig (seeds, corners, type, levers, flags)
 //   3. brandprint    — "NO1-…"  (decode → config → theme)
 // Same brandprint ⇒ identical theme on every platform.

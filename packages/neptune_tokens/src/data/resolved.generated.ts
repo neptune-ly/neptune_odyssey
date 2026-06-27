@@ -304,7 +304,7 @@ export const RESOLVED = {
       }
     }
   },
-  "andalus": {
+  "triton": {
     "light": {
       "md-sys-color-primary": {
         "hex": "#00774e",
@@ -606,7 +606,7 @@ export const RESOLVED = {
       }
     }
   },
-  "nuran": {
+  "nereid": {
     "light": {
       "md-sys-color-primary": {
         "hex": "#6f4cc6",
@@ -908,7 +908,7 @@ export const RESOLVED = {
       }
     }
   },
-  "fglb": {
+  "proteus": {
     "light": {
       "md-sys-color-primary": {
         "hex": "#004f8f",

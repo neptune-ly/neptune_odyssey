@@ -15,4 +15,4 @@ matching what the web reference renders. In the production Flutter build, reprod
 a Dart/Node step using a colour library (e.g. `culori`) so CI has no browser dependency —
 values must match `tokens.resolved.json`.
 
-Brands: neptune, andalus, nuran, fglb · 4 × light+dark.
+Brands: neptune, triton, nereid, proteus · 4 × light+dark.

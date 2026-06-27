@@ -38,7 +38,7 @@ export const BRAND_CONFIG: Record<string, BrandprintConfig> = {
     "defaultDark": false,
     "defaultRtl": false
   },
-  "andalus": {
+  "triton": {
     "primary": {
       "L": 0.5,
       "C": 0.12,
@@ -72,7 +72,7 @@ export const BRAND_CONFIG: Record<string, BrandprintConfig> = {
     "defaultDark": false,
     "defaultRtl": false
   },
-  "nuran": {
+  "nereid": {
     "primary": {
       "L": 0.52,
       "C": 0.18,
@@ -106,7 +106,7 @@ export const BRAND_CONFIG: Record<string, BrandprintConfig> = {
     "defaultDark": false,
     "defaultRtl": false
   },
-  "fglb": {
+  "proteus": {
     "primary": {
       "L": 0.42,
       "C": 0.13,
@@ -144,7 +144,7 @@ export const BRAND_CONFIG: Record<string, BrandprintConfig> = {
 
 export const BRAND_BRANDPRINT: Record<string, string> = {
   "neptune": "NO1-AXqWAQKMZADICAwQGCAsB-wAAAAAAAAAAAAARw",
-  "andalus": "NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA",
-  "nuran": "NO1-AYW0ASSZoAFeBAgMEhokBuICAAICAgICAgAAVQ",
-  "fglb": "NO1-AWuCAPioeABVBgoOFBwmB-wDAAMDAwMDAwAA1w"
+  "triton": "NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA",
+  "nereid": "NO1-AYW0ASSZoAFeBAgMEhokBuICAAICAgICAgAAVQ",
+  "proteus": "NO1-AWuCAPioeABVBgoOFBwmB-wDAAMDAwMDAwAA1w"
 };

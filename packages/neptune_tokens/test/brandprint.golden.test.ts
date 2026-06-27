@@ -13,7 +13,7 @@ const golden = JSON.parse(
   readFileSync(fileURLToPath(new URL("../assets/brandprints.golden.json", import.meta.url)), "utf8"),
 );
 
-const BRANDS = ["neptune", "andalus", "nuran", "fglb"] as const;
+const BRANDS = ["neptune", "triton", "nereid", "proteus"] as const;
 
 describe("brandprint codec — golden parity with the JS reference", () => {
   it("VERSION matches the reference", () => {

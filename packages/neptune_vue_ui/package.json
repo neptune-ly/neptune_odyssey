@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/vue-ui",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Neptune Odyssey Vue 3 layer — typed wrappers, a theme provider, and a composable over the framework-agnostic web kit.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",

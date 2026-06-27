@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/configurator",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "description": "Neptune Odyssey theme configurator — a client-only web app to pick theme inputs, preview live, and copy a NO1- brandprint.",
   "license": "SEE LICENSE IN LICENSE",

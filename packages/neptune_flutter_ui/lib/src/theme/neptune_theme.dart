@@ -1,7 +1,7 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 //
 // The unified theming surface. Three ways to theme (docs/04, docs/11):
-//   1. brand id     — NeptuneTheme.light('andalus') / .dark('andalus')
+//   1. brand id     — NeptuneTheme.light('triton') / .dark('triton')
 //   2. brandprint   — NeptuneTheme.fromBrandprint('NO1-…')
 //   3. config       — NeptuneTheme.fromConfig(BrandprintConfig)
 // Reference brands resolve via the pinned const schemes; custom seeds generate
@@ -21,7 +21,7 @@ import 'extensions.dart';
 class NeptuneTheme {
   NeptuneTheme._();
 
-  /// Light theme for a reference brand id ('neptune'|'andalus'|'nuran'|'fglb').
+  /// Light theme for a reference brand id ('neptune'|'triton'|'nereid'|'proteus').
   static ThemeData light(String brand) => _forBrand(brand, Brightness.light);
 
   /// Dark theme for a reference brand id.

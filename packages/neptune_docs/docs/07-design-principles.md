@@ -7,7 +7,7 @@
 ## 1. One core, many crowns
 Structure is shared; only the **skin** is per-brand. A component built once must be correct for every bank, in every mode, in both directions. If a bank wants to look different, that is a *theme* change — never a component fork.
 
-**In practice:** there is exactly one `TransactionRow`, one `BalanceHero`, one `BulkPaymentReview`. Andalus and Nuran differ only in the theme object passed in.
+**In practice:** there is exactly one `TransactionRow`, one `BalanceHero`, one `BulkPaymentReview`. Triton and Nereid differ only in the theme object passed in.
 
 ## 2. Tokens are the contract
 Components read **roles**, never literals. A colour, radius, font or spacing value hard-coded inside a widget is a defect, not a style. Tokens are the public API of the system — see `10-token-naming.md`.

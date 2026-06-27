@@ -655,9 +655,9 @@ class Component extends DCLogic {
       wallet:[P('M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v2'),P('M3 7v10a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-3'),P('M21 11h-5a2 2 0 0 0 0 4h5z')],
       sparkle:[P('M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z')],
       markNeptune:[P('M12 2v20'),P('M6 6c0 5 6 5 6 10'),P('M18 6c0 5-6 5-6 10'),L(5,21,19,21)],
-      markAndalus:[P('M5 21V12a7 7 0 0 1 14 0v9'),P('M12 21v-7'),L(4,21,20,21)],
-      markNuran:[P('M12 2l2.4 6.2L21 9l-5 4 1.6 7L12 16.6 6.4 20 8 13 3 9l6.6-.8z')],
-      markFglb:[P('M12 2l8 4.5v9L12 22 4 15.5v-9z'),P('M12 7v10'),P('M8 9.2v5.6'),P('M16 9.2v5.6')],
+      markTriton:[P('M5 21V12a7 7 0 0 1 14 0v9'),P('M12 21v-7'),L(4,21,20,21)],
+      markNereid:[P('M12 2l2.4 6.2L21 9l-5 4 1.6 7L12 16.6 6.4 20 8 13 3 9l6.6-.8z')],
+      markProteus:[P('M12 2l8 4.5v9L12 22 4 15.5v-9z'),P('M12 7v10'),P('M8 9.2v5.6'),P('M16 9.2v5.6')],
     };
     const parts=(d[name]||[]).map((p,i)=>{const[t,a]=p;return React.createElement(t,{key:i,...(typeof a==='string'?{d:a}:a)});});
     return React.createElement('svg',{width:size,height:size,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:sw,strokeLinecap:'round',strokeLinejoin:'round'},parts);
@@ -665,15 +665,15 @@ class Component extends DCLogic {
 
   brands(){
     return { neptune:{name:'Neptune',short:'Neptune',tier:'Neptune Member'},
-      andalus:{name:'Andalus Bank',short:'Andalus',tier:'Andalus Gold'},
-      nuran:{name:'Nuran',short:'Nuran',tier:'Nuran Plus'},
-      fglb:{name:'First Gulf Libyan',short:'FGLB',tier:'FGLB Premier'} };
+      triton:{name:'Triton',short:'Triton',tier:'Triton Gold'},
+      nereid:{name:'Nereid',short:'Nereid',tier:'Nereid Plus'},
+      proteus:{name:'Proteus',short:'Proteus',tier:'Proteus Premier'} };
   }
 
   flash(msg){ this.setState({toast:msg}); clearTimeout(this._t); this._t=setTimeout(()=>this.setState({toast:''}),2200); }
 
   renderVals(){
-    const cur=this.state.theme, b=this.brands(), order=['neptune','andalus','nuran','fglb'];
+    const cur=this.state.theme, b=this.brands(), order=['neptune','triton','nereid','proteus'];
     const corp=this.state.flavor==='corporate';
     const m=this.state.masked, mask=(s)=> m?'••••••':s;
     const mk=this.icon.bind(this);
@@ -776,7 +776,7 @@ class Component extends DCLogic {
         {name:'Layla',init:'LB',bg:'var(--md-sys-color-secondary-container)',fg:'var(--md-sys-color-on-secondary-container)',border:'none'},
         {name:'Add',init:'+',bg:'transparent',fg:'var(--md-sys-color-primary)',border:'2px dashed var(--md-sys-color-outline)'},
       ],
-      billers:[{name:'GECOL',sub:'Electricity',icon:'bill'},{name:'LTT',sub:'Internet',icon:'world'},{name:'Almadar',sub:'Mobile',icon:'bill'},{name:'GWSC',sub:'Water',icon:'bill'}].map(x=>({...x,iconEl:mk(x.icon,20)})),
+      billers:[{name:'GECOL',sub:'Electricity',icon:'bill'},{name:'LTT',sub:'Internet',icon:'world'},{name:'Mobile A',sub:'Mobile',icon:'bill'},{name:'GWSC',sub:'Water',icon:'bill'}].map(x=>({...x,iconEl:mk(x.icon,20)})),
       spendCats:[{cat:'Groceries',amt:'612 LYD',w:'72%'},{cat:'Transport',amt:'396 LYD',w:'47%'},{cat:'Dining',amt:'342 LYD',w:'40%'},{cat:'Shopping',amt:'270 LYD',w:'32%'}],
       barMonths:[{m:'Jan',h:'40%'},{m:'Feb',h:'62%'},{m:'Mar',h:'48%'},{m:'Apr',h:'78%'},{m:'May',h:'55%'},{m:'Jun',h:'90%'}],
     };
@@ -807,7 +807,7 @@ class Component extends DCLogic {
 
     const approvals=[
       {ref:'BATCH-2039',name:'Payroll — May',maker:'Mu Tellesy',amt:'408,200.00 LYD',cnt:'126 payees',prog:'1 of 2',high:false},
-      {ref:'PMT-7782',name:'SWIFT — Gulf Supplier Inc.',maker:'Omar Faraj',amt:'92,000.00 USD',cnt:'1 payment',prog:'0 of 2',high:true},
+      {ref:'PMT-7782',name:'SWIFT — Proteus Supplier Inc.',maker:'Omar Faraj',amt:'92,000.00 USD',cnt:'1 payment',prog:'0 of 2',high:true},
       {ref:'BATCH-2040',name:'Utilities — June',maker:'Layla B.',amt:'24,310.00 LYD',cnt:'11 payees',prog:'1 of 2',high:false},
       {ref:'PMT-7785',name:'Vendor — Nada Trading',maker:'Mu Tellesy',amt:'15,750.00 LYD',cnt:'1 payment',prog:'0 of 2',high:false},
     ].map(a=>({...a, hiBg:a.high?'var(--md-sys-color-error-container)':'var(--md-sys-color-surface-container)', hiFg:a.high?'var(--md-sys-color-on-error-container)':'var(--md-sys-color-on-surface-variant)', hiLabel:a.high?'High value':'Standard',
@@ -829,9 +829,9 @@ class Component extends DCLogic {
 
     const beneficiaries=[
       {name:'Tellesy Co.',bank:'Neptune · •••• 3920',cur:'LYD',init:'TC'},
-      {name:'Gulf Supplier Inc.',bank:'SWIFT · CHASUS33',cur:'USD',init:'GS'},
-      {name:'Nada Trading',bank:'Andalus · •••• 7741',cur:'LYD',init:'NT'},
-      {name:'GECOL',bank:'Sahara Bank · •••• 1180',cur:'LYD',init:'GE'},
+      {name:'Proteus Supplier Inc.',bank:'SWIFT · CHASUS33',cur:'USD',init:'HS'},
+      {name:'Nada Trading',bank:'Triton Bank · •••• 7741',cur:'LYD',init:'NT'},
+      {name:'GECOL',bank:'Nereid Bank · •••• 1180',cur:'LYD',init:'GE'},
     ].map(x=>({...x,iconEl:null}));
 
     const reports=[
@@ -849,7 +849,7 @@ class Component extends DCLogic {
     // ----- repair failed rows -----
     const repairData=[
       {id:'r1',payee:'Khaled Senussi',col:'IBAN',hint:'IBAN checksum invalid',ph:'LY## #### #### #### #### ####'},
-      {id:'r2',payee:'Sahara Logistics Co.',col:'Amount',hint:'Amount is required',ph:'0.00 LYD'},
+      {id:'r2',payee:'Proteus Logistics Co.',col:'Amount',hint:'Amount is required',ph:'0.00 LYD'},
       {id:'r3',payee:'Nile Traders Ltd.',col:'Currency',hint:'GBP not supported \u2014 use LYD, USD or EUR',ph:'LYD'},
     ];
     const fixedMap=this.state.fixed||{};
@@ -882,7 +882,7 @@ class Component extends DCLogic {
     // ----- audit trail -----
     const auditAll=[
       {actor:'Mu Tellesy',init:'MT',action:'Approved batch',target:'BATCH-2039 \u00b7 Payroll May',amt:'408,200.00 LYD',cat:'approval',channel:'Web \u00b7 41.208.x.20',time:'Today 09:42'},
-      {actor:'Omar Faraj',init:'OF',action:'Submitted for approval',target:'PMT-7782 \u00b7 SWIFT Gulf Supplier',amt:'92,000.00 USD',cat:'payment',channel:'Web \u00b7 41.208.x.18',time:'Today 09:10'},
+      {actor:'Omar Faraj',init:'OF',action:'Submitted for approval',target:'PMT-7782 \u00b7 SWIFT Proteus Supplier',amt:'92,000.00 USD',cat:'payment',channel:'Web \u00b7 41.208.x.18',time:'Today 09:10'},
       {actor:'Layla Ben Ali',init:'LB',action:'Rejected payment',target:'PMT-7770 \u00b7 Duplicate vendor',amt:'12,500.00 LYD',cat:'approval',channel:'Web \u00b7 41.208.x.31',time:'Yest. 16:55'},
       {actor:'Mu Tellesy',init:'MT',action:'Invited member',target:'khaled@neptune.ly \u00b7 Viewer',amt:'\u2014',cat:'user',channel:'Web \u00b7 41.208.x.20',time:'Yest. 14:02'},
       {actor:'Nadia Drah',init:'ND',action:'Failed sign-in \u00d73 \u2014 account locked',target:'Security policy',amt:'\u2014',cat:'login',channel:'Mobile \u00b7 41.208.x.77',time:'Yest. 08:31'},

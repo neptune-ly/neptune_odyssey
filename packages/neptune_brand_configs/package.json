@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/brand-configs",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Neptune Odyssey reference tenant configs (5 banks) + a loader that maps each tenant to a portable brandprint. A new bank is one config, never a fork.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",

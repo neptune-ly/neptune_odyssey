@@ -22,7 +22,7 @@ ESM-only, `sideEffects: false`, fully tree-shakeable, SSR-safe. No runtime CSS-i
 ```ts
 import { buildTheme } from "@neptune.fintech/tokens";
 
-buildTheme("andalus", { mode: "dark", dir: "rtl" }); // 1 · reference brand id
+buildTheme("triton", { mode: "dark", dir: "rtl" }); // 1 · reference brand id
 buildTheme(myConfig);                                  // 2 · full config object
 buildTheme("NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA"); // 3 · brandprint string
 ```
@@ -67,4 +67,4 @@ Run them: `pnpm --filter @neptune.fintech/tokens test`.
 
 ---
 © 2026 Neptune.Fintech. "Neptune Odyssey" and "Neptune.Fintech" are marks of the Licensor.
-The bundled example brands (neptune/andalus/nuran/fglb) are reference illustrations only.
+The bundled example brands (neptune/triton/nereid/proteus) are reference illustrations only.

@@ -18,8 +18,8 @@ pnpm add @neptune.fintech/product-configs @neptune.fintech/brand-configs
 ```ts
 import { getProductConfig, isFeatureEnabled, enabledFeatures } from "@neptune.fintech/product-configs";
 
-getProductConfig("nuran-wallet");            // { flavor, density, platforms, features }
-isFeatureEnabled("nuran-wallet", "wallet");  // true
+getProductConfig("nereid-wallet");            // { flavor, density, platforms, features }
+isFeatureEnabled("nereid-wallet", "wallet");  // true
 isFeatureEnabled("neptune-retail", "cards.freeze"); // true (nested → dot-path)
 enabledFeatures("neptune-corporate");        // ["accounts", "approvals", "userManagement", …]
 ```

@@ -308,7 +308,7 @@
         }
       }
     },
-    "andalus": {
+    "triton": {
       "light": {
         "md-sys-color-primary": {
           "hex": "#00774e",
@@ -610,7 +610,7 @@
         }
       }
     },
-    "nuran": {
+    "nereid": {
       "light": {
         "md-sys-color-primary": {
           "hex": "#6f4cc6",
@@ -912,7 +912,7 @@
         }
       }
     },
-    "fglb": {
+    "proteus": {
       "light": {
         "md-sys-color-primary": {
           "hex": "#004f8f",

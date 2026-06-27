@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/react-native-ui",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Neptune Odyssey React Native layer — a theme provider, a hook, and themed react-native primitives resolved from the framework-agnostic token core.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",

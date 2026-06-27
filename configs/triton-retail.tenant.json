@@ -2,23 +2,23 @@
   "$schema": "neptune.tenant.config/v1",
   "extends": "neptune-core@A",
   "tenant": {
-    "id": "andalus-retail",
-    "displayName": "Andalus Retail",
-    "institution": "Andalus Bank",
+    "id": "triton-retail",
+    "displayName": "Triton Retail",
+    "institution": "Triton Bank",
     "market": "LY",
     "status": "reference",
-    "note": "Heritage retail bank. Warm, rooted, Mediterranean. Same structure, fully re-skinned."
+    "note": "Retail demo brand. Warm, rooted, coastal. Same structure, fully re-skinned."
   },
   "brand": {
-    "theme": "andalus",
-    "wordmark": "Andalus Bank",
-    "shortName": "Andalus",
-    "logoMark": "markAndalus",
+    "theme": "triton",
+    "wordmark": "Triton Bank",
+    "shortName": "Triton",
+    "logoMark": "markTriton",
     "palette": { "primaryHue": 162, "tertiaryHue": 86, "seed": "emerald", "accents": ["emerald", "warm-gold"] },
     "fonts": { "display": "Bricolage Grotesque", "text": "Hanken Grotesk", "num": "Hanken Grotesk", "displayAr": "Reem Kufi", "textAr": "Tajawal" },
     "shapeScale": 1.0,
     "cornerFamily": { "xs": 12, "sm": 18, "md": 26, "lg": 34, "xl": 44, "2xl": 56, "note": "organic, larger radii" },
-    "motif": "heritage arcade of arches",
+    "motif": "coastal soft arc rings",
     "heroEmblem": "arch silhouette",
     "motionPersonality": "calm-graceful",
     "glassTint": "warm-amber",
@@ -37,7 +37,7 @@
     "insights": true, "securityCenter": true, "multiSession": true, "notifications": true
   },
   "content": {
-    "en": { "loginHeadline": "Banking with heritage, built for today.", "tierLabel": "Andalus Gold", "primaryCta": "New transfer", "currencyName": "Libyan Dinar" },
+    "en": { "loginHeadline": "Banking with coastal, built for today.", "tierLabel": "Triton Gold", "primaryCta": "New transfer", "currencyName": "Libyan Dinar" },
     "ar": { "loginHeadline": "مصرفية بعراقة، صُممت لليوم.", "tierLabel": "أندلس الذهبية", "primaryCta": "تحويل جديد", "currencyName": "دينار ليبي" }
   },
   "compliance": {
@@ -47,8 +47,8 @@
     "statementFormat": "PDF/CSV", "auditRetentionMonths": 84, "numerals": "arabic-default"
   },
   "platformOverrides": {
-    "flutter": { "themeExtension": "AndalusTheme", "useMaterial3": true, "colorSchemeSeedHue": 162 },
-    "web": { "cssVarsTheme": "andalus", "sidebarWidth": 256, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
+    "flutter": { "themeExtension": "TritonTheme", "useMaterial3": true, "colorSchemeSeedHue": 162 },
+    "web": { "cssVarsTheme": "triton", "sidebarWidth": 256, "breakpoints": { "sm": 600, "md": 905, "lg": 1240 } }
   },
   "levers": {
     "moved": ["color", "shape", "typography", "logo", "motif", "cardArt", "loginShell", "motion", "contentTone"],

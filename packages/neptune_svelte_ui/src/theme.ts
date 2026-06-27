@@ -21,7 +21,7 @@ interface SvelteActionReturn {
 }
 
 /**
- * Svelte action: `<div use:theme={{ input: "andalus", mode: "system", dir: "auto" }}>`.
+ * Svelte action: `<div use:theme={{ input: "triton", mode: "system", dir: "auto" }}>`.
  * Applies (and reactively updates) a Neptune Odyssey theme on the node, and registers
  * the custom elements so `<npt-*>` tags work anywhere inside.
  */

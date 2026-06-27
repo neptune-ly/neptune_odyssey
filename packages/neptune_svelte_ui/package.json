@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/svelte-ui",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Neptune Odyssey Svelte layer — a use:theme action, a NeptuneProvider, and theming re-exports over the framework-agnostic web kit.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",

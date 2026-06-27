@@ -31,7 +31,7 @@ export function useNeptuneTheme(
 }
 
 /**
- * <NeptuneProvider :theme="'andalus'" mode="system" dir="auto"> … </NeptuneProvider>
+ * <NeptuneProvider :theme="'triton'" mode="system" dir="auto"> … </NeptuneProvider>
  * Wraps its slot in a themed <div> and registers the custom elements on mount.
  */
 export const NeptuneProvider = defineComponent({
@@ -81,4 +81,4 @@ export { applyTheme, registerAll } from "@neptune.fintech/web-ui";
 export type { ThemeInput, ModeOption, DirOption } from "@neptune.fintech/web-ui";
 export { buildTheme, brandprintFor, encode, decode } from "@neptune.fintech/tokens";
 
-export const VUE_UI_VERSION = "1.0.0";
+export const VUE_UI_VERSION = "2.0.0";

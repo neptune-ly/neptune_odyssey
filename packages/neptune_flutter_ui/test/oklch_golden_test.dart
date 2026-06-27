@@ -19,9 +19,9 @@ void main() {
     final cases = <String, ({int light, int dark})>{
       // primary
       'neptune': (light: 0xFF1D5AB0, dark: 0xFF8DC0FF),
-      'andalus': (light: 0xFF00774E, dark: 0xFF7DDBAE),
-      'nuran': (light: 0xFF6F4CC6, dark: 0xFFC0AAFF),
-      'fglb': (light: 0xFF004F8F, dark: 0xFF7DBDFB),
+      'triton': (light: 0xFF00774E, dark: 0xFF7DDBAE),
+      'nereid': (light: 0xFF6F4CC6, dark: 0xFFC0AAFF),
+      'proteus': (light: 0xFF004F8F, dark: 0xFF7DBDFB),
     };
     cases.forEach((brand, primaries) {
       test('$brand primary (light+dark)', () {
@@ -31,18 +31,18 @@ void main() {
       });
     });
 
-    test('andalus tertiary + success roles', () {
-      expect(andalusLight.tertiary.toARGB32(), 0xFFA68018);
-      expect(andalusDark.tertiary.toARGB32(), 0xFFE1C076);
-      expect(brandSuccess['andalus']!.$1.success.toARGB32(), 0xFF2D8949);
-      expect(brandSuccess['andalus']!.$2.success.toARGB32(), 0xFF7CCD8E);
+    test('triton tertiary + success roles', () {
+      expect(tritonLight.tertiary.toARGB32(), 0xFFA68018);
+      expect(tritonDark.tertiary.toARGB32(), 0xFFE1C076);
+      expect(brandSuccess['triton']!.$1.success.toARGB32(), 0xFF2D8949);
+      expect(brandSuccess['triton']!.$2.success.toARGB32(), 0xFF7CCD8E);
     });
 
     test('every brand has matching surface + error roles', () {
       // light surface / error are stable references in resolved.json.
       expect(neptuneLight.surface.toARGB32(), 0xFFF8FAFE);
-      expect(nuranLight.error.toARGB32(), 0xFFC2181D);
-      expect(fglbDark.surface.toARGB32(), 0xFF03060A);
+      expect(nereidLight.error.toARGB32(), 0xFFC2181D);
+      expect(proteusDark.surface.toARGB32(), 0xFF03060A);
     });
   });
 

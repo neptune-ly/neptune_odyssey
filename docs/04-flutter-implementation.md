@@ -11,7 +11,7 @@ Production mobile stack. This maps Neptune tokens → Flutter Material 3. **Refe
 Author roles in OKLCH (`tokens/themes.css`) → convert to `Color` (ARGB) at build time (precompute, or use a small OKLCH→sRGB step in your token pipeline). Build the scheme explicitly so it matches the reference exactly:
 
 ```dart
-const andalusLight = ColorScheme(
+const tritonLight = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF0A7B55), onPrimary: Color(0xFFFFFFFF),
   primaryContainer: Color(0xFFB8EBD6), onPrimaryContainer: Color(0xFF06291C),
@@ -36,7 +36,7 @@ Map the corner family to a `ThemeExtension` and the M3 component shape themes:
 class NptShape extends ThemeExtension<NptShape> {
   final double xs, sm, md, lg, xl, xxl; // 9999 → StadiumBorder
 }
-// Andalus: xs12 sm18 md26 lg34 xl44 xxl56 ; Nuran: xs4 sm8 md12 lg18 xl26 xxl36
+// Triton: xs12 sm18 md26 lg34 xl44 xxl56 ; Nereid: xs4 sm8 md12 lg18 xl26 xxl36
 cardTheme: CardThemeData(shape: RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(shape.md))),
 filledButtonTheme: FilledButtonThemeData(style: FilledButton.styleFrom(
@@ -69,7 +69,7 @@ ThemeData bankTheme(ColorScheme scheme, NptShape shape, TextTheme text, NptColor
     /* button / input / chip / fab themes from tokens */);
 
 // swap brand at launch / login:
-MaterialApp(theme: andalusLight, darkTheme: andalusDark, themeMode: ThemeMode.system);
+MaterialApp(theme: tritonLight, darkTheme: tritonDark, themeMode: ThemeMode.system);
 ```
 Drive the active brand from a provider (Riverpod/Bloc/InheritedWidget) so login or build flavour selects it.
 

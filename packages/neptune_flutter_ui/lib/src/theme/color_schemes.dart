@@ -77,7 +77,7 @@ const ColorScheme neptuneDark = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme andalusLight = ColorScheme(
+const ColorScheme tritonLight = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF00774E),
   onPrimary: Color(0xFFF1FFF8),
@@ -113,7 +113,7 @@ const ColorScheme andalusLight = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme andalusDark = ColorScheme(
+const ColorScheme tritonDark = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFF7DDBAE),
   onPrimary: Color(0xFF00250E),
@@ -149,7 +149,7 @@ const ColorScheme andalusDark = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme nuranLight = ColorScheme(
+const ColorScheme nereidLight = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF6F4CC6),
   onPrimary: Color(0xFFFCFAFF),
@@ -185,7 +185,7 @@ const ColorScheme nuranLight = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme nuranDark = ColorScheme(
+const ColorScheme nereidDark = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFFC0AAFF),
   onPrimary: Color(0xFF20014C),
@@ -221,7 +221,7 @@ const ColorScheme nuranDark = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme fglbLight = ColorScheme(
+const ColorScheme proteusLight = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF004F8F),
   onPrimary: Color(0xFFF2FDFF),
@@ -257,7 +257,7 @@ const ColorScheme fglbLight = ColorScheme(
   shadow: Color(0xFF000000),
 );
 
-const ColorScheme fglbDark = ColorScheme(
+const ColorScheme proteusDark = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFF7DBDFB),
   onPrimary: Color(0xFF001036),
@@ -296,7 +296,7 @@ const ColorScheme fglbDark = ColorScheme(
 /// Brand id → (light, dark) ColorScheme for the four reference brands.
 const Map<String, (ColorScheme light, ColorScheme dark)> neptuneSchemes = {
   'neptune': (neptuneLight, neptuneDark),
-  'andalus': (andalusLight, andalusDark),
-  'nuran': (nuranLight, nuranDark),
-  'fglb': (fglbLight, fglbDark),
+  'triton': (tritonLight, tritonDark),
+  'nereid': (nereidLight, nereidDark),
+  'proteus': (proteusLight, proteusDark),
 };

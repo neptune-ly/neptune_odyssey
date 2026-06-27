@@ -10,10 +10,10 @@ import { radius, colorOf, makeThemedStyles, SPACE } from "../src/styles.js";
 import { NeptuneProvider, useNeptuneTheme } from "../src/context.js";
 
 describe("@neptune.fintech/react-native-ui — non-RN logic", () => {
-  const theme = buildTheme("andalus", { mode: "light", dir: "ltr" });
+  const theme = buildTheme("triton", { mode: "light", dir: "ltr" });
 
   it("buildTheme passthrough resolves the requested brand", () => {
-    expect(theme.brand).toBe("andalus");
+    expect(theme.brand).toBe("triton");
     expect(theme.mode).toBe("light");
     expect(theme.dir).toBe("ltr");
   });

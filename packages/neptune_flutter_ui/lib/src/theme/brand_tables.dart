@@ -26,7 +26,7 @@ const Map<String, (NptColors light, NptColors dark)> brandSuccess = {
       onSuccessContainer: Color(0xFFBCECC8),
     ),
   ),
-  'andalus': (
+  'triton': (
     NptColors(
       success: Color(0xFF2D8949),
       onSuccess: Color(0xFFF3FFF5),
@@ -40,7 +40,7 @@ const Map<String, (NptColors light, NptColors dark)> brandSuccess = {
       onSuccessContainer: Color(0xFFBEECC6),
     ),
   ),
-  'nuran': (
+  'nereid': (
     NptColors(
       success: Color(0xFF2E9052),
       onSuccess: Color(0xFFF2FFF5),
@@ -54,7 +54,7 @@ const Map<String, (NptColors light, NptColors dark)> brandSuccess = {
       onSuccessContainer: Color(0xFFBCECC8),
     ),
   ),
-  'fglb': (
+  'proteus': (
     NptColors(
       success: Color(0xFF2E9052),
       onSuccess: Color(0xFFF2FFF5),
@@ -73,9 +73,9 @@ const Map<String, (NptColors light, NptColors dark)> brandSuccess = {
 /// Corner family per brand (px), from tokens.json themes.<brand>.shape.
 const Map<String, NptShape> brandShape = {
   'neptune': NptShape(xs: 8, sm: 12, md: 16, lg: 24, xl: 32, xxl: 44),
-  'andalus': NptShape(xs: 12, sm: 18, md: 26, lg: 34, xl: 44, xxl: 56),
-  'nuran': NptShape(xs: 4, sm: 8, md: 12, lg: 18, xl: 26, xxl: 36),
-  'fglb': NptShape(xs: 6, sm: 10, md: 14, lg: 20, xl: 28, xxl: 38),
+  'triton': NptShape(xs: 12, sm: 18, md: 26, lg: 34, xl: 44, xxl: 56),
+  'nereid': NptShape(xs: 4, sm: 8, md: 12, lg: 18, xl: 26, xxl: 36),
+  'proteus': NptShape(xs: 6, sm: 10, md: 14, lg: 20, xl: 28, xxl: 38),
 };
 
 /// Type set per brand. displayWeight/Tracking from the canonical brandprint config.
@@ -87,21 +87,21 @@ const Map<String, NptType> brandType = {
     displayWeight: 700,
     displayTracking: -0.02,
   ),
-  'andalus': NptType(
+  'triton': NptType(
     display: 'Bricolage Grotesque',
     text: 'Hanken Grotesk',
     num: 'Hanken Grotesk',
     displayWeight: 700,
     displayTracking: -0.01,
   ),
-  'nuran': NptType(
+  'nereid': NptType(
     display: 'Space Grotesk',
     text: 'Hanken Grotesk',
     num: 'Space Grotesk',
     displayWeight: 600,
     displayTracking: -0.03,
   ),
-  'fglb': NptType(
+  'proteus': NptType(
     display: 'Sora',
     text: 'Hanken Grotesk',
     num: 'Sora',
@@ -181,7 +181,7 @@ const Map<String, BrandprintConfig> brandConfig = {
     glassTint: 'oceanic',
     motion: 'smooth-fluid',
   ),
-  'andalus': BrandprintConfig(
+  'triton': BrandprintConfig(
     primary: Seed(l: 0.50, c: 0.12, h: 162),
     tertiary: Seed(l: 0.62, c: 0.12, h: 86),
     corners: Corners(xs: 12, sm: 18, md: 26, lg: 34, xl: 44, xxl: 56),
@@ -196,7 +196,7 @@ const Map<String, BrandprintConfig> brandConfig = {
     glassTint: 'warm-amber',
     motion: 'calm-graceful',
   ),
-  'nuran': BrandprintConfig(
+  'nereid': BrandprintConfig(
     primary: Seed(l: 0.52, c: 0.18, h: 292),
     tertiary: Seed(l: 0.60, c: 0.16, h: 350),
     corners: Corners(xs: 4, sm: 8, md: 12, lg: 18, xl: 26, xxl: 36),
@@ -211,7 +211,7 @@ const Map<String, BrandprintConfig> brandConfig = {
     glassTint: 'violet-luminous',
     motion: 'light-quick-crisp',
   ),
-  'fglb': BrandprintConfig(
+  'proteus': BrandprintConfig(
     primary: Seed(l: 0.42, c: 0.13, h: 248),
     tertiary: Seed(l: 0.66, c: 0.12, h: 85),
     corners: Corners(xs: 6, sm: 10, md: 14, lg: 20, xl: 28, xxl: 38),
@@ -229,4 +229,4 @@ const Map<String, BrandprintConfig> brandConfig = {
 };
 
 /// The four reference brand ids in canonical order.
-const List<String> kBrands = ['neptune', 'andalus', 'nuran', 'fglb'];
+const List<String> kBrands = ['neptune', 'triton', 'nereid', 'proteus'];

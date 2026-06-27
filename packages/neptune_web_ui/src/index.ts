@@ -28,4 +28,4 @@ export type {
 } from "@neptune.fintech/tokens";
 export { buildTheme, encode, decode, brandprintFor } from "@neptune.fintech/tokens";
 
-export const WEB_UI_VERSION = "1.0.0";
+export const WEB_UI_VERSION = "2.0.0";

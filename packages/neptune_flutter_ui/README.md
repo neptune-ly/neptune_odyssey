@@ -2,7 +2,7 @@
 
 The Flutter package of **Neptune Odyssey** — the vendor-neutral, white-label
 banking design system by [Neptune.Fintech](https://neptune.ly). It ships the four
-reference brands (`neptune`, `andalus`, `nuran`, `fglb`) plus a deterministic
+reference brands (`neptune`, `triton`, `nereid`, `proteus`) plus a deterministic
 **brandprint** codec so any custom tenant theme rebuilds identically across
 platforms.
 
@@ -40,8 +40,8 @@ import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
 
 // 1. By reference brand id.
 MaterialApp(
-  theme: NeptuneTheme.light('andalus'),
-  darkTheme: NeptuneTheme.dark('andalus'),
+  theme: NeptuneTheme.light('triton'),
+  darkTheme: NeptuneTheme.dark('triton'),
   themeMode: ThemeMode.system,
 );
 

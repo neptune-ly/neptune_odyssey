@@ -21,7 +21,7 @@
         "defaultRtl": false
       }
     },
-    "andalus": {
+    "triton": {
       "brandprint": "NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA",
       "config": {
         "primary": { "L": 0.50, "C": 0.12, "H": 162 },
@@ -39,7 +39,7 @@
         "defaultRtl": false
       }
     },
-    "nuran": {
+    "nereid": {
       "brandprint": "NO1-AYW0ASSZoAFeBAgMEhokBuICAAICAgICAgAAVQ",
       "config": {
         "primary": { "L": 0.52, "C": 0.18, "H": 292 },
@@ -57,7 +57,7 @@
         "defaultRtl": false
       }
     },
-    "fglb": {
+    "proteus": {
       "brandprint": "NO1-AWuCAPioeABVBgoOFBwmB-wDAAMDAwMDAwAA1w",
       "config": {
         "primary": { "L": 0.42, "C": 0.13, "H": 248 },
