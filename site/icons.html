@@ -142,6 +142,13 @@
 el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="tok-s">32</span> });</pre></div>
   <p>Because every glyph strokes with <code>currentColor</code>, an icon picks up the ink of its container — no per-theme icon sets, no recolouring at build time. The same names work on Flutter, React, Vue, Svelte and React Native.</p>
 
+  <h2 id="brands" style="margin-top:48px">Payment &amp; fintech brands</h2>
+  <p>Card networks, money-transfer and local Libyan rails — for cards, checkout and accepted-methods rows. Use <code>&lt;npt-brand-mark name="visa"&gt;</code> or <code>brandMarkSvg("visa")</code>.</p>
+  <div class="dcard" style="border-color:color-mix(in oklab,var(--brand-coral) 40%,var(--line));background:color-mix(in oklab,var(--brand-coral) 5%,#fff)">
+    <strong>⚠︎ Third-party trademarks.</strong> These are simplified <b>identification marks / placeholders</b>, owned by their respective brands and <b>not</b> covered by the Neptune Odyssey license. In production, use each brand's <b>official assets</b> per their guidelines. The Libyan marks (NUMO, Moamalat, LyPay, OnePay…) are neutral placeholders to replace with official artwork.
+  </div>
+  <div id="brandgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px"></div>
+
   <div class="dgrid" style="margin-top:30px">
     <a class="tile" href="foundations.html"><h3>Foundations →</h3><p>The colour roles these icons inherit from.</p></a>
     <a class="tile" href="components.html"><h3>Components →</h3><p>See icons in context inside live components.</p></a>
@@ -153,6 +160,31 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script>
+// © 2026 Neptune.Fintech (neptune.ly) — render the payment/brand marks grid
+(function(){
+  function render(){
+    var N = window.Neptune, host = document.getElementById('brandgrid');
+    if (!host || !N || !N.BRAND_MARK_NAMES) { return setTimeout(render, 120); }
+    host.innerHTML = N.BRAND_MARK_NAMES.map(function(name){
+      var svg = ''; try { svg = N.brandMarkSvg(name, { height: 26 }); } catch (e) {}
+      return '<button type="button" class="brandcell" data-name="'+name+'" aria-label="Copy '+name+' brand mark" '+
+        'style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border:1px solid var(--line);'+
+        'border-radius:14px;background:var(--surface);cursor:pointer;min-height:84px;justify-content:center">'+
+        '<span style="display:flex;align-items:center;height:30px">'+svg+'</span>'+
+        '<span style="font-size:11.5px;font-weight:600;color:var(--ink-2)">'+name+'</span></button>';
+    }).join('');
+    host.addEventListener('click', function(e){
+      var b = e.target.closest('.brandcell'); if(!b) return;
+      var snippet = '<npt-brand-mark name="'+b.getAttribute('data-name')+'"></npt-brand-mark>';
+      var done = function(){ var s=b.querySelector('span:last-child'); var t=s.textContent; s.textContent='Copied ✓';
+        setTimeout(function(){ s.textContent=t; }, 1200); };
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(snippet).then(done,done); else done();
+    });
+  }
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', render); else render();
+})();
+</script>
 <script src="assets/nav.js" data-active="icons"></script>
 <script>
 // © 2026 Neptune.Fintech (neptune.ly)

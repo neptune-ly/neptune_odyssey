@@ -79,7 +79,20 @@ export type IconName =
   | "logout"
   | "language"
   | "moon"
-  | "sun";
+  | "sun"
+  // Fintech & payments
+  | "atm"
+  | "pos-terminal"
+  | "coins"
+  | "cash-stack"
+  | "invoice"
+  | "pie-budget"
+  | "exchange-rate"
+  | "crypto"
+  | "loan"
+  | "insurance"
+  | "split-bill"
+  | "tap-to-pay";
 
 /** All icon names, in catalogue order. */
 export const ICON_NAMES: IconName[] = [
@@ -146,4 +159,16 @@ export const ICON_NAMES: IconName[] = [
   "language",
   "moon",
   "sun",
+  "atm",
+  "pos-terminal",
+  "coins",
+  "cash-stack",
+  "invoice",
+  "pie-budget",
+  "exchange-rate",
+  "crypto",
+  "loan",
+  "insurance",
+  "split-bill",
+  "tap-to-pay",
 ];

@@ -12,8 +12,10 @@
 // the DOM at import time; registerIcons() is a no-op outside the browser.
 
 import { iconSvg, isIconName } from "./svg.js";
+import { brandMarkSvg, isBrandMarkName } from "./brand-marks.js";
 
 const TAG = "npt-icon";
+const BRAND_TAG = "npt-brand-mark";
 
 let sheet: CSSStyleSheet | null = null;
 
@@ -89,4 +91,86 @@ export class NptIcon extends HTMLElement {
 export function registerIcons(): void {
   if (typeof customElements === "undefined") return;
   if (!customElements.get(TAG)) customElements.define(TAG, NptIcon);
+}
+
+let brandSheet: CSSStyleSheet | null = null;
+
+function brandStyleSheet(): CSSStyleSheet | null {
+  if (typeof CSSStyleSheet === "undefined") return null;
+  if (!brandSheet) {
+    brandSheet = new CSSStyleSheet();
+    brandSheet.replaceSync(
+      `:host{display:inline-flex;align-items:center;justify-content:center;line-height:0;` +
+        `vertical-align:middle}` +
+        `:host([hidden]){display:none}` +
+        `svg{display:block;height:var(--_h)}`,
+    );
+  }
+  return brandSheet;
+}
+
+/**
+ * <npt-brand-mark name="visa" height="24"></npt-brand-mark>
+ *
+ * Renders a complete MULTICOLOUR third-party brand mark (identification
+ * placeholder). Unlike <npt-icon> these are NOT themeable by currentColor.
+ *
+ * Reactive attributes:
+ *  - `name`   — a BrandMarkName; unknown names render nothing.
+ *  - `height` — px, default 24. Width scales to preserve aspect ratio.
+ */
+export class NptBrandMark extends HTMLElement {
+  static observedAttributes = ["name", "height"];
+
+  private root: ShadowRoot;
+
+  constructor() {
+    super();
+    this.root = this.attachShadow({ mode: "open" });
+  }
+
+  connectedCallback(): void {
+    this.update();
+  }
+
+  attributeChangedCallback(): void {
+    if (this.isConnected) this.update();
+  }
+
+  get name(): string {
+    return this.getAttribute("name") ?? "";
+  }
+  set name(v: string) {
+    this.setAttribute("name", v);
+  }
+
+  get height(): number {
+    return Number(this.getAttribute("height")) || 24;
+  }
+  set height(v: number) {
+    this.setAttribute("height", String(v));
+  }
+
+  private update(): void {
+    const s = brandStyleSheet();
+    if (s) this.root.adoptedStyleSheets = [s];
+
+    const height = this.height;
+    (this.root.host as HTMLElement).style.setProperty("--_h", `${height}px`);
+
+    const name = this.name;
+    this.root.innerHTML = isBrandMarkName(name) ? brandMarkSvg(name, { height }) : "";
+  }
+}
+
+/** Register <npt-brand-mark> in a browser, idempotently. SSR-safe. */
+export function registerBrandMarks(): void {
+  if (typeof customElements === "undefined") return;
+  if (!customElements.get(BRAND_TAG)) customElements.define(BRAND_TAG, NptBrandMark);
+}
+
+/** Register both <npt-icon> and <npt-brand-mark>. Browser-only, idempotent. */
+export function register(): void {
+  registerIcons();
+  registerBrandMarks();
 }

@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/icons",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Neptune Odyssey icon library — an original, hand-authored 24px stroke icon family for banking & fintech, themeable via currentColor, usable from plain web or as the <npt-icon> custom element.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",
@@ -25,7 +25,8 @@
   "files": [
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "NOTICE-brand-marks.md"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",

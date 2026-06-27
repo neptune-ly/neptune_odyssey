@@ -55,6 +55,48 @@ registerIcons(); // browser-only, idempotent
 Reactive attributes: `name`, `size` (px, default 24), `stroke` (default 1.8).
 Override colour with the `--npt-icon-color` custom property or plain `color`.
 
+## Brand marks (third-party trademarks)
+
+> **Trademark notice.** The payment-network & fintech brand marks
+> (Visa, Mastercard, Amex, Discover, UnionPay, Western Union, MoneyGram,
+> Apple Pay, Google Pay, PayPal, SWIFT, mada, NUMO, Moamalat, LyPay, OnePay,
+> Sadad, Tadawul, …) are **third-party trademarks of their respective owners**,
+> provided here as **simplified identification marks / placeholders only**. They
+> are **NOT** original Neptune Odyssey artwork and are **NOT** licensed under the
+> Neptune Odyssey Community License. In production use each brand's **official
+> assets per that brand's brand guidelines**. The Libyan/local marks are neutral
+> placeholders to be replaced with official assets. See
+> [`NOTICE-brand-marks.md`](./NOTICE-brand-marks.md).
+
+Brand marks are **multicolour** and live in a separate module — they return a
+**complete** `<svg>` (with their own `viewBox`), not inner markup, and are NOT in
+`ICONS` / `IconName`.
+
+```ts
+import { brandMarkSvg, BRAND_MARK_NAMES, register } from "@neptune.fintech/icons";
+
+// full <svg> string, sized to a height (width preserves aspect ratio)
+document.querySelector("#pm")!.innerHTML = brandMarkSvg("visa", { height: 24 });
+
+// custom element — register() wires up BOTH <npt-icon> and <npt-brand-mark>
+register();
+```
+
+```html
+<npt-brand-mark name="mastercard" height="24"></npt-brand-mark>
+<npt-brand-mark name="apple-pay" height="20"></npt-brand-mark>
+```
+
+| Export             | Description                                                       |
+| ------------------ | ---------------------------------------------------------------- |
+| `brandMarkSvg`     | `(name, { height? }) => string` — full `<svg>`. Throws on bad name. |
+| `isBrandMarkName`  | `(name) => boolean` type guard for `BrandMarkName`.              |
+| `BRAND_MARKS`      | `Record<BrandMarkName, string>` — complete `<svg>` per mark.     |
+| `BRAND_MARK_NAMES` | `BrandMarkName[]` — the roster, in catalogue order.             |
+| `BrandMarkName`    | Union type of every brand-mark name.                            |
+| `NptBrandMark`     | The `<npt-brand-mark>` custom-element class.                    |
+| `registerBrandMarks` / `register` | Register `<npt-brand-mark>` (and `register()` both elements). |
+
 ## Theming
 
 There is nothing to configure. Because each glyph uses `currentColor`, it
@@ -73,7 +115,7 @@ for free.
 | `IconName`       | Union type of every icon name.                                    |
 | `NptIcon`        | The `<npt-icon>` custom-element class.                            |
 | `registerIcons`  | Registers `<npt-icon>` (browser-only, idempotent).               |
-| `ICONS_VERSION`  | `"2.0.0"`.                                                        |
+| `ICONS_VERSION`  | `"2.1.0"`.                                                        |
 
 ## Icon list
 
@@ -86,7 +128,9 @@ for free.
 `trending-up`, `trending-down`, `savings`, `calendar`, `clock`, `location`,
 `phone`, `mail`, `support`, `chevron-right`, `chevron-down`, `arrow-right`,
 `arrow-left`, `menu`, `more-horizontal`, `more-vertical`, `copy`, `share`,
-`logout`, `language`, `moon`, `sun`.
+`logout`, `language`, `moon`, `sun`, `atm`, `pos-terminal`, `coins`,
+`cash-stack`, `invoice`, `pie-budget`, `exchange-rate`, `crypto`, `loan`,
+`insurance`, `split-bill`, `tap-to-pay`.
 
 ## License
 

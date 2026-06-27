@@ -158,4 +158,30 @@ export const ICONS: Record<IconName, string> = {
     '<path d="M20 13.5A8 8 0 0 1 10.5 4 8 8 0 1 0 20 13.5Z"/>',
   sun:
     '<circle cx="12" cy="12" r="4"/><path d="M12 3v2.2"/><path d="M12 18.8V21"/><path d="M3 12h2.2"/><path d="M18.8 12H21"/><path d="m5.4 5.4 1.6 1.6"/><path d="m17 17 1.6 1.6"/><path d="m18.6 5.4-1.6 1.6"/><path d="m7 17-1.6 1.6"/>',
+
+  // ── Fintech & payments ──────────────────────────────────────────────
+  atm:
+    '<rect x="4" y="4.5" width="16" height="15" rx="2"/><path d="M4 9h16"/><path d="M7.5 13h3"/><path d="M7.5 16h6"/><path d="M16 13.5v3"/>',
+  "pos-terminal":
+    '<rect x="6" y="3.5" width="12" height="17" rx="2"/><path d="M6 8h12"/><path d="M9 5.5h6"/><path d="M9 12h2"/><path d="M13 12h2"/><path d="M9 15.5h2"/><path d="M13 15.5h2"/>',
+  coins:
+    '<ellipse cx="9" cy="7" rx="5" ry="2.5"/><path d="M4 7v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V7"/><ellipse cx="15" cy="15" rx="5" ry="2.5"/><path d="M10 15v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/>',
+  "cash-stack":
+    '<rect x="3" y="7" width="18" height="11" rx="2"/><circle cx="12" cy="12.5" r="2.4"/><path d="M3 11h2"/><path d="M19 11h2"/><path d="M5 5h14"/>',
+  invoice:
+    '<path d="M6 3.5h9l3 3V20a.8.8 0 0 1-1.2.7L15 19.5l-1.5 1.2a1 1 0 0 1-1.2 0L10.8 19.5 9.3 20.7a1 1 0 0 1-1.2 0L6.6 19.5 5.2 20.7A.8.8 0 0 1 4 20V5.5A2 2 0 0 1 6 3.5Z"/><path d="M12 8.5v6"/><path d="M13.8 10h-2.6a1.4 1.4 0 0 0 0 2.8h1.6a1.4 1.4 0 0 1 0 2.8H10"/>',
+  "pie-budget":
+    '<circle cx="12" cy="12" r="8.5"/><path d="M12 12V3.5"/><path d="M12 12l6 6"/>',
+  "exchange-rate":
+    '<path d="M4 8h10l-3-3"/><path d="M4 8V6"/><path d="M20 16H10l3 3"/><path d="M20 16v2"/><path d="M6.2 13h1.6"/><path d="M7 12.2v1.6"/><path d="M16.2 11h1.6"/>',
+  crypto:
+    '<circle cx="12" cy="12" r="8.5"/><path d="M9.5 8h4a2.2 2.2 0 0 1 0 4.4h-4"/><path d="M9.5 12.4h4.3a2.2 2.2 0 0 1 0 4.4H9.5"/><path d="M9.5 8v8.8"/><path d="M11 6.5v1.5"/><path d="M11 16.8v1.5"/><path d="M13 6.5v1.5"/><path d="M13 16.8v1.5"/>',
+  loan:
+    '<circle cx="12" cy="12" r="8.5"/><path d="M12 6.5v11"/><path d="M14.5 8.5h-3.2a2 2 0 0 0 0 4h2.4a2 2 0 0 1 0 4H10"/><path d="m17 5 3 3-3 3"/><path d="M20 8h-6"/>',
+  insurance:
+    '<path d="M12 3.5 19 6v5.5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6Z"/><path d="M12 8.5v7"/><path d="M8.5 12h7"/>',
+  "split-bill":
+    '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3.5 19a4.5 4.5 0 0 1 9 0"/><path d="M11.5 19a4.5 4.5 0 0 1 9 0"/>',
+  "tap-to-pay":
+    '<rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M3 10h13"/><path d="M6.5 14.5h3"/><path d="M19 8.5a6 6 0 0 1 0 7"/><path d="M21.5 6.5a9 9 0 0 1 0 11"/>',
 };
