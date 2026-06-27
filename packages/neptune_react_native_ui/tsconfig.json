@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "lib": ["ES2021"],
+    "baseUrl": ".",
+    "paths": {
+      "react-native": ["./src/react-native.d.ts"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["dist", "test", "node_modules"]
+}

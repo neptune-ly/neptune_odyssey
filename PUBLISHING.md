@@ -1,33 +1,49 @@
 # Publishing Neptune Odyssey
 
-Everything is **publish-ready** and validated by dry-runs. Publishing happens **from CI on a
-version tag** — no credentials ever touch a developer machine. This doc is the exact runbook.
+## Status
+
+- **npm — DONE.** All JS/TS packages are live under the **`@neptune.fintech`** org at v1.0.0
+  (alongside the existing `@neptune.fintech/astro-*` packages).
+- **pub.dev — pending.** `neptune_flutter_ui` is publish-ready (dry-run: 19 KB, 0 warnings) but
+  not yet uploaded — pub.dev needs an interactive browser login.
+- **GitHub Pages — DONE.** Auto-deploys on push to `main`.
 
 ## What gets published, and where
 
 | Registry | Packages |
 |----------|----------|
-| **npm** (scope `@neptune-odyssey`) | `tokens`, `web-ui`, `svelte-ui`, `vue-ui`, `react-ui`, `brand-configs`, `product-configs` |
+| **npm** (scope `@neptune.fintech`) | `tokens`, `web-ui`, `svelte-ui`, `vue-ui`, `react-ui`, `react-native-ui`, `brand-configs`, `product-configs` |
 | **pub.dev** | `neptune_flutter_ui` |
-| **GitHub Pages** | the gallery (`/`) + the configurator / hash-preset maker (`/configurator/`) — auto-deploys on push to `main`, no secrets needed |
+| **GitHub Pages** | the design-system site (`/`) + the configurator / hash-preset maker (`/configurator/`) — auto-deploys on push to `main`, no secrets needed |
 
 `@neptune.fintech/docs` and the demo/configurator apps are `private` and never published to npm.
 
-## One-time setup
+## Publish everything in one command
 
-1. **Create the npm org/scope.** On npmjs.com create an org named **`neptune-odyssey`** (free for
-   public packages). Add the publishing user as a member with publish rights. (The packages are
-   already scoped `@neptune.fintech/*` with `publishConfig.access: public`.)
-2. **Create an npm automation token.** npm → Access Tokens → *Generate* → **Automation** (bypasses
-   2FA in CI). Copy it.
-3. **Create pub.dev credentials.** On a machine with Flutter, run `dart pub login` once and authorize
-   the Google account that owns/will own `neptune_flutter_ui` on pub.dev. The credentials file lands at
-   `~/.config/dart/pub-credentials.json`. Copy its full contents.
-4. **Add repo secrets** (GitHub → repo → Settings → Secrets and variables → Actions → *New repository secret*):
-   - `NPM_TOKEN` = the npm automation token.
-   - `PUB_CREDENTIALS` = the entire contents of `pub-credentials.json`.
-5. **Enable GitHub Pages** (GitHub → Settings → Pages → *Build and deployment* → Source: **GitHub Actions**).
-   The `Pages` workflow then deploys automatically.
+In a terminal where you can complete the logins:
+
+```sh
+bash scripts/publish-all.sh          # logs you in if needed, builds, tests, publishes all
+DRY_RUN=1 bash scripts/publish-all.sh   # validate without uploading
+```
+
+## Publish only the Flutter package (the remaining step)
+
+```sh
+cd packages/neptune_flutter_ui
+flutter pub publish                  # opens a browser to authorize your Google account, then uploads
+```
+
+## CI-on-tag (optional, for future releases)
+
+The `Release` workflow publishes on a `v*` tag with **npm provenance**. One-time setup:
+
+1. **npm token:** npm → Access Tokens → *Generate* → **Automation** (bypasses 2FA in CI).
+2. **pub.dev credentials:** run `dart pub login` once; copy `~/.config/dart/pub-credentials.json`.
+3. **Repo secrets** (Settings → Secrets and variables → Actions):
+   - `NPM_TOKEN` = the npm automation token (must have publish rights to `@neptune.fintech`).
+   - `PUB_CREDENTIALS` = the full contents of `pub-credentials.json`.
+4. **GitHub Pages** is already enabled (Source: GitHub Actions).
 
 ## Cutting a release
 

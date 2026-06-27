@@ -1,0 +1,49 @@
+{
+  "name": "@neptune.fintech/react-native-ui",
+  "version": "1.0.0",
+  "description": "Neptune Odyssey React Native layer — a theme provider, a hook, and themed react-native primitives resolved from the framework-agnostic token core.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neptune-ly/neptune_odyssey.git",
+    "directory": "packages/neptune_react_native_ui"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "react-native": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "LICENSE", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "react-native": ">=0.73"
+  },
+  "dependencies": {
+    "@neptune.fintech/tokens": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "react": "^18.3.1",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

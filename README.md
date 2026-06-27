@@ -39,19 +39,22 @@ Same string ⇒ same theme on every platform. That guarantee is enforced by gold
 
 ## Packages
 
+All JS/TS packages are **live on npm** under [`@neptune.fintech`](https://www.npmjs.com/org/neptune.fintech).
+
 | Package | What it is | Status |
 |---------|-----------|--------|
-| [`@neptune.fintech/tokens`](packages/neptune_tokens) | The determinism backbone — OKLCH→sRGB math, seed→palette ramp, brandprint codec, pinned palettes, `buildTheme()` | **Stable** |
-| [`neptune_flutter_ui`](packages/neptune_flutter_ui) | Flutter `ThemeData` per brand/mode, ThemeExtensions, widgets | **Stable** |
-| [`@neptune.fintech/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **Stable** |
-| [`@neptune.fintech/svelte-ui`](packages/neptune_svelte_ui) | Svelte `use:theme` action + provider | **Stable** |
-| [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **Stable** |
-| [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **Stable** |
-| [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **Stable** |
-| [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **Stable** |
+| [`@neptune.fintech/tokens`](packages/neptune_tokens) | The determinism backbone — OKLCH→sRGB math, seed→palette ramp, brandprint codec, pinned palettes, `buildTheme()` | **npm ✓** |
+| [`neptune_flutter_ui`](packages/neptune_flutter_ui) | Flutter `ThemeData` per brand/mode, ThemeExtensions, widgets | **Stable · pub.dev pending** |
+| [`@neptune.fintech/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **npm ✓** |
+| [`@neptune.fintech/svelte-ui`](packages/neptune_svelte_ui) | Svelte `use:theme` action + provider | **npm ✓** |
+| [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **npm ✓** |
+| [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **npm ✓** |
+| [`@neptune.fintech/react-native-ui`](packages/neptune_react_native_ui) | React Native provider + hook + themed native components | **npm ✓** |
+| [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **npm ✓** |
+| [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **npm ✓** |
 | [`apps/configurator`](apps/configurator) | Client-only theme builder (brandprint encode/decode + live preview + AA check) | **Stable** |
 | [`@neptune.fintech/docs`](packages/neptune_docs) | The written system + the `.dc.html` visual contracts | — |
-| [`roadmap/`](roadmap) | React Native · Kotlin Multiplatform | **Roadmap** (not in v1) |
+| [`roadmap/`](roadmap) | Kotlin Multiplatform (Compose + web) | **Roadmap** |
 
 ## Three ways to theme — one surface, everywhere
 
