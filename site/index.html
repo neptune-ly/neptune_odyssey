@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neptune Odyssey — Design System by Neptune.Fintech</title>
+<meta name="description" content="Neptune Odyssey — a white-label banking design system by Neptune.Fintech. One Material 3 core, every bank. Live references, a theme builder, and libraries for Flutter, Web, Svelte, Vue and React.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&family=Beiruti:wght@400..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ── Official Neptune.Fintech brand (from the brand guideline) ─────────── */
+    --brand-coral:#EB4E4D; --brand-teal:#00A8AE; --brand-navy:#07315F;
+    --brand-sand:#F0CE9D;  --brand-sky:#3BC1EE;
+    --brand-grey:#898989;  --brand-slate:#3A4F54; --brand-mist:#D3D3D3;
+    /* page surfaces */
+    --bg:#ffffff; --bg-2:#f5f7fa; --surface:#ffffff; --line:#e6eaf0;
+    --ink:#07315F; --ink-2:#51607a; --ink-3:#7c8aa3;
+    --rounded:'SF Compact Rounded', ui-rounded, 'Baloo 2', system-ui, sans-serif;
+    --body:'Hanken Grotesk', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* ── Top bar ───────────────────────────────────────────────────────────── */
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 0;position:sticky;top:0;z-index:10;
+    background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .logo{display:flex;align-items:baseline;gap:0;font-family:var(--rounded);font-weight:800;font-size:26px;letter-spacing:-0.02em;color:var(--brand-navy)}
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-coral);display:inline-block;margin-inline-start:3px;transform:translateY(-1px)}
+  .logo small{font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-inline-start:12px;align-self:center}
+  .nav{display:flex;align-items:center;gap:8px}
+  .ghbtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;font-size:13px;font-weight:700;
+    background:var(--brand-navy);color:#fff;transition:transform .2s ease, box-shadow .2s ease}
+  .ghbtn:hover{transform:translateY(-1px);box-shadow:0 10px 24px -12px var(--brand-navy)}
+  .ghbtn.ghost{background:transparent;color:var(--brand-navy);border:1px solid var(--line)}
+
+  /* ── Hero ──────────────────────────────────────────────────────────────── */
+  .hero{padding:78px 0 36px;max-width:820px}
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em}
+  .pill.a{background:color-mix(in oklab,var(--brand-coral) 14%,#fff);color:var(--brand-coral)}
+  .pill.b{background:color-mix(in oklab,var(--brand-teal) 14%,#fff);color:#067a7e}
+  .pill.c{border:1px solid var(--line);color:var(--ink-2)}
+  h1{font-family:var(--rounded);font-size:clamp(40px,6.5vw,72px);line-height:1.0;letter-spacing:-0.035em;margin:0 0 20px;font-weight:800;color:var(--brand-navy)}
+  h1 em{font-style:normal;color:var(--brand-coral)}
+  .lede{font-size:clamp(16px,2vw,20px);line-height:1.55;color:var(--ink-2);margin:0;max-width:680px}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .2s ease,box-shadow .2s ease}
+  .btn.primary{background:var(--brand-coral);color:#fff}
+  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px var(--brand-coral)}
+  .btn.sec{background:var(--bg-2);color:var(--brand-navy);border:1px solid var(--line)}
+  .btn.sec:hover{transform:translateY(-2px)}
+
+  /* brand swatches (the 4 reference design-system brands) */
+  .swatches{display:flex;gap:14px;margin:40px 0 0;flex-wrap:wrap}
+  .sw{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+  .sw .chip{width:104px;height:58px;border-radius:14px;box-shadow:0 10px 22px -14px rgba(7,49,95,.55)}
+  .sw small{font-size:11.5px;color:var(--ink-2);font-weight:700}
+  .swhead{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:40px 0 0}
+
+  /* ── Section heading ───────────────────────────────────────────────────── */
+  .sec-h{font-family:var(--rounded);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-coral);margin:0 0 6px}
+  .sec-t{font-family:var(--rounded);font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-0.02em;margin:0 0 4px;color:var(--brand-navy)}
+  .sec-p{color:var(--ink-2);margin:0;max-width:620px}
+
+  /* ── Demo cards ────────────────────────────────────────────────────────── */
+  .demos{padding:30px 0 10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+  .card{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--surface);
+    border:1px solid var(--line);transition:transform .25s ease,box-shadow .25s ease}
+  .card:hover{transform:translateY(-5px);box-shadow:0 26px 56px -28px rgba(7,49,95,.45)}
+  .thumb{height:150px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:22px}
+  .t1{background:linear-gradient(145deg,var(--brand-navy),var(--brand-teal))}
+  .t2{background:linear-gradient(145deg,var(--brand-teal),var(--brand-sky))}
+  .t3{background:linear-gradient(145deg,var(--brand-coral),var(--brand-sand))}
+  .t4{background:linear-gradient(145deg,var(--brand-navy),var(--brand-coral))}
+  .glass{width:100%;max-width:220px;border-radius:14px;background:color-mix(in oklab,#fff 16%,transparent);
+    border:1px solid color-mix(in oklab,#fff 28%,transparent);backdrop-filter:blur(6px);padding:15px 17px;color:#fff}
+  .glass .g1{font-size:10.5px;opacity:.9;letter-spacing:.06em;font-weight:700;text-transform:uppercase}
+  .glass .g2{font-size:24px;font-weight:800;letter-spacing:-0.02em;margin-top:3px;font-family:var(--rounded)}
+  .glass .g3{display:flex;gap:6px;margin-top:14px}
+  .glass .g3 span{flex:1;height:26px;border-radius:8px;background:color-mix(in oklab,#fff 24%,transparent)}
+  .meta{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+  .tag{align-self:flex-start;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    padding:4px 10px;border-radius:999px;background:var(--bg-2);color:var(--ink-3);margin-bottom:12px}
+  .meta h3{margin:0 0 6px;font-size:18px;font-weight:800;letter-spacing:-0.01em;color:var(--brand-navy);font-family:var(--rounded)}
+  .meta p{margin:0 0 16px;font-size:13.5px;line-height:1.5;color:var(--ink-2);flex:1}
+  .open{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:800;color:var(--brand-coral)}
+
+  /* ── Brand band ────────────────────────────────────────────────────────── */
+  .brandband{margin:64px 0 0;border-radius:26px;background:var(--brand-navy);color:#fff;padding:40px clamp(24px,4vw,48px);
+    display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center}
+  .brandband .logo{color:#fff}
+  .brandband h4{font-family:var(--rounded);font-size:26px;font-weight:800;letter-spacing:-0.02em;margin:18px 0 10px}
+  .brandband p{color:#c7d2e0;margin:0 0 16px;font-size:14.5px;line-height:1.6;max-width:440px}
+  .brandband .glink{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13.5px;color:var(--brand-sand)}
+  .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .pc{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+  .pc .b{height:62px;border-radius:13px;border:1px solid rgba(255,255,255,.14)}
+  .pc small{font-size:10.5px;color:#aebbcd;font-weight:700;text-align:center;letter-spacing:.02em}
+
+  /* ── Frameworks ────────────────────────────────────────────────────────── */
+  .frameworks{margin-top:56px}
+  .fwgrid{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .fw{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:14px;border:1px solid var(--line);
+    background:var(--surface);font-weight:700;font-size:14px;color:var(--brand-navy)}
+  .fw b{color:var(--brand-coral)}
+  .fw.soon{color:var(--ink-3);font-weight:600}
+
+  /* ── Footer ────────────────────────────────────────────────────────────── */
+  footer{border-top:1px solid var(--line);margin-top:64px;padding:36px 0 60px;color:var(--ink-2);font-size:13.5px}
+  .frow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-start}
+  .flinks{display:flex;flex-wrap:wrap;gap:18px}
+  .flinks a{font-weight:700;color:var(--brand-navy)}
+  .lic{margin-top:14px;color:var(--ink-3);max-width:680px;line-height:1.55}
+  .lic b{color:var(--ink-2)}
+
+  @media(max-width:760px){ .brandband{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important} }
+  :focus-visible{outline:2px solid var(--brand-coral);outline-offset:3px;border-radius:8px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="logo" href="./" aria-label="Neptune Odyssey home">Neptune<span class="dot"></span><small>Odyssey · Design System</small></a>
+      <nav class="nav">
+        <a class="ghbtn ghost" href="configurator/">Theme builder</a>
+        <a class="ghbtn" id="ghlink" href="https://github.com/neptune-ly/neptune_odyssey" target="_blank" rel="noopener">★ GitHub</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="pills">
+        <span class="pill a">Material 3 · Expressive</span>
+        <span class="pill b">White-label core</span>
+        <span class="pill c">v1.0.0 · Stable</span>
+      </div>
+      <h1>One core. <em>Every bank.</em></h1>
+      <p class="lede">Neptune Odyssey is a white-label banking design system by <b>Neptune.Fintech</b> — one Material 3 foundation that any bank re-skins (colour, shape, type, motion, expression) across light/dark and LTR/RTL. Pick a theme, copy its <b>brandprint</b>, and get the identical result on Flutter, Web, Svelte, Vue and React.</p>
+      <div class="cta">
+        <a class="btn primary" href="system.html">Open the live system →</a>
+        <a class="btn sec" href="configurator/">Build a theme</a>
+      </div>
+
+      <div class="swhead">Four reference brands · the same component, re-skinned</div>
+      <div class="swatches" id="swatches"></div>
+    </section>
+
+    <section style="margin-top:54px">
+      <p class="sec-h">Explore</p>
+      <h2 class="sec-t">Live references &amp; tools</h2>
+      <p class="sec-p">Each demo is the real system — switch brand, mode and direction and watch it re-skin. The brands below are reference tenants only.</p>
+      <div class="demos">
+        <a class="card" href="system.html">
+          <div class="thumb t1"><div class="glass"><div class="g1">Design system</div><div class="g2">Live reference</div><div class="g3"><span></span><span></span><span></span></div></div></div>
+          <div class="meta"><span class="tag">Mobile · the system</span><h3>Design System</h3><p>Switch brand, mode and direction and watch the whole system re-skin. Principles, states, motion, accessibility and governance.</p><span class="open">Open demo →</span></div>
+        </a>
+        <a class="card" href="banking.html">
+          <div class="thumb t2"><div class="glass"><div class="g1">Internet banking</div><div class="g2">Retail + Corporate</div><div class="g3"><span></span><span></span><span></span></div></div></div>
+          <div class="meta"><span class="tag">Web · banking</span><h3>Web Banking</h3><p>Retail and corporate internet banking — bulk payments, audit trail, approval-matrix editor and repair-failed-rows.</p><span class="open">Open demo →</span></div>
+        </a>
+        <a class="card" href="wallet.html">
+          <div class="thumb t3"><div class="glass"><div class="g1">Wallet</div><div class="g2">Pay · top-up · split</div><div class="g3"><span></span><span></span><span></span></div></div></div>
+          <div class="meta"><span class="tag">Web · wallet</span><h3>Wallet Web</h3><p>A payment-led wallet — balance hero, add money, QR/NFC merchant pay, vouchers, activity and limits.</p><span class="open">Open demo →</span></div>
+        </a>
+        <a class="card" href="configurator/">
+          <div class="thumb t4"><div class="glass"><div class="g1">Theme builder</div><div class="g2">NO1-… brandprint</div><div class="g3"><span></span><span></span><span></span></div></div></div>
+          <div class="meta"><span class="tag">Tool · configurator</span><h3>Theme Builder</h3><p>Pick seeds, shape, type and levers; preview live; copy the portable <b>brandprint</b> string and use it in any library.</p><span class="open">Open tool →</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="brandband">
+      <div>
+        <span class="logo">Neptune<span class="dot"></span></span>
+        <h4>Built by Neptune.Fintech</h4>
+        <p>Financial Technology &amp; Solutions. Neptune Odyssey is our platform design system — the engineering behind premium, white-label banking. The identity, colour and type here follow the Neptune brand guideline.</p>
+        <a class="glink" href="https://neptune.ly" target="_blank" rel="noopener">neptune.ly →</a>
+      </div>
+      <div class="palette" aria-label="Neptune.Fintech brand colours">
+        <div class="pc"><div class="b" style="background:#EB4E4D"></div><small>Coral</small></div>
+        <div class="pc"><div class="b" style="background:#00A8AE"></div><small>Teal</small></div>
+        <div class="pc"><div class="b" style="background:#07315F"></div><small>Navy</small></div>
+        <div class="pc"><div class="b" style="background:#F0CE9D"></div><small>Sand</small></div>
+        <div class="pc"><div class="b" style="background:#3BC1EE"></div><small>Sky</small></div>
+      </div>
+    </section>
+
+    <section class="frameworks">
+      <p class="sec-h">Ship it</p>
+      <h2 class="sec-t">One brandprint, every framework</h2>
+      <p class="sec-p">The same <code>NO1-…</code> string produces the identical theme everywhere — guaranteed by golden tests.</p>
+      <div class="fwgrid">
+        <span class="fw"><b>Flutter</b> · pub.dev</span>
+        <span class="fw"><b>Web</b> · custom elements</span>
+        <span class="fw"><b>Svelte</b></span>
+        <span class="fw"><b>Vue 3</b></span>
+        <span class="fw"><b>React</b></span>
+        <span class="fw soon">React Native · roadmap</span>
+        <span class="fw soon">Kotlin Multiplatform · roadmap</span>
+      </div>
+    </section>
+
+    <footer>
+      <div class="frow">
+        <div>
+          <span class="logo" style="font-size:20px">Neptune<span class="dot" style="width:6px;height:6px"></span><small style="font-size:10px">Odyssey</small></span>
+          <div class="lic"><b>© 2026 Neptune.Fintech</b> — Financial Technology &amp; Solutions. Neptune Odyssey is source-available under the <b>Neptune Odyssey Community License v1.0</b>: free for non-commercial use and organisations under USD&nbsp;$25k/yr; a commercial licence is required above that. “Neptune Odyssey” and “Neptune.Fintech” are marks of the Licensor. The reference brands (neptune/andalus/nuran/fglb) are illustrations only.</div>
+        </div>
+        <div class="flinks">
+          <a href="https://github.com/neptune-ly/neptune_odyssey" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/neptune-ly/neptune_odyssey/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+          <a href="https://github.com/neptune-ly/neptune_odyssey/blob/main/BRAND.md" target="_blank" rel="noopener">Brand guideline</a>
+          <a href="configurator/">Theme builder</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // four-brand swatch row — reads the real design tokens by flipping data-theme on a hidden probe
+    (function(){
+      var brands=[['neptune','Neptune'],['andalus','Andalus'],['nuran','Nuran'],['fglb','FGLB']];
+      var link=document.createElement('link');link.rel='stylesheet';link.href='tokens/themes.css';document.head.appendChild(link);
+      var host=document.getElementById('swatches');
+      var done=false;
+      function paint(){
+        if(done) return;
+        var probe=document.createElement('div');probe.style.display='none';document.body.appendChild(probe);
+        // verify themes.css is actually applied before committing
+        probe.setAttribute('data-theme','andalus');probe.setAttribute('data-mode','light');
+        var test=getComputedStyle(probe).getPropertyValue('--md-sys-color-primary').trim();
+        if(test.indexOf('162')<0 && test.indexOf('a7')<0 && test.indexOf('77')<0){ probe.remove(); return; } // not loaded yet
+        done=true; host.innerHTML='';
+        brands.forEach(function(b){
+          probe.setAttribute('data-theme',b[0]);probe.setAttribute('data-mode','light');
+          var cs=getComputedStyle(probe);
+          var c=cs.getPropertyValue('--md-sys-color-primary').trim()||'#1d5ab0';
+          var t=cs.getPropertyValue('--md-sys-color-tertiary').trim()||'#008389';
+          var el=document.createElement('div');el.className='sw';
+          el.innerHTML='<div class="chip" style="background:linear-gradient(135deg,'+c+','+t+')"></div><small>'+b[1]+'</small>';
+          host.appendChild(el);
+        });
+        probe.remove();
+      }
+      link.addEventListener('load',paint);
+      var tries=0,iv=setInterval(function(){ paint(); if(done||++tries>30) clearInterval(iv); },120);
+      paint();
+    })();
+  </script>
+</body>
+</html>

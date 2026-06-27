@@ -1,0 +1,74 @@
+/* ════════════════════════════════════════════════════════════════════════
+   NEPTUNE ODYSSEY — system token layer  ·  by Neptune.Fintech
+   Brand-agnostic semantic tokens: motion, elevation, spacing, type scale,
+   state layers, focus, z-index, density.
+
+   themes.css owns what changes PER BRAND (color, shape, type family, motif).
+   system.css owns what stays CONSTANT across every brand — the physics of the
+   system. Together they make the platform's "everything is a token" promise
+   literally true: no component should hardcode a shadow, duration, easing,
+   spacing step, focus ring, or type size again.
+
+   Load order:  themes.css  →  system.css   (system reads scrim from the theme)
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── Spacing · 4px base grid ─────────────────────────────────────────── */
+  --npt-space-0:0;   --npt-space-1:4px;  --npt-space-2:8px;  --npt-space-3:12px;
+  --npt-space-4:16px; --npt-space-5:20px; --npt-space-6:24px; --npt-space-8:32px;
+  --npt-space-10:40px; --npt-space-12:48px; --npt-space-16:64px; --npt-space-20:80px;
+
+  /* ── Type scale · M3 roles (pair size + leading + weight) ────────────── */
+  --npt-text-display-lg: 57px; --npt-leading-display-lg: 64px;
+  --npt-text-display-md: 45px; --npt-leading-display-md: 52px;
+  --npt-text-headline:   28px; --npt-leading-headline:   36px;
+  --npt-text-title-lg:   22px; --npt-leading-title-lg:   28px;
+  --npt-text-title:      18px; --npt-leading-title:      24px;
+  --npt-text-body-lg:    16px; --npt-leading-body-lg:    24px;
+  --npt-text-body:       14px; --npt-leading-body:       20px;
+  --npt-text-label:      14px; --npt-leading-label:      20px;
+  --npt-text-caption:    12px; --npt-leading-caption:    16px;
+  --npt-weight-regular:400; --npt-weight-medium:500; --npt-weight-semibold:600; --npt-weight-bold:700;
+
+  /* ── Motion · durations + M3 Expressive easings ──────────────────────── */
+  --npt-dur-1:100ms; --npt-dur-2:180ms; --npt-dur-3:280ms; --npt-dur-4:400ms; --npt-dur-5:520ms;
+  --npt-ease-standard:   cubic-bezier(.2,0,0,1);
+  --npt-ease-emphasized: cubic-bezier(.2,0,0,1);
+  --npt-ease-decelerate: cubic-bezier(0,0,0,1);
+  --npt-ease-accelerate: cubic-bezier(.3,0,1,1);
+  --npt-ease-spring:     cubic-bezier(.34,1.56,.64,1);
+  /* composed motions — use these on transitions */
+  --npt-motion-enter:  var(--npt-dur-4) var(--npt-ease-emphasized);
+  --npt-motion-exit:   var(--npt-dur-2) var(--npt-ease-accelerate);
+  --npt-motion-spring: var(--npt-dur-4) var(--npt-ease-spring);
+  --npt-motion-press:  var(--npt-dur-1) var(--npt-ease-standard);
+
+  /* ── Elevation · tinted by the theme's scrim (so shadows match the brand) ─ */
+  --npt-elev-0: none;
+  --npt-elev-1: 0 1px 2px -1px color-mix(in oklab, var(--md-sys-color-scrim) 16%, transparent);
+  --npt-elev-2: 0 2px 6px -2px color-mix(in oklab, var(--md-sys-color-scrim) 20%, transparent);
+  --npt-elev-3: 0 8px 20px -10px color-mix(in oklab, var(--md-sys-color-scrim) 28%, transparent);
+  --npt-elev-4: 0 16px 36px -16px color-mix(in oklab, var(--md-sys-color-scrim) 32%, transparent);
+  --npt-elev-5: 0 28px 60px -24px color-mix(in oklab, var(--md-sys-color-scrim) 40%, transparent);
+  /* branded key-light glow for primary heroes/buttons */
+  --npt-glow-primary: 0 10px 26px -12px color-mix(in oklab, var(--md-sys-color-primary) 70%, transparent);
+
+  /* ── State layers · M3 overlay opacities ─────────────────────────────── */
+  --npt-state-hover:0.08; --npt-state-focus:0.10; --npt-state-pressed:0.12; --npt-state-drag:0.16;
+
+  /* ── Focus · the single source of the keyboard ring (a11y) ───────────── */
+  --npt-focus-ring-width:3px;
+  --npt-focus-ring-offset:2px;
+  --npt-focus-ring-color: var(--md-sys-color-primary);
+
+  /* ── Z-index scale ───────────────────────────────────────────────────── */
+  --npt-z-base:0; --npt-z-sticky:10; --npt-z-nav:20; --npt-z-overlay:60;
+  --npt-z-modal:70; --npt-z-toast:80; --npt-z-max:9999;
+
+  /* ── Density · product-layer hook (comfortable ⇄ compact) ────────────── */
+  --npt-row-comfortable:56px; --npt-row-standard:48px; --npt-row-compact:40px;
+  --npt-touch-min:48px;        /* never smaller on touch surfaces */
+
+  /* native form controls inherit the brand */
+  accent-color: var(--md-sys-color-primary);
+}

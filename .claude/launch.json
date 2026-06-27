@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["pnpm@9.15.0", "--filter", "@neptune-odyssey/configurator", "run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4178", "--directory", "_site"],
+      "port": 4178
     }
   ]
 }

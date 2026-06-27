@@ -37,31 +37,6 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)
 
-  apps/demo:
-    dependencies:
-      '@neptune-odyssey/brand-configs':
-        specifier: workspace:^
-        version: link:../../packages/neptune_brand_configs
-      '@neptune-odyssey/tokens':
-        specifier: workspace:^
-        version: link:../../packages/neptune_tokens
-      '@neptune-odyssey/web-ui':
-        specifier: workspace:^
-        version: link:../../packages/neptune_web_ui
-    devDependencies:
-      jsdom:
-        specifier: ^25.0.1
-        version: 25.0.1
-      typescript:
-        specifier: ^5.6.3
-        version: 5.9.3
-      vite:
-        specifier: ^5.4.11
-        version: 5.4.21(@types/node@22.20.0)
-      vitest:
-        specifier: ^2.1.8
-        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)
-
   packages/neptune_brand_configs:
     dependencies:
       '@neptune-odyssey/tokens':

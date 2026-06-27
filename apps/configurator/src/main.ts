@@ -671,19 +671,29 @@ function update(): void {
 function main(): void {
   const app = el("div", { class: "app" });
 
+  const logo = el("a", { class: "app__logo", href: "../", "aria-label": "Neptune Odyssey home" }, [
+    el("span", { class: "app__logo-word" }, ["Neptune"]),
+    el("span", { class: "app__logo-dot" }, []),
+  ]);
   app.append(
     el("header", { class: "app__header" }, [
-      el("h1", {}, ["Neptune Odyssey · Theme Configurator"]),
-      el("p", {}, ["Pick inputs, preview live, copy a brandprint. Pure client-side."]),
+      logo,
+      el("div", { class: "app__title" }, [
+        el("h1", {}, ["Theme Configurator"]),
+        el("p", {}, ["Pick inputs, preview live, copy a brandprint that rebuilds it anywhere."]),
+      ]),
+      el("a", { class: "app__back", href: "../" }, ["← Back to the design system"]),
     ]),
   );
 
-  app.append(buildControls());
-  app.append(buildPreview());
-
-  // Brandprint panel lives under the controls column for a natural reading order.
-  const left = app.querySelector(".panel--controls")!;
-  left.after(buildBrandprintPanel());
+  // Left column: controls + brandprint. Right column (sticky): the live preview.
+  const controls = buildControls();
+  const brandprint = buildBrandprintPanel();
+  const preview = buildPreview();
+  app.append(
+    el("div", { class: "col col--left" }, [controls, brandprint]),
+    el("div", { class: "col col--right" }, [preview]),
+  );
 
   document.getElementById("app")!.append(app);
 

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Neptune">
+  <rect width="64" height="64" rx="16" fill="#07315F"/>
+  <!-- the signature coral dot -->
+  <circle cx="44" cy="40" r="9" fill="#EB4E4D"/>
+  <text x="14" y="42" font-family="'SF Compact Rounded', ui-rounded, 'Baloo 2', system-ui, sans-serif"
+        font-size="34" font-weight="800" fill="#FFFFFF">N</text>
+</svg>

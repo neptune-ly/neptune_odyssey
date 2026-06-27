@@ -1,7 +1,7 @@
 name: Pages
 
 # Deploys the public showcase to GitHub Pages:
-#   /                → apps/demo      (the gallery: every brand × mode × direction × type)
+#   /                → site/            (landing + live system/banking/wallet references)
 #   /configurator/   → apps/configurator (the brandprint / hash-preset maker)
 # No external secrets needed — Pages deploy uses the built-in GITHUB_TOKEN.
 
@@ -32,17 +32,15 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Build libraries the apps depend on
-        run: pnpm -r --filter "@neptune-odyssey/tokens" --filter "@neptune-odyssey/web-ui" --filter "@neptune-odyssey/brand-configs" run build
-      - name: Build the gallery + the configurator
-        run: |
-          pnpm --filter "@neptune-odyssey/demo" run build
-          pnpm --filter "@neptune-odyssey/configurator" run build
-      - name: Assemble _site
+      - name: Build libraries the configurator depends on
+        run: pnpm -r --filter "@neptune-odyssey/tokens" --filter "@neptune-odyssey/web-ui" run build
+      - name: Build the configurator
+        run: pnpm --filter "@neptune-odyssey/configurator" run build
+      - name: Assemble _site (static reference site + configurator)
         run: |
           rm -rf _site
           mkdir -p _site
-          cp -r apps/demo/dist/* _site/
+          cp -r site/* _site/
           mkdir -p _site/configurator
           cp -r apps/configurator/dist/* _site/configurator/
           # Pages must not run Jekyll over our assets

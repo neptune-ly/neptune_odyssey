@@ -27,3 +27,6 @@ roadmap/neptune_kmp_ui/build/
 
 # misc
 extracted/
+
+# local Pages preview assembly
+_site/
