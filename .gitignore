@@ -8,13 +8,16 @@ build/web/
 *.tsbuildinfo
 coverage/
 
-# dart / flutter
+# dart / flutter (note: the repo's TOP-LEVEL build/ is source-of-truth — do NOT ignore it;
+# only the Flutter package's build output is ignored)
 .dart_tool/
 .packages
 .flutter-plugins
 .flutter-plugins-dependencies
 pubspec.lock
 **/doc/api/
+packages/neptune_flutter_ui/build/
+roadmap/neptune_kmp_ui/build/
 
 # editor / os
 .DS_Store
