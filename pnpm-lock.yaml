@@ -17,10 +17,10 @@ importers:
 
   apps/configurator:
     dependencies:
-      '@neptune-odyssey/tokens':
+      '@neptune.fintech/tokens':
         specifier: workspace:^
         version: link:../../packages/neptune_tokens
-      '@neptune-odyssey/web-ui':
+      '@neptune.fintech/web-ui':
         specifier: workspace:^
         version: link:../../packages/neptune_web_ui
     devDependencies:
@@ -39,7 +39,7 @@ importers:
 
   packages/neptune_brand_configs:
     dependencies:
-      '@neptune-odyssey/tokens':
+      '@neptune.fintech/tokens':
         specifier: workspace:^
         version: link:../neptune_tokens
     devDependencies:
@@ -54,7 +54,7 @@ importers:
 
   packages/neptune_product_configs:
     dependencies:
-      '@neptune-odyssey/brand-configs':
+      '@neptune.fintech/brand-configs':
         specifier: workspace:^
         version: link:../neptune_brand_configs
     devDependencies:
@@ -67,10 +67,10 @@ importers:
 
   packages/neptune_react_ui:
     dependencies:
-      '@neptune-odyssey/tokens':
+      '@neptune.fintech/tokens':
         specifier: workspace:^
         version: link:../neptune_tokens
-      '@neptune-odyssey/web-ui':
+      '@neptune.fintech/web-ui':
         specifier: workspace:^
         version: link:../neptune_web_ui
     devDependencies:
@@ -101,10 +101,10 @@ importers:
 
   packages/neptune_svelte_ui:
     dependencies:
-      '@neptune-odyssey/tokens':
+      '@neptune.fintech/tokens':
         specifier: workspace:^
         version: link:../neptune_tokens
-      '@neptune-odyssey/web-ui':
+      '@neptune.fintech/web-ui':
         specifier: workspace:^
         version: link:../neptune_web_ui
       svelte:
@@ -135,10 +135,10 @@ importers:
 
   packages/neptune_vue_ui:
     dependencies:
-      '@neptune-odyssey/tokens':
+      '@neptune.fintech/tokens':
         specifier: workspace:^
         version: link:../neptune_tokens
-      '@neptune-odyssey/web-ui':
+      '@neptune.fintech/web-ui':
         specifier: workspace:^
         version: link:../neptune_web_ui
     devDependencies:
@@ -157,7 +157,7 @@ importers:
 
   packages/neptune_web_ui:
     dependencies:
-      '@neptune-odyssey/tokens':
+      '@neptune.fintech/tokens':
         specifier: workspace:^
         version: link:../neptune_tokens
     devDependencies:

@@ -1,4 +1,4 @@
-# @neptune-odyssey/web-ui
+# @neptune.fintech/web-ui
 
 Framework-agnostic **web kit** for [Neptune Odyssey](https://neptune.ly) — the white-label
 banking design system by **Neptune.Fintech**. Standards-based custom elements, themed
@@ -11,7 +11,7 @@ surface. Works with plain HTML, and is the layer the Svelte and Vue packages wra
 ## Install
 
 ```sh
-pnpm add @neptune-odyssey/web-ui @neptune-odyssey/tokens
+pnpm add @neptune.fintech/web-ui @neptune.fintech/tokens
 ```
 
 ESM-only, tree-shakeable, SSR-safe. Importing modules never touches the DOM; element
@@ -20,8 +20,8 @@ registration and theming run only when you call them.
 ## Use
 
 ```ts
-import "@neptune-odyssey/web-ui/styles.css"; // ships themes.css + system.css
-import { applyTheme, registerAll } from "@neptune-odyssey/web-ui";
+import "@neptune.fintech/web-ui/styles.css"; // ships themes.css + system.css
+import { applyTheme, registerAll } from "@neptune.fintech/web-ui";
 
 registerAll();                                       // define the custom elements
 applyTheme(document.documentElement, "andalus", { mode: "system", dir: "auto" });
@@ -47,7 +47,7 @@ applyTheme(root, { primary: {L,C,H}, tertiary: {…}, corners: {…}, … }); //
 For the four reference brands, re-skinning is **pure CSS** — `applyTheme` only sets
 `data-theme`/`data-mode`/`dir`; the shipped `styles.css` holds every variable, so swapping
 a brand is zero JavaScript. Custom configs and brandprints resolve through
-`@neptune-odyssey/tokens` and write the resolved variables onto the element.
+`@neptune.fintech/tokens` and write the resolved variables onto the element.
 
 ## Components
 

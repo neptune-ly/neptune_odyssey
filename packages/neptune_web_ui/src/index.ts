@@ -1,11 +1,11 @@
-// Neptune Odyssey — @neptune-odyssey/web-ui · © 2026 Neptune.Fintech (neptune.ly)
+// Neptune Odyssey — @neptune.fintech/web-ui · © 2026 Neptune.Fintech (neptune.ly)
 // Framework-agnostic, CSS-variable themed custom-element kit + the applyTheme API.
 // Licensed under the Neptune Odyssey Community License v1.0 (see LICENSE).
 //
 // Theming is pure CSS variables. Import the stylesheet once:
-//   import "@neptune-odyssey/web-ui/styles.css";
+//   import "@neptune.fintech/web-ui/styles.css";
 // then either set data-theme/data-mode/dir yourself, or use applyTheme().
-// Register components with registerAll() (or import "@neptune-odyssey/web-ui/register").
+// Register components with registerAll() (or import "@neptune.fintech/web-ui/register").
 
 export * from "./theme/applyTheme.js";
 
@@ -25,7 +25,7 @@ export type {
   NeptuneTheme,
   ThemeInput,
   BrandprintConfig,
-} from "@neptune-odyssey/tokens";
-export { buildTheme, encode, decode, brandprintFor } from "@neptune-odyssey/tokens";
+} from "@neptune.fintech/tokens";
+export { buildTheme, encode, decode, brandprintFor } from "@neptune.fintech/tokens";
 
 export const WEB_UI_VERSION = "1.0.0";

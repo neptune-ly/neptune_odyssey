@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { getProductConfig, isFeatureEnabled, enabledFeatures } from "../src/index.js";
 
-describe("@neptune-odyssey/product-configs", () => {
+describe("@neptune.fintech/product-configs", () => {
   it("wallet flavor enables wallet features; retail does not", () => {
     expect(isFeatureEnabled("nuran-wallet", "wallet")).toBe(true);
     expect(isFeatureEnabled("neptune-retail", "wallet")).toBe(false);

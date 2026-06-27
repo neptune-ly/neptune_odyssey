@@ -4,7 +4,7 @@
     {
       "name": "configurator",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["pnpm@9.15.0", "--filter", "@neptune-odyssey/configurator", "run", "dev"],
+      "runtimeArgs": ["pnpm@9.15.0", "--filter", "@neptune.fintech/configurator", "run", "dev"],
       "port": 5173
     },
     {

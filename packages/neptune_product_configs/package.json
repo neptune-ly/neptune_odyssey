@@ -1,5 +1,5 @@
 {
-  "name": "@neptune-odyssey/product-configs",
+  "name": "@neptune.fintech/product-configs",
   "version": "1.0.0",
   "description": "Neptune Odyssey product-flavor + feature-flag layer — typed flavor, density, and feature lookups per tenant.",
   "license": "SEE LICENSE IN LICENSE",
@@ -33,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@neptune-odyssey/brand-configs": "workspace:^"
+    "@neptune.fintech/brand-configs": "workspace:^"
   },
   "devDependencies": {
     "typescript": "^5.6.3",

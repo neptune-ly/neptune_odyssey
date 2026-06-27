@@ -6,7 +6,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com); the system follow
 ## [Unreleased]
 
 ### Added
-- **`@neptune-odyssey/react-ui`** — React layer, promoted from the roadmap. A thin wrapper over `@neptune-odyssey/web-ui`: `<NeptuneProvider>`, a `useNeptuneTheme` hook, and typed `Npt*` component wrappers, with the same three-way theming surface (brand id / config / brandprint). No new color math — it inherits the determinism contract from `@neptune-odyssey/tokens`, mirroring the Vue layer. Builds and tests green in CI.
+- **`@neptune.fintech/react-ui`** — React layer, promoted from the roadmap. A thin wrapper over `@neptune.fintech/web-ui`: `<NeptuneProvider>`, a `useNeptuneTheme` hook, and typed `Npt*` component wrappers, with the same three-way theming surface (brand id / config / brandprint). No new color math — it inherits the determinism contract from `@neptune.fintech/tokens`, mirroring the Vue layer. Builds and tests green in CI.
 
 ### Changed
 - Roadmap now lists **React Native** and **Kotlin Multiplatform** only; React moved to `packages/` and is documented as Stable in the README.
@@ -30,12 +30,12 @@ First stable release of **Neptune Odyssey**, the Neptune.Fintech white-label ban
 - **Accessibility** — global keyboard-only focus ring (`:focus-visible`, token-driven) and a `prefers-reduced-motion` guard across the living references.
 
 ### Libraries (multi-framework implementation)
-- **Monorepo** — pnpm workspace (JS/TS) + a standalone Flutter package; `@neptune-odyssey/*` scope; per-package LICENSE + headers; CI (`ci.yml`) and tag-driven publish (`release.yml`).
-- **`@neptune-odyssey/tokens`** — the determinism backbone: OKLCH→sRGB converter (CSS Color 4 path), the v1 seed→palette ramp, the brandprint codec ported from the JS reference, the pinned reference palettes, CSS/Dart codegen, and `buildTheme()` (the 3-way theming API). **50 golden tests**: codec byte-parity + idempotency + tamper rejection; pinned palettes == `tokens.resolved.json` exactly; converter ≤ 1 LSB; the three theming entry points agree.
+- **Monorepo** — pnpm workspace (JS/TS) + a standalone Flutter package; `@neptune.fintech/*` scope; per-package LICENSE + headers; CI (`ci.yml`) and tag-driven publish (`release.yml`).
+- **`@neptune.fintech/tokens`** — the determinism backbone: OKLCH→sRGB converter (CSS Color 4 path), the v1 seed→palette ramp, the brandprint codec ported from the JS reference, the pinned reference palettes, CSS/Dart codegen, and `buildTheme()` (the 3-way theming API). **50 golden tests**: codec byte-parity + idempotency + tamper rejection; pinned palettes == `tokens.resolved.json` exactly; converter ≤ 1 LSB; the three theming entry points agree.
 - **`neptune_flutter_ui`** — const M3 `ColorScheme`s × 4 brands × light/dark, ThemeExtensions (colors/shape/type/motion), `NeptuneTheme.light/dark/fromBrandprint/fromConfig`, theme-only widgets, Dart codec + OKLCH ports. **31 golden tests**; `flutter analyze` clean; no literals in widgets.
-- **`@neptune-odyssey/web-ui`** — pure CSS-variable theming (`applyTheme`) + standards-based custom elements (Shadow DOM, custom-property driven, no literals), shipping `themes.css` + `system.css`.
-- **`@neptune-odyssey/svelte-ui`** + **`@neptune-odyssey/vue-ui`** — thin framework layers over the web core; same 3-way theming surface.
-- **`@neptune-odyssey/brand-configs`** + **`@neptune-odyssey/product-configs`** — the 5 tenants as a loader (tenant → brandprint) and the product-flavor/feature-flag layer.
+- **`@neptune.fintech/web-ui`** — pure CSS-variable theming (`applyTheme`) + standards-based custom elements (Shadow DOM, custom-property driven, no literals), shipping `themes.css` + `system.css`.
+- **`@neptune.fintech/svelte-ui`** + **`@neptune.fintech/vue-ui`** — thin framework layers over the web core; same 3-way theming surface.
+- **`@neptune.fintech/brand-configs`** + **`@neptune.fintech/product-configs`** — the 5 tenants as a loader (tenant → brandprint) and the product-flavor/feature-flag layer.
 - **`apps/configurator`** — client-only theme builder (brandprint encode/decode, live preview, AA contrast check).
 - **Roadmap** — React, React Native, Kotlin Multiplatform scaffolded under `roadmap/` (not in v1).
 

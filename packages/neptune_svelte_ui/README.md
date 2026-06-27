@@ -1,8 +1,8 @@
-# @neptune-odyssey/svelte-ui
+# @neptune.fintech/svelte-ui
 
 Svelte layer for [Neptune Odyssey](https://neptune.ly) by **Neptune.Fintech** — a
 `use:theme` action, a `<NeptuneProvider>` component, and theming re-exports over the
-framework-agnostic `@neptune-odyssey/web-ui` custom-element core. Svelte renders the
+framework-agnostic `@neptune.fintech/web-ui` custom-element core. Svelte renders the
 `<npt-*>` elements natively, so this layer stays thin.
 
 > Source-available under the **Neptune Odyssey Community License v1.0** (see `LICENSE`).
@@ -10,15 +10,15 @@ framework-agnostic `@neptune-odyssey/web-ui` custom-element core. Svelte renders
 ## Install
 
 ```sh
-pnpm add @neptune-odyssey/svelte-ui svelte
+pnpm add @neptune.fintech/svelte-ui svelte
 ```
 
 ## Use
 
 ```svelte
 <script lang="ts">
-  import "@neptune-odyssey/svelte-ui/styles.css";
-  import { theme } from "@neptune-odyssey/svelte-ui";
+  import "@neptune.fintech/svelte-ui/styles.css";
+  import { theme } from "@neptune.fintech/svelte-ui";
 </script>
 
 <div use:theme={{ input: "andalus", mode: "system", dir: "auto" }}>
@@ -31,7 +31,7 @@ Or with the provider component:
 
 ```svelte
 <script lang="ts">
-  import NeptuneProvider from "@neptune-odyssey/svelte-ui/NeptuneProvider.svelte";
+  import NeptuneProvider from "@neptune.fintech/svelte-ui/NeptuneProvider.svelte";
 </script>
 
 <NeptuneProvider input="NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA">

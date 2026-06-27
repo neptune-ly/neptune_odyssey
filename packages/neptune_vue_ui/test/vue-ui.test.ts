@@ -9,7 +9,7 @@ import {
   VUE_UI_VERSION,
 } from "../src/index.js";
 
-describe("@neptune-odyssey/vue-ui surface", () => {
+describe("@neptune.fintech/vue-ui surface", () => {
   it("exports the provider + wrappers as Vue components", () => {
     expect(NeptuneProvider.name).toBe("NeptuneProvider");
     expect(NptButton.name).toBe("NptButton");

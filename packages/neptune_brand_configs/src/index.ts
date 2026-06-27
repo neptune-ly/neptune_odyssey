@@ -1,10 +1,10 @@
-// Neptune Odyssey — @neptune-odyssey/brand-configs · © 2026 Neptune.Fintech (neptune.ly)
+// Neptune Odyssey — @neptune.fintech/brand-configs · © 2026 Neptune.Fintech (neptune.ly)
 // The five reference tenant configs + a loader that maps each tenant to a theme
 // input (a brandprint string) for any Odyssey library. A new bank is ONE tenant
 // config — never a fork. Licensed under the Neptune Odyssey Community License v1.0.
 
 import { TENANTS } from "./tenants.generated.js";
-import { BRAND_BRANDPRINT, type Brand, type ThemeInput } from "@neptune-odyssey/tokens";
+import { BRAND_BRANDPRINT, type Brand, type ThemeInput } from "@neptune.fintech/tokens";
 
 export type TenantId = keyof typeof TENANTS;
 export type Tenant = (typeof TENANTS)[TenantId];

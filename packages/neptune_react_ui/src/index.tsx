@@ -1,5 +1,5 @@
-// Neptune Odyssey — @neptune-odyssey/react-ui · © 2026 Neptune.Fintech (neptune.ly)
-// A thin React layer over @neptune-odyssey/web-ui: the custom elements do the
+// Neptune Odyssey — @neptune.fintech/react-ui · © 2026 Neptune.Fintech (neptune.ly)
+// A thin React layer over @neptune.fintech/web-ui: the custom elements do the
 // rendering (themed by CSS variables); React adds typed wrappers, a provider, and a
 // hook. Licensed under the Neptune Odyssey Community License v1.0 (see LICENSE).
 //
@@ -14,7 +14,7 @@ import {
   type ThemeInput,
   type ModeOption,
   type DirOption,
-} from "@neptune-odyssey/web-ui";
+} from "@neptune.fintech/web-ui";
 
 export interface NeptuneThemeOptions {
   mode?: ModeOption;
@@ -114,8 +114,8 @@ export const NptAppBar = passthrough("npt-app-bar", "NptAppBar");
 export const NptNavBar = passthrough("npt-nav-bar", "NptNavBar");
 export const NptNavItem = passthrough("npt-nav-item", "NptNavItem");
 
-export { applyTheme, registerAll } from "@neptune-odyssey/web-ui";
-export type { ThemeInput, ModeOption, DirOption } from "@neptune-odyssey/web-ui";
-export { buildTheme, brandprintFor, encode, decode } from "@neptune-odyssey/tokens";
+export { applyTheme, registerAll } from "@neptune.fintech/web-ui";
+export type { ThemeInput, ModeOption, DirOption } from "@neptune.fintech/web-ui";
+export { buildTheme, brandprintFor, encode, decode } from "@neptune.fintech/tokens";
 
 export const REACT_UI_VERSION = "1.0.0";

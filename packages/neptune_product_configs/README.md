@@ -1,4 +1,4 @@
-# @neptune-odyssey/product-configs
+# @neptune.fintech/product-configs
 
 The **product-flavor + feature-flag** layer of [Neptune Odyssey](https://neptune.ly) by
 **Neptune.Fintech** (config layers C + D from the platform plan). Which experience is
@@ -10,13 +10,13 @@ active (retail mobile / wallet / corporate web / …) and which features are on 
 ## Install
 
 ```sh
-pnpm add @neptune-odyssey/product-configs @neptune-odyssey/brand-configs
+pnpm add @neptune.fintech/product-configs @neptune.fintech/brand-configs
 ```
 
 ## Use
 
 ```ts
-import { getProductConfig, isFeatureEnabled, enabledFeatures } from "@neptune-odyssey/product-configs";
+import { getProductConfig, isFeatureEnabled, enabledFeatures } from "@neptune.fintech/product-configs";
 
 getProductConfig("nuran-wallet");            // { flavor, density, platforms, features }
 isFeatureEnabled("nuran-wallet", "wallet");  // true

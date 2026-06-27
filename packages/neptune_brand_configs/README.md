@@ -1,4 +1,4 @@
-# @neptune-odyssey/brand-configs
+# @neptune.fintech/brand-configs
 
 The five reference **tenant configs** for [Neptune Odyssey](https://neptune.ly) by
 **Neptune.Fintech**, plus a loader that maps each tenant to a portable **brandprint**.
@@ -11,14 +11,14 @@ A new bank is **one tenant config — never a fork**.
 ## Install
 
 ```sh
-pnpm add @neptune-odyssey/brand-configs @neptune-odyssey/tokens
+pnpm add @neptune.fintech/brand-configs @neptune.fintech/tokens
 ```
 
 ## Use
 
 ```ts
-import { listTenants, themeInputForTenant } from "@neptune-odyssey/brand-configs";
-import { applyTheme } from "@neptune-odyssey/web-ui";
+import { listTenants, themeInputForTenant } from "@neptune.fintech/brand-configs";
+import { applyTheme } from "@neptune.fintech/web-ui";
 
 for (const t of listTenants()) console.log(t.id, t.brand, t.flavor, t.leversMoved);
 

@@ -11,7 +11,7 @@ import {
   REACT_UI_VERSION,
 } from "../src/index.js";
 
-describe("@neptune-odyssey/react-ui surface", () => {
+describe("@neptune.fintech/react-ui surface", () => {
   it("exports the provider + wrappers as React components", () => {
     expect(NeptuneProvider.displayName).toBe("NeptuneProvider");
     expect(NptButton.displayName).toBe("NptButton");

@@ -4,7 +4,7 @@
 // Theming is PURE CSS VARIABLES. For the four reference brands, the shipped
 // themes.css already defines every var — so re-skinning is zero JS: just set
 // data-theme / data-mode / dir. For a custom config or a brandprint string we
-// resolve the palette (via @neptune-odyssey/tokens, the shared determinism
+// resolve the palette (via @neptune.fintech/tokens, the shared determinism
 // backbone) and write the vars onto the root element. SSR-safe: no module-level
 // DOM access; everything is guarded and runs only when called with an element.
 
@@ -14,7 +14,7 @@ import {
   type NeptuneTheme,
   type ThemeInput,
   type Direction,
-} from "@neptune-odyssey/tokens";
+} from "@neptune.fintech/tokens";
 
 export type ModeOption = "light" | "dark" | "system";
 export type DirOption = Direction | "auto";

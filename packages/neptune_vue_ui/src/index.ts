@@ -1,5 +1,5 @@
-// Neptune Odyssey — @neptune-odyssey/vue-ui · © 2026 Neptune.Fintech (neptune.ly)
-// A thin Vue 3 layer over @neptune-odyssey/web-ui: the custom elements do the
+// Neptune Odyssey — @neptune.fintech/vue-ui · © 2026 Neptune.Fintech (neptune.ly)
+// A thin Vue 3 layer over @neptune.fintech/web-ui: the custom elements do the
 // rendering (themed by CSS variables); Vue adds typed wrappers, a provider, and a
 // composable. Licensed under the Neptune Odyssey Community License v1.0 (see LICENSE).
 //
@@ -13,7 +13,7 @@ import {
   type ThemeInput,
   type ModeOption,
   type DirOption,
-} from "@neptune-odyssey/web-ui";
+} from "@neptune.fintech/web-ui";
 
 /** Apply a theme to an element ref (or the document root) reactively. */
 export function useNeptuneTheme(
@@ -77,8 +77,8 @@ export const NptAppBar = passthrough("npt-app-bar", "NptAppBar");
 export const NptNavBar = passthrough("npt-nav-bar", "NptNavBar");
 export const NptNavItem = passthrough("npt-nav-item", "NptNavItem");
 
-export { applyTheme, registerAll } from "@neptune-odyssey/web-ui";
-export type { ThemeInput, ModeOption, DirOption } from "@neptune-odyssey/web-ui";
-export { buildTheme, brandprintFor, encode, decode } from "@neptune-odyssey/tokens";
+export { applyTheme, registerAll } from "@neptune.fintech/web-ui";
+export type { ThemeInput, ModeOption, DirOption } from "@neptune.fintech/web-ui";
+export { buildTheme, brandprintFor, encode, decode } from "@neptune.fintech/tokens";
 
 export const VUE_UI_VERSION = "1.0.0";

@@ -1,17 +1,17 @@
 # Neptune Odyssey — Roadmap targets
 
 These targets are **scaffolded but not part of v1.0.0**. They do not block the stable
-release. Every one builds on the same `@neptune-odyssey/tokens` outputs (the pinned
+release. Every one builds on the same `@neptune.fintech/tokens` outputs (the pinned
 palettes + the brandprint codec), so they inherit the palette and the determinism
 contract for free — *same brandprint ⇒ same theme* extends to them with no new color math.
 
 | Target | Package | Strategy |
 |--------|---------|----------|
-| **React Native** | `@neptune-odyssey/react-native-ui` | Native components reading a JS theme object from `buildTheme()`; reuses `tokens` resolved palettes + brandprint codec. No web custom elements. |
+| **React Native** | `@neptune.fintech/react-native-ui` | Native components reading a JS theme object from `buildTheme()`; reuses `tokens` resolved palettes + brandprint codec. No web custom elements. |
 | **Kotlin Multiplatform** | `neptune-odyssey-kmp` | Compose Multiplatform + web. Port the OKLCH→sRGB + brandprint codec to Kotlin (golden-tested against `build/tokens.resolved.json` and the JS reference, exactly as the Dart port was). |
 
-> **Promoted:** **React** (`@neptune-odyssey/react-ui`) is now a shipped package under
-> [`packages/`](../packages/neptune_react_ui) — a thin layer over `@neptune-odyssey/web-ui`
+> **Promoted:** **React** (`@neptune.fintech/react-ui`) is now a shipped package under
+> [`packages/`](../packages/neptune_react_ui) — a thin layer over `@neptune.fintech/web-ui`
 > (`<NeptuneProvider>` + `useNeptuneTheme` + typed wrappers), mirroring the Vue layer. It adds
 > no color math, so it inherits the determinism contract from `tokens` unchanged.
 

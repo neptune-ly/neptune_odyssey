@@ -7,9 +7,9 @@ import {
   themeInputForTenant,
   passesSameButDistinct,
 } from "../src/index.js";
-import { buildTheme, decode } from "@neptune-odyssey/tokens";
+import { buildTheme, decode } from "@neptune.fintech/tokens";
 
-describe("@neptune-odyssey/brand-configs", () => {
+describe("@neptune.fintech/brand-configs", () => {
   it("ships the 5 reference tenants", () => {
     expect(TENANT_IDS).toHaveLength(5);
     expect(TENANT_IDS).toContain("nuran-wallet");

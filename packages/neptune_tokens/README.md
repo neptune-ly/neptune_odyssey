@@ -1,4 +1,4 @@
-# @neptune-odyssey/tokens
+# @neptune.fintech/tokens
 
 The **determinism backbone** of [Neptune Odyssey](https://neptune.ly) — the white-label
 banking design system by **Neptune.Fintech**. This package owns the color math, the
@@ -12,7 +12,7 @@ through the same logic, so **the same brandprint produces the same theme everywh
 ## Install
 
 ```sh
-pnpm add @neptune-odyssey/tokens
+pnpm add @neptune.fintech/tokens
 ```
 
 ESM-only, `sideEffects: false`, fully tree-shakeable, SSR-safe. No runtime CSS-in-JS.
@@ -20,7 +20,7 @@ ESM-only, `sideEffects: false`, fully tree-shakeable, SSR-safe. No runtime CSS-i
 ## Three ways to theme — one surface
 
 ```ts
-import { buildTheme } from "@neptune-odyssey/tokens";
+import { buildTheme } from "@neptune.fintech/tokens";
 
 buildTheme("andalus", { mode: "dark", dir: "rtl" }); // 1 · reference brand id
 buildTheme(myConfig);                                  // 2 · full config object
@@ -34,7 +34,7 @@ incl. `success`), `shape` (xs…xxl), `type`, the five expression `levers`, `mot
 ## The brandprint codec
 
 ```ts
-import { encode, decode } from "@neptune-odyssey/tokens";
+import { encode, decode } from "@neptune.fintech/tokens";
 
 const print = encode(config);   // "NO1-…"  · 28-byte payload, base64url, checksummed
 const config = decode(print);   // throws on bad prefix / length / checksum / version
@@ -45,7 +45,7 @@ Registries are **append-only** — the enum indices *are* the wire format (see `
 ## Color & palette
 
 ```ts
-import { oklchToHex, oklchToArgb, generatePalette, resolvePalette } from "@neptune-odyssey/tokens";
+import { oklchToHex, oklchToArgb, generatePalette, resolvePalette } from "@neptune.fintech/tokens";
 
 oklchToHex({ L: 0.48, C: 0.15, H: 258 });          // "#1d5ab0"
 resolvePalette(primarySeed, tertiarySeed, "light"); // pinned for reference, ramp for custom
@@ -63,7 +63,7 @@ resolvePalette(primarySeed, tertiarySeed, "light"); // pinned for reference, ram
 3. **The brandprint codec is byte-identical** to `tools/brandprint.reference.js` for the four
    brands, idempotent (`encode(decode(x)) === x`), and rejects tampered/short/wrong-version strings.
 
-Run them: `pnpm --filter @neptune-odyssey/tokens test`.
+Run them: `pnpm --filter @neptune.fintech/tokens test`.
 
 ---
 © 2026 Neptune.Fintech. "Neptune Odyssey" and "Neptune.Fintech" are marks of the Licensor.

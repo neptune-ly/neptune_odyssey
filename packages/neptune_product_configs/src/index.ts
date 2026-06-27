@@ -1,9 +1,9 @@
-// Neptune Odyssey — @neptune-odyssey/product-configs · © 2026 Neptune.Fintech (neptune.ly)
+// Neptune Odyssey — @neptune.fintech/product-configs · © 2026 Neptune.Fintech (neptune.ly)
 // Product-flavor + feature-flag layer (config layers C + D from docs/06 §4). Reads
 // the reference tenants and exposes typed flavor/density/feature lookups. A product
 // is a configuration, not a code path. Licensed under the Community License v1.0.
 
-import { TENANTS, type TenantId } from "@neptune-odyssey/brand-configs";
+import { TENANTS, type TenantId } from "@neptune.fintech/brand-configs";
 
 export type { TenantId };
 

@@ -1,5 +1,5 @@
 {
-  "name": "@neptune-odyssey/tokens",
+  "name": "@neptune.fintech/tokens",
   "version": "1.0.0",
   "description": "Neptune Odyssey determinism backbone — OKLCH→sRGB color math, seed→palette ramp, brandprint codec, pinned reference palettes, and the unified theme builder.",
   "license": "SEE LICENSE IN LICENSE",

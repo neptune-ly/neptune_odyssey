@@ -1,5 +1,5 @@
 {
-  "name": "@neptune-odyssey/svelte-ui",
+  "name": "@neptune.fintech/svelte-ui",
   "version": "1.0.0",
   "description": "Neptune Odyssey Svelte layer — a use:theme action, a NeptuneProvider, and theming re-exports over the framework-agnostic web kit.",
   "license": "SEE LICENSE IN LICENSE",
@@ -23,7 +23,7 @@
       "import": "./dist/index.js"
     },
     "./NeptuneProvider.svelte": "./src/components/NeptuneProvider.svelte",
-    "./styles.css": "@neptune-odyssey/web-ui/styles.css",
+    "./styles.css": "@neptune.fintech/web-ui/styles.css",
     "./package.json": "./package.json"
   },
   "files": ["dist", "src/components", "LICENSE", "README.md"],
@@ -40,8 +40,8 @@
     "svelte": "^5.0.0"
   },
   "dependencies": {
-    "@neptune-odyssey/tokens": "workspace:^",
-    "@neptune-odyssey/web-ui": "workspace:^"
+    "@neptune.fintech/tokens": "workspace:^",
+    "@neptune.fintech/web-ui": "workspace:^"
   },
   "devDependencies": {
     "jsdom": "^25.0.1",

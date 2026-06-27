@@ -7,7 +7,7 @@ import {
   type ThemeInput,
   type ModeOption,
   type DirOption,
-} from "@neptune-odyssey/web-ui";
+} from "@neptune.fintech/web-ui";
 
 export interface ThemeActionParams {
   input: ThemeInput;

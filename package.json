@@ -19,7 +19,7 @@
     "test": "pnpm -r --filter \"./packages/**\" run test",
     "lint": "pnpm -r run lint",
     "typecheck": "pnpm -r run typecheck",
-    "tokens:build": "pnpm --filter @neptune-odyssey/tokens run build",
+    "tokens:build": "pnpm --filter @neptune.fintech/tokens run build",
     "ci": "pnpm run build && pnpm run test"
   },
   "devDependencies": {

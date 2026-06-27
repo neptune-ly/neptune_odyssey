@@ -1,5 +1,5 @@
 {
-  "name": "@neptune-odyssey/docs",
+  "name": "@neptune.fintech/docs",
   "version": "1.0.0",
   "private": true,
   "description": "Neptune Odyssey written system (docs/) + the .dc.html living references (the visual contract).",

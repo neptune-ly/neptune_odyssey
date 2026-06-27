@@ -1,4 +1,4 @@
-// Neptune Odyssey — @neptune-odyssey/tokens · © 2026 Neptune.Fintech (neptune.ly)
+// Neptune Odyssey — @neptune.fintech/tokens · © 2026 Neptune.Fintech (neptune.ly)
 // The determinism backbone: OKLCH→sRGB color math, the seed→palette ramp, the
 // brandprint codec, pinned reference palettes, and the unified theme builder.
 // Licensed under the Neptune Odyssey Community License v1.0 (see LICENSE).

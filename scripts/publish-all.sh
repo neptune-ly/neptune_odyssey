@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
 # Publish EVERY Neptune Odyssey library in one go:
-#   npm     → @neptune-odyssey/{tokens,web-ui,svelte-ui,vue-ui,react-ui,
+#   npm     → @neptune.fintech/{tokens,web-ui,svelte-ui,vue-ui,react-ui,
 #                                brand-configs,product-configs}  (7 packages)
 #   pub.dev → neptune_flutter_ui
 #
@@ -21,7 +21,7 @@ cd "$(dirname "$0")/.."
 
 PNPM="npx --yes pnpm@9.15.0"
 DRY=${DRY_RUN:-0}
-SCOPE=${SCOPE:-neptune-odyssey}
+SCOPE=${SCOPE:-neptune.fintech}
 
 say() { printf '\n\033[1;36m▸ %s\033[0m\n' "$*"; }
 ok()  { printf '\033[1;32m✓ %s\033[0m\n' "$*"; }

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect, beforeEach } from "vitest";
 import { applyTheme, setMode } from "../src/theme/applyTheme.js";
-import { brandprintFor } from "@neptune-odyssey/tokens";
+import { brandprintFor } from "@neptune.fintech/tokens";
 
 describe("applyTheme — reference brands (zero-JS reskin)", () => {
   let root: HTMLElement;

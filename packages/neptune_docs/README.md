@@ -1,4 +1,4 @@
-# @neptune-odyssey/docs
+# @neptune.fintech/docs
 
 The written system for [Neptune Odyssey](https://neptune.ly) by **Neptune.Fintech**, plus
 the three `.dc.html` living references that form the **visual contract** every library is

@@ -33,9 +33,9 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - name: Build libraries the configurator depends on
-        run: pnpm -r --filter "@neptune-odyssey/tokens" --filter "@neptune-odyssey/web-ui" run build
+        run: pnpm -r --filter "@neptune.fintech/tokens" --filter "@neptune.fintech/web-ui" run build
       - name: Build the configurator
-        run: pnpm --filter "@neptune-odyssey/configurator" run build
+        run: pnpm --filter "@neptune.fintech/configurator" run build
       - name: Assemble _site (static reference site + configurator)
         run: |
           rm -rf _site

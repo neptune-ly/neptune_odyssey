@@ -2,7 +2,7 @@
 import { describe, it, expect } from "vitest";
 import { theme, buildTheme, SVELTE_UI_VERSION } from "../src/index.js";
 
-describe("@neptune-odyssey/svelte-ui surface", () => {
+describe("@neptune.fintech/svelte-ui surface", () => {
   it("the use:theme action applies and updates a theme", () => {
     const node = document.createElement("div");
     document.body.appendChild(node);

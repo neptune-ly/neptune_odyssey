@@ -8,17 +8,17 @@ realistic mini banking screen re-skin **live**, and copy a `NO1-…` _brandprint
 string that reproduces the exact theme in any Odyssey library (web, Flutter, …).
 
 There is **no backend**. Brandprint encode/decode and palette resolution are pure
-client-side, powered by `@neptune-odyssey/tokens` and `@neptune-odyssey/web-ui`.
+client-side, powered by `@neptune.fintech/tokens` and `@neptune.fintech/web-ui`.
 
 ## Run it
 
 From the repo root (workspace already installed):
 
 ```bash
-pnpm --filter @neptune-odyssey/configurator run dev      # Vite dev server
-pnpm --filter @neptune-odyssey/configurator run build    # type-check + static build → dist/
-pnpm --filter @neptune-odyssey/configurator run preview  # preview the built bundle
-pnpm --filter @neptune-odyssey/configurator run test     # contrast unit tests
+pnpm --filter @neptune.fintech/configurator run dev      # Vite dev server
+pnpm --filter @neptune.fintech/configurator run build    # type-check + static build → dist/
+pnpm --filter @neptune.fintech/configurator run preview  # preview the built bundle
+pnpm --filter @neptune.fintech/configurator run test     # contrast unit tests
 ```
 
 Or, inside `apps/configurator/`: `pnpm dev`.

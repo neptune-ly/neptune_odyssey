@@ -1,5 +1,5 @@
 {
-  "name": "@neptune-odyssey/vue-ui",
+  "name": "@neptune.fintech/vue-ui",
   "version": "1.0.0",
   "description": "Neptune Odyssey Vue 3 layer — typed wrappers, a theme provider, and a composable over the framework-agnostic web kit.",
   "license": "SEE LICENSE IN LICENSE",
@@ -20,7 +20,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "@neptune-odyssey/web-ui/styles.css",
+    "./styles.css": "@neptune.fintech/web-ui/styles.css",
     "./package.json": "./package.json"
   },
   "files": ["dist", "LICENSE", "README.md"],
@@ -37,8 +37,8 @@
     "vue": "^3.4.0"
   },
   "dependencies": {
-    "@neptune-odyssey/tokens": "workspace:^",
-    "@neptune-odyssey/web-ui": "workspace:^"
+    "@neptune.fintech/tokens": "workspace:^",
+    "@neptune.fintech/web-ui": "workspace:^"
   },
   "devDependencies": {
     "jsdom": "^25.0.1",

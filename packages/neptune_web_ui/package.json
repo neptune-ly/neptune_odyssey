@@ -1,5 +1,5 @@
 {
-  "name": "@neptune-odyssey/web-ui",
+  "name": "@neptune.fintech/web-ui",
   "version": "1.0.0",
   "description": "Neptune Odyssey web kit — framework-agnostic, CSS-variable-themed custom elements + the applyTheme API (brand id / config / brandprint).",
   "license": "SEE LICENSE IN LICENSE",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@neptune-odyssey/tokens": "workspace:^"
+    "@neptune.fintech/tokens": "workspace:^"
   },
   "devDependencies": {
     "jsdom": "^25.0.1",

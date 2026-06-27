@@ -1,15 +1,15 @@
-# @neptune-odyssey/vue-ui
+# @neptune.fintech/vue-ui
 
 Vue 3 layer for [Neptune Odyssey](https://neptune.ly) by **Neptune.Fintech** — typed
 component wrappers, a `<NeptuneProvider>`, and a `useNeptuneTheme` composable over the
-framework-agnostic `@neptune-odyssey/web-ui` custom-element core.
+framework-agnostic `@neptune.fintech/web-ui` custom-element core.
 
 > Source-available under the **Neptune Odyssey Community License v1.0** (see `LICENSE`).
 
 ## Install
 
 ```sh
-pnpm add @neptune-odyssey/vue-ui vue
+pnpm add @neptune.fintech/vue-ui vue
 ```
 
 Tell Vue that `npt-*` tags are custom elements (so it doesn't try to resolve them):
@@ -23,8 +23,8 @@ vue({ template: { compilerOptions: { isCustomElement: (t) => t.startsWith("npt-"
 
 ```vue
 <script setup lang="ts">
-import "@neptune-odyssey/vue-ui/styles.css";
-import { NeptuneProvider, NptBalanceCard, NptButton } from "@neptune-odyssey/vue-ui";
+import "@neptune.fintech/vue-ui/styles.css";
+import { NeptuneProvider, NptBalanceCard, NptButton } from "@neptune.fintech/vue-ui";
 </script>
 
 <template>

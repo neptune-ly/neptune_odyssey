@@ -1,5 +1,5 @@
 {
-  "name": "@neptune-odyssey/react-ui",
+  "name": "@neptune.fintech/react-ui",
   "version": "1.0.0",
   "description": "Neptune Odyssey React layer — typed wrappers, a theme provider, and a hook over the framework-agnostic web kit.",
   "license": "SEE LICENSE IN LICENSE",
@@ -20,7 +20,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "@neptune-odyssey/web-ui/styles.css",
+    "./styles.css": "@neptune.fintech/web-ui/styles.css",
     "./package.json": "./package.json"
   },
   "files": ["dist", "LICENSE", "README.md"],
@@ -37,8 +37,8 @@
     "react": ">=18.0.0"
   },
   "dependencies": {
-    "@neptune-odyssey/tokens": "workspace:^",
-    "@neptune-odyssey/web-ui": "workspace:^"
+    "@neptune.fintech/tokens": "workspace:^",
+    "@neptune.fintech/web-ui": "workspace:^"
   },
   "devDependencies": {
     "@testing-library/react": "^16.1.0",

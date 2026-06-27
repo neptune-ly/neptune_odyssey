@@ -11,13 +11,13 @@ version tag** — no credentials ever touch a developer machine. This doc is the
 | **pub.dev** | `neptune_flutter_ui` |
 | **GitHub Pages** | the gallery (`/`) + the configurator / hash-preset maker (`/configurator/`) — auto-deploys on push to `main`, no secrets needed |
 
-`@neptune-odyssey/docs` and the demo/configurator apps are `private` and never published to npm.
+`@neptune.fintech/docs` and the demo/configurator apps are `private` and never published to npm.
 
 ## One-time setup
 
 1. **Create the npm org/scope.** On npmjs.com create an org named **`neptune-odyssey`** (free for
    public packages). Add the publishing user as a member with publish rights. (The packages are
-   already scoped `@neptune-odyssey/*` with `publishConfig.access: public`.)
+   already scoped `@neptune.fintech/*` with `publishConfig.access: public`.)
 2. **Create an npm automation token.** npm → Access Tokens → *Generate* → **Automation** (bypasses
    2FA in CI). Copy it.
 3. **Create pub.dev credentials.** On a machine with Flutter, run `dart pub login` once and authorize

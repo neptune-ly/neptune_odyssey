@@ -17,14 +17,14 @@ import {
   GLASS,
   MOTION,
   type BrandprintConfig,
-} from "@neptune-odyssey/tokens";
+} from "@neptune.fintech/tokens";
 import {
   applyTheme,
   registerAll,
   type ModeOption,
   type DirOption,
-} from "@neptune-odyssey/web-ui";
-import "@neptune-odyssey/web-ui/styles.css";
+} from "@neptune.fintech/web-ui";
+import "@neptune.fintech/web-ui/styles.css";
 
 import "./styles.css";
 import { evaluateContrast } from "./contrast.js";

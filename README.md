@@ -41,16 +41,16 @@ Same string ⇒ same theme on every platform. That guarantee is enforced by gold
 
 | Package | What it is | Status |
 |---------|-----------|--------|
-| [`@neptune-odyssey/tokens`](packages/neptune_tokens) | The determinism backbone — OKLCH→sRGB math, seed→palette ramp, brandprint codec, pinned palettes, `buildTheme()` | **Stable** |
+| [`@neptune.fintech/tokens`](packages/neptune_tokens) | The determinism backbone — OKLCH→sRGB math, seed→palette ramp, brandprint codec, pinned palettes, `buildTheme()` | **Stable** |
 | [`neptune_flutter_ui`](packages/neptune_flutter_ui) | Flutter `ThemeData` per brand/mode, ThemeExtensions, widgets | **Stable** |
-| [`@neptune-odyssey/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **Stable** |
-| [`@neptune-odyssey/svelte-ui`](packages/neptune_svelte_ui) | Svelte `use:theme` action + provider | **Stable** |
-| [`@neptune-odyssey/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **Stable** |
-| [`@neptune-odyssey/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **Stable** |
-| [`@neptune-odyssey/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **Stable** |
-| [`@neptune-odyssey/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **Stable** |
+| [`@neptune.fintech/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **Stable** |
+| [`@neptune.fintech/svelte-ui`](packages/neptune_svelte_ui) | Svelte `use:theme` action + provider | **Stable** |
+| [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **Stable** |
+| [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **Stable** |
+| [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **Stable** |
+| [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **Stable** |
 | [`apps/configurator`](apps/configurator) | Client-only theme builder (brandprint encode/decode + live preview + AA check) | **Stable** |
-| [`@neptune-odyssey/docs`](packages/neptune_docs) | The written system + the `.dc.html` visual contracts | — |
+| [`@neptune.fintech/docs`](packages/neptune_docs) | The written system + the `.dc.html` visual contracts | — |
 | [`roadmap/`](roadmap) | React Native · Kotlin Multiplatform | **Roadmap** (not in v1) |
 
 ## Three ways to theme — one surface, everywhere

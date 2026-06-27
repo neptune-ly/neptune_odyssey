@@ -1,15 +1,15 @@
-# @neptune-odyssey/react-ui
+# @neptune.fintech/react-ui
 
 React layer for [Neptune Odyssey](https://neptune.ly) by **Neptune.Fintech** — typed
 component wrappers, a `<NeptuneProvider>`, and a `useNeptuneTheme` hook over the
-framework-agnostic `@neptune-odyssey/web-ui` custom-element core.
+framework-agnostic `@neptune.fintech/web-ui` custom-element core.
 
 > Source-available under the **Neptune Odyssey Community License v1.0** (see `LICENSE`).
 
 ## Install
 
 ```sh
-pnpm add @neptune-odyssey/react-ui react
+pnpm add @neptune.fintech/react-ui react
 ```
 
 The `npt-*` tags are standards-based custom elements — React 18.3+ / 19 forwards unknown
@@ -18,8 +18,8 @@ props straight through to attributes, so no compiler or bundler config is needed
 ## Use
 
 ```tsx
-import "@neptune-odyssey/react-ui/styles.css";
-import { NeptuneProvider, NptBalanceCard, NptButton } from "@neptune-odyssey/react-ui";
+import "@neptune.fintech/react-ui/styles.css";
+import { NeptuneProvider, NptBalanceCard, NptButton } from "@neptune.fintech/react-ui";
 
 export function App() {
   return (
@@ -38,7 +38,7 @@ the same surface as every other Neptune Odyssey framework layer. `mode` is `ligh
 ### Theme any subtree with the hook
 
 ```tsx
-import { useNeptuneTheme } from "@neptune-odyssey/react-ui";
+import { useNeptuneTheme } from "@neptune.fintech/react-ui";
 
 function Statement() {
   const ref = useNeptuneTheme("NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA", { mode: "dark" });
