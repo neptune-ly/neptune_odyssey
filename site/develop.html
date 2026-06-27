@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Develop — Neptune Odyssey</title>
+<meta name="description" content="Build with Neptune Odyssey on Flutter, Web, React, Vue, Svelte and React Native — install, theme, and use components. Same brandprint, every framework.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/docs.css">
+<style>
+  .fwhead{display:flex;align-items:center;gap:12px;margin:46px 0 6px}
+  .fwhead .pip{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#fff;font-family:var(--rounded);font-size:15px}
+  .stable{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#0e8f73;background:color-mix(in oklab,#0e8f73 12%,#fff);padding:3px 9px;border-radius:999px}
+  .soon{color:var(--ink-3);background:var(--bg-2)}
+</style>
+</head>
+<body>
+<div class="dwrap"><aside class="dside">
+  <h4>Platforms</h4>
+  <a href="#web">Web</a><a href="#react">React</a><a href="#vue">Vue 3</a><a href="#svelte">Svelte</a>
+  <a href="#react-native">React Native</a><a href="#flutter">Flutter</a>
+  <h4>Core</h4>
+  <a href="#tokens">Tokens &amp; brandprint</a><a href="#icons">Icons</a><a href="#determinism">Determinism</a>
+</aside><main class="dmain">
+  <p class="eyebrow">Develop</p>
+  <h1>Build on any framework</h1>
+  <p class="dlede">The latest Neptune Odyssey components, themed by one core. The same <code>NO1-…</code> brandprint produces the identical theme on every platform — guaranteed by golden tests. All packages are on npm under <a href="https://www.npmjs.com/org/neptune.fintech" target="_blank" rel="noopener"><b>@neptune.fintech</b></a>.</p>
+
+  <div class="fwhead"><span class="pip" style="background:#07315F">W</span><h2 id="web" style="margin:0">Web <span class="stable">Stable</span></h2></div>
+  <p>Framework-agnostic custom elements, themed by pure CSS variables — works in any page or framework.</p>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/web-ui @neptune.fintech/tokens</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>import "@neptune.fintech/web-ui/styles.css";
+import { applyTheme, registerAll } from "@neptune.fintech/web-ui";
+registerAll();
+applyTheme(document.documentElement, "triton", { mode: "system", dir: "auto" });</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>&lt;npt-app-bar title="Accounts"&gt;&lt;/npt-app-bar&gt;
+&lt;npt-balance-card hero label="Available balance" amount="12,480.50" currency="LYD"&gt;&lt;/npt-balance-card&gt;
+&lt;npt-button variant="filled"&gt;New transfer&lt;/npt-button&gt;</pre></div>
+  <p><a href="components.html">See all components →</a></p>
+
+  <div class="fwhead"><span class="pip" style="background:#61DAFB;color:#07315F">R</span><h2 id="react" style="margin:0">React <span class="stable">Stable</span></h2></div>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/react-ui react</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>import { NeptuneProvider, useNeptuneTheme } from "@neptune.fintech/react-ui";
+import "@neptune.fintech/react-ui/styles.css";
+
+&lt;NeptuneProvider input="triton" mode="system"&gt;
+  &lt;npt-balance-card hero amount="12,480.50" currency="LYD" /&gt;
+&lt;/NeptuneProvider&gt;</pre></div>
+
+  <div class="fwhead"><span class="pip" style="background:#42b883">V</span><h2 id="vue" style="margin:0">Vue 3 <span class="stable">Stable</span></h2></div>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/vue-ui vue</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>// vite.config: vue({ template:{ compilerOptions:{ isCustomElement: t =&gt; t.startsWith("npt-") }}})
+import { NeptuneProvider, NptBalanceCard } from "@neptune.fintech/vue-ui";
+
+&lt;NeptuneProvider theme="triton" mode="system"&gt;
+  &lt;NptBalanceCard hero amount="12,480.50" currency="LYD" /&gt;
+&lt;/NeptuneProvider&gt;</pre></div>
+
+  <div class="fwhead"><span class="pip" style="background:#ff3e00">S</span><h2 id="svelte" style="margin:0">Svelte <span class="stable">Stable</span></h2></div>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/svelte-ui svelte</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>&lt;script&gt;
+  import "@neptune.fintech/svelte-ui/styles.css";
+  import { theme } from "@neptune.fintech/svelte-ui";
+&lt;/script&gt;
+
+&lt;div use:theme={{ input: "triton", mode: "system" }}&gt;
+  &lt;npt-balance-card hero amount="12,480.50" currency="LYD" /&gt;
+&lt;/div&gt;</pre></div>
+
+  <div class="fwhead"><span class="pip" style="background:#087ea4">N</span><h2 id="react-native" style="margin:0">React Native <span class="stable">Stable</span></h2></div>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/react-native-ui react react-native</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>import { NeptuneProvider, useNeptuneTheme, NeptuneBalanceCard } from "@neptune.fintech/react-native-ui";
+
+&lt;NeptuneProvider input="triton" mode="system"&gt;
+  &lt;NeptuneBalanceCard label="Available balance" amount="12,480.50" currency="LYD" /&gt;
+&lt;/NeptuneProvider&gt;</pre></div>
+
+  <div class="fwhead"><span class="pip" style="background:#02569B">F</span><h2 id="flutter" style="margin:0">Flutter <span class="stable">Stable</span></h2></div>
+  <div class="code"><button class="copy">Copy</button><pre>flutter pub add neptune_flutter_ui</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>MaterialApp(
+  theme: NeptuneTheme.light('triton'),
+  darkTheme: NeptuneTheme.dark('triton'),
+  themeMode: ThemeMode.system,
+  // or NeptuneTheme.fromBrandprint('NO1-…')
+);</pre></div>
+
+  <h2 id="tokens">Tokens &amp; brandprint</h2>
+  <p>The determinism backbone — color math, the seed→palette ramp, the brandprint codec, and <code>buildTheme()</code>.</p>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/tokens</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>import { buildTheme, encode, decode } from "@neptune.fintech/tokens";
+const theme = buildTheme("NO1-AYB4AK…");   // brand id | config | brandprint
+const print = encode(config);               // "NO1-…"  · build one in the theme builder</pre></div>
+  <p><a href="configurator/">Open the theme builder →</a></p>
+
+  <h2 id="icons">Icons</h2>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/icons</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>import { iconSvg } from "@neptune.fintech/icons";  // or &lt;npt-icon name="card"&gt;
+el.innerHTML = iconSvg("card");                    // inherits currentColor → themes automatically</pre></div>
+  <p><a href="icons.html">Browse all icons →</a></p>
+
+  <h2 id="determinism">The determinism contract</h2>
+  <ul>
+    <li><b>Pinned reference palettes are exact</b> — the resolved palette ships byte-identical in TS and Dart, so <b>Flutter == Web</b> by construction.</li>
+    <li><b>The shared OKLCH→sRGB converter</b> reproduces them to ≤ 1 LSB (custom seeds).</li>
+    <li><b>The brandprint codec is byte-identical</b> across platforms, idempotent, and tamper-rejecting — so a saved <code>NO1-…</code> always resolves the same.</li>
+  </ul>
+  <div class="dgrid" style="margin-top:8px">
+    <span class="tile"><h3>Roadmap</h3><p><span class="stable soon">Soon</span> Kotlin Multiplatform (Compose + web).</p></span>
+  </div>
+</main></div>
+
+<footer class="dfoot"><div class="dwrap dwrap--plain">© 2026 Neptune.Fintech · <a href="https://github.com/neptune-ly/neptune_odyssey">GitHub</a> · <a href="https://www.npmjs.com/org/neptune.fintech">npm</a>. Reference themes are illustrations only.</div></footer>
+<script src="assets/nav.js" data-active="develop"></script>
+</body>
+</html>

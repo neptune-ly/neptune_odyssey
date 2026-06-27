@@ -50,6 +50,7 @@ All JS/TS packages are **live on npm** under [`@neptune.fintech`](https://www.np
 | [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **npm ✓** |
 | [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **npm ✓** |
 | [`@neptune.fintech/react-native-ui`](packages/neptune_react_native_ui) | React Native provider + hook + themed native components | **npm ✓** |
+| [`@neptune.fintech/icons`](packages/neptune_icons) | 63 original SVG icons + `<npt-icon>` element | **npm ✓** |
 | [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **npm ✓** |
 | [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **npm ✓** |
 | [`apps/configurator`](apps/configurator) | Client-only theme builder (brandprint encode/decode + live preview + AA check) | **Stable** |

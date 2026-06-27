@@ -2,7 +2,7 @@
 import { NptElement, css, html, A11Y } from "./base.js";
 
 /**
- * <npt-button variant="filled|tonal|outlined|text" [disabled]>Label</npt-button>
+ * <npt-button variant="filled|elevated|tonal|outlined|text" [disabled]>Label</npt-button>
  * M3 Expressive button. Pill shape, brand-tinted, 48dp min target.
  */
 export class NptButton extends NptElement {
@@ -47,6 +47,14 @@ export class NptButton extends NptElement {
       :host([variant="filled"]) button:hover:not(:disabled),
       :host(:not([variant])) button:hover:not(:disabled) {
         box-shadow: var(--npt-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.2));
+      }
+      :host([variant="elevated"]) button {
+        background: var(--md-sys-color-surface-container-low);
+        color: var(--md-sys-color-primary);
+        box-shadow: var(--npt-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.2));
+      }
+      :host([variant="elevated"]) button:hover:not(:disabled) {
+        box-shadow: var(--npt-elevation-2, 0 2px 6px rgba(0, 0, 0, 0.18));
       }
       :host([variant="tonal"]) button {
         background: var(--md-sys-color-secondary-container);

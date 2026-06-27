@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Components — Neptune Odyssey</title>
+<meta name="description" content="Every Neptune Odyssey component, live and interactive — themed across Neptune, Triton, Nereid and Proteus, light and dark, LTR and RTL — with copy-ready code.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Grotesk:wght@400..700&family=Sora:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens/themes.css">
+<link rel="stylesheet" href="tokens/system.css">
+<link rel="stylesheet" href="assets/docs.css">
+<style>
+  /* components.html — page-only chrome · © 2026 Neptune.Fintech (neptune.ly) */
+  .gallery-controls{position:sticky;top:calc(var(--nav-h));z-index:20;margin:0 0 26px;
+    border:1px solid var(--line);border-radius:16px;background:color-mix(in oklab,var(--bg) 92%,transparent);
+    backdrop-filter:blur(10px)}
+  .gallery-controls .demo__bar{border-bottom:none;border-radius:16px;gap:16px;padding:12px 16px}
+  .gallery-controls .ctl{display:inline-flex;align-items:center;gap:8px}
+  .gallery-controls label.ctl-label{font-weight:700;color:var(--ink);font-size:13px}
+  .gallery-controls select{padding:7px 10px;border:1px solid var(--line);border-radius:9px;
+    background:var(--surface);color:var(--ink);font-weight:600}
+  .gallery-controls .grow{flex:1}
+  .demo__bar .lbl{font-weight:700;color:var(--ink-2)}
+  .demo__bar select{padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+  .demo__bar .chk{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-weight:600;cursor:pointer}
+  .demo__stage{align-items:flex-start;min-height:120px;transition:background-color .25s ease}
+  .demo__stage.col{flex-direction:column;align-items:stretch}
+  .stage-panel{inline-size:min(420px,100%)}
+  .stage-wide{inline-size:min(640px,100%)}
+  .dmain h2{display:flex;align-items:center;gap:10px}
+  .cat-eyebrow{font-family:var(--rounded);font-size:12px;font-weight:800;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--brand-coral);margin:48px 0 -4px}
+  .comp-desc{margin:2px 0 0;font-size:15px}
+  .demo__stage [slot]{font-family:var(--body)}
+  .stage-card{inline-size:min(360px,100%)}
+</style>
+</head>
+<body>
+<div class="dwrap"><aside class="dside">
+  <h4>Set the theme</h4>
+  <a href="#gallery-top">Gallery controls</a>
+  <h4>Actions</h4>
+  <a href="#button">Button</a>
+  <a href="#icon-button">Icon button</a>
+  <a href="#fab">FAB</a>
+  <a href="#segmented-button">Segmented button</a>
+  <a href="#chip">Chip</a>
+  <h4>Selection</h4>
+  <a href="#checkbox">Checkbox</a>
+  <a href="#radio">Radio</a>
+  <a href="#switch">Switch</a>
+  <a href="#slider">Slider</a>
+  <h4>Communication &amp; feedback</h4>
+  <a href="#progress">Progress</a>
+  <a href="#badge">Badge</a>
+  <a href="#banner">Banner</a>
+  <a href="#tooltip">Tooltip</a>
+  <a href="#snackbar">Snackbar</a>
+  <h4>Containers &amp; overlays</h4>
+  <a href="#card">Card</a>
+  <a href="#dialog">Dialog</a>
+  <a href="#bottom-sheet">Bottom sheet</a>
+  <a href="#menu">Menu</a>
+  <h4>Lists &amp; layout</h4>
+  <a href="#list">List</a>
+  <a href="#divider">Divider</a>
+  <a href="#tabs">Tabs</a>
+  <a href="#accordion">Accordion</a>
+  <a href="#avatar">Avatar</a>
+  <h4>Navigation</h4>
+  <a href="#app-bar">App bar</a>
+  <a href="#top-app-bar">Top app bar</a>
+  <a href="#nav-bar">Nav bar</a>
+  <a href="#nav-rail">Nav rail</a>
+  <h4>Inputs</h4>
+  <a href="#text-field">Text field</a>
+  <h4>Financial</h4>
+  <a href="#balance-card">Balance card</a>
+  <a href="#transaction-row">Transaction row</a>
+</aside><main class="dmain" id="gallery-top">
+  <p class="eyebrow">Components</p>
+  <h1>The Neptune Odyssey gallery</h1>
+  <p class="dlede">Every component — live, interactive and copy-ready. Pick a brand, mode and direction below and the whole gallery re-skins instantly. The same elements ship on Flutter, Web, React, Vue, Svelte and React Native.</p>
+
+  <!-- ============ GLOBAL THEME CONTROLS ============ -->
+  <div class="gallery-controls">
+    <div class="demo__bar">
+      <span class="ctl">
+        <label class="ctl-label" for="gBrand">Brand</label>
+        <select id="gBrand" aria-label="Reference brand">
+          <option value="neptune">Neptune</option>
+          <option value="triton">Triton</option>
+          <option value="nereid">Nereid</option>
+          <option value="proteus">Proteus</option>
+        </select>
+      </span>
+      <span class="grow"></span>
+      <span class="ctl">
+        <span class="ctl-label">Mode</span>
+        <span class="seg" id="gMode" role="group" aria-label="Light or dark mode">
+          <button type="button" data-mode="light" aria-pressed="true">Light</button>
+          <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+        </span>
+      </span>
+      <span class="ctl">
+        <span class="ctl-label">Direction</span>
+        <span class="seg" id="gDir" role="group" aria-label="Text direction">
+          <button type="button" data-dir="ltr" aria-pressed="true">LTR</button>
+          <button type="button" data-dir="rtl" aria-pressed="false">RTL</button>
+        </span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Everything below this wrapper re-skins with the controls above. -->
+  <div id="gallery" data-theme="neptune" data-mode="light" dir="ltr">
+
+  <!-- ====================================================== ACTIONS -->
+  <p class="cat-eyebrow">Actions</p>
+
+  <!-- Button -->
+  <h2 id="button">Button</h2>
+  <p class="comp-desc">M3 Expressive pill button with five emphasis variants.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-button">
+        <option value="filled">filled</option>
+        <option value="elevated">elevated</option>
+        <option value="tonal">tonal</option>
+        <option value="outlined">outlined</option>
+        <option value="text">text</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-button"> disabled</label>
+    </div>
+    <div class="demo__stage">
+      <npt-button id="d-button" variant="filled">New transfer</npt-button>
+      <npt-button variant="elevated">Elevated</npt-button>
+      <npt-button variant="tonal">Tonal</npt-button>
+      <npt-button variant="outlined">Outlined</npt-button>
+      <npt-button variant="text">Text</npt-button>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-button variant="filled"&gt;New transfer&lt;/npt-button&gt;</pre></div>
+  </div>
+
+  <!-- Icon button -->
+  <h2 id="icon-button">Icon button</h2>
+  <p class="comp-desc">48dp circular action with standard, filled, tonal and outlined variants; toggles via <code>selected</code>.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-iconbtn">
+        <option value="standard">standard</option>
+        <option value="filled">filled</option>
+        <option value="tonal">tonal</option>
+        <option value="outlined">outlined</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="selected" data-target="#d-iconbtn"> selected</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-iconbtn"> disabled</label>
+    </div>
+    <div class="demo__stage">
+      <npt-icon-button id="d-iconbtn" variant="standard" label="Favourite">★</npt-icon-button>
+      <npt-icon-button variant="filled" selected label="Favourite">★</npt-icon-button>
+      <npt-icon-button variant="tonal" label="Search">⌕</npt-icon-button>
+      <npt-icon-button variant="outlined" label="More">⋯</npt-icon-button>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-icon-button variant="tonal" label="Favourite"&gt;★&lt;/npt-icon-button&gt;</pre></div>
+  </div>
+
+  <!-- FAB -->
+  <h2 id="fab">FAB</h2>
+  <p class="comp-desc">Primary-container floating action button; three sizes and an extended label.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">size</span>
+      <select data-attr="size" data-target="#d-fab">
+        <option value="md">md</option>
+        <option value="sm">sm</option>
+        <option value="lg">lg</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="extended" data-target="#d-fab"> extended</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-fab"> disabled</label>
+    </div>
+    <div class="demo__stage">
+      <npt-fab id="d-fab" size="md" label="Compose">＋</npt-fab>
+      <npt-fab size="sm" label="Add">＋</npt-fab>
+      <npt-fab size="lg" label="Add">＋</npt-fab>
+      <npt-fab extended label="Compose">＋</npt-fab>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-fab extended label="Compose"&gt;＋&lt;/npt-fab&gt;</pre></div>
+  </div>
+
+  <!-- Segmented button -->
+  <h2 id="segmented-button">Segmented button</h2>
+  <p class="comp-desc">Connected single- or multi-select group of <code>npt-segmented-option</code>s.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="multi" data-target="#d-seg"> multi-select</label>
+    </div>
+    <div class="demo__stage">
+      <npt-segmented-button id="d-seg">
+        <npt-segmented-option value="day" selected>Day</npt-segmented-option>
+        <npt-segmented-option value="week">Week</npt-segmented-option>
+        <npt-segmented-option value="month">Month</npt-segmented-option>
+      </npt-segmented-button>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-segmented-button&gt;
+  &lt;npt-segmented-option value="day" selected&gt;Day&lt;/npt-segmented-option&gt;
+  &lt;npt-segmented-option value="week"&gt;Week&lt;/npt-segmented-option&gt;
+  &lt;npt-segmented-option value="month"&gt;Month&lt;/npt-segmented-option&gt;
+&lt;/npt-segmented-button&gt;</pre></div>
+  </div>
+
+  <!-- Chip -->
+  <h2 id="chip">Chip</h2>
+  <p class="comp-desc">Compact action/filter token. <code>filter</code> shows a ✓ when selected; <code>input</code> shows a removable ✕.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-chip">
+        <option value="filter">filter</option>
+        <option value="assist">assist</option>
+        <option value="input">input</option>
+        <option value="suggestion">suggestion</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="selected" data-target="#d-chip" checked> selected</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-chip"> disabled</label>
+    </div>
+    <div class="demo__stage">
+      <npt-chip id="d-chip" variant="filter" selected>Savings</npt-chip>
+      <npt-chip variant="filter">Cards</npt-chip>
+      <npt-chip variant="assist">Add note</npt-chip>
+      <npt-chip variant="input">Beneficiary</npt-chip>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-chip variant="filter" selected&gt;Savings&lt;/npt-chip&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== SELECTION -->
+  <p class="cat-eyebrow">Selection controls</p>
+
+  <!-- Checkbox -->
+  <h2 id="checkbox">Checkbox</h2>
+  <p class="comp-desc">Tri-state checkbox: checked, indeterminate or unchecked.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="checked" data-target="#d-check" checked> checked</label>
+      <label class="chk"><input type="checkbox" data-bool="indeterminate" data-target="#d-check"> indeterminate</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-check"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-checkbox id="d-check" checked>Paperless statements</npt-checkbox>
+      <npt-checkbox indeterminate>Select all accounts</npt-checkbox>
+      <npt-checkbox>Marketing emails</npt-checkbox>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-checkbox checked&gt;Paperless statements&lt;/npt-checkbox&gt;</pre></div>
+  </div>
+
+  <!-- Radio -->
+  <h2 id="radio">Radio</h2>
+  <p class="comp-desc">Single-choice control; group via a shared <code>name</code>.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-radio"> disable last</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-radio name="plan" value="basic" checked>Basic</npt-radio>
+      <npt-radio name="plan" value="plus">Plus</npt-radio>
+      <npt-radio id="d-radio" name="plan" value="pro">Pro</npt-radio>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-radio name="plan" value="basic" checked&gt;Basic&lt;/npt-radio&gt;
+&lt;npt-radio name="plan" value="plus"&gt;Plus&lt;/npt-radio&gt;</pre></div>
+  </div>
+
+  <!-- Switch -->
+  <h2 id="switch">Switch</h2>
+  <p class="comp-desc">On/off toggle with a spring thumb.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="checked" data-target="#d-switch" checked> checked</label>
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-switch"> disabled</label>
+    </div>
+    <div class="demo__stage">
+      <npt-switch id="d-switch" checked label="Notifications"></npt-switch>
+      <npt-switch label="Biometric login"></npt-switch>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-switch checked label="Notifications"&gt;&lt;/npt-switch&gt;</pre></div>
+  </div>
+
+  <!-- Slider -->
+  <h2 id="slider">Slider</h2>
+  <p class="comp-desc">Range input with a live value bubble.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="disabled" data-target="#d-slider"> disabled</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-slider id="d-slider" class="stage-wide" min="0" max="100" value="40" step="5" label="Transfer amount"></npt-slider>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-slider min="0" max="100" value="40" step="5" label="Transfer amount"&gt;&lt;/npt-slider&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== FEEDBACK -->
+  <p class="cat-eyebrow">Communication &amp; feedback</p>
+
+  <!-- Progress -->
+  <h2 id="progress">Progress</h2>
+  <p class="comp-desc">Linear or circular indicator; omit <code>value</code> (or set <code>indeterminate</code>) for the looping state.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-progress">
+        <option value="linear">linear</option>
+        <option value="circular">circular</option>
+      </select>
+      <label class="chk"><input type="checkbox" data-bool="indeterminate" data-target="#d-progress"> indeterminate</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-progress id="d-progress" class="stage-wide" variant="linear" value="62" label="Loading"></npt-progress>
+      <npt-progress variant="circular" value="62" label="Loading"></npt-progress>
+      <npt-progress variant="circular" indeterminate label="Loading"></npt-progress>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-progress variant="linear" value="62"&gt;&lt;/npt-progress&gt;
+&lt;npt-progress variant="circular" indeterminate&gt;&lt;/npt-progress&gt;</pre></div>
+  </div>
+
+  <!-- Badge -->
+  <h2 id="badge">Badge</h2>
+  <p class="comp-desc">Small count/status pill with primary, success, error and neutral tones.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">tone</span>
+      <select data-attr="tone" data-target="#d-badge">
+        <option value="primary">primary</option>
+        <option value="success">success</option>
+        <option value="error">error</option>
+        <option value="neutral">neutral</option>
+      </select>
+    </div>
+    <div class="demo__stage">
+      <npt-badge id="d-badge" tone="primary">3</npt-badge>
+      <npt-badge tone="success">OK</npt-badge>
+      <npt-badge tone="error">12</npt-badge>
+      <npt-badge tone="neutral">99+</npt-badge>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-badge tone="error"&gt;12&lt;/npt-badge&gt;</pre></div>
+  </div>
+
+  <!-- Banner -->
+  <h2 id="banner">Banner</h2>
+  <p class="comp-desc">Inline surface-level message with leading and actions slots.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">edit <code>text</code> via the field</span>
+      <input type="text" id="d-banner-text" value="A new statement is available." aria-label="Banner text"
+        style="padding:6px 9px;border:1px solid var(--line);border-radius:8px;min-width:240px">
+    </div>
+    <div class="demo__stage col">
+      <npt-banner id="d-banner" class="stage-wide" text="A new statement is available.">
+        <span slot="leading">🛈</span>
+        <npt-button variant="text">Dismiss</npt-button>
+        <npt-button variant="tonal">View</npt-button>
+      </npt-banner>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-banner text="A new statement is available."&gt;
+  &lt;span slot="leading"&gt;🛈&lt;/span&gt;
+  &lt;npt-button variant="text"&gt;Dismiss&lt;/npt-button&gt;
+  &lt;npt-button variant="tonal"&gt;View&lt;/npt-button&gt;
+&lt;/npt-banner&gt;</pre></div>
+  </div>
+
+  <!-- Tooltip -->
+  <h2 id="tooltip">Tooltip</h2>
+  <p class="comp-desc">Wraps a trigger and reveals its label on hover or focus.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">hover or focus the buttons</span></div>
+    <div class="demo__stage">
+      <npt-tooltip label="Copy IBAN"><npt-icon-button variant="tonal" label="Copy">⧉</npt-icon-button></npt-tooltip>
+      <npt-tooltip label="Share"><npt-icon-button variant="outlined" label="Share">↗</npt-icon-button></npt-tooltip>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-tooltip label="Copy IBAN"&gt;
+  &lt;npt-icon-button variant="tonal" label="Copy"&gt;⧉&lt;/npt-icon-button&gt;
+&lt;/npt-tooltip&gt;</pre></div>
+  </div>
+
+  <!-- Snackbar -->
+  <h2 id="snackbar">Snackbar</h2>
+  <p class="comp-desc">Inverse-surface toast with an optional action slot. Opens via the <code>open</code> attribute.</p>
+  <div class="demo">
+    <div class="demo__bar"><npt-button id="d-snackbar-open" variant="filled">Show snackbar</npt-button></div>
+    <div class="demo__stage col">
+      <npt-snackbar id="d-snackbar" class="stage-wide" message="Transfer sent to •••• 4821" open>
+        <npt-button variant="text">Undo</npt-button>
+      </npt-snackbar>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-snackbar message="Transfer sent" open&gt;
+  &lt;npt-button variant="text"&gt;Undo&lt;/npt-button&gt;
+&lt;/npt-snackbar&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== CONTAINERS -->
+  <p class="cat-eyebrow">Containers &amp; overlays</p>
+
+  <!-- Card -->
+  <h2 id="card">Card</h2>
+  <p class="comp-desc">Brand-shaped surface: standard, elevated, tonal or the translucent glass material.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-card">
+        <option value="standard">standard</option>
+        <option value="elevated">elevated</option>
+        <option value="tonal">tonal</option>
+        <option value="glass">glass</option>
+      </select>
+    </div>
+    <div class="demo__stage">
+      <npt-card id="d-card" class="stage-card" variant="standard">
+        <h3 style="margin:0 0 6px;font-family:var(--npt-font-display)">Spending insights</h3>
+        <p style="margin:0">You spent 12% less on dining this month.</p>
+      </npt-card>
+      <npt-card variant="elevated" class="stage-card">
+        <h3 style="margin:0 0 6px;font-family:var(--npt-font-display)">Elevated</h3>
+        <p style="margin:0">Raised surface for emphasis.</p>
+      </npt-card>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-card variant="elevated"&gt;
+  &lt;h3&gt;Spending insights&lt;/h3&gt;
+  &lt;p&gt;You spent 12% less on dining this month.&lt;/p&gt;
+&lt;/npt-card&gt;</pre></div>
+  </div>
+
+  <!-- Dialog -->
+  <h2 id="dialog">Dialog</h2>
+  <p class="comp-desc">Scrim + centred surface with focus-trap. ESC and backdrop close; actions go in the <code>actions</code> slot.</p>
+  <div class="demo">
+    <div class="demo__bar"><npt-button id="d-dialog-open" variant="filled">Open dialog</npt-button></div>
+    <div class="demo__stage"><span class="lbl" style="color:var(--md-sys-color-on-surface-variant)">The dialog overlays the page when opened.</span></div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-dialog open headline="Confirm transfer"&gt;
+  Send LYD 250.00 to Mona K.?
+  &lt;span slot="actions"&gt;
+    &lt;npt-button variant="text" data-close&gt;Cancel&lt;/npt-button&gt;
+    &lt;npt-button variant="filled" data-close&gt;Send&lt;/npt-button&gt;
+  &lt;/span&gt;
+&lt;/npt-dialog&gt;</pre></div>
+  </div>
+  <npt-dialog id="d-dialog" headline="Confirm transfer">
+    Send LYD 250.00 to Mona K.? This can’t be undone.
+    <span slot="actions">
+      <npt-button variant="text" data-close>Cancel</npt-button>
+      <npt-button variant="filled" data-close>Send</npt-button>
+    </span>
+  </npt-dialog>
+
+  <!-- Bottom sheet -->
+  <h2 id="bottom-sheet">Bottom sheet</h2>
+  <p class="comp-desc">Bottom-anchored sheet with a drag affordance and scrim. Backdrop / ESC close.</p>
+  <div class="demo">
+    <div class="demo__bar"><npt-button id="d-sheet-open" variant="filled">Open bottom sheet</npt-button></div>
+    <div class="demo__stage"><span class="lbl" style="color:var(--md-sys-color-on-surface-variant)">The sheet slides up from the bottom edge.</span></div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-bottom-sheet open&gt;
+  &lt;h3&gt;Choose an account&lt;/h3&gt;
+  &lt;npt-list&gt;…&lt;/npt-list&gt;
+&lt;/npt-bottom-sheet&gt;</pre></div>
+  </div>
+  <npt-bottom-sheet id="d-sheet">
+    <h3 style="margin:0 0 8px;font-family:var(--npt-font-display)">Choose an account</h3>
+    <npt-list>
+      <npt-list-item interactive headline="Everyday" supporting="•••• 4821"><span slot="trailing" data-close>→</span></npt-list-item>
+      <npt-list-item interactive headline="Savings" supporting="•••• 7702"><span slot="trailing" data-close>→</span></npt-list-item>
+    </npt-list>
+    <div style="margin-top:16px"><npt-button variant="text" data-close>Close</npt-button></div>
+  </npt-bottom-sheet>
+
+  <!-- Menu -->
+  <h2 id="menu">Menu</h2>
+  <p class="comp-desc">Anchored popover of <code>npt-menu-item</code>s. Place inside a positioned ancestor.</p>
+  <div class="demo">
+    <div class="demo__bar"><npt-button id="d-menu-open" variant="outlined">Toggle menu</npt-button></div>
+    <div class="demo__stage">
+      <div style="position:relative;display:inline-block">
+        <npt-button id="d-menu-anchor" variant="tonal">Account ⌄</npt-button>
+        <npt-menu id="d-menu">
+          <npt-menu-item>Profile</npt-menu-item>
+          <npt-menu-item>Settings</npt-menu-item>
+          <npt-menu-item disabled>Admin (disabled)</npt-menu-item>
+          <npt-menu-item>Sign out</npt-menu-item>
+        </npt-menu>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;div style="position:relative"&gt;
+  &lt;npt-button variant="tonal"&gt;Account ⌄&lt;/npt-button&gt;
+  &lt;npt-menu open&gt;
+    &lt;npt-menu-item&gt;Profile&lt;/npt-menu-item&gt;
+    &lt;npt-menu-item disabled&gt;Admin&lt;/npt-menu-item&gt;
+  &lt;/npt-menu&gt;
+&lt;/div&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== LISTS & LAYOUT -->
+  <p class="cat-eyebrow">Lists &amp; layout</p>
+
+  <!-- List -->
+  <h2 id="list">List</h2>
+  <p class="comp-desc"><code>npt-list</code> with <code>npt-list-item</code> rows; items can be <code>interactive</code> and carry leading/trailing slots.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="interactive" data-target=".d-list-item" checked> interactive</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;overflow:hidden;border:1px solid var(--md-sys-color-outline-variant)">
+        <npt-list>
+          <npt-list-item class="d-list-item" interactive headline="Mona Karim" supporting="Last transfer · LYD 250.00">
+            <npt-avatar slot="leading" initials="MK" size="sm" label="Mona Karim"></npt-avatar>
+            <span slot="trailing">→</span>
+          </npt-list-item>
+          <npt-list-item class="d-list-item" interactive headline="Ali Saleh" supporting="Beneficiary">
+            <npt-avatar slot="leading" initials="AS" size="sm" label="Ali Saleh"></npt-avatar>
+            <span slot="trailing">→</span>
+          </npt-list-item>
+        </npt-list>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-list&gt;
+  &lt;npt-list-item interactive headline="Mona Karim" supporting="Beneficiary"&gt;
+    &lt;npt-avatar slot="leading" initials="MK" size="sm"&gt;&lt;/npt-avatar&gt;
+    &lt;span slot="trailing"&gt;→&lt;/span&gt;
+  &lt;/npt-list-item&gt;
+&lt;/npt-list&gt;</pre></div>
+  </div>
+
+  <!-- Divider -->
+  <h2 id="divider">Divider</h2>
+  <p class="comp-desc">Hairline rule; <code>inset</code> indents it on both logical sides.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="inset" data-target="#d-divider"> inset</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide">
+        <p style="margin:0 0 8px;color:var(--md-sys-color-on-surface)">Above the rule</p>
+        <npt-divider id="d-divider"></npt-divider>
+        <p style="margin:8px 0 0;color:var(--md-sys-color-on-surface)">Below the rule</p>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-divider inset&gt;&lt;/npt-divider&gt;</pre></div>
+  </div>
+
+  <!-- Tabs -->
+  <h2 id="tabs">Tabs</h2>
+  <p class="comp-desc"><code>npt-tabs</code> with <code>npt-tab</code> children; clicking sets the active tab and slides the indicator.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">click a tab to switch</span></div>
+    <div class="demo__stage col">
+      <npt-tabs class="stage-wide">
+        <npt-tab active>Overview</npt-tab>
+        <npt-tab>Transactions</npt-tab>
+        <npt-tab>Statements</npt-tab>
+      </npt-tabs>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-tabs&gt;
+  &lt;npt-tab active&gt;Overview&lt;/npt-tab&gt;
+  &lt;npt-tab&gt;Transactions&lt;/npt-tab&gt;
+&lt;/npt-tabs&gt;</pre></div>
+  </div>
+
+  <!-- Accordion -->
+  <h2 id="accordion">Accordion</h2>
+  <p class="comp-desc"><code>npt-accordion</code> with expandable <code>npt-accordion-item</code> sections (native details/summary).</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">click a header to expand</span></div>
+    <div class="demo__stage col">
+      <npt-accordion class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;overflow:hidden;border:1px solid var(--md-sys-color-outline-variant)">
+        <npt-accordion-item open summary="What is a brandprint?">A portable NO1- string that reproduces a full theme across every framework.</npt-accordion-item>
+        <npt-accordion-item summary="Does it support RTL?">Yes — every component uses logical properties and mirrors automatically.</npt-accordion-item>
+        <npt-accordion-item summary="Which platforms?">Flutter, Web, React, Vue, Svelte and React Native.</npt-accordion-item>
+      </npt-accordion>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-accordion&gt;
+  &lt;npt-accordion-item open summary="What is a brandprint?"&gt;A portable NO1- string…&lt;/npt-accordion-item&gt;
+&lt;/npt-accordion&gt;</pre></div>
+  </div>
+
+  <!-- Avatar -->
+  <h2 id="avatar">Avatar</h2>
+  <p class="comp-desc">Initials or image avatar in three sizes.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">size</span>
+      <select data-attr="size" data-target="#d-avatar">
+        <option value="md">md</option>
+        <option value="sm">sm</option>
+        <option value="lg">lg</option>
+      </select>
+    </div>
+    <div class="demo__stage">
+      <npt-avatar id="d-avatar" initials="MK" size="md" label="Mona Karim"></npt-avatar>
+      <npt-avatar initials="AS" size="md" label="Ali Saleh"></npt-avatar>
+      <npt-avatar initials="NF" size="lg" label="Nadia Faraj"></npt-avatar>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-avatar initials="MK" size="lg" label="Mona Karim"&gt;&lt;/npt-avatar&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== NAVIGATION -->
+  <p class="cat-eyebrow">Navigation</p>
+
+  <!-- App bar -->
+  <h2 id="app-bar">App bar</h2>
+  <p class="comp-desc">Compact title bar with leading and trailing slots.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">leading + trailing slots</span></div>
+    <div class="demo__stage col">
+      <npt-app-bar class="stage-wide" title="Accounts" style="border:1px solid var(--md-sys-color-outline-variant);border-radius:14px;overflow:hidden">
+        <npt-icon-button slot="leading" label="Menu">☰</npt-icon-button>
+        <npt-icon-button slot="trailing" variant="tonal" label="Search">⌕</npt-icon-button>
+      </npt-app-bar>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-app-bar title="Accounts"&gt;
+  &lt;npt-icon-button slot="leading" label="Menu"&gt;☰&lt;/npt-icon-button&gt;
+  &lt;npt-icon-button slot="trailing" label="Search"&gt;⌕&lt;/npt-icon-button&gt;
+&lt;/npt-app-bar&gt;</pre></div>
+  </div>
+
+  <!-- Top app bar -->
+  <h2 id="top-app-bar">Top app bar</h2>
+  <p class="comp-desc">M3 top app bar; <code>medium</code> and <code>large</code> stack a bigger headline below the action row.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="lbl">variant</span>
+      <select data-attr="variant" data-target="#d-topbar">
+        <option value="small">small</option>
+        <option value="center">center</option>
+        <option value="medium">medium</option>
+        <option value="large">large</option>
+      </select>
+    </div>
+    <div class="demo__stage col">
+      <npt-top-app-bar id="d-topbar" class="stage-wide" title="Transfers" variant="small"
+        style="border:1px solid var(--md-sys-color-outline-variant);border-radius:14px;overflow:hidden">
+        <npt-icon-button slot="leading" label="Back">←</npt-icon-button>
+        <npt-icon-button slot="trailing" variant="tonal" label="More">⋯</npt-icon-button>
+      </npt-top-app-bar>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-top-app-bar title="Transfers" variant="large"&gt;
+  &lt;npt-icon-button slot="leading" label="Back"&gt;←&lt;/npt-icon-button&gt;
+&lt;/npt-top-app-bar&gt;</pre></div>
+  </div>
+
+  <!-- Nav bar -->
+  <h2 id="nav-bar">Nav bar</h2>
+  <p class="comp-desc">Mobile bottom navigation built from <code>npt-nav-item</code>s; <code>active</code> shows the indicator pill.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">click an item to activate</span></div>
+    <div class="demo__stage col">
+      <npt-nav-bar id="d-navbar" class="stage-wide" style="border:1px solid var(--md-sys-color-outline-variant);border-radius:14px;overflow:hidden">
+        <npt-nav-item label="Home" active>⌂</npt-nav-item>
+        <npt-nav-item label="Cards">▭</npt-nav-item>
+        <npt-nav-item label="Pay">⇄</npt-nav-item>
+        <npt-nav-item label="More">⋯</npt-nav-item>
+      </npt-nav-bar>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-nav-bar&gt;
+  &lt;npt-nav-item label="Home" active&gt;⌂&lt;/npt-nav-item&gt;
+  &lt;npt-nav-item label="Cards"&gt;▭&lt;/npt-nav-item&gt;
+&lt;/npt-nav-bar&gt;</pre></div>
+  </div>
+
+  <!-- Nav rail -->
+  <h2 id="nav-rail">Nav rail</h2>
+  <p class="comp-desc">Desktop/tablet side rail; the vertical sibling of the nav bar, reusing the same items.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">click an item to activate</span></div>
+    <div class="demo__stage">
+      <npt-nav-rail id="d-navrail" style="border:1px solid var(--md-sys-color-outline-variant);border-radius:14px;overflow:hidden;min-height:300px">
+        <npt-fab slot="leading" label="Compose">＋</npt-fab>
+        <npt-nav-item label="Home" active>⌂</npt-nav-item>
+        <npt-nav-item label="Cards">▭</npt-nav-item>
+        <npt-nav-item label="Pay">⇄</npt-nav-item>
+        <npt-nav-item label="More">⋯</npt-nav-item>
+      </npt-nav-rail>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-nav-rail&gt;
+  &lt;npt-fab slot="leading" label="Compose"&gt;＋&lt;/npt-fab&gt;
+  &lt;npt-nav-item label="Home" active&gt;⌂&lt;/npt-nav-item&gt;
+&lt;/npt-nav-rail&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== INPUTS -->
+  <p class="cat-eyebrow">Inputs</p>
+
+  <!-- Text field -->
+  <h2 id="text-field">Text field</h2>
+  <p class="comp-desc">Outlined M3 field; set <code>error</code> for the invalid treatment. Logical padding mirrors in RTL.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" id="d-field-error"> show error</label>
+    </div>
+    <div class="demo__stage col">
+      <npt-text-field id="d-field" class="stage-panel" label="IBAN" value="LY83 0021" placeholder="LY.."></npt-text-field>
+      <npt-text-field class="stage-panel" label="Amount" type="number" placeholder="0.00"></npt-text-field>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-text-field label="IBAN" placeholder="LY.." error="Invalid IBAN"&gt;&lt;/npt-text-field&gt;</pre></div>
+  </div>
+
+  <!-- ====================================================== FINANCIAL -->
+  <p class="cat-eyebrow">Financial</p>
+
+  <!-- Balance card -->
+  <h2 id="balance-card">Balance card</h2>
+  <p class="comp-desc">The dashboard balance hero; <code>hero</code> enables the brand gradient surface.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="hero" data-target="#d-balance" checked> hero gradient</label>
+    </div>
+    <div class="demo__stage">
+      <npt-balance-card id="d-balance" class="stage-card" hero label="Available balance" amount="12,480.50" currency="LYD" account="•••• 4821"></npt-balance-card>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-balance-card hero label="Available balance"
+  amount="12,480.50" currency="LYD" account="•••• 4821"&gt;&lt;/npt-balance-card&gt;</pre></div>
+  </div>
+
+  <!-- Transaction row -->
+  <h2 id="transaction-row">Transaction row</h2>
+  <p class="comp-desc">A statement line with tabular figures; <code>credit</code> tints the amount with the success colour.</p>
+  <div class="demo">
+    <div class="demo__bar">
+      <label class="chk"><input type="checkbox" data-bool="credit" data-target="#d-txn"> credit</label>
+    </div>
+    <div class="demo__stage col">
+      <div class="stage-wide" style="background:var(--md-sys-color-surface);border-radius:16px;overflow:hidden;border:1px solid var(--md-sys-color-outline-variant);padding:0 8px">
+        <npt-transaction-row id="d-txn" title="Salary" subtitle="Today · Transfer" amount="+3,200.00" currency="LYD" credit></npt-transaction-row>
+        <npt-transaction-row title="Coffee Bar" subtitle="Yesterday · Card" amount="-4.50" currency="LYD"></npt-transaction-row>
+        <npt-transaction-row title="Electricity" subtitle="2 Jun · Bill" amount="-86.20" currency="LYD"></npt-transaction-row>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-transaction-row title="Salary" subtitle="Today · Transfer"
+  amount="+3,200.00" currency="LYD" credit&gt;&lt;/npt-transaction-row&gt;</pre></div>
+  </div>
+
+  </div><!-- /#gallery -->
+</main></div>
+
+<footer class="dfoot"><div class="dwrap dwrap--plain">© 2026 Neptune.Fintech — Financial Technology &amp; Solutions · <a href="https://github.com/neptune-ly/neptune_odyssey">GitHub</a> · <a href="https://github.com/neptune-ly/neptune_odyssey/blob/main/LICENSE">License</a>. The reference themes (neptune/triton/nereid/proteus) are illustrations only.</div></footer>
+
+<script src="assets/neptune.js"></script>
+<script>
+// © 2026 Neptune.Fintech (neptune.ly)
+// components.html interactivity — global theming + per-demo attribute controls.
+(function () {
+  "use strict";
+  var gallery = document.getElementById("gallery");
+
+  /* ---- Global theme controls: brand / mode / dir re-skin the whole gallery ---- */
+  var state = { brand: "neptune", mode: "light", dir: "ltr" };
+
+  function applyTheme() {
+    // Prefer the bundled helper when present; fall back to data-attributes
+    // (themes.css keys off data-theme / data-mode / dir on this wrapper).
+    if (window.Neptune && typeof window.Neptune.applyTheme === "function") {
+      try {
+        window.Neptune.applyTheme(gallery, state.brand, { mode: state.mode, dir: state.dir });
+      } catch (e) { /* fall through to attribute mode */ }
+    }
+    gallery.setAttribute("data-theme", state.brand);
+    gallery.setAttribute("data-mode", state.mode);
+    gallery.setAttribute("dir", state.dir);
+  }
+
+  var brandSel = document.getElementById("gBrand");
+  brandSel.addEventListener("change", function () { state.brand = brandSel.value; applyTheme(); });
+
+  function wireSeg(id, key, attr) {
+    var seg = document.getElementById(id);
+    seg.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[" + attr + "]");
+      if (!btn) return;
+      state[key] = btn.getAttribute(attr);
+      seg.querySelectorAll("button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+      applyTheme();
+    });
+  }
+  wireSeg("gMode", "mode", "data-mode");
+  wireSeg("gDir", "dir", "data-dir");
+  applyTheme();
+
+  /* ---- Per-demo controls: <select data-attr> sets an attribute value ---- */
+  document.querySelectorAll("select[data-attr][data-target]").forEach(function (sel) {
+    sel.addEventListener("change", function () {
+      document.querySelectorAll(sel.getAttribute("data-target")).forEach(function (el) {
+        if (sel.value) el.setAttribute(sel.getAttribute("data-attr"), sel.value);
+        else el.removeAttribute(sel.getAttribute("data-attr"));
+      });
+    });
+  });
+
+  /* ---- Per-demo controls: <input type=checkbox data-bool> toggles a boolean attribute ---- */
+  document.querySelectorAll('input[type="checkbox"][data-bool][data-target]').forEach(function (box) {
+    box.addEventListener("change", function () {
+      var attr = box.getAttribute("data-bool");
+      document.querySelectorAll(box.getAttribute("data-target")).forEach(function (el) {
+        el.toggleAttribute(attr, box.checked);
+      });
+    });
+  });
+
+  /* ---- Bespoke wiring ---- */
+  // Banner: live text edit
+  var bannerText = document.getElementById("d-banner-text");
+  if (bannerText) bannerText.addEventListener("input", function () {
+    document.getElementById("d-banner").setAttribute("text", bannerText.value);
+  });
+
+  // Text field: toggle the error attribute
+  var fieldError = document.getElementById("d-field-error");
+  if (fieldError) fieldError.addEventListener("change", function () {
+    var f = document.getElementById("d-field");
+    if (fieldError.checked) f.setAttribute("error", "Enter a valid Libyan IBAN");
+    else f.removeAttribute("error");
+  });
+
+  // Snackbar: re-open
+  var snackOpen = document.getElementById("d-snackbar-open");
+  if (snackOpen) snackOpen.addEventListener("click", function () {
+    document.getElementById("d-snackbar").setAttribute("open", "");
+  });
+
+  // Dialog: open
+  var dialogOpen = document.getElementById("d-dialog-open");
+  if (dialogOpen) dialogOpen.addEventListener("click", function () {
+    document.getElementById("d-dialog").setAttribute("open", "");
+  });
+
+  // Bottom sheet: open
+  var sheetOpen = document.getElementById("d-sheet-open");
+  if (sheetOpen) sheetOpen.addEventListener("click", function () {
+    document.getElementById("d-sheet").setAttribute("open", "");
+  });
+
+  // Menu: toggle open
+  var menuToggle = document.getElementById("d-menu-open");
+  var menuAnchor = document.getElementById("d-menu-anchor");
+  var menu = document.getElementById("d-menu");
+  function toggleMenu() { menu.toggleAttribute("open"); }
+  if (menuToggle) menuToggle.addEventListener("click", toggleMenu);
+  if (menuAnchor) menuAnchor.addEventListener("click", toggleMenu);
+  // Close the menu when a menu item is chosen
+  if (menu) menu.addEventListener("click", function (e) {
+    if (e.target.closest("npt-menu-item")) menu.removeAttribute("open");
+  });
+
+  // Nav bar / nav rail: clicking an item moves the active state
+  ["d-navbar", "d-navrail"].forEach(function (id) {
+    var group = document.getElementById(id);
+    if (!group) return;
+    group.addEventListener("click", function (e) {
+      var item = e.target.closest("npt-nav-item");
+      if (!item) return;
+      group.querySelectorAll("npt-nav-item").forEach(function (n) {
+        n.toggleAttribute("active", n === item);
+      });
+    });
+  });
+})();
+</script>
+<script src="assets/nav.js" data-active="components"></script>
+</body>
+</html>

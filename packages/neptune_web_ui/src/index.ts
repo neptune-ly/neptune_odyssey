@@ -15,6 +15,26 @@ export { NptCard } from "./components/card.js";
 export { NptBalanceCard, NptTransactionRow } from "./components/financial.js";
 export { NptTextField, NptChip, NptBadge } from "./components/inputs.js";
 export { NptAppBar, NptNavBar, NptNavItem } from "./components/nav.js";
+export {
+  NptIconButton,
+  NptFab,
+  NptSegmentedButton,
+  NptSegmentedOption,
+} from "./components/actions.js";
+export { NptCheckbox, NptRadio, NptSwitch, NptSlider } from "./components/selection.js";
+export { NptProgress, NptSnackbar, NptTooltip, NptBanner } from "./components/feedback.js";
+export { NptDialog, NptBottomSheet, NptMenu, NptMenuItem } from "./components/containers.js";
+export {
+  NptList,
+  NptListItem,
+  NptDivider,
+  NptTabs,
+  NptTab,
+  NptAccordion,
+  NptAccordionItem,
+  NptAvatar,
+} from "./components/layout.js";
+export { NptNavRail, NptTopAppBar } from "./components/nav-rail.js";
 export { registerAll } from "./register.js";
 
 // Re-export the theming types so consumers need only this package for the surface.
@@ -28,4 +48,4 @@ export type {
 } from "@neptune.fintech/tokens";
 export { buildTheme, encode, decode, brandprintFor } from "@neptune.fintech/tokens";
 
-export const WEB_UI_VERSION = "2.0.0";
+export const WEB_UI_VERSION = "2.1.0";

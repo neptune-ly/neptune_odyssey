@@ -1,0 +1,102 @@
+/* Neptune Odyssey — docs site shell · © 2026 Neptune.Fintech (neptune.ly)
+   Shared chrome for every docs page (get-started, foundations, components, develop, icons).
+   Brand: navy #07315F ink, coral #EB4E4D accent; Baloo 2 display + Hanken Grotesk body. */
+:root{
+  --brand-coral:#EB4E4D; --brand-teal:#00A8AE; --brand-navy:#07315F;
+  --brand-sand:#F0CE9D; --brand-sky:#3BC1EE;
+  --bg:#ffffff; --bg-2:#f5f7fa; --surface:#ffffff; --line:#e6eaf0;
+  --ink:#07315F; --ink-2:#51607a; --ink-3:#7c8aa3;
+  --rounded:'Baloo 2', ui-rounded, 'Hanken Grotesk', system-ui, sans-serif;
+  --body:'Hanken Grotesk', system-ui, sans-serif;
+  --nav-h:60px; --side-w:236px; --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+html,body{margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}
+code,pre{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+
+/* ── Top nav ─────────────────────────────────────────────────────────────── */
+.dnav{position:sticky;top:0;z-index:30;height:var(--nav-h);display:flex;align-items:center;gap:18px;
+  padding:0 22px;background:color-mix(in oklab,var(--bg) 88%,transparent);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+.dnav__logo{display:inline-flex;align-items:baseline;font-family:var(--rounded);font-weight:800;font-size:21px;
+  letter-spacing:-0.02em;color:var(--brand-navy)}
+.dnav__logo .dot{width:7px;height:7px;border-radius:50%;background:var(--brand-coral);margin-inline-start:3px;align-self:center}
+.dnav__links{display:flex;gap:4px;flex:1;flex-wrap:wrap;overflow:hidden}
+.dnav__links a{padding:8px 12px;border-radius:9px;font-weight:600;font-size:14px;color:var(--ink-2);white-space:nowrap}
+.dnav__links a:hover{background:var(--bg-2);color:var(--brand-navy)}
+.dnav__links a.active{color:var(--brand-coral);background:color-mix(in oklab,var(--brand-coral) 9%,#fff)}
+.dnav__gh{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;font-weight:700;
+  font-size:13px;background:var(--brand-navy);color:#fff}
+.dnav__burger{display:none;border:1px solid var(--line);background:var(--surface);border-radius:9px;
+  width:40px;height:40px;cursor:pointer;font-size:18px;color:var(--brand-navy)}
+
+/* ── Page layout (optional side nav + content) ───────────────────────────── */
+.dwrap{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:var(--side-w) 1fr;gap:36px;
+  padding:0 22px}
+.dwrap--plain{grid-template-columns:1fr;max-width:960px}
+.dside{position:sticky;top:calc(var(--nav-h) + 16px);align-self:start;height:max-content;padding:24px 0;
+  font-size:14px;max-height:calc(100vh - var(--nav-h) - 16px);overflow:auto}
+.dside h4{font-family:var(--rounded);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);
+  margin:18px 0 8px}
+.dside a{display:block;padding:6px 10px;border-radius:8px;color:var(--ink-2);font-weight:600}
+.dside a:hover{background:var(--bg-2);color:var(--brand-navy)}
+.dside a.active{color:var(--brand-coral)}
+.dmain{padding:34px 0 80px;min-width:0}
+
+/* ── Typography for docs content ─────────────────────────────────────────── */
+.dmain h1{font-family:var(--rounded);font-size:clamp(30px,4.6vw,46px);line-height:1.05;letter-spacing:-0.03em;
+  margin:0 0 14px;font-weight:800;color:var(--brand-navy)}
+.dmain h2{font-family:var(--rounded);font-size:clamp(21px,3vw,28px);letter-spacing:-0.02em;margin:46px 0 12px;
+  font-weight:800;color:var(--brand-navy);scroll-margin-top:80px}
+.dmain h3{font-family:var(--rounded);font-size:18px;margin:28px 0 8px;font-weight:700;color:var(--brand-navy)}
+.dlede{font-size:clamp(16px,2vw,20px);color:var(--ink-2);margin:0 0 10px;max-width:70ch}
+.dmain p{color:var(--ink-2);max-width:72ch}
+.dmain ul{color:var(--ink-2);max-width:72ch}
+.eyebrow{font-family:var(--rounded);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--brand-coral);margin:0 0 6px}
+
+/* ── Cards / sections ────────────────────────────────────────────────────── */
+.dcard{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:22px;margin:14px 0}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:18px 0}
+.tile{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:18px;transition:transform .2s,box-shadow .2s}
+.tile:hover{transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(7,49,95,.4)}
+.tile h3{margin:0 0 6px}
+.tile p{margin:0;font-size:14px}
+
+/* ── Code blocks + copy ──────────────────────────────────────────────────── */
+.code{position:relative;background:#0b1f38;border-radius:12px;padding:14px 16px;margin:14px 0;overflow:auto}
+.code pre{margin:0;color:#cfe3ff;font-size:13px;line-height:1.6;white-space:pre}
+.code .tok-k{color:#7fd0ff}.code .tok-s{color:#ffd9a8}.code .tok-c{color:#6f86a6}
+.code .copy{position:absolute;top:10px;inset-inline-end:10px;border:none;cursor:pointer;border-radius:8px;
+  padding:5px 11px;font-weight:700;font-size:12px;font-family:var(--body);background:var(--brand-coral);color:#fff}
+.code .copy.copied{background:var(--brand-teal)}
+
+/* ── Live component demo frame ───────────────────────────────────────────── */
+.demo{border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:16px 0;background:var(--surface)}
+.demo__bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);
+  background:var(--bg-2);font-size:13px}
+.demo__bar select,.demo__bar label{font:inherit;font-size:13px}
+.demo__stage{padding:30px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:center;
+  background:var(--md-sys-color-background,#fff)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:none;background:transparent;padding:6px 12px;cursor:pointer;font:inherit;font-size:13px;color:var(--ink-2)}
+.seg button[aria-pressed=true]{background:var(--brand-navy);color:#fff;font-weight:700}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.dfoot{border-top:1px solid var(--line);margin-top:40px;padding:30px 22px 60px;color:var(--ink-3);font-size:13px}
+.dfoot .dwrap{display:block}
+.dfoot a{color:var(--brand-navy);font-weight:700}
+
+@media(max-width:900px){
+  .dwrap{grid-template-columns:1fr}
+  .dside{display:none}
+  .dnav__links{display:none;position:fixed;inset:var(--nav-h) 0 auto 0;flex-direction:column;background:var(--surface);
+    border-bottom:1px solid var(--line);padding:8px;gap:2px}
+  .dnav__links.open{display:flex}
+  .dnav__burger{display:inline-block}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--brand-coral);outline-offset:3px;border-radius:8px}

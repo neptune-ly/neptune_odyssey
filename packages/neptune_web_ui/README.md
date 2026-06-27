@@ -51,8 +51,30 @@ a brand is zero JavaScript. Custom configs and brandprints resolve through
 
 ## Components
 
-`npt-button` · `npt-card` (incl. `glass`) · `npt-balance-card` · `npt-transaction-row` ·
-`npt-text-field` · `npt-chip` · `npt-badge` · `npt-app-bar` · `npt-nav-bar` / `npt-nav-item`.
+A standards-based **Material 3** kit. Every element is themed only by CSS variables.
+
+**Core & financial:** `npt-button` (filled / elevated / tonal / outlined / text) ·
+`npt-card` (incl. `glass`) · `npt-balance-card` · `npt-transaction-row` · `npt-text-field` ·
+`npt-badge`.
+
+**Buttons & actions:** `npt-icon-button` (standard / filled / tonal / outlined, `[selected]`) ·
+`npt-fab` (`sm`/`md`/`lg`, `[extended]`) · `npt-segmented-button` + `npt-segmented-option`.
+
+**Selection controls:** `npt-checkbox` (`[indeterminate]`) · `npt-radio` (name/value group) ·
+`npt-switch` · `npt-slider` (output bubble).
+
+**Chips:** `npt-chip` with `variant="assist|filter|input|suggestion"` (filter check, input ✕).
+
+**Communication & feedback:** `npt-progress` (linear / circular, `[indeterminate]`) ·
+`npt-snackbar` · `npt-tooltip` · `npt-banner`.
+
+**Containers & layout:** `npt-dialog` (scrim, ESC / backdrop close, focus-trap) ·
+`npt-bottom-sheet` · `npt-list` + `npt-list-item` · `npt-divider` (`[inset]`) ·
+`npt-tabs` + `npt-tab` · `npt-accordion` + `npt-accordion-item` · `npt-avatar` ·
+`npt-menu` + `npt-menu-item`.
+
+**Navigation:** `npt-app-bar` · `npt-top-app-bar` (`small`/`center`/`medium`/`large`) ·
+`npt-nav-bar` · `npt-nav-rail` · `npt-nav-item`.
 
 Every component reads **only** `var(--md-sys-color-*)` / `var(--npt-*)` — no literal color,
 radius, or font anywhere (principle P2). Layout is logical (`*-inline-*`) so it mirrors in

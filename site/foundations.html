@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foundations — Neptune Odyssey</title>
+<meta name="description" content="The styles Neptune Odyssey is built on — colour roles, typography, shape, elevation and motion — live across every reference brand.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&family=Bricolage+Grotesque:wght@400..800&family=Space+Grotesk:wght@400..700&family=Sora:wght@400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens/themes.css">
+<link rel="stylesheet" href="tokens/system.css">
+<link rel="stylesheet" href="assets/docs.css">
+<style>
+  .fscope{border:1px solid var(--line);border-radius:20px;overflow:hidden;margin:18px 0 8px}
+  .fbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .fstage{padding:24px;background:var(--md-sys-color-background);color:var(--md-sys-color-on-surface);
+    font-family:var(--npt-font-text),sans-serif}
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .sw{border-radius:12px;border:1px solid color-mix(in oklab,var(--md-sys-color-outline) 40%,transparent);overflow:hidden}
+  .sw .chip{height:62px}
+  .sw .lab{padding:7px 9px;font-size:11px;font-weight:600;background:var(--md-sys-color-surface);color:var(--md-sys-color-on-surface-variant)}
+  .sw .lab b{display:block;color:var(--md-sys-color-on-surface);font-size:11.5px}
+  .pair{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+  .pcell{border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px}
+  .type-row{display:flex;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid var(--md-sys-color-outline-variant);flex-wrap:wrap}
+  .type-row .meta{font-size:11.5px;color:var(--md-sys-color-on-surface-variant);font-family:var(--body)}
+  .shapes{display:flex;gap:16px;flex-wrap:wrap}
+  .shape{width:96px;height:72px;background:var(--md-sys-color-primary-container);color:var(--md-sys-color-on-primary-container);
+    display:grid;place-items:center;font-size:12px;font-weight:700}
+  .elevs{display:flex;gap:18px;flex-wrap:wrap}
+  .elev{width:120px;height:84px;border-radius:16px;background:var(--md-sys-color-surface-container);display:grid;place-items:center;
+    font-size:12px;font-weight:700;color:var(--md-sys-color-on-surface-variant)}
+</style>
+</head>
+<body>
+<div class="dwrap"><aside class="dside">
+  <h4>On this page</h4>
+  <a href="#color">Colour</a><a href="#type">Typography</a><a href="#shape">Shape</a>
+  <a href="#elevation">Elevation</a><a href="#motion">Motion</a><a href="#a11y">Accessibility</a>
+</aside><main class="dmain">
+  <p class="eyebrow">Foundations</p>
+  <h1>The styles, live</h1>
+  <p class="dlede">Everything is a token. Switch the reference brand and mode below — colour, type, shape and motion all re-skin from the same roles. This is exactly what your components read.</p>
+
+  <div class="fscope" id="scope" data-theme="neptune" data-mode="light">
+    <div class="fbar">
+      <label>Brand
+        <select id="brandSel"><option value="neptune">Neptune</option><option value="triton">Triton</option><option value="nereid">Nereid</option><option value="proteus">Proteus</option></select>
+      </label>
+      <span class="seg" role="group" aria-label="Mode">
+        <button id="mLight" aria-pressed="true">Light</button><button id="mDark" aria-pressed="false">Dark</button>
+      </span>
+    </div>
+    <div class="fstage">
+      <h2 id="color" style="margin-top:0;color:var(--md-sys-color-on-background)">Colour roles</h2>
+      <p style="color:var(--md-sys-color-on-surface-variant);max-width:70ch;font-size:14px">37 Material 3 roles (plus Neptune's <code>success</code> family) — authored in OKLCH, resolved to hex/ARGB at build, pinned so Flutter == Web.</p>
+      <div class="swatches" id="swatches"></div>
+
+      <h2 id="type" style="color:var(--md-sys-color-on-background)">Typography</h2>
+      <div id="typescale"></div>
+
+      <h2 id="shape" style="color:var(--md-sys-color-on-background)">Shape</h2>
+      <div class="shapes" id="shapes"></div>
+
+      <h2 id="elevation" style="color:var(--md-sys-color-on-background)">Elevation</h2>
+      <div class="elevs" id="elevs"></div>
+    </div>
+  </div>
+
+  <h2 id="motion">Motion</h2>
+  <p>Per-brand easing + duration tokens carry the brand's feel. Components read <code>--npt-ease-*</code> / <code>--npt-dur-*</code>; reduced-motion is honoured everywhere.</p>
+  <div class="dgrid">
+    <div class="tile"><h3>Standard</h3><p><code>--npt-ease-standard</code> · <code>--npt-dur-standard</code> — most transitions.</p></div>
+    <div class="tile"><h3>Emphasized</h3><p><code>--npt-ease-emphasized</code> · <code>--npt-dur-slow</code> — entrances &amp; hero moments.</p></div>
+    <div class="tile"><h3>Spring</h3><p><code>--npt-ease-spring</code> — selection overshoot (M3 Expressive).</p></div>
+  </div>
+
+  <h2 id="a11y">Accessibility</h2>
+  <ul>
+    <li><b>WCAG AA</b> contrast on text (4.5:1) and large/UI (3:1) — baked into the role pairs.</li>
+    <li><b>Visible focus</b> (<code>:focus-visible</code>), full keyboard nav, ≥48dp targets.</li>
+    <li><b>RTL by birth</b> — logical properties only; Arabic faces swap per brand.</li>
+    <li><b>Reduced motion</b> honoured via <code>prefers-reduced-motion</code>.</li>
+  </ul>
+</main></div>
+
+<footer class="dfoot"><div class="dwrap dwrap--plain">© 2026 Neptune.Fintech · <a href="https://github.com/neptune-ly/neptune_odyssey">GitHub</a>. Reference themes are illustrations only.</div></footer>
+
+<script src="assets/nav.js" data-active="foundations"></script>
+<script>
+(function(){
+  var ROLES=["primary","on-primary","primary-container","on-primary-container","secondary","on-secondary","secondary-container","on-secondary-container","tertiary","on-tertiary","tertiary-container","on-tertiary-container","error","on-error","error-container","on-error-container","success","on-success","success-container","on-success-container","background","on-background","surface","on-surface","surface-variant","on-surface-variant","outline","outline-variant","surface-container-lowest","surface-container-low","surface-container","surface-container-high","surface-container-highest","inverse-surface","inverse-on-surface","inverse-primary","scrim"];
+  var scope=document.getElementById('scope');
+  // colour swatches — each chip just reads the role var from the themed scope
+  document.getElementById('swatches').innerHTML=ROLES.map(function(r){
+    return '<div class="sw"><div class="chip" style="background:var(--md-sys-color-'+r+')"></div>'+
+      '<div class="lab"><b>'+r+'</b>--md-sys-color-'+r+'</div></div>';
+  }).join('');
+  // type scale
+  var TYPE=[["Display large","57px/64","--npt-font-display",800],["Display medium","45px/52","--npt-font-display",800],["Headline","28px/36","--npt-font-display",700],["Title large","22px/28","--npt-font-text",700],["Title","18px/24","--npt-font-text",600],["Body large","16px/24","--npt-font-text",400],["Body","14px/20","--npt-font-text",400],["Label","14px/20","--npt-font-text",600],["Numerals","tabular","--npt-font-num",700]];
+  document.getElementById('typescale').innerHTML=TYPE.map(function(t){
+    var sz=parseInt(t[1],10)||20; var demo=t[0]==='Numerals'?'1,234.50':'Aa Bb Cc — أبجد';
+    return '<div class="type-row"><div style="font-family:var('+t[2]+');font-weight:'+t[3]+';font-size:'+Math.min(sz,40)+'px;color:var(--md-sys-color-on-surface)">'+demo+'</div><div class="meta">'+t[0]+' · '+t[1]+'</div></div>';
+  }).join('');
+  // shape family
+  var SH=[["xs","--npt-corner-xs"],["sm","--npt-corner-sm"],["md","--npt-corner-md"],["lg","--npt-corner-lg"],["xl","--npt-corner-xl"],["2xl","--npt-corner-2xl"],["full","--npt-corner-full"]];
+  document.getElementById('shapes').innerHTML=SH.map(function(s){return '<div class="shape" style="border-radius:var('+s[1]+')">'+s[0]+'</div>';}).join('');
+  // elevation
+  var EL=[0,1,2,3,4,5];
+  document.getElementById('elevs').innerHTML=EL.map(function(n){return '<div class="elev" style="box-shadow:var(--npt-elevation-'+n+',0 '+n+'px '+(n*3)+'px rgba(7,49,95,.16))">level '+n+'</div>';}).join('');
+  // brand + mode switching (re-skins the whole scope)
+  document.getElementById('brandSel').addEventListener('change',function(e){scope.setAttribute('data-theme',e.target.value);});
+  function setMode(m){scope.setAttribute('data-mode',m);document.getElementById('mLight').setAttribute('aria-pressed',String(m==='light'));document.getElementById('mDark').setAttribute('aria-pressed',String(m==='dark'));}
+  document.getElementById('mLight').addEventListener('click',function(){setMode('light');});
+  document.getElementById('mDark').addEventListener('click',function(){setMode('dark');});
+})();
+</script>
+</body>
+</html>

@@ -38,6 +38,9 @@
     background:var(--brand-navy);color:#fff;transition:transform .2s ease, box-shadow .2s ease}
   .ghbtn:hover{transform:translateY(-1px);box-shadow:0 10px 24px -12px var(--brand-navy)}
   .ghbtn.ghost{background:transparent;color:var(--brand-navy);border:1px solid var(--line)}
+  .navlink{padding:8px 11px;border-radius:9px;font-size:14px;font-weight:600;color:var(--ink-2)}
+  .navlink:hover{background:var(--bg-2);color:var(--brand-navy)}
+  @media(max-width:1080px){.navlink{display:none}}
 
   /* ── Hero ──────────────────────────────────────────────────────────────── */
   .hero{padding:78px 0 36px;max-width:820px}
@@ -143,6 +146,11 @@
     <header class="topbar">
       <a class="logo" href="./" aria-label="Neptune Odyssey home">Neptune<span class="dot"></span><small>Odyssey · Design System</small></a>
       <nav class="nav">
+        <a class="navlink" href="get-started.html">Get started</a>
+        <a class="navlink" href="foundations.html">Foundations</a>
+        <a class="navlink" href="components.html">Components</a>
+        <a class="navlink" href="icons.html">Icons</a>
+        <a class="navlink" href="develop.html">Develop</a>
         <a class="ghbtn ghost" href="configurator/">Theme builder</a>
         <a class="ghbtn" id="ghlink" href="https://github.com/neptune-ly/neptune_odyssey" target="_blank" rel="noopener">★ GitHub</a>
       </nav>

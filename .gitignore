@@ -30,3 +30,6 @@ extracted/
 
 # local Pages preview assembly
 _site/
+
+# generated docs bundle (built by site/bundle/build.mjs in CI)
+site/assets/neptune.js

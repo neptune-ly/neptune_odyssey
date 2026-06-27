@@ -32,8 +32,10 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Build libraries the configurator depends on
-        run: pnpm -r --filter "@neptune.fintech/tokens" --filter "@neptune.fintech/web-ui" run build
+      - name: Build the libraries the docs site renders
+        run: pnpm -r --filter "@neptune.fintech/tokens" --filter "@neptune.fintech/web-ui" --filter "@neptune.fintech/icons" run build
+      - name: Bundle components + icons for the docs pages (site/assets/neptune.js)
+        run: node site/bundle/build.mjs
       - name: Build the configurator
         run: pnpm --filter "@neptune.fintech/configurator" run build
       - name: Assemble _site (static reference site + configurator)

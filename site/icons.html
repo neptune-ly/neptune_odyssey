@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Icons — Neptune Odyssey</title>
+<meta name="description" content="The Neptune icon library — ~63 original 24px stroke icons, themeable via currentColor, shipped as @neptune.fintech/icons. Search, preview and copy.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens/themes.css">
+<link rel="stylesheet" href="tokens/system.css">
+<link rel="stylesheet" href="assets/docs.css">
+<script src="assets/neptune.js"></script>
+<style>
+  /* Icons browser — page-local styling, built on the shared docs shell */
+  .toolbar{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center;padding:14px 16px;margin:20px 0 8px;
+    border:1px solid var(--line);border-radius:16px;background:var(--surface);position:sticky;top:calc(var(--nav-h) + 8px);z-index:10;
+    backdrop-filter:blur(8px)}
+  .toolbar__field{flex:1 1 240px;min-width:200px;display:flex;flex-direction:column;gap:4px}
+  .toolbar__field label{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+  .toolbar__search{position:relative;display:flex;align-items:center}
+  .toolbar__search input{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--bg-2);
+    border:1px solid var(--line);border-radius:11px;padding:10px 38px 10px 14px}
+  .toolbar__search input::placeholder{color:var(--ink-3)}
+  .toolbar__clear{position:absolute;inset-inline-end:8px;border:none;background:transparent;cursor:pointer;
+    color:var(--ink-3);font-size:18px;line-height:1;padding:4px;border-radius:8px}
+  .toolbar__clear:hover{color:var(--brand-coral)}
+  .toolbar__group{display:flex;flex-direction:column;gap:5px}
+  .toolbar__group > span{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+  .swatch-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .swatch-seg button{border:none;background:transparent;cursor:pointer;font:inherit;font-size:13px;font-weight:600;
+    padding:7px 13px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+  .swatch-seg button[aria-pressed=true]{background:var(--brand-navy);color:#fff}
+  .swatch-seg .dotc{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+  .count{margin:6px 2px 0;font-size:13px;color:var(--ink-3)}
+
+  /* the live grid is a themed surface so brand toggles re-skin it */
+  .iconwrap[data-theme]{border:1px solid var(--line);border-radius:18px;margin:14px 0 8px;overflow:hidden;
+    background:var(--md-sys-color-background,#fff)}
+  .igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;padding:18px}
+  .icell{appearance:none;border:1px solid var(--md-sys-color-outline-variant,var(--line));border-radius:14px;
+    background:var(--md-sys-color-surface-container-lowest,#fff);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 10px 12px;
+    transition:transform .16s var(--npt-ease-standard,ease),box-shadow .16s,border-color .16s;text-align:center}
+  .icell:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(7,49,95,.5);
+    border-color:var(--icon-color,var(--md-sys-color-primary))}
+  .icell .glyph{display:grid;place-items:center;color:var(--icon-color,var(--md-sys-color-on-surface))}
+  .icell .glyph svg{display:block}
+  .icell .nm{font-size:11.5px;font-weight:600;color:var(--md-sys-color-on-surface-variant,var(--ink-2));
+    max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--body)}
+  .icell.copied{border-color:var(--brand-teal);box-shadow:0 0 0 2px var(--brand-teal) inset}
+
+  .icell__alts{display:flex;gap:4px;margin-top:2px;opacity:0;transition:opacity .16s}
+  .icell:hover .icell__alts,.icell:focus-within .icell__alts{opacity:1}
+  .icell__alts button{border:1px solid var(--line);background:var(--bg-2);color:var(--ink-2);cursor:pointer;
+    font:inherit;font-size:10px;font-weight:700;letter-spacing:.02em;border-radius:7px;padding:2px 6px}
+  .icell__alts button:hover{background:var(--brand-coral);color:#fff;border-color:var(--brand-coral)}
+
+  .empty{display:none;padding:54px 20px;text-align:center;color:var(--ink-2)}
+  .empty.show{display:block}
+  .empty .big{font-family:var(--rounded);font-size:20px;font-weight:800;color:var(--brand-navy);margin-bottom:6px}
+
+  .toast{position:fixed;inset-block-end:24px;inset-inline:0;margin:auto;width:max-content;max-width:90vw;
+    background:var(--brand-navy);color:#fff;font-weight:700;font-size:13.5px;padding:10px 18px;border-radius:999px;
+    box-shadow:0 18px 40px -18px rgba(7,49,95,.6);opacity:0;transform:translateY(10px);pointer-events:none;
+    transition:opacity .2s,transform .2s;z-index:60}
+  .toast.show{opacity:1;transform:translateY(0)}
+  @media (prefers-reduced-motion: reduce){
+    .icell,.icell__alts,.toast{transition:none!important}
+    .icell:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="dwrap dwrap--plain"><main class="dmain">
+  <p class="eyebrow">Icons</p>
+  <h1>The Neptune icon library</h1>
+  <p class="dlede">~63 original 24px stroke icons drawn on one grid — crisp at any size, themeable through <code>currentColor</code>, and shipped as <a href="https://www.npmjs.com/package/@neptune.fintech/icons" target="_blank" rel="noopener"><b>@neptune.fintech/icons</b></a>. Search, recolour, and copy any icon as a web element, raw SVG, or bare name.</p>
+  <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/icons</pre></div>
+
+  <!-- Toolbar: search · size · colour role -->
+  <div class="toolbar" role="region" aria-label="Icon browser controls">
+    <div class="toolbar__field">
+      <label for="iconSearch">Search icons</label>
+      <div class="toolbar__search">
+        <input id="iconSearch" type="search" autocomplete="off" spellcheck="false"
+          placeholder="Search by name — card, transfer, shield…" aria-describedby="iconCount">
+        <button class="toolbar__clear" id="iconClear" type="button" aria-label="Clear search" hidden>×</button>
+      </div>
+    </div>
+    <div class="toolbar__group" role="group" aria-label="Icon size">
+      <span>Size</span>
+      <span class="seg" id="sizeSeg">
+        <button type="button" data-size="24" aria-pressed="true">24</button>
+        <button type="button" data-size="32" aria-pressed="false">32</button>
+        <button type="button" data-size="48" aria-pressed="false">48</button>
+      </span>
+    </div>
+    <div class="toolbar__group" role="group" aria-label="Icon colour">
+      <span>Colour</span>
+      <span class="swatch-seg" id="colorSeg">
+        <button type="button" data-role="on-surface" aria-pressed="true"><span class="dotc" style="background:var(--md-sys-color-on-surface)"></span>Ink</button>
+        <button type="button" data-role="primary" aria-pressed="false"><span class="dotc" style="background:var(--md-sys-color-primary)"></span>Primary</button>
+        <button type="button" data-role="tertiary" aria-pressed="false"><span class="dotc" style="background:var(--md-sys-color-tertiary)"></span>Tertiary</button>
+        <button type="button" data-role="error" aria-pressed="false"><span class="dotc" style="background:var(--brand-coral)"></span>Coral</button>
+      </span>
+    </div>
+    <div class="toolbar__group" role="group" aria-label="Preview brand">
+      <span>Brand</span>
+      <span class="swatch-seg" id="brandSeg">
+        <button type="button" data-brand="neptune" aria-pressed="true">Neptune</button>
+        <button type="button" data-brand="triton" aria-pressed="false">Triton</button>
+        <button type="button" data-brand="nereid" aria-pressed="false">Nereid</button>
+        <button type="button" data-brand="proteus" aria-pressed="false">Proteus</button>
+      </span>
+    </div>
+  </div>
+  <p class="count" id="iconCount" aria-live="polite"></p>
+
+  <!-- Live, themeable grid -->
+  <div class="iconwrap" id="iconWrap" data-theme="neptune" data-mode="light">
+    <div class="igrid" id="iconGrid" role="list" aria-label="Neptune icons — click a cell to copy"></div>
+    <div class="empty" id="iconEmpty">
+      <div class="big">No icons match</div>
+      <p style="margin:0">Try a shorter term — for example “card”, “arrow”, “chart” or “user”.</p>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--ink-3);margin:4px 2px 0">
+    Tip: a cell copies <code>&lt;npt-icon&gt;</code> by default. Hover (or focus) to also copy raw <b>SVG</b> or the bare <b>name</b>.
+  </p>
+
+  <h2 id="use">Use it</h2>
+  <p>Register the elements once, then drop <code>&lt;npt-icon&gt;</code> anywhere — it inherits <code>currentColor</code>, so it themes automatically with the surrounding text or any <code>--md-sys-color-*</code> role.</p>
+  <div class="code"><button class="copy">Copy</button><pre><span class="tok-c">// web — register the custom elements once</span>
+<span class="tok-k">import</span> { registerIcons } <span class="tok-k">from</span> <span class="tok-s">"@neptune.fintech/icons"</span>; registerIcons();</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>&lt;npt-icon name="card" size="24"&gt;&lt;/npt-icon&gt;
+&lt;!-- inherits currentColor — colour it with text colour or a role --&gt;
+&lt;span style="color: var(--md-sys-color-primary)"&gt;&lt;npt-icon name="transfer"&gt;&lt;/npt-icon&gt;&lt;/span&gt;</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre><span class="tok-c">// or get a complete SVG string (24×24, stroke=currentColor)</span>
+<span class="tok-k">import</span> { iconSvg } <span class="tok-k">from</span> <span class="tok-s">"@neptune.fintech/icons"</span>;
+el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="tok-s">32</span> });</pre></div>
+  <p>Because every glyph strokes with <code>currentColor</code>, an icon picks up the ink of its container — no per-theme icon sets, no recolouring at build time. The same names work on Flutter, React, Vue, Svelte and React Native.</p>
+
+  <div class="dgrid" style="margin-top:30px">
+    <a class="tile" href="foundations.html"><h3>Foundations →</h3><p>The colour roles these icons inherit from.</p></a>
+    <a class="tile" href="components.html"><h3>Components →</h3><p>See icons in context inside live components.</p></a>
+    <a class="tile" href="get-started.html"><h3>Get started →</h3><p>Install the system and theme any app.</p></a>
+  </div>
+</main></div>
+
+<footer class="dfoot"><div class="dwrap dwrap--plain">© 2026 Neptune.Fintech — Financial Technology &amp; Solutions · <a href="https://github.com/neptune-ly/neptune_odyssey">GitHub</a> · <a href="https://github.com/neptune-ly/neptune_odyssey/blob/main/LICENSE">License</a>. The reference themes (neptune/triton/nereid/proteus) are illustrations only.</div></footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/nav.js" data-active="icons"></script>
+<script>
+// © 2026 Neptune.Fintech (neptune.ly)
+(function () {
+  function start() {
+    var N = window.Neptune;
+    var grid = document.getElementById('iconGrid');
+    var empty = document.getElementById('iconEmpty');
+    var countEl = document.getElementById('iconCount');
+    var search = document.getElementById('iconSearch');
+    var clearBtn = document.getElementById('iconClear');
+    var wrap = document.getElementById('iconWrap');
+    var toast = document.getElementById('toast');
+
+    // Guard: if the Neptune global never loaded, show a graceful note.
+    var NAMES = (N && Array.isArray(N.ICON_NAMES)) ? N.ICON_NAMES.slice() : [];
+    if (!N || typeof N.iconSvg !== 'function' || !NAMES.length) {
+      grid.innerHTML = '';
+      empty.classList.add('show');
+      empty.querySelector('.big').textContent = 'Icon library unavailable';
+      empty.querySelector('p').textContent = 'assets/neptune.js did not load. Refresh, or check the script tag.';
+      return;
+    }
+
+    var state = { size: 24, query: '' };
+    var total = NAMES.length;
+    var toastTimer;
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 1500);
+    }
+
+    function copy(text, msg, cell) {
+      var ok = function () {
+        showToast(msg);
+        if (cell) {
+          cell.classList.add('copied');
+          setTimeout(function () { cell.classList.remove('copied'); }, 900);
+        }
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, ok);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        ta.remove(); ok();
+      }
+    }
+
+    function snippet(name) { return '<npt-icon name="' + name + '" size="' + state.size + '"></npt-icon>'; }
+
+    // Build all cells once; we only toggle visibility + glyph size on changes.
+    var cells = NAMES.map(function (name) {
+      var cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'icell';
+      cell.setAttribute('role', 'listitem');
+      cell.setAttribute('aria-label', 'Copy ' + name + ' icon');
+      cell.dataset.name = name;
+
+      var glyph = document.createElement('span');
+      glyph.className = 'glyph';
+      glyph.setAttribute('aria-hidden', 'true');
+      glyph.innerHTML = N.iconSvg(name, { size: state.size });
+
+      var nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = name;
+
+      var alts = document.createElement('span');
+      alts.className = 'icell__alts';
+      var bSvg = document.createElement('button');
+      bSvg.type = 'button'; bSvg.textContent = 'SVG';
+      bSvg.dataset.alt = 'svg';
+      bSvg.setAttribute('aria-label', 'Copy raw SVG for ' + name);
+      var bName = document.createElement('button');
+      bName.type = 'button'; bName.textContent = 'name';
+      bName.dataset.alt = 'name';
+      bName.setAttribute('aria-label', 'Copy the name ' + name);
+      alts.appendChild(bSvg); alts.appendChild(bName);
+
+      cell.appendChild(glyph);
+      cell.appendChild(nm);
+      cell.appendChild(alts);
+
+      // Default click → copy <npt-icon> snippet.
+      cell.addEventListener('click', function (e) {
+        var alt = e.target.closest('[data-alt]');
+        if (alt) {
+          e.stopPropagation();
+          if (alt.dataset.alt === 'svg') copy(N.iconSvg(name, { size: state.size }), 'Copied SVG · ' + name, cell);
+          else copy(name, 'Copied name · ' + name, cell);
+          return;
+        }
+        copy(snippet(name), 'Copied <npt-icon> · ' + name, cell);
+      });
+
+      grid.appendChild(cell);
+      return { name: name, el: cell, glyph: glyph };
+    });
+
+    function applySize() {
+      cells.forEach(function (c) { c.glyph.innerHTML = N.iconSvg(c.name, { size: state.size }); });
+    }
+
+    function applyFilter() {
+      var q = state.query.trim().toLowerCase();
+      var shown = 0;
+      cells.forEach(function (c) {
+        var match = !q || c.name.indexOf(q) !== -1;
+        c.el.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      empty.classList.toggle('show', shown === 0);
+      countEl.textContent = q
+        ? (shown + ' of ' + total + ' icons match “' + state.query.trim() + '”')
+        : (total + ' icons');
+      clearBtn.hidden = !q;
+    }
+
+    // Search (live).
+    search.addEventListener('input', function () { state.query = search.value; applyFilter(); });
+    clearBtn.addEventListener('click', function () {
+      search.value = ''; state.query = ''; applyFilter(); search.focus();
+    });
+
+    // Size segmented control.
+    document.getElementById('sizeSeg').addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-size]');
+      if (!b) return;
+      state.size = parseInt(b.dataset.size, 10) || 24;
+      this.querySelectorAll('button').forEach(function (x) {
+        x.setAttribute('aria-pressed', String(x === b));
+      });
+      applySize();
+    });
+
+    // Colour role — drive the grid's icon colour from a role var.
+    document.getElementById('colorSeg').addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-role]');
+      if (!b) return;
+      wrap.style.setProperty('--icon-color', 'var(--md-sys-color-' + b.dataset.role + ')');
+      this.querySelectorAll('button').forEach(function (x) {
+        x.setAttribute('aria-pressed', String(x === b));
+      });
+    });
+
+    // Brand — re-skin the themed grid wrapper.
+    document.getElementById('brandSeg').addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-brand]');
+      if (!b) return;
+      wrap.setAttribute('data-theme', b.dataset.brand);
+      this.querySelectorAll('button').forEach(function (x) {
+        x.setAttribute('aria-pressed', String(x === b));
+      });
+    });
+
+    applyFilter();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+</body>
+</html>
