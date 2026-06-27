@@ -35,6 +35,66 @@ export {
   NptAvatar,
 } from "./components/layout.js";
 export { NptNavRail, NptTopAppBar } from "./components/nav-rail.js";
+export {
+  NptAmountInput,
+  NptCurrencyField,
+  NptIbanField,
+  NptOtpInput,
+  NptPinInput,
+  NptAmountKeypad,
+} from "./components/money-inputs.js";
+export { NptCardArt, NptCardRow, NptAddCard, NptCardControls } from "./components/cards.js";
+export {
+  NptStep,
+  NptStepper,
+  NptTransferReview,
+  NptSuccess,
+  NptReceipt,
+  NptBeneficiaryTile,
+  NptMethodRow,
+} from "./components/money-movement.js";
+export {
+  NptDataTable,
+  NptStatCard,
+  NptSparkline,
+  NptDonut,
+  NptLimitMeter,
+  NptTrend,
+} from "./components/data-viz.js";
+export {
+  NptSkeleton,
+  NptEmptyState,
+  NptAlert,
+  NptStatusChip,
+  NptToast,
+  NptToastHost,
+} from "./components/feedback-status.js";
+export {
+  NptApprovalItem,
+  NptBatchCard,
+  NptAuditRow,
+  NptUserRow,
+  NptPermissionToggle,
+  NptWorkflowStatus,
+} from "./components/corporate.js";
+export {
+  NptAppShell,
+  NptPageHeader,
+  NptSection,
+  NptSideNav,
+  NptSideNavItem,
+  NptSearchField,
+  NptToolbar,
+} from "./components/shell-layout.js";
+export {
+  NptQuickActions,
+  NptQuickAction,
+  NptMerchantRow,
+  NptVoucherCard,
+  NptQrPay,
+  NptTopupRow,
+  NptTierBadge,
+} from "./components/wallet-pay.js";
 export { registerAll } from "./register.js";
 
 // Re-export the theming types so consumers need only this package for the surface.
@@ -48,4 +108,4 @@ export type {
 } from "@neptune.fintech/tokens";
 export { buildTheme, encode, decode, brandprintFor } from "@neptune.fintech/tokens";
 
-export const WEB_UI_VERSION = "2.1.0";
+export const WEB_UI_VERSION = "2.2.0";

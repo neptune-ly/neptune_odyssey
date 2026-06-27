@@ -22,6 +22,66 @@ import {
   NptAvatar,
 } from "./components/layout.js";
 import { NptNavRail, NptTopAppBar } from "./components/nav-rail.js";
+import {
+  NptAmountInput,
+  NptCurrencyField,
+  NptIbanField,
+  NptOtpInput,
+  NptPinInput,
+  NptAmountKeypad,
+} from "./components/money-inputs.js";
+import { NptCardArt, NptCardRow, NptAddCard, NptCardControls } from "./components/cards.js";
+import {
+  NptStep,
+  NptStepper,
+  NptTransferReview,
+  NptSuccess,
+  NptReceipt,
+  NptBeneficiaryTile,
+  NptMethodRow,
+} from "./components/money-movement.js";
+import {
+  NptDataTable,
+  NptStatCard,
+  NptSparkline,
+  NptDonut,
+  NptLimitMeter,
+  NptTrend,
+} from "./components/data-viz.js";
+import {
+  NptSkeleton,
+  NptEmptyState,
+  NptAlert,
+  NptStatusChip,
+  NptToast,
+  NptToastHost,
+} from "./components/feedback-status.js";
+import {
+  NptApprovalItem,
+  NptBatchCard,
+  NptAuditRow,
+  NptUserRow,
+  NptPermissionToggle,
+  NptWorkflowStatus,
+} from "./components/corporate.js";
+import {
+  NptAppShell,
+  NptPageHeader,
+  NptSection,
+  NptSideNav,
+  NptSideNavItem,
+  NptSearchField,
+  NptToolbar,
+} from "./components/shell-layout.js";
+import {
+  NptQuickActions,
+  NptQuickAction,
+  NptMerchantRow,
+  NptVoucherCard,
+  NptQrPay,
+  NptTopupRow,
+  NptTierBadge,
+} from "./components/wallet-pay.js";
 
 /** Register every Neptune Odyssey custom element (idempotent, browser-only). */
 export function registerAll(): void {
@@ -67,6 +127,63 @@ export function registerAll(): void {
   // Navigation
   define("npt-nav-rail", NptNavRail);
   define("npt-top-app-bar", NptTopAppBar);
+  // Money & secure-entry inputs
+  define("npt-amount-input", NptAmountInput);
+  define("npt-currency-field", NptCurrencyField);
+  define("npt-iban-field", NptIbanField);
+  define("npt-otp-input", NptOtpInput);
+  define("npt-pin-input", NptPinInput);
+  define("npt-amount-keypad", NptAmountKeypad);
+  // Payment cards
+  define("npt-card-art", NptCardArt);
+  define("npt-card-row", NptCardRow);
+  define("npt-add-card", NptAddCard);
+  define("npt-card-controls", NptCardControls);
+  // Money-movement flow
+  define("npt-step", NptStep);
+  define("npt-stepper", NptStepper);
+  define("npt-transfer-review", NptTransferReview);
+  define("npt-success", NptSuccess);
+  define("npt-receipt", NptReceipt);
+  define("npt-beneficiary-tile", NptBeneficiaryTile);
+  define("npt-method-row", NptMethodRow);
+  // Data visualisation
+  define("npt-data-table", NptDataTable);
+  define("npt-stat-card", NptStatCard);
+  define("npt-sparkline", NptSparkline);
+  define("npt-donut", NptDonut);
+  define("npt-limit-meter", NptLimitMeter);
+  define("npt-trend", NptTrend);
+  // Feedback & status
+  define("npt-skeleton", NptSkeleton);
+  define("npt-empty-state", NptEmptyState);
+  define("npt-alert", NptAlert);
+  define("npt-status-chip", NptStatusChip);
+  define("npt-toast", NptToast);
+  define("npt-toast-host", NptToastHost);
+  // Corporate & back-office
+  define("npt-approval-item", NptApprovalItem);
+  define("npt-batch-card", NptBatchCard);
+  define("npt-audit-row", NptAuditRow);
+  define("npt-user-row", NptUserRow);
+  define("npt-permission-toggle", NptPermissionToggle);
+  define("npt-workflow-status", NptWorkflowStatus);
+  // Application shell & layout
+  define("npt-app-shell", NptAppShell);
+  define("npt-page-header", NptPageHeader);
+  define("npt-section", NptSection);
+  define("npt-side-nav", NptSideNav);
+  define("npt-side-nav-item", NptSideNavItem);
+  define("npt-search-field", NptSearchField);
+  define("npt-toolbar", NptToolbar);
+  // Wallet & pay surfaces
+  define("npt-quick-actions", NptQuickActions);
+  define("npt-quick-action", NptQuickAction);
+  define("npt-merchant-row", NptMerchantRow);
+  define("npt-voucher-card", NptVoucherCard);
+  define("npt-qr-pay", NptQrPay);
+  define("npt-topup-row", NptTopupRow);
+  define("npt-tier-badge", NptTierBadge);
 }
 
 registerAll();

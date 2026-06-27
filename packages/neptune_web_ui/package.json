@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/web-ui",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Neptune Odyssey web kit — framework-agnostic, CSS-variable-themed custom elements + the applyTheme API (brand id / config / brandprint).",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",
