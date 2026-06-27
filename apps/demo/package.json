@@ -1,0 +1,27 @@
+{
+  "name": "@neptune-odyssey/demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Neptune Odyssey demo gallery — the public white-label showcase. Every reference brand × light/dark × LTR/RTL, across product archetypes, using the real shipped components.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Neptune.Fintech (https://neptune.ly)",
+  "homepage": "https://neptune.ly",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@neptune-odyssey/brand-configs": "workspace:^",
+    "@neptune-odyssey/tokens": "workspace:^",
+    "@neptune-odyssey/web-ui": "workspace:^"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}

@@ -10,6 +10,10 @@ bank wants to look different, that's a *theme* — never a fork.
 
 `v1.0.0 · Stable`
 
+**▶ Live:** [**Demo gallery**](https://neptune-ly.github.io/neptune_odyssey/) — every brand ×
+light/dark × LTR/RTL across the product types · [**Theme builder**](https://neptune-ly.github.io/neptune_odyssey/configurator/)
+— the hash-preset maker: pick a theme, copy its `NO1-…` brandprint, use it anywhere.
+
 > **Source-available, not open source.** Neptune Odyssey is licensed under the
 > **Neptune Odyssey Community License v1.0** ([`LICENSE`](LICENSE)): free for non-commercial
 > use and for organizations under **USD $25,000/yr** revenue; a commercial license is
