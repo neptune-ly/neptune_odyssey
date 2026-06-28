@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.0.0
+
+Aligns the Flutter package with the Neptune Odyssey 2.x line (vendor-neutral, white-label).
+
+- Reference brands are the four neutral demo skins — `neptune` / `triton` / `nereid` /
+  `proteus` (no real-institution identity).
+- Brandprint strings remain byte-identical to the JS/TS reference and stable across
+  versions: a saved `NO1-…` resolves to the same theme on Flutter, Web, React, Vue,
+  Svelte and React Native (golden-tested).
+- `NeptuneTheme.light` / `.dark` / `.fromBrandprint` / `.fromConfig`; `ThemeExtension`s
+  `NptColors` / `NptShape` / `NptType` / `NptMotion`; theme-only widgets (balance card,
+  transaction row, account tile, primary button). RTL-safe, ≥48dp targets, no literals.
+- 31 golden tests; `flutter analyze` clean.
+
 ## 1.0.0
 
 First stable release of the Neptune Odyssey Flutter package by Neptune.Fintech.
