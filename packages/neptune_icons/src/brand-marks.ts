@@ -400,16 +400,19 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
       { kind: "text", role: "a", text: "وان باي", attrs: { x: 24, y: 27, "font-family": AR_FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
     ],
   },
-  // Sadad — the Arabic سداد script as the hero + Latin SADAD.
+  // Sadad — the Libyan Sadad by Almadar (المدار الجديد): a gold/amber سداد script
+  // with Almadar's green swoosh accent + Latin SADAD.
   sadad: {
     viewBox: "0 0 48 32",
-    label: "Sadad (placeholder mark)",
+    label: "Sadad — Almadar (placeholder mark)",
     placeholder: true,
-    colors: { a: "#E2601A", ink: "#243240" },
+    colors: { a: "#CF9B22", b: "#3E9B46", ink: "#243240" },
     shapes: [
       ...cardFrame(),
-      { kind: "text", role: "a", text: "سداد", attrs: { x: 24, y: 19, "font-family": AR_FONT, "font-size": 13, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
-      { kind: "text", role: "ink", text: "SADAD", attrs: { x: 24, y: 27, "font-family": FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", "letter-spacing": 1.6 } },
+      // Almadar green swoosh accent (top-right)
+      { kind: "path", role: "b", attrs: { d: "M28.5 11 c4 -2 7.5 -1 9.5 2.6", fill: "none", "stroke-width": 1.8, "stroke-linecap": "round" } },
+      { kind: "text", role: "a", text: "سداد", attrs: { x: 24, y: 19.5, "font-family": AR_FONT, "font-size": 13, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
+      { kind: "text", role: "ink", text: "SADAD", attrs: { x: 24, y: 27.5, "font-family": FONT, "font-size": 5, "font-weight": 700, "text-anchor": "middle", "letter-spacing": 1.4 } },
     ],
   },
   // Tadawul — a teal up-trend mark + Tadawul wordmark + Arabic تداول.
