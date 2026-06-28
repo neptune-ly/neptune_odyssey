@@ -171,8 +171,13 @@
     @media (prefers-reduced-motion:reduce){.wel__orb{animation:none}}
     .wel__content{position:relative;z-index:1;min-block-size:100%;box-sizing:border-box;
       display:flex;flex-direction:column;padding:64px 26px 30px}
-    .wel__brand{display:flex;align-items:center;gap:10px;color:var(--md-sys-color-on-surface)}
-    .wel__brand svg{inline-size:30px;block-size:30px}
+    .wel__brand{display:flex;align-items:center;gap:11px;color:var(--md-sys-color-on-surface)}
+    .wel__mark{position:relative;inline-size:34px;block-size:34px;border-radius:10px;flex:0 0 auto;
+      background:var(--md-sys-color-primary);color:var(--md-sys-color-on-primary);
+      display:inline-grid;place-items:center;
+      font-family:var(--npt-font-display);font-weight:800;font-size:20px;letter-spacing:-.02em;line-height:1}
+    .wel__dot{position:absolute;top:6px;inset-inline-end:6px;inline-size:6px;block-size:6px;
+      border-radius:50%;background:var(--brand-coral)}
     .wel__name{font-family:var(--npt-font-display);font-weight:800;font-size:20px;letter-spacing:-.01em}
     .wel__hero{margin-block:auto 22px}
     .wel .wel__title{font-family:var(--npt-font-display);font-weight:500;font-size:clamp(28px,8.5vw,34px);
@@ -197,12 +202,7 @@
           </div>
           <div class="wel__content">
             <div class="wel__brand">
-              <svg viewBox="0 0 48 48" aria-hidden="true">
-                <g stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                  <path d="M24 9 V38"/><path d="M14 20 H34"/><path d="M14 20 V12.5"/><path d="M34 20 V12.5"/><path d="M20 38 H28"/>
-                </g>
-                <circle cx="38.5" cy="10" r="3.4" fill="var(--md-sys-color-primary)"/>
-              </svg>
+              <span class="wel__mark" aria-hidden="true">N<span class="wel__dot"></span></span>
               <span class="wel__name">Neptune</span>
             </div>
             <div class="wel__hero">
@@ -545,7 +545,7 @@
 
   <!-- =================================================================== CARDS -->
   <h2 id="cards">Cards</h2>
-  <p class="tpl-desc">A virtual card visual, its freeze/limits controls, a spend meter, the saved-cards list with scheme brand marks, and an add-card tile.</p>
+  <p class="tpl-desc">A swipeable card carousel (the selected card carries an accent ring), freeze/limits controls, a spend meter, the saved-cards list with scheme brand marks, and an add-card tile.</p>
   <div class="demo">
     <div class="demo__bar"><span class="lbl">Mobile · cards</span></div>
     <div class="demo__stage">
@@ -557,9 +557,23 @@
             <npt-tier-badge tier="Virtual" tone="primary"></npt-tier-badge>
           </div>
 
-          <npt-card-art variant="virtual" holder="SAMI A. NOURI" last4="4821" expiry="08/29" scheme="VISA">
-            <span slot="brand"><npt-brand-mark name="visa" height="22"></npt-brand-mark></span>
-          </npt-card-art>
+          <style>
+            .scr-carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+              margin-inline:-18px;padding:4px 18px 8px;scrollbar-width:none}
+            .scr-carousel::-webkit-scrollbar{display:none}
+            .scr-carousel > npt-card-art{flex:0 0 86%;scroll-snap-align:center}
+          </style>
+          <div class="scr-carousel" role="list" aria-label="Your cards — swipe to browse">
+            <npt-card-art selected variant="virtual" holder="SAMI A. NOURI" last4="4821" expiry="08/29" scheme="VISA">
+              <span slot="brand"><npt-brand-mark name="visa" height="22"></npt-brand-mark></span>
+            </npt-card-art>
+            <npt-card-art holder="SAMI A. NOURI" last4="2207" expiry="03/28" scheme="Mastercard">
+              <span slot="brand"><npt-brand-mark name="mastercard" height="26"></npt-brand-mark></span>
+            </npt-card-art>
+            <npt-card-art variant="virtual" holder="SAMI A. NOURI" last4="9930" expiry="11/27" scheme="UnionPay">
+              <span slot="brand"><npt-brand-mark name="unionpay" height="22"></npt-brand-mark></span>
+            </npt-card-art>
+          </div>
 
           <npt-card-controls></npt-card-controls>
 
