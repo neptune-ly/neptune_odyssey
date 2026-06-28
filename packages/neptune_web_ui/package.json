@@ -1,6 +1,6 @@
 {
   "name": "@neptune.fintech/web-ui",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Neptune Odyssey web kit — framework-agnostic, CSS-variable-themed custom elements + the applyTheme API (brand id / config / brandprint).",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",
@@ -11,7 +11,10 @@
     "directory": "packages/neptune_web_ui"
   },
   "type": "module",
-  "sideEffects": ["./dist/register.js", "**/*.css"],
+  "sideEffects": [
+    "./dist/register.js",
+    "**/*.css"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -29,7 +32,12 @@
     "./styles/system.css": "./styles/system.css",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "styles", "LICENSE", "README.md"],
+  "files": [
+    "dist",
+    "styles",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",

@@ -15,7 +15,7 @@ const esc = (v: string | null): string =>
  * affordance. Card number digits use tabular figures.
  */
 export class NptCardArt extends NptElement {
-  static observedAttributes = ["holder", "last4", "expiry", "scheme", "variant"];
+  static observedAttributes = ["holder", "last4", "expiry", "scheme", "variant", "selected"];
 
   attributeChangedCallback(): void {
     if (this.isConnected) this.update();
@@ -41,7 +41,17 @@ export class NptCardArt extends NptElement {
         flex-direction: column;
         justify-content: space-between;
         overflow: hidden;
-        transition: filter var(--npt-dur-fast, 200ms) var(--npt-ease-standard, ease);
+        outline: 0 solid transparent;
+        outline-offset: 3px;
+        transition:
+          filter var(--npt-dur-fast, 200ms) var(--npt-ease-standard, ease),
+          outline-color var(--npt-dur-2, 220ms) var(--npt-ease-emphasized, ease),
+          outline-width var(--npt-dur-2, 220ms) var(--npt-ease-emphasized, ease);
+      }
+      /* Selected state — an accent ring lifts the chosen card out of a stack. */
+      :host([selected]) .card {
+        outline: 3px solid var(--md-sys-color-primary);
+        box-shadow: var(--npt-glow-primary, 0 8px 22px rgba(0, 0, 0, 0.28));
       }
       :host([variant="virtual"]) .card {
         background: linear-gradient(

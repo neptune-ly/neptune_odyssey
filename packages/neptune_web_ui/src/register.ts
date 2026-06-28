@@ -82,6 +82,7 @@ import {
   NptTopupRow,
   NptTierBadge,
 } from "./components/wallet-pay.js";
+import { NptDock, NptDockItem, NptOnboarding } from "./components/premium.js";
 
 /** Register every Neptune Odyssey custom element (idempotent, browser-only). */
 export function registerAll(): void {
@@ -184,6 +185,10 @@ export function registerAll(): void {
   define("npt-qr-pay", NptQrPay);
   define("npt-topup-row", NptTopupRow);
   define("npt-tier-badge", NptTierBadge);
+  // Premium app-shell (Dribbble-grade)
+  define("npt-dock", NptDock);
+  define("npt-dock-item", NptDockItem);
+  define("npt-onboarding", NptOnboarding);
 }
 
 registerAll();

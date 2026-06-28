@@ -99,6 +99,7 @@
   <h4>Set the theme</h4>
   <a href="#top">Global controls</a>
   <h4>Onboarding</h4>
+  <a href="#getstarted">Get started</a>
   <a href="#auth">Auth / Login</a>
   <a href="#kyc">KYC / Onboarding</a>
   <h4>Banking app</h4>
@@ -148,6 +149,105 @@
 
   <!-- ====================================================== ONBOARDING -->
   <p class="cat-eyebrow">Onboarding</p>
+
+  <!-- =============================================================== GET STARTED -->
+  <h2 id="getstarted">Get started</h2>
+  <p class="tpl-desc">The first screen: an <code>&lt;npt-onboarding&gt;</code> hero — media, a mixed-weight headline, progress dots and a primary call to action — paired with a home screen on the new floating <code>&lt;npt-dock&gt;</code> with a selected card.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Mobile · onboarding + premium shell</span></div>
+    <div class="demo__stage" style="gap:28px;flex-wrap:wrap">
+
+      <div class="phone" aria-label="Get started screen">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll">
+          <npt-onboarding eyebrow="Neptune Odyssey" steps="3" active-step="0"
+            supporting="Open an account in minutes. Send, spend and save across borders — beautifully."
+            style="block-size:100%">
+            <div slot="media" style="inline-size:100%;block-size:100%">
+              <svg viewBox="0 0 320 300" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <g fill="none" stroke="rgba(255,255,255,.26)" stroke-width="1.5">
+                  <circle cx="256" cy="58" r="96"/><circle cx="256" cy="58" r="60"/><circle cx="256" cy="58" r="30"/>
+                </g>
+                <circle cx="54" cy="44" r="6" fill="rgba(255,255,255,.55)"/>
+                <circle cx="120" cy="244" r="9" fill="rgba(255,255,255,.4)"/>
+                <circle cx="286" cy="232" r="5" fill="rgba(255,255,255,.55)"/>
+                <g transform="rotate(-12 160 165)">
+                  <rect x="64" y="120" width="190" height="116" rx="18" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.34)"/>
+                  <rect x="84" y="144" width="32" height="24" rx="5" fill="rgba(255,255,255,.62)"/>
+                  <rect x="84" y="202" width="128" height="8" rx="4" fill="rgba(255,255,255,.45)"/>
+                  <circle cx="218" cy="160" r="13" fill="rgba(255,255,255,.7)"/>
+                  <circle cx="231" cy="160" r="13" fill="rgba(255,255,255,.38)"/>
+                </g>
+              </svg>
+            </div>
+            <span slot="headline">Your money, <b>everywhere you are.</b></span>
+            <div slot="cta" style="display:flex;flex-direction:column;gap:8px">
+              <npt-button variant="filled">Get started</npt-button>
+              <npt-button variant="text">I already have an account</npt-button>
+            </div>
+          </npt-onboarding>
+        </div>
+      </div>
+
+      <div class="phone" aria-label="Home with floating dock">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll">
+          <div style="padding-top:44px"></div>
+          <npt-app-bar title="Hi, Lina">
+            <npt-icon-button slot="leading" label="Profile"><npt-avatar initials="LA" size="sm" label="Lina"></npt-avatar></npt-icon-button>
+            <npt-icon-button slot="trailing" variant="tonal" label="Alerts"><npt-icon name="bell" size="20"></npt-icon></npt-icon-button>
+          </npt-app-bar>
+          <div style="padding:10px 18px 104px;display:flex;flex-direction:column;gap:16px">
+            <p class="scr-h" style="margin:2px 2px 0;font-size:13px;color:var(--md-sys-color-on-surface-variant)">Your cards · tap to select</p>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <npt-card-art selected scheme="Visa" holder="LINA ATIYA" last4="4821" expiry="08/27">
+                <npt-brand-mark slot="brand" name="visa" variant="mono" height="20"></npt-brand-mark>
+              </npt-card-art>
+              <npt-card-art variant="virtual" scheme="Mastercard" holder="LINA ATIYA" last4="7390" expiry="03/28">
+                <npt-brand-mark slot="brand" name="mastercard" height="24"></npt-brand-mark>
+              </npt-card-art>
+            </div>
+            <npt-quick-actions style="--npt-quick-actions-cols:4">
+              <npt-quick-action label="Send"><npt-icon slot="icon" name="arrow-right" size="24"></npt-icon></npt-quick-action>
+              <npt-quick-action label="Top up"><npt-icon slot="icon" name="cash-stack" size="24"></npt-icon></npt-quick-action>
+              <npt-quick-action label="Pay"><npt-icon slot="icon" name="qr-code" size="24"></npt-icon></npt-quick-action>
+              <npt-quick-action label="Cards"><npt-icon slot="icon" name="card" size="24"></npt-icon></npt-quick-action>
+            </npt-quick-actions>
+            <div class="scr-list">
+              <npt-transaction-row title="Salary" subtitle="Today · Transfer" amount="+3,200.00" currency="LYD" credit></npt-transaction-row>
+              <npt-transaction-row title="Grocery Market" subtitle="Today · Card" amount="-42.10" currency="LYD"></npt-transaction-row>
+            </div>
+          </div>
+          <div class="phone__bottom" style="background:transparent;padding:0 14px 16px">
+            <npt-dock>
+              <npt-dock-item label="Home" active><npt-icon name="home" size="22"></npt-icon></npt-dock-item>
+              <npt-dock-item label="Cards"><npt-icon name="card" size="22"></npt-icon></npt-dock-item>
+              <npt-dock-item label="Pay"><npt-icon name="qr-code" size="22"></npt-icon></npt-dock-item>
+              <npt-dock-item label="Profile"><npt-icon name="user" size="22"></npt-icon></npt-dock-item>
+            </npt-dock>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;npt-onboarding eyebrow="Neptune Odyssey" steps="3" active-step="0"
+  supporting="Open an account in minutes."&gt;
+  &lt;div slot="media"&gt;&lt;!-- image / illustration --&gt;&lt;/div&gt;
+  &lt;span slot="headline"&gt;Your money, &lt;b&gt;everywhere you are.&lt;/b&gt;&lt;/span&gt;
+  &lt;npt-button slot="cta" variant="filled"&gt;Get started&lt;/npt-button&gt;
+&lt;/npt-onboarding&gt;
+
+&lt;!-- Floating bottom navigation --&gt;
+&lt;npt-dock&gt;
+  &lt;npt-dock-item label="Home" active&gt;&lt;npt-icon name="home"&gt;&lt;/npt-icon&gt;&lt;/npt-dock-item&gt;
+  &lt;npt-dock-item label="Cards"&gt;&lt;npt-icon name="card"&gt;&lt;/npt-icon&gt;&lt;/npt-dock-item&gt;
+  &lt;npt-dock-item label="Pay"&gt;&lt;npt-icon name="qr-code"&gt;&lt;/npt-icon&gt;&lt;/npt-dock-item&gt;
+  &lt;npt-dock-item label="Profile"&gt;&lt;npt-icon name="user"&gt;&lt;/npt-icon&gt;&lt;/npt-dock-item&gt;
+&lt;/npt-dock&gt;
+
+&lt;!-- Selected card --&gt;
+&lt;npt-card-art selected scheme="Visa" holder="LINA ATIYA" last4="4821" expiry="08/27"&gt;&lt;/npt-card-art&gt;</pre></div>
+  </div>
 
   <!-- =================================================================== AUTH -->
   <h2 id="auth">Auth / Login</h2>

@@ -108,6 +108,9 @@ const EXPORTED_CLASSES = [
   "NptQrPay",
   "NptTopupRow",
   "NptTierBadge",
+  "NptDock",
+  "NptDockItem",
+  "NptOnboarding",
 ] as const;
 
 /** Tags registerAll() must define. */
@@ -197,6 +200,9 @@ const EXPECTED_TAGS = [
   "npt-qr-pay",
   "npt-topup-row",
   "npt-tier-badge",
+  "npt-dock",
+  "npt-dock-item",
+  "npt-onboarding",
 ] as const;
 
 describe("web-ui · exported surface", () => {
@@ -211,8 +217,8 @@ describe("web-ui · exported surface", () => {
     }
   });
 
-  it("WEB_UI_VERSION is current (2.2.0)", () => {
-    expect(kit.WEB_UI_VERSION).toBe("2.2.0");
+  it("WEB_UI_VERSION is current (2.3.0)", () => {
+    expect(kit.WEB_UI_VERSION).toBe("2.3.0");
   });
 });
 
