@@ -95,7 +95,7 @@ export {
   NptTopupRow,
   NptTierBadge,
 } from "./components/wallet-pay.js";
-export { NptDock, NptDockItem, NptOnboarding } from "./components/premium.js";
+export { NptDock, NptDockItem, NptOnboarding, NptCta } from "./components/premium.js";
 export { registerAll } from "./register.js";
 
 // Re-export the theming types so consumers need only this package for the surface.
@@ -109,4 +109,4 @@ export type {
 } from "@neptune.fintech/tokens";
 export { buildTheme, encode, decode, brandprintFor } from "@neptune.fintech/tokens";
 
-export const WEB_UI_VERSION = "2.3.0";
+export const WEB_UI_VERSION = "2.4.0";

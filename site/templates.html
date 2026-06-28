@@ -99,6 +99,7 @@
   <h4>Set the theme</h4>
   <a href="#top">Global controls</a>
   <h4>Onboarding</h4>
+  <a href="#welcome">Welcome / Sign in</a>
   <a href="#getstarted">Get started</a>
   <a href="#auth">Auth / Login</a>
   <a href="#kyc">KYC / Onboarding</a>
@@ -149,6 +150,80 @@
 
   <!-- ====================================================== ONBOARDING -->
   <p class="cat-eyebrow">Onboarding</p>
+
+  <!-- =============================================================== WELCOME -->
+  <style>
+    .wel{position:relative;background:var(--md-sys-color-surface);overflow:hidden}
+    .wel__bg{position:absolute;inset:0;z-index:0;
+      background:radial-gradient(135% 95% at 50% -5%,
+        color-mix(in oklab,var(--md-sys-color-primary) 26%, var(--md-sys-color-surface)) 0%,
+        var(--md-sys-color-surface) 68%)}
+    .wel__orb{position:absolute;border-radius:50%;filter:blur(44px);opacity:.5;will-change:transform}
+    .wel__orb--1{inline-size:220px;block-size:220px;background:var(--md-sys-color-primary);
+      top:-44px;inset-inline-start:-36px;animation:welOrb1 15s ease-in-out infinite}
+    .wel__orb--2{inline-size:184px;block-size:184px;background:var(--md-sys-color-tertiary);
+      top:150px;inset-inline-end:-46px;animation:welOrb2 19s ease-in-out infinite}
+    .wel__orb--3{inline-size:160px;block-size:160px;background:var(--md-sys-color-secondary);
+      bottom:90px;inset-inline-start:24px;animation:welOrb3 17s ease-in-out infinite}
+    @keyframes welOrb1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(28px,38px) scale(1.16)}}
+    @keyframes welOrb2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-38px,26px) scale(1.1)}}
+    @keyframes welOrb3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(26px,-30px) scale(1.22)}}
+    @media (prefers-reduced-motion:reduce){.wel__orb{animation:none}}
+    .wel__content{position:relative;z-index:1;min-block-size:100%;box-sizing:border-box;
+      display:flex;flex-direction:column;padding:64px 26px 30px}
+    .wel__brand{display:flex;align-items:center;gap:10px;color:var(--md-sys-color-on-surface)}
+    .wel__brand svg{inline-size:30px;block-size:30px}
+    .wel__name{font-family:var(--npt-font-display);font-weight:800;font-size:20px;letter-spacing:-.01em}
+    .wel__hero{margin-block:auto 22px}
+    .wel .wel__title{font-family:var(--npt-font-display);font-weight:500;font-size:clamp(28px,8.5vw,34px);
+      line-height:1.08;margin:0 0 12px;color:var(--md-sys-color-on-surface);letter-spacing:var(--npt-display-tracking,-.02em)}
+    .wel .wel__title b{font-weight:800;color:var(--md-sys-color-primary)}
+    .wel .wel__sub{color:var(--md-sys-color-on-surface-variant);font-family:var(--npt-font-text);
+      font-size:15px;line-height:1.5;margin:0;max-inline-size:30ch}
+    .wel__actions{display:flex;flex-direction:column;gap:10px}
+  </style>
+  <h2 id="welcome">Welcome / Sign in</h2>
+  <p class="tpl-desc">The very first screen: an ambient, gently-looping backdrop, the brand lockup, a bold mixed-weight promise, and the animated <code>&lt;npt-cta&gt;</code> primary action (a slow sheen sweep + nudging arrow) over a secondary "log in". Everything re-skins with the brand and pauses under reduced-motion.</p>
+  <div class="demo">
+    <div class="demo__bar"><span class="lbl">Mobile · welcome / sign in</span></div>
+    <div class="demo__stage">
+      <div class="phone" aria-label="Welcome / sign in screen">
+        <span class="phone__notch"></span>
+        <div class="phone__scroll wel">
+          <div class="wel__bg" aria-hidden="true">
+            <span class="wel__orb wel__orb--1"></span>
+            <span class="wel__orb wel__orb--2"></span>
+            <span class="wel__orb wel__orb--3"></span>
+          </div>
+          <div class="wel__content">
+            <div class="wel__brand">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <g stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                  <path d="M24 9 V38"/><path d="M14 20 H34"/><path d="M14 20 V12.5"/><path d="M34 20 V12.5"/><path d="M20 38 H28"/>
+                </g>
+                <circle cx="38.5" cy="10" r="3.4" fill="var(--md-sys-color-primary)"/>
+              </svg>
+              <span class="wel__name">Neptune</span>
+            </div>
+            <div class="wel__hero">
+              <h3 class="wel__title">Banking that<br><b>moves with you.</b></h3>
+              <p class="wel__sub">One account, every currency — send, spend and save across borders, beautifully.</p>
+            </div>
+            <div class="wel__actions">
+              <npt-cta arrow>Get started</npt-cta>
+              <npt-cta variant="tonal">I already have an account</npt-cta>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code"><button class="copy">Copy</button><pre>&lt;!-- Ambient backdrop + animated call to action --&gt;
+&lt;div class="welcome"&gt;
+  &lt;!-- brand lockup + bold promise --&gt;
+  &lt;npt-cta arrow&gt;Get started&lt;/npt-cta&gt;
+  &lt;npt-cta variant="tonal"&gt;I already have an account&lt;/npt-cta&gt;
+&lt;/div&gt;</pre></div>
+  </div>
 
   <!-- =============================================================== GET STARTED -->
   <h2 id="getstarted">Get started</h2>

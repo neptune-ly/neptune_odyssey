@@ -111,6 +111,7 @@ const EXPORTED_CLASSES = [
   "NptDock",
   "NptDockItem",
   "NptOnboarding",
+  "NptCta",
 ] as const;
 
 /** Tags registerAll() must define. */
@@ -203,6 +204,7 @@ const EXPECTED_TAGS = [
   "npt-dock",
   "npt-dock-item",
   "npt-onboarding",
+  "npt-cta",
 ] as const;
 
 describe("web-ui · exported surface", () => {
@@ -217,8 +219,8 @@ describe("web-ui · exported surface", () => {
     }
   });
 
-  it("WEB_UI_VERSION is current (2.3.0)", () => {
-    expect(kit.WEB_UI_VERSION).toBe("2.3.0");
+  it("WEB_UI_VERSION is current (2.4.0)", () => {
+    expect(kit.WEB_UI_VERSION).toBe("2.4.0");
   });
 });
 

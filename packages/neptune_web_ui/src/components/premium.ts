@@ -285,3 +285,138 @@ export class NptOnboarding extends NptElement {
     `;
   }
 }
+
+/**
+ * <npt-cta arrow>Get started</npt-cta> — a large, premium call-to-action with a
+ * slow specular sheen sweep and an arrow that nudges (both reduced-motion safe).
+ * `variant="tonal"` for the secondary tone; `disabled` to disable.
+ */
+export class NptCta extends NptElement {
+  static observedAttributes = ["variant", "arrow", "disabled"];
+
+  attributeChangedCallback(): void {
+    if (this.isConnected) this.update();
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener("click", this.onClick);
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener("click", this.onClick);
+  }
+
+  private onClick = (e: Event): void => {
+    if (this.hasAttribute("disabled")) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    }
+  };
+
+  protected styles(): string {
+    return css`
+      ${A11Y}
+      :host {
+        display: block;
+      }
+      .cta {
+        position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
+        inline-size: 100%;
+        min-block-size: 54px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--npt-space-2, 8px);
+        padding-inline: var(--npt-space-6, 24px);
+        border: none;
+        border-radius: var(--npt-corner-2xl, 28px);
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        font-family: var(--npt-font-display);
+        font-weight: 700;
+        font-size: var(--npt-text-title, 16px);
+        letter-spacing: var(--npt-display-tracking, 0);
+        cursor: pointer;
+        box-shadow: var(--npt-glow-primary, 0 8px 22px rgba(0, 0, 0, 0.28));
+        transition:
+          transform var(--npt-dur-2, 220ms) var(--npt-ease-emphasized, ease),
+          filter var(--npt-dur-2, 220ms) var(--npt-ease-standard, ease);
+      }
+      :host([variant="tonal"]) .cta {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+        box-shadow: none;
+      }
+      .cta:hover {
+        filter: brightness(1.04);
+      }
+      .cta:active {
+        transform: scale(0.98);
+      }
+      :host([disabled]) .cta {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      /* specular sheen — a token-tinted highlight, not a literal colour */
+      .sheen {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          110deg,
+          transparent 32%,
+          color-mix(in oklab, var(--md-sys-color-on-primary) 38%, transparent) 50%,
+          transparent 68%
+        );
+        transform: translateX(-130%);
+        animation: sheen 4.8s var(--npt-ease-standard, ease) infinite;
+      }
+      @keyframes sheen {
+        0%,
+        62% {
+          transform: translateX(-130%);
+        }
+        82%,
+        100% {
+          transform: translateX(130%);
+        }
+      }
+      .arrow {
+        display: inline-flex;
+        animation: nudge 2.4s ease-in-out infinite;
+        transition: transform var(--npt-dur-2, 220ms) var(--npt-ease-spring, ease);
+      }
+      @keyframes nudge {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(4px);
+        }
+      }
+      .cta:hover .arrow {
+        transform: translateX(6px);
+      }
+      /* the arrow mirrors under RTL */
+      :host(:dir(rtl)) .arrow {
+        scale: -1 1;
+      }
+    `;
+  }
+
+  protected render(): string {
+    const arrow = this.hasAttribute("arrow");
+    const disabled = this.hasAttribute("disabled");
+    return html`
+      <button class="cta" part="cta" ${disabled ? "disabled" : ""}>
+        <span class="sheen" part="sheen"></span>
+        <span class="lbl"><slot></slot></span>
+        ${arrow ? `<span class="arrow" aria-hidden="true">→</span>` : ""}
+      </button>
+    `;
+  }
+}
