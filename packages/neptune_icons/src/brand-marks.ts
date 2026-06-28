@@ -114,6 +114,8 @@ function cardFrame(bg: string = CARD_BG): Shape[] {
 }
 
 const FONT = "Arial, Helvetica, sans-serif";
+// Arabic-capable stack — the local Libyan marks carry their native wordmark.
+const AR_FONT = "'Geeza Pro', 'Noto Sans Arabic', Tahoma, 'Segoe UI', Arial, sans-serif";
 
 /**
  * name → mark definition. Each is an ORIGINAL simplified geometric placeholder
@@ -297,29 +299,31 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
   // ── Libyan / local — PLACEHOLDERS (replace with official assets) ─────
   numo: {
     viewBox: "0 0 48 32",
-    label: "NUMO (placeholder mark)",
+    label: "NUMO — Moamalat national card scheme (placeholder mark)",
     placeholder: true,
-    colors: { a: "#0E2A47", b: "#5AA9E6", ink: "#FFFFFF" },
+    colors: { a: "#0C2A4A", b: "#D7A52B", ink: "#FFFFFF" },
     shapes: [
       { kind: "rect", role: "a", attrs: { width: 48, height: 32, rx: 4 } },
-      {
-        kind: "rect",
-        role: "b",
-        attrs: { x: 6, y: 8, width: 36, height: 16, rx: 3, fill: "none", "stroke-width": 1.4 },
-      },
+      // gold accent dot + underline frame the wordmark
+      { kind: "circle", role: "b", attrs: { cx: 35, cy: 11, r: 2.3 } },
       {
         kind: "text",
         role: "ink",
         text: "NUMO",
         attrs: {
           x: 24,
-          y: 21,
+          y: 19,
           "font-family": FONT,
-          "font-size": 9,
-          "font-weight": 700,
+          "font-size": 11,
+          "font-weight": 800,
           "text-anchor": "middle",
-          "letter-spacing": 1.5,
+          "letter-spacing": 1.2,
         },
+      },
+      {
+        kind: "path",
+        role: "b",
+        attrs: { d: "M15 24 H33", fill: "none", "stroke-width": 1.6, "stroke-linecap": "round" },
       },
     ],
   },
@@ -327,198 +331,99 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
     viewBox: "0 0 48 32",
     label: "Moamalat (placeholder mark)",
     placeholder: true,
-    colors: { a: "#1C7A4D", b: "#FFFFFF", ink: "#FFFFFF" },
+    colors: { a: "#C8992C", ink: "#243240" },
     shapes: [
-      { kind: "rect", role: "a", attrs: { width: 48, height: 32, rx: 4 } },
-      {
-        kind: "circle",
-        role: "b",
-        attrs: { cx: 13, cy: 16, r: 6, fill: "none", "stroke-width": 1.4 },
-      },
-      {
-        kind: "text",
-        role: "ink",
-        text: "M",
-        attrs: {
-          x: 13,
-          y: 19,
-          "font-family": FONT,
-          "font-size": 8,
-          "font-weight": 700,
-          "text-anchor": "middle",
-        },
-      },
-      {
-        kind: "text",
-        role: "ink",
-        text: "MOAM",
-        attrs: {
-          x: 31,
-          y: 19.5,
-          "font-family": FONT,
-          "font-size": 7,
-          "font-weight": 700,
-          "text-anchor": "middle",
-          "letter-spacing": 0.5,
-        },
-      },
-    ],
-  },
-  // LyPay — a green→blue swoosh/flag beside a "LyPay" wordmark block.
-  // Original geometry: two short strokes (green, blue) form a flag, wordmark right.
-  lypay: {
-    viewBox: "0 0 48 32",
-    label: "LyPay (placeholder mark)",
-    placeholder: true,
-    colors: { a: "#3FBF7F", b: "#2AA0D8", ink: "#0E3A2E" },
-    shapes: [
-      ...cardFrame("#EAF7F0"),
-      // green swoosh stroke
+      ...cardFrame(),
+      // gold flowing double-arch "M" monogram (original geometry)
       {
         kind: "path",
         role: "a",
         attrs: {
-          d: "M7 21c3-6 6-9 11-9",
+          d: "M18 22 V14.5 q0 -3.6 3 -3.6 q3 0 3 3.6 V22 M24 22 V14.5 q0 -3.6 3 -3.6 q3 0 3 3.6 V22",
           fill: "none",
-          "stroke-width": 2.6,
+          "stroke-width": 2.4,
           "stroke-linecap": "round",
-        },
-      },
-      // blue swoosh stroke (above the green), a flag
-      {
-        kind: "path",
-        role: "b",
-        attrs: {
-          d: "M7 16c3-5 6-7.5 11-7.5",
-          fill: "none",
-          "stroke-width": 2.6,
-          "stroke-linecap": "round",
+          "stroke-linejoin": "round",
         },
       },
       {
         kind: "text",
         role: "ink",
-        text: "LyPay",
+        text: "moamalat",
         attrs: {
-          x: 33,
-          y: 20,
+          x: 24,
+          y: 28.5,
           "font-family": FONT,
-          "font-size": 9,
+          "font-size": 6.5,
           "font-weight": 700,
           "text-anchor": "middle",
-          "letter-spacing": 0.3,
+          "letter-spacing": 0.2,
         },
       },
     ],
   },
-  // OnePay — a deep-blue rounded tile with a stylised folded "1" ribbon motif.
-  // Original geometry: rounded tile (deep blue), a folded "1" from two strokes
-  // in a lighter blue, plus a small "PAY" wordmark.
+  // LyPay — the green→teal→blue swoosh "flag" + LYPay wordmark + Arabic لي باي.
+  lypay: {
+    viewBox: "0 0 48 32",
+    label: "LyPay (placeholder mark)",
+    placeholder: true,
+    colors: { a: "#27B36A", b: "#1AA0B4", c: "#2E78D6", ink: "#0F3A33" },
+    shapes: [
+      ...cardFrame("#EFFAF5"),
+      { kind: "path", role: "a", attrs: { d: "M6 22 C10 22 15 19 20 13", fill: "none", "stroke-width": 2.2, "stroke-linecap": "round" } },
+      { kind: "path", role: "b", attrs: { d: "M6 19 C10 19 15 16 20 10", fill: "none", "stroke-width": 2.2, "stroke-linecap": "round" } },
+      { kind: "path", role: "c", attrs: { d: "M6 16 C10 16 15 13 20 7", fill: "none", "stroke-width": 2.2, "stroke-linecap": "round" } },
+      {
+        kind: "text",
+        role: "ink",
+        text: "LYPay",
+        attrs: { x: 35, y: 17.5, "font-family": FONT, "font-size": 8.5, "font-weight": 800, "text-anchor": "middle", "letter-spacing": 0.2 },
+      },
+      {
+        kind: "text",
+        role: "a",
+        text: "لي باي",
+        attrs: { x: 35, y: 26, "font-family": AR_FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", direction: "rtl" },
+      },
+    ],
+  },
+  // OnePay — the blue "One Pay" wordmark + Arabic وان باي.
   onepay: {
     viewBox: "0 0 48 32",
     label: "OnePay (placeholder mark)",
     placeholder: true,
-    colors: { a: "#1F6FB2", b: "#2AA0D8", ink: "#FFFFFF" },
+    colors: { a: "#1565C0", ink: "#1B2733" },
     shapes: [
-      { kind: "rect", role: "a", attrs: { width: 48, height: 32, rx: 6 } },
-      // folded "1": a flag-foot stroke + the upright, in the lighter blue tone.
-      {
-        kind: "path",
-        role: "b",
-        attrs: {
-          d: "M10 11.5l4-2.5v14",
-          fill: "none",
-          "stroke-width": 2.6,
-          "stroke-linecap": "round",
-          "stroke-linejoin": "round",
-        },
-      },
-      {
-        kind: "path",
-        role: "b",
-        attrs: {
-          d: "M11 23h6",
-          fill: "none",
-          "stroke-width": 2.6,
-          "stroke-linecap": "round",
-        },
-      },
-      {
-        kind: "text",
-        role: "ink",
-        text: "PAY",
-        attrs: {
-          x: 32,
-          y: 19.5,
-          "font-family": FONT,
-          "font-size": 8,
-          "font-weight": 700,
-          "text-anchor": "middle",
-          "letter-spacing": 0.5,
-        },
-      },
+      ...cardFrame(),
+      { kind: "text", role: "a", text: "One", attrs: { x: 23.5, y: 18.5, "font-family": FONT, "font-size": 10, "font-weight": 800, "text-anchor": "end" } },
+      { kind: "text", role: "ink", text: "Pay", attrs: { x: 24.5, y: 18.5, "font-family": FONT, "font-size": 10, "font-weight": 800, "text-anchor": "start" } },
+      { kind: "text", role: "a", text: "وان باي", attrs: { x: 24, y: 27, "font-family": AR_FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
     ],
   },
+  // Sadad — the Arabic سداد script as the hero + Latin SADAD.
   sadad: {
     viewBox: "0 0 48 32",
     label: "Sadad (placeholder mark)",
     placeholder: true,
-    colors: { a: "#5B2E91", b: "#FFFFFF", ink: "#FFFFFF" },
+    colors: { a: "#E2601A", ink: "#243240" },
     shapes: [
-      { kind: "rect", role: "a", attrs: { width: 48, height: 32, rx: 4 } },
-      {
-        kind: "rect",
-        role: "b",
-        attrs: { x: 7, y: 9, width: 34, height: 14, rx: 3, fill: "none", "stroke-width": 1.4 },
-      },
-      {
-        kind: "text",
-        role: "ink",
-        text: "SADAD",
-        attrs: {
-          x: 24,
-          y: 20.5,
-          "font-family": FONT,
-          "font-size": 9,
-          "font-weight": 700,
-          "text-anchor": "middle",
-          "letter-spacing": 1,
-        },
-      },
+      ...cardFrame(),
+      { kind: "text", role: "a", text: "سداد", attrs: { x: 24, y: 19, "font-family": AR_FONT, "font-size": 13, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
+      { kind: "text", role: "ink", text: "SADAD", attrs: { x: 24, y: 27, "font-family": FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", "letter-spacing": 1.6 } },
     ],
   },
+  // Tadawul — a teal up-trend mark + Tadawul wordmark + Arabic تداول.
   tadawul: {
     viewBox: "0 0 48 32",
     label: "Tadawul (placeholder mark)",
     placeholder: true,
-    colors: { a: "#1A4D4D", b: "#3FC1C9", ink: "#FFFFFF" },
+    colors: { a: "#0E7C73", b: "#39C2B0", ink: "#243240" },
     shapes: [
-      { kind: "rect", role: "a", attrs: { width: 48, height: 32, rx: 4 } },
-      {
-        kind: "path",
-        role: "b",
-        attrs: {
-          d: "M9 20l5-5 4 3 6-7",
-          fill: "none",
-          "stroke-width": 1.6,
-          "stroke-linecap": "round",
-          "stroke-linejoin": "round",
-        },
-      },
-      {
-        kind: "text",
-        role: "ink",
-        text: "TDWL",
-        attrs: {
-          x: 33,
-          y: 19.5,
-          "font-family": FONT,
-          "font-size": 6,
-          "font-weight": 700,
-          "text-anchor": "middle",
-          "letter-spacing": 0.5,
-        },
-      },
+      ...cardFrame(),
+      { kind: "path", role: "a", attrs: { d: "M7 21 L12 16 L16 18.5 L21 11", fill: "none", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" } },
+      { kind: "circle", role: "b", attrs: { cx: 21, cy: 11, r: 1.9 } },
+      { kind: "text", role: "ink", text: "Tadawul", attrs: { x: 34, y: 17.5, "font-family": FONT, "font-size": 6.5, "font-weight": 700, "text-anchor": "middle" } },
+      { kind: "text", role: "a", text: "تداول", attrs: { x: 34, y: 26, "font-family": AR_FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
     ],
   },
 
