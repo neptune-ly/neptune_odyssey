@@ -224,8 +224,9 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
     var toast = document.getElementById('toast');
 
     // Guard: if the Neptune global never loaded, show a graceful note.
-    var NAMES = (N && Array.isArray(N.ICON_NAMES)) ? N.ICON_NAMES.slice() : [];
-    if (!N || typeof N.iconSvg !== 'function' || !NAMES.length) {
+    var ICON_LIST = (N && Array.isArray(N.ICON_NAMES)) ? N.ICON_NAMES.slice() : [];
+    var BRAND_LIST = (N && Array.isArray(N.BRAND_MARK_NAMES)) ? N.BRAND_MARK_NAMES.slice() : [];
+    if (!N || typeof N.iconSvg !== 'function' || !ICON_LIST.length) {
       grid.innerHTML = '';
       empty.classList.add('show');
       empty.querySelector('.big').textContent = 'Icon library unavailable';
@@ -233,8 +234,20 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
       return;
     }
 
+    // The library = the stroke icons + the payment/brand marks rendered
+    // monochrome (currentColor), so they recolour with the controls above.
+    // The full-colour brand marks live in their own section further down.
+    var ENTRIES = ICON_LIST.map(function (n) { return { name: n, brand: false }; })
+      .concat(BRAND_LIST.map(function (n) { return { name: n, brand: true }; }));
+
     var state = { size: 24, query: '' };
-    var total = NAMES.length;
+    var total = ENTRIES.length;
+
+    function glyphFor(item) {
+      return item.brand
+        ? N.brandMarkSvg(item.name, { variant: 'mono', height: state.size })
+        : N.iconSvg(item.name, { size: state.size });
+    }
     var toastTimer;
 
     function showToast(msg) {
@@ -262,21 +275,27 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
       }
     }
 
-    function snippet(name) { return '<npt-icon name="' + name + '" size="' + state.size + '"></npt-icon>'; }
+    function snippet(item) {
+      return item.brand
+        ? '<npt-brand-mark name="' + item.name + '" variant="mono"></npt-brand-mark>'
+        : '<npt-icon name="' + item.name + '" size="' + state.size + '"></npt-icon>';
+    }
 
     // Build all cells once; we only toggle visibility + glyph size on changes.
-    var cells = NAMES.map(function (name) {
+    var cells = ENTRIES.map(function (item) {
+      var name = item.name;
       var cell = document.createElement('button');
       cell.type = 'button';
       cell.className = 'icell';
       cell.setAttribute('role', 'listitem');
-      cell.setAttribute('aria-label', 'Copy ' + name + ' icon');
+      cell.setAttribute('aria-label', 'Copy ' + name + (item.brand ? ' brand glyph' : ' icon'));
       cell.dataset.name = name;
+      if (item.brand) cell.dataset.kind = 'brand';
 
       var glyph = document.createElement('span');
       glyph.className = 'glyph';
       glyph.setAttribute('aria-hidden', 'true');
-      glyph.innerHTML = N.iconSvg(name, { size: state.size });
+      glyph.innerHTML = glyphFor(item);
 
       var nm = document.createElement('span');
       nm.className = 'nm';
@@ -298,24 +317,25 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
       cell.appendChild(nm);
       cell.appendChild(alts);
 
-      // Default click → copy <npt-icon> snippet.
+      // Default click → copy the element snippet.
       cell.addEventListener('click', function (e) {
         var alt = e.target.closest('[data-alt]');
         if (alt) {
           e.stopPropagation();
-          if (alt.dataset.alt === 'svg') copy(N.iconSvg(name, { size: state.size }), 'Copied SVG · ' + name, cell);
+          if (alt.dataset.alt === 'svg') copy(glyphFor(item), 'Copied SVG · ' + name, cell);
           else copy(name, 'Copied name · ' + name, cell);
           return;
         }
-        copy(snippet(name), 'Copied <npt-icon> · ' + name, cell);
+        var tag = item.brand ? '<npt-brand-mark>' : '<npt-icon>';
+        copy(snippet(item), 'Copied ' + tag + ' · ' + name, cell);
       });
 
       grid.appendChild(cell);
-      return { name: name, el: cell, glyph: glyph };
+      return { name: name, item: item, el: cell, glyph: glyph };
     });
 
     function applySize() {
-      cells.forEach(function (c) { c.glyph.innerHTML = N.iconSvg(c.name, { size: state.size }); });
+      cells.forEach(function (c) { c.glyph.innerHTML = glyphFor(c.item); });
     }
 
     function applyFilter() {
@@ -328,8 +348,8 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
       });
       empty.classList.toggle('show', shown === 0);
       countEl.textContent = q
-        ? (shown + ' of ' + total + ' icons match “' + state.query.trim() + '”')
-        : (total + ' icons');
+        ? (shown + ' of ' + total + ' glyphs match “' + state.query.trim() + '”')
+        : (total + ' glyphs · icons + payment marks');
       clearBtn.hidden = !q;
     }
 

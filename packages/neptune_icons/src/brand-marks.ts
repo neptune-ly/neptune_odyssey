@@ -82,6 +82,21 @@ interface Shape {
   text?: string;
   /** For kind:'g' — nested children (used for grouped strokes). */
   children?: Shape[];
+  /** Render this filled shape as a currentColor OUTLINE (not a fill) in mono. */
+  monoStroke?: boolean;
+  /** Omit this shape entirely from the mono + outline variants (e.g. white gaps). */
+  monoHide?: boolean;
+}
+
+/** A linear-gradient definition, injected into <defs> for the "color" variant. */
+interface GradientDef {
+  id: string;
+  /** objectBoundingBox coords (0..1). Default: horizontal (0,0)→(1,0). */
+  x1?: number;
+  y1?: number;
+  x2?: number;
+  y2?: number;
+  stops: { offset: number | string; color: string }[];
 }
 
 /** Per-mark definition: an intrinsic viewBox, a colour map, and the shapes. */
@@ -93,6 +108,8 @@ interface MarkDef {
   /** Brand colour by role for the "color" variant. */
   colors: Partial<Record<Role, string>>;
   shapes: Shape[];
+  /** Gradients available to the colour variant; a shape uses one via fill="url(#id)". */
+  gradients?: GradientDef[];
   /** True for neutral local placeholders (adds data-placeholder="true"). */
   placeholder?: boolean;
 }
@@ -117,6 +134,11 @@ const FONT = "Arial, Helvetica, sans-serif";
 // Arabic-capable stack — the local Libyan marks carry their native wordmark.
 const AR_FONT = "'Geeza Pro', 'Noto Sans Arabic', Tahoma, 'Segoe UI', Arial, sans-serif";
 
+// LyPay swoosh — the mark from the Neptune mobile app (24×24 path), reused
+// here in Odyssey style (gradient fill / currentColor silhouette).
+const LYPAY_SWOOSH =
+  "M2.76255 10.6811C2.89958 10.7664 3.0384 10.8482 3.17901 10.9246C3.40503 11.0472 3.53673 11.2854 3.50648 11.5164L3.50114 11.5626C3.47978 11.7243 3.38901 11.8434 3.2413 11.902C3.09358 11.9625 2.93162 11.9465 2.77322 11.8594C2.61127 11.7688 2.45109 11.671 2.29269 11.5715C2.08802 11.44 1.9759 11.2196 2.00438 11.0028L2.00972 10.9637C2.03107 10.7984 2.12718 10.6758 2.28202 10.6189C2.43685 10.5621 2.60593 10.5834 2.76255 10.6829M5.00146 9.48332C5.14027 9.56684 5.27909 9.64505 5.42149 9.71967C5.64929 9.83876 5.78453 10.0751 5.75961 10.3062L5.75427 10.3524C5.73649 10.5141 5.64929 10.6349 5.50334 10.6989C5.35742 10.7629 5.19544 10.7505 5.03705 10.6651C4.87332 10.5763 4.71314 10.4839 4.55296 10.3844C4.34651 10.2564 4.23083 10.036 4.25397 9.81922L4.25753 9.77834C4.27532 9.61127 4.36965 9.48866 4.52093 9.42645C4.67399 9.36603 4.84306 9.38557 5.00146 9.48156V9.48332ZM4.0582 6.42304C4.19524 6.51012 4.33227 6.59365 4.47288 6.67184C4.69712 6.79802 4.82704 7.03616 4.79323 7.26719L4.78611 7.3134C4.76297 7.47334 4.67043 7.59064 4.52271 7.64929C4.37499 7.70793 4.21125 7.69016 4.05464 7.59952C3.89268 7.50711 3.73428 7.40937 3.57766 7.30629C3.37478 7.173 3.26443 6.95086 3.29647 6.73582L3.30181 6.69672C3.32494 6.53144 3.42283 6.41059 3.57766 6.3555C3.7325 6.30041 3.90158 6.32351 4.0582 6.42481V6.42304ZM7.50912 9.55974C6.86841 9.35003 6.25261 9.04437 5.67955 8.65339C5.44282 8.49166 5.32716 8.21619 5.39299 7.97274L5.40012 7.94785C5.4464 7.7808 5.56031 7.66706 5.72939 7.62085C5.89843 7.57464 6.07644 7.61019 6.23838 7.72037C6.69933 8.03671 7.19764 8.28375 7.71556 8.45258C7.88106 8.50587 8.01099 8.61072 8.10176 8.76179C8.19254 8.91287 8.21746 9.06746 8.17652 9.21854L8.16938 9.24342C8.09463 9.51886 7.80634 9.6557 7.50733 9.55798L7.50912 9.55974ZM7.13716 6.98818C7.09622 6.9704 7.05348 6.95263 7.01257 6.93486C6.71536 6.80513 6.42703 6.65584 6.1476 6.49235C5.90022 6.34662 5.76496 6.07827 5.81124 5.82591L5.81658 5.79925C5.8486 5.62686 5.95185 5.50424 6.11559 5.44381C6.27932 5.38517 6.4555 5.40649 6.62458 5.50602C6.85594 5.64286 7.09622 5.76548 7.34181 5.87389C7.38275 5.89166 7.42545 5.90943 7.46639 5.9272C7.85438 6.11203 8.26905 6.25065 8.70333 6.33418C10.0719 6.59897 10.9315 6.19911 11.8214 5.78681C12.9302 5.27321 14.0764 4.74183 16.1302 5.13814C17.4472 5.39228 18.6663 5.99296 19.6897 6.8229C20.5422 7.516 21.2576 8.36548 21.7773 9.30739C22.0104 9.73212 22.062 10.1587 21.925 10.5674L19.1433 18.8703C19.1041 18.9859 19.0009 19.0516 18.8727 19.0427C18.7428 19.0356 18.6254 18.9556 18.5631 18.8348C18.1715 18.0759 17.6821 17.3917 17.1144 16.8177C17.1001 16.8035 17.0859 16.7893 17.0717 16.7751C16.9079 16.5991 16.7335 16.4321 16.5484 16.2774C15.8721 15.7123 15.0552 15.3018 14.1653 15.1294C14.1244 15.1205 14.0817 15.1134 14.0408 15.1063H14.039C12.7576 14.8913 11.9211 15.2769 11.0579 15.675C9.94202 16.1886 8.78873 16.72 6.73848 16.3254C5.86462 16.1566 5.03349 15.8349 4.27354 15.3942C3.99056 15.2307 3.71648 15.0494 3.45486 14.8539C3.2235 14.6816 3.12205 14.4025 3.20214 14.1644L3.21104 14.1395C3.26621 13.976 3.38723 13.8694 3.55987 13.8321C3.7325 13.7947 3.9087 13.8392 4.06709 13.9565C4.28422 14.1182 4.51025 14.2692 4.74517 14.4043C5.36986 14.7669 6.05862 15.0316 6.78653 15.172C8.47373 15.4973 9.46504 15.0405 10.4243 14.5998C11.4761 14.1146 12.496 13.6455 14.2134 13.976C15.3364 14.1928 16.3704 14.7135 17.2301 15.4315C17.7213 15.842 18.1537 16.3183 18.5132 16.839L20.8411 9.89384C20.4051 9.04792 19.7822 8.28375 19.0294 7.67416C18.1876 6.99173 17.1802 6.4959 16.0857 6.28442C14.3967 5.95742 13.4125 6.41415 12.4586 6.85667C11.4085 7.34361 10.3923 7.81456 8.65883 7.48045C8.13202 7.37916 7.62303 7.20855 7.13892 6.98107L7.13716 6.98818ZM17.3066 17.9284L16.9631 18.993C16.9239 19.1138 16.8225 19.192 16.6944 19.1991C16.5662 19.2062 16.4505 19.1387 16.39 19.025C16.0091 18.2999 15.5286 17.6637 14.9715 17.1483C14.9573 17.1358 14.9431 17.1216 14.9288 17.1092C14.7687 16.9492 14.5978 16.8 14.4145 16.6649C13.7489 16.169 12.9444 15.8456 12.0652 15.7727C12.0243 15.7692 11.9834 15.7656 11.9424 15.7639H11.9407C11.7449 15.7532 11.558 15.755 11.3818 15.7692C12.083 15.4617 12.8145 15.2236 13.8539 15.3977H13.8556C13.8948 15.4049 13.934 15.412 13.9749 15.4191C14.8256 15.5844 15.6087 15.9771 16.2547 16.5174C16.4327 16.6649 16.6 16.8248 16.7549 16.9937C16.7691 17.0079 16.7833 17.0221 16.7958 17.0345C16.9364 17.1767 17.0717 17.3242 17.2016 17.4806C17.3155 17.6174 17.3546 17.7809 17.3066 17.9284ZM6.03904 13.8143C5.4108 13.6081 4.81102 13.306 4.26109 12.9186C4.03328 12.7587 3.93183 12.4832 4.01014 12.2379L4.01904 12.2131C4.07243 12.0442 4.19345 11.9305 4.36431 11.8825C4.53517 11.8345 4.71136 11.8683 4.8662 11.9803C5.31114 12.293 5.79345 12.5383 6.30245 12.7053C6.46439 12.7587 6.58898 12.8617 6.67262 13.0128C6.75627 13.1638 6.77229 13.3185 6.72425 13.4713L6.71712 13.4962C6.62813 13.7734 6.33447 13.912 6.04083 13.8161L6.03904 13.8143Z";
+
 /**
  * name → mark definition. Each is an ORIGINAL simplified geometric placeholder
  * recognisable by the brand's colours/basic forms — never traced artwork.
@@ -126,39 +148,40 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
   visa: {
     viewBox: "0 0 48 32",
     label: "Visa",
-    colors: { a: "#1A1F71", ink: "#1A1F71" },
+    colors: { a: "#1A1F71", b: "#F7B600" },
     shapes: [
       ...cardFrame(),
+      // the classic gold "flag" wing, top-trailing
+      { kind: "path", role: "b", attrs: { d: "M30 9 h8 l-2.2 2.7 h-8 z" }, monoHide: true },
       {
         kind: "text",
         role: "a",
         text: "VISA",
         attrs: {
           x: 24,
-          y: 21.5,
+          y: 23.5,
           "font-family": FONT,
-          "font-size": 13,
+          "font-size": 15,
           "font-style": "italic",
-          "font-weight": 700,
+          "font-weight": 800,
           "text-anchor": "middle",
-          "letter-spacing": 0.5,
+          "letter-spacing": -0.4,
         },
       },
     ],
   },
+  // Mastercard — two single-colour circles with a clean white separation; in
+  // mono they become the classic interlocking rings.
   mastercard: {
     viewBox: "0 0 48 32",
     label: "Mastercard",
-    colors: { a: "#EB001B", b: "#F79E1B", c: "#FF5F00" },
+    colors: { a: "#EB001B", b: "#F79E1B" },
     shapes: [
       ...cardFrame(),
-      { kind: "circle", role: "a", attrs: { cx: 20, cy: 16, r: 8 } },
-      { kind: "circle", role: "b", attrs: { cx: 28, cy: 16, r: 8 } },
-      {
-        kind: "path",
-        role: "c",
-        attrs: { d: "M24 9.7a8 8 0 0 0 0 12.6 8 8 0 0 0 0-12.6Z" },
-      },
+      { kind: "circle", role: "a", attrs: { cx: 21, cy: 16, r: 8 }, monoStroke: true },
+      // white disc behind the amber → a crisp white ring where the circles meet
+      { kind: "circle", role: "c", attrs: { cx: 29, cy: 16, r: 9.4, fill: "#FFFFFF" }, monoHide: true },
+      { kind: "circle", role: "b", attrs: { cx: 29, cy: 16, r: 8 }, monoStroke: true },
     ],
   },
   amex: {
@@ -362,42 +385,68 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
       },
     ],
   },
-  // LyPay — the green→teal→blue swoosh "flag" + LYPay wordmark + Arabic لي باي.
+  // LyPay — the official swoosh from the Neptune mobile app, in Odyssey style:
+  // a green→teal→blue gradient on a mint card, beside the LYPay wordmark.
   lypay: {
     viewBox: "0 0 48 32",
     label: "LyPay (placeholder mark)",
     placeholder: true,
-    colors: { a: "#27B36A", b: "#1AA0B4", c: "#2E78D6", ink: "#0F3A33" },
+    colors: { ink: "#0F3A33" },
+    gradients: [
+      {
+        id: "npt-lypay-grad",
+        x1: 0,
+        y1: 1,
+        x2: 1,
+        y2: 0,
+        stops: [
+          { offset: 0, color: "#15B257" },
+          { offset: 0.55, color: "#13A39C" },
+          { offset: 1, color: "#2E78D6" },
+        ],
+      },
+    ],
     shapes: [
-      ...cardFrame("#EFFAF5"),
-      { kind: "path", role: "a", attrs: { d: "M6 22 C10 22 15 19 20 13", fill: "none", "stroke-width": 2.2, "stroke-linecap": "round" } },
-      { kind: "path", role: "b", attrs: { d: "M6 19 C10 19 15 16 20 10", fill: "none", "stroke-width": 2.2, "stroke-linecap": "round" } },
-      { kind: "path", role: "c", attrs: { d: "M6 16 C10 16 15 13 20 7", fill: "none", "stroke-width": 2.2, "stroke-linecap": "round" } },
+      ...cardFrame("#F0FAF6"),
+      {
+        kind: "path",
+        role: "a",
+        attrs: { d: LYPAY_SWOOSH, fill: "url(#npt-lypay-grad)", transform: "translate(1.5 5) scale(0.9)" },
+      },
       {
         kind: "text",
         role: "ink",
         text: "LYPay",
-        attrs: { x: 35, y: 17.5, "font-family": FONT, "font-size": 8.5, "font-weight": 800, "text-anchor": "middle", "letter-spacing": 0.2 },
-      },
-      {
-        kind: "text",
-        role: "a",
-        text: "لي باي",
-        attrs: { x: 35, y: 26, "font-family": AR_FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", direction: "rtl" },
+        attrs: { x: 36, y: 19, "font-family": FONT, "font-size": 8, "font-weight": 800, "text-anchor": "middle", "letter-spacing": 0.2 },
       },
     ],
   },
-  // OnePay — the blue "One Pay" wordmark + Arabic وان باي.
+  // OnePay (Libya) — the clean two-tone "One Pay" wordmark with a blue accent dot.
   onepay: {
     viewBox: "0 0 48 32",
     label: "OnePay (placeholder mark)",
     placeholder: true,
-    colors: { a: "#1565C0", ink: "#1B2733" },
+    colors: { a: "#1463C6", b: "#FFFFFF", ink: "#1B2733" },
+    gradients: [
+      {
+        id: "npt-onepay-dot",
+        x1: 0,
+        y1: 0,
+        x2: 1,
+        y2: 1,
+        stops: [
+          { offset: 0, color: "#46A3F0" },
+          { offset: 1, color: "#1463C6" },
+        ],
+      },
+    ],
     shapes: [
       ...cardFrame(),
-      { kind: "text", role: "a", text: "One", attrs: { x: 23.5, y: 18.5, "font-family": FONT, "font-size": 10, "font-weight": 800, "text-anchor": "end" } },
-      { kind: "text", role: "ink", text: "Pay", attrs: { x: 24.5, y: 18.5, "font-family": FONT, "font-size": 10, "font-weight": 800, "text-anchor": "start" } },
-      { kind: "text", role: "a", text: "وان باي", attrs: { x: 24, y: 27, "font-family": AR_FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
+      // a small blue gradient "coin" accent carrying a white 1
+      { kind: "circle", role: "c", attrs: { cx: 11, cy: 16, r: 4.6, fill: "url(#npt-onepay-dot)" } },
+      { kind: "text", role: "b", text: "1", attrs: { x: 11, y: 18.7, "font-family": FONT, "font-size": 7, "font-weight": 800, "text-anchor": "middle" } },
+      { kind: "text", role: "a", text: "One", attrs: { x: 29.5, y: 19.5, "font-family": FONT, "font-size": 9.5, "font-weight": 800, "text-anchor": "end" } },
+      { kind: "text", role: "ink", text: "Pay", attrs: { x: 30.5, y: 19.5, "font-family": FONT, "font-size": 9.5, "font-weight": 800, "text-anchor": "start" } },
     ],
   },
   // Sadad — the Libyan Sadad by Almadar (المدار الجديد): a gold/amber سداد script
@@ -415,18 +464,18 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
       { kind: "text", role: "ink", text: "SADAD", attrs: { x: 24, y: 27.5, "font-family": FONT, "font-size": 5, "font-weight": 700, "text-anchor": "middle", "letter-spacing": 1.4 } },
     ],
   },
-  // Tadawul — a teal up-trend mark + Tadawul wordmark + Arabic تداول.
+  // Tadawul (Libya) — the blue+green forward chevron mark + تداول + Tadawul.
   tadawul: {
     viewBox: "0 0 48 32",
-    label: "Tadawul (placeholder mark)",
+    label: "Tadawul — Libya (placeholder mark)",
     placeholder: true,
-    colors: { a: "#0E7C73", b: "#39C2B0", ink: "#243240" },
+    colors: { a: "#1668B0", b: "#36A642", ink: "#243240" },
     shapes: [
       ...cardFrame(),
-      { kind: "path", role: "a", attrs: { d: "M7 21 L12 16 L16 18.5 L21 11", fill: "none", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" } },
-      { kind: "circle", role: "b", attrs: { cx: 21, cy: 11, r: 1.9 } },
-      { kind: "text", role: "ink", text: "Tadawul", attrs: { x: 34, y: 17.5, "font-family": FONT, "font-size": 6.5, "font-weight": 700, "text-anchor": "middle" } },
-      { kind: "text", role: "a", text: "تداول", attrs: { x: 34, y: 26, "font-family": AR_FONT, "font-size": 5.5, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
+      { kind: "path", role: "a", attrs: { d: "M8 10 L13.5 16 L8 22", fill: "none", "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" } },
+      { kind: "path", role: "b", attrs: { d: "M14 10 L19.5 16 L14 22", fill: "none", "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" } },
+      { kind: "text", role: "a", text: "تداول", attrs: { x: 34, y: 18, "font-family": AR_FONT, "font-size": 9, "font-weight": 700, "text-anchor": "middle", direction: "rtl" } },
+      { kind: "text", role: "ink", text: "Tadawul", attrs: { x: 34, y: 26, "font-family": FONT, "font-size": 5, "font-weight": 700, "text-anchor": "middle", "letter-spacing": 0.4 } },
     ],
   },
 
@@ -559,32 +608,39 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
   "generic-card": {
     viewBox: "0 0 48 32",
     label: "Card",
-    colors: { a: "#3C4858", b: "#E8C56B", ink: "#FFFFFF" },
+    colors: { a: "#8A7430", b: "#EBC56B", ink: "#FFFFFF" },
+    gradients: [
+      {
+        id: "npt-card-grad",
+        x1: 0,
+        y1: 0,
+        x2: 1,
+        y2: 1,
+        stops: [
+          { offset: 0, color: "#3E4E80" },
+          { offset: 0.55, color: "#2A3556" },
+          { offset: 1, color: "#1C2440" },
+        ],
+      },
+    ],
     shapes: [
-      { kind: "rect", role: "a", attrs: { width: 48, height: 32, rx: 4 } },
-      { kind: "rect", role: "b", attrs: { x: 6, y: 11, width: 8, height: 6, rx: 1.2 } },
+      // card body — a gradient in colour, a clean rounded outline in mono
+      { kind: "rect", role: "c", attrs: { x: 1, y: 1, width: 46, height: 30, rx: 5, fill: "url(#npt-card-grad)" }, monoStroke: true },
+      // gold EMV chip + contacts
+      { kind: "rect", role: "b", attrs: { x: 7, y: 10.5, width: 8.5, height: 6.5, rx: 1.6 } },
+      { kind: "path", role: "a", attrs: { d: "M11.25 10.5 v6.5 M7 13.75 h8.5", fill: "none", "stroke-width": 0.7, "stroke-opacity": 0.65 }, monoHide: true },
+      // contactless waves
       {
-        kind: "path",
+        kind: "g",
         role: "ink",
-        attrs: {
-          d: "M6 22h20",
-          fill: "none",
-          "stroke-width": 1.4,
-          "stroke-linecap": "round",
-          "stroke-opacity": 0.7,
-        },
+        attrs: { fill: "none", "stroke-width": 1.4, "stroke-linecap": "round" },
+        children: [
+          { kind: "path", role: "ink", attrs: { d: "M38 10.5 a6 6 0 0 1 0 11" } },
+          { kind: "path", role: "ink", attrs: { d: "M34.5 12.8 a3.4 3.4 0 0 1 0 6.4" } },
+        ],
       },
-      {
-        kind: "path",
-        role: "ink",
-        attrs: {
-          d: "M30 22h12",
-          fill: "none",
-          "stroke-width": 1.4,
-          "stroke-linecap": "round",
-          "stroke-opacity": 0.4,
-        },
-      },
+      // masked number
+      { kind: "text", role: "ink", text: "••••  ••••  4821", attrs: { x: 7, y: 27, "font-family": FONT, "font-size": 5, "font-weight": 700, "text-anchor": "start", "letter-spacing": 0.6, "fill-opacity": 0.9 } },
     ],
   },
   "contactless-pay": {
@@ -608,28 +664,31 @@ const MARK_DEFS: Record<BrandMarkName, MarkDef> = {
   cash: {
     viewBox: "0 0 48 32",
     label: "Cash",
-    colors: { a: "#2E7D32", b: "#A5D6A7", ink: "#A5D6A7" },
+    colors: { b: "#FFFFFF", ink: "#FFFFFF" },
+    gradients: [
+      {
+        id: "npt-cash-grad",
+        x1: 0,
+        y1: 0,
+        x2: 1,
+        y2: 1,
+        stops: [
+          { offset: 0, color: "#2BAB60" },
+          { offset: 1, color: "#138043" },
+        ],
+      },
+    ],
     shapes: [
-      ...cardFrame("#E8F5E9"),
-      { kind: "rect", role: "a", attrs: { x: 9, y: 9, width: 30, height: 14, rx: 2 } },
-      {
-        kind: "circle",
-        role: "b",
-        attrs: { cx: 24, cy: 16, r: 4, fill: "none", "stroke-width": 1.4 },
-      },
-      {
-        kind: "text",
-        role: "ink",
-        text: "$",
-        attrs: {
-          x: 24,
-          y: 18.5,
-          "font-family": FONT,
-          "font-size": 6,
-          "font-weight": 700,
-          "text-anchor": "middle",
-        },
-      },
+      // banknote — gradient green in colour, a clean outline in mono
+      { kind: "rect", role: "c", attrs: { x: 3, y: 6, width: 42, height: 20, rx: 3, fill: "url(#npt-cash-grad)" }, monoStroke: true },
+      // inner hairline frame
+      { kind: "rect", role: "b", attrs: { x: 5.5, y: 8.5, width: 37, height: 15, rx: 2, fill: "none", "stroke-width": 0.8, "stroke-opacity": 0.5 }, monoHide: true },
+      // centre medallion + currency glyph
+      { kind: "circle", role: "b", attrs: { cx: 24, cy: 16, r: 4.4, fill: "none", "stroke-width": 1.1 } },
+      { kind: "text", role: "ink", text: "$", attrs: { x: 24, y: 18.4, "font-family": FONT, "font-size": 6.5, "font-weight": 700, "text-anchor": "middle" } },
+      // corner denomination dots
+      { kind: "circle", role: "b", attrs: { cx: 9, cy: 10.5, r: 1 } },
+      { kind: "circle", role: "b", attrs: { cx: 39, cy: 21.5, r: 1 } },
     ],
   },
   "bank-building": {
@@ -762,14 +821,15 @@ function paintFor(
     return out;
   }
 
-  // mono + outline: drop the neutral frame and any full-bleed coloured backdrop,
-  // so the foreground glyph (text/paths) becomes the silhouette.
-  if (isFrame || isFullBleedBackdrop(shape, def)) return null;
+  // mono + outline: drop the neutral frame, full-bleed backdrops, and any shape
+  // flagged monoHide (e.g. a white separation disc), so the foreground glyph
+  // becomes the silhouette.
+  if (isFrame || isFullBleedBackdrop(shape, def) || shape.monoHide) return null;
 
   if (variant === "mono") {
-    // Flatten to a single currentColor silhouette. Stroke shapes stay strokes
-    // (so line-art marks like contactless/bank still read), filled shapes fill.
-    if (isStrokeShape) {
+    // Flatten to a single currentColor silhouette. Stroke shapes (and shapes
+    // flagged monoStroke, e.g. interlocking circles) stay outlines; filled fill.
+    if (isStrokeShape || shape.monoStroke) {
       return { fill: "none", stroke: "currentColor" };
     }
     return { fill: "currentColor" };
@@ -787,6 +847,8 @@ function strokeWidthFor(shape: Shape, variant: BrandMarkVariant): number | undef
   // For native stroke shapes, keep their authored weight; otherwise use 1.8.
   const authored = shape.attrs["stroke-width"];
   if (typeof authored === "number") return authored;
+  // monoStroke fills become outlines and need a weight in mono too.
+  if (variant === "mono" && shape.monoStroke) return 1.8;
   return variant === "outline" ? 1.8 : authored === undefined ? undefined : Number(authored);
 }
 
@@ -948,6 +1010,15 @@ function sizeSvg(svg: string, height: number): string {
 /**
  * Build the complete <svg> for a placeholder mark in a given variant.
  */
+/** Serialize a GradientDef to an SVG <linearGradient>. */
+function gradSvg(g: GradientDef): string {
+  const coords = `x1="${g.x1 ?? 0}" y1="${g.y1 ?? 0}" x2="${g.x2 ?? 1}" y2="${g.y2 ?? 0}"`;
+  const stops = g.stops
+    .map((s) => `<stop offset="${s.offset}" stop-color="${s.color}"/>`)
+    .join("");
+  return `<linearGradient id="${g.id}" ${coords}>${stops}</linearGradient>`;
+}
+
 function buildMarkSvg(name: BrandMarkName, variant: BrandMarkVariant, cls?: string): string {
   const def = MARK_DEFS[name];
   const [, , w, h] = def.viewBox.split(" ");
@@ -956,6 +1027,11 @@ function buildMarkSvg(name: BrandMarkName, variant: BrandMarkVariant, cls?: stri
   const body = def.shapes.map((s) => renderShape(s, variant, def)).join("");
   const classAttr = cls ? ` class="${escapeAttr(cls)}"` : "";
   const placeholder = def.placeholder ? ' data-placeholder="true"' : "";
+  // Gradients only paint in the colour variant; mono/outline ignore url() fills.
+  const defs =
+    variant === "color" && def.gradients?.length
+      ? `<defs>${def.gradients.map(gradSvg).join("")}</defs>`
+      : "";
   // mono/outline silhouettes paint with currentColor — round joins are global.
   const lineAttrs =
     variant === "outline"
@@ -965,7 +1041,7 @@ function buildMarkSvg(name: BrandMarkName, variant: BrandMarkVariant, cls?: stri
     `<svg xmlns="http://www.w3.org/2000/svg"${classAttr} viewBox="${def.viewBox}" ` +
     `role="img" aria-label="${escapeAttr(def.label)}" ` +
     `data-npt-brand-mark="${escapeAttr(name)}" data-variant="${variant}"${placeholder}${lineAttrs}>` +
-    `${body}</svg>`
+    `${defs}${body}</svg>`
   );
 }
 
