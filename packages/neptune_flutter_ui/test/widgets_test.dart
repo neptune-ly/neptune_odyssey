@@ -35,8 +35,8 @@ Widget _dashboard() => Column(
           caption: '•••• 4821',
         ),
         const SizedBox(height: 12),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Expanded(child: NeptuneStatCard(label: 'Income', value: '9,120', unit: 'LYD', delta: '+8.2%')),
             SizedBox(width: 12),
             Expanded(child: NeptuneStatCard(label: 'Spending', value: '3,540', unit: 'LYD', delta: '-2.1%')),
@@ -66,8 +66,8 @@ Widget _dashboard() => Column(
         NeptuneButton(label: 'Text', variant: NeptuneButtonStyle.text, onPressed: () {}),
         NeptuneCta(label: 'Get started', arrow: true, onPressed: () {}),
         const SizedBox(height: 12),
-        Row(
-          children: const [
+        const Row(
+          children: [
             NeptuneChip(label: 'Selected', selected: true),
             SizedBox(width: 8),
             NeptuneStatusChip(label: 'Active', tone: NeptuneStatusTone.success),
@@ -159,6 +159,71 @@ void main() {
     ));
     expect(find.byType(NeptuneOnboarding), findsOneWidget);
     expect(find.text('Your money, everywhere you are.'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('extended widget set builds (money / movement / data-viz / corporate / wallet / shell)',
+      (tester) async {
+    await tester.pumpWidget(_host(Column(
+      children: [
+        // money inputs
+        const NeptuneAmountInput(value: '1,250.00', currency: 'LYD'),
+        const NeptuneCurrencyField(amount: '1,250.00', currency: 'LYD', currencies: ['LYD', 'USD']),
+        const NeptuneIbanField(value: 'LY83 0020 0001 2345', valid: true),
+        const NeptuneOtpInput(length: 6),
+        const NeptunePinInput(length: 4),
+        SizedBox(height: 280, child: NeptuneAmountKeypad(onKey: (_) {}, onBackspace: () {})),
+        // movement
+        const NeptuneStepper(steps: ['Amount', 'Review', 'Done'], active: 1),
+        const NeptuneTransferReview(
+          fromLabel: 'Everyday •••• 4821',
+          toLabel: 'Sara N.',
+          amount: '250.00',
+          fee: '0.00',
+          total: '250.00',
+          currency: 'LYD',
+        ),
+        NeptuneMethodRow(icon: Icons.account_balance, title: 'Bank transfer', subtitle: 'NUMO', selected: true, onTap: () {}),
+        NeptuneBeneficiaryTile(name: 'Sara Nuri', account: '•••• 7390', selected: true, onTap: () {}),
+        const NeptuneSuccess(title: 'Sent!', amount: 'LYD 250.00', subtitle: 'To Sara N.'),
+        NeptuneReceipt(
+          title: 'Receipt',
+          rows: const [(label: 'Amount', value: 'LYD 250.00'), (label: 'Fee', value: 'LYD 0.00')],
+          onShare: () {},
+        ),
+        // data-viz
+        const SizedBox(width: 200, child: NeptuneSparkline(points: [3, 4, 4, 6, 5, 7, 8])),
+        const NeptuneDonut(segments: [3, 2, 1], centerLabel: '6'),
+        const NeptuneLimitMeter(value: 0.62, label: 'Monthly spend', amount: '620 / 1,000 LYD'),
+        const NeptuneTrend(value: 8.2),
+        const NeptuneTrend(value: 2.1, down: true),
+        // corporate
+        NeptuneApprovalItem(title: 'Payroll batch', subtitle: '42 payments', amount: 'LYD 18,200', onApprove: () {}, onReject: () {}),
+        const NeptuneBatchCard(title: 'June payroll', count: '42', total: 'LYD 18,200', status: 'Pending'),
+        const NeptuneAuditRow(actor: 'Lina A.', action: 'Approved transfer', time: '12:04'),
+        NeptuneUserRow(name: 'Omar K.', role: 'Approver', status: 'Active', onTap: () {}),
+        NeptunePermissionToggle(label: 'Can approve', description: 'Up to LYD 50k', value: true, onChanged: (_) {}),
+        const NeptuneWorkflowStatus(label: 'Review', step: 2, total: 3),
+        // wallet-pay
+        const NeptuneMerchantRow(name: 'Grocery Market', category: 'Card', amount: '-86.40 LYD', time: 'Today'),
+        const NeptuneVoucherCard(title: 'Cashback', value: 'LYD 10', code: 'NPT-10', expiry: 'Aug 27'),
+        const NeptuneQrPay(amount: 'LYD 45.00', merchant: 'Coffee Bar'),
+        NeptuneTopupRow(label: 'Top up', sublabel: 'Card', amount: 'LYD 50', onTap: () {}),
+        const NeptuneTierBadge(tier: 'Gold'),
+        // shell + feedback
+        const NeptunePageHeader(title: 'Accounts', subtitle: 'All your money'),
+        const NeptuneSearchField(hint: 'Search'),
+        const NeptuneEmptyState(icon: Icons.inbox_outlined, title: 'Nothing yet', message: 'Your activity will show here.'),
+        const NeptuneAlert(message: 'Transfer completed.', tone: NeptuneAlertTone.success, title: 'Done'),
+        const NeptuneBanner(message: 'Scheduled maintenance tonight.'),
+        const NeptuneSkeleton(width: 160),
+      ],
+    )));
+    expect(find.byType(NeptuneSparkline), findsOneWidget);
+    expect(find.byType(NeptuneDonut), findsOneWidget);
+    expect(find.byType(NeptuneTransferReview), findsOneWidget);
+    expect(find.byType(NeptuneApprovalItem), findsOneWidget);
+    expect(find.byType(NeptuneVoucherCard), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

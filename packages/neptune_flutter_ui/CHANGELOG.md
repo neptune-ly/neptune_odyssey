@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.2.0
+
+Widget parity, round 2 — the package now ships ~46 branded widgets (up from 16),
+covering the full dashboard / transfer / corporate / wallet surfaces:
+
+- Money inputs: NeptuneAmountInput, NeptuneCurrencyField, NeptuneIbanField,
+  NeptuneOtpInput, NeptunePinInput, NeptuneAmountKeypad.
+- Money movement: NeptuneStepper, NeptuneTransferReview, NeptuneMethodRow,
+  NeptuneBeneficiaryTile, NeptuneSuccess, NeptuneReceipt.
+- Data-viz (CustomPainter): NeptuneSparkline, NeptuneDonut, NeptuneLimitMeter,
+  NeptuneTrend.
+- Corporate: NeptuneApprovalItem, NeptuneBatchCard, NeptuneAuditRow,
+  NeptuneUserRow, NeptunePermissionToggle, NeptuneWorkflowStatus.
+- Wallet/pay: NeptuneMerchantRow, NeptuneVoucherCard, NeptuneQrPay,
+  NeptuneTopupRow, NeptuneTierBadge.
+- Feedback/shell: NeptuneAlert, NeptuneBanner, NeptuneEmptyState,
+  NeptuneSkeleton, NeptunePageHeader, NeptuneSearchField.
+
+All theme-only (no literals), RTL-safe, ≥48dp; 36 widget tests pass under
+light/dark/RTL × 4 brands; flutter analyze clean. COVERAGE.md updated.
+
 ## 2.1.0
 
 Widget parity pass — the package now ships **16 branded widgets** (up from 4),
