@@ -1046,7 +1046,11 @@ function sizeSvg(svg: string, height: number): string {
   const vbW = vb ? Number(vb[1]) : 48;
   const vbH = vb ? Number(vb[2]) : 32;
   const width = Math.round(((height * vbW) / vbH) * 100) / 100;
-  const gt = svg.indexOf(">");
+  // Target the real <svg> opening tag — official files may carry an <?xml …?>
+  // prolog / comments whose own ">" would otherwise be matched first.
+  const svgStart = svg.indexOf("<svg");
+  const gt = svg.indexOf(">", svgStart >= 0 ? svgStart : 0);
+  if (gt === -1) return svg;
   let head = svg.slice(0, gt);
   head = head.replace(/\s(?:width|height)="[^"]*"/g, "");
   head += ` width="${width}" height="${height}"`;

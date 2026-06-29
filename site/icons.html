@@ -188,6 +188,16 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
   }
   function start(){
     if (!paint()) { return setTimeout(start, 120); }
+    var N = window.Neptune;
+    // Real official assets neptune.ly is licensed to display (Western Union agent,
+    // LyPay). Loaded at runtime via registerBrandMark — never bundled into the
+    // public package; other networks need their own official files the same way.
+    if (N && N.registerBrandMarksFromUrls) {
+      N.registerBrandMarksFromUrls({
+        'western-union': 'assets/brands/western-union.svg',
+        'lypay': 'assets/brands/lypay.svg'
+      }).then(paint).catch(function(){});
+    }
     var host = document.getElementById('brandgrid');
     host.addEventListener('click', function(e){
       var b = e.target.closest('.brandcell'); if(!b) return;

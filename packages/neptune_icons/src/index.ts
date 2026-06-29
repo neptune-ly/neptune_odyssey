@@ -36,4 +36,4 @@ export type { BrandMarkName, BrandMarkOptions, BrandMarkVariant } from "./brand-
 export { NptBrandMark, registerBrandMarks, register } from "./element.js";
 
 /** Semantic version of the icon family (kept in lockstep with package.json). */
-export const ICONS_VERSION = "2.4.1";
+export const ICONS_VERSION = "2.4.2";

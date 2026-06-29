@@ -2,7 +2,16 @@
 // esbuild bundles this (IIFE, globalName "Neptune") into site/assets/neptune.js so the
 // static docs pages can render real <npt-*> components + icons live. Auto-registers on load.
 import { registerAll, applyTheme, buildTheme, encode, decode } from "@neptune.fintech/web-ui";
-import { register, iconSvg, ICON_NAMES, brandMarkSvg, BRAND_MARK_NAMES } from "@neptune.fintech/icons";
+import {
+  register,
+  iconSvg,
+  ICON_NAMES,
+  brandMarkSvg,
+  BRAND_MARK_NAMES,
+  registerBrandMark,
+  registerBrandMarkFromUrl,
+  registerBrandMarksFromUrls,
+} from "@neptune.fintech/icons";
 
 if (typeof customElements !== "undefined") {
   registerAll();
@@ -20,4 +29,7 @@ export {
   ICON_NAMES,
   brandMarkSvg,
   BRAND_MARK_NAMES,
+  registerBrandMark,
+  registerBrandMarkFromUrl,
+  registerBrandMarksFromUrls,
 };
