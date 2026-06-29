@@ -7,6 +7,9 @@ import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
 const _goldenTriton = 'NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA';
 
 void main() {
+  // Keep the google_fonts runtime loader offline in tests — name families only.
+  NeptuneTheme.debugSkipFontLoading = true;
+
   group('NeptuneTheme', () {
     test('light(triton) builds with correct M3 colors + extensions', () {
       final theme = NeptuneTheme.light('triton');

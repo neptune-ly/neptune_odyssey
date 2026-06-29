@@ -78,12 +78,17 @@ const Map<String, NptShape> brandShape = {
   'proteus': NptShape(xs: 6, sm: 10, md: 14, lg: 20, xl: 28, xxl: 38),
 };
 
-/// Type set per brand. displayWeight/Tracking from the canonical brandprint config.
+/// Type set per brand. displayWeight/Tracking from the canonical brandprint
+/// config; Latin + Arabic faces from tokens.json (`--npt-font-*` / `*-ar`).
+/// Under RTL the web maps `num` → `text-ar`, so `numAr` mirrors `textAr`.
 const Map<String, NptType> brandType = {
   'neptune': NptType(
     display: 'Hanken Grotesk',
     text: 'Hanken Grotesk',
     num: 'Hanken Grotesk',
+    displayAr: 'IBM Plex Sans Arabic',
+    textAr: 'IBM Plex Sans Arabic',
+    numAr: 'IBM Plex Sans Arabic',
     displayWeight: 700,
     displayTracking: -0.02,
   ),
@@ -91,6 +96,9 @@ const Map<String, NptType> brandType = {
     display: 'Bricolage Grotesque',
     text: 'Hanken Grotesk',
     num: 'Hanken Grotesk',
+    displayAr: 'Reem Kufi',
+    textAr: 'Tajawal',
+    numAr: 'Tajawal',
     displayWeight: 700,
     displayTracking: -0.01,
   ),
@@ -98,6 +106,9 @@ const Map<String, NptType> brandType = {
     display: 'Space Grotesk',
     text: 'Hanken Grotesk',
     num: 'Space Grotesk',
+    displayAr: 'Readex Pro',
+    textAr: 'Readex Pro',
+    numAr: 'Readex Pro',
     displayWeight: 600,
     displayTracking: -0.03,
   ),
@@ -105,6 +116,9 @@ const Map<String, NptType> brandType = {
     display: 'Sora',
     text: 'Hanken Grotesk',
     num: 'Sora',
+    displayAr: 'Noto Kufi Arabic',
+    textAr: 'IBM Plex Sans Arabic',
+    numAr: 'IBM Plex Sans Arabic',
     displayWeight: 700,
     displayTracking: -0.02,
   ),

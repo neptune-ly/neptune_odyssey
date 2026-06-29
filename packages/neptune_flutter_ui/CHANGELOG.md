@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.3.0
+
+The full solution — real brand typography + the remaining structural widgets.
+
+- **Fonts now render for real.** `NeptuneTheme` integrates `google_fonts`: each
+  brand's display / text / num families (Hanken Grotesk, Bricolage Grotesque,
+  Space Grotesk, Sora) are loaded and applied to the whole `TextTheme`, and
+  `moneyStyle` resolves the brand `num` face with tabular figures.
+- **Arabic / RTL faces.** `NptType` now carries the Arabic faces per brand
+  (`displayAr` / `textAr` / `numAr` — IBM Plex Sans Arabic, Reem Kufi, Tajawal,
+  Readex Pro, Noto Kufi Arabic, matching the web `--npt-font-*-ar` tokens). Pass
+  `arabic: true` to `NeptuneTheme.light/dark/fromConfig/fromBrandprint` for an
+  RTL build; `moneyStyle` is direction-aware and swaps to the Arabic numeral
+  face under RTL, mirroring the web's `[dir="rtl"]` font swap.
+- **New widgets:** `NeptuneDataTable` (themed Material `DataTable`, zebra rows,
+  numeric/money columns), the responsive shell — `NeptuneAppShell`,
+  `NeptuneSideNav` / `NeptuneSideNavItem`, `NeptuneToolbar`, `NeptuneNavRail`
+  (Material `NavigationRail`) — plus `NeptuneCardControls`, `NeptuneAddCard`
+  (dashed tile), and `NeptuneToast` + `showNeptuneToast` (overlay, no Scaffold
+  needed).
+- **Example:** a full components-gallery screen showcasing every widget.
+- Colour goldens unchanged (byte-identical); `flutter analyze` clean; all
+  widget tests pass under light / dark / RTL × 4 brands. COVERAGE.md updated.
+
 ## 2.2.0
 
 Widget parity, round 2 — the package now ships ~46 branded widgets (up from 16),

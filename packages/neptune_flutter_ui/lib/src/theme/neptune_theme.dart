@@ -9,6 +9,7 @@
 // theme on every platform.
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../brandprint/codec.dart';
 import '../color/oklch.dart';
@@ -21,41 +22,56 @@ import 'extensions.dart';
 class NeptuneTheme {
   NeptuneTheme._();
 
-  /// Light theme for a reference brand id ('neptune'|'triton'|'nereid'|'proteus').
-  static ThemeData light(String brand) => _forBrand(brand, Brightness.light);
+  /// Debug/test escape hatch. When true, the theme references brand font
+  /// families by name only and skips the `google_fonts` runtime loader (which
+  /// would otherwise fetch from the network). Production leaves this false so
+  /// the real brand faces load and render. Tests flip it true to stay offline.
+  static bool debugSkipFontLoading = false;
 
-  /// Dark theme for a reference brand id.
-  static ThemeData dark(String brand) => _forBrand(brand, Brightness.dark);
+  /// Light theme for a reference brand id ('neptune'|'triton'|'nereid'|'proteus').
+  ///
+  /// Pass `arabic: true` for an RTL/Arabic build: the brand's Arabic faces
+  /// (`displayAr`/`textAr`) drive the text theme, matching the web's
+  /// `[dir="rtl"]` font swap. Colours/shape/motion are unaffected.
+  static ThemeData light(String brand, {bool arabic = false}) =>
+      _forBrand(brand, Brightness.light, arabic);
+
+  /// Dark theme for a reference brand id. See [light] for `arabic`.
+  static ThemeData dark(String brand, {bool arabic = false}) =>
+      _forBrand(brand, Brightness.dark, arabic);
 
   /// Build a theme from a `NO1-…` brandprint. Defaults brightness to the
   /// brandprint's `defaultDark` flag unless [brightness] is given.
-  static ThemeData fromBrandprint(String brandprint, {Brightness? brightness}) =>
-      fromConfig(Brandprint.decode(brandprint), brightness: brightness);
+  static ThemeData fromBrandprint(String brandprint,
+          {Brightness? brightness, bool arabic = false}) =>
+      fromConfig(Brandprint.decode(brandprint),
+          brightness: brightness, arabic: arabic);
 
   /// Build a theme from a [BrandprintConfig]. If the seeds match a reference
   /// brand, the pinned canonical scheme is used (byte-identical); otherwise the
   /// palette is generated deterministically from the seeds.
-  static ThemeData fromConfig(BrandprintConfig cfg, {Brightness? brightness}) {
+  static ThemeData fromConfig(BrandprintConfig cfg,
+      {Brightness? brightness, bool arabic = false}) {
     final mode = brightness ?? (cfg.defaultDark ? Brightness.dark : Brightness.light);
     final ref = _matchReferenceBrand(cfg.primary, cfg.tertiary);
     if (ref != null) {
-      return _forBrandWithConfig(ref, mode, cfg);
+      return _forBrandWithConfig(ref, mode, cfg, arabic);
     }
-    return _custom(cfg, mode);
+    return _custom(cfg, mode, arabic);
   }
 
   // --- reference brands -----------------------------------------------------
 
-  static ThemeData _forBrand(String brand, Brightness mode) {
+  static ThemeData _forBrand(String brand, Brightness mode, bool arabic) {
     final cfg = brandConfig[brand];
     if (cfg == null) {
       throw ArgumentError.value(brand, 'brand', 'unknown reference brand');
     }
-    return _forBrandWithConfig(brand, mode, cfg);
+    return _forBrandWithConfig(brand, mode, cfg, arabic);
   }
 
   static ThemeData _forBrandWithConfig(
-      String brand, Brightness mode, BrandprintConfig cfg) {
+      String brand, Brightness mode, BrandprintConfig cfg, bool arabic) {
     final isLight = mode == Brightness.light;
     final schemes = neptuneSchemes[brand]!;
     final scheme = isLight ? schemes.$1 : schemes.$2;
@@ -64,12 +80,12 @@ class NeptuneTheme {
     final shape = brandShape[brand]!;
     final type = brandType[brand]!;
     final motion = motionFor(cfg.motion);
-    return _assemble(scheme, colors, shape, type, motion);
+    return _assemble(scheme, colors, shape, type, motion, arabic);
   }
 
   // --- custom seeds ---------------------------------------------------------
 
-  static ThemeData _custom(BrandprintConfig cfg, Brightness mode) {
+  static ThemeData _custom(BrandprintConfig cfg, Brightness mode, bool arabic) {
     final isLight = mode == Brightness.light;
     final modeStr = isLight ? 'light' : 'dark';
     final primary = Oklch(cfg.primary.l, cfg.primary.c, cfg.primary.h.toDouble());
@@ -136,7 +152,7 @@ class NeptuneTheme {
       displayWeight: cfg.displayWeight,
       displayTracking: cfg.displayTracking,
     );
-    return _assemble(scheme, colors, shape, type, motionFor(cfg.motion));
+    return _assemble(scheme, colors, shape, type, motionFor(cfg.motion), arabic);
   }
 
   // --- assembly -------------------------------------------------------------
@@ -147,15 +163,19 @@ class NeptuneTheme {
     NptShape shape,
     NptType type,
     NptMotion motion,
+    bool arabic,
   ) {
-    final textTheme = _buildTextTheme(scheme, type);
+    final textTheme = _buildTextTheme(scheme, type, arabic);
+    // The default body family for any text the textTheme doesn't name. Resolve
+    // through google_fonts so it is an actually-loaded family, not just a name.
+    final resolvedTextFamily = _gf(arabic ? type.textAr : type.text).fontFamily;
     return ThemeData(
       useMaterial3: true,
       brightness: scheme.brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.surface,
       textTheme: textTheme,
-      fontFamily: type.text,
+      fontFamily: resolvedTextFamily,
       extensions: [colors, shape, type, motion],
       cardTheme: CardThemeData(
         color: scheme.surfaceContainerLow,
@@ -205,64 +225,65 @@ class NeptuneTheme {
     );
   }
 
-  static TextTheme _buildTextTheme(ColorScheme scheme, NptType type) {
-    final display = type.display;
-    final text = type.text;
+  static TextTheme _buildTextTheme(ColorScheme scheme, NptType type, bool arabic) {
+    final display = arabic ? type.displayAr : type.display;
+    final text = arabic ? type.textAr : type.text;
     final w = type.displayFontWeight;
+    TextStyle disp(double size, {double? height, double? letterSpacing}) => _gf(
+          display,
+          TextStyle(
+            fontSize: size,
+            height: height,
+            fontWeight: w,
+            letterSpacing: letterSpacing,
+          ),
+        );
+    TextStyle body(double size, {FontWeight? weight}) =>
+        _gf(text, TextStyle(fontSize: size, fontWeight: weight));
     return TextTheme(
-      displayLarge: TextStyle(
-        fontFamily: display,
-        fontSize: 57,
-        height: 64 / 57,
-        fontWeight: w,
-        letterSpacing: type.displayTracking * 57,
-      ),
-      displayMedium: TextStyle(
-        fontFamily: display,
-        fontSize: 45,
-        height: 52 / 45,
-        fontWeight: w,
-        letterSpacing: type.displayTracking * 45,
-      ),
-      displaySmall: TextStyle(
-        fontFamily: display,
-        fontSize: 36,
-        height: 44 / 36,
-        fontWeight: w,
-      ),
-      headlineLarge: TextStyle(fontFamily: display, fontSize: 32, fontWeight: w),
-      headlineMedium: TextStyle(fontFamily: display, fontSize: 28, fontWeight: w),
-      headlineSmall: TextStyle(fontFamily: display, fontSize: 24, fontWeight: w),
-      titleLarge: TextStyle(
-          fontFamily: text, fontSize: 22, fontWeight: FontWeight.w600),
-      titleMedium: TextStyle(
-          fontFamily: text, fontSize: 18, fontWeight: FontWeight.w600),
-      titleSmall: TextStyle(
-          fontFamily: text, fontSize: 14, fontWeight: FontWeight.w600),
-      bodyLarge: TextStyle(fontFamily: text, fontSize: 16),
-      bodyMedium: TextStyle(fontFamily: text, fontSize: 14),
-      bodySmall: TextStyle(fontFamily: text, fontSize: 12),
-      labelLarge: TextStyle(
-          fontFamily: text, fontSize: 14, fontWeight: FontWeight.w600),
-      labelMedium: TextStyle(
-          fontFamily: text, fontSize: 12, fontWeight: FontWeight.w600),
-      labelSmall: TextStyle(
-          fontFamily: text, fontSize: 11, fontWeight: FontWeight.w600),
+      displayLarge: disp(57, height: 64 / 57, letterSpacing: type.displayTracking * 57),
+      displayMedium: disp(45, height: 52 / 45, letterSpacing: type.displayTracking * 45),
+      displaySmall: disp(36, height: 44 / 36),
+      headlineLarge: disp(32),
+      headlineMedium: disp(28),
+      headlineSmall: disp(24),
+      titleLarge: body(22, weight: FontWeight.w600),
+      titleMedium: body(18, weight: FontWeight.w600),
+      titleSmall: body(14, weight: FontWeight.w600),
+      bodyLarge: body(16),
+      bodyMedium: body(14),
+      bodySmall: body(12),
+      labelLarge: body(14, weight: FontWeight.w600),
+      labelMedium: body(12, weight: FontWeight.w600),
+      labelSmall: body(11, weight: FontWeight.w600),
     ).apply(
       bodyColor: scheme.onSurface,
       displayColor: scheme.onSurface,
     );
   }
 
+  /// Resolve a family name to an actually-loaded [TextStyle] via `google_fonts`.
+  /// All Neptune brand faces (Latin + Arabic) are Google Fonts; an unknown
+  /// custom name falls back to a plain `fontFamily` reference.
+  static TextStyle _gf(String family, [TextStyle base = const TextStyle()]) {
+    if (debugSkipFontLoading) return base.copyWith(fontFamily: family);
+    try {
+      return GoogleFonts.getFont(family, textStyle: base);
+    } catch (_) {
+      return base.copyWith(fontFamily: family);
+    }
+  }
+
   /// A money/number text style for the active theme: the brand `num` family with
-  /// tabular figures so digits stay column-aligned.
+  /// tabular figures so digits stay column-aligned. Direction-aware — under RTL
+  /// it uses the Arabic numeral face, mirroring the web's `dir="rtl"` swap.
   static TextStyle moneyStyle(BuildContext context, {TextStyle? base}) {
     final type = Theme.of(context).extension<NptType>()!;
+    final rtl = Directionality.maybeOf(context) == TextDirection.rtl;
+    final family = rtl ? type.numAr : type.num;
     final b = base ?? Theme.of(context).textTheme.titleLarge ?? const TextStyle();
-    return b.copyWith(
-      fontFamily: type.num,
-      fontFeatures: const [FontFeature.tabularFigures()],
-    );
+    return _gf(family, b)
+        .copyWith(fontFeatures: const [FontFeature.tabularFigures()]);
   }
 
   // --- reference matching ---------------------------------------------------

@@ -91,6 +91,10 @@ Widget _dashboard() => Column(
     );
 
 void main() {
+  // Keep the google_fonts runtime loader offline in tests; build/theme checks
+  // only need the family names, not the downloaded glyphs.
+  NeptuneTheme.debugSkipFontLoading = true;
+
   testWidgets('dashboard widgets build (light, neptune)', (tester) async {
     await tester.pumpWidget(_host(_dashboard()));
     expect(find.byType(NeptuneBalanceCard), findsOneWidget);
@@ -224,6 +228,108 @@ void main() {
     expect(find.byType(NeptuneTransferReview), findsOneWidget);
     expect(find.byType(NeptuneApprovalItem), findsOneWidget);
     expect(find.byType(NeptuneVoucherCard), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('structural widgets build (data-table / shell-nav / card-controls / toast)',
+      (tester) async {
+    await tester.pumpWidget(_host(Column(
+      children: [
+        const NeptuneDataTable(
+          caption: 'Recent',
+          columns: [
+            NeptuneColumn('Merchant'),
+            NeptuneColumn('Date'),
+            NeptuneColumn('Amount', numeric: true),
+          ],
+          rows: [
+            ['Coffee Bar', 'Today', '4.50'],
+            ['Grocery Market', 'Yesterday', '86.40'],
+          ],
+        ),
+        const SizedBox(height: 12),
+        NeptuneToolbar(
+          start: [IconButton(onPressed: () {}, icon: const Icon(Icons.menu))],
+          center: const [Text('Accounts')],
+          end: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        ),
+        const SizedBox(height: 12),
+        NeptuneSideNav(
+          children: [
+            NeptuneSideNavItem(icon: Icons.dashboard_outlined, label: 'Dashboard', active: true, onTap: () {}),
+            NeptuneSideNavItem(icon: Icons.swap_horiz, label: 'Transfers', trailing: const NeptuneStatusChip(label: '3', tone: NeptuneStatusTone.neutral), onTap: () {}),
+            const NeptuneSideNavItem(icon: Icons.settings_outlined, label: 'Settings', enabled: false),
+          ],
+        ),
+        const SizedBox(height: 12),
+        NeptuneCardControls(frozen: true, onControl: (_) {}),
+        const SizedBox(height: 12),
+        NeptuneAddCard(onTap: () {}),
+        const SizedBox(height: 12),
+        const NeptuneToast(message: 'Saved'),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 360,
+          child: NeptuneAppShell(
+            header: const NeptunePageHeader(title: 'Accounts'),
+            nav: NeptuneSideNav(
+              children: [
+                NeptuneSideNavItem(icon: Icons.home_outlined, label: 'Home', active: true, onTap: () {}),
+              ],
+            ),
+            child: const Text('content'),
+          ),
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 320,
+          child: Row(
+            children: [
+              NeptuneNavRail(
+                selectedIndex: 0,
+                onSelect: (_) {},
+                items: const [
+                  NeptuneNavRailItem(icon: Icons.home_outlined, selectedIcon: Icons.home, label: 'Home'),
+                  NeptuneNavRailItem(icon: Icons.credit_card, label: 'Cards'),
+                ],
+              ),
+              const Expanded(child: SizedBox()),
+            ],
+          ),
+        ),
+      ],
+    )));
+    expect(find.byType(NeptuneDataTable), findsOneWidget);
+    expect(find.byType(NeptuneToolbar), findsOneWidget);
+    expect(find.byType(NeptuneSideNavItem), findsWidgets);
+    expect(find.byType(NeptuneCardControls), findsOneWidget);
+    expect(find.byType(NeptuneAddCard), findsOneWidget);
+    expect(find.byType(NeptuneNavRail), findsOneWidget);
+    expect(find.text('Unfreeze'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('showNeptuneToast floats over the overlay', (tester) async {
+    await tester.pumpWidget(_host(
+      Builder(
+        builder: (context) => Center(
+          child: NeptuneButton(
+            label: 'Toast',
+            onPressed: () => showNeptuneToast(context, 'Saved'),
+          ),
+        ),
+      ),
+      scroll: false,
+    ));
+    await tester.tap(find.text('Toast'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(find.byType(NeptuneToast), findsOneWidget);
+    expect(find.text('Saved'), findsOneWidget);
+    // auto-dismiss
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(find.byType(NeptuneToast), findsNothing);
     expect(tester.takeException(), isNull);
   });
 }

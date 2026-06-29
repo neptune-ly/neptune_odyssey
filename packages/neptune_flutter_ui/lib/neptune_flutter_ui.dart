@@ -37,3 +37,7 @@ export 'src/widgets/neptune_data_viz.dart';
 export 'src/widgets/neptune_corporate.dart';
 export 'src/widgets/neptune_wallet_pay.dart';
 export 'src/widgets/neptune_shell_feedback.dart';
+export 'src/widgets/neptune_data_table.dart';
+export 'src/widgets/neptune_shell_nav.dart';
+export 'src/widgets/neptune_card_controls.dart';
+export 'src/widgets/neptune_toast.dart';

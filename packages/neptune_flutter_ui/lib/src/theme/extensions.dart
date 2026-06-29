@@ -115,11 +115,27 @@ class NptShape extends ThemeExtension<NptShape> {
 
 /// Brand font families + display weight/tracking. Money/number UI should use
 /// the [num] family with [FontFeature.tabularFigures].
+///
+/// Each family has a Latin face and an Arabic face. Under RTL the web swaps
+/// `--npt-font-*` to the `*-ar` token (and maps `num` → `text-ar`); the Flutter
+/// theme does the same via [NeptuneTheme]'s `arabic` flag and a
+/// direction-aware [NeptuneTheme.moneyStyle].
 @immutable
 class NptType extends ThemeExtension<NptType> {
   final String display;
   final String text;
   final String num;
+
+  /// Arabic display face (web `--npt-font-display-ar`).
+  final String displayAr;
+
+  /// Arabic text face (web `--npt-font-text-ar`).
+  final String textAr;
+
+  /// Arabic numeral face. The web maps `--npt-font-num` → `--npt-font-text-ar`
+  /// under RTL, so this is normally the same as [textAr].
+  final String numAr;
+
   final int displayWeight;
 
   /// Tracking in em (e.g. -0.02).
@@ -131,7 +147,12 @@ class NptType extends ThemeExtension<NptType> {
     required this.num,
     required this.displayWeight,
     required this.displayTracking,
-  });
+    String? displayAr,
+    String? textAr,
+    String? numAr,
+  })  : displayAr = displayAr ?? 'IBM Plex Sans Arabic',
+        textAr = textAr ?? 'IBM Plex Sans Arabic',
+        numAr = numAr ?? textAr ?? 'IBM Plex Sans Arabic';
 
   FontWeight get displayFontWeight => switch (displayWeight) {
         100 => FontWeight.w100,
@@ -151,6 +172,9 @@ class NptType extends ThemeExtension<NptType> {
     String? display,
     String? text,
     String? num,
+    String? displayAr,
+    String? textAr,
+    String? numAr,
     int? displayWeight,
     double? displayTracking,
   }) =>
@@ -158,6 +182,9 @@ class NptType extends ThemeExtension<NptType> {
         display: display ?? this.display,
         text: text ?? this.text,
         num: num ?? this.num,
+        displayAr: displayAr ?? this.displayAr,
+        textAr: textAr ?? this.textAr,
+        numAr: numAr ?? this.numAr,
         displayWeight: displayWeight ?? this.displayWeight,
         displayTracking: displayTracking ?? this.displayTracking,
       );
@@ -171,6 +198,9 @@ class NptType extends ThemeExtension<NptType> {
       display: pick.display,
       text: pick.text,
       num: pick.num,
+      displayAr: pick.displayAr,
+      textAr: pick.textAr,
+      numAr: pick.numAr,
       displayWeight: pick.displayWeight,
       displayTracking: displayTracking + (other.displayTracking - displayTracking) * t,
     );
