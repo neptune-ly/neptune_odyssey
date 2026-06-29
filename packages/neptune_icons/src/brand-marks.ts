@@ -970,6 +970,52 @@ export function hasBrandMarkOverride(name: string): boolean {
   return OVERRIDES.has(name);
 }
 
+async function fetchSvg(url: string): Promise<string> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`registerBrandMarkFromUrl: HTTP ${res.status} for ${url}`);
+  return res.text();
+}
+
+/**
+ * Fetch a brand's OFFICIAL, licensed SVG file and register it as the override.
+ * The official artwork stays in YOUR app's assets — it is never bundled into
+ * this package. Pass one URL (all variants) or per-variant URLs.
+ *
+ *   await registerBrandMarkFromUrl("western-union", "/assets/western_union.svg");
+ *   await registerBrandMarkFromUrl("visa", { color: "/assets/visa.svg", mono: "/assets/visa-mono.svg" });
+ */
+export async function registerBrandMarkFromUrl(
+  name: BrandMarkName | string,
+  url: string | { color?: string; mono?: string; outline?: string },
+): Promise<void> {
+  if (typeof url === "string") {
+    registerBrandMark(name, await fetchSvg(url));
+    return;
+  }
+  const entry: OverrideEntry = {};
+  if (url.color) entry.color = await fetchSvg(url.color);
+  if (url.mono) entry.mono = await fetchSvg(url.mono);
+  if (url.outline) entry.outline = await fetchSvg(url.outline);
+  registerBrandMark(name, entry);
+}
+
+/**
+ * Register many official assets at once — resolves when all are applied:
+ *
+ *   await registerBrandMarksFromUrls({
+ *     "western-union": "/assets/western_union_logo.svg",
+ *     moneygram: "/assets/moneygram.svg",
+ *     lypay: "/assets/lypay_icon.svg",
+ *   });
+ */
+export async function registerBrandMarksFromUrls(
+  map: Record<string, string | { color?: string; mono?: string; outline?: string }>,
+): Promise<void> {
+  await Promise.all(
+    Object.entries(map).map(([name, url]) => registerBrandMarkFromUrl(name, url)),
+  );
+}
+
 /** Pick the best override string for a variant, falling back across variants. */
 function resolveOverride(entry: OverrideEntry, variant: BrandMarkVariant): string | undefined {
   const order: BrandMarkVariant[] =
