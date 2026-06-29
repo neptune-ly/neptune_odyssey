@@ -1,0 +1,75 @@
+name: Desktop build
+
+# Builds the Neptune Odyssey desktop app for macOS (Apple Silicon) and Windows,
+# and uploads the artifacts. Cross-compiling desktop is not supported, so each
+# platform builds on its own runner.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/neptune_desktop/**'
+      - 'packages/neptune_flutter_ui/**'
+      - '.github/workflows/desktop.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/neptune_desktop/**'
+      - 'packages/neptune_flutter_ui/**'
+      - '.github/workflows/desktop.yml'
+  workflow_dispatch:
+
+jobs:
+  macos:
+    name: macOS (arm64)
+    runs-on: macos-14 # Apple Silicon runner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.4
+          channel: stable
+      - name: Pub get
+        working-directory: apps/neptune_desktop
+        run: flutter pub get
+      - name: Analyze
+        working-directory: apps/neptune_desktop
+        run: flutter analyze
+      - name: Build (release)
+        working-directory: apps/neptune_desktop
+        run: flutter build macos --release
+      - name: Package .app
+        working-directory: apps/neptune_desktop/build/macos/Build/Products/Release
+        run: ditto -c -k --keepParent neptune_desktop.app neptune_desktop-macos-arm64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: neptune_desktop-macos-arm64
+          path: apps/neptune_desktop/build/macos/Build/Products/Release/neptune_desktop-macos-arm64.zip
+          if-no-files-found: error
+
+  windows:
+    name: Windows (x64)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.4
+          channel: stable
+      - name: Pub get
+        working-directory: apps/neptune_desktop
+        run: flutter pub get
+      - name: Analyze
+        working-directory: apps/neptune_desktop
+        run: flutter analyze
+      - name: Build (release)
+        working-directory: apps/neptune_desktop
+        run: flutter build windows --release
+      - name: Package build
+        working-directory: apps/neptune_desktop/build/windows/x64/runner
+        run: Compress-Archive -Path Release\* -DestinationPath neptune_desktop-windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: neptune_desktop-windows-x64
+          path: apps/neptune_desktop/build/windows/x64/runner/neptune_desktop-windows-x64.zip
+          if-no-files-found: error

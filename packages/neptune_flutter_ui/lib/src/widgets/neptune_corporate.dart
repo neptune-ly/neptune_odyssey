@@ -36,6 +36,33 @@ class NeptuneApprovalItem extends StatelessWidget {
     final money = NeptuneTheme.moneyStyle(context, base: text.titleMedium)
         .copyWith(color: scheme.onSurface, fontWeight: FontWeight.w600);
 
+    final info = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: text.bodyLarge?.copyWith(
+            color: scheme.onSurface,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        if (subtitle != null) ...[
+          const SizedBox(height: 2),
+          Text(
+            subtitle!,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: text.bodyMedium?.copyWith(
+              color: scheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ],
+    );
+
     return Container(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerLow,
@@ -43,57 +70,70 @@ class NeptuneApprovalItem extends StatelessWidget {
         border: Border.all(color: scheme.outlineVariant),
       ),
       padding: const EdgeInsetsDirectional.all(16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: LayoutBuilder(
+        builder: (context, c) {
+          // On narrow widths (mobile) the Approve/Reject buttons can't fit
+          // beside the title — stack them full-width below it.
+          final narrow = c.maxWidth < 440;
+          final approve = FilledButton(
+            onPressed: onApprove,
+            child: const Text('Approve'),
+          );
+          final reject = OutlinedButton(
+            onPressed: onReject,
+            child: const Text('Reject'),
+          );
+
+          if (narrow) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: text.bodyLarge?.copyWith(
-                    color: scheme.onSurface,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: info),
+                    if (amount != null) ...[
+                      const SizedBox(width: 12),
+                      Flexible(
+                        child: Text(
+                          amount!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
+                          style: money,
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
-                if (subtitle != null) ...[
-                  const SizedBox(height: 2),
-                  Text(
-                    subtitle!,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: text.bodyMedium?.copyWith(
-                      color: scheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(child: reject),
+                    const SizedBox(width: 8),
+                    Expanded(child: approve),
+                  ],
+                ),
               ],
-            ),
-          ),
-          if (amount != null) ...[
-            const SizedBox(width: 16),
-            Text(amount!, style: money),
-          ],
-          const SizedBox(width: 16),
-          Row(
-            mainAxisSize: MainAxisSize.min,
+            );
+          }
+
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FilledButton(
-                onPressed: onApprove,
-                child: const Text('Approve'),
-              ),
+              Expanded(child: info),
+              if (amount != null) ...[
+                const SizedBox(width: 16),
+                Text(amount!, style: money),
+              ],
+              const SizedBox(width: 16),
+              reject,
               const SizedBox(width: 8),
-              OutlinedButton(
-                onPressed: onReject,
-                child: const Text('Reject'),
-              ),
+              approve,
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }

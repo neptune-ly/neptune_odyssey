@@ -1,0 +1,26 @@
+name: neptune_desktop
+description: "Neptune Odyssey — the white-label desktop banking app (macOS arm64 + Windows), built on neptune_flutter_ui."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # The Neptune Odyssey Flutter design system (brandprint themes + ~55 widgets).
+  # Path dependency so the app always reflects the local library; swap to
+  # `neptune_flutter_ui: ^2.3.0` to consume the published package from pub.dev.
+  neptune_flutter_ui:
+    path: ../../packages/neptune_flutter_ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

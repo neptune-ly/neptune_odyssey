@@ -283,7 +283,15 @@ class NeptuneLimitMeter extends StatelessWidget {
             ),
             if (amount != null) ...[
               const SizedBox(width: 12),
-              Text(amount!, style: money),
+              Flexible(
+                child: Text(
+                  amount!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.end,
+                  style: money,
+                ),
+              ),
             ],
           ],
         ),

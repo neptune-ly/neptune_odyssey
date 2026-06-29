@@ -75,7 +75,15 @@ class NeptuneAccountTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                Text(balance, style: money),
+                Flexible(
+                  child: Text(
+                    balance,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                    style: money,
+                  ),
+                ),
               ],
             ),
           ),
