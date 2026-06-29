@@ -75,6 +75,17 @@ class _GalleryScreenState extends State<GalleryScreen> {
   int _rail = 0;
   bool _frozen = false;
   bool _canApprove = true;
+  // 2.4.0 widget-set demo state
+  int _seg = 0;
+  int _tab = 0;
+  int _page = 1;
+  int _qty = 2;
+  bool _check = true;
+  bool _switch = true;
+  double _slider = 0.4;
+  double _rating = 4;
+  int _radio = 1;
+  String _currency = 'LYD';
 
   @override
   Widget build(BuildContext context) {
@@ -407,6 +418,209 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             ],
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+
+                  // ---- Form fields (2.4.0) ---------------------------------
+                  _Section(
+                    title: 'Form fields',
+                    child: Column(
+                      children: [
+                        const NeptuneTextField(label: 'Full name', hint: 'Lina Atiya', prefixIcon: Icons.person_outline),
+                        const SizedBox(height: 12),
+                        NeptuneSelect<String>(
+                          label: 'Currency',
+                          value: _currency,
+                          options: const [
+                            NeptuneSelectOption(value: 'LYD', label: 'Libyan Dinar', icon: Icons.payments_outlined),
+                            NeptuneSelectOption(value: 'USD', label: 'US Dollar', icon: Icons.attach_money),
+                            NeptuneSelectOption(value: 'EUR', label: 'Euro', icon: Icons.euro),
+                          ],
+                          onChanged: (v) => setState(() => _currency = v ?? 'LYD'),
+                        ),
+                        const SizedBox(height: 12),
+                        NeptuneStepperInput(value: _qty, label: 'Cards', onChanged: (v) => setState(() => _qty = v)),
+                        const SizedBox(height: 12),
+                        NeptuneDateField(label: 'Expiry', value: DateTime(2027, 8, 1), onChanged: (_) {}),
+                      ],
+                    ),
+                  ),
+
+                  // ---- Selection controls (2.4.0) --------------------------
+                  _Section(
+                    title: 'Selection controls',
+                    child: Column(
+                      children: [
+                        NeptuneSegmented<int>(
+                          value: _seg,
+                          segments: const [
+                            NeptuneSegment(value: 0, label: 'Day'),
+                            NeptuneSegment(value: 1, label: 'Week'),
+                            NeptuneSegment(value: 2, label: 'Month'),
+                          ],
+                          onChanged: (v) => setState(() => _seg = v),
+                        ),
+                        const SizedBox(height: 12),
+                        NeptuneCheckboxTile(label: 'Save beneficiary', description: 'Add to your payees', value: _check, onChanged: (v) => setState(() => _check = v)),
+                        const SizedBox(height: 8),
+                        NeptuneRadioGroup<int>(
+                          value: _radio,
+                          options: const [
+                            NeptuneRadioOption(value: 1, label: 'Standard', description: 'Free · 1–2 days'),
+                            NeptuneRadioOption(value: 2, label: 'Priority', description: 'LYD 2 · instant'),
+                          ],
+                          onChanged: (v) => setState(() => _radio = v),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            NeptuneSwitch(value: _switch, onChanged: (v) => setState(() => _switch = v)),
+                            const SizedBox(width: 12),
+                            Text(_switch ? 'Notifications on' : 'Notifications off'),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        NeptuneSlider(value: _slider, label: 'Monthly limit', onChanged: (v) => setState(() => _slider = v)),
+                      ],
+                    ),
+                  ),
+
+                  // ---- Navigation & structure (2.4.0) ----------------------
+                  _Section(
+                    title: 'Navigation & structure',
+                    child: Column(
+                      children: [
+                        NeptuneTabs(tabs: const ['Overview', 'Activity', 'Cards'], index: _tab, onChanged: (v) => setState(() => _tab = v)),
+                        const SizedBox(height: 12),
+                        NeptuneBreadcrumbs(crumbs: [NeptuneCrumb('Home', onTap: () {}), NeptuneCrumb('Accounts', onTap: () {}), const NeptuneCrumb('Everyday')]),
+                        const SizedBox(height: 12),
+                        NeptunePagination(page: _page, pageCount: 6, onChanged: (v) => setState(() => _page = v)),
+                        const SizedBox(height: 12),
+                        const NeptuneAccordion(panels: [
+                          NeptuneAccordionPanel(title: 'How are limits calculated?', child: Text('Limits reset on the 1st of each month.'), initiallyExpanded: true),
+                          NeptuneAccordionPanel(title: 'Can I freeze a card?', child: Text('Yes — from the Cards screen, instantly.')),
+                        ]),
+                      ],
+                    ),
+                  ),
+
+                  // ---- Display (2.4.0) -------------------------------------
+                  _Section(
+                    title: 'Display',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const NeptuneAvatar(initials: 'LA'),
+                            const SizedBox(width: 12),
+                            const NeptuneAvatarGroup(avatars: [NeptuneAvatar(initials: 'A'), NeptuneAvatar(initials: 'B'), NeptuneAvatar(initials: 'C'), NeptuneAvatar(initials: 'D'), NeptuneAvatar(initials: 'E')]),
+                            const SizedBox(width: 16),
+                            const NeptuneBadge(count: 4, child: Icon(Icons.notifications_outlined)),
+                            const SizedBox(width: 16),
+                            NeptuneTag(label: 'VIP', icon: Icons.star, onRemove: () {}),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        const NeptuneProgressBar(value: 0.62, label: 'Monthly spend'),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            const NeptuneProgressRing(value: 0.72, centerLabel: '72%'),
+                            const SizedBox(width: 20),
+                            NeptuneRating(value: _rating, onChanged: (v) => setState(() => _rating = v.toDouble())),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        NeptuneListTile(leadingIcon: Icons.account_balance, title: 'Everyday', subtitle: '•••• 4821', trailing: const Icon(Icons.chevron_right), onTap: () {}),
+                        const SizedBox(height: 12),
+                        const NeptuneTimeline(entries: [
+                          NeptuneTimelineEntry(title: 'Transfer created', time: '12:00', done: true),
+                          NeptuneTimelineEntry(title: 'Approved by Omar', time: '12:04', done: true),
+                          NeptuneTimelineEntry(title: 'Awaiting settlement', subtitle: 'Usually within minutes'),
+                        ]),
+                      ],
+                    ),
+                  ),
+
+                  // ---- Overlays (2.4.0) ------------------------------------
+                  _Section(
+                    title: 'Overlays',
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        NeptuneButton(
+                          label: 'Dialog',
+                          onPressed: () => showNeptuneDialog(
+                            context: context,
+                            title: 'Send LYD 250?',
+                            message: 'To Sara Nuri · •••• 7390',
+                            icon: Icons.north_east,
+                            actions: [
+                              const NeptuneDialogAction(label: 'Cancel'),
+                              NeptuneDialogAction(label: 'Send', primary: true, onPressed: () => showNeptuneToast(context, 'Sent')),
+                            ],
+                          ),
+                        ),
+                        NeptuneButton(
+                          label: 'Bottom sheet',
+                          variant: NeptuneButtonStyle.tonal,
+                          onPressed: () => showNeptuneSheet(
+                            context: context,
+                            title: 'Choose a card',
+                            child: Column(
+                              children: [
+                                NeptuneListTile(leadingIcon: Icons.credit_card, title: 'Everyday debit', subtitle: '•••• 4821', onTap: () => Navigator.of(context).pop()),
+                                NeptuneListTile(leadingIcon: Icons.credit_card, title: 'Travel credit', subtitle: '•••• 6642', onTap: () => Navigator.of(context).pop()),
+                              ],
+                            ),
+                          ),
+                        ),
+                        NeptuneMenu(
+                          items: [
+                            NeptuneMenuItem(label: 'Edit', icon: Icons.edit_outlined, onSelected: () {}),
+                            NeptuneMenuItem(label: 'Share', icon: Icons.ios_share, onSelected: () {}),
+                            NeptuneMenuItem(label: 'Delete', icon: Icons.delete_outline, destructive: true, onSelected: () {}),
+                          ],
+                          child: const NeptuneButton(label: 'Menu', variant: NeptuneButtonStyle.outlined, icon: Icons.more_horiz, onPressed: null),
+                        ),
+                        const NeptuneTooltip(message: 'Protected by Neptune', child: Icon(Icons.verified_user_outlined, size: 28)),
+                      ],
+                    ),
+                  ),
+
+                  // ---- Fintech (2.4.0) -------------------------------------
+                  _Section(
+                    title: 'Fintech',
+                    child: Column(
+                      children: [
+                        NeptuneInsightCard(
+                          icon: Icons.lightbulb_outline,
+                          title: 'You saved 12% this month',
+                          message: 'Spending is down LYD 480 vs last month. Keep it up.',
+                          actionLabel: 'See breakdown',
+                          onAction: () {},
+                        ),
+                        const SizedBox(height: 12),
+                        const NeptuneFxCard(fromCurrency: 'LYD', toCurrency: 'USD', rate: '0.2065', change: '+0.4%'),
+                        const SizedBox(height: 12),
+                        const Row(
+                          children: [
+                            NeptuneBudgetRing(spent: 620, limit: 1000, label: 'Groceries'),
+                            SizedBox(width: 16),
+                            Expanded(child: NeptuneCreditScoreGauge(score: 742, band: 'Very good')),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        const NeptuneSpendBreakdown(slices: [
+                          NeptuneSpendSlice(label: 'Food', amount: 240, icon: Icons.restaurant),
+                          NeptuneSpendSlice(label: 'Bills', amount: 180, icon: Icons.receipt_long),
+                          NeptuneSpendSlice(label: 'Transport', amount: 96, icon: Icons.directions_car),
+                          NeptuneSpendSlice(label: 'Fun', amount: 64, icon: Icons.celebration),
+                        ]),
                       ],
                     ),
                   ),

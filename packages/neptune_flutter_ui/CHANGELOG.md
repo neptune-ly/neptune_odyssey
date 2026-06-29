@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.4.0
+
+The "fully fledged" release — ~33 new branded widgets take the package past
+Material parity into a complete fintech design system (now ~88 widgets). All
+theme-only (no literal colours/radii/fonts), RTL-safe, ≥48dp; 40 widget tests
+pass under light/dark/RTL × brands; `flutter analyze` clean.
+
+- Form fields: `NeptuneTextField`, `NeptuneSelect`, `NeptuneStepperInput`,
+  `NeptuneDateField`.
+- Selection controls: `NeptuneCheckbox`/`NeptuneCheckboxTile`,
+  `NeptuneRadioGroup`, `NeptuneSwitch`, `NeptuneSegmented`, `NeptuneSlider`.
+- Overlays: `showNeptuneDialog`, `showNeptuneSheet`, `NeptuneMenu`,
+  `NeptuneTooltip`.
+- Navigation / structure: `NeptuneTabs`, `NeptuneBreadcrumbs`,
+  `NeptunePagination`, `NeptuneAccordion`.
+- Display: `NeptuneAvatar`/`NeptuneAvatarGroup`, `NeptuneBadge`, `NeptuneTag`,
+  `NeptuneProgressBar`, `NeptuneProgressRing`, `NeptuneRating`,
+  `NeptuneListTile`, `NeptuneTimeline`.
+- Fintech: `NeptuneInsightCard`, `NeptuneFxCard`, `NeptuneBudgetRing`,
+  `NeptuneSpendBreakdown`, `NeptuneCreditScoreGauge`.
+
+Mobile-readiness fixes (found by narrow-width testing): `NeptuneAccountTile`
+and `NeptuneLimitMeter` trailing values now flex/ellipsize; `NeptuneApprovalItem`
+stacks its actions on narrow widths; `NeptuneTabs` no longer requires a bounded
+height. The example app gained gallery sections for every new widget.
+
 ## 2.3.0
 
 The full solution — real brand typography + the remaining structural widgets.

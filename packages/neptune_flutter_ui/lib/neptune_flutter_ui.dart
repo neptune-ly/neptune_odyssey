@@ -41,3 +41,11 @@ export 'src/widgets/neptune_data_table.dart';
 export 'src/widgets/neptune_shell_nav.dart';
 export 'src/widgets/neptune_card_controls.dart';
 export 'src/widgets/neptune_toast.dart';
+// 2.4.0 — the "fully fledged" widget set (form fields, selection controls,
+// overlays, navigation, display primitives, premium fintech).
+export 'src/widgets/neptune_form_fields.dart';
+export 'src/widgets/neptune_selection_controls.dart';
+export 'src/widgets/neptune_overlays.dart';
+export 'src/widgets/neptune_navigation.dart';
+export 'src/widgets/neptune_display.dart';
+export 'src/widgets/neptune_fintech.dart';

@@ -332,4 +332,155 @@ void main() {
     expect(find.byType(NeptuneToast), findsNothing);
     expect(tester.takeException(), isNull);
   });
+
+  // ---- 2.4.0 widget set ------------------------------------------------------
+
+  Widget newWidgets() => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // form fields
+          const NeptuneTextField(label: 'Full name', hint: 'Lina Atiya', prefixIcon: Icons.person_outline),
+          const SizedBox(height: 12),
+          NeptuneSelect<String>(
+            label: 'Currency',
+            value: 'LYD',
+            options: const [
+              NeptuneSelectOption(value: 'LYD', label: 'Libyan Dinar', icon: Icons.payments_outlined),
+              NeptuneSelectOption(value: 'USD', label: 'US Dollar'),
+            ],
+            onChanged: (_) {},
+          ),
+          const SizedBox(height: 12),
+          NeptuneStepperInput(value: 2, label: 'Cards', onChanged: (_) {}),
+          NeptuneDateField(label: 'Date', value: DateTime(2026, 8, 27), onChanged: (_) {}),
+          // selection controls
+          NeptuneCheckboxTile(label: 'I agree', description: 'Terms apply', value: true, onChanged: (_) {}),
+          NeptuneRadioGroup<int>(
+            value: 1,
+            options: const [
+              NeptuneRadioOption(value: 1, label: 'Standard'),
+              NeptuneRadioOption(value: 2, label: 'Priority', description: 'Faster'),
+            ],
+            onChanged: (_) {},
+          ),
+          Row(children: [NeptuneSwitch(value: true, onChanged: (_) {}), const SizedBox(width: 12), NeptuneCheckbox(value: false, onChanged: (_) {})]),
+          NeptuneSegmented<int>(
+            value: 0,
+            segments: const [
+              NeptuneSegment(value: 0, label: 'Day'),
+              NeptuneSegment(value: 1, label: 'Week'),
+              NeptuneSegment(value: 2, label: 'Month'),
+            ],
+            onChanged: (_) {},
+          ),
+          NeptuneSlider(value: 0.4, label: 'Limit', onChanged: (_) {}),
+          // navigation
+          NeptuneTabs(tabs: const ['Overview', 'Activity'], index: 0, onChanged: (_) {}),
+          NeptuneBreadcrumbs(crumbs: [NeptuneCrumb('Home', onTap: () {}), const NeptuneCrumb('Cards')]),
+          NeptunePagination(page: 1, pageCount: 5, onChanged: (_) {}),
+          const NeptuneAccordion(panels: [
+            NeptuneAccordionPanel(title: 'Details', child: Text('Body'), initiallyExpanded: true),
+            NeptuneAccordionPanel(title: 'More', child: Text('Body 2')),
+          ]),
+          // display
+          Row(children: [
+            const NeptuneAvatar(initials: 'LA'),
+            const SizedBox(width: 12),
+            const NeptuneAvatarGroup(avatars: [NeptuneAvatar(initials: 'A'), NeptuneAvatar(initials: 'B'), NeptuneAvatar(initials: 'C')]),
+            const SizedBox(width: 12),
+            const NeptuneBadge(count: 3, child: Icon(Icons.notifications_outlined)),
+            const SizedBox(width: 12),
+            NeptuneTag(label: 'VIP', icon: Icons.star, onRemove: () {}),
+          ]),
+          const NeptuneProgressBar(value: 0.62, label: 'Used'),
+          Row(children: [
+            const NeptuneProgressRing(value: 0.7, centerLabel: '70%'),
+            const SizedBox(width: 16),
+            NeptuneRating(value: 4, onChanged: (_) {}),
+          ]),
+          NeptuneListTile(leadingIcon: Icons.account_balance, title: 'Everyday', subtitle: '•••• 4821', onTap: () {}),
+          const NeptuneTimeline(entries: [
+            NeptuneTimelineEntry(title: 'Created', time: '12:00', done: true),
+            NeptuneTimelineEntry(title: 'Review', subtitle: 'Pending'),
+          ]),
+          // fintech
+          NeptuneInsightCard(icon: Icons.lightbulb_outline, title: 'Save more', message: 'You spent 12% less.', actionLabel: 'See how', onAction: () {}),
+          const NeptuneFxCard(fromCurrency: 'LYD', toCurrency: 'USD', rate: '0.21', change: '+0.3%'),
+          const Row(children: [
+            NeptuneBudgetRing(spent: 620, limit: 1000, label: 'Monthly'),
+            SizedBox(width: 16),
+            NeptuneCreditScoreGauge(score: 720, band: 'Good'),
+          ]),
+          const NeptuneSpendBreakdown(slices: [
+            NeptuneSpendSlice(label: 'Food', amount: 240),
+            NeptuneSpendSlice(label: 'Bills', amount: 180),
+            NeptuneSpendSlice(label: 'Fun', amount: 90),
+          ]),
+        ],
+      );
+
+  testWidgets('2.4.0 widget set builds under light/dark/RTL', (tester) async {
+    for (final dir in TextDirection.values) {
+      for (final mode in Brightness.values) {
+        await tester.pumpWidget(_host(newWidgets(), brightness: mode, dir: dir, brand: 'triton'));
+        await tester.pump();
+        expect(tester.takeException(), isNull, reason: '$mode $dir');
+      }
+    }
+    expect(find.byType(NeptuneSegmented<int>), findsWidgets);
+    expect(find.byType(NeptuneCreditScoreGauge), findsWidgets);
+  });
+
+  testWidgets('overlays open: dialog, sheet, menu', (tester) async {
+    await tester.pumpWidget(_host(
+      Builder(
+        builder: (context) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            NeptuneButton(
+              label: 'Dialog',
+              onPressed: () => showNeptuneDialog(
+                context: context,
+                title: 'Confirm',
+                message: 'Send LYD 250 to Sara?',
+                icon: Icons.help_outline,
+                actions: [
+                  const NeptuneDialogAction(label: 'Cancel'),
+                  NeptuneDialogAction(label: 'Send', primary: true, onPressed: () {}),
+                ],
+              ),
+            ),
+            NeptuneButton(
+              label: 'Sheet',
+              variant: NeptuneButtonStyle.tonal,
+              onPressed: () => showNeptuneSheet(
+                context: context,
+                title: 'Options',
+                child: const Text('Sheet body'),
+              ),
+            ),
+            NeptuneMenu(
+              items: [
+                NeptuneMenuItem(label: 'Edit', icon: Icons.edit, onSelected: () {}),
+                NeptuneMenuItem(label: 'Delete', icon: Icons.delete_outline, destructive: true, onSelected: () {}),
+              ],
+              child: const Icon(Icons.more_vert),
+            ),
+          ],
+        ),
+      ),
+      scroll: false,
+    ));
+
+    await tester.tap(find.text('Dialog'));
+    await tester.pumpAndSettle();
+    expect(find.text('Send LYD 250 to Sara?'), findsOneWidget);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Sheet'));
+    await tester.pumpAndSettle();
+    expect(find.text('Sheet body'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
 }

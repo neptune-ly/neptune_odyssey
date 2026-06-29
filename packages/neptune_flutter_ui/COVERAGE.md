@@ -4,7 +4,7 @@ Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
 1. **Theme parity — guaranteed.** `NeptuneTheme.light/dark(brand)` (or `.fromBrandprint`) returns a full Material 3 `ThemeData`, so **every Material widget** is already on-brand — resolved byte-identically from the same brandprint (golden-tested). You're never blocked.
 2. **Real brand typography.** The theme loads each brand's display / text / num faces via `google_fonts` and applies them across the whole `TextTheme`; `NeptuneTheme.moneyStyle` renders amounts in the brand `num` face with tabular figures. Pass `arabic: true` (or run under RTL) and the Arabic faces (IBM Plex Sans Arabic, Reem Kufi, Tajawal, Readex Pro, Noto Kufi Arabic) take over, mirroring the web `--npt-font-*-ar` tokens; `moneyStyle` swaps to the Arabic numeral face under RTL.
-3. **~55 branded widgets** matching specific web components, all theme-only (no literals), RTL-safe (`EdgeInsetsDirectional`), ≥48dp targets, covered by `test/widgets_test.dart` (build under light/dark/RTL × 4 brands; 38 tests).
+3. **~88 branded widgets** — past Material parity into a complete fintech design system. All theme-only (no literals), RTL-safe (`EdgeInsetsDirectional`), ≥48dp targets, covered by `test/widgets_test.dart` (build under light/dark/RTL × 4 brands; 40 tests).
 
 Honest status — nothing silently dropped.
 
@@ -23,11 +23,17 @@ Honest status — nothing silently dropped.
 | Corporate | `NeptuneApprovalItem`, `NeptuneBatchCard`, `NeptuneAuditRow`, `NeptuneUserRow`, `NeptunePermissionToggle`, `NeptuneWorkflowStatus` | `npt-approval-item`, `npt-batch-card`, `npt-audit-row`, `npt-user-row`, `npt-permission-toggle`, `npt-workflow-status` |
 | Wallet / pay | `NeptuneMerchantRow`, `NeptuneVoucherCard`, `NeptuneQrPay`, `NeptuneTopupRow`, `NeptuneTierBadge` | `npt-merchant-row`, `npt-voucher-card`, `npt-qr-pay`, `npt-topup-row`, `npt-tier-badge` |
 | Feedback | `NeptuneChip`, `NeptuneStatusChip`, `NeptuneAlert`, `NeptuneBanner`, `NeptuneEmptyState`, `NeptuneSkeleton`, `NeptuneToast` + `showNeptuneToast` | `npt-chip`, `npt-status-chip`, `npt-alert`, `npt-banner`, `npt-empty-state`, `npt-skeleton`, `npt-snackbar`/`npt-toast` |
+| Form fields | `NeptuneTextField`, `NeptuneSelect`/`NeptuneSelectOption`, `NeptuneStepperInput`, `NeptuneDateField` | `npt-text-field`, `npt-select`, `npt-stepper`, `npt-date-field` |
+| Selection controls | `NeptuneCheckbox`/`NeptuneCheckboxTile`, `NeptuneRadioGroup`/`NeptuneRadioOption`, `NeptuneSwitch`, `NeptuneSegmented`/`NeptuneSegment`, `NeptuneSlider` | `npt-checkbox`, `npt-radio`, `npt-switch`, `npt-segmented-button`, `npt-slider` |
+| Overlays | `showNeptuneDialog`/`NeptuneDialogAction`, `showNeptuneSheet`, `NeptuneMenu`/`NeptuneMenuItem`, `NeptuneTooltip` | `npt-dialog`, `npt-bottom-sheet`, `npt-menu`, `npt-tooltip` |
+| Navigation / structure | `NeptuneTabs`, `NeptuneBreadcrumbs`/`NeptuneCrumb`, `NeptunePagination`, `NeptuneAccordion`/`NeptuneAccordionPanel` | `npt-tabs`, `npt-breadcrumbs`, `npt-pagination`, `npt-accordion` |
+| Display | `NeptuneAvatar`/`NeptuneAvatarGroup`, `NeptuneBadge`, `NeptuneTag`, `NeptuneProgressBar`, `NeptuneProgressRing`, `NeptuneRating`, `NeptuneListTile`, `NeptuneTimeline`/`NeptuneTimelineEntry` | `npt-avatar`, `npt-badge`, `npt-tag`, `npt-progress`, `npt-rating`, `npt-list`, `npt-timeline` |
+| Fintech (premium) | `NeptuneInsightCard`, `NeptuneFxCard`, `NeptuneBudgetRing`, `NeptuneSpendBreakdown`/`NeptuneSpendSlice`, `NeptuneCreditScoreGauge` | beyond the web set — Flutter-first |
 
 See `example/lib/main.dart` for a live components gallery (every widget, with brand / dark / RTL toggles) plus the onboarding hero.
 
 ## ≈ Use a themed Material widget (no wrapper needed)
-`npt-text-field`→`TextField`, `npt-checkbox/radio/switch/slider`→Material, `npt-dialog`→`showDialog`, `npt-bottom-sheet`→`showModalBottomSheet`, `npt-menu`→`MenuAnchor`, `npt-tabs`→`TabBar`, `npt-divider`→`Divider`, `npt-avatar`→`CircleAvatar`, `npt-nav-bar`→`NavigationBar`, `npt-progress`→`Progress*Indicator`, `npt-icon-button/fab`→`IconButton`/`FloatingActionButton`, `npt-card`→`Card`, `npt-snackbar`→`SnackBar`, `npt-tooltip`→`Tooltip`, `npt-segmented-button`→`SegmentedButton`.
+A few primitives are still best served straight from themed Material: `npt-divider`→`Divider`, `npt-nav-bar`→`NavigationBar` (or `NeptuneDock`), `npt-icon-button/fab`→`IconButton`/`FloatingActionButton`, `npt-card`→`Card`, `npt-snackbar`→`SnackBar` (or `showNeptuneToast`). Everything else now has a branded wrapper.
 
 ## ⬜ Remaining TODO (niche)
 Live hardware-backed flows only: `npt-merchant`/QR **live camera scanning** (the static `NeptuneQrPay` presentation widget ships; live capture is app-level via a camera plugin). Everything structural is now implemented.
