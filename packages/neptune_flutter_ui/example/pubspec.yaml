@@ -1,0 +1,20 @@
+name: neptune_flutter_ui_example
+description: "Example app for neptune_flutter_ui — a themed dashboard + onboarding built from the widget set."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  neptune_flutter_ui:
+    path: ../
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

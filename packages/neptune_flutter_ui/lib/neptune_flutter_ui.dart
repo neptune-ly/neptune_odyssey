@@ -20,6 +20,12 @@ export 'src/theme/brand_tables.dart'
 
 // Widgets.
 export 'src/widgets/neptune_balance_card.dart';
+export 'src/widgets/neptune_card_art.dart';
 export 'src/widgets/neptune_transaction_row.dart';
 export 'src/widgets/neptune_primary_button.dart';
 export 'src/widgets/neptune_account_tile.dart';
+export 'src/widgets/neptune_quick_actions.dart';
+export 'src/widgets/neptune_onboarding.dart';
+export 'src/widgets/neptune_buttons.dart';
+export 'src/widgets/neptune_stat_card.dart';
+export 'src/widgets/neptune_dock.dart';

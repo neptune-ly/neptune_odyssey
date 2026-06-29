@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.1.0
+
+Widget parity pass — the package now ships **16 branded widgets** (up from 4),
+matching the web components shown in the docs templates. New:
+
+- `NeptuneButton` (filled / tonal / outlined / text) + `NeptuneCta` (animated
+  pill CTA), `NeptuneStatCard`, `NeptuneCardArt` (gradient card + `selected`
+  ring), `NeptuneQuickActions` / `NeptuneQuickAction`, `NeptuneDock` /
+  `NeptuneDockItem` (floating nav, raised active indicator), `NeptuneAppBar`,
+  `NeptuneOnboarding`, `NeptuneSection`, `NeptuneChip`, `NeptuneStatusChip`.
+- A real **example app** (`example/`) — a themed dashboard + onboarding screen
+  built only from the widget set.
+- Honest **COVERAGE.md** mapping every web component → implemented / Material
+  fallback / TODO (nothing silently dropped).
+- All widgets theme-only (no literals), RTL-safe, ≥48dp targets;
+  `test/widgets_test.dart` builds them under light/dark/RTL × 4 brands.
+  `flutter analyze` clean.
+
 ## 2.0.0
 
 Aligns the Flutter package with the Neptune Odyssey 2.x line (vendor-neutral, white-label).
