@@ -244,6 +244,16 @@ body{font-family:var(--npt-font-text,'Hanken Grotesk'),system-ui,sans-serif;-web
 /* Odyssey: keyboard-only focus ring, token-driven — never on mouse/touch */
 [data-theme] :focus-visible{ outline:2px solid var(--md-sys-color-primary); outline-offset:2px; border-radius:6px; }
 @media (prefers-reduced-motion: reduce){ [data-theme] *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }
+
+/* ── Phone (≤560px) — robust (matches both source + normalized inline styles) ── */
+@media(max-width:560px){
+  html,body{overflow-x:hidden}
+  section,section>div{padding-left:16px!important;padding-right:16px!important}
+  header{flex-wrap:wrap!important;padding:10px 14px!important;gap:10px!important}
+  header [role=tablist]{flex-wrap:nowrap!important;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+  [style*="grid-template-columns"]{grid-template-columns:1fr!important}
+  [style*="6.6vw"]{font-size:clamp(30px,8vw,40px)!important}
+}
 </style>
 </helmet>
 <div data-theme="{{ theme }}" data-mode="{{ mode }}" dir="{{ dir }}" style="min-height:100vh;background:var(--md-sys-color-background);color:var(--md-sys-color-on-background);font-family:var(--npt-font-text),sans-serif;transition:background .5s ease">

@@ -98,5 +98,29 @@ code,pre{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
   .dnav__links.open{display:flex}
   .dnav__burger{display:inline-block}
 }
+/* ── Phone / small screens (≤600px) ──────────────────────────────────────── */
+@media(max-width:600px){
+  /* nav */
+  .dnav{gap:10px;padding:0 14px}
+  .dnav__burger{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px}
+  .dnav__gh{padding:9px 12px;font-size:12px}
+  .dnav__logo{font-size:19px}
+  /* content gets side padding + a tighter rhythm */
+  .dmain{padding:22px 16px 64px}
+  .dmain h2{margin:34px 0 10px}
+  /* code: wrap long lines so nothing scrolls off-screen; copy stays clear + tappable */
+  .code{padding:44px 14px 14px}
+  .code pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font-size:12px}
+  .code .copy{top:8px;inset-inline-end:8px;min-height:40px;display:inline-flex;align-items:center}
+  /* segmented controls: horizontally scrollable, ≥44px touch targets */
+  .seg,.swatch-seg{max-inline-size:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .seg button,.swatch-seg button{min-height:44px}
+  /* grids, demo stages, phone frames fit the viewport */
+  .dgrid{gap:12px}
+  .demo__stage{padding:14px;gap:18px}
+  .phone{inline-size:min(360px,100%)}
+  /* generic tables scroll instead of widening the page */
+  table{display:block;max-inline-size:100%;overflow-x:auto}
+}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto}}
 :focus-visible{outline:2px solid var(--brand-coral);outline-offset:3px;border-radius:8px}
