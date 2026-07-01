@@ -49,30 +49,39 @@ class NeptuneOnboarding extends StatelessWidget {
     final shape = Theme.of(context).extension<NptShape>()!;
     final text = Theme.of(context).textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // Media region: caller content, or a brand gradient fallback.
-        Expanded(
-          child: Container(
-            margin: const EdgeInsetsDirectional.all(12),
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: shape.rXl,
-              gradient: media == null
-                  ? LinearGradient(
-                      begin: AlignmentDirectional.topStart,
-                      end: AlignmentDirectional.bottomEnd,
-                      colors: [scheme.primary, scheme.primaryContainer],
-                    )
-                  : null,
-            ),
-            alignment: Alignment.center,
-            child: media,
-          ),
-        ),
-        // Content block.
-        Padding(
+    // Media region: caller content, or a brand gradient fallback.
+    final mediaRegion = Container(
+      margin: const EdgeInsetsDirectional.all(12),
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        borderRadius: shape.rXl,
+        gradient: media == null
+            ? LinearGradient(
+                begin: AlignmentDirectional.topStart,
+                end: AlignmentDirectional.bottomEnd,
+                colors: [scheme.primary, scheme.tertiary],
+              )
+            : null,
+      ),
+      alignment: Alignment.center,
+      child: media,
+    );
+
+    // Fill the screen when the parent bounds our height (a real onboarding
+    // screen); fall back to a fixed hero height when we're inside an unbounded
+    // scroll column (e.g. the builder canvas) so the gradient hero still shows.
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bounded = constraints.hasBoundedHeight;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: bounded ? MainAxisSize.max : MainAxisSize.min,
+          children: [
+            bounded
+                ? Expanded(child: mediaRegion)
+                : SizedBox(height: 300, child: mediaRegion),
+            // Content block.
+            Padding(
           padding: const EdgeInsetsDirectional.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +97,16 @@ class NeptuneOnboarding extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
               ],
-              headline,
+              // Hero headline in the display face; a lighter base weight lets a
+              // bold emphasis run (mixed-weight) read the way the web does.
+              DefaultTextStyle.merge(
+                style: text.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  height: 1.12,
+                  color: scheme.onSurface,
+                ),
+                child: headline,
+              ),
               if (supporting != null) ...[
                 const SizedBox(height: 12),
                 Text(
@@ -114,7 +132,9 @@ class NeptuneOnboarding extends StatelessWidget {
             ],
           ),
         ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
