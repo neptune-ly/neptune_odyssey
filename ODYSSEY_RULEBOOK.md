@@ -1,0 +1,184 @@
+# The Odyssey Rulebook — how to build Neptune Odyssey right
+
+**Audience: every agent, chat, and human who touches this system.** This is the
+distilled doctrine from building the web kit, the Flutter package
+(`neptune_flutter_ui` 2.2 → 2.6), the desktop app, and the first client
+prototypes — including every mistake we made so you don't repeat it.
+`AGENTS.md` gives the mental model; this file gives the law.
+
+---
+
+## 1 · What Neptune Odyssey IS
+
+A **vendor-neutral, white-label banking design system** by Neptune.Fintech
+(neptune.ly). One deterministic **brandprint** (`NO1-…` hash) produces the
+identical theme on every platform — web components, Flutter, React/Vue/Svelte
+adapters. Four reference brands (**neptune / triton / nereid / proteus**), and
+any client becomes a **config**, never a fork.
+
+A brand is not just colours. A brand in Odyssey =
+**M3 colour scheme** (from OKLCH seeds) **+ corner family + type set
+(incl. Arabic faces) + motion feel + the identity levers**:
+glass tint, signature motif, login shell, dashboard hero, content tone.
+
+## 2 · Sources of truth (read these BEFORE styling anything)
+
+| What | Where |
+|---|---|
+| Token layer (per-brand, light+dark, incl. `--npt-glass-*`, `--npt-motif`, `--npt-hero-emblem`, elevation, motion) | `packages/neptune_tokens/assets/themes.css` |
+| Component recipes (exact CSS: paddings, radii, shadows, animations) | `packages/neptune_web_ui/src/components/*.ts` |
+| Composed screens/templates + the animated flourishes | `site/templates.html` (9 templates incl. Welcome/Sign-in) |
+| The in-context phone app + **the bilingual EN/AR string table** | `site/system.html` (search `IN CONTEXT`, `const L = {`) |
+| Flutter theme engine | `packages/neptune_flutter_ui/lib/src/theme/` (`neptune_theme.dart`, `identity.dart`, `brand_tables.dart`, `extensions.dart`) |
+| Flutter widget catalogue + status | `packages/neptune_flutter_ui/COVERAGE.md` |
+
+**The cardinal rule: never style from imagination.** Every colour, radius,
+shadow, easing, duration, letter-spacing and animation timing already exists in
+the web source. Extract the exact recipe first, then port it.
+
+## 3 · The identity doctrine (the lesson of 2.5.0)
+
+Widgets that only read M3 colour roles come out as **generic Material** — this
+was the single biggest mistake of the early Flutter port. Odyssey's vibe lives
+in the layers ABOVE the colour scheme:
+
+1. **Brand gradients** — heroes/cards ride `linear-gradient(135°, primary, tertiary)`.
+2. **Glass** — per-brand tint (`color-mix` of primary — *tertiary for triton* —
+   into translucent surface at 7–12%) + per-brand blur 14–22px + hairline
+   `outlineVariant` seal. Dock pane = `surfaceContainer @ 86%` + blur.
+   Flutter: `NeptuneGlass`, `NptIdentity.glassTint()`.
+3. **Signature motifs** (`--npt-motif`) — neptune **sonar tide-rings**, triton
+   **coastal arcs**, nereid **grid-spark**, proteus **shield guilloché**.
+   Layered over heroes/card-art at strength ×1, cards ×0.65–0.8, page washes
+   ×0.055. Flutter: `NeptuneMotifLayer`.
+4. **Elevation tokens** — e1 `0 1px 3px @.20`, e2 `0 2px 6px @.18`,
+   e3 `0 8px 20px @.20`, e5 `0 28px 60px @.30`, plus the **primary key-light
+   glow** under heroes/CTAs. Flutter: `NptIdentity.elevation1..5/glowPrimary`.
+5. **Expressive type details** — the eyebrow (uppercase, display face,
+   tracking 0.08em → `NeptuneEyebrow`), card scheme labels, tabular money
+   figures (`NeptuneTheme.moneyStyle`), mixed-weight promises (w500 + w800
+   primary).
+6. **Motion recipes** (all reduced-motion safe):
+   - CTA sheen: 110° on-colour highlight (α .38), −130%→+130%,
+     **4.8s cycle, sweeping only during 62%→82%** (hold-sweep-hold).
+   - CTA arrow nudge: ±4dp, 2.4s sine, mirrors under RTL. Press scale 0.98.
+   - Welcome orbs: primary/tertiary/secondary blobs drifting on
+     **15/19/17s** loops over a radial wash (primary 26% → surface at 68%).
+   - Dock raised-active: circle pops **above** the bar on the brand spring.
+   - Outcome flow: `NeptuneStatusMotion` hourglass → stroke-drawn success
+     check / rejected cross (linked spin-out/spring-in).
+
+**A surface without gradients, glass, motif, glow or the type details is not
+done — it's a grey Material mockup.**
+
+## 4 · Flutter package law (`neptune_flutter_ui`)
+
+Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
+
+- **No literals**: no `Colors.*`, no `Color(0x…)`, no
+  `BorderRadius.circular(<number>)` — **not even inside comments** (the gate
+  greps raw text). Read `Theme.of(context)`: `colorScheme`,
+  `extension<NptShape>()` (`rXs..rXxl`, `full`), `<NptColors>` (success roles),
+  `<NptType>` (faces incl. `displayAr/textAr/numAr`), `<NptMotion>`
+  (curves/durations/blur), `<NptIdentity>` (glass/motif/elevation/glow).
+- Alpha via `.withValues(alpha:)` — never `withOpacity`.
+- `EdgeInsetsDirectional` / `PositionedDirectional` / `AlignmentDirectional`
+  everywhere. Icons that imply direction mirror under RTL.
+- Touch targets ≥ 48dp. `const` where valid. Every widget gets a `///` doc
+  naming its web counterpart.
+- Fonts load via `google_fonts` at runtime; tests must set
+  `NeptuneTheme.debugSkipFontLoading = true` (the loader throws async in
+  `flutter test`).
+- Money: `NeptuneTheme.moneyStyle(context, base:)` — brand num face + tabular
+  figures, direction-aware (Arabic numeral face under RTL).
+
+**Layout traps that actually bit us (regression-tested — don't reintroduce):**
+
+| Trap | Fix |
+|---|---|
+| `CrossAxisAlignment.stretch` on a `Row` in unbounded height | wrap in `IntrinsicHeight` |
+| `Expanded` inside a `mainAxisSize: min` `Column` | don't — use `Padding`/`Align` |
+| A bare `Row` gives children **unbounded width** → any flex descendant (e.g. `NeptuneSearchField`) fails layout and **silently blanks the whole subtree** | wrap slot children in `Flexible` (see `NeptuneToolbar`) |
+| `SizedBox` size is overridden by tight constraints (`Expanded` parent) → `CustomPaint` paints **outside its bounds** | wrap in `Center`/`Align` to loosen (see `NeptuneCreditScoreGauge`) |
+| `Positioned.fill` outside a `Stack` | only valid as a `Stack` child |
+| Trailing text in rows overflowing at ≤430dp width | `Flexible` + ellipsis; stack action rows on narrow widths |
+
+## 5 · Verification doctrine — no claim without pixels
+
+- **The SHOTS harness** is the law: the example app with
+  `--dart-define=SHOTS=true --dart-define=SHOTS_DIR=…` renders pixel-exact
+  PNGs from the engine (`RepaintBoundary.toImage`) and exits. Sweep
+  **every viewport of scroll × 4 brands × light/dark × RTL**, then LOOK at
+  them. Two real library bugs were only found this way.
+- The capture boundary must wrap the **navigator**
+  (`MaterialApp.builder`), not `home:` — otherwise pushed routes are invisible.
+- **Never use macOS `screencapture`** for verification — it spirals into
+  screen-recording permission dialogs. Render from inside the app.
+- A layout exception in release-ish runs = **silent blank region**, not a red
+  screen. Blank ≠ empty; blank = broken.
+- Run before every ship: `flutter analyze` (zero), `flutter test` (all green),
+  the no-literals grep, and a SHOTS pass reviewed by eye.
+
+## 6 · Web component law (`neptune_web_ui`)
+
+- Custom elements extend `NptElement` (Shadow DOM, one cached stylesheet).
+- **Custom-property driven only** — components read `--md-sys-color-*` /
+  `--npt-*`; zero literals; properties inherit through the shadow boundary.
+- Logical properties (`inline-size`, `padding-inline`, `inset-inline-start`)
+  so RTL mirrors for free; `:dir(rtl)` only for glyph flips.
+- Every animation ships a `prefers-reduced-motion: reduce` guard (shared
+  `A11Y` css). Focus-visible ring from the shared token.
+- Glass only on approved surfaces (nav/hero/auth/overlays) — never on
+  tables/forms (docs/06 §3).
+
+## 7 · Ship flow (Flutter package)
+
+1. `flutter analyze` clean → `flutter test` green → no-literals gate → SHOTS
+   sweep reviewed.
+2. Bump `pubspec.yaml`, write `CHANGELOG.md`, update `COVERAGE.md`
+   (honest status — nothing silently dropped).
+3. `flutter pub publish --force` (credentials stored).
+4. Commit as `Tellesy <mtellesy@gmail.com>`, trailer
+   `Co-Authored-By: Claude <the model in use>`, push `main`.
+
+**⚠️ pub.dev bundles `example/`.** Client material (logos, client demos) must
+NEVER sit inside the package directory when publishing — and never in this
+public repo at all. Client prototypes stay local or in a private location;
+only generic capabilities (like `NeptuneWelcome.lockup`) get upstreamed.
+
+## 8 · Client prototype playbook (white-label proof)
+
+1. Get the client's brand colours (their logo/guidelines carry the hex/CMYK).
+2. Convert to OKLCH seeds (`primary`, `tertiary`) → `BrandprintConfig` with
+   fitting levers (corner family, fonts, glass tint, motif, motion, tone).
+3. `NeptuneTheme.fromConfig(cfg, arabic: …)` — the engine generates the whole
+   palette; the identity layer resolves through the `glassTint` lever, so
+   custom brands get glass/motif/elevation automatically.
+4. Reuse the templates: `NeptuneWelcome` (with `lockup:` for the real logo),
+   the in-context 5-tab shell (Home/Transfer/Cards/Insights/Profile), the
+   bilingual string table from `site/system.html`.
+5. Transfer flows use `NeptuneStatusMotion` (hourglass → success/rejected).
+6. Verify with a SHOTS pass; present live (`--dart-define=<CLIENT>=true`).
+
+## 9 · History — the mistakes, so you don't repeat them
+
+- **2.2–2.4: "correctly themed Material" ≠ Odyssey.** ~88 widgets read the M3
+  scheme faithfully and still looked generic. The identity layer (gradients,
+  glass, motifs, glow, motion) is what makes it Odyssey → shipped in 2.5.0.
+  Never declare fidelity from code review alone; render and look.
+- `NeptuneToolbar` handed its center slot unbounded width → a SearchField
+  blanked an entire section (found only by the full-depth SHOTS sweep, 2.5.2).
+- `NeptuneCreditScoreGauge` painted a giant arc outside its bounds inside
+  `Expanded` (2.5.2).
+- `NeptuneTabs` used `Expanded` in a min-height `Column` → unbounded-height
+  crash (2.4.0).
+- Narrow-width overflows in `NeptuneAccountTile` / `NeptuneLimitMeter` /
+  `NeptuneApprovalItem` (2.4.0) — always test at ≤430dp.
+- `google_fonts` throws async in widget tests → `debugSkipFontLoading`.
+- A comment containing `Colors.` failed the CI gate — the grep reads raw text.
+- macOS `screencapture` triggered endless permission dialogs mid-verification —
+  the in-app SHOTS harness replaced it permanently.
+
+---
+© 2026 Neptune.Fintech (neptune.ly). Keep this file honest: when you learn a
+new rule the hard way, add it here in the same commit as the fix.

@@ -2,6 +2,12 @@
 
 You are turning **Neptune Odyssey** (the Neptune.Fintech white-label banking design system) into a real product (Flutter app, web app, or another surface). Read this before writing code.
 
+> **⚠️ Also read [`ODYSSEY_RULEBOOK.md`](./ODYSSEY_RULEBOOK.md)** — the
+> distilled doctrine and every mistake already made (the identity layer,
+> Flutter layout traps, pixel verification via the SHOTS harness, ship flow,
+> client-material rules). This file is the mental model; the rulebook is the
+> law. Agents: the `odyssey-ui` project skill enforces the same checklist.
+
 ## Mental model
 
 ```
