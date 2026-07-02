@@ -11,12 +11,26 @@ platforms.
 > and for organizations under USD $25,000/year; a commercial license is required
 > above that threshold.
 
+## Screens — real engine renders
+
+Every image below is the actual package rendering in the Flutter engine
+(captured via `RepaintBoundary.toImage`, not mockups). Try it live in your
+browser: **<https://neptune-ly.github.io/neptune_odyssey/flutter/>**.
+
+| Welcome / Sign-in | Dashboard hero + glass dock | Card art (Triton motif) |
+|---|---|---|
+| ![Welcome template](screenshots/welcome.png) | ![Hero + dock](screenshots/hero_dock.png) | ![Card motif](screenshots/card_motif.png) |
+
+| Proteus dark | Brand switch (Nereid) | Arabic / RTL |
+|---|---|---|
+| ![Dark](screenshots/dark_proteus.png) | ![Brand switch](screenshots/brand_switch.png) | ![RTL](screenshots/rtl_arabic.png) |
+
 ## Install
 
 ```yaml
 # pubspec.yaml
 dependencies:
-  neptune_flutter_ui: ^1.0.0
+  neptune_flutter_ui: ^2.7.0
 ```
 
 Or from git:

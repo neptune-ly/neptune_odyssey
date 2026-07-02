@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neptune Odyssey · Flutter — real engine screens</title>
+<style>
+  :root{color-scheme:light dark}
+  body{margin:0;font-family:'Hanken Grotesk',system-ui,sans-serif;background:#0b1020;color:#eef2fa}
+  header{padding:40px 24px 8px;max-width:1100px;margin:0 auto}
+  h1{font-size:clamp(26px,4vw,40px);letter-spacing:-.02em;margin:0 0 8px}
+  h1 b{color:#7fb2ff}
+  p.lead{color:#b9c3d9;max-width:70ch;line-height:1.55;margin:0 0 10px}
+  .links a{color:#8dc0ff;font-weight:700;text-decoration:none;margin-inline-end:18px}
+  .links a:hover{text-decoration:underline}
+  .grid{max-width:1100px;margin:26px auto 60px;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  figure{margin:0;background:#121a30;border:1px solid #26314f;border-radius:18px;overflow:hidden}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{padding:12px 16px;font-size:14px;color:#c8d2e8}
+  figcaption b{color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <h1>Flutter package — <b>real engine renders</b></h1>
+  <p class="lead">Every frame below is <code>neptune_flutter_ui</code> rendering in the actual
+  Flutter engine (captured from the render tree — no mockups). The same brandprint that drives
+  the web components drives these screens, byte-identically.</p>
+  <p class="links">
+    <a href="flutter/">▶ Run it live in your browser</a>
+    <a href="https://pub.dev/packages/neptune_flutter_ui">pub.dev package</a>
+    <a href="https://github.com/neptune-ly/neptune_odyssey/tree/main/packages/neptune_flutter_ui">source on GitHub</a>
+    <a href="index.html">← Odyssey home</a>
+  </p>
+</header>
+<div class="grid">
+  <figure><img src="assets/screens/welcome.png" alt="Welcome / sign-in template" loading="lazy">
+    <figcaption><b>Welcome / Sign-in</b> — ambient drifting orbs, brand lockup, mixed-weight promise, animated CTA (sheen + nudging arrow)</figcaption></figure>
+  <figure><img src="assets/screens/hero_dock.png" alt="Dashboard hero and glass dock" loading="lazy">
+    <figcaption><b>Dashboard</b> — hero balance on the brand gradient with the sonar motif; content blurs under the floating glass dock</figcaption></figure>
+  <figure><img src="assets/screens/card_motif.png" alt="Card art with Triton coastal-arc motif" loading="lazy">
+    <figcaption><b>Cards</b> — Triton's coastal-arc motif over the card gradient, freeze/limits/details/PIN controls</figcaption></figure>
+  <figure><img src="assets/screens/dark_proteus.png" alt="Proteus dark mode" loading="lazy">
+    <figcaption><b>Proteus · dark</b> — Sora display face, steel→gold hero, glass dock over navy</figcaption></figure>
+  <figure><img src="assets/screens/brand_switch.png" alt="Nereid brand" loading="lazy">
+    <figcaption><b>One prop re-skins everything</b> — Nereid's grid-spark motif and violet gradient</figcaption></figure>
+  <figure><img src="assets/screens/rtl_arabic.png" alt="Arabic RTL" loading="lazy">
+    <figcaption><b>Arabic / RTL</b> — brand Arabic faces; layout, gradient and dock mirror automatically</figcaption></figure>
+</div>
+</body>
+</html>
