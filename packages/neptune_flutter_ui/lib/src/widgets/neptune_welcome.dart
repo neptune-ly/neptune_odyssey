@@ -219,6 +219,10 @@ class NeptuneWelcome extends StatelessWidget {
   final String brandInitial;
   final String brandName;
 
+  /// Replaces the default [NeptuneBrandLockup] with a custom mark — e.g. a
+  /// real client logo. When set, [brandInitial]/[brandName] are ignored.
+  final Widget? lockup;
+
   /// The regular-weight leading line of the promise.
   final String title;
 
@@ -238,6 +242,7 @@ class NeptuneWelcome extends StatelessWidget {
     super.key,
     required this.brandInitial,
     required this.brandName,
+    this.lockup,
     required this.title,
     required this.emphasis,
     this.supporting,
@@ -270,7 +275,8 @@ class NeptuneWelcome extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                NeptuneBrandLockup(initial: brandInitial, name: brandName),
+                lockup ??
+                    NeptuneBrandLockup(initial: brandInitial, name: brandName),
                 const Spacer(),
                 RichText(
                   text: TextSpan(
