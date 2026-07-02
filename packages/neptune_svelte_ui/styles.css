@@ -1,0 +1,3 @@
+/* © 2026 Neptune.Fintech · Neptune Odyssey — re-export of the web-ui stylesheet.
+   Bundlers (Vite/webpack/PostCSS) resolve the bare specifier below. */
+@import "@neptune.fintech/web-ui/styles.css";

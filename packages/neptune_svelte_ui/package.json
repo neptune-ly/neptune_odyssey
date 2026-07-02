@@ -1,7 +1,7 @@
 {
   "name": "@neptune.fintech/svelte-ui",
-  "version": "2.0.0",
-  "description": "Neptune Odyssey Svelte layer — a use:theme action, a NeptuneProvider, and theming re-exports over the framework-agnostic web kit.",
+  "version": "2.0.1",
+  "description": "Neptune Odyssey Svelte layer \u2014 a use:theme action, a NeptuneProvider, and theming re-exports over the framework-agnostic web kit.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",
   "homepage": "https://neptune.ly",
@@ -23,10 +23,16 @@
       "import": "./dist/index.js"
     },
     "./NeptuneProvider.svelte": "./src/components/NeptuneProvider.svelte",
-    "./styles.css": "@neptune.fintech/web-ui/styles.css",
+    "./styles.css": "./styles.css",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "src/components", "LICENSE", "README.md"],
+  "files": [
+    "dist",
+    "src/components",
+    "LICENSE",
+    "README.md",
+    "styles.css"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",

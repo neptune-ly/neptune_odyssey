@@ -1,5 +1,5 @@
 name: neptune_flutter_ui
-version: 2.6.0
+version: 2.6.1
 description: >-
   Neptune Odyssey Flutter UI — the vendor-neutral, white-label banking design
   system by Neptune.Fintech. Deterministic brandprints, Material 3 themes,
@@ -20,6 +20,20 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+
+screenshots:
+  - description: "Welcome / Sign-in template — ambient drifting orbs, brand lockup, mixed-weight promise, animated CTA with specular sheen"
+    path: screenshots/welcome.png
+  - description: "Dashboard hero on the brand gradient with the sonar motif, eyebrow stat cards, and the floating glass dock"
+    path: screenshots/hero_dock.png
+  - description: "Card art carrying the Triton coastal-arc motif, card controls and dashed add-card"
+    path: screenshots/card_motif.png
+  - description: "Proteus dark — Sora display face, steel-to-gold hero, glass dock over navy"
+    path: screenshots/dark_proteus.png
+  - description: "One prop change re-skins everything — Nereid grid-spark motif and violet gradient"
+    path: screenshots/brand_switch.png
+  - description: "Full RTL with the brand Arabic faces — layout, gradient and dock mirror automatically"
+    path: screenshots/rtl_arabic.png
 
 flutter:
   uses-material-design: true

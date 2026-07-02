@@ -38,13 +38,22 @@ jobs:
         run: node site/bundle/build.mjs
       - name: Build the configurator
         run: pnpm --filter "@neptune.fintech/configurator" run build
-      - name: Assemble _site (static reference site + configurator)
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.4
+          channel: stable
+      - name: Build the LIVE Flutter gallery (parity proof at /flutter/)
+        working-directory: packages/neptune_flutter_ui/example
+        run: flutter build web --release --base-href /neptune_odyssey/flutter/
+      - name: Assemble _site (static site + configurator + live Flutter)
         run: |
           rm -rf _site
           mkdir -p _site
           cp -r site/* _site/
           mkdir -p _site/configurator
           cp -r apps/configurator/dist/* _site/configurator/
+          mkdir -p _site/flutter
+          cp -r packages/neptune_flutter_ui/example/build/web/* _site/flutter/
           # Pages must not run Jekyll over our assets
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3

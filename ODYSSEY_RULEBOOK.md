@@ -163,6 +163,12 @@ NEVER sit inside the package directory when publishing — and never in this
 public repo at all. Client prototypes stay local or in a private location;
 only generic capabilities (like `NeptuneWelcome.lockup`) get upstreamed.
 
+### Platform positioning (decided 2026-07)
+**Flutter is the flagship mobile/desktop implementation.** React Native
+(`@neptune.fintech/react-native-ui`) is in **maintenance mode** — theme parity
++ its existing core set, no new widget back-ports (its README says so). Web
+components remain the canonical recipe source for both.
+
 ## 8 · Client prototype playbook (white-label proof)
 
 1. Get the client's brand colours (their logo/guidelines carry the hex/CMYK).

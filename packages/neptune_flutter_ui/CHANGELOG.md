@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.6.1
+
+- Colour canon: brand tables are now GENERATED from themes.css via the repo's
+  token codegen (single OKLCH implementation shared with the web). 21 of 296
+  role values shift by ±1 LSB — imperceptible — making pinned brands and
+  custom-seed generation exactly consistent.
+- Fix: `NeptuneSegmented` no longer fails layout (silently blanking the
+  subtree) in unbounded-width slots such as `NeptuneListTile.trailing` — it
+  shrink-wraps when unbounded, keeps equal-width segments when bounded.
+- `NeptuneWelcome` gains `lockup:` for real client logos.
+- pub.dev screenshots added.
+
+
 ## 2.6.0
 
 **Templates & motion — the living Odyssey vibes.** The Welcome / Sign-in

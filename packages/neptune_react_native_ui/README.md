@@ -1,5 +1,16 @@
 # @neptune.fintech/react-native-ui
 
+> **⚠️ Status: maintenance mode (frozen at the theme + core-component tier).**
+> The flagship mobile implementation of Neptune Odyssey is
+> [`neptune_flutter_ui`](https://pub.dev/packages/neptune_flutter_ui) (~90
+> widgets, the full identity layer — glass, motifs, motion — templates and
+> Arabic/RTL). This package remains supported for theme parity (brandprint →
+> React Native theme) and its existing component set, but new Odyssey widgets
+> land in Flutter first and are not back-ported here. If your team is
+> RN-committed and needs a specific component, open an issue.
+
+
+
 React Native layer for [Neptune Odyssey](https://neptune.ly) by **Neptune.Fintech** — a
 `<NeptuneProvider>`, a `useNeptuneTheme` hook, and a small set of themed components built
 from React Native primitives (`View` / `Text` / `Pressable` / `StyleSheet`).
