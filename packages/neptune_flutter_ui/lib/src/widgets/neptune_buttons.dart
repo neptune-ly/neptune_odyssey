@@ -1,5 +1,7 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
@@ -70,14 +72,21 @@ class NeptuneButton extends StatelessWidget {
   }
 }
 
-/// A large, premium primary call-to-action (web `<npt-cta>`): a pill in the
-/// display font with an optional trailing arrow that mirrors under RTL.
-class NeptuneCta extends StatelessWidget {
+/// The premium animated call-to-action (web `<npt-cta>`): a display-font pill
+/// riding the primary key-light, with a slow SPECULAR SHEEN sweeping across
+/// (4.8s cycle, on-colour tinted), a gently NUDGING arrow (±4dp, 2.4s) and a
+/// 0.98 press-scale on the brand's emphasized curve. [tonal] renders the
+/// secondary tone (no glow). All motion pauses under reduced-motion. RTL-safe
+/// (the arrow mirrors and the sheen sweeps the reading direction).
+class NeptuneCta extends StatefulWidget {
   final String label;
   final VoidCallback? onPressed;
   final IconData? icon;
   final bool arrow;
   final bool expand;
+
+  /// Secondary tone: secondary-container fill, no glow (web `variant="tonal"`).
+  final bool tonal;
 
   const NeptuneCta({
     super.key,
@@ -86,57 +95,187 @@ class NeptuneCta extends StatelessWidget {
     this.icon,
     this.arrow = false,
     this.expand = true,
+    this.tonal = false,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final shape = Theme.of(context).extension<NptShape>()!;
-    final type = Theme.of(context).extension<NptType>()!;
-    final text = Theme.of(context).textTheme;
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
+  State<NeptuneCta> createState() => _NeptuneCtaState();
+}
 
-    final style = FilledButton.styleFrom(
-      minimumSize: const Size(0, 54),
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 24),
-      shape: RoundedRectangleBorder(borderRadius: shape.rXxl),
-      textStyle: (text.titleMedium ?? const TextStyle()).copyWith(
-        fontFamily: type.display,
-        fontWeight: type.displayFontWeight,
-      ),
+class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
+  late final AnimationController _sheen;
+  late final AnimationController _nudge;
+  bool _pressed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _sheen = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 4800));
+    _nudge = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2400));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final reduced = MediaQuery.of(context).disableAnimations;
+    if (reduced) {
+      _sheen.stop();
+      _nudge.stop();
+    } else {
+      if (!_sheen.isAnimating) _sheen.repeat();
+      if (!_nudge.isAnimating) _nudge.repeat();
+    }
+  }
+
+  @override
+  void dispose() {
+    _sheen.dispose();
+    _nudge.dispose();
+    super.dispose();
+  }
+
+  /// Web keyframes: hold at -130% until 62%, sweep to +130% by 82%, hold.
+  double _sheenX(double t) {
+    if (t < 0.62) return -1.3;
+    if (t > 0.82) return 1.3;
+    return -1.3 + 2.6 * Curves.easeInOut.transform((t - 0.62) / 0.20);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final shape = theme.extension<NptShape>()!;
+    final type = theme.extension<NptType>()!;
+    final motion = theme.extension<NptMotion>()!;
+    final identity = theme.extension<NptIdentity>()!;
+    final text = theme.textTheme;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final reduced = MediaQuery.of(context).disableAnimations;
+
+    final bg = widget.tonal ? scheme.secondaryContainer : scheme.primary;
+    final fg =
+        widget.tonal ? scheme.onSecondaryContainer : scheme.onPrimary;
+    final radius = shape.rXxl;
+    final enabled = widget.onPressed != null;
+
+    final labelStyle = (text.titleMedium ?? const TextStyle()).copyWith(
+      fontFamily: type.display,
+      fontWeight: FontWeight.w700,
+      letterSpacing: type.displayTracking * 16,
+      color: fg,
     );
 
-    final children = <Widget>[
-      if (icon != null) ...[Icon(icon, size: 20), const SizedBox(width: 8)],
-      Flexible(child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis)),
-      if (arrow) ...[
-        const SizedBox(width: 8),
-        Icon(isRtl ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded, size: 20),
-      ],
-    ];
-
-    // The hero CTA rides elevation-3 with a soft primary key-light (web
-    // `--npt-elevation-3` + brand glow) — lifted, not flat.
-    final scheme = Theme.of(context).colorScheme;
-    final identity = Theme.of(context).extension<NptIdentity>()!;
-    final btn = DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: shape.rXxl,
-        boxShadow: [
-          ...identity.elevation3(scheme),
-          BoxShadow(
-            color: scheme.primary.withValues(alpha: 0.24),
-            blurRadius: 22,
-            spreadRadius: -8,
-            offset: const Offset(0, 10),
+    final row = Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (widget.icon != null) ...[
+          Icon(widget.icon, size: 20, color: fg),
+          const SizedBox(width: 8),
+        ],
+        Flexible(
+          child: Text(widget.label,
+              maxLines: 1, overflow: TextOverflow.ellipsis, style: labelStyle),
+        ),
+        if (widget.arrow) ...[
+          const SizedBox(width: 8),
+          AnimatedBuilder(
+            animation: _nudge,
+            builder: (context, child) {
+              // 0 → 4dp → 0 along the reading direction (web `nudge`).
+              final dx = reduced
+                  ? 0.0
+                  : 4 * math.sin(math.pi * _nudge.value) * (isRtl ? -1 : 1);
+              return Transform.translate(offset: Offset(dx, 0), child: child);
+            },
+            child: Icon(
+                isRtl ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
+                size: 20,
+                color: fg),
           ),
         ],
-      ),
-      child: FilledButton(
-        onPressed: onPressed,
-        style: style,
-        child: Row(mainAxisSize: MainAxisSize.min, children: children),
+      ],
+    );
+
+    final btn = AnimatedScale(
+      // Web `.cta:active { transform: scale(.98) }` on the emphasized curve.
+      scale: _pressed ? 0.98 : 1,
+      duration: const Duration(milliseconds: 220),
+      curve: motion.emphasized,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          // The primary key-light glow (web `--npt-glow-primary`).
+          boxShadow: widget.tonal || !enabled
+              ? null
+              : [
+                  ...identity.elevation3(scheme),
+                  BoxShadow(
+                    color: scheme.primary.withValues(alpha: 0.24),
+                    blurRadius: 22,
+                    spreadRadius: -8,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+        ),
+        child: Material(
+          color: enabled ? bg : bg.withValues(alpha: 0.5),
+          borderRadius: radius,
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: widget.onPressed,
+            onHighlightChanged: (v) => setState(() => _pressed = v),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 54),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Specular sheen — an on-colour tinted highlight sweeping
+                  // across on the 4.8s cycle (web `.sheen`).
+                  if (!reduced)
+                    Positioned.fill(
+                      child: IgnorePointer(
+                        child: AnimatedBuilder(
+                          animation: _sheen,
+                          builder: (context, _) => FractionalTranslation(
+                            translation: Offset(
+                                _sheenX(_sheen.value) * (isRtl ? -1 : 1), 0),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: AlignmentDirectional.centerStart,
+                                  end: AlignmentDirectional.centerEnd,
+                                  transform:
+                                      const GradientRotation(0.349), // ~110°−90°
+                                  colors: [
+                                    fg.withValues(alpha: 0),
+                                    fg.withValues(alpha: 0.38),
+                                    fg.withValues(alpha: 0),
+                                  ],
+                                  stops: const [0.32, 0.5, 0.68],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.symmetric(
+                        horizontal: 24, vertical: 8),
+                    child: row,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
-    return expand ? SizedBox(width: double.infinity, child: btn) : btn;
+
+    return widget.expand ? SizedBox(width: double.infinity, child: btn) : btn;
   }
 }

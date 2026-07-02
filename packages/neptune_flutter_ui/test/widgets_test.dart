@@ -433,6 +433,56 @@ void main() {
     expect(find.byType(NeptuneCreditScoreGauge), findsWidgets);
   });
 
+  testWidgets('status motion transitions loading → success → rejected',
+      (tester) async {
+    var status = NeptuneFlowStatus.loading;
+    late StateSetter set;
+    await tester.pumpWidget(_host(
+      StatefulBuilder(builder: (context, s) {
+        set = s;
+        return Center(child: NeptuneStatusMotion(status: status));
+      }),
+      scroll: false,
+    ));
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.byType(NeptuneStatusMotion), findsOneWidget);
+
+    set(() => status = NeptuneFlowStatus.success);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    set(() => status = NeptuneFlowStatus.rejected);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('animated CTA + welcome template build (incl. RTL)',
+      (tester) async {
+    for (final dir in TextDirection.values) {
+      await tester.pumpWidget(_host(
+        NeptuneWelcome(
+          brandInitial: 'N',
+          brandName: 'Neptune',
+          title: 'Banking that',
+          emphasis: 'moves with you.',
+          supporting: 'One account, every currency.',
+          primaryAction: NeptuneCta(label: 'Get started', arrow: true, onPressed: () {}),
+          secondaryAction: NeptuneCta(label: 'Log in', tonal: true, onPressed: () {}),
+        ),
+        dir: dir,
+        scroll: false,
+      ));
+      // Let the ambient/backdrop + sheen animations tick a few frames.
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.byType(NeptuneAmbientBackdrop), findsOneWidget);
+      expect(find.byType(NeptuneBrandLockup), findsOneWidget);
+      expect(find.text('Get started'), findsOneWidget);
+      expect(tester.takeException(), isNull, reason: '$dir');
+      // Tear down between directions so animation controllers dispose cleanly.
+      await tester.pumpWidget(const SizedBox());
+    }
+  });
+
   testWidgets('overlays open: dialog, sheet, menu', (tester) async {
     await tester.pumpWidget(_host(
       Builder(

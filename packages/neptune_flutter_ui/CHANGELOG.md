@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.6.0
+
+**Templates & motion — the living Odyssey vibes.** The Welcome / Sign-in
+template and the animated flourishes from templates.html, ported for real
+(engine-rendered screenshots verified per brand), plus a new Odyssey-original
+outcome motion:
+
+- `NeptuneStatusMotion` — an animated HOURGLASS (draining sand + flip loop)
+  that hands off smoothly to an animated SUCCESS check (stroke-drawn, colour-
+  able, defaults to the brand success role) or an animated REJECTED cross
+  (stroke-drawn with a decaying shake). The three states are linked through a
+  spin-out/spring-in transition on the brand motion curves.
+- `NeptuneCta` is now the real premium CTA: a slow SPECULAR SHEEN sweeps the
+  pill on the web's 4.8s cycle, the arrow NUDGES (±4dp / 2.4s, mirrors under
+  RTL), press scales to 0.98 on the emphasized curve, and the primary
+  key-light glow rides underneath. New `tonal:` secondary tone. All motion
+  pauses under reduced-motion.
+- `NeptuneWelcome` + `NeptuneAmbientBackdrop` + `NeptuneBrandLockup` — the
+  full Welcome / Sign-in template: radial brand wash, three soft orbs drifting
+  on 15/19/17s loops (static under reduced-motion), the brand lockup with its
+  accent dot, and the bold mixed-weight promise (display-w500 + w800 primary).
+- Example: "Motion & templates" gallery section + a push-able Welcome route;
+  the SHOTS harness now captures pushed routes (boundary moved to
+  MaterialApp.builder) and renders the Welcome per brand.
+
+
 ## 2.5.2
 
 Two real layout bugs caught by the full-depth visual sweep (every gallery

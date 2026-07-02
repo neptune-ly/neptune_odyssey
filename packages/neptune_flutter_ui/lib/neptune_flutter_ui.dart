@@ -44,6 +44,10 @@ export 'src/widgets/neptune_card_controls.dart';
 export 'src/widgets/neptune_toast.dart';
 // 2.5.0 — the identity layer: brand motifs, real glass, branded card surface.
 export 'src/widgets/neptune_identity_surfaces.dart';
+// 2.6.0 — templates & motion: welcome screen, ambient backdrop, brand lockup,
+// and the hourglass → check / rejected outcome motion.
+export 'src/widgets/neptune_welcome.dart';
+export 'src/widgets/neptune_status_motion.dart';
 // 2.4.0 — the "fully fledged" widget set (form fields, selection controls,
 // overlays, navigation, display primitives, premium fintech).
 export 'src/widgets/neptune_form_fields.dart';

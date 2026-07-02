@@ -36,6 +36,7 @@ class _ExampleAppState extends State<ExampleApp> {
   bool _rtl = false;
 
   final GlobalKey _shotKey = GlobalKey();
+  final GlobalKey<NavigatorState> _nav = GlobalKey<NavigatorState>();
   final ScrollController _scroll = ScrollController();
 
   String get _brand => _brands[_brandIndex];
@@ -73,6 +74,22 @@ class _ExampleAppState extends State<ExampleApp> {
         }
       }
     }
+    // Welcome / Sign-in template, per brand (light).
+    for (var b = 0; b < _brands.length; b++) {
+      setState(() {
+        _brandIndex = b;
+        _mode = ThemeMode.light;
+        _rtl = false;
+      });
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      _nav.currentState!.push(MaterialPageRoute<void>(
+          builder: (_) => WelcomeRoute(brand: _brands[b])));
+      await Future<void>.delayed(const Duration(milliseconds: 900));
+      await _capture('$kShotsDir/welcome_${_brands[b]}.png');
+      _nav.currentState!.pop();
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+    }
+
     // Arabic/RTL proof (Triton — Reem Kufi / Tajawal).
     setState(() {
       _brandIndex = 1;
@@ -105,20 +122,56 @@ class _ExampleAppState extends State<ExampleApp> {
       theme: NeptuneTheme.light(_brand, arabic: _rtl),
       darkTheme: NeptuneTheme.dark(_brand, arabic: _rtl),
       themeMode: _mode,
-      home: RepaintBoundary(
+      navigatorKey: _nav,
+      // The capture boundary + direction wrap the NAVIGATOR so pushed routes
+      // (e.g. the Welcome template) are captured and mirror under RTL too.
+      builder: (context, child) => RepaintBoundary(
         key: _shotKey,
         child: Directionality(
-        textDirection: _rtl ? TextDirection.rtl : TextDirection.ltr,
-        child: GalleryScreen(
-          brand: _brand,
-          rtl: _rtl,
-          controller: _scroll,
-          onCycleBrand: () =>
-              setState(() => _brandIndex = (_brandIndex + 1) % _brands.length),
-          onToggleMode: () => setState(() =>
-              _mode = _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light),
-          onToggleRtl: () => setState(() => _rtl = !_rtl),
+          textDirection: _rtl ? TextDirection.rtl : TextDirection.ltr,
+          child: child ?? const SizedBox.shrink(),
         ),
+      ),
+      home: GalleryScreen(
+        brand: _brand,
+        rtl: _rtl,
+        controller: _scroll,
+        onCycleBrand: () =>
+            setState(() => _brandIndex = (_brandIndex + 1) % _brands.length),
+        onToggleMode: () => setState(() =>
+            _mode = _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light),
+        onToggleRtl: () => setState(() => _rtl = !_rtl),
+      ),
+    );
+  }
+}
+
+/// The Welcome / Sign-in template route, brand-aware.
+class WelcomeRoute extends StatelessWidget {
+  final String brand;
+
+  const WelcomeRoute({super.key, required this.brand});
+
+  @override
+  Widget build(BuildContext context) {
+    final name = brand[0].toUpperCase() + brand.substring(1);
+    return Scaffold(
+      body: NeptuneWelcome(
+        brandInitial: name[0],
+        brandName: name,
+        title: 'Banking that',
+        emphasis: 'moves with you.',
+        supporting:
+            'One account, every currency — send, spend and save across borders, beautifully.',
+        primaryAction: NeptuneCta(
+          label: 'Get started',
+          arrow: true,
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        secondaryAction: NeptuneCta(
+          label: 'I already have an account',
+          tonal: true,
+          onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),
     );
@@ -702,6 +755,47 @@ class _GalleryScreenState extends State<GalleryScreen> {
                           NeptuneSpendSlice(label: 'Transport', amount: 96, icon: Icons.directions_car),
                           NeptuneSpendSlice(label: 'Fun', amount: 64, icon: Icons.celebration),
                         ]),
+                      ],
+                    ),
+                  ),
+
+                  // ---- Motion & templates (2.6.0) --------------------------
+                  _Section(
+                    title: 'Motion & templates',
+                    description: 'Hourglass → outcome motion · animated CTA · Welcome',
+                    child: Column(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            NeptuneStatusMotion(status: NeptuneFlowStatus.loading, size: 84),
+                            NeptuneStatusMotion(status: NeptuneFlowStatus.success, size: 84),
+                            NeptuneStatusMotion(status: NeptuneFlowStatus.rejected, size: 84),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        NeptuneCta(
+                          label: 'Get started',
+                          arrow: true,
+                          onPressed: () {},
+                        ),
+                        const SizedBox(height: 10),
+                        NeptuneCta(
+                          label: 'I already have an account',
+                          tonal: true,
+                          onPressed: () {},
+                        ),
+                        const SizedBox(height: 12),
+                        NeptuneButton(
+                          label: 'Open Welcome / Sign-in template',
+                          variant: NeptuneButtonStyle.outlined,
+                          icon: Icons.smartphone,
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => WelcomeRoute(brand: widget.brand),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
