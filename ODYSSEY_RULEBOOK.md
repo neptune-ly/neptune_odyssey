@@ -171,17 +171,40 @@ components remain the canonical recipe source for both.
 
 ## 8 · Client prototype playbook (white-label proof)
 
+**The one-command path (R5, proven end-to-end):**
+
+```sh
+node tools/client-demo/generate.mjs --logo <file> --name "Bank Name" \
+  --name-ar "الاسم بالعربية" --tone formal --run
+```
+
+This shells `extract_colors.py` (PIL — dominant colour extraction, PDF via
+`sips`) → converts to OKLCH seeds → picks a `--tone` lever preset → writes
+gitignored `client_config.dart`/`client_main.dart` calling
+[`NeptuneDemoShellApp`](../packages/neptune_flutter_ui/lib/src/templates/neptune_demo_shell.dart)
+(Welcome → 5-tab glass-dock shell, entirely composed from existing templates)
+→ builds and launches on macOS. See `tools/client-demo/README.md`.
+
+**The manual path** (when you need finer control than the CLI's `--tone`
+presets, or you're building the shell composition itself):
+
 1. Get the client's brand colours (their logo/guidelines carry the hex/CMYK).
 2. Convert to OKLCH seeds (`primary`, `tertiary`) → `BrandprintConfig` with
    fitting levers (corner family, fonts, glass tint, motif, motion, tone).
 3. `NeptuneTheme.fromConfig(cfg, arabic: …)` — the engine generates the whole
    palette; the identity layer resolves through the `glassTint` lever, so
    custom brands get glass/motif/elevation automatically.
-4. Reuse the templates: `NeptuneWelcome` (with `lockup:` for the real logo),
-   the in-context 5-tab shell (Home/Transfer/Cards/Insights/Profile), the
-   bilingual string table from `site/system.html`.
-5. Transfer flows use `NeptuneStatusMotion` (hourglass → success/rejected).
-6. Verify with a SHOTS pass; present live (`--dart-define=<CLIENT>=true`).
+4. Reuse `NeptuneDemoShellApp` (or hand-compose the templates it wraps:
+   `NeptuneWelcome` with `lockup:` for the real logo, `NeptuneDashboardTemplate`,
+   `NeptuneTransferTemplate`, `NeptuneCardsTemplate`) plus
+   `NeptuneOnboardingStatusTemplate`/`NeptuneStatusMotion` for account-opening
+   and transfer outcomes.
+5. Verify with a SHOTS pass; present live
+   (`flutter build macos --target=lib/client_main.dart`).
+
+**Always**: client logos/demos are `**/lib/client_*` / `**/assets/client_*` —
+gitignored, never committed, never bundled by `pub publish` (pub bundles
+`example/`).
 
 ## 9 · History — the mistakes, so you don't repeat them
 

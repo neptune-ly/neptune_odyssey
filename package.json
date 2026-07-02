@@ -24,7 +24,8 @@
     "site:bundle": "node site/bundle/build.mjs",
     "codegen": "node tools/codegen.mjs",
     "codegen:check": "node tools/codegen.mjs --check",
-    "contrast": "node tools/contrast-check.mjs"
+    "contrast": "node tools/contrast-check.mjs",
+    "client-demo": "node tools/client-demo/generate.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.21.5",
