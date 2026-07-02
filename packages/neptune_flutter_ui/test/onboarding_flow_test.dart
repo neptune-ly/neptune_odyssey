@@ -53,14 +53,14 @@ void main() {
             onTap: () {}),
       ],
     ),
-    'documents-step': NeptuneDocumentsStep(
+    'documents-step': const NeptuneDocumentsStep(
       step: 5,
       attachments: [
         NeptuneAttachmentTile(
             label: 'Birth certificate',
             state: NeptuneAttachmentState.attached,
             fileName: 'certificate.pdf'),
-        const NeptuneAttachmentTile(label: 'Signature image'),
+        NeptuneAttachmentTile(label: 'Signature image'),
       ],
     ),
     'terms': const NeptuneTermsTemplate(body: 'By continuing you agree...'),

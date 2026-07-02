@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.10.0
+
+**`NeptuneDemoShellApp` — a complete branded demo app in ~10 lines.** Hand it
+any `BrandprintConfig` (a client's real seeds) and a logo widget; get a
+running, navigable, bilingual (EN/AR) app: the Welcome template, then a
+5-tab glass-dock shell (Home/Transfer/Cards/Insights/Profile) composed
+entirely from the existing screen templates — dashboard, transfer (with the
+hourglass→success outcome), cards, an Insights tab built on `NeptuneCompareBars`
++ `NeptuneFxCard` + `NeptuneBudgetRing`, and a Profile tab with dark-mode and
+language toggles that re-skin the whole app live.
+
+This formalizes the pattern proven in the first client prototype into a
+public, reusable library widget — the foundation for the CLI/desktop
+demo-factory tooling. `NeptuneDemoStrings` carries sensible bilingual
+defaults for every string; override only what a client wants changed.
+
+Verified end-to-end with a custom (non-reference) brandprint: welcome → every
+tab → transfer → confirm → the linked outcome motion → logout, LTR and
+RTL-start, zero exceptions.
+
+flutter analyze clean · 74 tests pass · CI no-literals gate green.
+
+
 ## 2.9.0
 
 **The full account-opening onboarding flow (R5)** — modelled on a real

@@ -51,6 +51,7 @@ export 'src/widgets/neptune_status_motion.dart';
 // 2.7.0 — the composed screen templates (all nine from templates.html).
 export 'src/templates/neptune_templates.dart';
 export 'src/templates/neptune_onboarding_flow.dart';
+export 'src/templates/neptune_demo_shell.dart';
 // 2.8.0 — state contracts (skeleton/empty/error) + insights bar charts.
 export 'src/widgets/neptune_states.dart';
 export 'src/widgets/neptune_charts.dart';
