@@ -474,24 +474,45 @@ class NeptuneSegmented<T> extends StatelessWidget {
         color: scheme.surfaceContainer,
         borderRadius: radius,
       ),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            for (final segment in segments)
-              Expanded(
-                child: _SegmentButton<T>(
-                  segment: segment,
-                  selected: segment.value == value,
-                  onTap: enabled ? () => onChanged!(segment.value) : null,
-                  scheme: scheme,
-                  text: text,
-                  motion: motion,
-                  pill: radius,
-                ),
-              ),
-          ],
-        ),
+      // Equal-width segments when the parent bounds our width; shrink-wrapped
+      // segments in unbounded slots (e.g. a NeptuneListTile trailing) — flex
+      // children in unbounded width silently blank the subtree (rulebook §4).
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final bounded = constraints.hasBoundedWidth;
+          return IntrinsicHeight(
+            child: Row(
+              mainAxisSize: bounded ? MainAxisSize.max : MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final segment in segments)
+                  if (bounded)
+                    Expanded(
+                      child: _SegmentButton<T>(
+                        segment: segment,
+                        selected: segment.value == value,
+                        onTap:
+                            enabled ? () => onChanged!(segment.value) : null,
+                        scheme: scheme,
+                        text: text,
+                        motion: motion,
+                        pill: radius,
+                      ),
+                    )
+                  else
+                    _SegmentButton<T>(
+                      segment: segment,
+                      selected: segment.value == value,
+                      onTap: enabled ? () => onChanged!(segment.value) : null,
+                      scheme: scheme,
+                      text: text,
+                      motion: motion,
+                      pill: radius,
+                    ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

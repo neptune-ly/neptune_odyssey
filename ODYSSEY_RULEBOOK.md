@@ -109,6 +109,7 @@ Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
 | `CrossAxisAlignment.stretch` on a `Row` in unbounded height | wrap in `IntrinsicHeight` |
 | `Expanded` inside a `mainAxisSize: min` `Column` | don't — use `Padding`/`Align` |
 | A bare `Row` gives children **unbounded width** → any flex descendant (e.g. `NeptuneSearchField`) fails layout and **silently blanks the whole subtree** | wrap slot children in `Flexible` (see `NeptuneToolbar`) |
+| A widget with internal flex (e.g. `NeptuneSegmented`) placed in an unbounded slot (`NeptuneListTile.trailing`) — same silent blank; **no exception reaches the app log** | widgets with internal flex must self-adapt: `LayoutBuilder` → shrink-wrap when `!hasBoundedWidth` (see `NeptuneSegmented`; regression: `unbounded_slots_regression_test.dart`) |
 | `SizedBox` size is overridden by tight constraints (`Expanded` parent) → `CustomPaint` paints **outside its bounds** | wrap in `Center`/`Align` to loosen (see `NeptuneCreditScoreGauge`) |
 | `Positioned.fill` outside a `Stack` | only valid as a `Stack` child |
 | Trailing text in rows overflowing at ≤430dp width | `Flexible` + ellipsis; stack action rows on narrow widths |
@@ -128,6 +129,12 @@ Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
   screen. Blank ≠ empty; blank = broken.
 - Run before every ship: `flutter analyze` (zero), `flutter test` (all green),
   the no-literals grep, and a SHOTS pass reviewed by eye.
+- **CI gates (R2)**: `pnpm codegen:check` (token drift) · `pnpm contrast`
+  (WCAG AA per brand × mode) · `tools/blank_check.py` over the SHOTS sweep and
+  the Playwright web sweep (`tools/web-shots.mjs`) — the blank gate detects
+  the *contiguous flat band* signature (>55% of height), which caught the
+  `NeptuneSegmented` bug on a client Profile screen with **zero** console
+  output. Shots upload as CI artifacts for eyes-on review.
 
 ## 6 · Web component law (`neptune_web_ui`)
 

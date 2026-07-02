@@ -2,7 +2,7 @@
   "name": "neptune-odyssey",
   "version": "2.0.0",
   "private": true,
-  "description": "Neptune Odyssey \u2014 a vendor-neutral, white-label banking design system by Neptune.Fintech. One Material 3 + M3 Expressive core; any institution wears it as a theme, never a fork.",
+  "description": "Neptune Odyssey — a vendor-neutral, white-label banking design system by Neptune.Fintech. One Material 3 + M3 Expressive core; any institution wears it as a theme, never a fork.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Neptune.Fintech (https://neptune.ly)",
   "homepage": "https://neptune.ly",
@@ -23,11 +23,13 @@
     "ci": "pnpm run build && pnpm run test",
     "site:bundle": "node site/bundle/build.mjs",
     "codegen": "node tools/codegen.mjs",
-    "codegen:check": "node tools/codegen.mjs --check"
+    "codegen:check": "node tools/codegen.mjs --check",
+    "contrast": "node tools/contrast-check.mjs"
   },
   "devDependencies": {
+    "esbuild": "^0.21.5",
+    "playwright": "^1.61.1",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.8",
-    "esbuild": "^0.21.5"
+    "vitest": "^2.1.8"
   }
 }

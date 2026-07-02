@@ -56,3 +56,73 @@ jobs:
         run: |
           ! grep -rnE '#[0-9a-fA-F]{6}|oklch\(' \
             packages/neptune_web_ui/src/components
+
+  tokens:
+    name: Token gates — codegen drift + WCAG contrast
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Codegen drift gate (themes.css is the single source)
+        run: node tools/codegen.mjs --check
+      - name: Contrast gate (WCAG AA per brand × mode)
+        run: node tools/contrast-check.mjs
+
+  visual-flutter:
+    name: Visual sweep — Flutter gallery (SHOTS + blank gate)
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.35.4
+          channel: stable
+      - name: Build gallery in SHOTS mode
+        working-directory: packages/neptune_flutter_ui/example
+        run: |
+          flutter config --enable-macos-desktop
+          flutter build macos --debug \
+            --dart-define=SHOTS=true --dart-define=SHOTS_DIR=$RUNNER_TEMP/shots
+      - name: Render every viewport × brand × mode × RTL
+        working-directory: packages/neptune_flutter_ui/example
+        run: ./build/macos/Build/Products/Debug/neptune_flutter_ui_example.app/Contents/MacOS/neptune_flutter_ui_example
+      - name: Blank-region gate
+        run: |
+          pip3 install --quiet pillow
+          python3 tools/blank_check.py $RUNNER_TEMP/shots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: flutter-shots
+          path: ${{ runner.temp }}/shots
+          retention-days: 14
+
+  visual-web:
+    name: Visual sweep — site templates (Playwright + blank gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Install Playwright chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Render templates × brand × mode
+        run: node tools/web-shots.mjs $RUNNER_TEMP/web-shots
+      - name: Blank-region gate
+        run: |
+          pip3 install --quiet pillow
+          python3 tools/blank_check.py $RUNNER_TEMP/web-shots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-shots
+          path: ${{ runner.temp }}/web-shots
+          retention-days: 14
