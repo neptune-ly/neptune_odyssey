@@ -95,6 +95,15 @@ class _ExampleAppState extends State<ExampleApp> {
       await Future<void>.delayed(const Duration(milliseconds: 300));
     }
 
+    // States & charts section: scroll to it precisely (it sits right before
+    // Feedback) rather than relying on leftover scroll position.
+    if (_scroll.hasClients) {
+      _scroll.jumpTo(
+          (_scroll.position.maxScrollExtent - 1050).clamp(0.0, _scroll.position.maxScrollExtent));
+    }
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    await _capture('$kShotsDir/states_charts.png');
+
     // Every composed template (neptune, light).
     setState(() { _brandIndex = 0; _mode = ThemeMode.light; _rtl = false; });
     await Future<void>.delayed(const Duration(milliseconds: 600));
@@ -838,6 +847,43 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+
+                  // ---- States & charts (2.8.0) ------------------------------
+                  _Section(
+                    title: 'States & charts',
+                    description: 'Loading/empty/error contract · insights bar charts',
+                    child: Column(
+                      children: [
+                        const NeptuneSkeletonCard(),
+                        const SizedBox(height: 12),
+                        const NeptuneSkeletonRow(),
+                        const SizedBox(height: 12),
+                        NeptuneStateSwitcher(
+                          state: NeptuneDataState.error,
+                          onRetry: () => showNeptuneToast(context, 'Retrying…'),
+                          child: const Text('Loaded content'),
+                        ),
+                        const SizedBox(height: 12),
+                        const NeptuneBarChart(
+                          bars: [
+                            NeptuneBarData('Jan', 320),
+                            NeptuneBarData('Feb', 480),
+                            NeptuneBarData('Mar', 260),
+                            NeptuneBarData('Apr', 610),
+                            NeptuneBarData('May', 540),
+                          ],
+                          highlightIndex: 3,
+                        ),
+                        const SizedBox(height: 16),
+                        const NeptuneCompareBars(data: [
+                          NeptuneCompareData('Food', 430, 510),
+                          NeptuneCompareData('Bills', 380, 330),
+                          NeptuneCompareData('Transport', 210, 260),
+                          NeptuneCompareData('Fun', 90, 140),
+                        ]),
                       ],
                     ),
                   ),

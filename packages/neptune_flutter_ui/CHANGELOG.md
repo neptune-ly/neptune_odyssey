@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.8.0
+
+**State completeness + insights charts (R4b).** Banks judge kits by the
+unhappy paths — loading/empty/error is now a first-class contract:
+
+- `NeptuneStateSwitcher` — one wrapper that cross-fades between loading
+  (skeleton), error (branded alert + retry), empty (`NeptuneEmptyState`) and
+  the ready content, on the brand motion curve.
+- `NeptuneShimmer` + `NeptuneSkeletonCard` / `NeptuneSkeletonRow` — a real
+  sweeping shimmer (RTL-aware direction) over bones shaped like the actual
+  card/row anatomy, not generic grey boxes.
+- `NeptuneBarChart` — labelled vertical bars with an optional highlighted
+  period and tabular-money caption.
+- `NeptuneCompareBars` — paired this-vs-last-period bars per category with a
+  computed delta chip (the "vs last month" story from the web Insights tier).
+
+Example gallery gains a States & charts section; SHOTS captures it (fixed
+scroll targeting after the previous section grew).
+
+flutter analyze clean · 57 tests pass · CI no-literals gate green.
+
+
 ## 2.7.0
 
 **All nine published templates, composed.** `lib/src/templates/` ships the

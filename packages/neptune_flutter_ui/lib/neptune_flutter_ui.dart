@@ -50,6 +50,9 @@ export 'src/widgets/neptune_welcome.dart';
 export 'src/widgets/neptune_status_motion.dart';
 // 2.7.0 — the composed screen templates (all nine from templates.html).
 export 'src/templates/neptune_templates.dart';
+// 2.8.0 — state contracts (skeleton/empty/error) + insights bar charts.
+export 'src/widgets/neptune_states.dart';
+export 'src/widgets/neptune_charts.dart';
 // 2.4.0 — the "fully fledged" widget set (form fields, selection controls,
 // overlays, navigation, display primitives, premium fintech).
 export 'src/widgets/neptune_form_fields.dart';
