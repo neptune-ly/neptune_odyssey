@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.1
+
+Depth polish: `NeptuneCta` now rides elevation-3 with a soft primary key-light
+(the web CTA recipe) instead of sitting flat, and `showNeptuneDialog` gets the
+deep soft drop (web elevation-5). Verified via the SHOTS harness.
+
 ## 2.5.0
 
 **The identity release — Odyssey stops looking like generic Material.** Ports

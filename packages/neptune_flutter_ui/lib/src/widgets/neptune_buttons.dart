@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
+import '../theme/identity.dart';
 
 /// Visual style for [NeptuneButton], mirroring the web `<npt-button>` variants.
 enum NeptuneButtonStyle { filled, tonal, outlined, text }
@@ -113,10 +114,28 @@ class NeptuneCta extends StatelessWidget {
       ],
     ];
 
-    final btn = FilledButton(
-      onPressed: onPressed,
-      style: style,
-      child: Row(mainAxisSize: MainAxisSize.min, children: children),
+    // The hero CTA rides elevation-3 with a soft primary key-light (web
+    // `--npt-elevation-3` + brand glow) — lifted, not flat.
+    final scheme = Theme.of(context).colorScheme;
+    final identity = Theme.of(context).extension<NptIdentity>()!;
+    final btn = DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: shape.rXxl,
+        boxShadow: [
+          ...identity.elevation3(scheme),
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.24),
+            blurRadius: 22,
+            spreadRadius: -8,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: FilledButton(
+        onPressed: onPressed,
+        style: style,
+        child: Row(mainAxisSize: MainAxisSize.min, children: children),
+      ),
     );
     return expand ? SizedBox(width: double.infinity, child: btn) : btn;
   }

@@ -99,7 +99,9 @@ class _NeptuneDialog<T> extends StatelessWidget {
     return Dialog(
       backgroundColor: scheme.surfaceContainerHigh,
       surfaceTintColor: scheme.surfaceContainerHigh,
-      elevation: 0,
+      // Deep, soft drop (web `--npt-elevation-5`: 0 28px 60px @ .30).
+      elevation: 12,
+      shadowColor: scheme.shadow.withValues(alpha: 0.30),
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: shape.rLg),
       child: Padding(
