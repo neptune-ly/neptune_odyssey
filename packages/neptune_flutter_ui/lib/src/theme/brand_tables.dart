@@ -7,6 +7,7 @@
 
 import '../brandprint/codec.dart';
 import 'extensions.dart';
+import 'feedback.dart';
 import 'generated/brand_data.g.dart';
 import 'identity.dart';
 
@@ -74,6 +75,19 @@ final Map<String, NptMotion> motionPresets = {
 
 NptMotion motionFor(String lever) =>
     motionPresets[lever] ?? motionPresets['smooth-fluid']!;
+
+/// Default haptic weight per `contentTone` lever (R6) — formal/authoritative
+/// brands land lighter, warm/hospitable brands land heavier, matching the
+/// same personality axis the motion/glass levers already encode.
+const Map<String, NptHapticWeight> _hapticWeightByContentTone = {
+  'formal-authoritative': NptHapticWeight.light,
+  'warm-hospitable': NptHapticWeight.heavy,
+  'light-instant': NptHapticWeight.medium,
+  'clear-calm': NptHapticWeight.medium,
+};
+
+NptHapticWeight hapticWeightFor(String contentTone) =>
+    _hapticWeightByContentTone[contentTone] ?? NptHapticWeight.medium;
 
 /// The canonical brandprint config per reference brand (brandprints.golden.json).
 const Map<String, BrandprintConfig> brandConfig = {

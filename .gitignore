@@ -17,6 +17,7 @@ coverage/
 pubspec.lock
 **/doc/api/
 packages/neptune_flutter_ui/build/
+packages/neptune_sound_kit/build/
 roadmap/neptune_kmp_ui/build/
 
 # editor / os

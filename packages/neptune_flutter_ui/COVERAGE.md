@@ -2,6 +2,12 @@
 
 Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
+1. **Design evolution (2.12.0 / R6).** Density + Arabic-numeral levers,
+   dark-mode elevation as a glow rather than an invisible shadow, per-brand
+   signature CTA motion timing, haptic/sound feedback tokens (`NptFeedback`;
+   sound wiring lives in the optional `neptune_sound_kit` package), and a new
+   standalone loader family (`NeptuneSpinner`/`NeptuneDotsLoader`/`NeptunePulseLoader`/`NeptuneHourglassLoader`)
+   + `NeptuneSplashScreen`, all feeding the same `NeptuneStatusMotion` hand-off.
 1. **Theme parity — guaranteed.** `NeptuneTheme.light/dark(brand)` (or `.fromBrandprint`) returns a full Material 3 `ThemeData`, so **every Material widget** is already on-brand — resolved byte-identically from the same brandprint (golden-tested). You're never blocked.
 2. **Real brand typography.** The theme loads each brand's display / text / num faces via `google_fonts` and applies them across the whole `TextTheme`; `NeptuneTheme.moneyStyle` renders amounts in the brand `num` face with tabular figures. Pass `arabic: true` (or run under RTL) and the Arabic faces (IBM Plex Sans Arabic, Reem Kufi, Tajawal, Readex Pro, Noto Kufi Arabic) take over, mirroring the web `--npt-font-*-ar` tokens; `moneyStyle` swaps to the Arabic numeral face under RTL.
 3. **~88 branded widgets** — past Material parity into a complete fintech design system. All theme-only (no literals), RTL-safe (`EdgeInsetsDirectional`), ≥48dp targets, covered by `test/widgets_test.dart` (build under light/dark/RTL × 4 brands; 40 tests).

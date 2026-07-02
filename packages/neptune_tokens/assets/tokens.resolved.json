@@ -58,8 +58,8 @@
           "argb": "0xFF122239"
         },
         "md-sys-color-tertiary": {
-          "hex": "#008388",
-          "argb": "0xFF008388"
+          "hex": "#008187",
+          "argb": "0xFF008187"
         },
         "md-sys-color-on-tertiary": {
           "hex": "#edffff",
@@ -90,8 +90,8 @@
           "argb": "0xFF620000"
         },
         "md-sys-color-success": {
-          "hex": "#2e9052",
-          "argb": "0xFF2E9052"
+          "hex": "#208548",
+          "argb": "0xFF208548"
         },
         "md-sys-color-on-success": {
           "hex": "#f2fff5",
@@ -360,8 +360,8 @@
           "argb": "0xFF072B1C"
         },
         "md-sys-color-tertiary": {
-          "hex": "#a68018",
-          "argb": "0xFFA68018"
+          "hex": "#946e00",
+          "argb": "0xFF946E00"
         },
         "md-sys-color-on-tertiary": {
           "hex": "#fffbed",
@@ -392,8 +392,8 @@
           "argb": "0xFF620000"
         },
         "md-sys-color-success": {
-          "hex": "#2d8949",
-          "argb": "0xFF2D8949"
+          "hex": "#278445",
+          "argb": "0xFF278445"
         },
         "md-sys-color-on-success": {
           "hex": "#f3fff5",
@@ -662,8 +662,8 @@
           "argb": "0xFF2A2344"
         },
         "md-sys-color-tertiary": {
-          "hex": "#c3518d",
-          "argb": "0xFFC3518D"
+          "hex": "#bb4986",
+          "argb": "0xFFBB4986"
         },
         "md-sys-color-on-tertiary": {
           "hex": "#fff7fe",
@@ -694,8 +694,8 @@
           "argb": "0xFF620000"
         },
         "md-sys-color-success": {
-          "hex": "#2e9052",
-          "argb": "0xFF2E9052"
+          "hex": "#208548",
+          "argb": "0xFF208548"
         },
         "md-sys-color-on-success": {
           "hex": "#f2fff5",
@@ -964,8 +964,8 @@
           "argb": "0xFF092136"
         },
         "md-sys-color-tertiary": {
-          "hex": "#b48c2b",
-          "argb": "0xFFB48C2B"
+          "hex": "#946d00",
+          "argb": "0xFF946D00"
         },
         "md-sys-color-on-tertiary": {
           "hex": "#fffbed",
@@ -996,8 +996,8 @@
           "argb": "0xFF620000"
         },
         "md-sys-color-success": {
-          "hex": "#2e9052",
-          "argb": "0xFF2E9052"
+          "hex": "#208548",
+          "argb": "0xFF208548"
         },
         "md-sys-color-on-success": {
           "hex": "#f2fff5",

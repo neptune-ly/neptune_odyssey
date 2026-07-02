@@ -1,0 +1,32 @@
+name: neptune_sound_kit
+description: >
+  Optional sound cues for Neptune Odyssey — soft, synthesized (not recorded)
+  tap/success/warning/error chimes, wired straight into NptFeedback.onSoundCue.
+version: 1.0.0
+homepage: https://github.com/neptune-ly/neptune_odyssey
+repository: https://github.com/neptune-ly/neptune_odyssey
+publish_to: none
+
+environment:
+  sdk: ^3.4.0
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^6.1.0
+  neptune_flutter_ui:
+    path: ../neptune_flutter_ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/sfx/tap.wav
+    - assets/sfx/success.wav
+    - assets/sfx/warning.wav
+    - assets/sfx/error.wav

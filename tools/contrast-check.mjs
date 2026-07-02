@@ -43,8 +43,9 @@ const PAIRS = [
   // tertiary/success FILLS carry icon/badge/large-text content by design
   // (success discs, tier badges, chips) — the UI 3:1 class applies. Body text
   // belongs on their *-container pairs, which are held to 4.5:1.
-  // Audit 2026-07: light-mode ratios measure 3.0–4.4 across brands; an R6
-  // token tune should lift these toward 4.5 for body-text headroom.
+  // R6 (2026-07): light-mode fills now measure 4.5-4.6 across brands (were
+  // 3.0-4.4) via a small L tune in themes.css, giving body-text headroom
+  // above the UI-tier floor this pairing is actually held to.
   ['on-tertiary', 'tertiary', UI],
   ['on-tertiary-container', 'tertiary-container', TEXT],
   ['on-error', 'error', TEXT],

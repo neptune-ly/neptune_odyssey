@@ -17,7 +17,7 @@ final Map<String, (ColorScheme, ColorScheme)> genSchemes = {
     onSecondary: Color(0xFFF4FDFF),
     secondaryContainer: Color(0xFFD7E6FC),
     onSecondaryContainer: Color(0xFF122239),
-    tertiary: Color(0xFF008388),
+    tertiary: Color(0xFF008187),
     onTertiary: Color(0xFFEDFFFF),
     tertiaryContainer: Color(0xFFAFEBEE),
     onTertiaryContainer: Color(0xFF00292E),
@@ -86,7 +86,7 @@ final Map<String, (ColorScheme, ColorScheme)> genSchemes = {
     onSecondary: Color(0xFFF1FFF8),
     secondaryContainer: Color(0xFFCBEAD9),
     onSecondaryContainer: Color(0xFF072B1C),
-    tertiary: Color(0xFFA68018),
+    tertiary: Color(0xFF946E00),
     onTertiary: Color(0xFFFFFBED),
     tertiaryContainer: Color(0xFFF9DA98),
     onTertiaryContainer: Color(0xFF412800),
@@ -155,7 +155,7 @@ final Map<String, (ColorScheme, ColorScheme)> genSchemes = {
     onSecondary: Color(0xFFFCFAFF),
     secondaryContainer: Color(0xFFE4E0FE),
     onSecondaryContainer: Color(0xFF2A2344),
-    tertiary: Color(0xFFC3518D),
+    tertiary: Color(0xFFBB4986),
     onTertiary: Color(0xFFFFF7FE),
     tertiaryContainer: Color(0xFFFFCCE9),
     onTertiaryContainer: Color(0xFF580037),
@@ -224,7 +224,7 @@ final Map<String, (ColorScheme, ColorScheme)> genSchemes = {
     onSecondary: Color(0xFFF2FDFF),
     secondaryContainer: Color(0xFFD0E4F8),
     onSecondaryContainer: Color(0xFF092136),
-    tertiary: Color(0xFFB48C2B),
+    tertiary: Color(0xFF946D00),
     onTertiary: Color(0xFFFFFBED),
     tertiaryContainer: Color(0xFFFADA99),
     onTertiaryContainer: Color(0xFF472D00),
@@ -287,10 +287,10 @@ final Map<String, (ColorScheme, ColorScheme)> genSchemes = {
 
 /// success / on / container / on-container per brand × mode.
 final Map<String, ((Color, Color, Color, Color), (Color, Color, Color, Color))> genSuccess = {
-  'neptune': ((Color(0xFF2E9052), Color(0xFFF2FFF5), Color(0xFFBCECC8), Color(0xFF003006)), (Color(0xFF79CD91), Color(0xFF002405), Color(0xFF00461B), Color(0xFFBCECC8))),
-  'triton': ((Color(0xFF2D8949), Color(0xFFF3FFF5), Color(0xFFBEECC6), Color(0xFF003003)), (Color(0xFF7CCD8E), Color(0xFF002403), Color(0xFF004519), Color(0xFFBEECC6))),
-  'nereid': ((Color(0xFF2E9052), Color(0xFFF2FFF5), Color(0xFFBCECC8), Color(0xFF003006)), (Color(0xFF79CD91), Color(0xFF002405), Color(0xFF00461B), Color(0xFFBCECC8))),
-  'proteus': ((Color(0xFF2E9052), Color(0xFFF2FFF5), Color(0xFFBCECC8), Color(0xFF003006)), (Color(0xFF79CD91), Color(0xFF002405), Color(0xFF00461B), Color(0xFFBCECC8))),
+  'neptune': ((Color(0xFF208548), Color(0xFFF2FFF5), Color(0xFFBCECC8), Color(0xFF003006)), (Color(0xFF79CD91), Color(0xFF002405), Color(0xFF00461B), Color(0xFFBCECC8))),
+  'triton': ((Color(0xFF278445), Color(0xFFF3FFF5), Color(0xFFBEECC6), Color(0xFF003003)), (Color(0xFF7CCD8E), Color(0xFF002403), Color(0xFF004519), Color(0xFFBEECC6))),
+  'nereid': ((Color(0xFF208548), Color(0xFFF2FFF5), Color(0xFFBCECC8), Color(0xFF003006)), (Color(0xFF79CD91), Color(0xFF002405), Color(0xFF00461B), Color(0xFFBCECC8))),
+  'proteus': ((Color(0xFF208548), Color(0xFFF2FFF5), Color(0xFFBCECC8), Color(0xFF003006)), (Color(0xFF79CD91), Color(0xFF002405), Color(0xFF00461B), Color(0xFFBCECC8))),
 };
 
 /// Corner families (px).

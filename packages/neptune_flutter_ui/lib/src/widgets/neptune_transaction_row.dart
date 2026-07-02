@@ -80,7 +80,7 @@ class NeptuneTransactionRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(amount, style: money),
+              Text(NeptuneTheme.formatDigits(context, amount), style: money),
             ],
           ),
         ),

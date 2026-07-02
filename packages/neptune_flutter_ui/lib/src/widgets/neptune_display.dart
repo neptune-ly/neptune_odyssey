@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../theme/density.dart';
 import '../theme/extensions.dart';
 
 /// A circular avatar. Renders, in priority order: an [image], otherwise
@@ -611,6 +612,7 @@ class NeptuneListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final shape = Theme.of(context).extension<NptShape>()!;
+    final density = Theme.of(context).extension<NptDensity>() ?? const NptDensity(1);
     final text = Theme.of(context).textTheme;
     final radius = shape.rMd;
 
@@ -629,11 +631,11 @@ class NeptuneListTile extends StatelessWidget {
           );
 
     final row = ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 56),
+      constraints: BoxConstraints(minHeight: density.s(56)),
       child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(
+        padding: EdgeInsetsDirectional.symmetric(
           horizontal: 16,
-          vertical: 10,
+          vertical: density.s(10),
         ),
         child: Row(
           children: [

@@ -14,11 +14,14 @@ export 'src/color/seed_extractor.dart';
 
 // Theming.
 export 'src/theme/color_schemes.dart';
+export 'src/theme/density.dart';
 export 'src/theme/extensions.dart';
+export 'src/theme/feedback.dart';
 export 'src/theme/identity.dart';
 export 'src/theme/neptune_theme.dart';
+export 'src/theme/numerals.dart';
 export 'src/theme/brand_tables.dart'
-    show kBrands, brandConfig, brandShape, brandType, brandSuccess, motionFor;
+    show kBrands, brandConfig, brandShape, brandType, brandSuccess, motionFor, hapticWeightFor;
 
 // Widgets.
 export 'src/widgets/neptune_balance_card.dart';
@@ -49,6 +52,9 @@ export 'src/widgets/neptune_identity_surfaces.dart';
 // and the hourglass → check / rejected outcome motion.
 export 'src/widgets/neptune_welcome.dart';
 export 'src/widgets/neptune_status_motion.dart';
+// R6 — loading indicator family + splash screen.
+export 'src/widgets/neptune_loaders.dart';
+export 'src/widgets/neptune_splash.dart';
 // 2.7.0 — the composed screen templates (all nine from templates.html).
 export 'src/templates/neptune_templates.dart';
 export 'src/templates/neptune_onboarding_flow.dart';

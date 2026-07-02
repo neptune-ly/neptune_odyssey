@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
+import '../theme/feedback.dart';
 
 /// A branded checkbox: a 22dp rounded ([NptShape.xs]) box that fills with
 /// [ColorScheme.primary] and shows an [ColorScheme.onPrimary] check when
@@ -35,8 +36,14 @@ class NeptuneCheckbox extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final shape = Theme.of(context).extension<NptShape>()!;
     final motion = Theme.of(context).extension<NptMotion>()!;
+    final feedback = Theme.of(context).extension<NptFeedback>();
     final isOn = onChanged != null && enabled;
-    final tap = isOn ? () => onChanged!(!value) : null;
+    final tap = isOn
+        ? () {
+            feedback?.trigger(NptFeedbackCue.tap);
+            onChanged!(!value);
+          }
+        : null;
 
     final fill = value
         ? (isOn ? scheme.primary : scheme.onSurface.withValues(alpha: 0.12))
@@ -357,8 +364,14 @@ class NeptuneSwitch extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final shape = Theme.of(context).extension<NptShape>()!;
     final motion = Theme.of(context).extension<NptMotion>()!;
+    final feedback = Theme.of(context).extension<NptFeedback>();
     final isOn = onChanged != null && enabled;
-    final tap = isOn ? () => onChanged!(!value) : null;
+    final tap = isOn
+        ? () {
+            feedback?.trigger(NptFeedbackCue.tap);
+            onChanged!(!value);
+          }
+        : null;
 
     final trackColor = value
         ? (isOn ? scheme.primary : scheme.onSurface.withValues(alpha: 0.12))

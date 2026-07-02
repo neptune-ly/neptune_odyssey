@@ -103,7 +103,7 @@ class NeptuneBalanceCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: hero ? 14 : 12),
-                Text(amount, style: money),
+                Text(NeptuneTheme.formatDigits(context, amount), style: money),
                 if (caption != null) ...[
                   const SizedBox(height: 6),
                   Text(

@@ -1,5 +1,46 @@
 # Changelog
 
+## 2.12.0 — R6: design evolution
+
+**Density, dark-mode elevation, per-brand motion, feedback tokens, Arabic
+numerals, and a new loading/splash widget family.**
+
+- **Dark-mode elevation is a glow, not an invisible shadow.** `NptIdentity`'s
+  `elevation1..5` used a fixed dark-shadow recipe that barely registers
+  against an already-dark surface; dark mode now lerps toward `primary` with
+  more blur and less directional offset, reading as ambient light rather
+  than a cast shadow. Light mode is byte-identical to before.
+- **Density lever.** `NptDensity` (comfortable/compact, `NeptuneTheme.fromConfig(density:)`)
+  scales spacing at density-aware call sites — `NeptuneListTile` and the
+  `NeptuneCta` family today; more widgets opt in incrementally.
+- **Per-brand signature motion.** `NeptuneCta`'s sheen/nudge cycle length
+  used to be a fixed 4800ms/2400ms for every brand; it's now derived from
+  the brand's own `motion.slow`/`durationStandard` (Neptune's smooth-fluid
+  reproduces the old constants exactly; calmer/snappier brands now visibly
+  differ, not just in easing but in tempo).
+- **Haptic + sound tokens.** `NptFeedback` (haptics via real
+  `HapticFeedback` calls, weighted per brand `contentTone`; `onSoundCue` is
+  a plain hook — no bundled audio in this package, see `neptune_sound_kit`)
+  fires from `NeptuneCta`, `NeptuneCheckbox`, `NeptuneSwitch`.
+- **Arabic-Indic numerals.** `NeptuneNumeralStyle`/`NptNumerals` +
+  `NeptuneTheme.formatDigits` — an independent lever from `arabic:` (many
+  Gulf/Libyan banking apps run an Arabic UI with Latin digits, or vice
+  versa). Wired into `NeptuneBalanceCard`/`NeptuneTransactionRow` today.
+- **New loader family** (`neptune_loaders.dart`): `NeptuneSpinner`,
+  `NeptuneDotsLoader`, `NeptunePulseLoader`, and `NeptuneHourglassLoader`
+  (extracted from `NeptuneStatusMotion` so it's usable standalone).
+  `NeptuneStatusMotion` gained `loaderStyle` so any of the four can precede
+  the same success/reject morph — one hand-off choreography, four "waiting"
+  feelings.
+- **`NeptuneSplashScreen`** — the ambient welcome backdrop + a large brand
+  mark + a loader, for the cold-start moment before an app has real state.
+- **Contrast lift.** Light-mode `tertiary`/`success` fills measured
+  3.0–4.4:1 (2.10's audit finding); a small `themes.css` lightness tune
+  brings every brand to 4.5–4.6:1, giving body-text headroom above the
+  UI-tier floor those pairs are actually held to.
+
+flutter analyze clean · 105 tests pass · CI no-literals gate green.
+
 ## 2.11.0
 
 **The colour pipeline is now bidirectional.** `hexToOklch`/`rgb255ToOklch`

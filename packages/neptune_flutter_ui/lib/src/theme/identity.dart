@@ -87,40 +87,64 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
   // --- elevation ------------------------------------------------------------
   // Web tokens: e1 `0 1px 3px .20` · e2 `0 2px 6px .18` · e3 `0 8px 20px .20`
   // · e5 `0 28px 60px .30`. Colour comes from the scheme's shadow role.
+  //
+  // R6: that recipe reads correctly in light mode (a dark shadow against a
+  // near-white surface) but goes nearly invisible in dark mode — a black
+  // shadow at 18-30% alpha barely registers against an already-dark
+  // background. Dark mode swaps to a soft, primary-tinted GLOW instead: less
+  // directional offset (a glow reads as ambient, not cast), more blur, and a
+  // colour lerp toward `primary` so raised surfaces read as lit rather than
+  // shadowed. Light mode is untouched (proven against the web reference).
 
-  List<BoxShadow> elevation1(ColorScheme s) => [
-        BoxShadow(
-            color: s.shadow.withValues(alpha: 0.20),
-            blurRadius: 3,
-            offset: const Offset(0, 1)),
-      ];
+  bool _isDark(ColorScheme s) => s.brightness == Brightness.dark;
 
-  List<BoxShadow> elevation2(ColorScheme s) => [
+  List<BoxShadow> _elevation(ColorScheme s,
+      {required double lightAlpha,
+      required double lightBlur,
+      required double lightOffset,
+      required double darkAlpha,
+      required double darkBlur,
+      required double darkOffset}) {
+    if (!_isDark(s)) {
+      return [
         BoxShadow(
-            color: s.shadow.withValues(alpha: 0.18),
-            blurRadius: 6,
-            offset: const Offset(0, 2)),
+            color: s.shadow.withValues(alpha: lightAlpha),
+            blurRadius: lightBlur,
+            offset: Offset(0, lightOffset)),
       ];
+    }
+    final glow = Color.lerp(s.shadow, s.primary, 0.35)!;
+    return [
+      BoxShadow(
+          color: glow.withValues(alpha: darkAlpha),
+          blurRadius: darkBlur,
+          offset: Offset(0, darkOffset)),
+    ];
+  }
 
-  List<BoxShadow> elevation3(ColorScheme s) => [
-        BoxShadow(
-            color: s.shadow.withValues(alpha: 0.20),
-            blurRadius: 20,
-            offset: const Offset(0, 8)),
-      ];
+  List<BoxShadow> elevation1(ColorScheme s) => _elevation(s,
+      lightAlpha: 0.20, lightBlur: 3, lightOffset: 1,
+      darkAlpha: 0.16, darkBlur: 6, darkOffset: 0.5);
 
-  List<BoxShadow> elevation5(ColorScheme s) => [
-        BoxShadow(
-            color: s.shadow.withValues(alpha: 0.30),
-            blurRadius: 60,
-            offset: const Offset(0, 28)),
-      ];
+  List<BoxShadow> elevation2(ColorScheme s) => _elevation(s,
+      lightAlpha: 0.18, lightBlur: 6, lightOffset: 2,
+      darkAlpha: 0.20, darkBlur: 12, darkOffset: 1);
+
+  List<BoxShadow> elevation3(ColorScheme s) => _elevation(s,
+      lightAlpha: 0.20, lightBlur: 20, lightOffset: 8,
+      darkAlpha: 0.26, darkBlur: 32, darkOffset: 3);
+
+  List<BoxShadow> elevation5(ColorScheme s) => _elevation(s,
+      lightAlpha: 0.30, lightBlur: 60, lightOffset: 28,
+      darkAlpha: 0.34, darkBlur: 76, darkOffset: 10);
 
   /// The primary key-light glow used under hero/selected surfaces
-  /// (web `--npt-glow-primary`).
+  /// (web `--npt-glow-primary`). Already a glow, not a shadow — dark mode
+  /// just runs it a touch stronger, since it's competing with less ambient
+  /// light from the (dark) surface around it.
   List<BoxShadow> glowPrimary(ColorScheme s) => [
         BoxShadow(
-            color: s.primary.withValues(alpha: 0.28),
+            color: s.primary.withValues(alpha: _isDark(s) ? 0.36 : 0.28),
             blurRadius: 22,
             offset: const Offset(0, 8)),
       ];

@@ -16,8 +16,11 @@ import '../color/oklch.dart';
 import '../color/palette.dart';
 import 'brand_tables.dart';
 import 'color_schemes.dart';
+import 'density.dart';
 import 'extensions.dart';
+import 'feedback.dart';
 import 'identity.dart';
+import 'numerals.dart';
 
 /// Entry points for building Neptune Odyssey [ThemeData].
 class NeptuneTheme {
@@ -34,45 +37,84 @@ class NeptuneTheme {
   /// Pass `arabic: true` for an RTL/Arabic build: the brand's Arabic faces
   /// (`displayAr`/`textAr`) drive the text theme, matching the web's
   /// `[dir="rtl"]` font swap. Colours/shape/motion are unaffected.
-  static ThemeData light(String brand, {bool arabic = false}) =>
-      _forBrand(brand, Brightness.light, arabic);
+  ///
+  /// `density` and `numerals` are independent tenant levers (R6) — neither is
+  /// implied by `arabic`. `feedback` overrides the per-brand haptic weight
+  /// derived from the brand's `contentTone`; pass one to also wire a sound hook.
+  static ThemeData light(
+    String brand, {
+    bool arabic = false,
+    NeptuneDensityMode density = NeptuneDensityMode.comfortable,
+    NeptuneNumeralStyle numerals = NeptuneNumeralStyle.latin,
+    NptFeedback? feedback,
+  }) =>
+      _forBrand(brand, Brightness.light, arabic, density, numerals, feedback);
 
-  /// Dark theme for a reference brand id. See [light] for `arabic`.
-  static ThemeData dark(String brand, {bool arabic = false}) =>
-      _forBrand(brand, Brightness.dark, arabic);
+  /// Dark theme for a reference brand id. See [light] for the other params.
+  static ThemeData dark(
+    String brand, {
+    bool arabic = false,
+    NeptuneDensityMode density = NeptuneDensityMode.comfortable,
+    NeptuneNumeralStyle numerals = NeptuneNumeralStyle.latin,
+    NptFeedback? feedback,
+  }) =>
+      _forBrand(brand, Brightness.dark, arabic, density, numerals, feedback);
 
   /// Build a theme from a `NO1-…` brandprint. Defaults brightness to the
   /// brandprint's `defaultDark` flag unless [brightness] is given.
-  static ThemeData fromBrandprint(String brandprint,
-          {Brightness? brightness, bool arabic = false}) =>
+  static ThemeData fromBrandprint(
+    String brandprint, {
+    Brightness? brightness,
+    bool arabic = false,
+    NeptuneDensityMode density = NeptuneDensityMode.comfortable,
+    NeptuneNumeralStyle numerals = NeptuneNumeralStyle.latin,
+    NptFeedback? feedback,
+  }) =>
       fromConfig(Brandprint.decode(brandprint),
-          brightness: brightness, arabic: arabic);
+          brightness: brightness,
+          arabic: arabic,
+          density: density,
+          numerals: numerals,
+          feedback: feedback);
 
   /// Build a theme from a [BrandprintConfig]. If the seeds match a reference
   /// brand, the pinned canonical scheme is used (byte-identical); otherwise the
   /// palette is generated deterministically from the seeds.
-  static ThemeData fromConfig(BrandprintConfig cfg,
-      {Brightness? brightness, bool arabic = false}) {
+  static ThemeData fromConfig(
+    BrandprintConfig cfg, {
+    Brightness? brightness,
+    bool arabic = false,
+    NeptuneDensityMode density = NeptuneDensityMode.comfortable,
+    NeptuneNumeralStyle numerals = NeptuneNumeralStyle.latin,
+    NptFeedback? feedback,
+  }) {
     final mode = brightness ?? (cfg.defaultDark ? Brightness.dark : Brightness.light);
     final ref = _matchReferenceBrand(cfg.primary, cfg.tertiary);
     if (ref != null) {
-      return _forBrandWithConfig(ref, mode, cfg, arabic);
+      return _forBrandWithConfig(ref, mode, cfg, arabic, density, numerals, feedback);
     }
-    return _custom(cfg, mode, arabic);
+    return _custom(cfg, mode, arabic, density, numerals, feedback);
   }
 
   // --- reference brands -----------------------------------------------------
 
-  static ThemeData _forBrand(String brand, Brightness mode, bool arabic) {
+  static ThemeData _forBrand(String brand, Brightness mode, bool arabic,
+      NeptuneDensityMode density, NeptuneNumeralStyle numerals, NptFeedback? feedback) {
     final cfg = brandConfig[brand];
     if (cfg == null) {
       throw ArgumentError.value(brand, 'brand', 'unknown reference brand');
     }
-    return _forBrandWithConfig(brand, mode, cfg, arabic);
+    return _forBrandWithConfig(brand, mode, cfg, arabic, density, numerals, feedback);
   }
 
   static ThemeData _forBrandWithConfig(
-      String brand, Brightness mode, BrandprintConfig cfg, bool arabic) {
+      String brand,
+      Brightness mode,
+      BrandprintConfig cfg,
+      bool arabic,
+      NeptuneDensityMode density,
+      NeptuneNumeralStyle numerals,
+      NptFeedback? feedback) {
     final isLight = mode == Brightness.light;
     final schemes = neptuneSchemes[brand]!;
     final scheme = isLight ? schemes.$1 : schemes.$2;
@@ -81,12 +123,24 @@ class NeptuneTheme {
     final shape = brandShape[brand]!;
     final type = brandType[brand]!;
     final motion = motionFor(cfg.motion);
-    return _assemble(scheme, colors, shape, type, motion, identityFor(cfg), arabic);
+    return _assemble(
+      scheme,
+      colors,
+      shape,
+      type,
+      motion,
+      identityFor(cfg),
+      arabic,
+      NptDensity.of(density),
+      NptNumerals(numerals),
+      feedback ?? NptFeedback(hapticWeight: hapticWeightFor(cfg.contentTone)),
+    );
   }
 
   // --- custom seeds ---------------------------------------------------------
 
-  static ThemeData _custom(BrandprintConfig cfg, Brightness mode, bool arabic) {
+  static ThemeData _custom(BrandprintConfig cfg, Brightness mode, bool arabic,
+      NeptuneDensityMode density, NeptuneNumeralStyle numerals, NptFeedback? feedback) {
     final isLight = mode == Brightness.light;
     final modeStr = isLight ? 'light' : 'dark';
     final primary = Oklch(cfg.primary.l, cfg.primary.c, cfg.primary.h.toDouble());
@@ -154,7 +208,17 @@ class NeptuneTheme {
       displayTracking: cfg.displayTracking,
     );
     return _assemble(
-        scheme, colors, shape, type, motionFor(cfg.motion), identityFor(cfg), arabic);
+      scheme,
+      colors,
+      shape,
+      type,
+      motionFor(cfg.motion),
+      identityFor(cfg),
+      arabic,
+      NptDensity.of(density),
+      NptNumerals(numerals),
+      feedback ?? NptFeedback(hapticWeight: hapticWeightFor(cfg.contentTone)),
+    );
   }
 
   // --- assembly -------------------------------------------------------------
@@ -167,6 +231,9 @@ class NeptuneTheme {
     NptMotion motion,
     NptIdentity identity,
     bool arabic,
+    NptDensity density,
+    NptNumerals numerals,
+    NptFeedback feedback,
   ) {
     final textTheme = _buildTextTheme(scheme, type, arabic);
     // The default body family for any text the textTheme doesn't name. Resolve
@@ -179,7 +246,7 @@ class NeptuneTheme {
       scaffoldBackgroundColor: scheme.surface,
       textTheme: textTheme,
       fontFamily: resolvedTextFamily,
-      extensions: [colors, shape, type, motion, identity],
+      extensions: [colors, shape, type, motion, identity, density, numerals, feedback],
       cardTheme: CardThemeData(
         color: scheme.surfaceContainerLow,
         elevation: 0,
@@ -288,6 +355,14 @@ class NeptuneTheme {
     return _gf(family, b)
         .copyWith(fontFeatures: const [FontFeature.tabularFigures()]);
   }
+
+  /// Apply the active theme's numerals lever (R6) to [text] — swaps ASCII
+  /// digits for Eastern Arabic / Arabic-Indic glyphs when the tenant has
+  /// opted in, otherwise returns [text] unchanged. Money/amount widgets that
+  /// receive pre-formatted strings should route them through this before
+  /// rendering (see [moneyStyle] for the paired text style).
+  static String formatDigits(BuildContext context, String text) =>
+      Theme.of(context).extension<NptNumerals>()?.format(text) ?? text;
 
   // --- reference matching ---------------------------------------------------
 

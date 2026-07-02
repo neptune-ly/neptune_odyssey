@@ -4,7 +4,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../theme/density.dart';
 import '../theme/extensions.dart';
+import '../theme/feedback.dart';
 import '../theme/identity.dart';
 
 /// Visual style for [NeptuneButton], mirroring the web `<npt-button>` variants.
@@ -119,6 +121,18 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // R6 signature motion: the sheen/nudge cycle length is brand-driven (was
+    // a fixed 4800ms/2400ms for every brand). Multipliers are chosen so
+    // Neptune's baseline (smooth-fluid: slow=500, durationStandard=300)
+    // reproduces the original constants exactly — 500*9.6=4800, 300*8=2400 —
+    // while calmer/snappier brands' existing per-brand curves/durations now
+    // also read as a visibly slower/quicker flourish, not just a differently
+    // eased identical-length one.
+    final motion = Theme.of(context).extension<NptMotion>();
+    if (motion != null) {
+      _sheen.duration = motion.slow * 96 ~/ 10;
+      _nudge.duration = motion.durationStandard * 8;
+    }
     final reduced = MediaQuery.of(context).disableAnimations;
     if (reduced) {
       _sheen.stop();
@@ -151,6 +165,8 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
     final type = theme.extension<NptType>()!;
     final motion = theme.extension<NptMotion>()!;
     final identity = theme.extension<NptIdentity>()!;
+    final density = theme.extension<NptDensity>() ?? const NptDensity(1);
+    final feedback = theme.extension<NptFeedback>();
     final text = theme.textTheme;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     final reduced = MediaQuery.of(context).disableAnimations;
@@ -226,10 +242,15 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
           borderRadius: radius,
           clipBehavior: Clip.antiAlias,
           child: InkWell(
-            onTap: widget.onPressed,
+            onTap: widget.onPressed == null
+                ? null
+                : () {
+                    feedback?.trigger(NptFeedbackCue.tap);
+                    widget.onPressed!();
+                  },
             onHighlightChanged: (v) => setState(() => _pressed = v),
             child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 54),
+              constraints: BoxConstraints(minHeight: density.s(54)),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
