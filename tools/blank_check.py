@@ -18,7 +18,9 @@ BAND = 6        # per-channel closeness
 ROW_FLAT = 0.985  # fraction of row pixels within BAND of the row median
 ROW_STEP = 4
 COL_STEP = 6
-MAX_RUN = 0.55  # longest flat run allowed, as a fraction of height
+MAX_RUN = 0.62  # longest flat run allowed, as a fraction of height
+# (bug-class bands measure 70–80%; legit sparse screens — e.g. a top-aligned
+#  auth form — measure up to ~58%. 0.62 splits the classes with margin.)
 
 
 def longest_flat_run(path: Path) -> float:

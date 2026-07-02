@@ -95,6 +95,18 @@ class _ExampleAppState extends State<ExampleApp> {
       await Future<void>.delayed(const Duration(milliseconds: 300));
     }
 
+    // Every composed template (neptune, light).
+    setState(() { _brandIndex = 0; _mode = ThemeMode.light; _rtl = false; });
+    await Future<void>.delayed(const Duration(milliseconds: 600));
+    for (final id in templateBuilders().keys) {
+      _nav.currentState!.push(MaterialPageRoute<void>(
+          builder: (_) => TemplateRoute(id: id)));
+      await Future<void>.delayed(const Duration(milliseconds: 800));
+      await _capture('$kShotsDir/template_$id.png');
+      _nav.currentState!.pop();
+      await Future<void>.delayed(const Duration(milliseconds: 250));
+    }
+
     // Arabic/RTL proof (Triton — Reem Kufi / Tajawal).
     setState(() {
       _brandIndex = 1;
@@ -830,6 +842,27 @@ class _GalleryScreenState extends State<GalleryScreen> {
                     ),
                   ),
 
+                  // ---- Screen templates (2.7.0) ----------------------------
+                  _Section(
+                    title: 'Screen templates',
+                    description: 'All nine templates.html screens, composed',
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final id in templateBuilders().keys)
+                          NeptuneButton(
+                            label: id,
+                            variant: NeptuneButtonStyle.tonal,
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                  builder: (_) => TemplateRoute(id: id)),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+
                   // ---- Feedback --------------------------------------------
                   _Section(
                     title: 'Feedback',
@@ -934,4 +967,86 @@ class _WelcomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+
+/// Demo instances of every composed template (2.7.0), keyed for routing/SHOTS.
+Map<String, Widget Function(BuildContext)> templateBuilders() => {
+      'auth': (_) => const NeptuneAuthTemplate(brandInitial: 'N', brandName: 'Neptune'),
+      'auth-otp': (_) => const NeptuneAuthTemplate(brandInitial: 'N', brandName: 'Neptune', step: 1),
+      'kyc': (_) => const NeptuneKycTemplate(notice: 'Your data is encrypted end-to-end.'),
+      'dashboard': (_) => NeptuneDashboardTemplate(
+            balanceCaption: '•••• 4821',
+            actions: [
+              NeptuneQuickAction(icon: Icons.north_east, label: 'Send', onTap: () {}),
+              NeptuneQuickAction(icon: Icons.account_balance_wallet_outlined, label: 'Request', onTap: () {}),
+              NeptuneQuickAction(icon: Icons.qr_code_rounded, label: 'Pay', onTap: () {}),
+              NeptuneQuickAction(icon: Icons.add_card_outlined, label: 'Top up', onTap: () {}),
+            ],
+            statPair: ('Spending', '3,540', 'LYD', '−2.1%'),
+            transactions: const [
+              NeptuneTxData('Salary', 'Today · Transfer', '+3,200.00 LYD', credit: true),
+              NeptuneTxData('Grocery Market', 'Today · Card', '−86.40 LYD'),
+              NeptuneTxData('Coffee Bar', 'Yesterday · Card', '−4.50 LYD'),
+            ],
+          ),
+      'cards': (_) => const NeptuneCardsTemplate(
+            cards: [
+              NeptuneCardData(holder: 'LINA ATIYA', last4: '4821', expiry: '08/27', scheme: 'VISA'),
+              NeptuneCardData(holder: 'LINA ATIYA', last4: '6642', expiry: '01/29', scheme: 'VIRTUAL', virtual: true),
+            ],
+            transactions: [
+              NeptuneTxData('Grocery Market', 'Today · Card', '−86.40 LYD'),
+              NeptuneTxData('Coffee Bar', 'Yesterday · Card', '−4.50 LYD'),
+            ],
+          ),
+      'transfer': (_) => NeptuneTransferTemplate(
+            payees: const [
+              NeptunePayeeData('Sara Nuri', '•••• 7390'),
+              NeptunePayeeData('Omar K.', '•••• 1204'),
+            ],
+            onPayee: (_) {},
+            onContinue: () {},
+          ),
+      'transfer-success': (_) => const NeptuneTransferTemplate(
+            step: 2,
+            outcome: NeptuneFlowStatus.success,
+            payees: [NeptunePayeeData('Sara Nuri', '•••• 7390')],
+          ),
+      'wallet': (_) => NeptuneWalletTemplate(
+            actions: [
+              NeptuneQuickAction(icon: Icons.qr_code_rounded, label: 'Pay', onTap: () {}),
+              NeptuneQuickAction(icon: Icons.add_card_outlined, label: 'Top up', onTap: () {}),
+              NeptuneQuickAction(icon: Icons.receipt_long, label: 'Vouchers', onTap: () {}),
+            ],
+            merchants: const [
+              ('Coffee Bar', 'Card', '−4.50 LYD', 'Today'),
+              ('Grocery Market', 'Card', '−86.40 LYD', 'Today'),
+            ],
+            voucher: ('Cashback', 'LYD 10', 'NPT-10', 'Aug 27'),
+          ),
+      'corporate': (_) => NeptuneCorporateTemplate(
+            subtitle: 'Pending your decision',
+            approvals: const [
+              NeptuneApprovalData('Payroll batch', '42 payments', 'LYD 18,200'),
+              NeptuneApprovalData('Supplier invoice', 'Al-Waha Trading', 'LYD 4,750'),
+            ],
+            onDecide: (_, __) {},
+            batch: ('June payroll', '42', 'LYD 18,200', 'Pending'),
+            audit: const [
+              ('Lina A.', 'Approved transfer', '12:04'),
+              ('Omar K.', 'Rejected invoice', '11:31'),
+            ],
+          ),
+    };
+
+/// Full-screen template route.
+class TemplateRoute extends StatelessWidget {
+  final String id;
+
+  const TemplateRoute({super.key, required this.id});
+
+  @override
+  Widget build(BuildContext context) =>
+      Scaffold(body: templateBuilders()[id]!(context));
 }

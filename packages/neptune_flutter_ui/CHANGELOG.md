@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.7.0
+
+**All nine published templates, composed.** `lib/src/templates/` ships the
+full templates.html set as data-parameterised screen widgets (joining
+`NeptuneWelcome`): `NeptuneAuthTemplate` (credentials → OTP),
+`NeptuneKycTemplate` (capture tiles + tier limit), `NeptuneDashboardTemplate`,
+`NeptuneCardsTemplate` (swipeable carousel + controls),
+`NeptuneTransferTemplate` (amount → review → hourglass/success outcome),
+`NeptuneWalletTemplate` and `NeptuneCorporateTemplate` (responsive side-nav
+workspace). Hand them data + callbacks; they wear the active brand — any
+brandprint, LTR/RTL, light/dark. The example gallery gains a template browser
+and the SHOTS harness captures every template.
+
+
 ## 2.6.1
 
 - Colour canon: brand tables are now GENERATED from themes.css via the repo's
