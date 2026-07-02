@@ -250,7 +250,9 @@ void main() {
         const SizedBox(height: 12),
         NeptuneToolbar(
           start: [IconButton(onPressed: () {}, icon: const Icon(Icons.menu))],
-          center: const [Text('Accounts')],
+          // Regression: a flex child (SearchField has an Expanded) in the
+          // center slot must get bounded width from the toolbar.
+          center: const [NeptuneSearchField(hint: 'Search')],
           end: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
         ),
         const SizedBox(height: 12),

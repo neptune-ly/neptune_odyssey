@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.5.2
+
+Two real layout bugs caught by the full-depth visual sweep (every gallery
+viewport × 4 brands × light/dark):
+
+- `NeptuneToolbar` now hands its center slot BOUNDED width (children wrapped in
+  `Flexible`). A flex child there (e.g. `NeptuneSearchField`, which contains an
+  `Expanded`) previously failed layout and blanked the surrounding subtree.
+  Regression-tested with a SearchField in the center slot.
+- `NeptuneCreditScoreGauge` honours its `size` under tight constraints (e.g.
+  inside `Expanded`) instead of painting a giant arc outside its bounds.
+
 ## 2.5.1
 
 Depth polish: `NeptuneCta` now rides elevation-3 with a soft primary key-light

@@ -207,8 +207,19 @@ class NeptuneToolbar extends StatelessWidget {
           child: Row(
             children: [
               _group(start),
+              // Center children get BOUNDED width (Flexible) — a bare Row hands
+              // its children unbounded width, which breaks flex widgets like
+              // NeptuneSearchField placed in the center slot.
               Expanded(
-                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: _spaced(center)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var i = 0; i < center.length; i++) ...[
+                      if (i > 0) const SizedBox(width: 8),
+                      Flexible(child: center[i]),
+                    ],
+                  ],
+                ),
               ),
               _group(end),
             ],

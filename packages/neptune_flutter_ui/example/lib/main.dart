@@ -62,10 +62,11 @@ class _ExampleAppState extends State<ExampleApp> {
           _rtl = false;
         });
         await Future<void>.delayed(const Duration(milliseconds: 900));
-        for (final off in const [0.0, 760.0, 1520.0, 2280.0, 3040.0]) {
-          if (_scroll.hasClients) {
-            _scroll.jumpTo(off.clamp(0.0, _scroll.position.maxScrollExtent));
-          }
+        // Sweep the WHOLE gallery, viewport by viewport.
+        final maxOff =
+            _scroll.hasClients ? _scroll.position.maxScrollExtent : 0.0;
+        for (var off = 0.0; off <= maxOff; off += 760.0) {
+          if (_scroll.hasClients) _scroll.jumpTo(off.clamp(0.0, maxOff));
           await Future<void>.delayed(const Duration(milliseconds: 250));
           await _capture(
               '$kShotsDir/${_brands[b]}_${dark ? 'dark' : 'light'}_${off.toInt()}.png');

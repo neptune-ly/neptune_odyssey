@@ -668,29 +668,33 @@ class NeptuneCreditScoreGauge extends StatelessWidget {
 
     final hasBand = band != null && band!.isNotEmpty;
 
-    return SizedBox(
-      width: size,
-      // 240° arc leaves a gap at the bottom; trim the box accordingly.
-      height: size * 0.82,
-      child: CustomPaint(
-        painter: _CreditGaugePainter(
-          fraction: fraction,
-          fill: scheme.primary,
-          track: scheme.outlineVariant,
-          thickness: size * 0.09,
-        ),
-        child: Padding(
-          padding: EdgeInsetsDirectional.only(bottom: size * 0.04),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('$score', style: scoreStyle),
-              if (hasBand) ...[
-                const SizedBox(height: 2),
-                Text(band!, style: bandStyle),
+    // Center loosens incoming tight constraints (e.g. an Expanded parent), so
+    // the gauge always paints at its own [size] — never beyond its bounds.
+    return Center(
+      child: SizedBox(
+        width: size,
+        // 240° arc leaves a gap at the bottom; trim the box accordingly.
+        height: size * 0.82,
+        child: CustomPaint(
+          painter: _CreditGaugePainter(
+            fraction: fraction,
+            fill: scheme.primary,
+            track: scheme.outlineVariant,
+            thickness: size * 0.09,
+          ),
+          child: Padding(
+            padding: EdgeInsetsDirectional.only(bottom: size * 0.04),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('$score', style: scoreStyle),
+                if (hasBand) ...[
+                  const SizedBox(height: 2),
+                  Text(band!, style: bandStyle),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),
