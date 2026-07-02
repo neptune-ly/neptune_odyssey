@@ -1,5 +1,38 @@
 # Changelog
 
+## 2.9.0
+
+**The full account-opening onboarding flow (R5)** — modelled on a real
+production banking app's onboarding sequence, not a generic wizard. Ten new
+template widgets in `lib/src/templates/neptune_onboarding_flow.dart`:
+
+- `NeptuneOtpStepTemplate`, `NeptuneInstructionTemplate` (the reusable
+  "how this works" pattern for document/selfie steps).
+- `NeptuneDocumentCaptureTemplate` — a document frame drawn with four
+  INDEPENDENT corner brackets (not a full rectangle), a colour-coded status
+  pill and a shutter that glows once ready.
+- `NeptuneSelfieCaptureTemplate` — an oval face guide with colour-coded
+  readiness (idle/challenge/aligned) and a large centred countdown numeral.
+- `NeptuneOcrReviewTemplate` — read-only OCR fields alongside editable date
+  fields, with an optional validation banner.
+- `NeptuneOnboardingFormStep` — labelled fields + tappable pickers (branch,
+  municipality, job) for the personal/account-details steps.
+- `NeptuneAttachmentTile` + `NeptuneDocumentsStep` — dashed-until-attached
+  upload tiles (birth certificate, signature).
+- `NeptuneTermsTemplate` — scrollable terms with Accept/Decline.
+- `NeptuneOnboardingStatusTemplate` — the shared terminal screen: EVERY
+  backend outcome (processing, success, manual review, rejected, failed)
+  renders through one widget driven by `NeptuneStatusMotion`, plus a
+  tap-to-copy detail card and Check-now/Refresh + Leave actions.
+- `NeptuneIdentityCorrectionTemplate` — the identity-mismatch recovery screen.
+
+Verified against engine renders of all ten screens (corner-bracket frame,
+oval countdown, OCR review, dashed-to-filled attachments, the checkmark
+morph) before shipping — not just widget tests.
+
+flutter analyze clean · 72 tests pass · CI no-literals gate green.
+
+
 ## 2.8.0
 
 **State completeness + insights charts (R4b).** Banks judge kits by the
