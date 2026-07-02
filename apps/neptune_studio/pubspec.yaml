@@ -1,0 +1,28 @@
+name: neptune_studio
+description: "Neptune Odyssey Studio — the desktop client-demo factory: drop a logo, tune the brand, preview live, generate a running white-label demo."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  file_selector: ^1.0.3
+  path: ^1.9.0
+
+  # The Neptune Odyssey Flutter design system — Studio is built on it (the
+  # same widgets it generates demos from). Path dependency so it always
+  # reflects the local library.
+  neptune_flutter_ui:
+    path: ../../packages/neptune_flutter_ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

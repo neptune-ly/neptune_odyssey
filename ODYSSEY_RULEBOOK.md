@@ -206,6 +206,23 @@ presets, or you're building the shell composition itself):
 gitignored, never committed, never bundled by `pub publish` (pub bundles
 `example/`).
 
+**The desktop GUI path** (`apps/neptune_studio`, R5c): the same generator as
+a point-and-click macOS/Windows app — drop a logo, watch live OKLCH seed
+extraction, tune tone/dark/Arabic, preview the real `NeptuneWelcome` in a
+phone frame, "Generate & run" writes the same `client_config.dart`/
+`client_main.dart` pair the CLI writes and shells `flutter build macos`. It's
+local dev tooling only (never Mac-App-Store distributed), so its
+`Runner.entitlements` have `com.apple.security.app-sandbox = false` — it
+needs to shell `flutter build`/`open` and write into a sibling repo
+directory, neither of which App Sandbox permits.
+
+**Logo colour profiles**: any image picked from disk (Studio's file picker,
+or a future drag-drop) MUST be colour-matched to sRGB before decoding via
+`dart:ui`. Design-tool exports are routinely tagged Display P3 on macOS;
+`toByteData(rawRgba)` hands back the profile-native bytes as-is, and reading
+P3 bytes as sRGB shifts hues badly (see §9). Normalize first:
+`sips -m "/System/Library/ColorSync/Profiles/sRGB Profile.icc" in --out out`.
+
 ## 9 · History — the mistakes, so you don't repeat them
 
 - **2.2–2.4: "correctly themed Material" ≠ Odyssey.** ~88 widgets read the M3
@@ -224,6 +241,16 @@ gitignored, never committed, never bundled by `pub publish` (pub bundles
 - A comment containing `Colors.` failed the CI gate — the grep reads raw text.
 - macOS `screencapture` triggered endless permission dialogs mid-verification —
   the in-app SHOTS harness replaced it permanently.
+- **A Display-P3-tagged logo PNG decoded via `dart:ui` extracted the WRONG
+  brand colours** (real FGLB navy `#364680` read back as azure `#00A0E0`,
+  red `#EE4037` as green `#40C880`) — `toByteData(rawRgba)` doesn't convert
+  profiled pixel data to sRGB, it returns the profile-native bytes verbatim.
+  Caught by comparing Studio's live-extracted swatch against the logo's own
+  printed hex spec, not by unit tests (the extractor's own tests use
+  synthetic sRGB pixel arrays, which never exercise a codec's colour-space
+  handling). Fixed by `sips -m` normalizing to sRGB before decode (R5c).
+  Any future pixel-sampling-from-a-real-image code path needs this same
+  normalization — it's not specific to Studio.
 
 ---
 © 2026 Neptune.Fintech (neptune.ly). Keep this file honest: when you learn a
