@@ -10,6 +10,7 @@ export 'src/brandprint/codec.dart';
 // Colour math (custom seeds).
 export 'src/color/oklch.dart';
 export 'src/color/palette.dart';
+export 'src/color/seed_extractor.dart';
 
 // Theming.
 export 'src/theme/color_schemes.dart';

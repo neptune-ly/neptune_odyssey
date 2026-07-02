@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.11.0
+
+**The colour pipeline is now bidirectional.** `hexToOklch`/`rgb255ToOklch`
+invert the existing OKLCH→sRGB path exactly (round-trips a colour through
+OKLCH and back to the identical hex) — turn any sampled or picked colour
+straight into brandprint seeds. `extractSeedsFromRgba` finds a dominant
+primary + a sufficiently-distinct saturated accent from raw decoded pixels
+(e.g. a client's logo), the same algorithm as `tools/client-demo`'s Python
+extractor, now available to any Dart/Flutter consumer with no Python
+dependency.
+
+flutter analyze clean · 83 tests pass · CI no-literals gate green.
+
+
 ## 2.10.0
 
 **`NeptuneDemoShellApp` — a complete branded demo app in ~10 lines.** Hand it

@@ -1,8 +1,10 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 //
-// OKLCH -> sRGB converter (Dart port of color/oklch.ts). The SAME math ships on
-// every platform so custom seeds resolve identically. CSS Color 4 reference path:
-// OKLab -> LMS -> XYZ(D65) -> linear sRGB -> gamma-encoded sRGB.
+// OKLCH <-> sRGB converter (Dart port of color/oklch.ts + its inverse). The
+// SAME math ships on every platform so custom seeds resolve identically.
+// CSS Color 4 reference path: OKLab -> LMS -> XYZ(D65) -> linear sRGB ->
+// gamma-encoded sRGB (and back, for turning a client's logo colours into
+// brandprint seeds — see NptSeedExtractor / tools/client-demo).
 
 import 'dart:math' as math;
 
@@ -91,4 +93,51 @@ String oklchToHex(Oklch c) {
 int oklchToArgb(Oklch c) {
   final rgb = oklchToRgb255(c);
   return 0xFF000000 | (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+}
+
+// --- inverse: sRGB -> OKLCH ---------------------------------------------------
+
+const List<List<double>> _linSrgbToXyz = [
+  [0.41239079926595934, 0.357584339383878, 0.1804807884018343],
+  [0.21263900587151027, 0.715168678767756, 0.07219231536073371],
+  [0.01933081871559182, 0.11919477979462598, 0.9505321522496607],
+];
+
+const List<List<double>> _xyzToLms = [
+  [0.8189330101, 0.3618667424, -0.1288597137],
+  [0.0329845436, 0.9293118715, 0.0361456387],
+  [0.0482003018, 0.2643662691, 0.6338517070],
+];
+
+const List<List<double>> _lmsToOklab = [
+  [0.2104542553, 0.7936177850, -0.0040720468],
+  [1.9779984951, -2.4285922050, 0.4505937099],
+  [0.0259040371, 0.7827717662, -0.8086757660],
+];
+
+/// Gamma-encoded sRGB channel (0..1) -> linear-light sRGB.
+double _decodeSrgb(double c) =>
+    c <= 0.04045 ? c / 12.92 : math.pow((c + 0.055) / 1.055, 2.4).toDouble();
+
+/// sRGB 0..255 integer channels -> OKLCH. The exact inverse of
+/// [oklchToRgb255] — round-trips a colour through OKLCH and back to the same
+/// byte values (± rounding). Use to turn an extracted brand colour (e.g. a
+/// client logo's dominant colour) into brandprint seeds.
+Oklch rgb255ToOklch(int r, int g, int b) {
+  final lin = [r, g, b].map((c) => _decodeSrgb(c / 255)).toList();
+  final xyz = _mul(_linSrgbToXyz, lin);
+  final lms_ = _mul(_xyzToLms, xyz);
+  final lms = lms_.map((v) => math.pow(v, 1 / 3).toDouble()).toList();
+  final lab = _mul(_lmsToOklab, lms);
+  final c = math.sqrt(lab[1] * lab[1] + lab[2] * lab[2]);
+  var h = math.atan2(lab[2], lab[1]) * 180 / math.pi;
+  if (h < 0) h += 360;
+  return Oklch(lab[0], c, h);
+}
+
+/// "#rrggbb"/"#rrggbbaa" (alpha ignored) -> OKLCH.
+Oklch hexToOklch(String hex) {
+  final s = hex.replaceFirst('#', '');
+  final n = int.parse(s.substring(0, 6), radix: 16);
+  return rgb255ToOklch((n >> 16) & 0xFF, (n >> 8) & 0xFF, n & 0xFF);
 }
