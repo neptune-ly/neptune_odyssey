@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
+import '../theme/identity.dart';
+import 'neptune_identity_surfaces.dart';
 
 /// One item in a [NeptuneDock]. The parent owns selection — set [active] on the
 /// current item and handle [onTap].
@@ -20,9 +22,10 @@ class NeptuneDockItem {
   });
 }
 
-/// A floating bottom navigation bar (web `<npt-dock>`): a rounded, elevated
-/// surface where the active item lifts into a filled accent circle — the
-/// signature "raised active" indicator. Theme-only, RTL-safe.
+/// The floating glass dock (web `<npt-dock>`): a backdrop-blurred
+/// surface-container pane with a hairline border and soft elevation, where the
+/// active item lifts into a filled accent circle — the signature "raised
+/// active" indicator, sprung on the brand's motion curve. Theme-only, RTL-safe.
 class NeptuneDock extends StatelessWidget {
   final List<NeptuneDockItem> items;
 
@@ -30,26 +33,40 @@ class NeptuneDock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final shape = Theme.of(context).extension<NptShape>()!;
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final shape = theme.extension<NptShape>()!;
+    final identity = theme.extension<NptIdentity>()!;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainer,
-        borderRadius: shape.rXxl,
-        border: Border.all(color: scheme.outlineVariant),
-        boxShadow: [
-          BoxShadow(
-            color: scheme.shadow.withValues(alpha: 0.18),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
+    // The glass pane sits 12px below the top of the hit area so the active
+    // item's raised circle can pop ABOVE the bar (web `overflow: visible`).
+    // Shadow lives OUTSIDE the glass clip so the blur pane stays clean.
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Positioned.fill(
+          top: 12,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: shape.rXxl,
+              boxShadow: identity.elevation3(scheme),
+            ),
+            child: NeptuneGlass(
+              dock: true,
+              borderRadius: shape.rXxl,
+              child: const SizedBox.expand(),
+            ),
           ),
-        ],
-      ),
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 10),
-      child: Row(
-        children: [for (final it in items) Expanded(child: _DockItem(item: it))],
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(8, 12, 8, 10),
+          child: Row(
+            children: [
+              for (final it in items) Expanded(child: _DockItem(item: it))
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -61,17 +78,32 @@ class _DockItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final shape = Theme.of(context).extension<NptShape>()!;
-    final text = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final shape = theme.extension<NptShape>()!;
+    final motion = theme.extension<NptMotion>()!;
+    final text = theme.textTheme;
     final active = item.active;
 
-    final circle = Container(
+    // The raised-active circle springs up on the brand's motion curve and
+    // carries the primary key-light while lifted.
+    final circle = AnimatedContainer(
+      duration: motion.durationStandard,
+      curve: motion.spring,
       width: 44,
       height: 44,
       decoration: BoxDecoration(
-        color: active ? scheme.primary : null,
+        color: active ? scheme.primary : scheme.primary.withValues(alpha: 0),
         shape: BoxShape.circle,
+        boxShadow: active
+            ? [
+                BoxShadow(
+                  color: scheme.primary.withValues(alpha: 0.32),
+                  blurRadius: 14,
+                  offset: const Offset(0, 6),
+                ),
+              ]
+            : null,
       ),
       child: Icon(
         item.icon,
@@ -88,15 +120,22 @@ class _DockItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Transform.translate(offset: Offset(0, active ? -12 : 0), child: circle),
-            Transform.translate(
-              offset: Offset(0, active ? -8 : 2),
-              child: Text(
-                item.label,
-                style: text.labelSmall?.copyWith(
-                  color: active ? scheme.primary : scheme.onSurfaceVariant,
-                  fontWeight: active ? FontWeight.w700 : FontWeight.w500,
-                ),
+            AnimatedSlide(
+              duration: motion.durationStandard,
+              curve: motion.spring,
+              offset: Offset(0, active ? -0.30 : 0),
+              child: circle,
+            ),
+            AnimatedDefaultTextStyle(
+              duration: motion.fast,
+              curve: motion.standard,
+              style: (text.labelSmall ?? const TextStyle()).copyWith(
+                color: active ? scheme.primary : scheme.onSurfaceVariant,
+                fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+              ),
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(top: active ? 0 : 2),
+                child: Text(item.label),
               ),
             ),
           ],
@@ -114,7 +153,8 @@ class NeptuneAppBar extends StatelessWidget {
   final Widget? leading;
   final List<Widget>? actions;
 
-  const NeptuneAppBar({super.key, required this.title, this.leading, this.actions});
+  const NeptuneAppBar(
+      {super.key, required this.title, this.leading, this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +165,8 @@ class NeptuneAppBar extends StatelessWidget {
     return Container(
       color: scheme.surface,
       constraints: const BoxConstraints(minHeight: 56),
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
+      padding:
+          const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           if (leading != null) ...[leading!, const SizedBox(width: 12)],

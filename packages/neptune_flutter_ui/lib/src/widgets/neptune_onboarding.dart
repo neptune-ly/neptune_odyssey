@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
+import 'neptune_identity_surfaces.dart';
 
 /// A full-height get-started hero: a media region on top, then an eyebrow,
 /// headline, supporting copy, page dots and a call to action. Mirrors the web
@@ -49,7 +50,8 @@ class NeptuneOnboarding extends StatelessWidget {
     final shape = Theme.of(context).extension<NptShape>()!;
     final text = Theme.of(context).textTheme;
 
-    // Media region: caller content, or a brand gradient fallback.
+    // Media region: caller content, or the brand gradient with the login-shell
+    // motif etched over it (web `--npt-login-shell` motif backdrop).
     final mediaRegion = Container(
       margin: const EdgeInsetsDirectional.all(12),
       clipBehavior: Clip.antiAlias,
@@ -64,7 +66,7 @@ class NeptuneOnboarding extends StatelessWidget {
             : null,
       ),
       alignment: Alignment.center,
-      child: media,
+      child: media ?? NeptuneMotifLayer(color: scheme.onPrimary, strength: 1),
     );
 
     // Fill the screen when the parent bounds our height (a real onboarding

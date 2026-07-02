@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../brandprint/codec.dart';
 import 'extensions.dart';
+import 'identity.dart';
 
 /// success / on / container / on-container per brand × mode (from tokens.resolved.json).
 const Map<String, (NptColors light, NptColors dark)> brandSuccess = {
@@ -244,3 +245,34 @@ const Map<String, BrandprintConfig> brandConfig = {
 
 /// The four reference brand ids in canonical order.
 const List<String> kBrands = ['neptune', 'triton', 'nereid', 'proteus'];
+
+/// Identity recipes keyed by the glass-tint lever (themes.css `--npt-glass-*`,
+/// `--npt-motif`). Custom brandprints resolve through the same lever, so any
+/// seed gets the full Odyssey treatment: glass ratios, blur, signature motif.
+const Map<String, ({NptMotifKind motif, double strength, bool onTertiary, double ratio, double surface, double blur})>
+    _glassTintRecipes = {
+  // Neptune — oceanic glass · sonar tide-rings.
+  'oceanic': (motif: NptMotifKind.sonarRings, strength: 0.9, onTertiary: false, ratio: 0.08, surface: 0.70, blur: 18),
+  // Triton — warm-amber glass (tertiary-tinted) · coastal arcs.
+  'warm-amber': (motif: NptMotifKind.coastalArcs, strength: 1.0, onTertiary: true, ratio: 0.09, surface: 0.72, blur: 16),
+  // Nereid — violet-luminous glass · grid-spark.
+  'violet-luminous': (motif: NptMotifKind.gridSpark, strength: 1.0, onTertiary: false, ratio: 0.12, surface: 0.62, blur: 22),
+  // Proteus — navy-steel glass · shield guilloché.
+  'navy-steel': (motif: NptMotifKind.guilloche, strength: 0.85, onTertiary: false, ratio: 0.07, surface: 0.76, blur: 14),
+};
+
+/// Resolve the [NptIdentity] for a brandprint config (reference or custom).
+NptIdentity identityFor(BrandprintConfig cfg) {
+  final r = _glassTintRecipes[cfg.glassTint] ?? _glassTintRecipes['oceanic']!;
+  return NptIdentity(
+    motif: r.motif,
+    motifStrength: r.strength,
+    glassOnTertiary: r.onTertiary,
+    glassMixRatio: r.ratio,
+    glassSurfaceOpacity: r.surface,
+    glassBlur: r.blur,
+    dashboardHero: cfg.dashboardHero,
+    loginShell: cfg.loginShell,
+    contentTone: cfg.contentTone,
+  );
+}

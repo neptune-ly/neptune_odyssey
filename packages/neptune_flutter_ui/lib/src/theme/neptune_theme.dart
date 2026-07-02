@@ -17,6 +17,7 @@ import '../color/palette.dart';
 import 'brand_tables.dart';
 import 'color_schemes.dart';
 import 'extensions.dart';
+import 'identity.dart';
 
 /// Entry points for building Neptune Odyssey [ThemeData].
 class NeptuneTheme {
@@ -80,7 +81,7 @@ class NeptuneTheme {
     final shape = brandShape[brand]!;
     final type = brandType[brand]!;
     final motion = motionFor(cfg.motion);
-    return _assemble(scheme, colors, shape, type, motion, arabic);
+    return _assemble(scheme, colors, shape, type, motion, identityFor(cfg), arabic);
   }
 
   // --- custom seeds ---------------------------------------------------------
@@ -152,7 +153,8 @@ class NeptuneTheme {
       displayWeight: cfg.displayWeight,
       displayTracking: cfg.displayTracking,
     );
-    return _assemble(scheme, colors, shape, type, motionFor(cfg.motion), arabic);
+    return _assemble(
+        scheme, colors, shape, type, motionFor(cfg.motion), identityFor(cfg), arabic);
   }
 
   // --- assembly -------------------------------------------------------------
@@ -163,6 +165,7 @@ class NeptuneTheme {
     NptShape shape,
     NptType type,
     NptMotion motion,
+    NptIdentity identity,
     bool arabic,
   ) {
     final textTheme = _buildTextTheme(scheme, type, arabic);
@@ -176,7 +179,7 @@ class NeptuneTheme {
       scaffoldBackgroundColor: scheme.surface,
       textTheme: textTheme,
       fontFamily: resolvedTextFamily,
-      extensions: [colors, shape, type, motion],
+      extensions: [colors, shape, type, motion, identity],
       cardTheme: CardThemeData(
         color: scheme.surfaceContainerLow,
         elevation: 0,

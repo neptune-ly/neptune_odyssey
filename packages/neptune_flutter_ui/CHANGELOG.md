@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.5.0
+
+**The identity release — Odyssey stops looking like generic Material.** Ports
+the web token levers that sit above the M3 colour scheme, so every brand
+carries its signature look (verified pixel-by-pixel against the shipped web
+templates via engine-rendered screenshots across 4 brands × light/dark × RTL):
+
+- `NptIdentity` theme extension: per-brand glass recipes (`--npt-glass-tint`
+  mix ratios + blur), the signature motif lever, elevation tokens
+  (`--npt-elevation-1/2/3/5`), the primary key-light glow, and the
+  login-shell / dashboard-hero / content-tone levers. Resolves for custom
+  brandprint seeds too (keyed off the `glassTint` lever).
+- `NeptuneMotifLayer`: the four brand motifs as CustomPainters — Neptune sonar
+  tide-rings, Triton coastal arcs, Nereid grid-spark, Proteus shield
+  guilloché — ported from the `--npt-motif` CSS gradients.
+- `NeptuneGlass`: real backdrop-blur glass with the brand tint and hairline
+  seal (card glass + dock pane recipes). `NeptuneCard` with the web's four
+  variants (standard / elevated / tonal / glass, `motif:` overlay opt-in).
+- `NeptuneEyebrow`: the uppercase, letter-spaced display-face micro-label.
+- Widgets now wear the identity: the dock is glass with the raised-active
+  circle popping above the bar (sprung on the brand motion curve), card art
+  carries the motif + elevation + selection glow, the balance-card hero etches
+  the motif over its gradient with the web's display-md amount, onboarding
+  heroes get the login-shell motif backdrop, stat cards use the eyebrow.
+- Example gallery: fixed phone-frame window on macOS, content scrolls under
+  the glass dock, and a `--dart-define=SHOTS=true` harness renders pixel-exact
+  gallery screenshots per brand/mode/scroll for visual regression.
+
 ## 2.4.0
 
 The "fully fledged" release — ~33 new branded widgets take the package past

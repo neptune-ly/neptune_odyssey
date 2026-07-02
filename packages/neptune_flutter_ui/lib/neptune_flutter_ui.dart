@@ -14,6 +14,7 @@ export 'src/color/palette.dart';
 // Theming.
 export 'src/theme/color_schemes.dart';
 export 'src/theme/extensions.dart';
+export 'src/theme/identity.dart';
 export 'src/theme/neptune_theme.dart';
 export 'src/theme/brand_tables.dart'
     show kBrands, brandConfig, brandShape, brandType, brandSuccess, motionFor;
@@ -41,6 +42,8 @@ export 'src/widgets/neptune_data_table.dart';
 export 'src/widgets/neptune_shell_nav.dart';
 export 'src/widgets/neptune_card_controls.dart';
 export 'src/widgets/neptune_toast.dart';
+// 2.5.0 — the identity layer: brand motifs, real glass, branded card surface.
+export 'src/widgets/neptune_identity_surfaces.dart';
 // 2.4.0 — the "fully fledged" widget set (form fields, selection controls,
 // overlays, navigation, display primitives, premium fintech).
 export 'src/widgets/neptune_form_fields.dart';

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
+import 'neptune_identity_surfaces.dart';
 
 /// A primary account/balance card. Reads colour, shape and type from the active
 /// theme only — no literals. RTL-safe.
@@ -39,9 +40,10 @@ class NeptuneBalanceCard extends StatelessWidget {
     // tonal container. All colours come from the theme — no literals.
     final onColor = hero ? scheme.onPrimary : scheme.onPrimaryContainer;
     final radius = hero ? shape.rXl : shape.rLg;
+    // Web hero amount rides display-md (45px); the flat variant stays smaller.
     final money = NeptuneTheme.moneyStyle(
       context,
-      base: textTheme.displaySmall,
+      base: hero ? textTheme.displayMedium : textTheme.displaySmall,
     ).copyWith(color: onColor);
 
     final decoration = BoxDecoration(
@@ -75,7 +77,15 @@ class NeptuneBalanceCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           borderRadius: radius,
-          child: Padding(
+          child: Stack(
+            children: [
+              // The dashboard-hero treatment on the site etches the brand
+              // motif over the gradient (templates layer `--npt-motif`).
+              if (hero)
+                Positioned.fill(
+                  child: NeptuneMotifLayer(color: onColor, strength: 0.8),
+                ),
+              Padding(
             padding: EdgeInsetsDirectional.all(hero ? 24 : 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +115,8 @@ class NeptuneBalanceCard extends StatelessWidget {
                 ],
               ],
             ),
+              ),
+            ],
           ),
         ),
       ),

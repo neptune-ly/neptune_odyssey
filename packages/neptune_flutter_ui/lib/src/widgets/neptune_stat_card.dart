@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
+import 'neptune_identity_surfaces.dart';
 
 /// A compact metric tile (web `<npt-stat-card>`): a label, a big tabular value
 /// with an optional unit, a signed delta coloured success/error, and an
@@ -42,7 +43,8 @@ class NeptuneStatCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(label, style: text.labelMedium?.copyWith(color: scheme.onSurfaceVariant)),
+          // The Odyssey eyebrow — uppercase, tracked, display face.
+          NeptuneEyebrow(label),
           const SizedBox(height: 6),
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,

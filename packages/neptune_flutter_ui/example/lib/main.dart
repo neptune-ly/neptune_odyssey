@@ -6,8 +6,19 @@
 // purely from the active NeptuneTheme — swap the brand and the whole gallery
 // reskins, byte-identically to the web.
 
+import 'dart:io';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
+
+/// Build with `--dart-define=SHOTS=true` to auto-capture the gallery across
+/// brands × modes × scroll positions into SHOTS_DIR, then exit — pixel-exact
+/// screenshots rendered by the engine itself (no OS screen permissions).
+const bool kShots = bool.fromEnvironment('SHOTS');
+const String kShotsDir =
+    String.fromEnvironment('SHOTS_DIR', defaultValue: '/tmp/npt_shots');
 
 void main() => runApp(const ExampleApp());
 
@@ -24,7 +35,66 @@ class _ExampleAppState extends State<ExampleApp> {
   ThemeMode _mode = ThemeMode.light;
   bool _rtl = false;
 
+  final GlobalKey _shotKey = GlobalKey();
+  final ScrollController _scroll = ScrollController();
+
   String get _brand => _brands[_brandIndex];
+
+  @override
+  void initState() {
+    super.initState();
+    if (kShots) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _runShots());
+    }
+  }
+
+  // --- SHOTS harness ---------------------------------------------------------
+
+  Future<void> _runShots() async {
+    await Directory(kShotsDir).create(recursive: true);
+    // Let the first brand's fonts finish loading.
+    await Future<void>.delayed(const Duration(seconds: 2));
+    for (var b = 0; b < _brands.length; b++) {
+      for (final dark in [false, true]) {
+        setState(() {
+          _brandIndex = b;
+          _mode = dark ? ThemeMode.dark : ThemeMode.light;
+          _rtl = false;
+        });
+        await Future<void>.delayed(const Duration(milliseconds: 900));
+        for (final off in const [0.0, 760.0, 1520.0, 2280.0, 3040.0]) {
+          if (_scroll.hasClients) {
+            _scroll.jumpTo(off.clamp(0.0, _scroll.position.maxScrollExtent));
+          }
+          await Future<void>.delayed(const Duration(milliseconds: 250));
+          await _capture(
+              '$kShotsDir/${_brands[b]}_${dark ? 'dark' : 'light'}_${off.toInt()}.png');
+        }
+      }
+    }
+    // Arabic/RTL proof (Triton — Reem Kufi / Tajawal).
+    setState(() {
+      _brandIndex = 1;
+      _mode = ThemeMode.light;
+      _rtl = true;
+    });
+    await Future<void>.delayed(const Duration(seconds: 2));
+    if (_scroll.hasClients) _scroll.jumpTo(0);
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    await _capture('$kShotsDir/triton_rtl_0.png');
+    exit(0);
+  }
+
+  Future<void> _capture(String path) async {
+    await WidgetsBinding.instance.endOfFrame;
+    final ro = _shotKey.currentContext?.findRenderObject();
+    if (ro is! RenderRepaintBoundary) return;
+    final image = await ro.toImage(pixelRatio: 2);
+    final data = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (data != null) {
+      await File(path).writeAsBytes(data.buffer.asUint8List());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +104,20 @@ class _ExampleAppState extends State<ExampleApp> {
       theme: NeptuneTheme.light(_brand, arabic: _rtl),
       darkTheme: NeptuneTheme.dark(_brand, arabic: _rtl),
       themeMode: _mode,
-      home: Directionality(
+      home: RepaintBoundary(
+        key: _shotKey,
+        child: Directionality(
         textDirection: _rtl ? TextDirection.rtl : TextDirection.ltr,
         child: GalleryScreen(
           brand: _brand,
           rtl: _rtl,
+          controller: _scroll,
           onCycleBrand: () =>
               setState(() => _brandIndex = (_brandIndex + 1) % _brands.length),
           onToggleMode: () => setState(() =>
               _mode = _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light),
           onToggleRtl: () => setState(() => _rtl = !_rtl),
+        ),
         ),
       ),
     );
@@ -56,6 +130,7 @@ class GalleryScreen extends StatefulWidget {
   final VoidCallback onCycleBrand;
   final VoidCallback onToggleMode;
   final VoidCallback onToggleRtl;
+  final ScrollController? controller;
 
   const GalleryScreen({
     super.key,
@@ -64,6 +139,7 @@ class GalleryScreen extends StatefulWidget {
     required this.onCycleBrand,
     required this.onToggleMode,
     required this.onToggleRtl,
+    this.controller,
   });
 
   @override
@@ -94,6 +170,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
 
     return Scaffold(
       backgroundColor: scheme.surface,
+      // Content scrolls UNDER the floating dock so its glass blur reads.
+      extendBody: true,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -121,6 +199,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ),
             Expanded(
               child: ListView(
+                controller: widget.controller,
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 120),
                 children: [
                   // ---- Typography ------------------------------------------
@@ -153,6 +232,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                           label: 'Available balance',
                           amount: 'LYD 12,480.50',
                           caption: '•••• 4821',
+                          hero: true,
                         ),
                         const SizedBox(height: 12),
                         const Row(

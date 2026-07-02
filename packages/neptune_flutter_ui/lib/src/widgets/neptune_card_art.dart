@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
+import '../theme/identity.dart';
 import '../theme/neptune_theme.dart';
+import 'neptune_identity_surfaces.dart';
 
 /// A payment-card visual — the Flutter counterpart of web `<npt-card-art>`.
 ///
@@ -77,99 +79,117 @@ class NeptuneCardArt extends StatelessWidget {
       letterSpacing: 1.2,
     );
 
+    final identity = Theme.of(context).extension<NptIdentity>()!;
+
     final card = AspectRatio(
       aspectRatio: 1.586,
-      child: Material(
-        type: MaterialType.transparency,
-        borderRadius: shape.rLg,
-        clipBehavior: Clip.antiAlias,
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: shape.rLg,
-            gradient: LinearGradient(
-              begin: AlignmentDirectional.topStart,
-              end: AlignmentDirectional.bottomEnd,
-              colors: gradientColors,
+      child: DecoratedBox(
+        // Elevation-2 at rest (web box-shadow) — outside the ink clip.
+        decoration: BoxDecoration(
+          borderRadius: shape.rLg,
+          boxShadow: identity.elevation2(scheme),
+        ),
+        child: Material(
+          type: MaterialType.transparency,
+          borderRadius: shape.rLg,
+          clipBehavior: Clip.antiAlias,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: shape.rLg,
+              gradient: LinearGradient(
+                begin: AlignmentDirectional.topStart,
+                end: AlignmentDirectional.bottomEnd,
+                colors: gradientColors,
+              ),
             ),
-          ),
-          child: InkWell(
-            onTap: onTap,
-            child: Padding(
-              padding: const EdgeInsetsDirectional.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: InkWell(
+              onTap: onTap,
+              child: Stack(
                 children: [
-                  // Top row: scheme label + brand mark (top-trailing).
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          this.scheme?.toUpperCase() ?? '',
-                          style: schemeStyle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      if (brandMark != null) ...[
-                        const SizedBox(width: 16),
-                        IconTheme.merge(
-                          data: IconThemeData(color: onCard),
-                          child: DefaultTextStyle.merge(
-                            style: TextStyle(color: onCard),
-                            child: brandMark!,
-                          ),
-                        ),
-                      ],
-                    ],
+                  // The brand's signature motif, embossed over the gradient —
+                  // the web layers `--npt-motif` on card art at full strength.
+                  Positioned.fill(
+                    child: NeptuneMotifLayer(color: onCard, strength: 1),
                   ),
-                  // Masked card number.
-                  Text(
-                    '•••• •••• •••• $last4',
-                    style: numberStyle,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  // Bottom row: holder + expiry block.
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          holder.toUpperCase(),
-                          style: textTheme.labelMedium?.copyWith(
-                            color: onCard,
-                            letterSpacing: 0.6,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      if (expiry != null) ...[
-                        const SizedBox(width: 16),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
+                  Padding(
+                    padding: const EdgeInsetsDirectional.all(24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Top row: scheme label + brand mark (top-trailing).
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Expires',
-                              style: textTheme.bodySmall?.copyWith(
-                                color: onCard.withValues(alpha: 0.85),
+                            Expanded(
+                              child: Text(
+                                this.scheme?.toUpperCase() ?? '',
+                                style: schemeStyle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              expiry!,
-                              style: NeptuneTheme.moneyStyle(
-                                context,
-                                base: textTheme.labelLarge,
-                              ).copyWith(color: onCard),
+                            if (brandMark != null) ...[
+                              const SizedBox(width: 16),
+                              IconTheme.merge(
+                                data: IconThemeData(color: onCard),
+                                child: DefaultTextStyle.merge(
+                                  style: TextStyle(color: onCard),
+                                  child: brandMark!,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                        // Masked card number.
+                        Text(
+                          '•••• •••• •••• $last4',
+                          style: numberStyle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        // Bottom row: holder + expiry block.
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                holder.toUpperCase(),
+                                style: textTheme.labelMedium?.copyWith(
+                                  color: onCard,
+                                  letterSpacing: 0.6,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
+                            if (expiry != null) ...[
+                              const SizedBox(width: 16),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Expires',
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: onCard.withValues(alpha: 0.85),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    expiry!,
+                                    style: NeptuneTheme.moneyStyle(
+                                      context,
+                                      base: textTheme.labelLarge,
+                                    ).copyWith(color: onCard),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ],
                         ),
                       ],
-                    ],
+                    ),
                   ),
                 ],
               ),
