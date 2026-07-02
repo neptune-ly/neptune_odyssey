@@ -36,6 +36,16 @@ glass tint, signature motif, login shell, dashboard hero, content tone.
 shadow, easing, duration, letter-spacing and animation timing already exists in
 the web source. Extract the exact recipe first, then port it.
 
+**The codegen pipeline (R1).** `themes.css` is canon; `node tools/codegen.mjs`
+(`pnpm codegen`) generates `tokens.resolved.json`, the Flutter
+`generated/brand_data.g.dart` (schemes, success roles, shapes, types incl.
+Arabic, motion, glass recipes), the TS `tokens.g.ts`, and the Flutter oklch
+golden fixture — all through the same OKLCH math (1:1 with `oklch.dart`).
+**Never hand-edit colour tables**: edit `themes.css`, regenerate, and let the
+data-driven goldens verify. `pnpm codegen:check` is the CI drift gate. (The
+old browser-derived hexes differed by ±1 LSB on 21 roles; the portable math is
+canon since this change.)
+
 ## 3 · The identity doctrine (the lesson of 2.5.0)
 
 Widgets that only read M3 colour roles come out as **generic Material** — this

@@ -1,183 +1,79 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 //
-// Pinned per-brand extension data for the four reference brands: success colour
-// role (tokens.resolved.json), corner family + typography (tokens.json), and the
-// motion presets keyed by the motion lever (tokens.json levers.byBrand). Plus the
-// canonical BrandprintConfig per brand (brandprints.golden.json) for round-trips.
-
-import 'package:flutter/material.dart';
+// Per-brand extension data for the four reference brands, resolved from the
+// single source of truth (themes.css) via `node tools/codegen.mjs` — see
+// generated/brand_data.g.dart. Only the canonical BrandprintConfig table and
+// the motif↔lever mapping live here (semantic, not token data).
 
 import '../brandprint/codec.dart';
 import 'extensions.dart';
+import 'generated/brand_data.g.dart';
 import 'identity.dart';
 
-/// success / on / container / on-container per brand × mode (from tokens.resolved.json).
-const Map<String, (NptColors light, NptColors dark)> brandSuccess = {
-  'neptune': (
-    NptColors(
-      success: Color(0xFF2E9052),
-      onSuccess: Color(0xFFF2FFF5),
-      successContainer: Color(0xFFBCECC8),
-      onSuccessContainer: Color(0xFF003006),
+/// success / on / container / on-container per brand × mode (generated).
+final Map<String, (NptColors light, NptColors dark)> brandSuccess = {
+  for (final e in genSuccess.entries)
+    e.key: (
+      NptColors(
+        success: e.value.$1.$1,
+        onSuccess: e.value.$1.$2,
+        successContainer: e.value.$1.$3,
+        onSuccessContainer: e.value.$1.$4,
+      ),
+      NptColors(
+        success: e.value.$2.$1,
+        onSuccess: e.value.$2.$2,
+        successContainer: e.value.$2.$3,
+        onSuccessContainer: e.value.$2.$4,
+      ),
     ),
-    NptColors(
-      success: Color(0xFF79CE91),
-      onSuccess: Color(0xFF002405),
-      successContainer: Color(0xFF00461B),
-      onSuccessContainer: Color(0xFFBCECC8),
-    ),
-  ),
-  'triton': (
-    NptColors(
-      success: Color(0xFF2D8949),
-      onSuccess: Color(0xFFF3FFF5),
-      successContainer: Color(0xFFBEECC6),
-      onSuccessContainer: Color(0xFF003003),
-    ),
-    NptColors(
-      success: Color(0xFF7CCD8E),
-      onSuccess: Color(0xFF002403),
-      successContainer: Color(0xFF004519),
-      onSuccessContainer: Color(0xFFBEECC6),
-    ),
-  ),
-  'nereid': (
-    NptColors(
-      success: Color(0xFF2E9052),
-      onSuccess: Color(0xFFF2FFF5),
-      successContainer: Color(0xFFBCECC8),
-      onSuccessContainer: Color(0xFF003006),
-    ),
-    NptColors(
-      success: Color(0xFF79CE91),
-      onSuccess: Color(0xFF002405),
-      successContainer: Color(0xFF00461B),
-      onSuccessContainer: Color(0xFFBCECC8),
-    ),
-  ),
-  'proteus': (
-    NptColors(
-      success: Color(0xFF2E9052),
-      onSuccess: Color(0xFFF2FFF5),
-      successContainer: Color(0xFFBCECC8),
-      onSuccessContainer: Color(0xFF003006),
-    ),
-    NptColors(
-      success: Color(0xFF79CE91),
-      onSuccess: Color(0xFF002405),
-      successContainer: Color(0xFF00461B),
-      onSuccessContainer: Color(0xFFBCECC8),
-    ),
-  ),
 };
 
-/// Corner family per brand (px), from tokens.json themes.<brand>.shape.
-const Map<String, NptShape> brandShape = {
-  'neptune': NptShape(xs: 8, sm: 12, md: 16, lg: 24, xl: 32, xxl: 44),
-  'triton': NptShape(xs: 12, sm: 18, md: 26, lg: 34, xl: 44, xxl: 56),
-  'nereid': NptShape(xs: 4, sm: 8, md: 12, lg: 18, xl: 26, xxl: 36),
-  'proteus': NptShape(xs: 6, sm: 10, md: 14, lg: 20, xl: 28, xxl: 38),
+/// Corner family per brand (px) — generated.
+final Map<String, NptShape> brandShape = {
+  for (final e in genShape.entries)
+    e.key: NptShape(
+      xs: e.value.$1,
+      sm: e.value.$2,
+      md: e.value.$3,
+      lg: e.value.$4,
+      xl: e.value.$5,
+      xxl: e.value.$6,
+    ),
 };
 
-/// Type set per brand. displayWeight/Tracking from the canonical brandprint
-/// config; Latin + Arabic faces from tokens.json (`--npt-font-*` / `*-ar`).
-/// Under RTL the web maps `num` → `text-ar`, so `numAr` mirrors `textAr`.
-const Map<String, NptType> brandType = {
-  'neptune': NptType(
-    display: 'Hanken Grotesk',
-    text: 'Hanken Grotesk',
-    num: 'Hanken Grotesk',
-    displayAr: 'IBM Plex Sans Arabic',
-    textAr: 'IBM Plex Sans Arabic',
-    numAr: 'IBM Plex Sans Arabic',
-    displayWeight: 700,
-    displayTracking: -0.02,
-  ),
-  'triton': NptType(
-    display: 'Bricolage Grotesque',
-    text: 'Hanken Grotesk',
-    num: 'Hanken Grotesk',
-    displayAr: 'Reem Kufi',
-    textAr: 'Tajawal',
-    numAr: 'Tajawal',
-    displayWeight: 700,
-    displayTracking: -0.01,
-  ),
-  'nereid': NptType(
-    display: 'Space Grotesk',
-    text: 'Hanken Grotesk',
-    num: 'Space Grotesk',
-    displayAr: 'Readex Pro',
-    textAr: 'Readex Pro',
-    numAr: 'Readex Pro',
-    displayWeight: 600,
-    displayTracking: -0.03,
-  ),
-  'proteus': NptType(
-    display: 'Sora',
-    text: 'Hanken Grotesk',
-    num: 'Sora',
-    displayAr: 'Noto Kufi Arabic',
-    textAr: 'IBM Plex Sans Arabic',
-    numAr: 'IBM Plex Sans Arabic',
-    displayWeight: 700,
-    displayTracking: -0.02,
-  ),
+/// Type set per brand (Latin + Arabic faces) — generated. Under RTL the web
+/// maps `num` → `text-ar`, so `numAr` mirrors `textAr`.
+final Map<String, NptType> brandType = {
+  for (final e in genType.entries)
+    e.key: NptType(
+      display: e.value.$1,
+      text: e.value.$2,
+      num: e.value.$3,
+      displayAr: e.value.$4,
+      textAr: e.value.$5,
+      numAr: e.value.$5,
+      displayWeight: e.value.$6,
+      displayTracking: e.value.$7,
+    ),
 };
 
-/// Motion presets keyed by the motion lever (tokens.json levers.byBrand).
-/// Cubic-bezier control points ported verbatim; the spring uses an overshoot
-/// curve (matched to the web `spring` bezier).
-const Map<String, NptMotion> motionPresets = {
-  'smooth-fluid': NptMotion(
-    standard: Cubic(0.2, 0, 0, 1),
-    emphasized: Cubic(0.2, 0, 0, 1),
-    spring: Cubic(0.34, 1.56, 0.64, 1),
-    fast: Duration(milliseconds: 240),
-    durationStandard: Duration(milliseconds: 300),
-    slow: Duration(milliseconds: 500),
-    glassBlur: 18,
-  ),
-  'calm-graceful': NptMotion(
-    standard: Cubic(0.25, 0, 0.2, 1),
-    emphasized: Cubic(0.2, 0, 0.1, 1),
-    spring: Cubic(0.3, 1.3, 0.5, 1),
-    fast: Duration(milliseconds: 280),
-    durationStandard: Duration(milliseconds: 340),
-    slow: Duration(milliseconds: 560),
-    glassBlur: 16,
-  ),
-  'light-quick-crisp': NptMotion(
-    standard: Cubic(0.2, 0, 0, 1),
-    emphasized: Cubic(0.2, 0, 0, 1),
-    spring: Cubic(0.34, 1.56, 0.64, 1),
-    fast: Duration(milliseconds: 200),
-    durationStandard: Duration(milliseconds: 240),
-    slow: Duration(milliseconds: 400),
-    glassBlur: 22,
-  ),
-  'stable-minimal-authoritative': NptMotion(
-    standard: Cubic(0.3, 0, 0.2, 1),
-    emphasized: Cubic(0.25, 0, 0.15, 1),
-    spring: Cubic(0.2, 0.9, 0.3, 1),
-    fast: Duration(milliseconds: 240),
-    durationStandard: Duration(milliseconds: 280),
-    slow: Duration(milliseconds: 460),
-    glassBlur: 14,
-  ),
+/// Motion presets keyed by the motion lever — generated.
+final Map<String, NptMotion> motionPresets = {
+  for (final e in genMotion.entries)
+    e.key: NptMotion(
+      standard: e.value.$1,
+      emphasized: e.value.$2,
+      spring: e.value.$3,
+      fast: Duration(milliseconds: e.value.$4),
+      durationStandard: Duration(milliseconds: e.value.$5),
+      slow: Duration(milliseconds: e.value.$6),
+      glassBlur: e.value.$7,
+    ),
 };
 
-const NptMotion _fallbackMotion = NptMotion(
-  standard: Cubic(0.2, 0, 0, 1),
-  emphasized: Cubic(0.2, 0, 0, 1),
-  spring: Cubic(0.34, 1.56, 0.64, 1),
-  fast: Duration(milliseconds: 240),
-  durationStandard: Duration(milliseconds: 300),
-  slow: Duration(milliseconds: 500),
-  glassBlur: 18,
-);
-
-NptMotion motionFor(String lever) => motionPresets[lever] ?? _fallbackMotion;
+NptMotion motionFor(String lever) =>
+    motionPresets[lever] ?? motionPresets['smooth-fluid']!;
 
 /// The canonical brandprint config per reference brand (brandprints.golden.json).
 const Map<String, BrandprintConfig> brandConfig = {
@@ -246,31 +142,25 @@ const Map<String, BrandprintConfig> brandConfig = {
 /// The four reference brand ids in canonical order.
 const List<String> kBrands = ['neptune', 'triton', 'nereid', 'proteus'];
 
-/// Identity recipes keyed by the glass-tint lever (themes.css `--npt-glass-*`,
-/// `--npt-motif`). Custom brandprints resolve through the same lever, so any
-/// seed gets the full Odyssey treatment: glass ratios, blur, signature motif.
-const Map<String, ({NptMotifKind motif, double strength, bool onTertiary, double ratio, double surface, double blur})>
-    _glassTintRecipes = {
-  // Neptune — oceanic glass · sonar tide-rings.
-  'oceanic': (motif: NptMotifKind.sonarRings, strength: 0.9, onTertiary: false, ratio: 0.08, surface: 0.70, blur: 18),
-  // Triton — warm-amber glass (tertiary-tinted) · coastal arcs.
-  'warm-amber': (motif: NptMotifKind.coastalArcs, strength: 1.0, onTertiary: true, ratio: 0.09, surface: 0.72, blur: 16),
-  // Nereid — violet-luminous glass · grid-spark.
-  'violet-luminous': (motif: NptMotifKind.gridSpark, strength: 1.0, onTertiary: false, ratio: 0.12, surface: 0.62, blur: 22),
-  // Proteus — navy-steel glass · shield guilloché.
-  'navy-steel': (motif: NptMotifKind.guilloche, strength: 0.85, onTertiary: false, ratio: 0.07, surface: 0.76, blur: 14),
+/// Identity recipes keyed by the glass-tint lever — glass numbers generated
+/// from themes.css; the motif painter mapping is semantic and lives here.
+const Map<String, NptMotifKind> _motifByGlassTint = {
+  'oceanic': NptMotifKind.sonarRings,
+  'warm-amber': NptMotifKind.coastalArcs,
+  'violet-luminous': NptMotifKind.gridSpark,
+  'navy-steel': NptMotifKind.guilloche,
 };
 
 /// Resolve the [NptIdentity] for a brandprint config (reference or custom).
 NptIdentity identityFor(BrandprintConfig cfg) {
-  final r = _glassTintRecipes[cfg.glassTint] ?? _glassTintRecipes['oceanic']!;
+  final g = genGlass[cfg.glassTint] ?? genGlass['oceanic']!;
   return NptIdentity(
-    motif: r.motif,
-    motifStrength: r.strength,
-    glassOnTertiary: r.onTertiary,
-    glassMixRatio: r.ratio,
-    glassSurfaceOpacity: r.surface,
-    glassBlur: r.blur,
+    motif: _motifByGlassTint[cfg.glassTint] ?? NptMotifKind.sonarRings,
+    motifStrength: g.$5,
+    glassOnTertiary: g.$1,
+    glassMixRatio: g.$2,
+    glassSurfaceOpacity: g.$3,
+    glassBlur: g.$4,
     dashboardHero: cfg.dashboardHero,
     loginShell: cfg.loginShell,
     contentTone: cfg.contentTone,

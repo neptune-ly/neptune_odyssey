@@ -33,3 +33,7 @@ _site/
 
 # generated docs bundle (built by site/bundle/build.mjs in CI)
 site/assets/neptune.js
+
+# Local-only client prototypes (logos + demos never enter the public repo)
+**/lib/client_*
+**/assets/client_*

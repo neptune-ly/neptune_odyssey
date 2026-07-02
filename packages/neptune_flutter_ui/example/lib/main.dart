@@ -20,6 +20,11 @@ const bool kShots = bool.fromEnvironment('SHOTS');
 const String kShotsDir =
     String.fromEnvironment('SHOTS_DIR', defaultValue: '/tmp/npt_shots');
 
+/// Build with `--dart-define=WELCOME=true` to boot straight into the live
+/// Welcome / Sign-in template: "Get started" cycles the brand, the secondary
+/// action toggles dark mode.
+const bool kWelcome = bool.fromEnvironment('WELCOME');
+
 void main() => runApp(const ExampleApp());
 
 class ExampleApp extends StatefulWidget {
@@ -132,16 +137,41 @@ class _ExampleAppState extends State<ExampleApp> {
           child: child ?? const SizedBox.shrink(),
         ),
       ),
-      home: GalleryScreen(
-        brand: _brand,
-        rtl: _rtl,
-        controller: _scroll,
-        onCycleBrand: () =>
-            setState(() => _brandIndex = (_brandIndex + 1) % _brands.length),
-        onToggleMode: () => setState(() =>
-            _mode = _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light),
-        onToggleRtl: () => setState(() => _rtl = !_rtl),
-      ),
+      home: kWelcome
+          // Live Welcome / Sign-in demo: primary cycles the brand (watch the
+          // whole screen re-skin), secondary toggles dark mode.
+          ? Scaffold(
+              body: NeptuneWelcome(
+                brandInitial: _brand[0].toUpperCase(),
+                brandName: _brand[0].toUpperCase() + _brand.substring(1),
+                title: 'Banking that',
+                emphasis: 'moves with you.',
+                supporting:
+                    'One account, every currency — send, spend and save across borders, beautifully.',
+                primaryAction: NeptuneCta(
+                  label: 'Get started',
+                  arrow: true,
+                  onPressed: () => setState(
+                      () => _brandIndex = (_brandIndex + 1) % _brands.length),
+                ),
+                secondaryAction: NeptuneCta(
+                  label: 'I already have an account',
+                  tonal: true,
+                  onPressed: () => setState(() => _mode =
+                      _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light),
+                ),
+              ),
+            )
+          : GalleryScreen(
+              brand: _brand,
+              rtl: _rtl,
+              controller: _scroll,
+              onCycleBrand: () =>
+                  setState(() => _brandIndex = (_brandIndex + 1) % _brands.length),
+              onToggleMode: () => setState(() =>
+                  _mode = _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light),
+              onToggleRtl: () => setState(() => _rtl = !_rtl),
+            ),
     );
   }
 }

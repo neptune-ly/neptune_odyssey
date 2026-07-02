@@ -1,9 +1,26 @@
 {
-  "$generatedBy": "tokens build · OKLCH→sRGB via browser engine",
+  "$generatedBy": "tools/codegen.mjs · OKLCH→sRGB (oklch.dart 1:1 port)",
   "meta": {
     "system": "Neptune Odyssey",
-    "version": "1.0.0",
-    "note": "Hex/ARGB resolved from tokens/themes.css OKLCH. sRGB-clamped."
+    "publisher": "Neptune.Fintech",
+    "version": "2.0.0",
+    "status": "stable",
+    "base": "Material 3 + Material 3 Expressive",
+    "brands": [
+      "neptune",
+      "triton",
+      "nereid",
+      "proteus"
+    ],
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "directions": [
+      "ltr",
+      "rtl"
+    ],
+    "generated": "2026-06-26"
   },
   "themes": {
     "neptune": {
@@ -41,8 +58,8 @@
           "argb": "0xFF122239"
         },
         "md-sys-color-tertiary": {
-          "hex": "#008389",
-          "argb": "0xFF008389"
+          "hex": "#008388",
+          "argb": "0xFF008388"
         },
         "md-sys-color-on-tertiary": {
           "hex": "#edffff",
@@ -113,8 +130,8 @@
           "argb": "0xFF3F4855"
         },
         "md-sys-color-outline": {
-          "hex": "#7f8793",
-          "argb": "0xFF7F8793"
+          "hex": "#7f8792",
+          "argb": "0xFF7F8792"
         },
         "md-sys-color-outline-variant": {
           "hex": "#cbd1db",
@@ -159,8 +176,8 @@
       },
       "dark": {
         "md-sys-color-primary": {
-          "hex": "#8dc0ff",
-          "argb": "0xFF8DC0FF"
+          "hex": "#8dbfff",
+          "argb": "0xFF8DBFFF"
         },
         "md-sys-color-on-primary": {
           "hex": "#001042",
@@ -191,8 +208,8 @@
           "argb": "0xFFD0DFF6"
         },
         "md-sys-color-tertiary": {
-          "hex": "#83d4d9",
-          "argb": "0xFF83D4D9"
+          "hex": "#83d4d8",
+          "argb": "0xFF83D4D8"
         },
         "md-sys-color-on-tertiary": {
           "hex": "#002225",
@@ -223,8 +240,8 @@
           "argb": "0xFFFFD6CF"
         },
         "md-sys-color-success": {
-          "hex": "#79ce91",
-          "argb": "0xFF79CE91"
+          "hex": "#79cd91",
+          "argb": "0xFF79CD91"
         },
         "md-sys-color-on-success": {
           "hex": "#002405",
@@ -311,8 +328,8 @@
     "triton": {
       "light": {
         "md-sys-color-primary": {
-          "hex": "#00774e",
-          "argb": "0xFF00774E"
+          "hex": "#00774d",
+          "argb": "0xFF00774D"
         },
         "md-sys-color-on-primary": {
           "hex": "#f1fff8",
@@ -461,8 +478,8 @@
       },
       "dark": {
         "md-sys-color-primary": {
-          "hex": "#7ddbae",
-          "argb": "0xFF7DDBAE"
+          "hex": "#7edbae",
+          "argb": "0xFF7EDBAE"
         },
         "md-sys-color-on-primary": {
           "hex": "#00250e",
@@ -601,8 +618,8 @@
           "argb": "0xFF141D16"
         },
         "md-sys-color-inverse-primary": {
-          "hex": "#00774e",
-          "argb": "0xFF00774E"
+          "hex": "#00774d",
+          "argb": "0xFF00774D"
         },
         "md-sys-color-scrim": {
           "hex": "#000000",
@@ -613,8 +630,8 @@
     "nereid": {
       "light": {
         "md-sys-color-primary": {
-          "hex": "#6f4cc6",
-          "argb": "0xFF6F4CC6"
+          "hex": "#6f4cc5",
+          "argb": "0xFF6F4CC5"
         },
         "md-sys-color-on-primary": {
           "hex": "#fcfaff",
@@ -645,8 +662,8 @@
           "argb": "0xFF2A2344"
         },
         "md-sys-color-tertiary": {
-          "hex": "#c3518e",
-          "argb": "0xFFC3518E"
+          "hex": "#c3518d",
+          "argb": "0xFFC3518D"
         },
         "md-sys-color-on-tertiary": {
           "hex": "#fff7fe",
@@ -827,8 +844,8 @@
           "argb": "0xFFFFD6CF"
         },
         "md-sys-color-success": {
-          "hex": "#79ce91",
-          "argb": "0xFF79CE91"
+          "hex": "#79cd91",
+          "argb": "0xFF79CD91"
         },
         "md-sys-color-on-success": {
           "hex": "#002405",
@@ -847,16 +864,16 @@
           "argb": "0xFF08060C"
         },
         "md-sys-color-on-background": {
-          "hex": "#e5e3ec",
-          "argb": "0xFFE5E3EC"
+          "hex": "#e6e3ec",
+          "argb": "0xFFE6E3EC"
         },
         "md-sys-color-surface": {
           "hex": "#08060c",
           "argb": "0xFF08060C"
         },
         "md-sys-color-on-surface": {
-          "hex": "#e5e3ec",
-          "argb": "0xFFE5E3EC"
+          "hex": "#e6e3ec",
+          "argb": "0xFFE6E3EC"
         },
         "md-sys-color-surface-variant": {
           "hex": "#3a3543",
@@ -895,16 +912,16 @@
           "argb": "0xFF282430"
         },
         "md-sys-color-inverse-surface": {
-          "hex": "#e5e3ec",
-          "argb": "0xFFE5E3EC"
+          "hex": "#e6e3ec",
+          "argb": "0xFFE6E3EC"
         },
         "md-sys-color-inverse-on-surface": {
           "hex": "#17141e",
           "argb": "0xFF17141E"
         },
         "md-sys-color-inverse-primary": {
-          "hex": "#6f4cc6",
-          "argb": "0xFF6F4CC6"
+          "hex": "#6f4cc5",
+          "argb": "0xFF6F4CC5"
         },
         "md-sys-color-scrim": {
           "hex": "#000000",
@@ -995,16 +1012,16 @@
           "argb": "0xFF003006"
         },
         "md-sys-color-background": {
-          "hex": "#f7fbfd",
-          "argb": "0xFFF7FBFD"
+          "hex": "#f7fafd",
+          "argb": "0xFFF7FAFD"
         },
         "md-sys-color-on-background": {
           "hex": "#050c13",
           "argb": "0xFF050C13"
         },
         "md-sys-color-surface": {
-          "hex": "#f7fbfd",
-          "argb": "0xFFF7FBFD"
+          "hex": "#f7fafd",
+          "argb": "0xFFF7FAFD"
         },
         "md-sys-color-on-surface": {
           "hex": "#050c13",
@@ -1055,8 +1072,8 @@
           "argb": "0xFFEFF2F5"
         },
         "md-sys-color-inverse-primary": {
-          "hex": "#7dbdfb",
-          "argb": "0xFF7DBDFB"
+          "hex": "#7dbdfa",
+          "argb": "0xFF7DBDFA"
         },
         "md-sys-color-scrim": {
           "hex": "#000103",
@@ -1065,8 +1082,8 @@
       },
       "dark": {
         "md-sys-color-primary": {
-          "hex": "#7dbdfb",
-          "argb": "0xFF7DBDFB"
+          "hex": "#7dbdfa",
+          "argb": "0xFF7DBDFA"
         },
         "md-sys-color-on-primary": {
           "hex": "#001036",
@@ -1093,8 +1110,8 @@
           "argb": "0xFF253749"
         },
         "md-sys-color-on-secondary-container": {
-          "hex": "#cce1f5",
-          "argb": "0xFFCCE1F5"
+          "hex": "#cde1f5",
+          "argb": "0xFFCDE1F5"
         },
         "md-sys-color-tertiary": {
           "hex": "#e5bf6d",
@@ -1129,8 +1146,8 @@
           "argb": "0xFFFFD6CF"
         },
         "md-sys-color-success": {
-          "hex": "#79ce91",
-          "argb": "0xFF79CE91"
+          "hex": "#79cd91",
+          "argb": "0xFF79CD91"
         },
         "md-sys-color-on-success": {
           "hex": "#002405",

@@ -15,7 +15,7 @@ void main() {
       final theme = NeptuneTheme.light('triton');
       expect(theme.useMaterial3, isTrue);
       expect(theme.colorScheme.brightness, Brightness.light);
-      expect(theme.colorScheme.primary.toARGB32(), 0xFF00774E);
+      expect(theme.colorScheme.primary.toARGB32(), 0xFF00774D);
       expect(theme.extension<NptColors>(), isNotNull);
       expect(theme.extension<NptShape>()!.md, 26);
       expect(theme.extension<NptType>()!.display, 'Bricolage Grotesque');
@@ -25,7 +25,7 @@ void main() {
     test('dark(triton) builds with dark scheme', () {
       final theme = NeptuneTheme.dark('triton');
       expect(theme.colorScheme.brightness, Brightness.dark);
-      expect(theme.colorScheme.primary.toARGB32(), 0xFF7DDBAE);
+      expect(theme.colorScheme.primary.toARGB32(), 0xFF7EDBAE);
     });
 
     test('fromBrandprint(goldenTriton) == light(triton) primary', () {
