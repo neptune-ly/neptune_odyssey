@@ -204,7 +204,7 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
     // remaining placeholders (MoneyGram, OnePay Libya) need their own official
     // files the same way — none found yet, see CHANGELOG.
     if (N && N.registerBrandMarksFromUrls) {
-      N.registerBrandMarksFromUrls({
+      var REAL_ASSETS = {
         'western-union': 'assets/brands/western-union.svg',
         'lypay': 'assets/brands/lypay.svg',
         'visa': 'assets/brands/visa.svg',
@@ -214,7 +214,17 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
         'google-pay': 'assets/brands/google-pay.svg',
         'apple-pay': 'assets/brands/apple-pay.svg',
         'swift': 'assets/brands/swift.svg'
-      }).then(paint).catch(function(){});
+      };
+      // A real trademark can't be forced into a single flat currentColor mono
+      // glyph the way an original placeholder can — so once a brand has a real
+      // asset, it must NOT appear in the combined "Neptune icon library" grid
+      // further down (which recolours everything via Ink/Primary/Tertiary/Coral).
+      // It lives only here, in its real colours. The NAME list is known
+      // synchronously (unlike the fetched SVG content), so the other script
+      // block can exclude these names from its very first render — no need
+      // to wait on the fetch itself or re-render after the fact.
+      window.__nptRealBrandNames = Object.keys(REAL_ASSETS);
+      N.registerBrandMarksFromUrls(REAL_ASSETS).then(paint).catch(function(){});
     }
     var host = document.getElementById('brandgrid');
     host.addEventListener('click', function(e){
@@ -261,7 +271,15 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
 
     // Guard: if the Neptune global never loaded, show a graceful note.
     var ICON_LIST = (N && Array.isArray(N.ICON_NAMES)) ? N.ICON_NAMES.slice() : [];
-    var BRAND_LIST = (N && Array.isArray(N.BRAND_MARK_NAMES)) ? N.BRAND_MARK_NAMES.slice() : [];
+    // Exclude brands with a REAL registered asset (see the other script block,
+    // window.__nptRealBrandNames) — a real trademark can't be forced into a
+    // flat currentColor mono glyph the way an original placeholder can, so
+    // this recolourable grid only ever shows the still-placeholder brands.
+    // Real ones live in their own full-colour section further down the page.
+    var REAL_NAMES = window.__nptRealBrandNames || [];
+    var BRAND_LIST = (N && Array.isArray(N.BRAND_MARK_NAMES))
+      ? N.BRAND_MARK_NAMES.filter(function (n) { return REAL_NAMES.indexOf(n) === -1; })
+      : [];
     if (!N || typeof N.iconSvg !== 'function' || !ICON_LIST.length) {
       grid.innerHTML = '';
       empty.classList.add('show');
