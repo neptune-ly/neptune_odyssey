@@ -37,7 +37,8 @@
 <div class="dwrap"><aside class="dside">
   <h4>On this page</h4>
   <a href="#color">Colour</a><a href="#type">Typography</a><a href="#shape">Shape</a>
-  <a href="#elevation">Elevation</a><a href="#motion">Motion</a><a href="#a11y">Accessibility</a>
+  <a href="#elevation">Elevation</a><a href="#motion">Motion</a><a href="#density">Density</a>
+  <a href="#numerals">Numerals</a><a href="#feedback">Feedback</a><a href="#a11y">Accessibility</a>
 </aside><main class="dmain">
   <p class="eyebrow">Foundations</p>
   <h1>The styles, live</h1>
@@ -65,17 +66,36 @@
       <div class="shapes" id="shapes"></div>
 
       <h2 id="elevation" style="color:var(--md-sys-color-on-background)">Elevation</h2>
+      <p style="color:var(--md-sys-color-on-surface-variant);max-width:70ch;font-size:14px"><code>--npt-elev-1..5</code>, tinted by the theme's <code>scrim</code> role so shadows read as the brand's own, not a generic grey.</p>
       <div class="elevs" id="elevs"></div>
     </div>
   </div>
 
+  <p class="dcard" style="font-size:14px"><b>Flutter's dark mode goes one step further</b> — as of 2.13.0,
+  <code>NptIdentity.elevation1..5</code> lerps dark-mode shadows toward the brand <code>primary</code> with
+  more blur and less directional offset, reading as ambient glow rather than a cast shadow. The web
+  token above still uses a fixed <code>scrim</code>-tinted shadow, which flattens to literal black in
+  dark mode (see <code>themes.css</code>'s dark blocks) — porting the same glow treatment to
+  <code>system.css</code> is open work, tracked separately.</p>
+
   <h2 id="motion">Motion</h2>
-  <p>Per-brand easing + duration tokens carry the brand's feel. Components read <code>--npt-ease-*</code> / <code>--npt-dur-*</code>; reduced-motion is honoured everywhere.</p>
+  <p>Per-brand easing + duration tokens carry the brand's feel. Components read <code>--npt-ease-*</code> / <code>--npt-dur-*</code>; reduced-motion is honoured everywhere. In Flutter, a component's own timing can additionally scale from these tokens — <code>NeptuneCta</code>'s sheen-sweep/nudge cycle is derived from each brand's <code>--npt-dur-slow</code>/<code>--npt-dur-standard</code> rather than one fixed duration for every brand, so a calmer brand's buttons visibly move slower than a snappier one's.</p>
   <div class="dgrid">
     <div class="tile"><h3>Standard</h3><p><code>--npt-ease-standard</code> · <code>--npt-dur-standard</code> — most transitions.</p></div>
     <div class="tile"><h3>Emphasized</h3><p><code>--npt-ease-emphasized</code> · <code>--npt-dur-slow</code> — entrances &amp; hero moments.</p></div>
     <div class="tile"><h3>Spring</h3><p><code>--npt-ease-spring</code> — selection overshoot (M3 Expressive).</p></div>
   </div>
+
+  <h2 id="density">Density</h2>
+  <p>A comfortable/compact lever, independent of brand — the same theme can run either density. In Flutter, <code>NptDensity</code> scales spacing at density-aware call sites (<code>NeptuneListTile</code>, the <code>NeptuneCta</code> family today; more widgets opt in incrementally).</p>
+  <div class="code"><pre><span class="tok-c">// flutter</span>
+NeptuneTheme.light(<span class="tok-s">'triton'</span>, density: NeptuneDensityMode.compact)</pre></div>
+
+  <h2 id="numerals">Numerals</h2>
+  <p>Arabic-Indic digits (٠١٢٣…) as an <b>independent</b> lever from the RTL/Arabic flag — a real requirement for Gulf/Libyan banking apps, where the UI language and the digit system don't always follow the same rule. In Flutter, <code>NeptuneNumeralStyle</code> / <code>NptNumerals</code> plus <code>NeptuneTheme.formatDigits</code> apply it independently of <code>arabic:</code>.</p>
+
+  <h2 id="feedback">Feedback</h2>
+  <p>Haptic and sound cues, weighted to the brand's declared content tone (a <code>formal-authoritative</code> brand taps lighter than a <code>warm-hospitable</code> one). In Flutter, <code>NptFeedback</code> fires real <code>HapticFeedback</code> from <code>NeptuneCta</code>/<code>NeptuneCheckbox</code>/<code>NeptuneSwitch</code>; <code>onSoundCue</code> is a plain hook — <a href="develop.html#sound">neptune_sound_kit</a> is its default implementation, kept as a separate package so apps that don't want sound never pay for an audio-plugin dependency.</p>
 
   <h2 id="a11y">Accessibility</h2>
   <ul>

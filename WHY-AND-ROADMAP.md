@@ -9,9 +9,9 @@
 
 1. **The brandprint — portable, deterministic theming.**
    One short `NO1-…` string encodes an entire theme and reproduces it **byte-identically on
-   Flutter, Web, React, Vue, Svelte and React Native** — enforced by golden tests (pinned
-   palettes, OKLCH→sRGB ≤ 1 LSB, a checksummed codec). M3 gives you *theming*; it does not
-   give you one portable hash that guarantees Flutter == Web. This is the core moat.
+   Flutter, Web, React, Vue, Svelte, React Native and Laravel/Blade** — enforced by golden
+   tests (pinned palettes, OKLCH→sRGB ≤ 1 LSB, a checksummed codec). M3 gives you *theming*;
+   it does not give you one portable hash that guarantees Flutter == Web. This is the core moat.
 
 2. **A fintech domain layer, out of the box.**
    The expensive, regulated, fiddly surfaces M3 deliberately omits: balance/account/card
@@ -33,8 +33,14 @@
    Amex/WU/MoneyGram/SWIFT, plus currency (LYD), IBAN/phone/ID formats, KYC tiers, cutoffs —
    as typed config + brand marks. "Really for Libyans," then the wider region.
 
-If none of those five matter to you, M3 alone is the right call. Odyssey is for the teams
-where **all five** are real, recurring costs.
+6. **A sound identity, not just a visual one.**
+   `tools/sound-identity` generates a distinct, real-instrument (FluidSynth, not sine-wave)
+   5-file notification/success sound family per bank — the same "one core, N distinct
+   identities" principle applied to what an app *sounds* like, not just how it looks. No
+   design system in this space ships this.
+
+If none of those six matter to you, M3 alone is the right call. Odyssey is for the teams
+where **most of them** are real, recurring costs.
 
 ---
 
@@ -52,8 +58,9 @@ where **all five** are real, recurring costs.
   roles/permissions, cost-center views.
 
 ### Phase B — Localization & regional engine
-- **Arabic-first polish:** per-brand Arabic faces, Eastern-Arabic numeral toggle, Hijri date
-  option, a mirrored directional-icon set.
+- **Arabic-first polish:** per-brand Arabic faces ✅, Eastern-Arabic numeral toggle ✅
+  (`NeptuneNumeralStyle`/`NptNumerals`, independent of the RTL flag — shipped 2.13.0), Hijri
+  date option (still open), a mirrored directional-icon set.
 - **Compliance presets:** LY (+ other MENA markets) — currency, IBAN/phone/ID, KYC, cutoffs,
   working days — as drop-in tenant config.
 - **Payment-rail registry:** typed config + brand marks + capability flags for NUMO, Moamalat,
@@ -61,9 +68,12 @@ where **all five** are real, recurring costs.
 
 ### Phase C — Developer experience & trust (lower adoption friction)
 - **Figma kit + token export** (Style Dictionary) so designers use the same source of truth.
-- **CLI / codemods:** `npx neptune-odyssey init` scaffolds a themed starter per framework.
-- **AI theming:** paste brand colours/logo → generate a brandprint (extend the configurator).
-- **Visual-regression tests:** golden screenshots per brand × mode × direction in CI.
+- **CLI scaffolder ✅** — `create-neptune` (`npm create neptune@latest`) scaffolds a themed
+  starter per framework.
+- **Logo → brandprint, one command ✅** — `tools/client-demo/generate.mjs` (CLI) and
+  `apps/neptune_studio` (desktop GUI): drop a logo, get OKLCH seeds + a running branded demo.
+- **Visual-regression tests ✅** — contrast gate + blank-region detector + Playwright shots
+  in CI (`.github/workflows/ci.yml`'s `visual-flutter`/`visual-web` jobs).
 - **Governance:** semver gate on the token layer; component status board; changelog discipline.
 
 ### Phase D — Performance & quality bar

@@ -39,23 +39,34 @@ Same string ⇒ same theme on every platform. That guarantee is enforced by gold
 
 ## Packages
 
-All JS/TS packages are **live on npm** under [`@neptune.fintech`](https://www.npmjs.com/org/neptune.fintech).
+All JS/TS packages are **live on npm** under [`@neptune.fintech`](https://www.npmjs.com/org/neptune.fintech);
+`neptune_flutter_ui` and `neptune_sound_kit` are **live on pub.dev**.
 
 | Package | What it is | Status |
 |---------|-----------|--------|
-| [`@neptune.fintech/tokens`](packages/neptune_tokens) | The determinism backbone — OKLCH→sRGB math, seed→palette ramp, brandprint codec, pinned palettes, `buildTheme()` | **npm ✓** |
-| [`neptune_flutter_ui`](packages/neptune_flutter_ui) | Flutter `ThemeData` per brand/mode, ThemeExtensions, widgets | **Stable · pub.dev pending** |
-| [`@neptune.fintech/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **npm ✓** |
-| [`@neptune.fintech/svelte-ui`](packages/neptune_svelte_ui) | Svelte `use:theme` action + provider | **npm ✓** |
-| [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **npm ✓** |
-| [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **npm ✓** |
-| [`@neptune.fintech/react-native-ui`](packages/neptune_react_native_ui) | React Native provider + hook + themed native components | **npm ✓** |
-| [`@neptune.fintech/icons`](packages/neptune_icons) | 63 original SVG icons + `<npt-icon>` element | **npm ✓** |
-| [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **npm ✓** |
-| [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **npm ✓** |
+| [`@neptune.fintech/tokens`](packages/neptune_tokens) | The determinism backbone — OKLCH→sRGB math, seed→palette ramp, brandprint codec, pinned palettes, `buildTheme()` | **npm ✓** · v2.0.0 |
+| [`neptune_flutter_ui`](packages/neptune_flutter_ui) | Flutter `ThemeData` per brand/mode, ~150 themed widgets, templates, motion, feedback | **pub.dev ✓** · v2.13.0 |
+| [`neptune_sound_kit`](packages/neptune_sound_kit) | Optional Flutter sound cues (synthesized, not recorded) wired to `NptFeedback.onSoundCue` | **Stable** · not yet published (chimes pending review) |
+| [`@neptune.fintech/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **npm ✓** · v2.4.0 |
+| [`@neptune.fintech/svelte-ui`](packages/neptune_svelte_ui) | Svelte `use:theme` action + provider | **npm ✓** · v2.0.1 |
+| [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **npm ✓** · v2.0.1 |
+| [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **npm ✓** · v2.0.1 |
+| [`neptune_laravel_ui`](packages/neptune_laravel_ui) | Blade components over the web kit + vendored assets — zero Node/npm build step for the 4 reference brands | **Stable** · Composer, not yet on Packagist |
+| [`@neptune.fintech/react-native-ui`](packages/neptune_react_native_ui) | React Native provider + hook + themed native components | **npm ✓** · v2.0.0 · maintenance mode |
+| [`@neptune.fintech/icons`](packages/neptune_icons) | 63 original SVG icons + `<npt-icon>` element | **npm ✓** · v2.4.2 |
+| [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **npm ✓** · v2.0.0 |
+| [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **npm ✓** · v2.0.0 |
+| [`create-neptune`](packages/create-neptune) | Starter-app scaffolder CLI (`npm create neptune@latest`) | **npm ✓** · v2.0.0 |
 | [`apps/configurator`](apps/configurator) | Client-only theme builder (brandprint encode/decode + live preview + AA check) | **Stable** |
+| [`apps/neptune_studio`](apps/neptune_studio) | Desktop GUI for the client-demo factory — drop a logo, tune levers, generate + run a branded demo | **Stable** · dev tool, not published |
+| [`apps/neptune_desktop`](apps/neptune_desktop) | Cross-platform (macOS/Windows) demo shell app | **Stable** · dev tool, not published |
 | [`@neptune.fintech/docs`](packages/neptune_docs) | The written system + the `.dc.html` visual contracts | — |
 | [`roadmap/`](roadmap) | Kotlin Multiplatform (Compose + web) | **Roadmap** |
+
+**Dev tooling (not packages, live in `tools/`):** `tools/client-demo` (logo → OKLCH seeds →
+running branded Flutter app, one command) and `tools/sound-identity` (bank → a distinct
+5-file sound family — success + 4 notification cues — via FluidSynth, the sound half of
+white-label). See each tool's own README.
 
 ## Three ways to theme — one surface, everywhere
 

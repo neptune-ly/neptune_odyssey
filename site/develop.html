@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Develop — Neptune Odyssey</title>
-<meta name="description" content="Build with Neptune Odyssey on Flutter, Web, React, Vue, Svelte and React Native — install, theme, and use components. Same brandprint, every framework.">
+<meta name="description" content="Build with Neptune Odyssey on Flutter, Web, React, Vue, Svelte, React Native and Laravel/Blade — install, theme, and use components. Same brandprint, every framework.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&display=swap" rel="stylesheet">
@@ -20,9 +20,9 @@
 <div class="dwrap"><aside class="dside">
   <h4>Platforms</h4>
   <a href="#web">Web</a><a href="#react">React</a><a href="#vue">Vue 3</a><a href="#svelte">Svelte</a>
-  <a href="#react-native">React Native</a><a href="#flutter">Flutter</a>
+  <a href="#react-native">React Native</a><a href="#flutter">Flutter</a><a href="#laravel">Laravel / Blade</a>
   <h4>Core</h4>
-  <a href="#tokens">Tokens &amp; brandprint</a><a href="#icons">Icons</a><a href="#determinism">Determinism</a>
+  <a href="#tokens">Tokens &amp; brandprint</a><a href="#icons">Icons</a><a href="#sound">Sound identity</a><a href="#determinism">Determinism</a>
 </aside><main class="dmain">
   <p class="eyebrow">Develop</p>
   <h1>Build on any framework</h1>
@@ -85,6 +85,32 @@ import { NeptuneProvider, NptBalanceCard } from "@neptune.fintech/vue-ui";
   themeMode: ThemeMode.system,
   // or NeptuneTheme.fromBrandprint('NO1-…')
 );</pre></div>
+  <p>~150 themed widgets, all nine screen templates, a full onboarding-flow suite, a
+  standalone loader family (<code>NeptuneSpinner</code>/<code>NeptuneDotsLoader</code>/
+  <code>NeptunePulseLoader</code>/<code>NeptuneHourglassLoader</code>) feeding
+  <code>NeptuneStatusMotion</code>'s success/reject morph, <code>NeptuneSplashScreen</code>,
+  density modes, Arabic-Indic numerals as an independent lever, and haptic/sound feedback via
+  <code>NptFeedback</code>. Try it live: <a href="flutter/" target="_blank" rel="noopener">the Flutter web gallery</a>.</p>
+
+  <div class="fwhead"><span class="pip" style="background:#FF2D20">L</span><h2 id="laravel" style="margin:0">Laravel / Blade <span class="stable">Stable</span></h2></div>
+  <p>Blade components over the same web-kit custom elements the other frameworks wrap — vendors
+  the built JS/CSS so a Laravel app needs no Node/npm build step for the four reference brands.</p>
+  <div class="code"><button class="copy">Copy</button><pre>composer require neptune-fintech/laravel-ui
+php artisan vendor:publish --tag=neptune-ui-assets</pre></div>
+  <div class="code"><button class="copy">Copy</button><pre>&lt;html data-theme="triton" data-mode="light" dir="ltr"&gt;
+  &lt;head&gt;
+    &lt;x-neptune::assets /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;x-neptune::balance-card label="Available balance" amount="12,480.50" currency="LYD" hero /&gt;
+    &lt;x-neptune::cta arrow&gt;Send money&lt;/x-neptune::cta&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre></div>
+  <p>15 components ship today (button, cta, card, alert, badge, chip, switch, checkbox,
+  text-field, dialog, balance-card, transaction-row, skeleton, dock/dock-item) — every other
+  web-kit component works immediately as raw <code>&lt;npt-*&gt;</code> markup once
+  <code>&lt;x-neptune::assets /&gt;</code> has registered it. Not yet on Packagist; install via
+  a git/path Composer repository today (see the package README).</p>
 
   <h2 id="tokens">Tokens &amp; brandprint</h2>
   <p>The determinism backbone — color math, the seed→palette ramp, the brandprint codec, and <code>buildTheme()</code>.</p>
@@ -99,6 +125,17 @@ const print = encode(config);               // "NO1-…"  · build one in the th
   <div class="code"><button class="copy">Copy</button><pre>import { iconSvg } from "@neptune.fintech/icons";  // or &lt;npt-icon name="card"&gt;
 el.innerHTML = iconSvg("card");                    // inherits currentColor → themes automatically</pre></div>
   <p><a href="icons.html">Browse all icons →</a></p>
+
+  <h2 id="sound">Sound identity</h2>
+  <p>White-label isn't only visual. <code>neptune_sound_kit</code> (Flutter) ships four
+  synthesized feedback chimes wired straight into the theme's <code>NptFeedback.onSoundCue</code>
+  hook — separate from the core UI package so apps that don't want sound never pay for an
+  audio-plugin dependency. For a real bank/customer's own distinct sound identity (not the
+  generic default), <code>tools/sound-identity</code> is a dev-time generator: a melodic shape
+  + soundfont patch produces a 5-file notification/success family via FluidSynth, the sound
+  counterpart to the visual brandprint generator.</p>
+  <div class="code"><button class="copy">Copy</button><pre>flutter pub add neptune_sound_kit  <span class="tok-c"># not yet on pub.dev — git/path dependency for now</span>
+node tools/sound-identity/generate.mjs --name "My Bank"</pre></div>
 
   <h2 id="determinism">The determinism contract</h2>
   <ul>

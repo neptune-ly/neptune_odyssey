@@ -25,12 +25,16 @@ browser: **<https://neptune-ly.github.io/neptune_odyssey/flutter/>**.
 |---|---|---|
 | ![Dark](screenshots/dark_proteus.png) | ![Brand switch](screenshots/brand_switch.png) | ![RTL](screenshots/rtl_arabic.png) |
 
+| 2.13.0 — loaders, splash, app bar variants |
+|---|
+| ![Loaders, splash, app bar](screenshots/r6_additions.png) |
+
 ## Install
 
 ```yaml
 # pubspec.yaml
 dependencies:
-  neptune_flutter_ui: ^2.7.0
+  neptune_flutter_ui: ^2.13.0
 ```
 
 Or from git:
@@ -98,15 +102,30 @@ final theme = NeptuneTheme.fromConfig(cfg);
 
 ## Widgets
 
-Themed, RTL-safe building blocks that read the theme only:
+~150 themed, RTL-safe building blocks that read the theme only — balance/account/card
+surfaces, all nine screen templates, a full onboarding-flow suite, state-completeness
+(`NeptuneStateSwitcher`/`NeptuneShimmer`), data-viz, corporate/approval widgets, and
+`NeptuneDemoShellApp` (a complete branded demo app in ~10 lines). Full list in
+[COVERAGE.md](COVERAGE.md), which also tracks parity against the web component set.
 
-- `NeptuneBalanceCard`
-- `NeptuneTransactionRow`
-- `NeptuneAccountTile`
-- `NeptunePrimaryButton`
+**New in 2.13.0** (see [CHANGELOG.md](CHANGELOG.md) for the full history):
+- A standalone loader family — `NeptuneSpinner`, `NeptuneDotsLoader`, `NeptunePulseLoader`,
+  `NeptuneHourglassLoader` — all four feeding `NeptuneStatusMotion`'s `loaderStyle`, so any
+  of them can precede the same success/reject morph.
+- `NeptuneSplashScreen` — the ambient welcome backdrop + brand mark + a loader, for the
+  cold-start moment.
+- `NeptuneAppBar` gained `variant` (`small`/`center`/`medium`/`large`) — the M3
+  collapsing-header pattern.
+- `NptDensity` (comfortable/compact), `NptFeedback` (haptics + an `onSoundCue` hook — see
+  the sibling [`neptune_sound_kit`](../neptune_sound_kit) package), and
+  `NeptuneNumeralStyle`/`NptNumerals` (Arabic-Indic digits as a lever independent of `arabic:`).
+- Dark-mode elevation (`NptIdentity.elevation1..5`) now reads as a brand-tinted glow instead
+  of a flat shadow; `NeptuneCta`'s motion timing is derived from each brand's own tokens
+  instead of one fixed duration for every brand.
 
 The brand `success` role, corner family, type set and motion are available as
-`ThemeExtension`s: `NptColors`, `NptShape`, `NptType`, `NptMotion`.
+`ThemeExtension`s: `NptColors`, `NptShape`, `NptType`, `NptMotion`, `NptIdentity`,
+`NptDensity`, `NptFeedback`.
 
 ```dart
 final success = Theme.of(context).extension<NptColors>()!.success;

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.13.1 — docs + pub.dev screenshot refresh
+
+No code changes. Adds a new pub.dev/README screenshot (`r6_additions.png`, real
+`RepaintBoundary.toImage` engine render) showing the 2.13.0 additions — the loader family,
+`NeptuneSplashScreen`, and `NeptuneAppBar`'s medium variant — and updates install snippets
+and the widget list to the current version. Screenshots are pinned per published version on
+pub.dev, so this needed a release rather than just an edit to `main`.
+
 ## 2.13.0 — R9: full component-suite audit
 
 Audited all 89 web custom elements (`neptune_web_ui`, the canonical recipe
