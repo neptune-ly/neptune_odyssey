@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Icons — Neptune Odyssey</title>
-<meta name="description" content="The Neptune icon library — ~63 original 24px stroke icons, themeable via currentColor, shipped as @neptune.fintech/icons. Search, preview and copy.">
+<meta name="description" content="The Neptune icon library — ~94 original 24px stroke icons, themeable via currentColor, shipped as @neptune.fintech/icons. Search, preview and copy.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
 <div class="dwrap dwrap--plain"><main class="dmain">
   <p class="eyebrow">Icons</p>
   <h1>The Neptune icon library</h1>
-  <p class="dlede">~63 original 24px stroke icons drawn on one grid — crisp at any size, themeable through <code>currentColor</code>, and shipped as <a href="https://www.npmjs.com/package/@neptune.fintech/icons" target="_blank" rel="noopener"><b>@neptune.fintech/icons</b></a>. Search, recolour, and copy any icon as a web element, raw SVG, or bare name.</p>
+  <p class="dlede">~94 original 24px stroke icons drawn on one grid — crisp at any size, themeable through <code>currentColor</code>, and shipped as <a href="https://www.npmjs.com/package/@neptune.fintech/icons" target="_blank" rel="noopener"><b>@neptune.fintech/icons</b></a>. Search, recolour, and copy any icon as a web element, raw SVG, or bare name.</p>
   <div class="code"><button class="copy">Copy</button><pre>npm i @neptune.fintech/icons</pre></div>
 
   <!-- Toolbar: search · size · colour role -->
@@ -181,15 +181,27 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
 (function(){
   var variant = 'color';
   var size = 20;
+  // Native logo aspect ratios range from ~1:1 (NUMO, LyPay) to ~4.3:1 (Western
+  // Union) — sizing every mark to the SAME height (the library's only sizing
+  // axis) let wordmark-shaped logos render much wider/heavier than icon-shaped
+  // ones. Fixed-footprint fix: every mark now fits (never crops, aspect always
+  // preserved — the browser's default SVG preserveAspectRatio="xMidYMid meet")
+  // inside the SAME box regardless of its native shape, like a real "accepted
+  // payment methods" row. Overriding width/height via a style attribute beats
+  // the ones brandMarkSvg already set as plain presentation attributes.
+  function fitSvg(svg){
+    return svg.replace('<svg ', '<svg style="width:100%;height:100%;display:block" ');
+  }
   function paint(){
     var N = window.Neptune, host = document.getElementById('brandgrid');
     if (!host || !N || !N.BRAND_MARK_NAMES) { return false; }
+    var boxW = Math.round(size * 2.2), boxH = size;
     host.innerHTML = N.BRAND_MARK_NAMES.map(function(name){
-      var svg = ''; try { svg = N.brandMarkSvg(name, { height: size, variant: variant }); } catch (e) {}
+      var svg = ''; try { svg = fitSvg(N.brandMarkSvg(name, { height: size, variant: variant })); } catch (e) {}
       return '<button type="button" class="brandcell" data-name="'+name+'" aria-label="Copy '+name+' brand mark" '+
         'style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border:1px solid var(--line);'+
         'border-radius:14px;background:var(--surface);cursor:pointer;min-height:84px;justify-content:center">'+
-        '<span style="display:flex;align-items:center;height:'+(size+4)+'px;color:var(--ink-1)">'+svg+'</span>'+
+        '<span style="display:flex;align-items:center;justify-content:center;width:'+boxW+'px;height:'+boxH+'px;color:var(--ink-1)">'+svg+'</span>'+
         '<span style="font-size:11.5px;font-weight:600;color:var(--ink-2)">'+name+'</span></button>';
     }).join('');
     return true;

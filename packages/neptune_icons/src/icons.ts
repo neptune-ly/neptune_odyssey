@@ -60,6 +60,14 @@ export const ICONS: Record<IconName, string> = {
     '<path d="M4 6h16"/><path d="M7 11h10"/><path d="M10 16h4"/>',
   settings:
     '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.2"/><path d="M12 18.8V21"/><path d="M3 12h2.2"/><path d="M18.8 12H21"/><path d="m5.6 5.6 1.6 1.6"/><path d="m16.8 16.8 1.6 1.6"/><path d="m18.4 5.6-1.6 1.6"/><path d="m7.2 16.8-1.6 1.6"/>',
+  edit:
+    '<path d="M4 20 5 15.5 15.5 5 19 8.5 8.5 19 4 20Z"/><path d="M13 7 17 11"/>',
+  trash:
+    '<path d="M5 7h14"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6.5 7 7.3 19a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4L17.5 7"/><path d="M10 11v6"/><path d="M14 11v6"/>',
+  refresh:
+    '<path d="M4.5 12a7.5 7.5 0 0 1 13.2-4.8"/><path d="M19.5 3.5v4.5H15"/><path d="M19.5 12a7.5 7.5 0 0 1-13.2 4.8"/><path d="M4.5 20.5V16H9"/>',
+  link:
+    '<path d="M9.5 14.5 14.5 9.5"/><path d="M8 16.5 5.5 14a3.5 3.5 0 0 1 0-5l1.5-1.5a3.5 3.5 0 0 1 5 0"/><path d="M16 7.5 18.5 10a3.5 3.5 0 0 1 0 5L17 16.5a3.5 3.5 0 0 1-5 0"/>',
 
   // ── People & identity ───────────────────────────────────────────────
   user:
@@ -78,6 +86,10 @@ export const ICONS: Record<IconName, string> = {
     '<path d="M7 11a5 5 0 0 1 10 0v1"/><path d="M9.5 11a2.5 2.5 0 0 1 5 0v1.5a6 6 0 0 0 .8 3"/><path d="M12 11v3a8 8 0 0 0 1.2 4.2"/><path d="M9.5 14a8 8 0 0 0 1 4.5"/><path d="M5 13a9 9 0 0 1 1.2-7"/><path d="M18.8 6.5A9 9 0 0 1 19 13"/>',
   "face-id":
     '<path d="M4 8V6.5A2.5 2.5 0 0 1 6.5 4H8"/><path d="M16 4h1.5A2.5 2.5 0 0 1 20 6.5V8"/><path d="M20 16v1.5a2.5 2.5 0 0 1-2.5 2.5H16"/><path d="M8 20H6.5A2.5 2.5 0 0 1 4 17.5V16"/><path d="M9.5 9.5v1"/><path d="M14.5 9.5v1"/><path d="M12 9.5v3l-1 .8"/><path d="M9.5 15a3.5 3.5 0 0 0 5 0"/>',
+  "id-card":
+    '<rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.1"/><path d="M5.5 15.8c0-1.7 1.3-3 3-3s3 1.3 3 3"/><path d="M14 9.5h5"/><path d="M14 13h5"/>',
+  otp:
+    '<rect x="3" y="8" width="18" height="8" rx="2"/><circle cx="7" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="11" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.1" fill="currentColor" stroke="none"/>',
 
   // ── Status & alerts ─────────────────────────────────────────────────
   bell:
@@ -100,6 +112,8 @@ export const ICONS: Record<IconName, string> = {
     '<path d="M12 5v14"/><path d="M5 12h14"/>',
   minus:
     '<path d="M5 12h14"/>',
+  star:
+    '<path d="M12 3.5l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17.6l-5.6 3 1.4-6.3-4.8-4.3 6.4-.6L12 3.5Z"/>',
 
   // ── Charts & insights ───────────────────────────────────────────────
   "chart-line":
@@ -124,6 +138,12 @@ export const ICONS: Record<IconName, string> = {
     '<path d="M6 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5V19a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 5 8.2 2 2 0 0 1 6 4Z"/>',
   mail:
     '<rect x="3.5" y="6" width="17" height="12" rx="2.5"/><path d="m4.5 8 7.5 5.5L19.5 8"/>',
+  chat:
+    '<path d="M4.5 6A2.5 2.5 0 0 1 7 3.5h10A2.5 2.5 0 0 1 19.5 6v7A2.5 2.5 0 0 1 17 15.5H9l-4.5 4Z"/>',
+  camera:
+    '<path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1-2h7l1 2h2A1.5 1.5 0 0 1 20 8.5V18a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18Z"/><circle cx="12" cy="13" r="3.2"/>',
+  globe:
+    '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.4 2.3 3.7 5.3 3.7 8.5s-1.3 6.2-3.7 8.5c-2.4-2.3-3.7-5.3-3.7-8.5S9.6 5.8 12 3.5Z"/>',
 
   // ── Support ─────────────────────────────────────────────────────────
   support:
@@ -134,10 +154,18 @@ export const ICONS: Record<IconName, string> = {
     '<path d="M9.5 5.5 16 12l-6.5 6.5"/>',
   "chevron-down":
     '<path d="M5.5 9.5 12 16l6.5-6.5"/>',
+  "chevron-up":
+    '<path d="M5.5 14.5 12 8l6.5 6.5"/>',
+  "chevron-left":
+    '<path d="M14.5 5.5 8 12l6.5 6.5"/>',
   "arrow-right":
     '<path d="M4 12h15"/><path d="m13 6 6 6-6 6"/>',
   "arrow-left":
     '<path d="M20 12H5"/><path d="m11 6-6 6 6 6"/>',
+  "arrow-up":
+    '<path d="M12 20V5"/><path d="m6 11 6-6 6 6"/>',
+  "arrow-down":
+    '<path d="M12 4v15"/><path d="m18 13-6 6-6-6"/>',
 
   // ── Overflow & misc ─────────────────────────────────────────────────
   menu:
@@ -184,4 +212,14 @@ export const ICONS: Record<IconName, string> = {
     '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3.5 19a4.5 4.5 0 0 1 9 0"/><path d="M11.5 19a4.5 4.5 0 0 1 9 0"/>',
   "tap-to-pay":
     '<rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M3 10h13"/><path d="M6.5 14.5h3"/><path d="M19 8.5a6 6 0 0 1 0 7"/><path d="M21.5 6.5a9 9 0 0 1 0 11"/>',
+  dispute:
+    '<path d="M6 21V4"/><path d="M6 4.5h11.5l-2.7 3.5 2.7 3.5H6"/>',
+  refund:
+    '<path d="M7.5 6.5 4 10l3.5 3.5"/><path d="M4 10h9a6.5 6.5 0 0 1 6.5 6.5v1"/>',
+  goal:
+    '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  "shopping-bag":
+    '<path d="M6.5 8h11l1 12a1.5 1.5 0 0 1-1.5 1.6H7a1.5 1.5 0 0 1-1.5-1.6Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>',
+  "category-tag":
+    '<path d="M11.5 4h5A1.5 1.5 0 0 1 18 5.5v5a1.5 1.5 0 0 1-.44 1.06l-7 7a1.5 1.5 0 0 1-2.12 0l-5-5a1.5 1.5 0 0 1 0-2.12l7-7A1.5 1.5 0 0 1 11.5 4Z"/><circle cx="14" cy="8" r="1.2" fill="currentColor" stroke="none"/>',
 };

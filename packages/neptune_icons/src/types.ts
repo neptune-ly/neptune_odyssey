@@ -31,6 +31,10 @@ export type IconName =
   | "search"
   | "filter"
   | "settings"
+  | "edit"
+  | "trash"
+  | "refresh"
+  | "link"
   // People & identity
   | "user"
   | "users"
@@ -40,6 +44,8 @@ export type IconName =
   | "key"
   | "fingerprint"
   | "face-id"
+  | "id-card"
+  | "otp"
   // Status & alerts
   | "bell"
   | "eye"
@@ -51,6 +57,7 @@ export type IconName =
   | "close"
   | "plus"
   | "minus"
+  | "star"
   // Charts & insights
   | "chart-line"
   | "chart-pie"
@@ -63,13 +70,20 @@ export type IconName =
   | "location"
   | "phone"
   | "mail"
+  | "chat"
+  | "camera"
+  | "globe"
   // Support
   | "support"
   // Carets & arrows
   | "chevron-right"
   | "chevron-down"
+  | "chevron-up"
+  | "chevron-left"
   | "arrow-right"
   | "arrow-left"
+  | "arrow-up"
+  | "arrow-down"
   // Overflow & misc
   | "menu"
   | "more-horizontal"
@@ -92,7 +106,12 @@ export type IconName =
   | "loan"
   | "insurance"
   | "split-bill"
-  | "tap-to-pay";
+  | "tap-to-pay"
+  | "dispute"
+  | "refund"
+  | "goal"
+  | "shopping-bag"
+  | "category-tag";
 
 /** All icon names, in catalogue order. */
 export const ICON_NAMES: IconName[] = [
@@ -125,6 +144,8 @@ export const ICON_NAMES: IconName[] = [
   "key",
   "fingerprint",
   "face-id",
+  "id-card",
+  "otp",
   "bell",
   "eye",
   "eye-off",
@@ -135,6 +156,7 @@ export const ICON_NAMES: IconName[] = [
   "close",
   "plus",
   "minus",
+  "star",
   "chart-line",
   "chart-pie",
   "trending-up",
@@ -145,11 +167,18 @@ export const ICON_NAMES: IconName[] = [
   "location",
   "phone",
   "mail",
+  "chat",
+  "camera",
+  "globe",
   "support",
   "chevron-right",
   "chevron-down",
+  "chevron-up",
+  "chevron-left",
   "arrow-right",
   "arrow-left",
+  "arrow-up",
+  "arrow-down",
   "menu",
   "more-horizontal",
   "more-vertical",
@@ -171,4 +200,13 @@ export const ICON_NAMES: IconName[] = [
   "insurance",
   "split-bill",
   "tap-to-pay",
+  "dispute",
+  "refund",
+  "goal",
+  "shopping-bag",
+  "category-tag",
+  "edit",
+  "trash",
+  "refresh",
+  "link",
 ];
