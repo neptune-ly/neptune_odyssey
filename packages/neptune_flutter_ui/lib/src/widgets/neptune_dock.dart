@@ -145,44 +145,105 @@ class _DockItem extends StatelessWidget {
   }
 }
 
-/// A lightweight themed top bar (web `<npt-app-bar>`): an optional leading
-/// widget, an expanded display-font title, and trailing actions. A plain
-/// themed widget — not a Material [AppBar]. RTL-safe.
+/// Which M3 top-app-bar layout [NeptuneAppBar] renders (web `<npt-top-app-bar
+/// variant="small|center|medium|large">`). `medium`/`large` stack a larger
+/// headline below the action row instead of showing the title inline.
+enum NeptuneAppBarVariant { small, center, medium, large }
+
+/// A lightweight themed top bar (web `<npt-app-bar>` / `<npt-top-app-bar>`):
+/// an optional leading widget, a display-font title, and trailing actions.
+/// [variant] picks the M3 layout — `small` (default) and `center` keep the
+/// title inline in the 56dp row; `medium`/`large` reserve the row for
+/// leading/actions only and drop a bigger headline below it. A plain themed
+/// widget — not a Material [AppBar]. RTL-safe.
 class NeptuneAppBar extends StatelessWidget {
   final String title;
   final Widget? leading;
   final List<Widget>? actions;
+  final NeptuneAppBarVariant variant;
 
-  const NeptuneAppBar(
-      {super.key, required this.title, this.leading, this.actions});
+  const NeptuneAppBar({
+    super.key,
+    required this.title,
+    this.leading,
+    this.actions,
+    this.variant = NeptuneAppBarVariant.small,
+  });
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final type = Theme.of(context).extension<NptType>()!;
     final text = Theme.of(context).textTheme;
+    final stacked = variant == NeptuneAppBarVariant.medium || variant == NeptuneAppBarVariant.large;
 
-    return Container(
-      color: scheme.surface,
+    final rowTitleStyle = text.titleLarge?.copyWith(
+      fontFamily: type.display,
+      fontWeight: type.displayFontWeight,
+      color: scheme.onSurface,
+    );
+
+    final row = Container(
       constraints: const BoxConstraints(minHeight: 56),
-      padding:
-          const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           if (leading != null) ...[leading!, const SizedBox(width: 12)],
           Expanded(
-            child: Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: text.titleLarge?.copyWith(
-                fontFamily: type.display,
-                fontWeight: type.displayFontWeight,
-                color: scheme.onSurface,
+            // In medium/large the inline title is replaced by the stacked
+            // headline below — an empty Expanded still reserves the same
+            // space for leading/actions as the web's `visibility:hidden` row
+            // title does, without needing an invisible Text underneath.
+            child: stacked
+                ? const SizedBox.shrink()
+                : Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: variant == NeptuneAppBarVariant.center ? TextAlign.center : TextAlign.start,
+                    style: rowTitleStyle,
+                  ),
+          ),
+          if (actions != null) ...actions!,
+        ],
+      ),
+    );
+
+    if (!stacked) {
+      // Keep the title reachable to screen readers even though it's the only
+      // visible copy — the web version's row title is the sole rendering.
+      return Container(color: scheme.surface, child: row);
+    }
+
+    final headlineStyle = (variant == NeptuneAppBarVariant.large ? text.displayMedium : text.headlineMedium)
+        ?.copyWith(
+      fontFamily: type.display,
+      fontWeight: type.displayFontWeight,
+      letterSpacing: type.displayTracking * (variant == NeptuneAppBarVariant.large ? 45 : 28),
+      color: scheme.onSurface,
+    );
+
+    return Container(
+      color: scheme.surface,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          row,
+          // A Semantics wrapper carries the title to assistive tech once —
+          // the row above intentionally has no visible/exposed title copy.
+          Semantics(
+            header: true,
+            child: Padding(
+              padding: const EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 24),
+              child: Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: headlineStyle,
               ),
             ),
           ),
-          if (actions != null) ...actions!,
         ],
       ),
     );

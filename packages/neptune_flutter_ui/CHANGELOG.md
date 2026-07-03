@@ -1,5 +1,32 @@
 # Changelog
 
+## 2.13.0 — R9: full component-suite audit
+
+Audited all 89 web custom elements (`neptune_web_ui`, the canonical recipe
+source) against the 149 Flutter classes for genuine capability gaps — not a
+naming diff, an actual missing thing a consumer would hit. Result: **one**
+real gap. Everything else either has a dedicated Flutter widget, is covered
+by a Material widget the theme already brands (`Divider`, `FloatingActionButton`,
+`IconButton`, `NavigationBar` all read the Odyssey `ColorScheme` with zero
+wrapper needed), or is a deliberate idiom difference already established
+throughout this library (data-driven widgets — `NeptuneAccordion`,
+`NeptuneTabs`, `NeptuneStepper` — take a `List<...>` of records rather than
+exposing discrete child widgets per item).
+
+- **`NeptuneAppBar` gained `variant`** (`small`/`center`/`medium`/`large`,
+  matching web's `<npt-top-app-bar>`): `medium`/`large` reserve the 56dp row
+  for leading/actions only and drop a bigger headline (28px / 45px) below it
+  — the M3 collapsing-header pattern the Flutter widget was missing
+  entirely. Ported with one accessibility improvement over the web source:
+  the title stays in the semantics tree via an explicit `Semantics(header:
+  true)` wrapper in every variant, rather than the web version's pattern of
+  hiding the inline title via `visibility:hidden` (which removes it from the
+  accessibility tree) and marking the stacked headline `aria-hidden` (same
+  problem) — as shipped, the web component has no accessible title in
+  medium/large.
+
+flutter analyze clean · 109 tests pass · CI no-literals gate green.
+
 ## 2.12.0 — R6: design evolution
 
 **Density, dark-mode elevation, per-brand motion, feedback tokens, Arabic

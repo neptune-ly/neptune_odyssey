@@ -146,6 +146,20 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  for (final variant in NeptuneAppBarVariant.values) {
+    testWidgets('NeptuneAppBar variant $variant renders exactly one title', (tester) async {
+      await tester.pumpWidget(_host(
+        NeptuneAppBar(title: 'Accounts', variant: variant),
+        scroll: false,
+      ));
+      // medium/large show the title once as a stacked headline (the inline
+      // row copy is intentionally omitted, not just hidden) — small/center
+      // show it once inline. Never zero, never two.
+      expect(find.text('Accounts'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+  }
+
   testWidgets('NeptuneOnboarding builds', (tester) async {
     await tester.pumpWidget(_host(
       SizedBox(

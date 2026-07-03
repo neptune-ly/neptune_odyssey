@@ -146,6 +146,22 @@ class _Showcase extends StatelessWidget {
                   _statusCard(context, style, NeptuneFlowStatus.rejected),
               ],
             ),
+            const SizedBox(height: 32),
+
+            NeptuneEyebrow('App bar variants (R9 gap fix)', color: scheme.primary),
+            const SizedBox(height: 12),
+            for (final v in NeptuneAppBarVariant.values) ...[
+              Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(border: Border.all(color: scheme.outlineVariant)),
+                child: NeptuneAppBar(
+                  title: 'Accounts',
+                  variant: v,
+                  leading: const Icon(Icons.arrow_back),
+                  actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+                ),
+              ),
+            ],
           ],
         ),
       ),

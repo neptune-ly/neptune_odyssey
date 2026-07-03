@@ -2,6 +2,14 @@
 
 Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
+1. **Full-suite audit (2.13.0 / R9).** All 89 web custom elements checked
+   against Flutter for genuine capability gaps (not naming diffs) — one
+   found and fixed: `NeptuneAppBar` gained the M3 `medium`/`large`
+   collapsing-header variants `<npt-top-app-bar>` has. Everything else is
+   either a dedicated widget, covered by a Material widget the theme already
+   brands (`Divider`, FAB, `IconButton`, `NavigationBar`), or an established
+   data-driven idiom (`NeptuneAccordion`/`NeptuneTabs`/`NeptuneStepper` take
+   a `List<...>` rather than discrete per-item child widgets).
 1. **Design evolution (2.12.0 / R6).** Density + Arabic-numeral levers,
    dark-mode elevation as a glow rather than an invisible shadow, per-brand
    signature CTA motion timing, haptic/sound feedback tokens (`NptFeedback`;
