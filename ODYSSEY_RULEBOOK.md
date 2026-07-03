@@ -223,8 +223,33 @@ or a future drag-drop) MUST be colour-matched to sRGB before decoding via
 P3 bytes as sRGB shifts hues badly (see §9). Normalize first:
 `sips -m "/System/Library/ColorSync/Profiles/sRGB Profile.icc" in --out out`.
 
+**The sound half of white-label** (`tools/sound-identity`, R7): white-label
+isn't just visual. Real bank apps built on Odyssey want their own *sound*
+identity too — a distinct notification/success chime family, not the
+generic sine chimes in `neptune_sound_kit`. `tools/sound-identity/generate.mjs`
+is that generator: pick a melodic `--shape` (`rising-phrase`/`tap-chord`) and
+a soundfont `--patch` (or let both auto-pick, collision-checked against
+`registry.json`), get 5 FluidSynth-rendered WAVs
+(`success`/`general`/`money_in`/`security`/`reminder`) via the same pipeline
+proven on two real bank apps (Andalus, Nuran — see
+`neptune-mobile/.agent/SOUND_IDENTITY_HANDOFF.md`). **Never converge two
+banks' shapes onto the same feel** — that's a deliberate brand-identity
+decision the tool exists to make repeatable, not to erase. Preview any new
+identity in `preview/listening_room.html` (self-contained, base64-embedded
+audio, 64kbps mono — a high-bitrate build of this exact kind of page failed
+to load once already) before shipping it anywhere.
+
 ## 9 · History — the mistakes, so you don't repeat them
 
+- **`tools/sound-identity`'s MIDI encoder threw on its first real run** —
+  `vlq()` is guarded against both negative AND non-integer input (the
+  negative guard is ported deliberately from the source pipeline, see R7
+  above; the integer guard caught a fresh bug of its own). Shape durations
+  computed as `PPQ * 0.18`-style fractions produced non-integer tick values,
+  which the integer guard correctly rejected before they could reach
+  FluidSynth. Fixed by rounding every tick/duration to an integer at the
+  single `note()` choke point rather than trusting each shape's arithmetic
+  to land on integers.
 - **2.2–2.4: "correctly themed Material" ≠ Odyssey.** ~88 widgets read the M3
   scheme faithfully and still looked generic. The identity layer (gradients,
   glass, motifs, glow, motion) is what makes it Odyssey → shipped in 2.5.0.

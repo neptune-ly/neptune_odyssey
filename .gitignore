@@ -32,6 +32,11 @@ extracted/
 # local Pages preview assembly
 _site/
 
+# tools/sound-identity: generated WAV families + mp3 preview builds
+# (regenerate with `node generate.mjs --name ...`, never hand-edited)
+tools/sound-identity/output/
+tools/sound-identity/preview/listening_room.html
+
 # generated docs bundle (built by site/bundle/build.mjs in CI)
 site/assets/neptune.js
 
