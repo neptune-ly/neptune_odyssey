@@ -209,20 +209,25 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
   function start(){
     if (!paint()) { return setTimeout(start, 120); }
     var N = window.Neptune;
-    // Real official assets neptune.ly is licensed to display (Western Union agent,
-    // LyPay, Visa/Mastercard/NUMO/Sadad from a real production Libyan deployment,
-    // Google Pay/Apple Pay/SWIFT from each brand's own official artwork). Loaded
-    // at runtime via registerBrandMark — never bundled into the public package;
-    // remaining placeholders (MoneyGram, OnePay Libya) need their own official
-    // files the same way — none found yet, see CHANGELOG.
+    // Real official assets neptune.ly is licensed to display. Loaded at runtime
+    // via registerBrandMark — never bundled into the public package; MoneyGram
+    // is the only one left with no findable official file, see CHANGELOG.
     if (N && N.registerBrandMarksFromUrls) {
       var REAL_ASSETS = {
         'western-union': 'assets/brands/western-union.svg',
         'lypay': 'assets/brands/lypay.svg',
         'visa': 'assets/brands/visa.svg',
         'mastercard': 'assets/brands/mastercard.svg',
+        'amex': 'assets/brands/amex.svg',
+        'discover': 'assets/brands/discover.svg',
+        'unionpay': 'assets/brands/unionpay.svg',
+        'paypal': 'assets/brands/paypal.svg',
+        'mada': 'assets/brands/mada.svg',
         'numo': 'assets/brands/numo.svg',
         'sadad': 'assets/brands/sadad.svg',
+        'onepay': 'assets/brands/onepay.svg',
+        'moamalat': 'assets/brands/moamalat.svg',
+        'tadawul': 'assets/brands/tadawul.svg',
         'google-pay': 'assets/brands/google-pay.svg',
         'apple-pay': 'assets/brands/apple-pay.svg',
         'swift': 'assets/brands/swift.svg'
