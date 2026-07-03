@@ -4,6 +4,11 @@ node_modules/
 
 # build outputs
 dist/
+# ...except neptune_laravel_ui's dist, which is a deliberately vendored,
+# checked-in copy of neptune_web_ui's build (Composer can't resolve an npm
+# package's output at install time) — see that package's README/tools/sync-assets.mjs.
+!packages/neptune_laravel_ui/resources/dist/
+!packages/neptune_laravel_ui/resources/dist/**
 build/web/
 *.tsbuildinfo
 coverage/
