@@ -169,6 +169,17 @@ only generic capabilities (like `NeptuneWelcome.lockup`) get upstreamed.
 + its existing core set, no new widget back-ports (its README says so). Web
 components remain the canonical recipe source for both.
 
+**Framework adapters** (`packages/neptune_react_ui`, `neptune_vue_ui`,
+`neptune_svelte_ui`, `neptune_laravel_ui`) all sit on top of the SAME
+framework-agnostic `neptune_web_ui` custom elements — they add framework-
+idiomatic ergonomics (typed wrappers, a theme composable, Blade components),
+never their own rendering. `neptune_laravel_ui` (R8) is the odd one out
+structurally: Composer has no concept of resolving an npm package's built
+output, so it vendors a synced copy of `web-ui`'s `dist/` rather than
+depending on the npm package directly (`tools/sync-assets.mjs` keeps the two
+in sync) — this is *why* it's a real Composer package with PHP + a service
+provider, not just another `styles.css` re-export.
+
 ## 8 · Client prototype playbook (white-label proof)
 
 **The one-command path (R5, proven end-to-end):**
