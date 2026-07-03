@@ -71,12 +71,13 @@
     </div>
   </div>
 
-  <p class="dcard" style="font-size:14px"><b>Flutter's dark mode goes one step further</b> — as of 2.13.0,
-  <code>NptIdentity.elevation1..5</code> lerps dark-mode shadows toward the brand <code>primary</code> with
-  more blur and less directional offset, reading as ambient glow rather than a cast shadow. The web
-  token above still uses a fixed <code>scrim</code>-tinted shadow, which flattens to literal black in
-  dark mode (see <code>themes.css</code>'s dark blocks) — porting the same glow treatment to
-  <code>system.css</code> is open work, tracked separately.</p>
+  <p class="dcard" style="font-size:14px"><b>Dark mode is a glow, not a cast shadow</b> — on both
+  platforms. A <code>scrim</code>-tinted shadow flattens to literal black in dark mode (see
+  <code>themes.css</code>'s dark blocks), which barely registers against an already-dark surface, so
+  dark mode instead lerps the shadow 35% toward the brand <code>primary</code>, widens the blur, and
+  drops the directional offset — reading as ambient light lifting the surface. Web:
+  <code>system.css</code>'s <code>[data-mode="dark"]</code> override of <code>--npt-elev-1..5</code>.
+  Flutter: <code>NptIdentity.elevation1..5</code>'s dark-mode branch. Toggle <b>Dark</b> above to see it.</p>
 
   <h2 id="motion">Motion</h2>
   <p>Per-brand easing + duration tokens carry the brand's feel. Components read <code>--npt-ease-*</code> / <code>--npt-dur-*</code>; reduced-motion is honoured everywhere. In Flutter, a component's own timing can additionally scale from these tokens — <code>NeptuneCta</code>'s sheen-sweep/nudge cycle is derived from each brand's <code>--npt-dur-slow</code>/<code>--npt-dur-standard</code> rather than one fixed duration for every brand, so a calmer brand's buttons visibly move slower than a snappier one's.</p>
@@ -129,7 +130,7 @@ NeptuneTheme.light(<span class="tok-s">'triton'</span>, density: NeptuneDensityM
   document.getElementById('shapes').innerHTML=SH.map(function(s){return '<div class="shape" style="border-radius:var('+s[1]+')">'+s[0]+'</div>';}).join('');
   // elevation
   var EL=[0,1,2,3,4,5];
-  document.getElementById('elevs').innerHTML=EL.map(function(n){return '<div class="elev" style="box-shadow:var(--npt-elevation-'+n+',0 '+n+'px '+(n*3)+'px rgba(7,49,95,.16))">level '+n+'</div>';}).join('');
+  document.getElementById('elevs').innerHTML=EL.map(function(n){return '<div class="elev" style="box-shadow:var(--npt-elev-'+n+')">level '+n+'</div>';}).join('');
   // brand + mode switching (re-skins the whole scope)
   document.getElementById('brandSel').addEventListener('change',function(e){scope.setAttribute('data-theme',e.target.value);});
   function setMode(m){scope.setAttribute('data-mode',m);document.getElementById('mLight').setAttribute('aria-pressed',String(m==='light'));document.getElementById('mDark').setAttribute('aria-pressed',String(m==='dark'));}

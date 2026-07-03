@@ -27,6 +27,10 @@ mkdirSync(OUT, { recursive: true });
 cpSync(join(WEB_UI, 'dist'), join(OUT, 'js'), { recursive: true });
 cpSync(join(WEB_UI, 'styles', 'neptune-odyssey.css'), join(OUT, 'neptune-odyssey.css'));
 cpSync(join(WEB_UI, 'styles', 'themes.css'), join(OUT, 'themes.css'));
+// neptune-odyssey.css does `@import "./system.css"` — without this copy that
+// import 404s for a real Laravel consumer (found while porting the dark-mode
+// elevation glow to web: system.css is where that fix lives).
+cpSync(join(WEB_UI, 'styles', 'system.css'), join(OUT, 'system.css'));
 
 console.log(`Synced web-ui dist + styles into ${OUT}`);
 console.log('Remember to bump this package\'s version to match @neptune.fintech/web-ui\'s.');

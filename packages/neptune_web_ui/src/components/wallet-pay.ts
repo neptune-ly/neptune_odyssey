@@ -302,7 +302,7 @@ export class NptVoucherCard extends NptElement {
         border-radius: var(--npt-corner-lg, 24px);
         background: var(--md-sys-color-primary-container);
         color: var(--md-sys-color-on-primary-container);
-        box-shadow: var(--npt-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.2));
+        box-shadow: var(--npt-elev-1, 0 1px 3px rgba(0, 0, 0, 0.2));
         box-sizing: border-box;
         overflow: hidden;
         /* Punch a notch out of each inline edge with a radial-gradient mask.

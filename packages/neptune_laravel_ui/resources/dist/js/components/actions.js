@@ -115,7 +115,7 @@ export class NptFab extends NptElement {
         font-family: var(--npt-font-text);
         font-size: var(--npt-text-label, 14px);
         font-weight: 600;
-        box-shadow: var(--npt-elevation-3, 0 8px 20px rgba(0, 0, 0, 0.2));
+        box-shadow: var(--npt-elev-3, 0 8px 20px rgba(0, 0, 0, 0.2));
         transition: box-shadow var(--npt-dur-fast, 200ms) var(--npt-ease-standard, ease);
       }
       button:disabled {

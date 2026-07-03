@@ -98,7 +98,7 @@ export class NptDialog extends NptElement {
         color: var(--md-sys-color-on-surface);
         border-radius: var(--npt-corner-xl, 32px);
         padding: var(--npt-space-6, 24px);
-        box-shadow: var(--npt-elevation-5, 0 28px 60px rgba(0, 0, 0, 0.3));
+        box-shadow: var(--npt-elev-5, 0 28px 60px rgba(0, 0, 0, 0.3));
         box-sizing: border-box;
       }
       .headline {
@@ -200,7 +200,7 @@ export class NptBottomSheet extends NptElement {
         border-start-start-radius: var(--npt-corner-xl, 32px);
         border-start-end-radius: var(--npt-corner-xl, 32px);
         padding: var(--npt-space-4, 16px) var(--npt-space-6, 24px) var(--npt-space-6, 24px);
-        box-shadow: var(--npt-elevation-5, 0 28px 60px rgba(0, 0, 0, 0.3));
+        box-shadow: var(--npt-elev-5, 0 28px 60px rgba(0, 0, 0, 0.3));
         box-sizing: border-box;
       }
       .grip {
@@ -253,7 +253,7 @@ export class NptMenu extends NptElement {
         background: var(--md-sys-color-surface-container);
         color: var(--md-sys-color-on-surface);
         border-radius: var(--npt-corner-sm, 12px);
-        box-shadow: var(--npt-elevation-3, 0 8px 20px rgba(0, 0, 0, 0.2));
+        box-shadow: var(--npt-elev-3, 0 8px 20px rgba(0, 0, 0, 0.2));
       }
     `;
   }

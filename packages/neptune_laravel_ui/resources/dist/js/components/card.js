@@ -24,7 +24,7 @@ export class NptCard extends NptElement {
       }
       :host([variant="elevated"]) .card {
         background: var(--md-sys-color-surface-container);
-        box-shadow: var(--npt-elevation-2, 0 2px 6px rgba(0, 0, 0, 0.18));
+        box-shadow: var(--npt-elev-2, 0 2px 6px rgba(0, 0, 0, 0.18));
       }
       :host([variant="tonal"]) .card {
         background: var(--md-sys-color-secondary-container);

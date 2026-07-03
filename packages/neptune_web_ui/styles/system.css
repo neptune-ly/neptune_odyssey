@@ -43,7 +43,12 @@
   --npt-motion-spring: var(--npt-dur-4) var(--npt-ease-spring);
   --npt-motion-press:  var(--npt-dur-1) var(--npt-ease-standard);
 
-  /* ── Elevation · tinted by the theme's scrim (so shadows match the brand) ─ */
+  /* ── Elevation · tinted by the theme's scrim (so shadows match the brand) ─
+     Light mode: a cast shadow — scrim-tinted, tight blur, directional offset.
+     Dark mode overrides below lerp the shadow 35% toward `primary` instead
+     (mirrors Flutter's NptIdentity.elevation1..5) — a flat scrim/black shadow
+     barely registers against an already-dark surface, so dark mode trades
+     the cast-shadow shape for a wider, blurrier, un-offset ambient glow. */
   --npt-elev-0: none;
   --npt-elev-1: 0 1px 2px -1px color-mix(in oklab, var(--md-sys-color-scrim) 16%, transparent);
   --npt-elev-2: 0 2px 6px -2px color-mix(in oklab, var(--md-sys-color-scrim) 20%, transparent);
@@ -71,4 +76,19 @@
 
   /* native form controls inherit the brand */
   accent-color: var(--md-sys-color-primary);
+}
+
+/* ── Dark-mode elevation · glow, not a cast shadow ───────────────────────
+   Brand-agnostic by design: [data-mode="dark"] doesn't name a theme, so it
+   applies under any [data-theme], reading whichever brand's `primary` is
+   active. Lower specificity than themes.css's [data-theme][data-mode="dark"]
+   colour blocks, so brand colours still win — this rule only ever touches
+   the elevation shadows. */
+[data-mode="dark"]{
+  --npt-elev-tint: color-mix(in oklab, var(--md-sys-color-scrim) 65%, var(--md-sys-color-primary) 35%);
+  --npt-elev-1: 0 0.5px 6px color-mix(in oklab, var(--npt-elev-tint) 16%, transparent);
+  --npt-elev-2: 0 1px 12px color-mix(in oklab, var(--npt-elev-tint) 20%, transparent);
+  --npt-elev-3: 0 3px 32px color-mix(in oklab, var(--npt-elev-tint) 26%, transparent);
+  --npt-elev-4: 0 6px 50px color-mix(in oklab, var(--npt-elev-tint) 30%, transparent);
+  --npt-elev-5: 0 10px 76px color-mix(in oklab, var(--npt-elev-tint) 34%, transparent);
 }

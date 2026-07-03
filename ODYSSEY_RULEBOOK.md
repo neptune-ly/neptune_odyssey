@@ -64,6 +64,14 @@ in the layers ABOVE the colour scheme:
 4. **Elevation tokens** — e1 `0 1px 3px @.20`, e2 `0 2px 6px @.18`,
    e3 `0 8px 20px @.20`, e5 `0 28px 60px @.30`, plus the **primary key-light
    glow** under heroes/CTAs. Flutter: `NptIdentity.elevation1..5/glowPrimary`.
+   **Dark mode is a glow, not a cast shadow** on both platforms: a scrim/
+   black shadow at 16–40% alpha barely registers against an already-dark
+   surface, so dark mode lerps the shadow color 35% toward `primary`, drops
+   the directional offset, and widens the blur — reads as ambient light
+   lifting the surface, not a shape cast beneath it. Web: `system.css`'s
+   `[data-mode="dark"]` override of `--npt-elev-1..5` (scoped there, not in
+   `--md-sys-color-scrim` itself, so backdrop/dialog scrims stay neutral).
+   Flutter: `NptIdentity.elevation1..5`'s `_isDark` branch.
 5. **Expressive type details** — the eyebrow (uppercase, display face,
    tracking 0.08em → `NeptuneEyebrow`), card scheme labels, tabular money
    figures (`NeptuneTheme.moneyStyle`), mixed-weight promises (w500 + w800

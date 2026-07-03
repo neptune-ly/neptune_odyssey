@@ -119,7 +119,7 @@ export class NptSnackbar extends NptElement {
         border-radius: var(--npt-corner-xs, 8px);
         background: var(--md-sys-color-inverse-surface);
         color: var(--md-sys-color-inverse-on-surface);
-        box-shadow: var(--npt-elevation-3, 0 8px 20px rgba(0, 0, 0, 0.2));
+        box-shadow: var(--npt-elev-3, 0 8px 20px rgba(0, 0, 0, 0.2));
         font-family: var(--npt-font-text);
         font-size: var(--npt-text-body, 14px);
       }

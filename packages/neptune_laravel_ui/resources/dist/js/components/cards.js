@@ -31,7 +31,7 @@ export class NptCardArt extends NptElement {
         border-radius: var(--npt-corner-lg, 24px);
         background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
         color: var(--md-sys-color-on-primary);
-        box-shadow: var(--npt-elevation-2, 0 2px 6px rgba(0, 0, 0, 0.18));
+        box-shadow: var(--npt-elev-2, 0 2px 6px rgba(0, 0, 0, 0.18));
         display: flex;
         flex-direction: column;
         justify-content: space-between;

@@ -474,7 +474,7 @@ export class NptToast extends NptElement {
         border-radius: var(--npt-corner-sm, 12px);
         background: var(--_bg);
         color: var(--_fg);
-        box-shadow: var(--npt-elevation-3, 0 8px 20px rgba(0, 0, 0, 0.2));
+        box-shadow: var(--npt-elev-3, 0 8px 20px rgba(0, 0, 0, 0.2));
         font-family: var(--npt-font-text);
         font-size: var(--npt-text-body, 14px);
         line-height: var(--npt-leading-body, 20px);

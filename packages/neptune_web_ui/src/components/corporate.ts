@@ -141,7 +141,7 @@ export class NptApprovalItem extends NptElement {
         color: var(--md-sys-color-on-success);
       }
       button[data-action="approve"]:hover {
-        box-shadow: var(--npt-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.2));
+        box-shadow: var(--npt-elev-1, 0 1px 3px rgba(0, 0, 0, 0.2));
       }
       button[data-action="reject"] {
         background: transparent;
@@ -211,7 +211,7 @@ export class NptBatchCard extends NptElement {
         background: var(--md-sys-color-surface-container);
         color: var(--md-sys-color-on-surface);
         box-sizing: border-box;
-        box-shadow: var(--npt-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.2));
+        box-shadow: var(--npt-elev-1, 0 1px 3px rgba(0, 0, 0, 0.2));
       }
       .head {
         display: flex;
