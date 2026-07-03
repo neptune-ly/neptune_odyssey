@@ -81,6 +81,10 @@ in the layers ABOVE the colour scheme:
 **A surface without gradients, glass, motif, glow or the type details is not
 done — it's a grey Material mockup.**
 
+The reader-facing version of this argument (a live side-by-side of the same
+balance card as a stock M3 baseline vs. brand-themed) lives at
+`site/vs-material.html` — keep the two in sync when either changes.
+
 ## 4 · Flutter package law (`neptune_flutter_ui`)
 
 Hard rules — CI enforces the first one by grepping `lib/src/widgets`:

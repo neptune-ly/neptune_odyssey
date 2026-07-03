@@ -7,6 +7,7 @@
     ["index.html", "Home", "home"],
     ["get-started.html", "Get started", "get-started"],
     ["foundations.html", "Foundations", "foundations"],
+    ["vs-material.html", "vs. Material", "vs-material"],
     ["components.html", "Components", "components"],
     ["templates.html", "Templates", "templates"],
     ["icons.html", "Icons", "icons"],

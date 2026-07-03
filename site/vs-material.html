@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Odyssey vs. plain Material — Neptune Odyssey</title>
+<meta name="description" content="Why Neptune Odyssey isn't 'themed Material 3' — the identity layer, brandprint-driven generation, and what a bank actually gets that a Material baseline doesn't.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@300..800&family=Bricolage+Grotesque:wght@400..800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens/themes.css">
+<link rel="stylesheet" href="tokens/system.css">
+<link rel="stylesheet" href="assets/docs.css">
+<style>
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;margin:20px 0}
+  @media (max-width:760px){.vs{grid-template-columns:1fr}}
+  .vs__pane{padding:28px 24px 32px}
+  .vs__pane--material{background:#fef7ff}
+  .vs__pane--odyssey{background:var(--md-sys-color-surface);color:var(--md-sys-color-on-surface)}
+  .vs__label{font-family:var(--rounded);font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin:0 0 4px}
+  .vs__pane--material .vs__label{color:#6750A4}
+  .vs__pane--odyssey .vs__label{color:var(--md-sys-color-primary)}
+  .vs__sub{font-size:12.5px;color:var(--ink-3);margin:0 0 20px}
+  .vs__pane--odyssey .vs__sub{color:var(--md-sys-color-on-surface-variant)}
+
+  /* — plain M3 baseline mock (literal tokens, deliberately generic) — */
+  .m3card{border-radius:12px;padding:20px;background:#eaddff;color:#21005d;margin-bottom:16px}
+  .m3card .lab{font:500 13px Roboto,sans-serif;opacity:.8;margin:0 0 6px}
+  .m3card .amt{font:700 32px/1.15 Roboto,sans-serif;margin:0 0 4px;letter-spacing:0}
+  .m3card .acct{font:400 12px Roboto,sans-serif;opacity:.7}
+  .m3btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 24px;border-radius:20px;
+    background:#6750A4;color:#fff;font:500 14px Roboto,sans-serif;border:none;cursor:default}
+  .m3row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #e7e0ec;font-family:Roboto,sans-serif}
+  .m3row .ic{width:40px;height:40px;border-radius:50%;background:#e8def8;flex:none}
+  .m3row .t{flex:1;font-size:14px;color:#1d1b20}
+  .m3row .a{font-size:14px;font-weight:500;color:#1d1b20}
+
+  /* — the same three pieces, driven by the real Odyssey theme (triton) — */
+  .odcard{border-radius:var(--npt-corner-xl,32px);padding:24px;margin-bottom:16px;color:var(--md-sys-color-on-primary);
+    background:linear-gradient(135deg,var(--md-sys-color-primary),var(--md-sys-color-tertiary));position:relative;overflow:hidden}
+  .odcard::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+    background-image:repeating-radial-gradient(circle at 100% 0%, rgba(255,255,255,.14) 0 2px, transparent 2px 22px)}
+  .odcard .lab{font-family:var(--npt-font-text);font-size:14px;opacity:.86;margin:0 0 8px;position:relative}
+  .odcard .amt{font-family:var(--npt-font-num);font-variant-numeric:tabular-nums;font-size:45px;line-height:1.15;
+    font-weight:var(--npt-display-weight,700);letter-spacing:var(--npt-display-tracking,-0.02em);margin:0 0 4px;position:relative}
+  .odcard .acct{font-family:var(--npt-font-num);font-size:12px;opacity:.85;position:relative}
+  .odbtn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;
+    background:var(--md-sys-color-primary);color:var(--md-sys-color-on-primary);
+    font-family:var(--npt-font-text);font-weight:600;font-size:14px;border:none;cursor:default;
+    box-shadow:0 10px 24px -8px color-mix(in oklab, var(--md-sys-color-primary) 55%, transparent)}
+  .odrow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--md-sys-color-outline-variant)}
+  .odrow .ic{width:40px;height:40px;border-radius:var(--npt-corner-full,999px);background:var(--md-sys-color-primary-container);flex:none}
+  .odrow .t{flex:1;font-family:var(--npt-font-text);font-size:14px}
+  .odrow .a{font-family:var(--npt-font-num);font-variant-numeric:tabular-nums;font-size:14px;font-weight:600}
+
+  table.claims{width:100%;max-width:640px;border-collapse:collapse;margin:14px 0;font-size:13px}
+  table.claims td{padding:9px 14px;border-bottom:1px solid var(--line)}
+  table.claims td:first-child{font-weight:700;color:var(--ink);white-space:nowrap;width:1%}
+  table.claims td:last-child code{font-size:12.5px}
+  table.vscompare{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  table.vscompare th,table.vscompare td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.vscompare th{font-family:var(--rounded);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+  table.vscompare td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="dwrap"><aside class="dside">
+  <h4>On this page</h4>
+  <a href="#same-material">Same Material 3</a><a href="#the-difference">What's above it</a>
+  <a href="#compare">Side by side, live</a><a href="#table">Feature by feature</a>
+  <a href="#not-reskin">Not a reskin</a>
+</aside><main class="dmain">
+  <p class="eyebrow">Foundations</p>
+  <h1>Why this isn't just "themed Material"</h1>
+  <p class="dlede">Short answer: Odyssey <em>starts</em> from Material 3 — same 37 colour roles, same shape/elevation/typography scaffolding — because M3 Expressive is a genuinely good foundation, not a bar to escape. What makes a screen read as a specific bank, not a generic app, lives entirely in the layer <em>above</em> that scaffolding. This page shows what that layer is, live.</p>
+
+  <h2 id="same-material">What's identical to stock Material 3</h2>
+  <p>No fork, no divergent grid, no invented spacing system. Same 37 M3 colour roles (plus one Odyssey addition, <code>success</code>, since M3 ships none). Same shape/elevation/type scale conventions. A component library built straight on M3 gets you a correctly-structured app — <a href="foundations.html">Foundations</a> covers this half in full. It just doesn't get you a bank's <em>identity</em>, because M3 was never designed to carry one on its own.</p>
+
+  <h2 id="the-difference">The five things layered on top</h2>
+  <div class="dgrid">
+    <div class="tile"><h3>Brandprint-driven palette</h3><p>One seed (a logo's dominant colour, converted to OKLCH) generates all 37 roles deterministically — a real client's exact hex, not a picker's closest preset.</p></div>
+    <div class="tile"><h3>Glass + signature motif</h3><p>Per-brand translucency recipe and a named background pattern (sonar rings, coastal arcs, grid-spark, shield guilloché) — the thing that makes a card art panel or hero recognisably <em>this</em> bank at a glance.</p></div>
+    <div class="tile"><h3>Glow-based elevation</h3><p>Dark mode lifts surfaces with a tint of the brand colour, not a flat black shadow that goes invisible against an already-dark background.</p></div>
+    <div class="tile"><h3>Per-brand motion signature</h3><p>A CTA's sheen-sweep timing is derived from the brand's own easing/duration tokens — a calmer bank's buttons move slower than a snappier one's, not one fixed animation for everyone.</p></div>
+    <div class="tile"><h3>Content + feedback tone</h3><p>Typography pairing, Arabic-first RTL (not retrofitted), Arabic-Indic numerals as an independent lever, and haptic/sound feedback weighted to the brand's declared personality.</p></div>
+  </div>
+
+  <h2 id="compare">The same three pieces, side by side</h2>
+  <p>Left: a stock Material 3 baseline scheme (Google's own default seed, <code>#6750A4</code>) — correct, accessible, and completely generic. Right: the exact same three UI pieces, live-themed as <b>Triton</b> via <code>tokens/themes.css</code> — nothing on the right is a mockup; toggle <a href="foundations.html#color">Foundations</a> to any of the four reference brands and every one of these five layers moves with it.</p>
+  <div class="vs">
+    <div class="vs__pane vs__pane--material">
+      <p class="vs__label">Material 3 baseline</p>
+      <p class="vs__sub">Default seed colour, Roboto, no glass/motif/glow</p>
+      <div class="m3card">
+        <p class="lab">Available balance</p>
+        <p class="amt">12,480.50</p>
+        <p class="acct">LYD · •••• 4821</p>
+      </div>
+      <button class="m3btn">Send money →</button>
+      <div style="margin-top:20px">
+        <div class="m3row"><div class="ic"></div><div class="t">Coffee Bar</div><div class="a">−4.50</div></div>
+        <div class="m3row"><div class="ic"></div><div class="t">Salary</div><div class="a">+3,200.00</div></div>
+      </div>
+    </div>
+    <div class="vs__pane vs__pane--odyssey" data-theme="triton" data-mode="light">
+      <p class="vs__label">Neptune Odyssey — Triton</p>
+      <p class="vs__sub">Same 37 M3 roles, generated from Triton's brandprint seed</p>
+      <div class="odcard">
+        <p class="lab">Available balance</p>
+        <p class="amt">12,480.50</p>
+        <p class="acct">LYD · •••• 4821</p>
+      </div>
+      <button class="odbtn">Send money →</button>
+      <div style="margin-top:20px">
+        <div class="odrow"><div class="ic"></div><div class="t">Coffee Bar</div><div class="a">−4.50</div></div>
+        <div class="odrow"><div class="ic"></div><div class="t">Salary</div><div class="a">+3,200.00</div></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="table">Feature by feature</h2>
+  <table class="vscompare">
+    <tr><th>Dimension</th><th>Material 3 baseline</th><th>Neptune Odyssey</th></tr>
+    <tr><td>Colour</td><td>One seed hue, Google's tonal palette algorithm</td><td>Any brand's real hex → OKLCH seed → all 37 roles, contrast-checked per brand</td></tr>
+    <tr><td>Elevation (dark)</td><td>Flat black shadow — often invisible on a dark surface</td><td>Glow tinted toward the brand primary — reads as ambient light, not a cast shadow</td></tr>
+    <tr><td>Motion</td><td>One default easing/duration for every app</td><td>Per-brand signature timing (a CTA's sheen/nudge cycle is derived from the brand's own motion tokens)</td></tr>
+    <tr><td>Background texture</td><td>Flat surface colour</td><td>A named signature motif per brand (sonar rings / coastal arcs / grid-spark / guilloché) at brand-tuned strength</td></tr>
+    <tr><td>Typography</td><td>Roboto, one weight ramp</td><td>Per-brand display + text + numeral face pairing, with a dedicated Arabic face swap under RTL — not a fallback font</td></tr>
+    <tr><td>Numerals</td><td>Tied to locale</td><td>Independent lever — Arabic-Indic digits under an English UI or vice versa, a real requirement for Gulf/Libyan banking apps</td></tr>
+    <tr><td>Feedback</td><td>None built in</td><td>Haptic weight + sound-cue hooks, tuned per brand's declared content tone</td></tr>
+    <tr><td>Platform reach</td><td>Android-first origin</td><td>Same brandprint resolves identically on Flutter, web (React/Vue/Svelte/Laravel), byte-pinned in tests</td></tr>
+  </table>
+
+  <h2 id="not-reskin">Proof it's not a reskin bolted on top</h2>
+  <p>A reskin would mean the identity layer is optional decoration a component can ship without. It isn't: <code>neptune_flutter_ui</code>'s CI gate literally greps every widget file for a literal colour, radius, or font — <a href="https://github.com/neptune-ly/neptune_odyssey/blob/main/ODYSSEY_RULEBOOK.md" target="_blank" rel="noopener">the rulebook</a> calls a screen that reads M3 roles correctly but ships no gradient, glass, motif, glow or brand type "a grey Material mockup, not done." A recent full-suite audit checked all 89 web components against Flutter's 149 classes for capability gaps and found exactly one (a missing app-bar layout variant, fixed) — the two implementations aren't approximating each other, they're the same design system twice.</p>
+  <table class="claims">
+    <tr><td>Glass</td><td><code>NeptuneGlass</code>, <code>NptIdentity.glassTint()</code></td></tr>
+    <tr><td>Motif</td><td><code>NeptuneMotifLayer</code></td></tr>
+    <tr><td>Glow elevation</td><td><code>NptIdentity.elevation1..5</code></td></tr>
+    <tr><td>Motion signature</td><td><code>NptMotion</code>, derived per brand in <code>NeptuneCta</code></td></tr>
+    <tr><td>Feedback tone</td><td><code>NptFeedback</code>, <code>hapticWeightFor()</code></td></tr>
+  </table>
+
+</main></div>
+
+<footer class="dfoot"><div class="dwrap dwrap--plain">© 2026 Neptune.Fintech · <a href="https://github.com/neptune-ly/neptune_odyssey">GitHub</a>. Reference themes are illustrations only.</div></footer>
+
+<script src="assets/nav.js" data-active="vs-material"></script>
+</body>
+</html>
