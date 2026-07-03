@@ -90,7 +90,7 @@ jobs:
         run: ./build/macos/Build/Products/Debug/neptune_flutter_ui_example.app/Contents/MacOS/neptune_flutter_ui_example
       - name: Blank-region gate
         run: |
-          pip3 install --quiet pillow
+          pip3 install --quiet --break-system-packages pillow
           python3 tools/blank_check.py $RUNNER_TEMP/shots
       - uses: actions/upload-artifact@v4
         if: always()
@@ -118,7 +118,7 @@ jobs:
         run: node tools/web-shots.mjs $RUNNER_TEMP/web-shots
       - name: Blank-region gate
         run: |
-          pip3 install --quiet pillow
+          pip3 install --quiet --break-system-packages pillow
           python3 tools/blank_check.py $RUNNER_TEMP/web-shots
       - uses: actions/upload-artifact@v4
         if: always()

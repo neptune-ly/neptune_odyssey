@@ -6,6 +6,10 @@
 //   themes.css (hand-authored canon)
 //        │  parse (this file)
 //        ├──► packages/neptune_tokens/assets/tokens.resolved.json   (colors, hex+argb)
+//        ├──► packages/neptune_tokens/src/data/resolved.generated.ts (same data, as a TS
+//        │      module — src/resolve.ts's getResolvedPalette() reads this at runtime, so
+//        │      it must never drift from tokens.resolved.json; test (A) in
+//        │      oklch.golden.test.ts checks exactly that)
 //        ├──► packages/neptune_flutter_ui/lib/src/theme/generated/brand_data.g.dart
 //        └──► packages/neptune_tokens/src/generated/tokens.g.ts
 //
@@ -24,6 +28,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CSS = join(ROOT, 'packages/neptune_tokens/assets/themes.css');
 const TOKENS = join(ROOT, 'packages/neptune_tokens/assets/tokens.json');
 const OUT_RESOLVED = join(ROOT, 'packages/neptune_tokens/assets/tokens.resolved.json');
+const OUT_RESOLVED_TS = join(ROOT, 'packages/neptune_tokens/src/data/resolved.generated.ts');
 const OUT_DART = join(ROOT, 'packages/neptune_flutter_ui/lib/src/theme/generated/brand_data.g.dart');
 const OUT_TS = join(ROOT, 'packages/neptune_tokens/src/generated/tokens.g.ts');
 
@@ -170,6 +175,28 @@ function emitResolved() {
       null,
       2,
     ) + '\n'
+  );
+}
+
+// --- emit resolved.generated.ts (same data as tokens.resolved.json, as a TS module) ---
+
+function emitResolvedTs() {
+  const themes = {};
+  for (const b of BRANDS) {
+    themes[b] = {};
+    for (const mode of ['light', 'dark']) {
+      const roles = {};
+      for (const [role, lch] of Object.entries(data[b].colors[mode])) {
+        const rgb = oklchToRgb255(...lch);
+        roles[role] = { hex: toHex(rgb), argb: toArgb(rgb) };
+      }
+      themes[b][mode] = roles;
+    }
+  }
+  return (
+    '// GENERATED — do not edit. Source: assets/tokens.resolved.json (pinned canonical palette).\n' +
+    '// © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0\n\n' +
+    `export const RESOLVED = ${JSON.stringify(themes, null, 2)} as const;\n`
   );
 }
 
@@ -357,6 +384,7 @@ function emitFixture() {
 
 const outputs = [
   [OUT_RESOLVED, emitResolved()],
+  [OUT_RESOLVED_TS, emitResolvedTs()],
   [OUT_DART, emitDart()],
   [OUT_TS, emitTs()],
   [OUT_FIXTURE, emitFixture()],

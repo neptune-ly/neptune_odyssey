@@ -37,8 +37,8 @@ export const RESOLVED = {
         "argb": "0xFF122239"
       },
       "md-sys-color-tertiary": {
-        "hex": "#008389",
-        "argb": "0xFF008389"
+        "hex": "#008187",
+        "argb": "0xFF008187"
       },
       "md-sys-color-on-tertiary": {
         "hex": "#edffff",
@@ -69,8 +69,8 @@ export const RESOLVED = {
         "argb": "0xFF620000"
       },
       "md-sys-color-success": {
-        "hex": "#2e9052",
-        "argb": "0xFF2E9052"
+        "hex": "#208548",
+        "argb": "0xFF208548"
       },
       "md-sys-color-on-success": {
         "hex": "#f2fff5",
@@ -109,8 +109,8 @@ export const RESOLVED = {
         "argb": "0xFF3F4855"
       },
       "md-sys-color-outline": {
-        "hex": "#7f8793",
-        "argb": "0xFF7F8793"
+        "hex": "#7f8792",
+        "argb": "0xFF7F8792"
       },
       "md-sys-color-outline-variant": {
         "hex": "#cbd1db",
@@ -155,8 +155,8 @@ export const RESOLVED = {
     },
     "dark": {
       "md-sys-color-primary": {
-        "hex": "#8dc0ff",
-        "argb": "0xFF8DC0FF"
+        "hex": "#8dbfff",
+        "argb": "0xFF8DBFFF"
       },
       "md-sys-color-on-primary": {
         "hex": "#001042",
@@ -187,8 +187,8 @@ export const RESOLVED = {
         "argb": "0xFFD0DFF6"
       },
       "md-sys-color-tertiary": {
-        "hex": "#83d4d9",
-        "argb": "0xFF83D4D9"
+        "hex": "#83d4d8",
+        "argb": "0xFF83D4D8"
       },
       "md-sys-color-on-tertiary": {
         "hex": "#002225",
@@ -219,8 +219,8 @@ export const RESOLVED = {
         "argb": "0xFFFFD6CF"
       },
       "md-sys-color-success": {
-        "hex": "#79ce91",
-        "argb": "0xFF79CE91"
+        "hex": "#79cd91",
+        "argb": "0xFF79CD91"
       },
       "md-sys-color-on-success": {
         "hex": "#002405",
@@ -307,8 +307,8 @@ export const RESOLVED = {
   "triton": {
     "light": {
       "md-sys-color-primary": {
-        "hex": "#00774e",
-        "argb": "0xFF00774E"
+        "hex": "#00774d",
+        "argb": "0xFF00774D"
       },
       "md-sys-color-on-primary": {
         "hex": "#f1fff8",
@@ -339,8 +339,8 @@ export const RESOLVED = {
         "argb": "0xFF072B1C"
       },
       "md-sys-color-tertiary": {
-        "hex": "#a68018",
-        "argb": "0xFFA68018"
+        "hex": "#946e00",
+        "argb": "0xFF946E00"
       },
       "md-sys-color-on-tertiary": {
         "hex": "#fffbed",
@@ -371,8 +371,8 @@ export const RESOLVED = {
         "argb": "0xFF620000"
       },
       "md-sys-color-success": {
-        "hex": "#2d8949",
-        "argb": "0xFF2D8949"
+        "hex": "#278445",
+        "argb": "0xFF278445"
       },
       "md-sys-color-on-success": {
         "hex": "#f3fff5",
@@ -457,8 +457,8 @@ export const RESOLVED = {
     },
     "dark": {
       "md-sys-color-primary": {
-        "hex": "#7ddbae",
-        "argb": "0xFF7DDBAE"
+        "hex": "#7edbae",
+        "argb": "0xFF7EDBAE"
       },
       "md-sys-color-on-primary": {
         "hex": "#00250e",
@@ -597,8 +597,8 @@ export const RESOLVED = {
         "argb": "0xFF141D16"
       },
       "md-sys-color-inverse-primary": {
-        "hex": "#00774e",
-        "argb": "0xFF00774E"
+        "hex": "#00774d",
+        "argb": "0xFF00774D"
       },
       "md-sys-color-scrim": {
         "hex": "#000000",
@@ -609,8 +609,8 @@ export const RESOLVED = {
   "nereid": {
     "light": {
       "md-sys-color-primary": {
-        "hex": "#6f4cc6",
-        "argb": "0xFF6F4CC6"
+        "hex": "#6f4cc5",
+        "argb": "0xFF6F4CC5"
       },
       "md-sys-color-on-primary": {
         "hex": "#fcfaff",
@@ -641,8 +641,8 @@ export const RESOLVED = {
         "argb": "0xFF2A2344"
       },
       "md-sys-color-tertiary": {
-        "hex": "#c3518e",
-        "argb": "0xFFC3518E"
+        "hex": "#bb4986",
+        "argb": "0xFFBB4986"
       },
       "md-sys-color-on-tertiary": {
         "hex": "#fff7fe",
@@ -673,8 +673,8 @@ export const RESOLVED = {
         "argb": "0xFF620000"
       },
       "md-sys-color-success": {
-        "hex": "#2e9052",
-        "argb": "0xFF2E9052"
+        "hex": "#208548",
+        "argb": "0xFF208548"
       },
       "md-sys-color-on-success": {
         "hex": "#f2fff5",
@@ -823,8 +823,8 @@ export const RESOLVED = {
         "argb": "0xFFFFD6CF"
       },
       "md-sys-color-success": {
-        "hex": "#79ce91",
-        "argb": "0xFF79CE91"
+        "hex": "#79cd91",
+        "argb": "0xFF79CD91"
       },
       "md-sys-color-on-success": {
         "hex": "#002405",
@@ -843,16 +843,16 @@ export const RESOLVED = {
         "argb": "0xFF08060C"
       },
       "md-sys-color-on-background": {
-        "hex": "#e5e3ec",
-        "argb": "0xFFE5E3EC"
+        "hex": "#e6e3ec",
+        "argb": "0xFFE6E3EC"
       },
       "md-sys-color-surface": {
         "hex": "#08060c",
         "argb": "0xFF08060C"
       },
       "md-sys-color-on-surface": {
-        "hex": "#e5e3ec",
-        "argb": "0xFFE5E3EC"
+        "hex": "#e6e3ec",
+        "argb": "0xFFE6E3EC"
       },
       "md-sys-color-surface-variant": {
         "hex": "#3a3543",
@@ -891,16 +891,16 @@ export const RESOLVED = {
         "argb": "0xFF282430"
       },
       "md-sys-color-inverse-surface": {
-        "hex": "#e5e3ec",
-        "argb": "0xFFE5E3EC"
+        "hex": "#e6e3ec",
+        "argb": "0xFFE6E3EC"
       },
       "md-sys-color-inverse-on-surface": {
         "hex": "#17141e",
         "argb": "0xFF17141E"
       },
       "md-sys-color-inverse-primary": {
-        "hex": "#6f4cc6",
-        "argb": "0xFF6F4CC6"
+        "hex": "#6f4cc5",
+        "argb": "0xFF6F4CC5"
       },
       "md-sys-color-scrim": {
         "hex": "#000000",
@@ -943,8 +943,8 @@ export const RESOLVED = {
         "argb": "0xFF092136"
       },
       "md-sys-color-tertiary": {
-        "hex": "#b48c2b",
-        "argb": "0xFFB48C2B"
+        "hex": "#946d00",
+        "argb": "0xFF946D00"
       },
       "md-sys-color-on-tertiary": {
         "hex": "#fffbed",
@@ -975,8 +975,8 @@ export const RESOLVED = {
         "argb": "0xFF620000"
       },
       "md-sys-color-success": {
-        "hex": "#2e9052",
-        "argb": "0xFF2E9052"
+        "hex": "#208548",
+        "argb": "0xFF208548"
       },
       "md-sys-color-on-success": {
         "hex": "#f2fff5",
@@ -991,16 +991,16 @@ export const RESOLVED = {
         "argb": "0xFF003006"
       },
       "md-sys-color-background": {
-        "hex": "#f7fbfd",
-        "argb": "0xFFF7FBFD"
+        "hex": "#f7fafd",
+        "argb": "0xFFF7FAFD"
       },
       "md-sys-color-on-background": {
         "hex": "#050c13",
         "argb": "0xFF050C13"
       },
       "md-sys-color-surface": {
-        "hex": "#f7fbfd",
-        "argb": "0xFFF7FBFD"
+        "hex": "#f7fafd",
+        "argb": "0xFFF7FAFD"
       },
       "md-sys-color-on-surface": {
         "hex": "#050c13",
@@ -1051,8 +1051,8 @@ export const RESOLVED = {
         "argb": "0xFFEFF2F5"
       },
       "md-sys-color-inverse-primary": {
-        "hex": "#7dbdfb",
-        "argb": "0xFF7DBDFB"
+        "hex": "#7dbdfa",
+        "argb": "0xFF7DBDFA"
       },
       "md-sys-color-scrim": {
         "hex": "#000103",
@@ -1061,8 +1061,8 @@ export const RESOLVED = {
     },
     "dark": {
       "md-sys-color-primary": {
-        "hex": "#7dbdfb",
-        "argb": "0xFF7DBDFB"
+        "hex": "#7dbdfa",
+        "argb": "0xFF7DBDFA"
       },
       "md-sys-color-on-primary": {
         "hex": "#001036",
@@ -1089,8 +1089,8 @@ export const RESOLVED = {
         "argb": "0xFF253749"
       },
       "md-sys-color-on-secondary-container": {
-        "hex": "#cce1f5",
-        "argb": "0xFFCCE1F5"
+        "hex": "#cde1f5",
+        "argb": "0xFFCDE1F5"
       },
       "md-sys-color-tertiary": {
         "hex": "#e5bf6d",
@@ -1125,8 +1125,8 @@ export const RESOLVED = {
         "argb": "0xFFFFD6CF"
       },
       "md-sys-color-success": {
-        "hex": "#79ce91",
-        "argb": "0xFF79CE91"
+        "hex": "#79cd91",
+        "argb": "0xFF79CD91"
       },
       "md-sys-color-on-success": {
         "hex": "#002405",

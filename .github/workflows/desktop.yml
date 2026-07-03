@@ -49,7 +49,11 @@ jobs:
 
   windows:
     name: Windows (x64)
-    runs-on: windows-latest
+    # Pinned (not windows-latest): that label now resolves to a VS2026-preinstalled
+    # image, and Flutter's stable toolchain can't detect/use VS2026 yet — CMake fails
+    # with "could not find any instance of Visual Studio" (flutter/flutter#180481,
+    # #178702). windows-2022 keeps the VS2022 install Flutter actually supports.
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
