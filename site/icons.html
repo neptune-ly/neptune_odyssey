@@ -154,8 +154,15 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
       <button type="button" data-variant="mono" aria-pressed="false">Mono</button>
       <button type="button" data-variant="outline" aria-pressed="false">Outline</button>
     </span>
+    <span style="margin-inline-start:24px">Size</span>
+    <span class="swatch-seg" id="brandSizeSeg" role="group" aria-label="Brand mark size">
+      <button type="button" data-size="16" aria-pressed="false">16</button>
+      <button type="button" data-size="20" aria-pressed="true">20</button>
+      <button type="button" data-size="24" aria-pressed="false">24</button>
+      <button type="button" data-size="32" aria-pressed="false">32</button>
+    </span>
   </div>
-  <p class="count">Colour shows brand colours · mono &amp; outline ink with <code>currentColor</code> (themeable). Click a mark to copy its element.</p>
+  <p class="count">Colour shows brand colours · mono &amp; outline ink with <code>currentColor</code> (themeable). 16–20 match a mobile accepted-methods row; 24–32 suit desktop checkout. Click a mark to copy its element.</p>
   <div id="brandgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px"></div>
 
   <div class="dgrid" style="margin-top:30px">
@@ -173,15 +180,16 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
 // © 2026 Neptune.Fintech (neptune.ly) — render the payment/brand marks grid
 (function(){
   var variant = 'color';
+  var size = 20;
   function paint(){
     var N = window.Neptune, host = document.getElementById('brandgrid');
     if (!host || !N || !N.BRAND_MARK_NAMES) { return false; }
     host.innerHTML = N.BRAND_MARK_NAMES.map(function(name){
-      var svg = ''; try { svg = N.brandMarkSvg(name, { height: 26, variant: variant }); } catch (e) {}
+      var svg = ''; try { svg = N.brandMarkSvg(name, { height: size, variant: variant }); } catch (e) {}
       return '<button type="button" class="brandcell" data-name="'+name+'" aria-label="Copy '+name+' brand mark" '+
         'style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;border:1px solid var(--line);'+
         'border-radius:14px;background:var(--surface);cursor:pointer;min-height:84px;justify-content:center">'+
-        '<span style="display:flex;align-items:center;height:30px;color:var(--ink-1)">'+svg+'</span>'+
+        '<span style="display:flex;align-items:center;height:'+(size+4)+'px;color:var(--ink-1)">'+svg+'</span>'+
         '<span style="font-size:11.5px;font-weight:600;color:var(--ink-2)">'+name+'</span></button>';
     }).join('');
     return true;
@@ -222,6 +230,14 @@ el.innerHTML = iconSvg(<span class="tok-s">"card"</span>, { size: <span class="t
       var btn = e.target.closest('button[data-variant]'); if(!btn) return;
       variant = btn.getAttribute('data-variant');
       Array.prototype.forEach.call(seg.querySelectorAll('button'), function(x){
+        x.setAttribute('aria-pressed', String(x === btn)); });
+      paint();
+    });
+    var sizeSeg = document.getElementById('brandSizeSeg');
+    if (sizeSeg) sizeSeg.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-size]'); if(!btn) return;
+      size = parseInt(btn.getAttribute('data-size'), 10) || 20;
+      Array.prototype.forEach.call(sizeSeg.querySelectorAll('button'), function(x){
         x.setAttribute('aria-pressed', String(x === btn)); });
       paint();
     });
