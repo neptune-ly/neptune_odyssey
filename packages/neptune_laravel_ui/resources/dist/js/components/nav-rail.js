@@ -89,9 +89,19 @@ export class NptTopAppBar extends NptElement {
         padding-block-end: var(--npt-space-6, 24px);
         margin: 0;
       }
+      /* medium/large show the large title below instead — the row title is
+         still the bar's accessible name (the large title is aria-hidden, a
+         pure visual echo), so it's hidden with a screen-reader-only clip
+         rather than visibility:hidden, which drops it from the a11y tree too
+         and left medium/large bars with no accessible title at all. */
       :host([variant="medium"]) .row-title,
       :host([variant="large"]) .row-title {
-        visibility: hidden;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
       }
       :host([variant="medium"]) .large-title {
         display: block;
