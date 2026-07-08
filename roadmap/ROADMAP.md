@@ -7,7 +7,7 @@ contract for free — *same brandprint ⇒ same theme* extends to them with no n
 
 | Target | Package | Strategy |
 |--------|---------|----------|
-| **Kotlin Multiplatform** | `neptune-odyssey-kmp` | Compose Multiplatform + web. Port the OKLCH→sRGB + brandprint codec to Kotlin (golden-tested against `build/tokens.resolved.json` and the JS reference, exactly as the Dart port was). |
+| **Kotlin Multiplatform** | `neptune-odyssey-kmp` | Compose Multiplatform + web. Port the OKLCH→sRGB + brandprint codec to Kotlin (golden-tested against `build/tokens.resolved.json` and the JS reference, exactly as the Dart port was). **Foundation milestone built** (`roadmap/neptune_kmp_ui/`): bar item 1 ✓ (three entry points, one composable), bar item 2 ✓ (goldens green on jvm/android/iOS-native/js/wasm), bar item 3 in progress (core components + render sweep landed; full component parity pending), bar item 4 ✓ (publish-ready metadata, mavenLocal-verified). Remaining before promotion: component parity with the web/Flutter set, iOS host app, Maven Central wiring. |
 
 > **Promoted to shipped packages** (both live on npm under `@neptune.fintech`):
 > - **React** (`@neptune.fintech/react-ui`) — provider + `useNeptuneTheme` hook + typed wrappers over `@neptune.fintech/web-ui`.

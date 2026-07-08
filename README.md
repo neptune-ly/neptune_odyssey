@@ -61,7 +61,7 @@ All JS/TS packages are **live on npm** under [`@neptune.fintech`](https://www.np
 | [`apps/neptune_studio`](apps/neptune_studio) | Desktop GUI for the client-demo factory — drop a logo, tune levers, generate + run a branded demo | **Stable** · dev tool, not published |
 | [`apps/neptune_desktop`](apps/neptune_desktop) | Cross-platform (macOS/Windows) demo shell app | **Stable** · dev tool, not published |
 | [`@neptune.fintech/docs`](packages/neptune_docs) | The written system + the `.dc.html` visual contracts | — |
-| [`roadmap/`](roadmap) | Kotlin Multiplatform (Compose + web) | **Roadmap** |
+| [`roadmap/`](roadmap) | Kotlin Multiplatform (Compose + web) — foundation built in [`roadmap/neptune_kmp_ui`](roadmap/neptune_kmp_ui) (theme engine + identity layer + core components, Android/iOS/desktop/web) | **Roadmap** · in progress |
 
 **Dev tooling (not packages, live in `tools/`):** `tools/client-demo` (logo → OKLCH seeds →
 running branded Flutter app, one command) and `tools/sound-identity` (bank → a distinct

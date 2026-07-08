@@ -181,6 +181,30 @@ only generic capabilities (like `NeptuneWelcome.lockup`) get upstreamed.
 + its existing core set, no new widget back-ports (its README says so). Web
 components remain the canonical recipe source for both.
 
+**Compose Multiplatform** (`roadmap/neptune_kmp_ui`, coordinates
+`ly.neptune.odyssey:odyssey-tokens` / `:odyssey-compose-ui`) is the KMP-native
+implementation for teams already on Kotlin — Android/iOS/desktop/web(js+wasm)
+from one `commonMain`. It follows the same law as Flutter, enforced by the
+same kinds of CI gates:
+
+- **Generated brand data only** — `tools/codegen.mjs` emits `BrandData.g.kt`
+  + `GoldenFixtures.g.kt`; goldens must stay green on jvm, Android,
+  iOS-native, js AND wasm (`tokens.resolved.json` per role + the 4 reference
+  brandprints, exactly like the Dart port).
+- **No literals** in `odyssey-compose-ui/src/commonMain/kotlin/ly/neptune/odyssey/ui/components`:
+  no `Color(0x…`, no `Color.<Capital>`, no `RoundedCornerShape(<digit>` —
+  the CI grep reads raw text, comments included. Read `NeptuneTheme.*`
+  accessors instead.
+- **Pixel verification** — `./gradlew :gallery:renderShots` is the SHOTS
+  analog (headless ImageComposeScene, software Skia): every gallery section ×
+  4 brands × light/dark × LTR/RTL, gated by `tools/blank_check.py` in CI.
+  Same doctrine: blank = broken, and no fidelity claim without opening the
+  PNGs.
+- **Glass is Haze-backed** (the one third-party runtime dep): CMP has no
+  common backdrop-blur primitive. Haze stays an internal detail of
+  `NeptuneGlass` — no Haze type in the public API — and the fallback is a
+  denser tint, never transparent.
+
 **Framework adapters** (`packages/neptune_react_ui`, `neptune_vue_ui`,
 `neptune_svelte_ui`, `neptune_laravel_ui`) all sit on top of the SAME
 framework-agnostic `neptune_web_ui` custom elements — they add framework-
