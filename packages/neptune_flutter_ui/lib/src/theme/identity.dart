@@ -13,7 +13,9 @@
 
 import 'package:flutter/material.dart';
 
-/// The four signature motif families (themes.css `--npt-motif`).
+/// The signature motif families (themes.css `--npt-motif` for the four
+/// reference brands; `facetLattice` is a Flutter-side addition for custom
+/// brandprints — see `identity.dart` header).
 enum NptMotifKind {
   /// Neptune — sonar tide-rings: concentric hairline rings radiating from the
   /// top-trailing corner.
@@ -27,6 +29,12 @@ enum NptMotifKind {
 
   /// Proteus — shield guilloché: a diagonal crosshatch weave.
   guilloche,
+
+  /// A custom-brand motif: a faceted chevron lattice — interlocking angular
+  /// V-facets in an offset (herringbone) tiling. Not tied to a reference
+  /// brand; named for its geometry, for any brand whose mark reads as
+  /// angular/faceted rather than organic.
+  facetLattice,
 }
 
 /// Brand identity levers + material recipes. Read via

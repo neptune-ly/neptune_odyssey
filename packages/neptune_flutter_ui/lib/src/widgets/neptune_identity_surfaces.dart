@@ -70,6 +70,8 @@ class _MotifPainter extends CustomPainter {
         _grid(canvas, size);
       case NptMotifKind.guilloche:
         _guilloche(canvas, size);
+      case NptMotifKind.facetLattice:
+        _facetLattice(canvas, size);
     }
   }
 
@@ -138,6 +140,29 @@ class _MotifPainter extends CustomPainter {
         canvas.drawLine(Offset(x, -diag), Offset(x, diag), paint);
       }
       canvas.restore();
+    }
+  }
+
+  /// Custom — a faceted chevron lattice: stacked horizontal zigzag ribbons
+  /// (angular peaks/valleys, echoing the stacked-V geometry of an angular
+  /// brand mark), rows offset by half a period so no two rows' points align,
+  /// with clear vertical air between ribbons so it reads as distinct rows —
+  /// never closing into a diamond grid (that's guilloché's territory).
+  /// 1.5px ink, 34px period, 8px amplitude, 28px row pitch.
+  void _facetLattice(Canvas canvas, Size size) {
+    final paint = _ink(0.10, 1.5);
+    const period = 34.0, amp = 8.0, rowPitch = 28.0;
+    var row = 0;
+    for (var y = amp; y < size.height + amp; y += rowPitch) {
+      final startX = -period - (row.isOdd ? period / 2 : 0.0);
+      final path = Path()..moveTo(startX, y + amp);
+      var up = true;
+      for (var x = startX; x <= size.width + period; x += period / 2) {
+        path.lineTo(x, up ? y - amp : y + amp);
+        up = !up;
+      }
+      canvas.drawPath(path, paint);
+      row++;
     }
   }
 
