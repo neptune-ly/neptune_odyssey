@@ -83,8 +83,13 @@ class _WizardScaffold extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 4),
             child: Row(children: [
+              // Plain "go back", never the destructive onCancel action below —
+              // conflating the two meant a customer tapping what reads as a
+              // normal back arrow could silently cancel their whole in-progress
+              // application. onCancel is reserved for the explicit bottom
+              // Cancel button.
               IconButton(
-                  onPressed: onCancel,
+                  onPressed: () => Navigator.of(context).maybePop(),
                   icon: const Icon(Icons.arrow_back_rounded)),
               const Spacer(),
               NeptuneOnboardingProgress(step: step, total: total),
@@ -1142,6 +1147,14 @@ class NeptuneOtpStepTemplate extends StatelessWidget {
   final VoidCallback? onContinue;
   final VoidCallback? onCancel;
 
+  /// Headline + supporting line + action labels — overridable so a tenant
+  /// can localize (default English matches the original hardcoded copy, for
+  /// existing callers that don't pass these).
+  final String title;
+  final String Function(String phoneMasked)? subtitleBuilder;
+  final String continueLabel;
+  final String cancelLabel;
+
   const NeptuneOtpStepTemplate({
     super.key,
     this.step = 1,
@@ -1151,28 +1164,36 @@ class NeptuneOtpStepTemplate extends StatelessWidget {
     this.onCompleted,
     this.onContinue,
     this.onCancel,
+    this.title = 'Enter verification code',
+    this.subtitleBuilder,
+    this.continueLabel = 'Continue',
+    this.cancelLabel = 'Cancel',
   });
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final subtitle =
+        (subtitleBuilder ?? (p) => 'We sent a code to $p')(phoneMasked);
 
     return _WizardScaffold(
       step: step,
       total: total,
       onContinue: onContinue,
       onCancel: onCancel,
+      continueLabel: continueLabel,
+      cancelLabel: cancelLabel,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(Icons.sms_outlined, size: 40, color: scheme.primary),
           const SizedBox(height: 16),
-          Text('Enter verification code',
+          Text(title,
               style:
                   text.headlineSmall?.copyWith(color: scheme.onSurface)),
           const SizedBox(height: 6),
-          Text('We sent a code to $phoneMasked',
+          Text(subtitle,
               style:
                   text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant)),
           const SizedBox(height: 22),
