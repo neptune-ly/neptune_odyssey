@@ -53,34 +53,45 @@ class NeptuneStatusMotion extends StatelessWidget {
     final theme = Theme.of(context);
     final motion = theme.extension<NptMotion>()!;
 
-    return AnimatedSwitcher(
-      duration: motion.durationStandard,
-      switchInCurve: motion.spring,
-      switchOutCurve: motion.standard,
-      transitionBuilder: (child, animation) => ScaleTransition(
-        scale: animation,
-        child: RotationTransition(
-          // A quarter-turn hand-off links the loader to the outcome disc.
-          turns: Tween<double>(begin: 0.25, end: 0).animate(animation),
-          child: FadeTransition(opacity: animation, child: child),
+    // Self-size to [size]x[size] regardless of the ambient constraints — a
+    // caller that asks for a 168dp indicator shouldn't also have to know to
+    // wrap it in a SizedBox. Without this, AnimatedSwitcher sizes to its
+    // child's own intrinsic size, and not every loaderStyle/outcome-disc
+    // combination self-constrains identically in a loose-constraint context
+    // (e.g. a bare Column(mainAxisSize: min) in a widget test), which showed
+    // up as a five-figure RenderFlex overflow in a real consuming app.
+    return SizedBox(
+      width: size,
+      height: size,
+      child: AnimatedSwitcher(
+        duration: motion.durationStandard,
+        switchInCurve: motion.spring,
+        switchOutCurve: motion.standard,
+        transitionBuilder: (child, animation) => ScaleTransition(
+          scale: animation,
+          child: RotationTransition(
+            // A quarter-turn hand-off links the loader to the outcome disc.
+            turns: Tween<double>(begin: 0.25, end: 0).animate(animation),
+            child: FadeTransition(opacity: animation, child: child),
+          ),
         ),
+        child: switch (status) {
+          NeptuneFlowStatus.loading =>
+            neptuneLoaderFor(loaderStyle, key: const ValueKey('loading'), size: size),
+          NeptuneFlowStatus.success => _OutcomeDisc(
+              key: const ValueKey('success'),
+              size: size,
+              success: true,
+              tint: color,
+            ),
+          NeptuneFlowStatus.rejected => _OutcomeDisc(
+              key: const ValueKey('rejected'),
+              size: size,
+              success: false,
+              tint: color,
+            ),
+        },
       ),
-      child: switch (status) {
-        NeptuneFlowStatus.loading =>
-          neptuneLoaderFor(loaderStyle, key: const ValueKey('loading'), size: size),
-        NeptuneFlowStatus.success => _OutcomeDisc(
-            key: const ValueKey('success'),
-            size: size,
-            success: true,
-            tint: color,
-          ),
-        NeptuneFlowStatus.rejected => _OutcomeDisc(
-            key: const ValueKey('rejected'),
-            size: size,
-            success: false,
-            tint: color,
-          ),
-      },
     );
   }
 }
