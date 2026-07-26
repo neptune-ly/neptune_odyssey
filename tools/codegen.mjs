@@ -12,9 +12,9 @@
 //        │      oklch.golden.test.ts checks exactly that)
 //        ├──► packages/neptune_flutter_ui/lib/src/theme/generated/brand_data.g.dart
 //        ├──► packages/neptune_tokens/src/generated/tokens.g.ts
-//        ├──► roadmap/neptune_kmp_ui/odyssey-tokens/src/commonMain/kotlin/
+//        ├──► packages/neptune_kmp_ui/odyssey-tokens/src/commonMain/kotlin/
 //        │        ly/neptune/odyssey/tokens/generated/BrandData.g.kt
-//        └──► roadmap/neptune_kmp_ui/odyssey-tokens/src/commonTest/kotlin/
+//        └──► packages/neptune_kmp_ui/odyssey-tokens/src/commonTest/kotlin/
 //                 ly/neptune/odyssey/tokens/generated/GoldenFixtures.g.kt
 //
 // OKLCH→sRGB is a 1:1 port of packages/neptune_flutter_ui/lib/src/color/oklch.dart
@@ -37,11 +37,11 @@ const OUT_DART = join(ROOT, 'packages/neptune_flutter_ui/lib/src/theme/generated
 const OUT_TS = join(ROOT, 'packages/neptune_tokens/src/generated/tokens.g.ts');
 const OUT_KT = join(
   ROOT,
-  'roadmap/neptune_kmp_ui/odyssey-tokens/src/commonMain/kotlin/ly/neptune/odyssey/tokens/generated/BrandData.g.kt',
+  'packages/neptune_kmp_ui/odyssey-tokens/src/commonMain/kotlin/ly/neptune/odyssey/tokens/generated/BrandData.g.kt',
 );
 const OUT_KT_FIXTURES = join(
   ROOT,
-  'roadmap/neptune_kmp_ui/odyssey-tokens/src/commonTest/kotlin/ly/neptune/odyssey/tokens/generated/GoldenFixtures.g.kt',
+  'packages/neptune_kmp_ui/odyssey-tokens/src/commonTest/kotlin/ly/neptune/odyssey/tokens/generated/GoldenFixtures.g.kt',
 );
 const GOLDEN_BRANDPRINTS = join(
   ROOT,
@@ -381,7 +381,7 @@ function emitTs() {
   );
 }
 
-// --- emit Kotlin (Compose Multiplatform target, roadmap/neptune_kmp_ui) -----------
+// --- emit Kotlin (Compose Multiplatform target, packages/neptune_kmp_ui) -----------
 // Neutral ARGB/data tables — NO Compose dependency; the value types live in
 // odyssey-tokens/src/commonMain/kotlin/ly/neptune/odyssey/tokens/BrandDataTypes.kt.
 

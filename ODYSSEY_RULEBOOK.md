@@ -181,7 +181,7 @@ only generic capabilities (like `NeptuneWelcome.lockup`) get upstreamed.
 + its existing core set, no new widget back-ports (its README says so). Web
 components remain the canonical recipe source for both.
 
-**Compose Multiplatform** (`roadmap/neptune_kmp_ui`, coordinates
+**Compose Multiplatform** (`packages/neptune_kmp_ui`, coordinates
 `ly.neptune.odyssey:odyssey-tokens` / `:odyssey-compose-ui`) is the KMP-native
 implementation for teams already on Kotlin — Android/iOS/desktop/web(js+wasm)
 from one `commonMain`. It follows the same law as Flutter, enforced by the
@@ -204,6 +204,12 @@ same kinds of CI gates:
   common backdrop-blur primitive. Haze stays an internal detail of
   `NeptuneGlass` — no Haze type in the public API — and the fallback is a
   denser tint, never transparent.
+- **Compose layout trap (bit us on the dock, 0.2.x)**: `Modifier.clip()` is
+  NOT Flutter's `InkWell(borderRadius:)` — it clips **all descendant
+  drawing**, not just the ripple. Any content that animates past its own
+  bounds (the dock's raised-active circle) gets sliced. Fix pattern: put the
+  rounded ripple on its own clipped `matchParentSize` layer and keep the
+  overshooting content on the unclipped layer above (see `NeptuneDock.kt`).
 
 **Framework adapters** (`packages/neptune_react_ui`, `neptune_vue_ui`,
 `neptune_svelte_ui`, `neptune_laravel_ui`) all sit on top of the SAME
