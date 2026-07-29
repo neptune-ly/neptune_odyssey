@@ -55,6 +55,8 @@ export 'src/widgets/neptune_status_motion.dart';
 // R6 — loading indicator family + splash screen.
 export 'src/widgets/neptune_loaders.dart';
 export 'src/widgets/neptune_splash.dart';
+// 2.14.0 — the swipe-up unlock ritual (returning-user lock screen).
+export 'src/widgets/neptune_unlock_reveal.dart';
 // 2.7.0 — the composed screen templates (all nine from templates.html).
 export 'src/templates/neptune_templates.dart';
 export 'src/templates/neptune_onboarding_flow.dart';

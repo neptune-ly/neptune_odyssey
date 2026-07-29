@@ -2,6 +2,12 @@
 
 Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
+1. **Unlock ritual (2.14.0).** `NeptuneUnlockReveal` — the "swipe up to open"
+   returning-user lock screen: a primary canvas with a pill-shaped cutout
+   revealing the brand gradient + motif behind it; drag up to unlock (spring
+   back below the ~60% threshold), tap-to-unlock as the accessible
+   activation, cross-fade under reduced motion. Odyssey-original, beyond the
+   web set.
 1. **Full-suite audit (2.13.0 / R9).** All 89 web custom elements checked
    against Flutter for genuine capability gaps (not naming diffs) — one
    found and fixed: `NeptuneAppBar` gained the M3 `medium`/`large`
@@ -49,6 +55,7 @@ Honest status — nothing silently dropped.
 | Navigation / structure | `NeptuneTabs`, `NeptuneBreadcrumbs`/`NeptuneCrumb`, `NeptunePagination`, `NeptuneAccordion`/`NeptuneAccordionPanel` | `npt-tabs`, `npt-breadcrumbs`, `npt-pagination`, `npt-accordion` |
 | Display | `NeptuneAvatar`/`NeptuneAvatarGroup`, `NeptuneBadge`, `NeptuneTag`, `NeptuneProgressBar`, `NeptuneProgressRing`, `NeptuneRating`, `NeptuneListTile`, `NeptuneTimeline`/`NeptuneTimelineEntry` | `npt-avatar`, `npt-badge`, `npt-tag`, `npt-progress`, `npt-rating`, `npt-list`, `npt-timeline` |
 | Fintech (premium) | `NeptuneInsightCard`, `NeptuneFxCard`, `NeptuneBudgetRing`, `NeptuneSpendBreakdown`/`NeptuneSpendSlice`, `NeptuneCreditScoreGauge` | beyond the web set — Flutter-first |
+| Auth / unlock | `NeptuneUnlockReveal` (swipe-up unlock ritual) | beyond the web set — Flutter-first |
 
 See `example/lib/main.dart` for a live components gallery (every widget, with brand / dark / RTL toggles) plus the onboarding hero.
 

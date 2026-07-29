@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.14.0 — NeptuneUnlockReveal: swipe-up unlock ritual
+
+**`NeptuneUnlockReveal`** — the "swipe up to open" unlock ritual for a
+returning-user lock screen (canvas pill cutout reveals gradient + motif).
+Odyssey-original, beyond the web set.
+
+- A full-bleed canvas in the brand `primary` hides the 135° primary → tertiary
+  gradient overlaid with the signature motif (`NeptuneMotifLayer` in
+  `onPrimary` at a quiet ~0.15-alpha ink wash). A vertical pill-shaped cutout
+  near the bottom reveals a sliver of it, capped by a circular arrow chip
+  (60dp, inside a ≥48dp interactive zone).
+- Dragging the pill (or chip) upward grows the cutout, its top edge tracking
+  the finger; releasing past ~60% progress completes the reveal on the brand's
+  emphasized curve and fires `onUnlock` exactly once; releasing earlier
+  settles back on the brand spring. An upward fling completes regardless of
+  progress, and a tap on the chip unlocks too (doubling as the accessible
+  activation — the zone is a labelled semantic button).
+- Optional `label` under the pill (in `onPrimary`) and `logo` in the upper
+  canvas area; both yield as the reveal grows.
+- Reduced motion: no growth animation — tap/drag-complete cross-fades straight
+  to the revealed state, then fires `onUnlock`.
+- Theme-only (colour, motion and elevation all from the active brandprint),
+  RTL-safe, reduced-motion safe.
+
+flutter analyze clean · 115 tests pass (6 new) · CI no-literals gate green.
+
 ## 2.13.1 — docs + pub.dev screenshot refresh
 
 No code changes. Adds a new pub.dev/README screenshot (`r6_additions.png`, real
