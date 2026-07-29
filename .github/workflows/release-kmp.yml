@@ -1,0 +1,70 @@
+name: Release KMP
+
+# Publishes ly.neptune.odyssey:odyssey-tokens + :odyssey-compose-ui to Maven
+# Central via the Central Portal upload API. Prepped ahead of the roadmap
+# promotion (roadmap/ROADMAP.md) — it runs only on a kmp-v* tag or a manual
+# dispatch, and fails fast when the secrets are missing. Requires repo secrets:
+#   CENTRAL_USERNAME / CENTRAL_PASSWORD — a central.sonatype.com user token
+#     (Account → Generate User Token; the ly.neptune namespace must be
+#     verified in the portal first — DNS TXT record on neptune.ly)
+#   SIGNING_KEY      — ASCII-armored PGP private key
+#                      (gpg --armor --export-secret-keys <id>)
+#   SIGNING_PASSWORD — its passphrase
+# The upload is USER_MANAGED: nothing goes live until "Publish" is pressed on
+# https://central.sonatype.com/publishing/deployments (a bad deployment can be
+# dropped there instead). No secrets touch any developer machine.
+
+on:
+  push:
+    tags:
+      - "kmp-v*"
+  workflow_dispatch:
+
+jobs:
+  maven_central:
+    name: Stage, sign and upload to Maven Central
+    runs-on: macos-14 # iOS klibs can only be built on a macOS host
+    defaults:
+      run:
+        working-directory: packages/neptune_kmp_ui
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard — Central + signing secrets present
+        run: |
+          missing=0
+          for s in CENTRAL_USERNAME CENTRAL_PASSWORD SIGNING_KEY SIGNING_PASSWORD; do
+            if [ -z "${!s}" ]; then
+              echo "::error::$s secret is not set — add it in repo settings to publish."
+              missing=1
+            fi
+          done
+          exit $missing
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Golden gate before staging (determinism core + theme, JVM)
+        run: ./gradlew :odyssey-tokens:jvmTest :odyssey-compose-ui:jvmTest
+      - name: Stage, sign and bundle every publication
+        run: ./gradlew centralBundle
+        env:
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+      - name: Upload bundle to the Central Portal (USER_MANAGED)
+        run: |
+          TOKEN=$(printf '%s:%s' "$CENTRAL_USERNAME" "$CENTRAL_PASSWORD" | base64)
+          curl --fail --silent --show-error --request POST \
+            --header "Authorization: Bearer $TOKEN" \
+            --form bundle=@build/central/central-bundle.zip \
+            "https://central.sonatype.com/api/v1/publisher/upload?name=neptune-odyssey-kmp-${GITHUB_REF_NAME}&publishingType=USER_MANAGED"
+          echo ""
+          echo "Uploaded. Review + press Publish at https://central.sonatype.com/publishing/deployments"
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}

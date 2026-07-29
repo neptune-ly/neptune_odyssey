@@ -1,0 +1,22 @@
+[versions]
+kotlin = "2.4.0"
+composeMultiplatform = "1.11.1"
+agp = "9.2.1"
+haze = "1.7.2"
+# Must match the skiko CMP 1.11.1 ships (see ui-graphics-desktop POM).
+skiko = "0.144.6"
+
+androidx-activityCompose = "1.11.0"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+haze = { module = "dev.chrisbanes.haze:haze", version.ref = "haze" }
+skiko = { module = "org.jetbrains.skiko:skiko", version.ref = "skiko" }
+androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+
+[plugins]
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+androidApplication = { id = "com.android.application", version.ref = "agp" }

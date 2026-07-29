@@ -56,6 +56,11 @@ jobs:
         run: |
           ! grep -rnE '#[0-9a-fA-F]{6}|oklch\(' \
             packages/neptune_web_ui/src/components
+      - name: Compose components + templates (no colour/radius literals)
+        run: |
+          ! grep -rnE 'Color\(0x|Color\.[A-Z]|RoundedCornerShape\([0-9]' \
+            packages/neptune_kmp_ui/odyssey-compose-ui/src/commonMain/kotlin/ly/neptune/odyssey/ui/components \
+            packages/neptune_kmp_ui/odyssey-compose-ui/src/commonMain/kotlin/ly/neptune/odyssey/ui/templates
 
   tokens:
     name: Token gates — codegen drift + WCAG contrast
@@ -67,8 +72,60 @@ jobs:
           node-version: 20
       - name: Codegen drift gate (themes.css is the single source)
         run: node tools/codegen.mjs --check
+      - name: KMP icon drift gate (icons.ts is the single source)
+        run: node packages/neptune_kmp_ui/tools/gen-icons.mjs --check
       - name: Contrast gate (WCAG AA per brand × mode)
         run: node tools/contrast-check.mjs
+
+  kmp:
+    name: KMP — golden tests (jvm/js/wasm), all-target build, render sweep
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Golden tests + component build (android/js/wasm)
+        working-directory: packages/neptune_kmp_ui
+        run: |
+          ./gradlew :odyssey-tokens:jvmTest :odyssey-tokens:jsNodeTest \
+            :odyssey-tokens:wasmJsNodeTest :odyssey-compose-ui:jvmTest \
+            :odyssey-compose-ui:assembleAndroidMain \
+            :odyssey-compose-ui:compileKotlinJs :odyssey-compose-ui:compileKotlinWasmJs \
+            :gallery-android:assembleDebug
+      - name: Publish-readiness smoke (mavenLocal)
+        working-directory: packages/neptune_kmp_ui
+        run: ./gradlew publishToMavenLocal
+      - name: Render sweep (SHOTS analog — sections × brand × mode × RTL)
+        working-directory: packages/neptune_kmp_ui
+        run: ./gradlew :gallery:renderShots -PshotsDir=$RUNNER_TEMP/kmp-shots
+      - name: Blank-region gate
+        run: |
+          pip3 install --quiet --break-system-packages pillow
+          python3 tools/blank_check.py $RUNNER_TEMP/kmp-shots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kmp-shots
+          path: ${{ runner.temp }}/kmp-shots
+          retention-days: 14
+
+  kmp-ios:
+    name: KMP — iOS native golden tests + compile
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - working-directory: packages/neptune_kmp_ui
+        run: |
+          ./gradlew :odyssey-tokens:iosSimulatorArm64Test \
+            :odyssey-compose-ui:compileKotlinIosSimulatorArm64
 
   visual-flutter:
     name: Visual sweep — Flutter gallery (SHOTS + blank gate)
