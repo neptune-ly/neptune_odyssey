@@ -16,6 +16,7 @@ export 'src/color/seed_extractor.dart';
 export 'src/theme/color_schemes.dart';
 export 'src/theme/density.dart';
 export 'src/theme/extensions.dart';
+export 'src/theme/page_transitions.dart';
 export 'src/theme/feedback.dart';
 export 'src/theme/identity.dart';
 export 'src/theme/neptune_theme.dart';

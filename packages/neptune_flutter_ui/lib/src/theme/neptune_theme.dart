@@ -20,6 +20,7 @@ import 'density.dart';
 import 'extensions.dart';
 import 'feedback.dart';
 import 'identity.dart';
+import 'page_transitions.dart';
 import 'numerals.dart';
 
 /// Entry points for building Neptune Odyssey [ThemeData].
@@ -251,6 +252,9 @@ class NeptuneTheme {
       brightness: scheme.brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.surface,
+      // Neptune motion on every route push/pop; Cupertino kept on iOS so the
+      // native edge-swipe back gesture survives.
+      pageTransitionsTheme: NeptunePageTransitionsBuilder.theme,
       textTheme: textTheme,
       fontFamily: resolvedTextFamily,
       extensions: [colors, shape, type, motion, identity, density, numerals, feedback],

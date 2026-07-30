@@ -1,3 +1,7 @@
+## 2.18.0
+
+- `NeptunePageTransitionsBuilder` + wired into every generated theme: M3 fade-through with a gentle upward settle on push, receding lift-and-dim on the covered page, natural reverse on pop. iOS keeps `CupertinoPageTransitionsBuilder` so the native edge-swipe back gesture survives. Reduced motion falls back to a plain cross-fade — position never animates.
+
 ## 2.17.0
 
 - Dark mode overhaul: neutral floor raised to M3's dark-surface level (OKLCH L 0.13 → 0.18) with the container ladder re-spaced, neutral chroma halved to kill the primary-hue cast on dark ground.
