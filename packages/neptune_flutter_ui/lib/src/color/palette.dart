@@ -82,6 +82,10 @@ const Map<String, _Recipe> _light = {
   'inverse-on-surface': _Recipe(0.96, _Chroma.abs(0.006), _neutral),
   'inverse-primary': _Recipe(0.82, _Chroma.mult(0.8), _primary),
   'scrim': _Recipe(0.08, _Chroma.abs(0.02), _neutral),
+  // Card-art gradient. Light rides the raw brand seeds.
+  'card-start': _Recipe(0.48, _Chroma.mult(1), _primary),
+  'card-end': _Recipe(0.55, _Chroma.mult(1), _tertiary),
+  'on-card': _Recipe(0.99, _Chroma.abs(0.02), _primary),
 };
 
 // Dark-mode ramp.
@@ -106,23 +110,34 @@ const Map<String, _Recipe> _dark = {
   'on-success': _Recipe(0.22, _Chroma.abs(0.08), _successHue),
   'success-container': _Recipe(0.34, _Chroma.abs(0.1), _successHue),
   'on-success-container': _Recipe(0.9, _Chroma.abs(0.07), _successHue),
-  'background': _Recipe(0.13, _Chroma.abs(0.012), _neutral),
-  'on-background': _Recipe(0.92, _Chroma.abs(0.01), _neutral),
-  'surface': _Recipe(0.13, _Chroma.abs(0.012), _neutral),
-  'on-surface': _Recipe(0.92, _Chroma.abs(0.01), _neutral),
+  // Neutral floor at M3's dark-surface level (#141218 ≈ OKLCH L 0.18), not
+  // near-black: L 0.13 read as "pitch black with floating cards" and made
+  // every elevation step invisible. Chroma halved — at low lightness even
+  // 0.012 of the primary hue reads as a coloured cast on what should be
+  // neutral ground.
+  'background': _Recipe(0.18, _Chroma.abs(0.008), _neutral),
+  'on-background': _Recipe(0.92, _Chroma.abs(0.008), _neutral),
+  'surface': _Recipe(0.18, _Chroma.abs(0.008), _neutral),
+  'on-surface': _Recipe(0.92, _Chroma.abs(0.008), _neutral),
   'surface-variant': _Recipe(0.34, _Chroma.abs(0.02), _neutral),
   'on-surface-variant': _Recipe(0.78, _Chroma.abs(0.02), _neutral),
   'outline': _Recipe(0.58, _Chroma.abs(0.02), _neutral),
   'outline-variant': _Recipe(0.32, _Chroma.abs(0.02), _neutral),
-  'surface-container-lowest': _Recipe(0.09, _Chroma.abs(0.012), _neutral),
-  'surface-container-low': _Recipe(0.16, _Chroma.abs(0.014), _neutral),
-  'surface-container': _Recipe(0.18, _Chroma.abs(0.016), _neutral),
-  'surface-container-high': _Recipe(0.22, _Chroma.abs(0.018), _neutral),
-  'surface-container-highest': _Recipe(0.27, _Chroma.abs(0.02), _neutral),
+  'surface-container-lowest': _Recipe(0.14, _Chroma.abs(0.008), _neutral),
+  'surface-container-low': _Recipe(0.205, _Chroma.abs(0.008), _neutral),
+  'surface-container': _Recipe(0.225, _Chroma.abs(0.009), _neutral),
+  'surface-container-high': _Recipe(0.25, _Chroma.abs(0.01), _neutral),
+  'surface-container-highest': _Recipe(0.29, _Chroma.abs(0.011), _neutral),
   'inverse-surface': _Recipe(0.92, _Chroma.abs(0.01), _neutral),
   'inverse-on-surface': _Recipe(0.2, _Chroma.abs(0.02), _neutral),
   'inverse-primary': _Recipe(0.48, _Chroma.mult(1), _primary),
   'scrim': _Recipe(0, _Chroma.abs(0), _neutral),
+  // Card-art gradient, DARK: deeper and slightly desaturated. The light
+  // gradient at full seed brightness glared against dark surfaces — the
+  // card was the only light-mode object on a dark screen.
+  'card-start': _Recipe(0.42, _Chroma.mult(0.9), _primary),
+  'card-end': _Recipe(0.36, _Chroma.mult(0.85), _tertiary),
+  'on-card': _Recipe(0.97, _Chroma.abs(0.015), _primary),
 };
 
 double _resolveHue(_HueSource src, double primaryH, double tertiaryH) {

@@ -1,3 +1,8 @@
+## 2.17.0
+
+- Dark mode overhaul: neutral floor raised to M3's dark-surface level (OKLCH L 0.13 → 0.18) with the container ladder re-spaced, neutral chroma halved to kill the primary-hue cast on dark ground.
+- Card-art gradient is now mode-aware: dark gets a deeper, slightly desaturated ramp instead of the light-seed gradient glaring on dark surfaces.
+
 ## 2.16.0
 
 - `NeptuneUnlockReveal.background`: hosts can replace the generic motif wash on the unlock sheet with their own brand canvas, keeping one background language across splash, unlock, and home.

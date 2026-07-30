@@ -149,8 +149,6 @@ class NeptuneTheme {
     Color c(String role) => Color(p[role]!);
     // Card art is brightness-INVARIANT (see NptColors.onCard doc) — always
     // resolve it through the light ramp, regardless of the requested mode.
-    final pLight = generatePaletteArgb(primary, tertiary, 'light');
-    Color cLight(String role) => Color(pLight[role]!);
 
     final scheme = ColorScheme(
       brightness: mode,
@@ -193,9 +191,11 @@ class NeptuneTheme {
       onSuccess: c('on-success'),
       successContainer: c('success-container'),
       onSuccessContainer: c('on-success-container'),
-      cardGradientStart: cLight('primary'),
-      cardGradientEnd: cLight('tertiary'),
-      onCard: cLight('on-primary'),
+      // Mode-aware: the light-seed gradient on a dark screen was the one
+      // light-mode object in the room. See palette.dart's card recipes.
+      cardGradientStart: c('card-start'),
+      cardGradientEnd: c('card-end'),
+      onCard: c('on-card'),
     );
 
     final cc = cfg.corners;
