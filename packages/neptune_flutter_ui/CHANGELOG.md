@@ -1,3 +1,7 @@
+## 2.16.0
+
+- `NeptuneUnlockReveal.background`: hosts can replace the generic motif wash on the unlock sheet with their own brand canvas, keeping one background language across splash, unlock, and home.
+
 # Changelog
 
 ## 2.15.0 — white-label icon slots + a host FAB gap in the dock

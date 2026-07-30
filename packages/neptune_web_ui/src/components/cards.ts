@@ -34,8 +34,15 @@ export class NptCardArt extends NptElement {
         inline-size: 100%;
         padding: var(--npt-space-6, 24px);
         border-radius: var(--npt-corner-lg, 24px);
-        background: linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
-        color: var(--md-sys-color-on-primary);
+        /* Brightness-INVARIANT on purpose: a card depicts a physical
+           instrument, not a themed UI surface, so it doesn't invert with
+           dark mode the way --md-sys-color-primary does for buttons. */
+        background: linear-gradient(
+          135deg,
+          var(--md-sys-color-card-gradient-start),
+          var(--md-sys-color-card-gradient-end)
+        );
+        color: var(--md-sys-color-on-card);
         box-shadow: var(--npt-elev-2, 0 2px 6px rgba(0, 0, 0, 0.18));
         display: flex;
         flex-direction: column;
@@ -56,8 +63,8 @@ export class NptCardArt extends NptElement {
       :host([variant="virtual"]) .card {
         background: linear-gradient(
           135deg,
-          var(--md-sys-color-tertiary),
-          var(--md-sys-color-primary)
+          var(--md-sys-color-card-gradient-end),
+          var(--md-sys-color-card-gradient-start)
         );
       }
       .top {
@@ -133,7 +140,7 @@ export class NptCardArt extends NptElement {
         opacity: 0.42;
         font-family: var(--npt-font-text);
         font-size: var(--npt-text-label, 14px);
-        color: var(--md-sys-color-on-primary);
+        color: var(--md-sys-color-on-card);
         pointer-events: none;
       }
       :host([variant="frozen"]) .card {

@@ -293,6 +293,18 @@ final Map<String, ((Color, Color, Color, Color), (Color, Color, Color, Color))> 
   'proteus': ((Color(0xFF208548), Color(0xFFF2FFF5), Color(0xFFBCECC8), Color(0xFF003006)), (Color(0xFF79CD91), Color(0xFF002405), Color(0xFF00461B), Color(0xFFBCECC8))),
 };
 
+/// Card-art gradient start/end + on-card text, per brand. Brightness-
+/// INVARIANT on purpose (always the light tones) — only defined in the
+/// light block of themes.css, never overridden for dark. A payment card
+/// depicts a physical instrument, not a themed UI surface, so it must
+/// not invert the way primary/on-primary do for buttons.
+final Map<String, (Color, Color, Color)> genCard = {
+  'neptune': (Color(0xFF1D5AB0), Color(0xFF008187), Color(0xFFF4FDFF)),
+  'triton': (Color(0xFF00774D), Color(0xFF946E00), Color(0xFFF1FFF8)),
+  'nereid': (Color(0xFF6F4CC5), Color(0xFFBB4986), Color(0xFFFCFAFF)),
+  'proteus': (Color(0xFF004F8F), Color(0xFF946D00), Color(0xFFF2FDFF)),
+};
+
 /// Corner families (px).
 const Map<String, (double, double, double, double, double, double)> genShape = {
   'neptune': (8, 12, 16, 24, 32, 44),

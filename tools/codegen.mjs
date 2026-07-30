@@ -298,6 +298,21 @@ function emitDart() {
   L.push('};');
   L.push('');
 
+  L.push('/// Card-art gradient start/end + on-card text, per brand. Brightness-');
+  L.push('/// INVARIANT on purpose (always the light tones) — only defined in the');
+  L.push("/// light block of themes.css, never overridden for dark. A payment card");
+  L.push('/// depicts a physical instrument, not a themed UI surface, so it must');
+  L.push('/// not invert the way primary/on-primary do for buttons.');
+  L.push('final Map<String, (Color, Color, Color)> genCard = {');
+  for (const b of BRANDS) {
+    const g = (n) => role(b, 'light', `md-sys-color-${n}`);
+    L.push(
+      `  '${b}': (${g('card-gradient-start')}, ${g('card-gradient-end')}, ${g('on-card')}),`,
+    );
+  }
+  L.push('};');
+  L.push('');
+
   L.push('/// Corner families (px).');
   L.push('const Map<String, (double, double, double, double, double, double)> genShape = {');
   for (const b of BRANDS) {

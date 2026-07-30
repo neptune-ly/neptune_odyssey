@@ -2,16 +2,22 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "configurator",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["pnpm@9.15.0", "--filter", "@neptune.fintech/configurator", "run", "dev"],
-      "port": 5173
+      "name": "odyssey-studio",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-lc", "cd /Users/mtellesy/GitHub/odyssey-studio && corepack pnpm --filter @odyssey-studio/studio dev"],
+      "port": 5290
     },
     {
-      "name": "site",
+      "name": "reference-site",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4178", "--directory", "_site"],
+      "runtimeArgs": ["-m", "http.server", "4178", "--directory", "site"],
       "port": 4178
+    },
+    {
+      "name": "r6-showcase",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4179", "--directory", "packages/neptune_flutter_ui/example/build/web"],
+      "port": 4179
     }
   ]
 }

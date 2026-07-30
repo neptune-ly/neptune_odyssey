@@ -346,6 +346,24 @@ to load once already) before shipping it anywhere.
   handling). Fixed by `sips -m` normalizing to sRGB before decode (R5c).
   Any future pixel-sampling-from-a-real-image code path needs this same
   normalization — it's not specific to Studio.
+- **`NeptuneCardArt`/`<npt-card-art>` inverted colour identity in dark mode.**
+  Both read the M3 primary/tertiary/on-primary triad directly for the card
+  gradient + text. M3 intentionally inverts those in dark mode (light pastel
+  primary + dark on-primary — correct for a button's fill+label), so the
+  WHOLE card face flipped from a rich jewel-tone gradient + white text
+  (light) to a washed-out pastel gradient + navy text (dark). Not a contrast
+  bug — dark mode measured *higher* WCAG contrast (9.5–10:1 vs light's
+  5.4–6.6:1), verified both analytically and against real rendered pixels —
+  a design-identity regression contrast ratios don't catch. A payment card
+  depicts a fixed physical object; no real banking app re-colours its card
+  art with the phone's system theme. Fixed with dedicated brightness-
+  INVARIANT roles (`cardGradientStart/End`, `onCard`) pinned to each brand's
+  light tones — defined once in `themes.css`'s base block only, never in
+  `[data-mode="dark"]`, so the cascade keeps web pinned; reference brands get
+  them via codegen's `genCard`, custom seeds via a `generatePaletteArgb`
+  call forced to `'light'` regardless of the requested mode. Any other
+  skeuomorphic/physical-object surface should use this pattern, not raw
+  `scheme.primary/tertiary/onPrimary`.
 
 ---
 © 2026 Neptune.Fintech (neptune.ly). Keep this file honest: when you learn a

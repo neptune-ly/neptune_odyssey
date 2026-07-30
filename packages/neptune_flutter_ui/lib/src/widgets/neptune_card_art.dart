@@ -9,13 +9,20 @@ import 'neptune_identity_surfaces.dart';
 
 /// A payment-card visual — the Flutter counterpart of web `<npt-card-art>`.
 ///
-/// Renders a 1.586 aspect-ratio card on the brand gradient (`scheme.primary` →
-/// `scheme.tertiary`; [virtual] flips the order). The top row shows the
-/// [scheme] label (display font) and an optional [brandMark] in the
-/// top-trailing corner; the bottom shows a masked number ending in [last4],
-/// then the [holder] and [expiry]. When [selected], an accent ring + glow lift
-/// the card out of a stack. Reads colour, shape and type from the active theme
-/// only — no literals. RTL-safe.
+/// Renders a 1.586 aspect-ratio card on the brand gradient (the card-art
+/// `cardGradientStart` → `cardGradientEnd` roles; [virtual] flips the order).
+/// The top row shows the [scheme] label (display font) and an optional
+/// [brandMark] in the top-trailing corner; the bottom shows a masked number
+/// ending in [last4], then the [holder] and [expiry]. When [selected], an
+/// accent ring + glow lift the card out of a stack. Reads colour, shape and
+/// type from the active theme only — no literals. RTL-safe.
+///
+/// The card face is brightness-INVARIANT by design: it always renders the
+/// brand's light-mode gradient + text colour, even under a dark [ThemeData].
+/// A payment card depicts a physical instrument, not a themed UI surface, so
+/// it doesn't invert the way a M3 filled button does in dark mode. The
+/// [selected] ring below is UI chrome, not part of the card face, and
+/// correctly still adapts to theme brightness.
 class NeptuneCardArt extends StatelessWidget {
   /// Cardholder name, e.g. "A. KELLER".
   final String holder;
@@ -59,12 +66,14 @@ class NeptuneCardArt extends StatelessWidget {
     final shape = Theme.of(context).extension<NptShape>()!;
     final type = Theme.of(context).extension<NptType>()!;
     final textTheme = Theme.of(context).textTheme;
-    final onCard = scheme.onPrimary;
+    final npt = Theme.of(context).extension<NptColors>()!;
+    final onCard = npt.onCard;
 
-    // Gradient runs primary → tertiary (135°); virtual cards flip the order.
+    // Gradient runs cardGradientStart → cardGradientEnd (135°); virtual cards
+    // flip the order. Brightness-invariant on purpose — see the class doc.
     final gradientColors = virtual
-        ? <Color>[scheme.tertiary, scheme.primary]
-        : <Color>[scheme.primary, scheme.tertiary];
+        ? <Color>[npt.cardGradientEnd, npt.cardGradientStart]
+        : <Color>[npt.cardGradientStart, npt.cardGradientEnd];
 
     // The masked number: 12 dots + the real last four (tabular figures).
     final numberStyle = NeptuneTheme.moneyStyle(

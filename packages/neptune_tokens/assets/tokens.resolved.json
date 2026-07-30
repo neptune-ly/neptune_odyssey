@@ -73,6 +73,18 @@
           "hex": "#00292e",
           "argb": "0xFF00292E"
         },
+        "md-sys-color-card-gradient-start": {
+          "hex": "#1d5ab0",
+          "argb": "0xFF1D5AB0"
+        },
+        "md-sys-color-card-gradient-end": {
+          "hex": "#008187",
+          "argb": "0xFF008187"
+        },
+        "md-sys-color-on-card": {
+          "hex": "#f4fdff",
+          "argb": "0xFFF4FDFF"
+        },
         "md-sys-color-error": {
           "hex": "#c2181d",
           "argb": "0xFFC2181D"
@@ -374,6 +386,18 @@
         "md-sys-color-on-tertiary-container": {
           "hex": "#412800",
           "argb": "0xFF412800"
+        },
+        "md-sys-color-card-gradient-start": {
+          "hex": "#00774d",
+          "argb": "0xFF00774D"
+        },
+        "md-sys-color-card-gradient-end": {
+          "hex": "#946e00",
+          "argb": "0xFF946E00"
+        },
+        "md-sys-color-on-card": {
+          "hex": "#f1fff8",
+          "argb": "0xFFF1FFF8"
         },
         "md-sys-color-error": {
           "hex": "#c2181d",
@@ -677,6 +701,18 @@
           "hex": "#580037",
           "argb": "0xFF580037"
         },
+        "md-sys-color-card-gradient-start": {
+          "hex": "#6f4cc5",
+          "argb": "0xFF6F4CC5"
+        },
+        "md-sys-color-card-gradient-end": {
+          "hex": "#bb4986",
+          "argb": "0xFFBB4986"
+        },
+        "md-sys-color-on-card": {
+          "hex": "#fcfaff",
+          "argb": "0xFFFCFAFF"
+        },
         "md-sys-color-error": {
           "hex": "#c2181d",
           "argb": "0xFFC2181D"
@@ -978,6 +1014,18 @@
         "md-sys-color-on-tertiary-container": {
           "hex": "#472d00",
           "argb": "0xFF472D00"
+        },
+        "md-sys-color-card-gradient-start": {
+          "hex": "#004f8f",
+          "argb": "0xFF004F8F"
+        },
+        "md-sys-color-card-gradient-end": {
+          "hex": "#946d00",
+          "argb": "0xFF946D00"
+        },
+        "md-sys-color-on-card": {
+          "hex": "#f2fdff",
+          "argb": "0xFFF2FDFF"
         },
         "md-sys-color-error": {
           "hex": "#c2181d",

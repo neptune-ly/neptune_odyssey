@@ -50,6 +50,13 @@ class NeptuneUnlockReveal extends StatefulWidget {
   /// Fired exactly once, after the reveal has fully completed.
   final VoidCallback onUnlock;
 
+  /// The decorative layer painted over the sheet's gradient and under the
+  /// cover. Defaults to the generic [NeptuneMotifLayer] wash; a host with its
+  /// own brand canvas (an emblem watermark, a custom pattern) passes it here
+  /// so the unlock sheet carries the SAME background language as its splash
+  /// and home surfaces instead of a generic texture.
+  final Widget? background;
+
   /// Optional helper line under the pill, in `onPrimary`
   /// (e.g. "Swipe up to open"). Also used as the semantic button label.
   final String? label;
@@ -60,6 +67,7 @@ class NeptuneUnlockReveal extends StatefulWidget {
   const NeptuneUnlockReveal({
     super.key,
     required this.onUnlock,
+    this.background,
     this.label,
     this.logo,
   });
@@ -281,7 +289,8 @@ class _NeptuneUnlockRevealState extends State<NeptuneUnlockReveal>
         // ~1.2 lands the wash at roughly 0.15 alpha — quiet but present;
         // a raw 0.15 here would paint at ~1.5% and vanish.
         Positioned.fill(
-          child: NeptuneMotifLayer(color: scheme.onPrimary, strength: 1.2),
+          child: widget.background ??
+              NeptuneMotifLayer(color: scheme.onPrimary, strength: 1.2),
         ),
         IgnorePointer(child: coverLayer),
         // The interactive zone over the pill + chip + label (≥48dp target).

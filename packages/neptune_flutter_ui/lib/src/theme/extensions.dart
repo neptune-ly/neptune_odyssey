@@ -6,8 +6,9 @@
 
 import 'package:flutter/material.dart';
 
-/// The `success` colour role + its on/container variants. Not part of M3's
-/// [ColorScheme], so carried here. Values come from tokens.resolved.json.
+/// The `success` colour role + its on/container variants (not part of M3's
+/// [ColorScheme]) plus the card-art identity roles. Values come from
+/// tokens.resolved.json.
 @immutable
 class NptColors extends ThemeExtension<NptColors> {
   final Color success;
@@ -15,11 +16,29 @@ class NptColors extends ThemeExtension<NptColors> {
   final Color successContainer;
   final Color onSuccessContainer;
 
+  /// Card-art gradient start (135°, paired with [cardGradientEnd]) —
+  /// brightness-INVARIANT: always the brand's light tone in both light and
+  /// dark theme. A payment-card face depicts a physical instrument, not a
+  /// themed UI surface, so it doesn't invert with dark mode the way
+  /// [ColorScheme.primary] does. See `NeptuneCardArt`.
+  final Color cardGradientStart;
+
+  /// Card-art gradient end, paired with [cardGradientStart]. Same
+  /// brightness-invariance rationale.
+  final Color cardGradientEnd;
+
+  /// Card-art text/icon colour, paired with the card gradient — always the
+  /// brand's light on-primary tone regardless of app brightness.
+  final Color onCard;
+
   const NptColors({
     required this.success,
     required this.onSuccess,
     required this.successContainer,
     required this.onSuccessContainer,
+    required this.cardGradientStart,
+    required this.cardGradientEnd,
+    required this.onCard,
   });
 
   @override
@@ -28,12 +47,18 @@ class NptColors extends ThemeExtension<NptColors> {
     Color? onSuccess,
     Color? successContainer,
     Color? onSuccessContainer,
+    Color? cardGradientStart,
+    Color? cardGradientEnd,
+    Color? onCard,
   }) =>
       NptColors(
         success: success ?? this.success,
         onSuccess: onSuccess ?? this.onSuccess,
         successContainer: successContainer ?? this.successContainer,
         onSuccessContainer: onSuccessContainer ?? this.onSuccessContainer,
+        cardGradientStart: cardGradientStart ?? this.cardGradientStart,
+        cardGradientEnd: cardGradientEnd ?? this.cardGradientEnd,
+        onCard: onCard ?? this.onCard,
       );
 
   @override
@@ -45,6 +70,9 @@ class NptColors extends ThemeExtension<NptColors> {
       successContainer: Color.lerp(successContainer, other.successContainer, t)!,
       onSuccessContainer:
           Color.lerp(onSuccessContainer, other.onSuccessContainer, t)!,
+      cardGradientStart: Color.lerp(cardGradientStart, other.cardGradientStart, t)!,
+      cardGradientEnd: Color.lerp(cardGradientEnd, other.cardGradientEnd, t)!,
+      onCard: Color.lerp(onCard, other.onCard, t)!,
     );
   }
 }

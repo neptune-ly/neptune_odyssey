@@ -11,7 +11,9 @@ import 'feedback.dart';
 import 'generated/brand_data.g.dart';
 import 'identity.dart';
 
-/// success / on / container / on-container per brand × mode (generated).
+/// success / on / container / on-container (per brand × mode) plus the
+/// brightness-invariant card-art roles (per brand, same value in both tuple
+/// slots) — generated.
 final Map<String, (NptColors light, NptColors dark)> brandSuccess = {
   for (final e in genSuccess.entries)
     e.key: (
@@ -20,12 +22,18 @@ final Map<String, (NptColors light, NptColors dark)> brandSuccess = {
         onSuccess: e.value.$1.$2,
         successContainer: e.value.$1.$3,
         onSuccessContainer: e.value.$1.$4,
+        cardGradientStart: genCard[e.key]!.$1,
+        cardGradientEnd: genCard[e.key]!.$2,
+        onCard: genCard[e.key]!.$3,
       ),
       NptColors(
         success: e.value.$2.$1,
         onSuccess: e.value.$2.$2,
         successContainer: e.value.$2.$3,
         onSuccessContainer: e.value.$2.$4,
+        cardGradientStart: genCard[e.key]!.$1,
+        cardGradientEnd: genCard[e.key]!.$2,
+        onCard: genCard[e.key]!.$3,
       ),
     ),
 };

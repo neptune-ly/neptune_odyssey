@@ -147,6 +147,10 @@ class NeptuneTheme {
     final tertiary = Oklch(cfg.tertiary.l, cfg.tertiary.c, cfg.tertiary.h.toDouble());
     final p = generatePaletteArgb(primary, tertiary, modeStr);
     Color c(String role) => Color(p[role]!);
+    // Card art is brightness-INVARIANT (see NptColors.onCard doc) — always
+    // resolve it through the light ramp, regardless of the requested mode.
+    final pLight = generatePaletteArgb(primary, tertiary, 'light');
+    Color cLight(String role) => Color(pLight[role]!);
 
     final scheme = ColorScheme(
       brightness: mode,
@@ -189,6 +193,9 @@ class NeptuneTheme {
       onSuccess: c('on-success'),
       successContainer: c('success-container'),
       onSuccessContainer: c('on-success-container'),
+      cardGradientStart: cLight('primary'),
+      cardGradientEnd: cLight('tertiary'),
+      onCard: cLight('on-primary'),
     );
 
     final cc = cfg.corners;
