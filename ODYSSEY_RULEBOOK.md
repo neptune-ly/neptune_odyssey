@@ -113,6 +113,23 @@ Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
   `flutter test`).
 - Money: `NeptuneTheme.moneyStyle(context, base:)` — brand num face + tabular
   figures, direction-aware (Arabic numeral face under RTL).
+- **Implicitly-animated shadow lists must keep the same length in every state**
+  (2.15.0, the dock's raised-active key-light). `active ? [shadow] : null` makes
+  `BoxDecoration.lerp` pad the shorter list with `BoxShadow.scale(1 - t)`, and
+  the brand springs overshoot outside `0..1` — a negative factor is a negative
+  `blurRadius`, which asserts in `dart:ui`. Emit one shadow per state with
+  identical offset/blur/spread and animate the **alpha** only (`Color.lerp`
+  clamps; `BoxShadow.scale` does not). Latent for nine minor versions because
+  every test and SHOT built the dock with a *fixed* active item — any
+  implicitly-animated selection state needs a test that actually *changes* it.
+- **White-label means the host's icons too.** Icon-bearing chrome takes an
+  optional `iconWidget` next to `IconData` (`NeptuneDockItem`,
+  `NeptuneQuickAction`, `NeptuneAccountTile` since 2.15.0) — client banks ship
+  their own designed marks, and an `IconData`-only API makes every bank's chrome
+  identical. Publish the state tint to the supplied widget via `IconTheme` +
+  `DefaultTextStyle`, never a forced colour filter (that would flatten a
+  multi-colour brand mark); document that a monochrome SVG should inherit
+  `currentColor`.
 
 **Layout traps that actually bit us (regression-tested — don't reintroduce):**
 

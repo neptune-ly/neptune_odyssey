@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
+import 'neptune_icon_slot.dart';
 
 /// A single quick action: a circular tonal icon chip above a short label.
 ///
@@ -12,8 +13,21 @@ import '../theme/extensions.dart';
 /// [TextTheme.labelMedium] label in [ColorScheme.onSurfaceVariant].
 /// Theme-only (no literal colours/radii/fonts), RTL-safe, 48dp-min target.
 class NeptuneQuickAction extends StatelessWidget {
-  /// The glyph shown inside the circular chip.
-  final IconData icon;
+  /// The glyph shown inside the circular chip. Optional: supply this **or**
+  /// [iconWidget].
+  final IconData? icon;
+
+  /// A host-supplied mark rendered inside the chip instead of [icon] — a
+  /// per-brand SVG, an [ImageIcon], a lettermark. White-label apps ship their
+  /// own icon sets, so quick actions never force Material glyphs on a brand.
+  ///
+  /// The widget is laid out in the same square the glyph would occupy and
+  /// receives the [ColorScheme.onSecondaryContainer] tint through an
+  /// [IconTheme] + [DefaultTextStyle] rather than a hard filter, so a
+  /// multi-colour brand mark stays multi-colour. A monochrome SVG should
+  /// inherit `currentColor` (i.e. read `IconTheme.of(context).color`) to stay
+  /// on-brand across light/dark and every brandprint.
+  final Widget? iconWidget;
 
   /// The caption shown beneath the chip.
   final String label;
@@ -23,10 +37,14 @@ class NeptuneQuickAction extends StatelessWidget {
 
   const NeptuneQuickAction({
     super.key,
-    required this.icon,
+    this.icon,
+    this.iconWidget,
     required this.label,
     this.onTap,
-  });
+  }) : assert(
+          icon != null || iconWidget != null,
+          'NeptuneQuickAction needs a glyph: pass `icon` (IconData) or `iconWidget`.',
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +67,15 @@ class NeptuneQuickAction extends StatelessWidget {
             child: SizedBox(
               width: 56,
               height: 56,
-              child: Icon(icon, color: scheme.onSecondaryContainer),
+              // Center loosens the chip's tight box so the glyph — or a
+              // host-supplied [iconWidget] — keeps its natural icon size.
+              child: Center(
+                child: NeptuneIconSlot(
+                  icon: icon,
+                  iconWidget: iconWidget,
+                  color: scheme.onSecondaryContainer,
+                ),
+              ),
             ),
           ),
         ),

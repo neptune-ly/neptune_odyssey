@@ -1,5 +1,46 @@
 # Changelog
 
+## 2.15.0 — white-label icon slots + a host FAB gap in the dock
+
+White-label was only half-true in the chrome: `NeptuneDock`, `NeptuneQuickAction`
+and `NeptuneAccountTile` accepted **only** Material `IconData`, so every bank
+built on Odyssey wore the same glyphs no matter which icon set its designers had
+drawn. Each of the three now takes an optional `iconWidget` alongside `icon`,
+and the dock can reserve a hole for a host-owned centre FAB. Fully additive —
+every existing call site compiles and renders unchanged.
+
+- **`iconWidget` on `NeptuneDockItem`, `NeptuneQuickAction` and
+  `NeptuneAccountTile`.** Pass any widget — a per-brand SVG, an `ImageIcon`, a
+  lettermark — and it replaces the Material glyph. `icon` is now optional
+  (`IconData?`) with a constructor assert requiring one of the two; the
+  `NeptuneAccountTile` wallet default is untouched, so its call sites need
+  nothing.
+- **The supplied widget inherits the state tint.** A mark gets the exact colour
+  the `Icon` would have received — the dock's `onPrimary` when raised-active vs
+  `onSurfaceVariant` when idle, `onSecondaryContainer` in a quick-action chip,
+  `onPrimaryContainer` in an account tile — published to its subtree as an
+  `IconTheme` **and** a `DefaultTextStyle`, plus the same square the glyph
+  occupied (22dp in the dock, the ambient icon size elsewhere). The tint is
+  deliberately **not** forced through a colour filter, so a brand's multi-colour
+  mark stays multi-colour; a monochrome SVG should inherit `currentColor`
+  (i.e. read `IconTheme.of(context).color`) to follow the active/inactive
+  treatment.
+- **`NeptuneDock.centerGap` / `centerGapWidth`** (default `false` / `72`)
+  reserve inert space in the middle of the item row so an app with a centre
+  floating action button can adopt the dock — the host stacks and owns the
+  button, the dock just leaves room. The glass pane, hairline, elevation and the
+  raised-active spring are all untouched, item cells stay equal-width, and with
+  an even item count the hole straddles the dock's centre line.
+- **Fix — the raised-active spring crashed on a real selection change.** The
+  key-light was `active ? [shadow] : null`, so `BoxDecoration.lerp` padded the
+  shorter list with `BoxShadow.scale(1 - t)`; the brand spring overshoots
+  outside `0..1`, the factor went negative, and `dart:ui` asserted on a negative
+  blur radius. Latent because every test and shot built the dock with a fixed
+  active item. Both states now emit one shadow with identical geometry and
+  animate alpha only (`Color.lerp` clamps, `BoxShadow.scale` does not).
+
+flutter analyze clean · 128 tests pass (13 new) · CI no-literals gate green.
+
 ## 2.14.0 — NeptuneUnlockReveal: swipe-up unlock ritual
 
 **`NeptuneUnlockReveal`** — the "swipe up to open" unlock ritual for a

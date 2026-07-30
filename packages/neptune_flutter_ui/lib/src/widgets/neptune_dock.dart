@@ -4,32 +4,73 @@ import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
 import '../theme/identity.dart';
+import 'neptune_icon_slot.dart';
 import 'neptune_identity_surfaces.dart';
 
 /// One item in a [NeptuneDock]. The parent owns selection — set [active] on the
 /// current item and handle [onTap].
 class NeptuneDockItem {
-  final IconData icon;
+  /// The Material glyph. Optional: supply this **or** [iconWidget].
+  final IconData? icon;
+
+  /// A host-supplied mark rendered instead of [icon] — a per-brand SVG, an
+  /// [ImageIcon], a lettermark. White-label apps ship their own icon sets, so
+  /// the dock never forces Material glyphs on a brand.
+  ///
+  /// The widget is laid out in the same 22dp square the glyph would occupy and
+  /// receives the item's active/inactive tint through an [IconTheme] +
+  /// [DefaultTextStyle] rather than a hard filter, so a multi-colour brand mark
+  /// stays multi-colour. A monochrome SVG should inherit `currentColor` (i.e.
+  /// read `IconTheme.of(context).color`) to follow the raised-active treatment.
+  final Widget? iconWidget;
+
   final String label;
   final bool active;
   final VoidCallback? onTap;
 
   const NeptuneDockItem({
-    required this.icon,
+    this.icon,
+    this.iconWidget,
     required this.label,
     this.active = false,
     this.onTap,
-  });
+  }) : assert(
+          icon != null || iconWidget != null,
+          'NeptuneDockItem needs a glyph: pass `icon` (IconData) or `iconWidget`.',
+        );
 }
 
 /// The floating glass dock (web `<npt-dock>`): a backdrop-blurred
 /// surface-container pane with a hairline border and soft elevation, where the
 /// active item lifts into a filled accent circle — the signature "raised
 /// active" indicator, sprung on the brand's motion curve. Theme-only, RTL-safe.
+///
+/// Set [centerGap] to reserve a hole in the middle of the item row so a host
+/// app can float its own centre FAB over the dock (the dock itself never owns
+/// that button — the host stacks it above and keeps its own hit target).
 class NeptuneDock extends StatelessWidget {
   final List<NeptuneDockItem> items;
 
-  const NeptuneDock({super.key, required this.items});
+  /// Reserve [centerGapWidth] of empty, inert space in the middle of the item
+  /// row for a host-owned floating action button. The glass pane, hairline and
+  /// raised-active spring are untouched; taps in the gap hit whatever the host
+  /// stacked above it. No-op when false (the default).
+  ///
+  /// With an even number of [items] — the layout a centre FAB wants — the gap
+  /// lands exactly on the dock's centre line. With an odd count the extra item
+  /// sits after the gap, so the gap is off-centre by half a cell.
+  final bool centerGap;
+
+  /// Width of the reserved [centerGap]. Defaults to 72 — a 56dp FAB plus 8dp
+  /// of breathing room each side.
+  final double centerGapWidth;
+
+  const NeptuneDock({
+    super.key,
+    required this.items,
+    this.centerGap = false,
+    this.centerGapWidth = 72,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,14 +101,25 @@ class NeptuneDock extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(8, 12, 8, 10),
-          child: Row(
-            children: [
-              for (final it in items) Expanded(child: _DockItem(item: it))
-            ],
-          ),
+          child: Row(children: _cells()),
         ),
       ],
     );
+  }
+
+  /// The item row. Every item is an equal-width [Expanded] cell exactly as
+  /// before; [centerGap] only splices one fixed-width inert box into the middle
+  /// of that list, so the untouched-path layout is byte-for-byte identical.
+  List<Widget> _cells() {
+    if (!centerGap) {
+      return [for (final it in items) Expanded(child: _DockItem(item: it))];
+    }
+    final split = items.length ~/ 2;
+    return [
+      for (var i = 0; i < split; i++) Expanded(child: _DockItem(item: items[i])),
+      SizedBox(width: centerGapWidth),
+      for (var i = split; i < items.length; i++) Expanded(child: _DockItem(item: items[i])),
+    ];
   }
 }
 
@@ -95,20 +147,29 @@ class _DockItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: active ? scheme.primary : scheme.primary.withValues(alpha: 0),
         shape: BoxShape.circle,
-        boxShadow: active
-            ? [
-                BoxShadow(
-                  color: scheme.primary.withValues(alpha: 0.32),
-                  blurRadius: 14,
-                  offset: const Offset(0, 6),
-                ),
-              ]
-            : null,
+        // The key-light fades in on alpha ONLY: both states must emit the same
+        // number of shadows with identical geometry. A null (or shorter) list
+        // makes BoxDecoration.lerp fall back to BoxShadow.scale(1 - t), and the
+        // brand spring overshoots outside 0..1 — a negative factor there means
+        // a negative blurRadius, which asserts in dart:ui the first time the
+        // selection actually changes. lerpDouble over equal radii can't.
+        boxShadow: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: active ? 0.32 : 0),
+            blurRadius: 14,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
-      child: Icon(
-        item.icon,
-        size: 22,
-        color: active ? scheme.onPrimary : scheme.onSurfaceVariant,
+      // A host-supplied mark ([NeptuneDockItem.iconWidget]) takes the glyph's
+      // place and inherits the very same active/inactive tint.
+      child: Center(
+        child: NeptuneIconSlot(
+          icon: item.icon,
+          iconWidget: item.iconWidget,
+          size: 22,
+          color: active ? scheme.onPrimary : scheme.onSurfaceVariant,
+        ),
       ),
     );
 

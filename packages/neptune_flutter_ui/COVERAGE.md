@@ -2,6 +2,21 @@
 
 Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
+1. **Host icon sets + a host FAB (2.15.0).** White-label chrome no longer means
+   Material glyphs: `NeptuneDockItem`, `NeptuneQuickAction` and
+   `NeptuneAccountTile` each take an optional `iconWidget` next to `icon`, so a
+   bank ships its own designed marks (SVG, `ImageIcon`, lettermark) and they
+   inherit the exact active/inactive tint the glyph would have had — via
+   `IconTheme` + `DefaultTextStyle`, never a forced colour filter, so
+   multi-colour marks survive; a monochrome mark should inherit `currentColor`.
+   `NeptuneDock.centerGap`/`centerGapWidth` reserve inert space mid-row so an
+   app with a centre floating action button can adopt the dock (the host owns
+   the button; the glass pane and raised-active spring are untouched). Honest
+   scope: only these three widgets carry the slot so far — the rest of the
+   icon-bearing set (`NeptuneListTile`, `NeptuneMethodRow`,
+   `NeptuneSideNavItem`, `NeptuneNavRailItem`, `NeptuneTopupRow`,
+   `NeptuneMerchantRow` …) is still `IconData`-only and extends the same way
+   when a client needs it.
 1. **Unlock ritual (2.14.0).** `NeptuneUnlockReveal` — the "swipe up to open"
    returning-user lock screen: a primary canvas with a pill-shaped cutout
    revealing the brand gradient + motif behind it; drag up to unlock (spring
@@ -37,9 +52,9 @@ Honest status — nothing silently dropped.
 ## ✅ Implemented branded widgets
 | Group | Flutter widgets | Web |
 |---|---|---|
-| Cards / finance | `NeptuneBalanceCard`, `NeptuneStatCard`, `NeptuneTransactionRow`, `NeptuneAccountTile`, `NeptuneCardArt` (+`selected`) | `npt-balance-card`, `npt-stat-card`, `npt-transaction-row`, `npt-card-row`, `npt-card-art` |
-| Actions | `NeptuneButton` (filled/tonal/outlined/text), `NeptunePrimaryButton`, `NeptuneCta`, `NeptuneQuickActions`/`NeptuneQuickAction` | `npt-button`, `npt-cta`, `npt-quick-actions` |
-| Navigation / shell | `NeptuneDock`/`NeptuneDockItem`, `NeptuneAppBar`, `NeptunePageHeader`, `NeptuneSection`, `NeptuneSearchField`, `NeptuneAppShell`, `NeptuneSideNav`/`NeptuneSideNavItem`, `NeptuneToolbar`, `NeptuneNavRail`/`NeptuneNavRailItem` | `npt-dock`, `npt-app-bar`, `npt-page-header`, `npt-section`, `npt-search-field`, `npt-app-shell`, `npt-side-nav`, `npt-side-nav-item`, `npt-toolbar`, `npt-nav-rail` |
+| Cards / finance | `NeptuneBalanceCard`, `NeptuneStatCard`, `NeptuneTransactionRow`, `NeptuneAccountTile` (+`iconWidget`), `NeptuneCardArt` (+`selected`) | `npt-balance-card`, `npt-stat-card`, `npt-transaction-row`, `npt-card-row`, `npt-card-art` |
+| Actions | `NeptuneButton` (filled/tonal/outlined/text), `NeptunePrimaryButton`, `NeptuneCta`, `NeptuneQuickActions`/`NeptuneQuickAction` (+`iconWidget`) | `npt-button`, `npt-cta`, `npt-quick-actions` |
+| Navigation / shell | `NeptuneDock` (+`centerGap`)/`NeptuneDockItem` (+`iconWidget`), `NeptuneAppBar`, `NeptunePageHeader`, `NeptuneSection`, `NeptuneSearchField`, `NeptuneAppShell`, `NeptuneSideNav`/`NeptuneSideNavItem`, `NeptuneToolbar`, `NeptuneNavRail`/`NeptuneNavRailItem` | `npt-dock`, `npt-app-bar`, `npt-page-header`, `npt-section`, `npt-search-field`, `npt-app-shell`, `npt-side-nav`, `npt-side-nav-item`, `npt-toolbar`, `npt-nav-rail` |
 | Card management | `NeptuneCardControls`, `NeptuneAddCard` | `npt-card-controls`, `npt-add-card` |
 | Data | `NeptuneDataTable`/`NeptuneColumn` | `npt-data-table` |
 | Onboarding | `NeptuneOnboarding` | `npt-onboarding` |

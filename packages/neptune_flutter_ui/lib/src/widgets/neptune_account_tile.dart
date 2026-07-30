@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
+import 'neptune_icon_slot.dart';
 
 /// A list tile for an account: avatar/icon, name + masked number, balance.
 /// Theme-only, RTL-safe, 48dp-min target.
@@ -11,7 +12,23 @@ class NeptuneAccountTile extends StatelessWidget {
   final String name;
   final String maskedNumber;
   final String balance;
-  final IconData icon;
+
+  /// The Material glyph in the leading tonal square. Ignored when [iconWidget]
+  /// is supplied.
+  final IconData? icon;
+
+  /// A host-supplied mark rendered in the leading square instead of [icon] — a
+  /// per-brand SVG, an [ImageIcon], a bank/account-product mark. White-label
+  /// apps ship their own icon sets, so account rows never force Material glyphs
+  /// on a brand.
+  ///
+  /// The widget is laid out in the same square the glyph would occupy and
+  /// receives the [ColorScheme.onPrimaryContainer] tint through an [IconTheme] +
+  /// [DefaultTextStyle] rather than a hard filter, so a multi-colour brand mark
+  /// stays multi-colour. A monochrome SVG should inherit `currentColor` (i.e.
+  /// read `IconTheme.of(context).color`).
+  final Widget? iconWidget;
+
   final VoidCallback? onTap;
 
   const NeptuneAccountTile({
@@ -20,8 +37,12 @@ class NeptuneAccountTile extends StatelessWidget {
     required this.maskedNumber,
     required this.balance,
     this.icon = Icons.account_balance_wallet_outlined,
+    this.iconWidget,
     this.onTap,
-  });
+  }) : assert(
+          icon != null || iconWidget != null,
+          'NeptuneAccountTile needs a glyph: pass `icon` (IconData) or `iconWidget`.',
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +73,11 @@ class NeptuneAccountTile extends StatelessWidget {
                     borderRadius: shape.rSm,
                   ),
                   alignment: AlignmentDirectional.center,
-                  child: Icon(icon, color: scheme.onPrimaryContainer),
+                  child: NeptuneIconSlot(
+                    icon: icon,
+                    iconWidget: iconWidget,
+                    color: scheme.onPrimaryContainer,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
