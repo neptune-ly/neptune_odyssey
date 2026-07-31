@@ -25,6 +25,7 @@ export 'src/theme/brand_tables.dart'
     show kBrands, brandConfig, brandShape, brandType, brandSuccess, motionFor, hapticWeightFor;
 
 // Widgets.
+export 'src/widgets/neptune_numeral.dart';
 export 'src/widgets/neptune_balance_card.dart';
 export 'src/widgets/neptune_card_art.dart';
 export 'src/widgets/neptune_transaction_row.dart';

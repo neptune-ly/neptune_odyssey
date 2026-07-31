@@ -1,3 +1,7 @@
+## 2.19.0
+
+- `NeptuneNumeral`: text that always reads left-to-right whatever the locale, for account numbers, IBANs, card numbers, amounts and references. Forces only the INTERNAL direction, so RTL layouts stay mirrored. `NeptuneNumeral.isolated()` wraps a value in LRI/PDI isolate marks for safe interpolation into a translated sentence — stronger than a bare LRM, which lets adjacent weak characters merge with the run.
+
 ## 2.18.1
 
 - **Fix release-build breakage**: `NeptunePageTransitionsBuilder.theme` no longer names `CupertinoPageTransitionsBuilder`. That symbol moved between Flutter versions and a newer stable failed with "Method not found", breaking Android release builds. iOS/macOS now inherit the framework defaults by spreading `const PageTransitionsTheme().builders` — same behaviour, version-proof.
