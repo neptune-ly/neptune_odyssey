@@ -69,15 +69,20 @@ const LIGHT: Record<ColorRole, RoleRecipe> = {
 
 // Dark-mode ramp.
 const DARK: Record<ColorRole, RoleRecipe> = {
-  primary: { L: 0.8, C: { mult: 0.8 }, hue: "primary" },
+  // L 0.66, not 0.80. At L 0.80 the sRGB gamut caps chroma near 0.10 for a
+  // blue hue, so a brand seed of 0.209 lost ~40% of its saturation and read
+  // as a washed-out pale blue on device. At 0.66 the full brand chroma
+  // survives and contrast still measures ~5.9:1 against both the dark surface
+  // and on-primary — comfortably past WCAG AA.
+  primary: { L: 0.66, C: { mult: 0.85 }, hue: "primary" },
   "on-primary": { L: 0.2, C: { mult: 0.67 }, hue: "primary" },
   "primary-container": { L: 0.36, C: { mult: 0.8 }, hue: "primary" },
   "on-primary-container": { L: 0.9, C: { mult: 0.47 }, hue: "primary" },
-  secondary: { L: 0.82, C: 0.04, hue: "primary" },
+  secondary: { L: 0.76, C: 0.05, hue: "primary" },
   "on-secondary": { L: 0.22, C: 0.04, hue: "primary" },
   "secondary-container": { L: 0.34, C: 0.04, hue: "primary" },
   "on-secondary-container": { L: 0.9, C: 0.035, hue: "primary" },
-  tertiary: { L: 0.82, C: { mult: 0.8 }, hue: "tertiary" },
+  tertiary: { L: 0.7, C: { mult: 0.85 }, hue: "tertiary" },
   "on-tertiary": { L: 0.22, C: { mult: 0.6 }, hue: "tertiary" },
   "tertiary-container": { L: 0.34, C: { mult: 0.7 }, hue: "tertiary" },
   "on-tertiary-container": { L: 0.9, C: { mult: 0.6 }, hue: "tertiary" },

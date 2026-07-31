@@ -90,15 +90,20 @@ const Map<String, _Recipe> _light = {
 
 // Dark-mode ramp.
 const Map<String, _Recipe> _dark = {
-  'primary': _Recipe(0.8, _Chroma.mult(0.8), _primary),
+  // L 0.66, not 0.80. At L 0.80 the sRGB gamut caps chroma near 0.10 for a
+  // blue hue, so a brand seed of 0.209 lost ~40% of its saturation and read
+  // as a washed-out pale blue (device-reported). At 0.66 the full brand
+  // chroma survives, and contrast still measures 5.9:1 against both the dark
+  // surface and on-primary — comfortably past WCAG AA.
+  'primary': _Recipe(0.66, _Chroma.mult(0.85), _primary),
   'on-primary': _Recipe(0.2, _Chroma.mult(0.67), _primary),
   'primary-container': _Recipe(0.36, _Chroma.mult(0.8), _primary),
   'on-primary-container': _Recipe(0.9, _Chroma.mult(0.47), _primary),
-  'secondary': _Recipe(0.82, _Chroma.abs(0.04), _primary),
+  'secondary': _Recipe(0.76, _Chroma.abs(0.05), _primary),
   'on-secondary': _Recipe(0.22, _Chroma.abs(0.04), _primary),
   'secondary-container': _Recipe(0.34, _Chroma.abs(0.04), _primary),
   'on-secondary-container': _Recipe(0.9, _Chroma.abs(0.035), _primary),
-  'tertiary': _Recipe(0.82, _Chroma.mult(0.8), _tertiary),
+  'tertiary': _Recipe(0.70, _Chroma.mult(0.85), _tertiary),
   'on-tertiary': _Recipe(0.22, _Chroma.mult(0.6), _tertiary),
   'tertiary-container': _Recipe(0.34, _Chroma.mult(0.7), _tertiary),
   'on-tertiary-container': _Recipe(0.9, _Chroma.mult(0.6), _tertiary),

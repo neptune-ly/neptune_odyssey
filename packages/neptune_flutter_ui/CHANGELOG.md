@@ -1,3 +1,7 @@
+## 2.20.0
+
+- **Dark mode: the brand colour stops washing out.** The dark ramp put primary at OKLCH L 0.80, where the sRGB gamut caps chroma near 0.10 for a blue hue — a brand seed of 0.209 lost ~40% of its saturation and rendered as a pale, washed blue. Primary is now L 0.66 / chroma x0.85 (tertiary 0.70, secondary 0.76), where the full brand chroma survives. Contrast measures ~5.9:1 against both the dark surface and on-primary, comfortably past WCAG AA. Changed in `neptune_tokens` (the cross-platform source of truth) and regenerated, so all 13 platform packages inherit it identically.
+
 ## 2.19.0
 
 - `NeptuneNumeral`: text that always reads left-to-right whatever the locale, for account numbers, IBANs, card numbers, amounts and references. Forces only the INTERNAL direction, so RTL layouts stay mirrored. `NeptuneNumeral.isolated()` wraps a value in LRI/PDI isolate marks for safe interpolation into a translated sentence — stronger than a bare LRM, which lets adjacent weak characters merge with the run.
