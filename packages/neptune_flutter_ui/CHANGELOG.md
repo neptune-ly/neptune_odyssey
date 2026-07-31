@@ -1,3 +1,7 @@
+## 2.18.1
+
+- **Fix release-build breakage**: `NeptunePageTransitionsBuilder.theme` no longer names `CupertinoPageTransitionsBuilder`. That symbol moved between Flutter versions and a newer stable failed with "Method not found", breaking Android release builds. iOS/macOS now inherit the framework defaults by spreading `const PageTransitionsTheme().builders` — same behaviour, version-proof.
+
 ## 2.18.0
 
 - `NeptunePageTransitionsBuilder` + wired into every generated theme: M3 fade-through with a gentle upward settle on push, receding lift-and-dim on the covered page, natural reverse on pop. iOS keeps `CupertinoPageTransitionsBuilder` so the native edge-swipe back gesture survives. Reduced motion falls back to a plain cross-fade — position never animates.

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 /// Reverse (pop) plays the same story backwards for free, because everything
 /// is driven off the route animations.
 ///
-/// iOS deliberately keeps [CupertinoPageTransitionsBuilder] when installed via
+/// iOS deliberately keeps Flutter's own default transition when installed via
 /// [NeptunePageTransitionsBuilder.theme] — replacing it would break the
 /// native edge-swipe back gesture, which no visual polish is worth.
 ///
@@ -18,15 +18,23 @@ import 'package:flutter/material.dart';
 class NeptunePageTransitionsBuilder extends PageTransitionsBuilder {
   const NeptunePageTransitionsBuilder();
 
-  /// The ready-made theme: Neptune motion everywhere, Cupertino on iOS.
-  static const PageTransitionsTheme theme = PageTransitionsTheme(
+  /// The ready-made theme: Neptune motion on the platforms we style, and
+  /// whatever Flutter ships as the default everywhere else.
+  ///
+  /// iOS and macOS are deliberately NOT listed — they inherit Flutter's own
+  /// default (the Cupertino transition), which is what preserves the native
+  /// edge-swipe back gesture. Spreading the framework defaults rather than
+  /// naming `CupertinoPageTransitionsBuilder` keeps this file compiling
+  /// across Flutter versions that move or rename that class: a build on a
+  /// newer stable failed with "Method not found: 'CupertinoPageTransitions-
+  /// Builder'" when it was referenced directly. Never name it here.
+  static final PageTransitionsTheme theme = PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
-      TargetPlatform.android: NeptunePageTransitionsBuilder(),
-      TargetPlatform.fuchsia: NeptunePageTransitionsBuilder(),
-      TargetPlatform.linux: NeptunePageTransitionsBuilder(),
-      TargetPlatform.macOS: NeptunePageTransitionsBuilder(),
-      TargetPlatform.windows: NeptunePageTransitionsBuilder(),
-      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      ...const PageTransitionsTheme().builders,
+      TargetPlatform.android: const NeptunePageTransitionsBuilder(),
+      TargetPlatform.fuchsia: const NeptunePageTransitionsBuilder(),
+      TargetPlatform.linux: const NeptunePageTransitionsBuilder(),
+      TargetPlatform.windows: const NeptunePageTransitionsBuilder(),
     },
   );
 

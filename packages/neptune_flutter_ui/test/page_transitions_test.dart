@@ -24,8 +24,14 @@ void main() {
     final builders = theme.pageTransitionsTheme.builders;
     expect(builders[TargetPlatform.android],
         isA<NeptunePageTransitionsBuilder>());
-    // iOS keeps Cupertino: the native edge-swipe back gesture must survive.
-    expect(builders[TargetPlatform.iOS], isA<CupertinoPageTransitionsBuilder>());
+    // iOS keeps FLUTTER'S OWN default so the native edge-swipe back gesture
+    // survives. Asserted by identity against the framework default rather
+    // than by naming CupertinoPageTransitionsBuilder — that symbol moved
+    // between Flutter versions and broke a release build once.
+    expect(builders[TargetPlatform.iOS],
+        same(const PageTransitionsTheme().builders[TargetPlatform.iOS]));
+    expect(builders[TargetPlatform.iOS],
+        isNot(isA<NeptunePageTransitionsBuilder>()));
   });
 
   testWidgets('push animates — no hard cut', (tester) async {
