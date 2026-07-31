@@ -229,6 +229,50 @@ class NeptuneTheme {
     );
   }
 
+  /// Re-applies a host's own bundled font across an Odyssey theme — the text
+  /// theme AND every component theme that carries its own `textStyle`.
+  ///
+  /// Hosts that bundle their own faces (rather than the brandprint's
+  /// google_fonts families) used to write `theme.copyWith(textTheme:
+  /// theme.textTheme.apply(fontFamily: ...))`. That is subtly incomplete:
+  /// `filledButtonTheme` and `outlinedButtonTheme` captured `textTheme.
+  /// labelLarge` when the theme was assembled, so button LABELS kept the
+  /// original family while every other string switched — a mismatch that is
+  /// invisible in a widget test and obvious on a device.
+  ///
+  /// Use this instead of patching `textTheme` by hand; it stays correct as
+  /// more component themes gain text styles.
+  static ThemeData withHostFont(
+    ThemeData theme, {
+    required String fontFamily,
+    List<String> fontFamilyFallback = const <String>[],
+  }) {
+    final text = theme.textTheme.apply(
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFamilyFallback,
+    );
+    final label = WidgetStatePropertyAll<TextStyle?>(text.labelLarge);
+    return theme.copyWith(
+      textTheme: text,
+      primaryTextTheme: theme.primaryTextTheme.apply(
+        fontFamily: fontFamily,
+        fontFamilyFallback: fontFamilyFallback,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: (theme.filledButtonTheme.style ?? const ButtonStyle())
+            .copyWith(textStyle: label),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: (theme.outlinedButtonTheme.style ?? const ButtonStyle())
+            .copyWith(textStyle: label),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: (theme.textButtonTheme.style ?? const ButtonStyle())
+            .copyWith(textStyle: label),
+      ),
+    );
+  }
+
   // --- assembly -------------------------------------------------------------
 
   static ThemeData _assemble(
