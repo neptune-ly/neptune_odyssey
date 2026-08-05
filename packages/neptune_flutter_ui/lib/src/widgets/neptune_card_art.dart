@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../theme/extensions.dart';
 import '../theme/identity.dart';
 import '../theme/neptune_theme.dart';
-import 'neptune_identity_surfaces.dart';
 
 /// A payment-card visual — the Flutter counterpart of web `<npt-card-art>`.
 ///
@@ -115,11 +114,14 @@ class NeptuneCardArt extends StatelessWidget {
               onTap: onTap,
               child: Stack(
                 children: [
-                  // The brand's signature motif, embossed over the gradient —
-                  // the web layers `--npt-motif` on card art at full strength.
-                  Positioned.fill(
-                    child: NeptuneMotifLayer(color: onCard, strength: 1),
-                  ),
+                  // No brand-motif texture here (there was a tiled repeating
+                  // pattern before) — every reference card in the category
+                  // (Mercury, Chase, Monzo, N26, Chime, Airwallex, Brex,
+                  // PayPal, Revolut Business) uses a clean flat/gradient
+                  // face with zero repeating texture, at most one large soft
+                  // glow. A tiled micro-pattern on a compact card reads as
+                  // busy/cheap, not premium — the brand's gradient + type do
+                  // the identity work here.
                   Padding(
                     padding: const EdgeInsetsDirectional.all(24),
                     child: Column(

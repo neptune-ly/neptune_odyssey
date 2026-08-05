@@ -1,3 +1,7 @@
+## 2.21.1
+
+- **`NeptuneCardArt`: removed the tiled arc motif from the card face.** At full strength on a compact 1.586-ratio card, the repeating micro-pattern read as busy/cheap rather than premium. Checked against the category (Mercury, Chase, Monzo, N26, Chime, Airwallex, Brex, PayPal, Revolut Business): every one uses a clean flat/gradient card face with zero repeating texture. The brand gradient + typography now carry the identity alone, matching every reference.
+
 ## 2.21.0
 
 - `NeptuneTheme.withHostFont()`: re-applies a host's bundled font across the text theme AND every component theme carrying its own `textStyle`. Hosts patching `theme.textTheme.apply(...)` by hand left `filledButtonTheme`/`outlinedButtonTheme` holding the family captured at assembly, so BUTTON LABELS rendered in a different face than the rest of the screen — invisible in a widget test, obvious on a device.
