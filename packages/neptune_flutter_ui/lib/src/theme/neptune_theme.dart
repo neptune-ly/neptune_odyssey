@@ -485,6 +485,14 @@ class NeptuneTheme {
           textStyle: textTheme.labelLarge,
         ),
       ),
+      // The label captured at assembly, as the two above capture theirs.
+      // Left unset, TextButton reads `labelLarge` at build time through
+      // `Theme.of`, i.e. AFTER localization has merged the M3 geometry in
+      // (height 1.43, tracking 0.1) - a different line box from every other
+      // button on the screen, and the one slot `withHostFont` used to fill.
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(textStyle: textTheme.labelLarge),
+      ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: scheme.surfaceContainer,
         indicatorColor: scheme.secondaryContainer,

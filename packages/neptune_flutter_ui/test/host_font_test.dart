@@ -29,6 +29,8 @@ void main() {
     for (final style in [
       theme.filledButtonTheme.style?.textStyle?.resolve(<WidgetState>{}),
       theme.outlinedButtonTheme.style?.textStyle?.resolve(<WidgetState>{}),
+      // 2.24.1: the text button too - `withHostFont` filled all three.
+      theme.textButtonTheme.style?.textStyle?.resolve(<WidgetState>{}),
     ]) {
       expect(style?.fontFamily, 'SomarSans');
       expect(style?.fontFamilyFallback, contains('Inter'));

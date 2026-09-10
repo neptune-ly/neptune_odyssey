@@ -137,6 +137,18 @@ void main() {
 
         // Brand canvas: present on every theme, dark included.
         expect(theme.extension<NptBrandCanvas>(), isNotNull);
+
+        // All three button families carry the label captured at assembly:
+        // unset, TextButton alone would read the LOCALIZED labelLarge at
+        // build time (M3 height 1.43) and sit on a different line box.
+        final captured = theme.filledButtonTheme.style!.textStyle!.resolve(<WidgetState>{});
+        expect(captured?.fontFamily, theme.textTheme.labelLarge?.fontFamily);
+        for (final style in [
+          theme.outlinedButtonTheme.style,
+          theme.textButtonTheme.style,
+        ]) {
+          expect(style?.textStyle?.resolve(<WidgetState>{}), captured);
+        }
       });
     }
 

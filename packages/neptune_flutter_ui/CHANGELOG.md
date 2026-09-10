@@ -1,3 +1,12 @@
+## 2.24.1
+
+- **`textButtonTheme` carries the label captured at assembly**, exactly as `filledButtonTheme`
+  and `outlinedButtonTheme` already did. Left unset, `TextButton` read `labelLarge` at build
+  time through `Theme.of` - after localization merged the Material 3 geometry in (height 1.43,
+  tracking 0.1) - so a text button sat on a different line box from every other button on the
+  screen. This is the third slot the deprecated `withHostFont` used to fill; a host that moved
+  from it to `hostFont:` in 2.24.0 saw every `TextButton` label shift, and this closes that.
+
 ## 2.24.0
 
 - **`NeptuneTheme.fromConfig` (and `light`/`dark`/`fromBrandprint`) return a FINISHED bank theme.**
