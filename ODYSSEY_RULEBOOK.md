@@ -108,11 +108,21 @@ Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
   everywhere. Icons that imply direction mirror under RTL.
 - Touch targets ≥ 48dp. `const` where valid. Every widget gets a `///` doc
   naming its web counterpart.
-- Fonts load via `google_fonts` at runtime; tests must set
+- Fonts: hosts that bundle their own faces pass `hostFont:` to
+  `NeptuneTheme.fromConfig/fromBrandprint/light/dark` (2.24.0) — every face,
+  the button labels and `moneyStyle` then name the host family and the
+  google_fonts loader is never reached. `google_fonts` is only for registry
+  families; tests that build a theme WITHOUT `hostFont:` must set
   `NeptuneTheme.debugSkipFontLoading = true` (the loader throws async in
   `flutter test`).
 - Money: `NeptuneTheme.moneyStyle(context, base:)` — brand num face + tabular
   figures, direction-aware (Arabic numeral face under RTL).
+- **The direction accent is spent, not sprayed** (2.24.0). `NptColors.accent`
+  is for the forward CTA, the active step and an upward movement — `NeptuneCta`
+  reads it and no other themed widget does. A brand that sets
+  `accentOnTertiary` has chosen a second colour that would read as an error
+  state on chrome; the theme keeps it out of every Material role on purpose,
+  and a widget that reaches for `accent` as a general highlight undoes that.
 - **Implicitly-animated shadow lists must keep the same length in every state**
   (2.15.0, the dock's raised-active key-light). `active ? [shadow] : null` makes
   `BoxDecoration.lerp` pad the shorter list with `BoxShadow.scale(1 - t)`, and

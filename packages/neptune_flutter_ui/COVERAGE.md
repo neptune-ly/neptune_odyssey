@@ -2,6 +2,27 @@
 
 Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
+1. **A finished theme, host fonts, and motif as a lever (2.24.0).** Every
+   `ThemeData` the library builds now sets `appBarTheme` (leading-aligned
+   title, no scroll tint), `floatingActionButtonTheme` (brand primary on
+   `NptShape.xs`), a seven-state `NeptuneFieldBorder` `inputDecorationTheme`
+   (label floats inside the fill; error and disabled rings present) and an
+   `NptBrandCanvas` extension (pre-login colours from the LIGHT scheme in both
+   brightnesses) — the four slots a production host used to patch after
+   assembly, at two call sites, and get wrong at one. `hostFont:` on every
+   entry point applies a bundled face AT assembly, reaching the button label
+   styles and `NptType`'s Arabic faces that `withHostFont` (now deprecated)
+   could not. `BrandprintConfig.motif` claims the reserved byte 26 with an
+   `auto` default, so a bank can say `none` without touching its glass recipe
+   and every existing brandprint decodes unchanged; ported to the TS and
+   Kotlin codecs. Honest scope: the brand canvas is Flutter-only — no web or
+   Studio token carries it yet. The same release widens the customization
+   surface a second bank needs: `loginShell` `paper-lockup`/`lockup-rule` and
+   `dashboardHero` `statement-ledger`/`chevron-summary` in every codec, a
+   direction accent (`accentOnTertiary` → `NptColors.accent`, painted by
+   `NeptuneCta` and by nothing else the theme builds) and
+   `NptBrandCanvas.paper`. What a shell or hero name draws is still the host's
+   composition switch — the library guarantees the name survives the wire.
 1. **Tab width control (2.22.0).** `NeptuneTabs.width` takes
    `NeptuneTabsWidth.hug` (default — labels hug their own width at the start
    edge, strip scrolls) or `.fill` (tabs divide the available width, divider
@@ -46,7 +67,7 @@ Neptune Odyssey ships **89 web components**. The Flutter package gives you:
    standalone loader family (`NeptuneSpinner`/`NeptuneDotsLoader`/`NeptunePulseLoader`/`NeptuneHourglassLoader`)
    + `NeptuneSplashScreen`, all feeding the same `NeptuneStatusMotion` hand-off.
 1. **Theme parity — guaranteed.** `NeptuneTheme.light/dark(brand)` (or `.fromBrandprint`) returns a full Material 3 `ThemeData`, so **every Material widget** is already on-brand — resolved byte-identically from the same brandprint (golden-tested). You're never blocked.
-2. **Real brand typography.** The theme loads each brand's display / text / num faces via `google_fonts` and applies them across the whole `TextTheme`; `NeptuneTheme.moneyStyle` renders amounts in the brand `num` face with tabular figures. Pass `arabic: true` (or run under RTL) and the Arabic faces (IBM Plex Sans Arabic, Reem Kufi, Tajawal, Readex Pro, Noto Kufi Arabic) take over, mirroring the web `--npt-font-*-ar` tokens; `moneyStyle` swaps to the Arabic numeral face under RTL.
+2. **Real brand typography.** The theme loads each brand's display / text / num faces via `google_fonts` and applies them across the whole `TextTheme` (or, for a host that bundles its faces, names the host family everywhere via `hostFont:`); `NeptuneTheme.moneyStyle` renders amounts in the brand `num` face with tabular figures. Pass `arabic: true` (or run under RTL) and the Arabic faces (IBM Plex Sans Arabic, Reem Kufi, Tajawal, Readex Pro, Noto Kufi Arabic) take over, mirroring the web `--npt-font-*-ar` tokens; `moneyStyle` swaps to the Arabic numeral face under RTL.
 3. **~88 branded widgets** — past Material parity into a complete fintech design system. All theme-only (no literals), RTL-safe (`EdgeInsetsDirectional`), ≥48dp targets, covered by `test/widgets_test.dart` (build under light/dark/RTL × 4 brands; 40 tests).
 4. **NeptuneDemoShellApp (2.10.0).** A complete branded demo app (Welcome + 5-tab dock shell) from any `BrandprintConfig` + logo in ~10 lines, composed entirely from the existing templates — the foundation for client-demo tooling.
 5. **Onboarding flow (2.9.0).** Ten template widgets covering the full account-opening sequence — OTP, instructions, document capture (corner-bracket frame), selfie capture (oval + countdown), OCR review, personal/account-detail form steps, document attachments, terms, the shared terminal status screen (`NeptuneOnboardingStatusTemplate`, built on `NeptuneStatusMotion`), and identity-correction recovery. Modelled on a real production onboarding sequence.

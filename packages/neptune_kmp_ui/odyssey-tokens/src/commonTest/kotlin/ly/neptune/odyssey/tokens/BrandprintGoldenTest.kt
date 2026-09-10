@@ -16,7 +16,9 @@ import kotlin.test.assertTrue
 class BrandprintGoldenTest {
     @Test
     fun encodeConfigMatchesGoldenString() {
-        assertEquals(4, goldenBrandprints.size)
+        // Four reference brands + the synthetic custom-none and custom-accent
+        // entries (2.24.0).
+        assertEquals(6, goldenBrandprints.size)
         for (g in goldenBrandprints) {
             assertEquals(g.brandprint, Brandprint.encode(g.config), g.brand)
         }
@@ -40,8 +42,27 @@ class BrandprintGoldenTest {
             assertEquals(g.config.contentTone, d.contentTone, g.brand)
             assertEquals(g.config.glassTint, d.glassTint, g.brand)
             assertEquals(g.config.motion, d.motion, g.brand)
+            assertEquals(g.config.motif, d.motif, g.brand)
             assertEquals(g.config.corners, d.corners, g.brand)
             assertEquals(g.config.displayWeight, d.displayWeight, g.brand)
+            assertEquals(g.config.accentOnTertiary, d.accentOnTertiary, g.brand)
+            assertEquals(g.config.defaultRtl, d.defaultRtl, g.brand)
+            // The data class carries every field, so this is the whole config -
+            // seeds excepted, which the wire quantises (L to 1/255).
+            assertEquals(g.config.copy(primary = d.primary, tertiary = d.tertiary), d, g.brand)
+        }
+    }
+
+    @Test
+    fun flagsBitTwoIsTheAccentAndLeavesTheReferencesUntouched() {
+        val accent = goldenBrandprints.first { it.brand == "custom-accent" }
+        val d = Brandprint.decode(accent.brandprint)
+        assertTrue(d.accentOnTertiary)
+        assertTrue(d.defaultRtl)
+        assertEquals("lockup-rule", d.loginShell)
+        assertEquals("chevron-summary", d.dashboardHero)
+        for (g in goldenBrandprints.filter { it.brand != "custom-accent" }) {
+            assertEquals(false, Brandprint.decode(g.brandprint).accentOnTertiary, g.brand)
         }
     }
 

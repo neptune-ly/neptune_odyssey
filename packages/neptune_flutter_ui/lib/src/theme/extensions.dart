@@ -31,6 +31,19 @@ class NptColors extends ThemeExtension<NptColors> {
   /// brand's light on-primary tone regardless of app brightness.
   final Color onCard;
 
+  /// The direction-and-confirmation accent: the forward CTA, the active step
+  /// in a flow, an upward movement in a chart - and nothing else. Equal to
+  /// `ColorScheme.primary` unless the brandprint sets `accentOnTertiary`, in
+  /// which case it is the tertiary seed and that seed feeds NO Material role,
+  /// so the accent cannot reach chrome through `tertiary*` or the card
+  /// gradient. A red spent on every surface reads as an error state; spent
+  /// once per screen it reads as the brand's mark. Widgets that are not one of
+  /// those three things keep using the scheme roles.
+  final Color accent;
+
+  /// Content on [accent].
+  final Color onAccent;
+
   const NptColors({
     required this.success,
     required this.onSuccess,
@@ -39,6 +52,8 @@ class NptColors extends ThemeExtension<NptColors> {
     required this.cardGradientStart,
     required this.cardGradientEnd,
     required this.onCard,
+    required this.accent,
+    required this.onAccent,
   });
 
   @override
@@ -50,6 +65,8 @@ class NptColors extends ThemeExtension<NptColors> {
     Color? cardGradientStart,
     Color? cardGradientEnd,
     Color? onCard,
+    Color? accent,
+    Color? onAccent,
   }) =>
       NptColors(
         success: success ?? this.success,
@@ -59,6 +76,8 @@ class NptColors extends ThemeExtension<NptColors> {
         cardGradientStart: cardGradientStart ?? this.cardGradientStart,
         cardGradientEnd: cardGradientEnd ?? this.cardGradientEnd,
         onCard: onCard ?? this.onCard,
+        accent: accent ?? this.accent,
+        onAccent: onAccent ?? this.onAccent,
       );
 
   @override
@@ -73,6 +92,8 @@ class NptColors extends ThemeExtension<NptColors> {
       cardGradientStart: Color.lerp(cardGradientStart, other.cardGradientStart, t)!,
       cardGradientEnd: Color.lerp(cardGradientEnd, other.cardGradientEnd, t)!,
       onCard: Color.lerp(onCard, other.onCard, t)!,
+      accent: Color.lerp(accent, other.accent, t)!,
+      onAccent: Color.lerp(onAccent, other.onAccent, t)!,
     );
   }
 }
@@ -169,6 +190,16 @@ class NptType extends ThemeExtension<NptType> {
   /// Tracking in em (e.g. -0.02).
   final double displayTracking;
 
+  /// True when every face above is one the HOST bundles as a Flutter asset
+  /// (passed as `hostFont:` at assembly) rather than a google_fonts registry
+  /// family. Text styles are then built by family name - the runtime loader
+  /// is never consulted - and [fontFamilyFallback] rides on each of them.
+  final bool bundled;
+
+  /// Fallback chain behind a bundled face (a host's Latin safety net behind
+  /// an Arabic-first family, say). Empty for registry families.
+  final List<String> fontFamilyFallback;
+
   const NptType({
     required this.display,
     required this.text,
@@ -178,6 +209,8 @@ class NptType extends ThemeExtension<NptType> {
     String? displayAr,
     String? textAr,
     String? numAr,
+    this.bundled = false,
+    this.fontFamilyFallback = const [],
   })  : displayAr = displayAr ?? 'IBM Plex Sans Arabic',
         textAr = textAr ?? 'IBM Plex Sans Arabic',
         numAr = numAr ?? textAr ?? 'IBM Plex Sans Arabic';
@@ -205,6 +238,8 @@ class NptType extends ThemeExtension<NptType> {
     String? numAr,
     int? displayWeight,
     double? displayTracking,
+    bool? bundled,
+    List<String>? fontFamilyFallback,
   }) =>
       NptType(
         display: display ?? this.display,
@@ -215,6 +250,8 @@ class NptType extends ThemeExtension<NptType> {
         numAr: numAr ?? this.numAr,
         displayWeight: displayWeight ?? this.displayWeight,
         displayTracking: displayTracking ?? this.displayTracking,
+        bundled: bundled ?? this.bundled,
+        fontFamilyFallback: fontFamilyFallback ?? this.fontFamilyFallback,
       );
 
   @override
@@ -231,6 +268,8 @@ class NptType extends ThemeExtension<NptType> {
       numAr: pick.numAr,
       displayWeight: pick.displayWeight,
       displayTracking: displayTracking + (other.displayTracking - displayTracking) * t,
+      bundled: pick.bundled,
+      fontFamilyFallback: pick.fontFamilyFallback,
     );
   }
 }

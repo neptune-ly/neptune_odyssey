@@ -165,15 +165,19 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
     final type = theme.extension<NptType>()!;
     final motion = theme.extension<NptMotion>()!;
     final identity = theme.extension<NptIdentity>()!;
+    final colors = theme.extension<NptColors>()!;
     final density = theme.extension<NptDensity>() ?? const NptDensity(1);
     final feedback = theme.extension<NptFeedback>();
     final text = theme.textTheme;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
     final reduced = MediaQuery.of(context).disableAnimations;
 
-    final bg = widget.tonal ? scheme.secondaryContainer : scheme.primary;
-    final fg =
-        widget.tonal ? scheme.onSecondaryContainer : scheme.onPrimary;
+    // The forward CTA is one of the three places a brand's direction accent
+    // (`accent` on NptColors) is spent. For every brand without `accentOnTertiary`
+    // that IS the primary, so nothing moves; a brand that marks direction in a
+    // second colour gets it here and in no other filled button.
+    final bg = widget.tonal ? scheme.secondaryContainer : colors.accent;
+    final fg = widget.tonal ? scheme.onSecondaryContainer : colors.onAccent;
     final radius = shape.rXxl;
     final enabled = widget.onPressed != null;
 
@@ -232,7 +236,7 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
               : [
                   ...identity.elevation3(scheme),
                   BoxShadow(
-                    color: scheme.primary.withValues(alpha: 0.24),
+                    color: colors.accent.withValues(alpha: 0.24),
                     blurRadius: 22,
                     spreadRadius: -8,
                     offset: const Offset(0, 10),

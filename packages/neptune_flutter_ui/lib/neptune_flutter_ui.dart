@@ -21,6 +21,10 @@ export 'src/theme/feedback.dart';
 export 'src/theme/identity.dart';
 export 'src/theme/neptune_theme.dart';
 export 'src/theme/numerals.dart';
+// 2.24.0 — the finished theme: the field border the filled-field seam needs,
+// and the brightness-invariant pre-login canvas.
+export 'src/theme/field_border.dart';
+export 'src/theme/brand_canvas.dart';
 export 'src/theme/brand_tables.dart'
     show kBrands, brandConfig, brandShape, brandType, brandSuccess, motionFor, hapticWeightFor;
 

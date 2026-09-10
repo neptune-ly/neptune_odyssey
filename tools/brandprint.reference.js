@@ -6,11 +6,12 @@
   else root.NeptuneBrandprint = factory();
 }(typeof self !== 'undefined' ? self : this, function () {
   const FONTS  = ["Hanken Grotesk","Bricolage Grotesque","Space Grotesk","Sora","IBM Plex Sans Arabic","Reem Kufi","Tajawal","Readex Pro","Noto Kufi Arabic"];
-  const LOGIN  = ["depth-emblem","arcade-arches","light-grid-spark","shield-guilloche"];
-  const HERO   = ["balance-cards","warm-balance-cards","wallet-hero","restrained-balance"];
+  const LOGIN  = ["depth-emblem","arcade-arches","light-grid-spark","shield-guilloche","paper-lockup","lockup-rule"];
+  const HERO   = ["balance-cards","warm-balance-cards","wallet-hero","restrained-balance","statement-ledger","chevron-summary"];
   const TONE   = ["clear-calm","warm-hospitable","light-instant","formal-authoritative"];
   const GLASS  = ["oceanic","warm-amber","violet-luminous","navy-steel"];
   const MOTION = ["smooth-fluid","calm-graceful","light-quick-crisp","stable-minimal-authoritative"];
+  const MOTIF  = ["auto","sonar-rings","coastal-arcs","grid-spark","guilloche","none"]; // byte 26 (was reserved); 0 = derive from glassTint
   const ix = (a,v)=>{ const i=a.indexOf(v); return i<0?0:i; };
   const b64url = b => (typeof btoa!=='undefined' ? btoa(String.fromCharCode.apply(null,b)) : Buffer.from(b).toString('base64')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
   const unb64url = s => { s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4)s+='='; const bin = (typeof atob!=='undefined'?atob(s):Buffer.from(s,'base64').toString('binary')); return Uint8Array.from(bin,c=>c.charCodeAt(0)); };
@@ -34,8 +35,8 @@
   buf[o++]=ix(TONE,cfg.contentTone);
   buf[o++]=ix(GLASS,cfg.glassTint);
   buf[o++]=ix(MOTION,cfg.motion);
-  let f=0; if(cfg.defaultDark)f|=1; if(cfg.defaultRtl)f|=2; buf[o++]=f;
-  buf[o++]=0;                                            // reserved
+  let f=0; if(cfg.defaultDark)f|=1; if(cfg.defaultRtl)f|=2; if(cfg.accentOnTertiary)f|=4; buf[o++]=f;  // flags: bit2 = accent on tertiary (2.24.0)
+  buf[o++]=ix(MOTIF,cfg.motif||'auto');                  // motif (byte 26)
   let sum=0; for(let i=0;i<o;i++) sum=(sum+buf[i])&255; buf[o++]=sum;  // checksum
   return 'NO1-'+b64url(buf.subarray(0,28));
 }
@@ -53,10 +54,10 @@
   const displayTracking=dv.getInt8(o)/1000; o+=1;
   const fonts={display:FONTS[buf[o++]], text:FONTS[buf[o++]], num:FONTS[buf[o++]]};
   const loginShell=LOGIN[buf[o++]], dashboardHero=HERO[buf[o++]], contentTone=TONE[buf[o++]], glassTint=GLASS[buf[o++]], motion=MOTION[buf[o++]];
-  const f=buf[o++];
+  const f=buf[o++]; const motif=MOTIF[buf[o++]];
   return { version:v, primary, tertiary, corners, displayWeight, displayTracking, fonts,
            loginShell, dashboardHero, contentTone, glassTint, motion,
-           defaultDark:!!(f&1), defaultRtl:!!(f&2) };
+           defaultDark:!!(f&1), defaultRtl:!!(f&2), motif, accentOnTertiary:!!(f&4) };
 }
-  return { encode: encode, decode: decode, VERSION: 1, registries: { FONTS, LOGIN, HERO, TONE, GLASS, MOTION } };
+  return { encode: encode, decode: decode, VERSION: 1, registries: { FONTS, LOGIN, HERO, TONE, GLASS, MOTION, MOTIF } };
 }));

@@ -10,12 +10,14 @@ import {
   TONE,
   GLASS,
   MOTION,
+  MOTIF,
   type Font,
   type LoginShell,
   type DashboardHero,
   type ContentTone,
   type GlassTint,
   type Motion,
+  type Motif,
 } from "./registries.js";
 
 export interface Seed {
@@ -46,12 +48,23 @@ export interface BrandprintConfig {
   contentTone: ContentTone;
   glassTint: GlassTint;
   motion: Motion;
+  /** Byte 26 (reserved until 2.24.0). Omitted = "auto": derive from glassTint. */
+  motif?: Motif;
   defaultDark: boolean;
   defaultRtl: boolean;
+  /**
+   * Flags bit 2 (2.24.0). True: the tertiary seed is the brand's ACCENT, spent on
+   * direction and confirmation only, and feeds no Material role (tertiary* and the
+   * card gradient come from primary). Omitted/false: tertiary is a second chrome
+   * colour as before and the accent equals primary.
+   */
+  accentOnTertiary?: boolean;
 }
 
 export interface DecodedBrandprint extends BrandprintConfig {
   version: number;
+  motif: Motif;
+  accentOnTertiary: boolean;
 }
 
 export const VERSION = 1;
@@ -116,8 +129,9 @@ export function encode(cfg: BrandprintConfig): string {
   let f = 0;
   if (cfg.defaultDark) f |= 1;
   if (cfg.defaultRtl) f |= 2;
+  if (cfg.accentOnTertiary) f |= 4;
   buf[o++] = f;
-  buf[o++] = 0; // reserved
+  buf[o++] = ix(MOTIF, cfg.motif ?? "auto"); // motif (byte 26)
   let sum = 0;
   for (let i = 0; i < o; i++) sum = (sum + buf[i]!) & 255;
   buf[o++] = sum; // checksum
@@ -154,6 +168,7 @@ export function decode(str: string): DecodedBrandprint {
   const glassTint = GLASS[buf[o++]!] as GlassTint;
   const motion = MOTION[buf[o++]!] as Motion;
   const f = buf[o++]!;
+  const motif = MOTIF[buf[o++]!] as Motif;
   return {
     version,
     primary,
@@ -169,5 +184,7 @@ export function decode(str: string): DecodedBrandprint {
     motion,
     defaultDark: !!(f & 1),
     defaultRtl: !!(f & 2),
+    motif,
+    accentOnTertiary: !!(f & 4),
   };
 }

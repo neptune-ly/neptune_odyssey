@@ -15,11 +15,16 @@ export const FONTS = [
   "Noto Kufi Arabic",
 ] as const;
 
+// 2.24.0 appended paper-lockup / lockup-rule (login) and statement-ledger /
+// chevron-summary (hero): the lockup-on-a-plain-ground shells and the
+// carousel-free dashboard heroes.
 export const LOGIN = [
   "depth-emblem",
   "arcade-arches",
   "light-grid-spark",
   "shield-guilloche",
+  "paper-lockup",
+  "lockup-rule",
 ] as const;
 
 export const HERO = [
@@ -27,6 +32,8 @@ export const HERO = [
   "warm-balance-cards",
   "wallet-hero",
   "restrained-balance",
+  "statement-ledger",
+  "chevron-summary",
 ] as const;
 
 export const TONE = [
@@ -45,11 +52,17 @@ export const MOTION = [
   "stable-minimal-authoritative",
 ] as const;
 
+// Byte 26 of the payload, reserved (always 0) until 2.24.0. Index 0 = "auto":
+// derive the motif from glassTint exactly as before the byte was claimed, so
+// every brandprint already in the wild decodes to the identical theme.
+export const MOTIF = ["auto", "sonar-rings", "coastal-arcs", "grid-spark", "guilloche", "none"] as const;
+
 export type Font = (typeof FONTS)[number];
 export type LoginShell = (typeof LOGIN)[number];
 export type DashboardHero = (typeof HERO)[number];
 export type ContentTone = (typeof TONE)[number];
 export type GlassTint = (typeof GLASS)[number];
 export type Motion = (typeof MOTION)[number];
+export type Motif = (typeof MOTIF)[number];
 
-export const REGISTRIES = { FONTS, LOGIN, HERO, TONE, GLASS, MOTION } as const;
+export const REGISTRIES = { FONTS, LOGIN, HERO, TONE, GLASS, MOTION, MOTIF } as const;

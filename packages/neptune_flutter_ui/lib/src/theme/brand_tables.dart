@@ -13,7 +13,9 @@ import 'identity.dart';
 
 /// success / on / container / on-container (per brand × mode) plus the
 /// brightness-invariant card-art roles (per brand, same value in both tuple
-/// slots) — generated.
+/// slots) — generated. The accent is the mode's primary: no reference brand
+/// sets `accentOnTertiary`, and `NeptuneTheme` re-points it when a config
+/// that resolves to a reference scheme does.
 final Map<String, (NptColors light, NptColors dark)> brandSuccess = {
   for (final e in genSuccess.entries)
     e.key: (
@@ -25,6 +27,8 @@ final Map<String, (NptColors light, NptColors dark)> brandSuccess = {
         cardGradientStart: genCard[e.key]!.$1,
         cardGradientEnd: genCard[e.key]!.$2,
         onCard: genCard[e.key]!.$3,
+        accent: genSchemes[e.key]!.$1.primary,
+        onAccent: genSchemes[e.key]!.$1.onPrimary,
       ),
       NptColors(
         success: e.value.$2.$1,
@@ -34,6 +38,8 @@ final Map<String, (NptColors light, NptColors dark)> brandSuccess = {
         cardGradientStart: genCard[e.key]!.$1,
         cardGradientEnd: genCard[e.key]!.$2,
         onCard: genCard[e.key]!.$3,
+        accent: genSchemes[e.key]!.$2.primary,
+        onAccent: genSchemes[e.key]!.$2.onPrimary,
       ),
     ),
 };
@@ -164,8 +170,10 @@ const Map<String, BrandprintConfig> brandConfig = {
 /// The four reference brand ids in canonical order.
 const List<String> kBrands = ['neptune', 'triton', 'nereid', 'proteus'];
 
-/// Identity recipes keyed by the glass-tint lever — glass numbers generated
-/// from themes.css; the motif painter mapping is semantic and lives here.
+/// Motif keyed by the glass-tint lever, for brandprints whose `motif` is
+/// `auto` - the pre-2.24.0 coupling, kept so every existing string resolves
+/// the same. Glass numbers are generated from themes.css; this mapping is
+/// semantic and lives here.
 const Map<String, NptMotifKind> _motifByGlassTint = {
   'oceanic': NptMotifKind.sonarRings,
   'warm-amber': NptMotifKind.coastalArcs,
@@ -173,12 +181,31 @@ const Map<String, NptMotifKind> _motifByGlassTint = {
   'navy-steel': NptMotifKind.guilloche,
 };
 
+/// Motif keyed by its own registry name (codec `kMotifs`, index 1 onwards).
+const Map<String, NptMotifKind> _motifByName = {
+  'sonar-rings': NptMotifKind.sonarRings,
+  'coastal-arcs': NptMotifKind.coastalArcs,
+  'grid-spark': NptMotifKind.gridSpark,
+  'guilloche': NptMotifKind.guilloche,
+  'none': NptMotifKind.none,
+};
+
 /// Resolve the [NptIdentity] for a brandprint config (reference or custom).
+///
+/// The glass recipe stays keyed on `glassTint`; the motif is read from
+/// `cfg.motif` when it names one, and derived from the tint on `auto`. A name
+/// the registry does not know behaves as `auto` - the same fallback the codec
+/// applies on the wire (an unknown registry value encodes as index 0).
 NptIdentity identityFor(BrandprintConfig cfg) {
   final g = genGlass[cfg.glassTint] ?? genGlass['oceanic']!;
+  final kind = _motifByName[cfg.motif] ??
+      _motifByGlassTint[cfg.glassTint] ??
+      NptMotifKind.sonarRings;
   return NptIdentity(
-    motif: _motifByGlassTint[cfg.glassTint] ?? NptMotifKind.sonarRings,
-    motifStrength: g.$5,
+    motif: kind,
+    // `none` paints nothing by definition, not by a host zeroing the
+    // multiplier after assembly.
+    motifStrength: kind == NptMotifKind.none ? 0 : g.$5,
     glassOnTertiary: g.$1,
     glassMixRatio: g.$2,
     glassSurfaceOpacity: g.$3,

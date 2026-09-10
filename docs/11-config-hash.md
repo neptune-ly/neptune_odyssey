@@ -11,8 +11,8 @@ The **inputs** a theme is generated from — not the resolved palette (that's re
 - **Seeds** — `primary` and `tertiary` as OKLCH `{L, C, H}`.
 - **Shape** — the six corner values `xs sm md lg xl xxl` (px).
 - **Type** — `display / text / num` font (registry index) + `displayWeight` + `displayTracking`.
-- **Levers (enums)** — `loginShell`, `dashboardHero`, `contentTone`, `glassTint`, `motion`.
-- **Flags** — default dark, default RTL.
+- **Levers (enums)** — `loginShell`, `dashboardHero`, `contentTone`, `glassTint`, `motion`, `motif` (2.24.0; `auto` = derive from `glassTint`).
+- **Flags** — default dark, default RTL, accent-on-tertiary (2.24.0: the tertiary seed is a direction/confirmation accent that feeds no Material role).
 
 ## Wire format (v1)
 
@@ -36,8 +36,8 @@ The **inputs** a theme is generated from — not the resolved palette (that's re
 | 22 | 1 | contentTone | TONE index |
 | 23 | 1 | glassTint | GLASS index |
 | 24 | 1 | motion | MOTION index |
-| 25 | 1 | flags | bit0 defaultDark, bit1 defaultRtl |
-| 26 | 1 | reserved | `0` |
+| 25 | 1 | flags | bit0 defaultDark, bit1 defaultRtl, bit2 accentOnTertiary (2.24.0 — every older string has it clear, so decodes unchanged) |
+| 26 | 1 | motif | MOTIF index (`0` = `auto`, derive from glassTint — the byte was reserved and always `0` before 2.24.0, so every older string decodes unchanged) |
 | 27 | 1 | checksum | `sum(bytes[0..26]) mod 256` |
 
 Result is ~42 characters. Seeds are quantised (L ±1/255 ≈ 0.4%, C ±0.001, tracking ±0.001em) — imperceptible for a seed, and the codec is **idempotent** (`encode(decode(x)) === x`).
@@ -49,11 +49,14 @@ The enum indices **are** the wire format. Never reorder or remove an entry — o
 ```
 FONTS  = [Hanken Grotesk, Bricolage Grotesque, Space Grotesk, Sora,
           IBM Plex Sans Arabic, Reem Kufi, Tajawal, Readex Pro, Noto Kufi Arabic]
-LOGIN  = [depth-emblem, arcade-arches, light-grid-spark, shield-guilloche]
-HERO   = [balance-cards, warm-balance-cards, wallet-hero, restrained-balance]
+LOGIN  = [depth-emblem, arcade-arches, light-grid-spark, shield-guilloche,
+          paper-lockup, lockup-rule]
+HERO   = [balance-cards, warm-balance-cards, wallet-hero, restrained-balance,
+          statement-ledger, chevron-summary]
 TONE   = [clear-calm, warm-hospitable, light-instant, formal-authoritative]
 GLASS  = [oceanic, warm-amber, violet-luminous, navy-steel]
 MOTION = [smooth-fluid, calm-graceful, light-quick-crisp, stable-minimal-authoritative]
+MOTIF  = [auto, sonar-rings, coastal-arcs, grid-spark, guilloche, none]
 ```
 
 ## Determinism — the contract that makes it work

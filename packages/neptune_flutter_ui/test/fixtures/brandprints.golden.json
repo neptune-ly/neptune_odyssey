@@ -1,6 +1,6 @@
 {
   "$generatedBy": "tools/brandprint.reference.js · golden cross-platform fixtures",
-  "note": "Canonical brandprint inputs + encoded strings for the 4 reference brands. TS and Dart codecs MUST reproduce these exactly. Inputs derived from tokens/themes.css + tokens/tokens.json. Registries are append-only (docs/11).",
+  "note": "Canonical brandprint inputs + encoded strings for the 4 reference brands, plus two synthetic entries: custom-none exercises the motif byte, custom-accent exercises the 2.24.0 registry appends (paper-lockup/lockup-rule, statement-ledger/chevron-summary) and flags bit 2 (accentOnTertiary). TS, Dart and Kotlin codecs MUST reproduce these exactly. Inputs derived from tokens/themes.css + tokens/tokens.json. Registries are append-only (docs/11).",
   "version": 1,
   "brands": {
     "neptune": {
@@ -73,6 +73,47 @@
         "motion": "stable-minimal-authoritative",
         "defaultDark": false,
         "defaultRtl": false
+      }
+    },
+    "custom-none": {
+      "brandprint": "NO1-AWljAQ6h1AAcCAwQFhwoB_YEBAQDAwMDAwIFCg",
+      "note": "Synthetic (not a reference brand): proves byte 26 - the motif lever, reserved until 2.24.0 - round-trips in every codec. Seeds are the FLBG navy/red; every reference brand above leaves the byte at 0 (motif auto) and its string unchanged.",
+      "config": {
+        "primary": { "L": 0.411, "C": 0.099, "H": 270 },
+        "tertiary": { "L": 0.63, "C": 0.212, "H": 28 },
+        "corners": { "xs": 8, "sm": 12, "md": 16, "lg": 22, "xl": 28, "xxl": 40 },
+        "displayWeight": 700,
+        "displayTracking": -0.01,
+        "fonts": { "display": "IBM Plex Sans Arabic", "text": "IBM Plex Sans Arabic", "num": "IBM Plex Sans Arabic" },
+        "loginShell": "shield-guilloche",
+        "dashboardHero": "restrained-balance",
+        "contentTone": "formal-authoritative",
+        "glassTint": "navy-steel",
+        "motion": "stable-minimal-authoritative",
+        "motif": "none",
+        "defaultDark": false,
+        "defaultRtl": true
+      }
+    },
+    "custom-accent": {
+      "brandprint": "NO1-AWljAQ6h1AAcCAwQFBokB_YEBAQFBQMDAwYFCg",
+      "note": "Synthetic (not a reference brand): the same seeds as custom-none, so what it proves is isolated to the levers appended in 2.24.0 - loginShell index 5 (lockup-rule), dashboardHero index 5 (chevron-summary) - and flags bit 2 (accentOnTertiary: the tertiary seed is a direction accent that feeds no Material role). Every reference brand above has the bit clear and its string unchanged.",
+      "config": {
+        "primary": { "L": 0.411, "C": 0.099, "H": 270 },
+        "tertiary": { "L": 0.63, "C": 0.212, "H": 28 },
+        "corners": { "xs": 8, "sm": 12, "md": 16, "lg": 20, "xl": 26, "xxl": 36 },
+        "displayWeight": 700,
+        "displayTracking": -0.01,
+        "fonts": { "display": "IBM Plex Sans Arabic", "text": "IBM Plex Sans Arabic", "num": "IBM Plex Sans Arabic" },
+        "loginShell": "lockup-rule",
+        "dashboardHero": "chevron-summary",
+        "contentTone": "formal-authoritative",
+        "glassTint": "navy-steel",
+        "motion": "stable-minimal-authoritative",
+        "motif": "none",
+        "defaultDark": false,
+        "defaultRtl": true,
+        "accentOnTertiary": true
       }
     }
   }

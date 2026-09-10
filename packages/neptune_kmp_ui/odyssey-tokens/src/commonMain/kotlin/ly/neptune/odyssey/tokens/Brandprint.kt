@@ -25,20 +25,24 @@ public val kFonts: List<String> = listOf(
     "Noto Kufi Arabic",
 )
 
-/** Append-only login-shell registry. */
+/** Append-only login-shell registry (paper-lockup / lockup-rule appended in 2.24.0). */
 public val kLoginShells: List<String> = listOf(
     "depth-emblem",
     "arcade-arches",
     "light-grid-spark",
     "shield-guilloche",
+    "paper-lockup",
+    "lockup-rule",
 )
 
-/** Append-only dashboard-hero registry. */
+/** Append-only dashboard-hero registry (statement-ledger / chevron-summary appended in 2.24.0). */
 public val kDashboardHeroes: List<String> = listOf(
     "balance-cards",
     "warm-balance-cards",
     "wallet-hero",
     "restrained-balance",
+    "statement-ledger",
+    "chevron-summary",
 )
 
 /** Append-only content-tone registry. */
@@ -63,6 +67,20 @@ public val kMotions: List<String> = listOf(
     "calm-graceful",
     "light-quick-crisp",
     "stable-minimal-authoritative",
+)
+
+/**
+ * Append-only motif registry - byte 26, reserved (always 0) until 2.24.0.
+ * Index 0 is `auto`: derive the motif from `glassTint` exactly as before the
+ * byte was claimed, so every brandprint already in the wild decodes the same.
+ */
+public val kMotifs: List<String> = listOf(
+    "auto",
+    "sonar-rings",
+    "coastal-arcs",
+    "grid-spark",
+    "guilloche",
+    "none",
 )
 
 /** An OKLCH seed colour (perceptual lightness, chroma, hue degrees). */
@@ -98,8 +116,16 @@ public data class BrandprintConfig(
     public val contentTone: String,
     public val glassTint: String,
     public val motion: String,
+    /** One of [kMotifs]; `auto` keeps the motif keyed on [glassTint]. */
+    public val motif: String = "auto",
     public val defaultDark: Boolean = false,
     public val defaultRtl: Boolean = false,
+    /**
+     * Flags bit 2 (2.24.0). True: the tertiary seed is the brand's ACCENT, spent
+     * on direction and confirmation only, and feeds no Material role. False (every
+     * older string): tertiary is a second chrome colour and the accent is primary.
+     */
+    public val accentOnTertiary: Boolean = false,
 )
 
 /** Thrown by [Brandprint.decode] on bad prefix/length/checksum/version. */
@@ -160,8 +186,9 @@ public object Brandprint {
         var f = 0
         if (cfg.defaultDark) f = f or 1
         if (cfg.defaultRtl) f = f or 2
+        if (cfg.accentOnTertiary) f = f or 4
         put(f)
-        put(0) // reserved
+        put(ix(kMotifs, cfg.motif)) // motif (byte 26)
         var sum = 0
         for (i in 0 until o) {
             sum = (sum + (buf[i].toInt() and 0xFF)) and 255
@@ -215,6 +242,7 @@ public object Brandprint {
         val glassTint = kGlassTints[u8()]
         val motion = kMotions[u8()]
         val f = u8()
+        val motif = kMotifs[u8()]
         return BrandprintConfig(
             version = ver,
             primary = primary,
@@ -230,8 +258,10 @@ public object Brandprint {
             contentTone = contentTone,
             glassTint = glassTint,
             motion = motion,
+            motif = motif,
             defaultDark = (f and 1) != 0,
             defaultRtl = (f and 2) != 0,
+            accentOnTertiary = (f and 4) != 0,
         )
     }
 }

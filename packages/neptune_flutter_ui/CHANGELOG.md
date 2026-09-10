@@ -1,3 +1,53 @@
+## 2.24.0
+
+- **`NeptuneTheme.fromConfig` (and `light`/`dark`/`fromBrandprint`) return a FINISHED bank theme.**
+  Four `ThemeData` slots the library used to leave empty are now set from tokens, so a host has
+  nothing to patch after assembly: `appBarTheme` (`centerTitle: false` on every platform, no M3
+  scroll tint, surface background), `floatingActionButtonTheme` (brand `primary`/`onPrimary` on
+  `NptShape.xs` - unset, Material fell back to `primaryContainer` and every FAB went off-brand),
+  `inputDecorationTheme` (all seven states, error and disabled included, as the non-outline
+  `NeptuneFieldBorder`, resting ring on `outline` not `outlineVariant`), and an `NptBrandCanvas`
+  extension derived from the LIGHT scheme in both brightnesses. Every value is a move, not a
+  change: they were measured on production devices in a host that patched them at two assembly
+  sites, and a fix applied at one of the two was the recurring bug.
+- **`hostFont:` on every entry point** (`NptHostFont(family:, fallback:)`). A host that bundles its
+  own faces passes them AT assembly instead of patching the result with `withHostFont`. The text
+  theme, `primaryTextTheme`, both button label styles and `NptType` (every face, the Arabic ones
+  included, `bundled: true` + `fontFamilyFallback`) all name the host family, `moneyStyle` under RTL
+  stops resolving `numAr` through google_fonts, and no code path reaches the runtime loader - so a
+  production host no longer has to flip `debugSkipFontLoading`. `withHostFont` is deprecated (body
+  unchanged, removed at 3.0).
+- **Motif is its own lever.** Byte 26 of the brandprint - reserved, always `0` - now carries a
+  `MOTIF` registry index: `auto` (0, derive from `glassTint` exactly as before, so every string in
+  the wild decodes to the identical theme), `sonar-rings`, `coastal-arcs`, `grid-spark`,
+  `guilloche`, `none`. `BrandprintConfig.motif` (default `auto`), `NptMotifKind.none` (paints
+  nothing by definition, `motifStrength` 0, glass numbers untouched). Ported to the TS and Kotlin
+  codecs and the JS reference; a synthetic `custom-none` golden entry proves the byte round-trips
+  in all three. The four reference strings are byte-identical.
+- **Two shells and two heroes appended to the lever registries.** `loginShell` gains
+  `paper-lockup` (light surface, the lockup centred and small, no watermark, no motif) and
+  `lockup-rule` (white ground, the lockup, one hairline rule under it); `dashboardHero` gains
+  `statement-ledger` (one tabular balance statement over compact account rows) and
+  `chevron-summary` (the total across the top, each account row carrying a movement chevron in
+  the accent). Append-only, indices 4 and 5 in every codec; the four reference strings are
+  unchanged. What each name DRAWS is the host's composition switch, as it always was - the
+  library carries the name on `NptIdentity` and guarantees it survives the wire.
+- **A direction accent distinct from the primary.** `BrandprintConfig.accentOnTertiary` (flags
+  bit 2, clear on every existing string) says the tertiary seed is the brand's ACCENT, spent on
+  direction and confirmation only. `NptColors.accent`/`onAccent` carry it; `NeptuneCta` paints
+  its non-tonal fill and glow with it. With the flag set the seed feeds NO Material role - the
+  `tertiary*` roles and the card gradient are ramped from the primary seed - so a bank whose
+  second colour is a red cannot have that red leak into chrome and read as an error state.
+  Without the flag the accent IS the primary, so no existing brand moves a pixel.
+- **`NptBrandCanvas.paper(ColorScheme)`**: the eight pre-login roles for a shell that puts the
+  lockup on a plain ground. Re-tones with brightness on purpose - it is a surface, not an
+  identity moment.
+- **`NeptuneFieldBorder`** (new, `theme/field_border.dart`): the `isOutline: false` border that
+  floats a filled field's label INSIDE the fill. Radius is required - always a shape token.
+- **`NptBrandCanvas`** (new, `theme/brand_canvas.dart`) + `context.brandCanvas()`: the eight fixed
+  pre-login colour roles, brightness-invariant for the same reason the card-art roles are.
+- `NptType` gains `bundled` and `fontFamilyFallback` (carried through `copyWith`/`lerp`).
+
 ## 2.23.0
 
 - **Merged with `2.22.0`, which was published from a tree that predated the RTL work.** `2.22.0` on

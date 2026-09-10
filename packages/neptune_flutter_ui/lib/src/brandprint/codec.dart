@@ -21,20 +21,31 @@ const List<String> kFonts = [
   'Noto Kufi Arabic',
 ];
 
-/// Append-only login-shell registry.
+/// Append-only login-shell registry. The last two (2.24.0) are the shells a
+/// bank picks when the pre-login moment is the lockup on a plain ground:
+/// `paper-lockup` (light surface, the lockup centred and small, no watermark,
+/// no motif) and `lockup-rule` (white ground, the lockup, one hairline rule
+/// under it echoing the wordmark's baseline).
 const List<String> kLoginShells = [
   'depth-emblem',
   'arcade-arches',
   'light-grid-spark',
   'shield-guilloche',
+  'paper-lockup',
+  'lockup-rule',
 ];
 
-/// Append-only dashboard-hero registry.
+/// Append-only dashboard-hero registry. The last two (2.24.0):
+/// `statement-ledger` (one tabular balance statement, then compact account
+/// rows - no carousel) and `chevron-summary` (the total across the top, each
+/// account row carrying a movement chevron in the brand's accent).
 const List<String> kDashboardHeroes = [
   'balance-cards',
   'warm-balance-cards',
   'wallet-hero',
   'restrained-balance',
+  'statement-ledger',
+  'chevron-summary',
 ];
 
 /// Append-only content-tone registry.
@@ -59,6 +70,20 @@ const List<String> kMotions = [
   'calm-graceful',
   'light-quick-crisp',
   'stable-minimal-authoritative',
+];
+
+/// Append-only motif registry - byte 26, which was reserved (always `0`)
+/// until 2.24.0. Index 0 is `auto`: derive the motif from `glassTint` exactly
+/// as before the byte was claimed, so every brandprint already in the wild
+/// decodes to the identical theme. The named entries decouple the motif from
+/// the glass recipe; `none` is a brand with no pattern at all.
+const List<String> kMotifs = [
+  'auto',
+  'sonar-rings',
+  'coastal-arcs',
+  'grid-spark',
+  'guilloche',
+  'none',
 ];
 
 /// An OKLCH seed colour (perceptual lightness, chroma, hue degrees).
@@ -119,8 +144,21 @@ class BrandprintConfig {
   final String contentTone;
   final String glassTint;
   final String motion;
+
+  /// One of [kMotifs]. `auto` (the default, and what every pre-2.24.0 string
+  /// decodes to) keeps the motif keyed on [glassTint].
+  final String motif;
   final bool defaultDark;
   final bool defaultRtl;
+
+  /// Flags bit 2 (2.24.0). When true the [tertiary] seed is the brand's
+  /// ACCENT - spent on direction and confirmation only (`NptColors.accent`:
+  /// the forward CTA, the active step, an upward movement) - and it feeds no
+  /// Material role: the `tertiary*` roles and the card gradient are generated
+  /// from [primary] instead, so the accent cannot leak into chrome. False,
+  /// which every pre-2.24.0 string decodes to, keeps tertiary as a second
+  /// chrome colour and makes the accent equal to primary.
+  final bool accentOnTertiary;
 
   const BrandprintConfig({
     this.version = 1,
@@ -137,8 +175,10 @@ class BrandprintConfig {
     required this.contentTone,
     required this.glassTint,
     required this.motion,
+    this.motif = 'auto',
     this.defaultDark = false,
     this.defaultRtl = false,
+    this.accentOnTertiary = false,
   });
 
   @override
@@ -158,8 +198,10 @@ class BrandprintConfig {
       other.contentTone == contentTone &&
       other.glassTint == glassTint &&
       other.motion == motion &&
+      other.motif == motif &&
       other.defaultDark == defaultDark &&
-      other.defaultRtl == defaultRtl;
+      other.defaultRtl == defaultRtl &&
+      other.accentOnTertiary == accentOnTertiary;
 
   @override
   int get hashCode => Object.hashAll([
@@ -177,8 +219,10 @@ class BrandprintConfig {
         contentTone,
         glassTint,
         motion,
+        motif,
         defaultDark,
         defaultRtl,
+        accentOnTertiary,
       ]);
 }
 
@@ -238,8 +282,9 @@ class Brandprint {
     var f = 0;
     if (cfg.defaultDark) f |= 1;
     if (cfg.defaultRtl) f |= 2;
+    if (cfg.accentOnTertiary) f |= 4;
     buf[o++] = f;
-    buf[o++] = 0; // reserved
+    buf[o++] = _ix(kMotifs, cfg.motif);
     var sum = 0;
     for (var i = 0; i < o; i++) {
       sum = (sum + buf[i]) & 255;
@@ -301,6 +346,7 @@ class Brandprint {
     final glassTint = kGlassTints[buf[o++]];
     final motion = kMotions[buf[o++]];
     final f = buf[o++];
+    final motif = kMotifs[buf[o++]];
     return BrandprintConfig(
       version: ver,
       primary: primary,
@@ -316,8 +362,10 @@ class Brandprint {
       contentTone: contentTone,
       glassTint: glassTint,
       motion: motion,
+      motif: motif,
       defaultDark: (f & 1) != 0,
       defaultRtl: (f & 2) != 0,
+      accentOnTertiary: (f & 4) != 0,
     );
   }
 }

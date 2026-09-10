@@ -32,8 +32,14 @@ BrandprintConfig _configFromJson(Map<String, dynamic> c) {
     contentTone: c['contentTone'] as String,
     glassTint: c['glassTint'] as String,
     motion: c['motion'] as String,
+    // Absent on the four reference entries: they predate the lever and must
+    // keep encoding byte 26 as 0.
+    motif: c['motif'] as String? ?? 'auto',
     defaultDark: c['defaultDark'] as bool,
     defaultRtl: c['defaultRtl'] as bool,
+    // Likewise absent on every entry but custom-accent: flags bit 2 stays
+    // clear for the four references.
+    accentOnTertiary: c['accentOnTertiary'] as bool? ?? false,
   );
 }
 
@@ -77,7 +83,95 @@ void main() {
           goldenString,
         );
       });
+
+      test('$brand: the motif lever survives the wire', () {
+        expect(Brandprint.decode(goldenString).motif, cfg.motif);
+      });
+
+      test('$brand: decode(golden) == config, every lever and flag', () {
+        // The whole config, not one field: a registry appended in the wrong
+        // place or a flag bit read at the wrong shift would decode to a
+        // plausible-looking neighbour and pass a per-field check. Seeds are
+        // quantised on the wire (L to 1/255), so they are taken from the
+        // decode; everything else must come back exactly as written.
+        final d = Brandprint.decode(goldenString);
+        expect(
+          d,
+          equals(BrandprintConfig(
+            primary: d.primary,
+            tertiary: d.tertiary,
+            corners: cfg.corners,
+            displayWeight: cfg.displayWeight,
+            displayTracking: cfg.displayTracking,
+            fontDisplay: cfg.fontDisplay,
+            fontText: cfg.fontText,
+            fontNum: cfg.fontNum,
+            loginShell: cfg.loginShell,
+            dashboardHero: cfg.dashboardHero,
+            contentTone: cfg.contentTone,
+            glassTint: cfg.glassTint,
+            motion: cfg.motion,
+            motif: cfg.motif,
+            defaultDark: cfg.defaultDark,
+            defaultRtl: cfg.defaultRtl,
+            accentOnTertiary: cfg.accentOnTertiary,
+          )),
+        );
+      });
     }
+
+    test('2.24.0 registry appends and flags bit 2: references clear, custom-accent set', () {
+      for (final ref in kBrands) {
+        final d = Brandprint.decode(brands[ref]['brandprint'] as String);
+        expect(d.accentOnTertiary, isFalse, reason: ref);
+      }
+      expect(brands, contains('custom-accent'));
+      final d = Brandprint.decode(brands['custom-accent']['brandprint'] as String);
+      expect(d.loginShell, 'lockup-rule');
+      expect(d.dashboardHero, 'chevron-summary');
+      expect(d.accentOnTertiary, isTrue);
+      expect(d.defaultRtl, isTrue,
+          reason: 'bit 2 must not clobber bits 0-1 on the same byte');
+      expect(d.defaultDark, isFalse);
+      // The other appended names round-trip too, at their own indices.
+      expect(kLoginShells.indexOf('paper-lockup'), 4);
+      expect(kDashboardHeroes.indexOf('statement-ledger'), 4);
+    });
+
+    test('byte 26: the four references stay at 0 (auto), custom-none carries none', () {
+      // The reserved byte was claimed for the motif in 2.24.0. Every string in
+      // the wild carries 0 there, so the reference goldens above are unchanged
+      // and decode to `auto`; only the synthetic entry sets it.
+      for (final ref in kBrands) {
+        final s = brands[ref]['brandprint'] as String;
+        expect(Brandprint.decode(s).motif, 'auto', reason: ref);
+      }
+      expect(brands, contains('custom-none'),
+          reason: 'the fixture must carry the synthetic entry that proves the lever');
+      expect(Brandprint.decode(brands['custom-none']['brandprint'] as String).motif, 'none');
+    });
+
+    test('an unregistered motif name encodes as auto, like every other registry', () {
+      final cfg = _configFromJson(brands['triton']['config'] as Map<String, dynamic>);
+      final odd = BrandprintConfig(
+        primary: cfg.primary,
+        tertiary: cfg.tertiary,
+        corners: cfg.corners,
+        displayWeight: cfg.displayWeight,
+        displayTracking: cfg.displayTracking,
+        fontDisplay: cfg.fontDisplay,
+        fontText: cfg.fontText,
+        fontNum: cfg.fontNum,
+        loginShell: cfg.loginShell,
+        dashboardHero: cfg.dashboardHero,
+        contentTone: cfg.contentTone,
+        glassTint: cfg.glassTint,
+        motion: cfg.motion,
+        motif: 'facet-lattice',
+      );
+      expect(Brandprint.encode(odd), brands['triton']['brandprint']);
+      expect(Brandprint.decode(Brandprint.encode(odd)).motif, 'auto');
+    });
   });
 
   group('brandprint error handling', () {

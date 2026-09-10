@@ -13,7 +13,8 @@
 
 import 'package:flutter/material.dart';
 
-/// The four signature motif families (themes.css `--npt-motif`).
+/// The four signature motif families (themes.css `--npt-motif`), plus
+/// [none] for a brand whose identity is carried by colour alone.
 enum NptMotifKind {
   /// Neptune — sonar tide-rings: concentric hairline rings radiating from the
   /// top-trailing corner.
@@ -27,6 +28,11 @@ enum NptMotifKind {
 
   /// Proteus — shield guilloché: a diagonal crosshatch weave.
   guilloche,
+
+  /// No signature pattern - colour and gradient carry the identity alone
+  /// (Chime/Monzo card faces). Appended last: exhaustive switches depend on
+  /// the order, so never reorder.
+  none,
 }
 
 /// Brand identity levers + material recipes. Read via

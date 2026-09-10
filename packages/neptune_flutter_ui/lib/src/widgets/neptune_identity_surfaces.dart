@@ -70,6 +70,8 @@ class _MotifPainter extends CustomPainter {
         _grid(canvas, size);
       case NptMotifKind.guilloche:
         _guilloche(canvas, size);
+      case NptMotifKind.none:
+        return;
     }
   }
 
