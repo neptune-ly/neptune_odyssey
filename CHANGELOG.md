@@ -3,6 +3,18 @@
 All notable changes to Neptune Odyssey are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com); the system follows [Semantic Versioning](https://semver.org) against the token layer (see `docs/09-governance-and-versioning.md`).
 
+## [2.21.2] — 2026-09-05
+
+### Fixed
+- **Every directional arrow in the system pointed backwards in RTL.** `NeptuneCta`'s trailing
+  arrow, `NeptuneBreadcrumbs`' separator and `NeptunePager`'s Previous/Next each chose the
+  opposite Material glyph under RTL — but `arrow_forward_rounded`, `arrow_back_rounded`,
+  `chevron_left_rounded` and `chevron_right_rounded` all carry `matchTextDirection: true`, so
+  `Icon` was already mirroring them. Two mirrors cancel, and the CTA on every screen of an
+  Arabic app drew a right-pointing arrow. Each site now names the forward glyph once and lets
+  the framework do the mirroring. The nudge translation and the sheen sweep still key off
+  `Directionality` explicitly, because `Transform` is not direction-aware.
+
 ## [2.0.0] — 2026-06-27
 
 ### Changed (breaking)

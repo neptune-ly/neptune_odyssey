@@ -207,10 +207,12 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
                   : 4 * math.sin(math.pi * _nudge.value) * (isRtl ? -1 : 1);
               return Transform.translate(offset: Offset(dx, 0), child: child);
             },
-            child: Icon(
-                isRtl ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
-                size: 20,
-                color: fg),
+            // ONE ARROW, MIRRORED ONCE. `Icons.arrow_forward_rounded` carries
+            // `matchTextDirection: true`, so `Icon` already flips it under RTL.
+            // Choosing `arrow_back_rounded` here as well mirrored it a SECOND
+            // time and the two cancelled: every CTA in every RTL locale drew a
+            // right-pointing arrow, i.e. backwards.
+            child: Icon(Icons.arrow_forward_rounded, size: 20, color: fg),
           ),
         ],
       ],

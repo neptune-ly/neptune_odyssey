@@ -1,3 +1,27 @@
+## 2.23.0
+
+- **Merged with `2.22.0`, which was published from a tree that predated the RTL work.** `2.22.0` on
+  pub.dev carries `NeptuneTabs.width` but ships the OLD `neptune_buttons.dart`, so adopting it whole
+  would have put the double-mirrored CTA arrow back on every Arabic screen. This release is
+  `2.22.0`'s tabs feature plus the RTL fixes, both intact. `2.21.1` and `2.21.2` were never
+  published; their content is included here.
+- **`NeptuneTabs.width`** (`NeptuneTabsWidth.hug` | `.fill`) - from `2.22.0`. The tabs can share the
+  available width instead of hugging their labels at the start edge. A host could not do this from
+  the outside at any price: the strip wraps its `Row` in a horizontal `SingleChildScrollView`, which
+  hands that row an UNBOUNDED width, so `SizedBox(width: double.infinity)`, `Expanded` and
+  `CrossAxisAlignment.stretch` all stop at the viewport and the divider kept ending with the last
+  label. `fill` drops the scroll view and puts each tab in an `Expanded`; labels wider than their
+  share ellipsize. Default is `hug`, so every existing call site is unchanged. `fill` self-adapts in
+  unbounded-width slots (falls back to the hugging strip) rather than blanking the subtree - the
+  rulebook §4 rule `NeptuneSegmented` already follows.
+- **RTL: one mirror, not two.** `Icons.arrow_forward_rounded`, `chevron_right_rounded` and
+  `chevron_left_rounded` all carry `matchTextDirection: true`, so `Icon` flips them under RTL by
+  itself. Choosing the opposite glyph in an `isRtl ? ... : ...` mirrored them a SECOND time and the
+  two cancelled: the animated CTA arrow pointed backwards, `NeptuneBreadcrumbs` separators pointed
+  back up the trail, and `NeptunePagination` had Previous and Next the wrong way round - in every
+  Arabic locale, which is every screen for the banks this system serves. Covered by
+  `test/rtl_arrow_mirroring_test.dart`.
+
 ## 2.21.1
 
 - **`NeptuneCardArt`: removed the tiled arc motif from the card face.** At full strength on a compact 1.586-ratio card, the repeating micro-pattern read as busy/cheap rather than premium. Checked against the category (Mercury, Chase, Monzo, N26, Chime, Airwallex, Brex, PayPal, Revolut Business): every one uses a clean flat/gradient card face with zero repeating texture. The brand gradient + typography now carry the identity alone, matching every reference.

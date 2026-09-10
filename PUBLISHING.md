@@ -2,9 +2,21 @@
 
 ## Status
 
-- **npm — DONE.** All JS/TS packages are live under the **`@neptune.fintech`** org
-  (alongside the existing `@neptune.fintech/astro-*` packages).
-- **pub.dev — DONE.** `neptune_flutter_ui` is live at **v2.13.0**.
+- **npm — DONE (manually).** All JS/TS packages are live under the
+  **`@neptune.fintech`** org (alongside the existing `@neptune.fintech/astro-*`
+  packages) — via the manual `publish-all.sh` path, not CI.
+- **pub.dev — DONE (manually), but CI-on-tag has never actually worked.**
+  `neptune_flutter_ui` is live at whatever version the last manual
+  `flutter pub publish --force` shipped (**v2.21.0** as of 2026-08-05).
+  **`PUB_CREDENTIALS` and `NPM_TOKEN` have never been set as repo secrets**,
+  confirmed by reading actual failure logs across three separate tag
+  releases (v1.0.0, v2.0.0, v2.21.1) — every `release.yml` run fails at the
+  credential-restore guard step for BOTH the pub.dev and npm jobs
+  independently. The "CI-on-tag" one-time setup below has been documented
+  but never carried out. Before trusting this status block, verify live:
+  `curl -s https://pub.dev/api/packages/neptune_flutter_ui | jq .latest.version`.
+  See `[[neptune-odyssey-pub-dev-ci-secrets-gap]]` (Claude memory) for the
+  full trail.
 - **GitHub Pages — DONE.** Auto-deploys on push to `main`.
 - **Not yet published** (built and verified this session, publishing is a deliberate next
   step, not a blocker): `neptune_sound_kit` (pub.dev — `publish_to: none` until the
