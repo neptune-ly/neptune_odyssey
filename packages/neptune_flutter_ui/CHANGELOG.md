@@ -1,3 +1,50 @@
+## 2.26.0
+
+- **`NptGlance` - the wrist scale.** A watch has no room for the fifteen-step Material type
+  ramp, and a glance has exactly four registers: the figure (30), its unit (13), the line that
+  dates it (12), and the rows under it (14/12), plus the eyebrow (11, tracked 0.08em) and the
+  one rule a round face imposes - a safe inset of a tenth of the diameter on every side. Every
+  assembled theme now carries `NptGlance.standard` as a `ThemeExtension`; `figureStyle(context)`
+  is `moneyStyle` at wrist size (num face, tabular, Arabic num face under RTL) and
+  `eyebrowStyle(context)` is the display face tracked. One instance for every brand on purpose:
+  a brand colours and typesets a glance, it does not resize it. The KMP twin is
+  `ly.neptune.odyssey.tokens.NptGlance` (`Glance.kt`, pure Kotlin). Honest scope: Flutter and
+  Kotlin tokens only - no `<npt-glance>` element, and no glance widget yet; the first consumers
+  are neptune-mobile's native Wear OS and watchOS targets, which copy the numbers and pin the
+  copy with a test because neither can depend on either package.
+
+## 2.25.0
+
+- **`BrandprintConfig.whiteGround` - flags bit 3, the white structural register.** A bank
+  whose identity is white paper and navy lines (FGLB) had no lever for its ground: every
+  assembled theme sat on `surface`, Material's tinted tone 98, and every text field was a
+  `surfaceContainerHighest` slab - a grey box on a screen whose whole point is that structure
+  is drawn in lines. With the flag set the scaffold ground and the app bar are
+  `surfaceContainerLowest` (tone 100, pure white in a light scheme) and a field is white
+  inside its `outline` ring. Dark mode is untouched, because a dark scheme's lowest container
+  is its darkest tone. Every pre-2.25.0 string decodes with the bit clear; the TS codec
+  mirrors it (`neptune_tokens`). The Kotlin codec has NOT been updated in this release and
+  ignores the bit.
+- **`NptBrandCanvas.paperOf(ThemeData)`** - the paper canvas over a finished theme, its ground
+  taken from `scaffoldBackgroundColor` rather than `surface`, so a pre-login paper shell sits
+  on exactly the ground the signed-in screens sit on.
+
+- **The register composition - what `dashboardHero: 'statement-ledger'` draws.** 2.24.0 put
+  `statement-ledger` and `paper-lockup` on the wire and left what they draw to the host; the
+  first bank to pick them then had to compose a passbook out of `Container`s. `neptune_register.dart`
+  ships it: `NeptuneLedgerFigure` (an eyebrow, the integer part at `displaySmall`, the fraction
+  stepped down to `headlineSmall` in `onSurfaceVariant`, the currency code set apart - tabular
+  throughout and laid out LTR under RTL), `NeptuneRegisterGroupHeader` (a `surfaceContainerLow`
+  band with an eyebrow and a subtotal, no radius), `NeptuneRegisterRow` (title, subtitle,
+  end-edge figure, 56dp, nothing decorative), `NeptuneRegisterGroup` (rows on hairlines),
+  `NeptuneLedgerLine` + `NeptuneLedger` (a confirm step's review) and `NeptuneHairline`, the
+  one-pixel `outlineVariant` rule every one of them uses. Flat by construction: no radius, no
+  shadow, no fill but the header band.
+- **`NeptunePaperWelcome` - what `loginShell: 'paper-lockup'` draws.** A small centred lockup, a
+  40dp hairline under it, the bank's name as an eyebrow, the CTA pair at the foot. Colours come
+  from `NptBrandCanvas.paper`, so it re-tones with the theme; no orbs, no motif, no watermark - a
+  body, not a screen, so the host keeps its own `Scaffold` and language switch.
+
 ## 2.24.1
 
 - **`textButtonTheme` carries the label captured at assembly**, exactly as `filledButtonTheme`

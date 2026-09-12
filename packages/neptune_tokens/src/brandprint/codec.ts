@@ -59,12 +59,20 @@ export interface BrandprintConfig {
    * colour as before and the accent equals primary.
    */
   accentOnTertiary?: boolean;
+  /**
+   * Flags bit 3 (2.25.0). True: the white, structural register - the page ground
+   * and app bar are surface-container-lowest (pure white in light), and a text
+   * field is white inside its ring instead of filled. Omitted/false keeps the
+   * tinted ground and the filled fields; dark mode is untouched either way.
+   */
+  whiteGround?: boolean;
 }
 
 export interface DecodedBrandprint extends BrandprintConfig {
   version: number;
   motif: Motif;
   accentOnTertiary: boolean;
+  whiteGround: boolean;
 }
 
 export const VERSION = 1;
@@ -130,6 +138,7 @@ export function encode(cfg: BrandprintConfig): string {
   if (cfg.defaultDark) f |= 1;
   if (cfg.defaultRtl) f |= 2;
   if (cfg.accentOnTertiary) f |= 4;
+  if (cfg.whiteGround) f |= 8;
   buf[o++] = f;
   buf[o++] = ix(MOTIF, cfg.motif ?? "auto"); // motif (byte 26)
   let sum = 0;
@@ -186,5 +195,6 @@ export function decode(str: string): DecodedBrandprint {
     defaultRtl: !!(f & 2),
     motif,
     accentOnTertiary: !!(f & 4),
+    whiteGround: !!(f & 8),
   };
 }

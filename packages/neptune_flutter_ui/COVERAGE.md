@@ -2,6 +2,19 @@
 
 Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
+1. **The wrist scale (2.26.0).** `NptGlance` on every assembled theme: the four
+   glance registers (figure/unit/provenance/rows), the eyebrow, and the round-face
+   safe inset, with `figureStyle`/`eyebrowStyle` helpers. Tokens only - no glance
+   widget or web element yet; the consumers are native watch targets that copy
+   the numbers and pin them with a test.
+1. **The register composition and the paper welcome (2.25.0).** The two
+   lever names 2.24.0 put on the wire now draw something: `statement-ledger`
+   is `NeptuneLedgerFigure` + `NeptuneRegisterGroup`/`Header`/`Row` on
+   `NeptuneHairline`s (a grouped account register with one figure set large,
+   tabular end-edge amounts, no cards), `NeptuneLedger`/`NeptuneLedgerLine`
+   is the same rhythm for a confirm step, and `paper-lockup` is
+   `NeptunePaperWelcome` on `NptBrandCanvas.paper`. Honest scope: Flutter
+   only - no `<npt-register>` or paper welcome template on the web yet.
 1. **A finished theme, host fonts, and motif as a lever (2.24.0).** Every
    `ThemeData` the library builds now sets `appBarTheme` (leading-aligned
    title, no scroll tint), `floatingActionButtonTheme` (brand primary on

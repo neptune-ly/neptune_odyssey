@@ -25,6 +25,8 @@ export 'src/theme/numerals.dart';
 // and the brightness-invariant pre-login canvas.
 export 'src/theme/field_border.dart';
 export 'src/theme/brand_canvas.dart';
+// 2.26.0 — the wrist: the glance type scale and the round-face safe inset.
+export 'src/theme/glance.dart';
 export 'src/theme/brand_tables.dart'
     show kBrands, brandConfig, brandShape, brandType, brandSuccess, motionFor, hapticWeightFor;
 

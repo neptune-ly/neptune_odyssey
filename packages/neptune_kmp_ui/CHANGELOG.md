@@ -1,5 +1,13 @@
 # Changelog — neptune-odyssey-kmp
 
+## 0.5.0 — the wrist scale (unpublished)
+
+- **`ly.neptune.odyssey.tokens.NptGlance`** — the Kotlin twin of neptune_flutter_ui 2.26.0's
+  `NptGlance`: the four glance registers, the eyebrow, and the round-face safe inset, as a
+  pure-Kotlin data class in `:odyssey-tokens` so a Wear OS or KMP consumer reads it from any
+  target. `GlanceTest` pins the numbers to the Flutter side. Tokens only; no Compose glance
+  composable yet.
+
 ## 0.4.0 — Parity wave 3: templates, demo shell, icon set (unpublished)
 
 - **Promoted out of `roadmap/` into `packages/`** after meeting the full

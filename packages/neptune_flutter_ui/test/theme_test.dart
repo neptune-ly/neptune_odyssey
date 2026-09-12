@@ -375,6 +375,61 @@ void main() {
       });
     });
 
+    group('the white ground (2.25.0)', () {
+      BrandprintConfig grounded(bool on) => BrandprintConfig(
+            primary: _custom.primary,
+            tertiary: _custom.tertiary,
+            corners: _custom.corners,
+            displayWeight: _custom.displayWeight,
+            displayTracking: _custom.displayTracking,
+            fontDisplay: _custom.fontDisplay,
+            fontText: _custom.fontText,
+            fontNum: _custom.fontNum,
+            loginShell: 'lockup-rule',
+            dashboardHero: 'chevron-summary',
+            contentTone: _custom.contentTone,
+            glassTint: _custom.glassTint,
+            motion: _custom.motion,
+            motif: 'none',
+            accentOnTertiary: true,
+            whiteGround: on,
+          );
+
+      test('flags bit 3 round-trips and leaves bits 0-2 alone', () {
+        final d = Brandprint.decode(Brandprint.encode(grounded(true)));
+        expect(d.whiteGround, isTrue);
+        expect(d.accentOnTertiary, isTrue);
+        expect(d.defaultDark, isFalse);
+        expect(Brandprint.decode(Brandprint.encode(grounded(false))).whiteGround,
+            isFalse);
+      });
+
+      test('light: the ground, the app bar and the field fill are tone 100', () {
+        final theme = NeptuneTheme.fromConfig(grounded(true));
+        final plain = NeptuneTheme.fromConfig(grounded(false));
+        final white = theme.colorScheme.surfaceContainerLowest;
+        expect(theme.scaffoldBackgroundColor, white);
+        expect(theme.appBarTheme.backgroundColor, white);
+        expect(theme.inputDecorationTheme.fillColor, white);
+        // The flag moves the ground, not the scheme: every role is unchanged.
+        expect(theme.colorScheme, plain.colorScheme);
+        expect(plain.scaffoldBackgroundColor, plain.colorScheme.surface);
+        expect(plain.inputDecorationTheme.fillColor,
+            plain.colorScheme.surfaceContainerHighest);
+        // And a paper canvas built from the theme sits on that ground.
+        expect(NptBrandCanvas.paperOf(theme).canvas, white);
+        expect(NptBrandCanvas.paperOf(plain).canvas, plain.colorScheme.surface);
+      });
+
+      test('dark: untouched - there is no white to be', () {
+        final theme =
+            NeptuneTheme.fromConfig(grounded(true), brightness: Brightness.dark);
+        expect(theme.scaffoldBackgroundColor, theme.colorScheme.surface);
+        expect(theme.inputDecorationTheme.fillColor,
+            theme.colorScheme.surfaceContainerHighest);
+      });
+    });
+
     group('NptBrandCanvas.paper (2.24.0)', () {
       test('re-tones with brightness, unlike the brand canvas', () {
         final light = NeptuneTheme.light('proteus');

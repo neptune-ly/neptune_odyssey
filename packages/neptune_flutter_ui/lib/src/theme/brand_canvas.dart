@@ -110,6 +110,15 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
     );
   }
 
+  /// The paper canvas of a FINISHED theme: [paper] over its colour scheme,
+  /// with the ground taken from the theme's own `scaffoldBackgroundColor`
+  /// rather than from `surface` - which differ under the white register
+  /// (`BrandprintConfig.whiteGround`). A pre-login shell built from this sits
+  /// on exactly the ground every screen after sign-in sits on.
+  factory NptBrandCanvas.paperOf(ThemeData theme) =>
+      NptBrandCanvas.paper(theme.colorScheme)
+          .copyWith(canvas: theme.scaffoldBackgroundColor);
+
   /// Derives the canvas from a brandprint's LIGHT scheme, whatever brightness
   /// the surrounding theme is in. `NeptuneTheme` calls this with the light
   /// scheme when assembling BOTH brightnesses.

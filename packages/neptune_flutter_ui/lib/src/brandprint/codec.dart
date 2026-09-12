@@ -160,6 +160,15 @@ class BrandprintConfig {
   /// chrome colour and makes the accent equal to primary.
   final bool accentOnTertiary;
 
+  /// Flags bit 3 (2.25.0). The WHITE, STRUCTURAL register: the page ground
+  /// and the app bar are `surfaceContainerLowest` (pure white in a light
+  /// scheme) instead of `surface` (the tinted tone 98), and a text field is
+  /// white inside its ring instead of filled with `surfaceContainerHighest`,
+  /// so structure is drawn in lines rather than in grey slabs. Dark mode is
+  /// untouched - there is no white to be. False, which every pre-2.25.0
+  /// string decodes to, keeps the tinted ground and the filled fields.
+  final bool whiteGround;
+
   const BrandprintConfig({
     this.version = 1,
     required this.primary,
@@ -179,6 +188,7 @@ class BrandprintConfig {
     this.defaultDark = false,
     this.defaultRtl = false,
     this.accentOnTertiary = false,
+    this.whiteGround = false,
   });
 
   @override
@@ -201,7 +211,8 @@ class BrandprintConfig {
       other.motif == motif &&
       other.defaultDark == defaultDark &&
       other.defaultRtl == defaultRtl &&
-      other.accentOnTertiary == accentOnTertiary;
+      other.accentOnTertiary == accentOnTertiary &&
+      other.whiteGround == whiteGround;
 
   @override
   int get hashCode => Object.hashAll([
@@ -223,6 +234,7 @@ class BrandprintConfig {
         defaultDark,
         defaultRtl,
         accentOnTertiary,
+        whiteGround,
       ]);
 }
 
@@ -283,6 +295,7 @@ class Brandprint {
     if (cfg.defaultDark) f |= 1;
     if (cfg.defaultRtl) f |= 2;
     if (cfg.accentOnTertiary) f |= 4;
+    if (cfg.whiteGround) f |= 8;
     buf[o++] = f;
     buf[o++] = _ix(kMotifs, cfg.motif);
     var sum = 0;
@@ -366,6 +379,7 @@ class Brandprint {
       defaultDark: (f & 1) != 0,
       defaultRtl: (f & 2) != 0,
       accentOnTertiary: (f & 4) != 0,
+      whiteGround: (f & 8) != 0,
     );
   }
 }

@@ -3,6 +3,20 @@
 All notable changes to Neptune Odyssey are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com); the system follows [Semantic Versioning](https://semver.org) against the token layer (see `docs/09-governance-and-versioning.md`).
 
+## [Unreleased]
+
+### Added
+- **The glance subset, emitted for native surfaces.** A Lock Screen Live Activity, a Dynamic
+  Island and an ongoing Android notification are drawn by the operating system from a widget
+  extension or a RemoteViews layout, and neither can import `neptune_flutter_ui` or
+  `neptune_kmp_ui` - so every native glance surface in a Neptune app was styled from
+  imagination (`.orange`, `.green`, `.red`). `tools/codegen.mjs` now also emits
+  `packages/neptune_tokens/generated/native/swift/OdysseyGlanceTokens.swift` and
+  `.../android/values{,-night}/odyssey_glance_tokens.xml`: primary, success, error and the
+  neutrals they sit on, per reference brand, light and dark, resolved through the same OKLCH
+  math as every other output and gated by `codegen:check`. Apps vendor the file verbatim and
+  keep the header; the first consumer is the Neptune mobile transfer-in-flight surface.
+
 ## [2.21.2] — 2026-09-05
 
 ### Fixed

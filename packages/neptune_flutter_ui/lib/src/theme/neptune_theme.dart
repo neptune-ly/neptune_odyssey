@@ -27,6 +27,7 @@ import 'density.dart';
 import 'extensions.dart';
 import 'feedback.dart';
 import 'field_border.dart';
+import 'glance.dart';
 import 'identity.dart';
 import 'page_transitions.dart';
 import 'numerals.dart';
@@ -198,6 +199,7 @@ class NeptuneTheme {
       NptNumerals(numerals),
       feedback ?? NptFeedback(hapticWeight: hapticWeightFor(cfg.contentTone)),
       hostFont,
+      cfg.whiteGround,
     );
   }
 
@@ -288,6 +290,7 @@ class NeptuneTheme {
       NptNumerals(numerals),
       feedback ?? NptFeedback(hapticWeight: hapticWeightFor(cfg.contentTone)),
       hostFont,
+      cfg.whiteGround,
     );
   }
 
@@ -388,7 +391,16 @@ class NeptuneTheme {
     NptNumerals numerals,
     NptFeedback feedback,
     NptHostFont? hostFont,
+    bool whiteGround,
   ) {
+    // The white register (`BrandprintConfig.whiteGround`): the ground is
+    // tone 100, not the tinted tone 98, and a field is white inside its ring.
+    // Light only - a dark scheme's `surfaceContainerLowest` is its darkest
+    // tone and would invert the meaning.
+    final white = whiteGround && scheme.brightness == Brightness.light;
+    final ground = white ? scheme.surfaceContainerLowest : scheme.surface;
+    final fieldFill =
+        white ? scheme.surfaceContainerLowest : scheme.surfaceContainerHighest;
     // A host face replaces EVERY face, Arabic ones included: the host has one
     // typeface for both scripts and the brandprint's registry names are for
     // the web/Studio ports, not this theme.
@@ -424,7 +436,7 @@ class NeptuneTheme {
       useMaterial3: true,
       brightness: scheme.brightness,
       colorScheme: scheme,
-      scaffoldBackgroundColor: scheme.surface,
+      scaffoldBackgroundColor: ground,
       // Neptune motion on every route push/pop; Cupertino kept on iOS so the
       // native edge-swipe back gesture survives.
       pageTransitionsTheme: NeptunePageTransitionsBuilder.theme,
@@ -444,6 +456,8 @@ class NeptuneTheme {
         feedback,
         // Always from the LIGHT scheme, in both brightnesses - see the class.
         NptBrandCanvas.fromLightScheme(lightScheme),
+        // 2.26.0 - the wrist scale. One instance for every brand; see the class.
+        NptGlance.standard,
       ],
       // Material's default is `centerTitle` per platform (CENTRED on iOS)
       // while page content below sits at the start edge; in Arabic that reads
@@ -454,7 +468,7 @@ class NeptuneTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
-        backgroundColor: scheme.surface,
+        backgroundColor: ground,
       ),
       cardTheme: CardThemeData(
         color: scheme.surfaceContainerLow,
@@ -515,7 +529,7 @@ class NeptuneTheme {
       // the 3:1 non-text-contrast floor in both.
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: scheme.surfaceContainerHighest,
+        fillColor: fieldFill,
         border: field(scheme.outline),
         enabledBorder: field(scheme.outline),
         focusedBorder: field(scheme.primary, width: 2),
