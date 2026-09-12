@@ -70,7 +70,13 @@ class NeptuneCardControls extends StatelessWidget {
       color: bg,
       shape: RoundedRectangleBorder(borderRadius: shape.rMd, side: border),
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
+      // Freeze is a toggle with a state; the others are plain buttons.
+      child: Semantics(
+        button: true,
+        toggled: isFreeze ? frozen : null,
+        label: label,
+        excludeSemantics: true,
+        child: InkWell(
         onTap: () => onControl(a.action),
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 64),
@@ -90,6 +96,7 @@ class NeptuneCardControls extends StatelessWidget {
               ],
             ),
           ),
+        ),
         ),
       ),
     );

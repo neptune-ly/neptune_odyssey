@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
 import 'neptune_icon_slot.dart';
@@ -31,6 +32,15 @@ class NeptuneAccountTile extends StatelessWidget {
 
   final VoidCallback? onTap;
 
+  /// The ISO code or symbol the [balance] is denominated in, when the visual
+  /// string does not already carry it. Used only for the spoken form
+  /// ("12,480.500 Libyan dinars"); nothing visible changes.
+  final String? currency;
+
+  /// Whether this row is the currently chosen account (account pickers).
+  /// Spoken as "selected"; the visual is unchanged.
+  final bool selected;
+
   const NeptuneAccountTile({
     super.key,
     required this.name,
@@ -39,6 +49,8 @@ class NeptuneAccountTile extends StatelessWidget {
     this.icon = Icons.account_balance_wallet_outlined,
     this.iconWidget,
     this.onTap,
+    this.currency,
+    this.selected = false,
   }) : assert(
           icon != null || iconWidget != null,
           'NeptuneAccountTile needs a glyph: pass `icon` (IconData) or `iconWidget`.',
@@ -51,12 +63,27 @@ class NeptuneAccountTile extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final money = NeptuneTheme.moneyStyle(context, base: textTheme.titleMedium)
         .copyWith(color: scheme.onSurface);
+    final strings = NeptuneAccessibility.of(context);
+
+    // ONE stop per account: "Salary account, ending in 4 8 2 1, balance
+    // 12,480.500 Libyan dinars, button". Without the merge a screen reader
+    // walks three fragments and the balance is a bare digit string.
+    final spoken = [
+      name,
+      NeptuneAccessibility.maskedNumber(context, maskedNumber),
+      '${strings.balance} ${NeptuneAccessibility.money(context, balance, currency: currency)}',
+    ].join(', ');
 
     return Material(
       color: scheme.surfaceContainerLow,
       borderRadius: shape.rMd,
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
+      child: Semantics(
+        button: onTap != null,
+        selected: selected,
+        label: spoken,
+        excludeSemantics: true,
+        child: InkWell(
         onTap: onTap,
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 64),
@@ -112,6 +139,7 @@ class NeptuneAccountTile extends StatelessWidget {
               ],
             ),
           ),
+        ),
         ),
       ),
     );

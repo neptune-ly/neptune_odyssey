@@ -15,6 +15,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import 'neptune_loaders.dart';
 
@@ -52,9 +53,23 @@ class NeptuneStatusMotion extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final motion = theme.extension<NptMotion>()!;
+    final strings = NeptuneAccessibility.of(context);
 
-    return AnimatedSwitcher(
-      duration: motion.durationStandard,
+    // The outcome is painted, not written: without this a transfer's success
+    // or rejection is invisible to a blind customer. The live region reads
+    // "success" / "rejected" the moment the disc lands.
+    final spoken = switch (status) {
+      NeptuneFlowStatus.loading => strings.processing,
+      NeptuneFlowStatus.success => strings.success,
+      NeptuneFlowStatus.rejected => strings.rejected,
+    };
+
+    return Semantics(
+      liveRegion: true,
+      label: spoken,
+      excludeSemantics: true,
+      child: AnimatedSwitcher(
+      duration: NeptuneAccessibility.duration(context, motion.durationStandard),
       switchInCurve: motion.spring,
       switchOutCurve: motion.standard,
       transitionBuilder: (child, animation) => ScaleTransition(
@@ -81,6 +96,7 @@ class NeptuneStatusMotion extends StatelessWidget {
             tint: color,
           ),
       },
+      ),
     );
   }
 }

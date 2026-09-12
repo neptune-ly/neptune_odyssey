@@ -13,7 +13,16 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
+
+/// Every loader is a painted shape that says nothing on its own; this names
+/// it "loading" for assistive technology and drops the paint from the tree.
+Widget _spokenLoader(BuildContext context, Widget painted) => Semantics(
+      label: NeptuneAccessibility.of(context).loading,
+      liveRegion: true,
+      child: ExcludeSemantics(child: painted),
+    );
 
 /// Which waiting indicator a loader-family widget renders. Shared by the
 /// standalone loaders and by [NeptuneStatusMotion]'s `loading` phase.
@@ -75,7 +84,7 @@ class _NeptuneHourglassLoaderState extends State<NeptuneHourglassLoader>
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
 
-    return Container(
+    return _spokenLoader(context, Container(
       width: widget.size,
       height: widget.size,
       decoration: BoxDecoration(color: scheme.surfaceContainerHigh, shape: BoxShape.circle),
@@ -100,7 +109,7 @@ class _NeptuneHourglassLoaderState extends State<NeptuneHourglassLoader>
           );
         },
       ),
-    );
+    ));
   }
 }
 
@@ -227,7 +236,7 @@ class _NeptuneSpinnerState extends State<NeptuneSpinner> with SingleTickerProvid
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final color = widget.color ?? scheme.primary;
-    return SizedBox(
+    return _spokenLoader(context, SizedBox(
       width: widget.size,
       height: widget.size,
       child: AnimatedBuilder(
@@ -240,7 +249,7 @@ class _NeptuneSpinnerState extends State<NeptuneSpinner> with SingleTickerProvid
           ),
         ),
       ),
-    );
+    ));
   }
 }
 
@@ -320,7 +329,7 @@ class _NeptuneDotsLoaderState extends State<NeptuneDotsLoader> with SingleTicker
     final scheme = Theme.of(context).colorScheme;
     final color = widget.color ?? scheme.primary;
     final dot = widget.size * 0.22;
-    return SizedBox(
+    return _spokenLoader(context, SizedBox(
       width: widget.size,
       height: widget.size,
       child: AnimatedBuilder(
@@ -350,7 +359,7 @@ class _NeptuneDotsLoaderState extends State<NeptuneDotsLoader> with SingleTicker
           );
         },
       ),
-    );
+    ));
   }
 }
 
@@ -398,7 +407,7 @@ class _NeptunePulseLoaderState extends State<NeptunePulseLoader> with SingleTick
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final color = widget.color ?? scheme.primary;
-    return AnimatedBuilder(
+    return _spokenLoader(context, AnimatedBuilder(
       animation: _c,
       builder: (context, _) {
         final t = Curves.easeInOut.transform(_c.value);
@@ -420,6 +429,6 @@ class _NeptunePulseLoaderState extends State<NeptunePulseLoader> with SingleTick
           ),
         );
       },
-    );
+    ));
   }
 }

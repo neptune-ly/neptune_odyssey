@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/density.dart';
 import '../theme/extensions.dart';
 
@@ -299,12 +300,32 @@ class NeptuneTag extends StatelessWidget {
           ),
           if (onRemove != null) ...[
             const SizedBox(width: 4),
-            InkWell(
-              onTap: onRemove,
-              customBorder: const CircleBorder(),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.all(2),
-                child: Icon(Icons.close, size: 14, color: fg),
+            // An 18dp unlabelled close glyph was the smallest target in the
+            // library. The glyph stays 14dp; the hit area is 48dp (overflowing
+            // the pill, like Material's own tap-target padding) and it is
+            // named "remove, {label}".
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: OverflowBox(
+                maxWidth: 48,
+                maxHeight: 48,
+                child: Semantics(
+                  button: true,
+                  label: '${NeptuneAccessibility.of(context).remove}, $label',
+                  excludeSemantics: true,
+                  child: InkWell(
+                    onTap: onRemove,
+                    customBorder: const CircleBorder(),
+                    child: SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: Center(
+                        child: Icon(Icons.close, size: 14, color: fg),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -347,8 +368,17 @@ class NeptuneProgressBar extends StatelessWidget {
     final track = scheme.surfaceContainerHighest;
     final clamped = value.clamp(0.0, 1.0);
     final radius = BorderRadius.circular(shape.full);
+    final strings = NeptuneAccessibility.of(context);
 
-    return Column(
+    // A progress bar has a value; a screen reader gets "Upload, 40 percent".
+    return Semantics(
+      label: label,
+      value: indeterminate
+          ? strings.loading
+          : strings.percent((clamped * 100).round()),
+      liveRegion: !indeterminate,
+      excludeSemantics: true,
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -402,6 +432,7 @@ class NeptuneProgressBar extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }
@@ -532,6 +563,7 @@ class NeptuneRating extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final interactive = onChanged != null;
+    final strings = NeptuneAccessibility.of(context);
 
     Widget star(int i) {
       final filled = value >= i;
@@ -556,20 +588,36 @@ class NeptuneRating extends StatelessWidget {
           child: icon,
         );
       }
-      return InkWell(
-        onTap: () => onChanged!(i),
-        customBorder: const CircleBorder(),
-        child: SizedBox(
-          width: 48,
-          height: 48,
-          child: Center(child: icon),
+      // Each star is a named button: "3 of 5 stars", selected when it is
+      // at or below the current value.
+      return Semantics(
+        button: true,
+        selected: value >= i,
+        label: strings.rating(i, count),
+        excludeSemantics: true,
+        child: InkWell(
+          onTap: () => onChanged!(i),
+          customBorder: const CircleBorder(),
+          child: SizedBox(
+            width: 48,
+            height: 48,
+            child: Center(child: icon),
+          ),
         ),
       );
     }
 
-    return Row(
+    final row = Row(
       mainAxisSize: MainAxisSize.min,
       children: [for (var i = 1; i <= count; i++) star(i)],
+    );
+    if (interactive) return row;
+    // Read-only: the whole row is one value, never five unlabelled icons.
+    final whole = value.truncate();
+    return Semantics(
+      label: strings.rating(whole, count),
+      excludeSemantics: true,
+      child: row,
     );
   }
 }
@@ -619,15 +667,18 @@ class NeptuneListTile extends StatelessWidget {
     Widget? lead = leading;
     lead ??= leadingIcon == null
         ? null
-        : Container(
-            width: 40,
-            height: 40,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: scheme.primaryContainer,
-              borderRadius: shape.rSm,
+        : ExcludeSemantics(
+            child: Container(
+              width: 40,
+              height: 40,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: scheme.primaryContainer,
+                borderRadius: shape.rSm,
+              ),
+              child:
+                  Icon(leadingIcon, size: 20, color: scheme.onPrimaryContainer),
             ),
-            child: Icon(leadingIcon, size: 20, color: scheme.onPrimaryContainer),
           );
 
     final row = ConstrainedBox(
@@ -674,10 +725,15 @@ class NeptuneListTile extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: onTap == null
           ? row
-          : InkWell(
-              onTap: onTap,
-              customBorder: RoundedRectangleBorder(borderRadius: radius),
-              child: row,
+          // The row is a button; the leading glyph square is decoration and
+          // a host-supplied trailing (an amount, a chevron) stays readable.
+          : Semantics(
+              button: true,
+              child: InkWell(
+                onTap: onTap,
+                customBorder: RoundedRectangleBorder(borderRadius: radius),
+                child: row,
+              ),
             ),
     );
   }

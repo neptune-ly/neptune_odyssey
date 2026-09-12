@@ -36,6 +36,11 @@ Neptune Odyssey ships **89 web components**. The Flutter package gives you:
    `NeptuneCta` and by nothing else the theme builds) and
    `NptBrandCanvas.paper`. What a shell or hero name draws is still the host's
    composition switch — the library guarantees the name survives the wire.
+1. **Accessibility contract (2.23.1).** `NeptuneAccessibility`/`NeptuneA11yStrings` carry the
+   host's screen-reader vocabulary and spoken-money formatter into every widget; rows announce
+   once, states (selected/checked/expanded/toggled) and roles are exposed, changes are live
+   regions, and motion collapses under reduced-motion. Web parity: the web kit's `A11Y` css covers
+   reduced motion and focus rings only - the spoken contract is Flutter-first.
 1. **Tab width control (2.22.0).** `NeptuneTabs.width` takes
    `NeptuneTabsWidth.hug` (default — labels hug their own width at the start
    edge, strip scrolls) or `.fill` (tabs divide the available width, divider

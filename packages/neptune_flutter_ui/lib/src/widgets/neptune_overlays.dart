@@ -9,6 +9,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 
 /// A single action button shown in the actions row of a [showNeptuneDialog].
@@ -93,7 +94,12 @@ class _NeptuneDialog<T> extends StatelessWidget {
     final text = Theme.of(context).textTheme;
 
     final resolved = (actions == null || actions!.isEmpty)
-        ? const [NeptuneDialogAction(label: 'OK', primary: true)]
+        ? [
+            NeptuneDialogAction(
+              label: NeptuneAccessibility.of(context).ok,
+              primary: true,
+            ),
+          ]
         : actions!;
 
     return Dialog(
@@ -113,23 +119,31 @@ class _NeptuneDialog<T> extends StatelessWidget {
             if (icon != null) ...[
               Align(
                 alignment: AlignmentDirectional.center,
-                child: Container(
-                  width: 56,
-                  height: 56,
-                  alignment: AlignmentDirectional.center,
-                  decoration: BoxDecoration(
-                    color: scheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(shape.full),
+                child: ExcludeSemantics(
+                  child: Container(
+                    width: 56,
+                    height: 56,
+                    alignment: AlignmentDirectional.center,
+                    decoration: BoxDecoration(
+                      color: scheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(shape.full),
+                    ),
+                    child:
+                        Icon(icon, size: 28, color: scheme.onPrimaryContainer),
                   ),
-                  child: Icon(icon, size: 28, color: scheme.onPrimaryContainer),
                 ),
               ),
               const SizedBox(height: 16),
             ],
-            Text(
-              title,
-              textAlign: icon != null ? TextAlign.center : TextAlign.start,
-              style: text.titleLarge?.copyWith(color: scheme.onSurface),
+            // The dialog's title is its heading and the first thing focus
+            // lands on, so a modal is never a silent surprise.
+            Semantics(
+              header: true,
+              child: Text(
+                title,
+                textAlign: icon != null ? TextAlign.center : TextAlign.start,
+                style: text.titleLarge?.copyWith(color: scheme.onSurface),
+              ),
             ),
             if (message != null) ...[
               const SizedBox(height: 8),
@@ -248,21 +262,28 @@ class _NeptuneSheetBody extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // The grabber is decoration; a screen reader has nothing to say
+            // about it and must not stop on it.
             Center(
-              child: Container(
-                width: 32,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: scheme.onSurfaceVariant.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(shape.full),
+              child: ExcludeSemantics(
+                child: Container(
+                  width: 32,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: scheme.onSurfaceVariant.withValues(alpha: 0.4),
+                    borderRadius: BorderRadius.circular(shape.full),
+                  ),
                 ),
               ),
             ),
             if (title != null) ...[
               const SizedBox(height: 16),
-              Text(
-                title!,
-                style: text.titleMedium?.copyWith(color: scheme.onSurface),
+              Semantics(
+                header: true,
+                child: Text(
+                  title!,
+                  style: text.titleMedium?.copyWith(color: scheme.onSurface),
+                ),
               ),
             ],
             const SizedBox(height: 16),
@@ -360,11 +381,17 @@ class NeptuneMenu extends StatelessWidget {
             child: Text(item.label),
           ),
       ],
-      builder: (context, controller, _) => InkWell(
-        onTap: () =>
-            controller.isOpen ? controller.close() : controller.open(),
-        customBorder: RoundedRectangleBorder(borderRadius: shape.rSm),
-        child: child,
+      // The anchor is a button that opens a menu; the InkWell alone gave it
+      // no role, so a bare icon anchor was invisible to a screen reader.
+      builder: (context, controller, _) => Semantics(
+        button: true,
+        expanded: controller.isOpen,
+        child: InkWell(
+          onTap: () =>
+              controller.isOpen ? controller.close() : controller.open(),
+          customBorder: RoundedRectangleBorder(borderRadius: shape.rSm),
+          child: child,
+        ),
       ),
     );
   }

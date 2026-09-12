@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 
 /// An inverse-surface toast bar (web `<npt-snackbar>`): a high-contrast
@@ -38,10 +39,17 @@ class NeptuneToast extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // A toast appears without a tap: the live region is what makes
+              // a screen reader read it out instead of leaving it on screen
+              // for three seconds, unheard.
               Expanded(
-                child: Text(
-                  message,
-                  style: text.bodyMedium?.copyWith(color: scheme.onInverseSurface),
+                child: Semantics(
+                  liveRegion: true,
+                  child: Text(
+                    message,
+                    style:
+                        text.bodyMedium?.copyWith(color: scheme.onInverseSurface),
+                  ),
                 ),
               ),
               if (action != null) ...[
@@ -92,7 +100,8 @@ void showNeptuneToast(
             constraints: const BoxConstraints(maxWidth: 560),
             child: TweenAnimationBuilder<double>(
               tween: Tween(begin: 0, end: 1),
-              duration: const Duration(milliseconds: 200),
+              duration: NeptuneAccessibility.duration(
+                  context, const Duration(milliseconds: 200)),
               curve: Curves.easeOut,
               builder: (context, t, child) => Opacity(opacity: t, child: child),
               child: NeptuneToast(message: message, action: action),

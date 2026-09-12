@@ -7,7 +7,9 @@
 // states. Theme-only (no literal colours/radii/fonts), RTL-safe.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart' show SemanticsValidationResult;
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 
 /// A labelled, branded text input (web `<npt-text-field>`).
@@ -97,13 +99,25 @@ class NeptuneTextField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (label != null) ...[
-          Text(
-            label!,
-            style: text.labelMedium?.copyWith(color: labelColor),
+          // The visible label is spoken as part of the field below, not as a
+          // separate stop before it.
+          ExcludeSemantics(
+            child: Text(
+              label!,
+              style: text.labelMedium?.copyWith(color: labelColor),
+            ),
           ),
           const SizedBox(height: 6),
         ],
-        TextField(
+        // An outer Semantics label merges INTO the text field's own node (a
+        // TextField is not a semantics boundary), so the field announces as
+        // "Amount, edit box" - and, when in error, "Amount, error: ...".
+        Semantics(
+          label: label,
+          validationResult: hasError
+              ? SemanticsValidationResult.invalid
+              : SemanticsValidationResult.none,
+          child: TextField(
           controller: controller,
           enabled: enabled,
           obscureText: obscureText,
@@ -156,12 +170,23 @@ class NeptuneTextField extends StatelessWidget {
             errorStyle: const TextStyle(height: 0, fontSize: 0),
           ),
         ),
+        ),
         if (hasError || helperText != null) ...[
           const SizedBox(height: 6),
-          Text(
-            errorText ?? helperText!,
-            style: text.bodySmall?.copyWith(
-              color: hasError ? scheme.error : scheme.onSurfaceVariant,
+          // A live region: an error that appears after the customer typed is
+          // read out without them having to hunt for it. Spoken with the tone
+          // word first so "error" is never carried by red alone.
+          Semantics(
+            liveRegion: hasError,
+            label: hasError
+                ? '${NeptuneAccessibility.of(context).error}: $errorText'
+                : null,
+            excludeSemantics: hasError,
+            child: Text(
+              errorText ?? helperText!,
+              style: text.bodySmall?.copyWith(
+                color: hasError ? scheme.error : scheme.onSurfaceVariant,
+              ),
             ),
           ),
         ],
@@ -240,17 +265,21 @@ class NeptuneSelect<T> extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (label != null) ...[
-          Text(
-            label!,
-            style: text.labelMedium?.copyWith(
-              color: enabled
-                  ? scheme.onSurfaceVariant
-                  : scheme.onSurfaceVariant.withValues(alpha: 0.5),
+          ExcludeSemantics(
+            child: Text(
+              label!,
+              style: text.labelMedium?.copyWith(
+                color: enabled
+                    ? scheme.onSurfaceVariant
+                    : scheme.onSurfaceVariant.withValues(alpha: 0.5),
+              ),
             ),
           ),
           const SizedBox(height: 6),
         ],
-        DropdownButtonFormField<T>(
+        Semantics(
+          label: label,
+          child: DropdownButtonFormField<T>(
           initialValue: value,
           onChanged: enabled ? onChanged : null,
           isExpanded: true,
@@ -313,6 +342,7 @@ class NeptuneSelect<T> extends StatelessWidget {
               ),
           ],
         ),
+        ),
       ],
     );
   }
@@ -358,6 +388,7 @@ class NeptuneStepperInput extends StatelessWidget {
     final shape = Theme.of(context).extension<NptShape>()!;
     final text = Theme.of(context).textTheme;
 
+    final strings = NeptuneAccessibility.of(context);
     final canDecrement = onChanged != null && value > min;
     final canIncrement = onChanged != null && value < max;
     final radius = BorderRadius.circular(shape.full);
@@ -404,16 +435,20 @@ class NeptuneStepperInput extends StatelessWidget {
                 icon: Icons.remove,
                 enabled: canDecrement,
                 onTap: () => emit(value - step),
-                tooltip: 'Decrease',
+                tooltip: strings.decrease,
               ),
               ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 40),
-                child: Text(
-                  '$value',
-                  textAlign: TextAlign.center,
-                  style: text.titleMedium?.copyWith(
-                    color: scheme.onSurface,
-                    fontFeatures: const [FontFeature.tabularFigures()],
+                child: Semantics(
+                  label: label,
+                  liveRegion: true,
+                  child: Text(
+                    '$value',
+                    textAlign: TextAlign.center,
+                    style: text.titleMedium?.copyWith(
+                      color: scheme.onSurface,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
                   ),
                 ),
               ),
@@ -421,7 +456,7 @@ class NeptuneStepperInput extends StatelessWidget {
                 icon: Icons.add,
                 enabled: canIncrement,
                 onTap: () => emit(value + step),
-                tooltip: 'Increase',
+                tooltip: strings.increase,
               ),
             ],
           ),
@@ -503,9 +538,11 @@ class NeptuneDateField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (label != null) ...[
-          Text(
-            label!,
-            style: text.labelMedium?.copyWith(color: scheme.onSurfaceVariant),
+          ExcludeSemantics(
+            child: Text(
+              label!,
+              style: text.labelMedium?.copyWith(color: scheme.onSurfaceVariant),
+            ),
           ),
           const SizedBox(height: 6),
         ],
@@ -513,7 +550,15 @@ class NeptuneDateField extends StatelessWidget {
           color: scheme.surfaceContainerHighest,
           borderRadius: shape.rSm,
           clipBehavior: Clip.antiAlias,
-          child: InkWell(
+          // One button, named by its label, carrying the chosen date as its
+          // value - never "yyyy-MM-dd, calendar" read as two unrelated stops.
+          child: Semantics(
+            button: true,
+            label: label,
+            value: hasValue ? display : null,
+            hint: hasValue ? null : display,
+            excludeSemantics: true,
+            child: InkWell(
             onTap: () => _pick(context),
             customBorder: RoundedRectangleBorder(borderRadius: shape.rSm),
             child: ConstrainedBox(
@@ -547,6 +592,7 @@ class NeptuneDateField extends StatelessWidget {
                 ),
               ),
             ),
+          ),
           ),
         ),
       ],

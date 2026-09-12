@@ -2,13 +2,16 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
 
 /// A horizontal progress stepper (web `<npt-stepper>`): numbered nodes joined by
 /// connector lines, with a label under each. Done steps are filled
 /// [ColorScheme.primary], the active step is outlined primary, and future steps
-/// use [ColorScheme.outlineVariant]. Theme-only, RTL-safe.
+/// use [ColorScheme.outlineVariant]. Spoken as one stop - "step 2 of 4,
+/// Review, 1 of 4 steps done" - and re-announced as the customer advances.
+/// Theme-only, RTL-safe.
 class NeptuneStepper extends StatelessWidget {
   final List<String> steps;
   final int active;
@@ -25,6 +28,7 @@ class NeptuneStepper extends StatelessWidget {
     final shape = Theme.of(context).extension<NptShape>()!;
     final type = Theme.of(context).extension<NptType>()!;
     final text = Theme.of(context).textTheme;
+    final strings = NeptuneAccessibility.of(context);
 
     final children = <Widget>[];
     for (var i = 0; i < steps.length; i++) {
@@ -114,9 +118,20 @@ class NeptuneStepper extends StatelessWidget {
       }
     }
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
+    final current = active.clamp(0, steps.isEmpty ? 0 : steps.length - 1);
+    final spoken = steps.isEmpty
+        ? ''
+        : '${strings.step(current + 1, steps.length, steps[current])}, '
+            '${strings.stepsProgress(active.clamp(0, steps.length), steps.length)}';
+
+    return Semantics(
+      liveRegion: true,
+      label: spoken,
+      excludeSemantics: true,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children,
+      ),
     );
   }
 }
@@ -135,6 +150,14 @@ class NeptuneTransferReview extends StatelessWidget {
   final String? total;
   final String? currency;
 
+  /// Row captions. Default to the host's vocabulary
+  /// ([NeptuneA11yStrings.from] etc.) so an Arabic app never shows "From".
+  final String? fromCaption;
+  final String? toCaption;
+  final String? amountCaption;
+  final String? feeCaption;
+  final String? totalCaption;
+
   const NeptuneTransferReview({
     super.key,
     required this.fromLabel,
@@ -143,6 +166,11 @@ class NeptuneTransferReview extends StatelessWidget {
     this.fee,
     this.total,
     this.currency,
+    this.fromCaption,
+    this.toCaption,
+    this.amountCaption,
+    this.feeCaption,
+    this.totalCaption,
   });
 
   @override
@@ -150,20 +178,33 @@ class NeptuneTransferReview extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final shape = Theme.of(context).extension<NptShape>()!;
     final text = Theme.of(context).textTheme;
+    final strings = NeptuneAccessibility.of(context);
     final totalStyle = NeptuneTheme.moneyStyle(context, base: text.titleLarge)
         .copyWith(color: scheme.primary, fontWeight: FontWeight.w700);
 
     final rows = <Widget>[
-      _ReviewRow(label: 'From', value: fromLabel),
+      _ReviewRow(label: fromCaption ?? strings.from, value: fromLabel),
       const SizedBox(height: 12),
-      _ReviewRow(label: 'To', value: toLabel),
+      _ReviewRow(label: toCaption ?? strings.to, value: toLabel),
       const SizedBox(height: 12),
-      _ReviewRow(label: 'Amount', value: amount, numeric: true),
+      _ReviewRow(
+        label: amountCaption ?? strings.amount,
+        value: amount,
+        numeric: true,
+        currency: currency,
+      ),
       if (fee != null) ...[
         const SizedBox(height: 12),
-        _ReviewRow(label: 'Fee', value: fee!, numeric: true),
+        _ReviewRow(
+          label: feeCaption ?? strings.fee,
+          value: fee!,
+          numeric: true,
+          currency: currency,
+        ),
       ],
     ];
+
+    final totalLabel = totalCaption ?? strings.total;
 
     return Container(
       decoration: BoxDecoration(
@@ -180,13 +221,19 @@ class NeptuneTransferReview extends StatelessWidget {
             const SizedBox(height: 16),
             Divider(height: 1, thickness: 1, color: scheme.outlineVariant),
             const SizedBox(height: 16),
-            Row(
+            // The total is the one number a customer must not mishear:
+            // "Total: 1,251.500 Libyan dinars", one stop, currency spoken.
+            Semantics(
+              label:
+                  '$totalLabel: ${NeptuneAccessibility.money(context, total!, currency: currency)}',
+              excludeSemantics: true,
+              child: Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
                 Expanded(
                   child: Text(
-                    'Total',
+                    totalLabel,
                     style: text.labelLarge?.copyWith(
                       color: scheme.onSurface,
                       fontWeight: FontWeight.w600,
@@ -221,6 +268,7 @@ class NeptuneTransferReview extends StatelessWidget {
                   ),
                 ),
               ],
+              ),
             ),
           ],
         ],
@@ -230,16 +278,18 @@ class NeptuneTransferReview extends StatelessWidget {
 }
 
 /// One key/value line in a [NeptuneTransferReview]. Numeric values use the money
-/// style for column-aligned figures.
+/// style for column-aligned figures and are spoken as money.
 class _ReviewRow extends StatelessWidget {
   final String label;
   final String value;
   final bool numeric;
+  final String? currency;
 
   const _ReviewRow({
     required this.label,
     required this.value,
     this.numeric = false,
+    this.currency,
   });
 
   @override
@@ -250,8 +300,14 @@ class _ReviewRow extends StatelessWidget {
         ? NeptuneTheme.moneyStyle(context, base: text.bodyLarge)
             .copyWith(color: scheme.onSurface)
         : text.bodyLarge?.copyWith(color: scheme.onSurface);
+    final spokenValue = numeric
+        ? NeptuneAccessibility.money(context, value, currency: currency)
+        : value;
 
-    return Row(
+    return Semantics(
+      label: '$label: $spokenValue',
+      excludeSemantics: true,
+      child: Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: [
@@ -268,6 +324,7 @@ class _ReviewRow extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }
@@ -302,7 +359,14 @@ class NeptuneMethodRow extends StatelessWidget {
       color: scheme.surfaceContainerLowest,
       borderRadius: shape.rMd,
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
+      // A radio-style choice: named, with its selected state, one stop.
+      child: Semantics(
+        button: onTap != null,
+        inMutuallyExclusiveGroup: true,
+        checked: selected,
+        label: subtitle == null ? title : '$title, $subtitle',
+        excludeSemantics: true,
+        child: InkWell(
         onTap: onTap,
         child: Container(
           constraints: const BoxConstraints(minHeight: 64),
@@ -361,6 +425,7 @@ class NeptuneMethodRow extends StatelessWidget {
               _SelectIndicator(selected: selected),
             ],
           ),
+        ),
         ),
       ),
     );
@@ -438,11 +503,23 @@ class NeptuneBeneficiaryTile extends StatelessWidget {
     final accountStyle = NeptuneTheme.moneyStyle(context, base: text.bodyMedium)
         .copyWith(color: scheme.onSurfaceVariant);
 
+    // "Ahmed Ali, ending in 4 8 2 1, selected" - the check glyph is the only
+    // visible selection cue and would otherwise be silent.
+    final spoken = [
+      name,
+      if (account != null) NeptuneAccessibility.maskedNumber(context, account!),
+    ].join(', ');
+
     return Material(
       color: selected ? scheme.surfaceContainerHigh : scheme.surface,
       borderRadius: shape.rMd,
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
+      child: Semantics(
+        button: onTap != null,
+        selected: selected,
+        label: spoken,
+        excludeSemantics: true,
+        child: InkWell(
         onTap: onTap,
         child: Container(
           constraints: const BoxConstraints(minHeight: 56),
@@ -509,6 +586,7 @@ class NeptuneBeneficiaryTile extends StatelessWidget {
               ],
             ],
           ),
+        ),
         ),
       ),
     );

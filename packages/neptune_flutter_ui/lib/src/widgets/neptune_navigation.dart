@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 
 /// How a [NeptuneTabs] strip claims horizontal space.
@@ -144,7 +145,13 @@ class _Tab extends StatelessWidget {
 
     return Material(
       type: MaterialType.transparency,
-      child: InkWell(
+      child: Semantics(
+        button: true,
+        selected: selected,
+        enabled: onTap != null,
+        label: label,
+        excludeSemantics: true,
+        child: InkWell(
         onTap: onTap,
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 48),
@@ -171,7 +178,8 @@ class _Tab extends StatelessWidget {
                 ),
               ),
               AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
+                duration: NeptuneAccessibility.duration(
+                    context, const Duration(milliseconds: 180)),
                 curve: Curves.easeOut,
                 height: 3,
                 margin: const EdgeInsetsDirectional.symmetric(horizontal: 8),
@@ -187,6 +195,7 @@ class _Tab extends StatelessWidget {
               ),
             ],
           ),
+        ),
         ),
       ),
     );
@@ -244,15 +253,22 @@ class NeptuneBreadcrumbs extends StatelessWidget {
             ? Material(
                 type: MaterialType.transparency,
                 borderRadius: shape.rXs,
-                child: InkWell(
-                  onTap: crumb.onTap,
-                  borderRadius: shape.rXs,
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                      horizontal: 6,
-                      vertical: 4,
+                child: Semantics(
+                  button: true,
+                  child: InkWell(
+                    onTap: crumb.onTap,
+                    borderRadius: shape.rXs,
+                    // 48dp target for a text-height crumb.
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 48),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          horizontal: 6,
+                          vertical: 4,
+                        ),
+                        child: Center(widthFactor: 1, child: label),
+                      ),
                     ),
-                    child: label,
                   ),
                 ),
               )
@@ -267,7 +283,9 @@ class NeptuneBreadcrumbs extends StatelessWidget {
 
       if (!isLast) {
         children.add(
-          Icon(chevron, size: 18, color: scheme.onSurfaceVariant),
+          ExcludeSemantics(
+            child: Icon(chevron, size: 18, color: scheme.onSurfaceVariant),
+          ),
         );
       }
     }
@@ -325,6 +343,7 @@ class NeptunePagination extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final strings = NeptuneAccessibility.of(context);
     final canPrev = page > 0;
     final canNext = page < pageCount - 1;
 
@@ -342,6 +361,7 @@ class NeptunePagination extends StatelessWidget {
           // them for RTL on its own. Swapping them here as well mirrored twice
           // and put Previous and Next the wrong way round in Arabic.
           icon: Icons.chevron_left_rounded,
+          label: strings.previousPage,
           onTap: canPrev && onChanged != null ? () => go(page - 1) : null,
           scheme: scheme,
         ),
@@ -349,6 +369,7 @@ class NeptunePagination extends StatelessWidget {
         for (final p in _visiblePages()) ...[
           _PagePill(
             page: p,
+            label: strings.page(p + 1, pageCount),
             active: p == page,
             onTap: onChanged != null ? () => go(p) : null,
             scheme: scheme,
@@ -357,6 +378,7 @@ class NeptunePagination extends StatelessWidget {
         ],
         _ArrowButton(
           icon: Icons.chevron_right_rounded,
+          label: strings.nextPage,
           onTap: canNext && onChanged != null ? () => go(page + 1) : null,
           scheme: scheme,
         ),
@@ -365,15 +387,17 @@ class NeptunePagination extends StatelessWidget {
   }
 }
 
-/// A 40dp circular prev/next control. A null [onTap] renders the disabled
-/// (dimmed) state.
+/// A circular prev/next control: a 40dp disc inside a 48dp target. A null
+/// [onTap] renders the disabled (dimmed) state. Named for screen readers.
 class _ArrowButton extends StatelessWidget {
   final IconData icon;
+  final String label;
   final VoidCallback? onTap;
   final ColorScheme scheme;
 
   const _ArrowButton({
     required this.icon,
+    required this.label,
     required this.onTap,
     required this.scheme,
   });
@@ -384,17 +408,33 @@ class _ArrowButton extends StatelessWidget {
     final fg =
         enabled ? scheme.onSurface : scheme.onSurfaceVariant.withValues(alpha: 0.38);
 
-    return Material(
-      color: scheme.surfaceContainerHigh,
-      shape: const CircleBorder(),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        customBorder: const CircleBorder(),
-        child: SizedBox(
-          width: 40,
-          height: 40,
-          child: Icon(icon, size: 20, color: fg),
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: label,
+      excludeSemantics: true,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onTap,
+          customBorder: const CircleBorder(),
+          child: SizedBox(
+            width: 48,
+            height: 48,
+            child: Center(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHigh,
+                  shape: BoxShape.circle,
+                ),
+                child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: Icon(icon, size: 20, color: fg),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -402,15 +442,18 @@ class _ArrowButton extends StatelessWidget {
 }
 
 /// A single page-number pill. The active page is a filled [ColorScheme.primary];
-/// inactive pages are tonal surface-containers. At least 40dp square.
+/// inactive pages are tonal surface-containers. At least 48dp tall; spoken as
+/// "page 3 of 12", selected on the current page.
 class _PagePill extends StatelessWidget {
   final int page;
+  final String label;
   final bool active;
   final VoidCallback? onTap;
   final ColorScheme scheme;
 
   const _PagePill({
     required this.page,
+    required this.label,
     required this.active,
     required this.onTap,
     required this.scheme,
@@ -423,22 +466,29 @@ class _PagePill extends StatelessWidget {
     final bg = active ? scheme.primary : scheme.surfaceContainerHigh;
     final fg = active ? scheme.onPrimary : scheme.onSurfaceVariant;
 
-    return Material(
-      color: bg,
-      borderRadius: shape.rSm,
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        customBorder: RoundedRectangleBorder(borderRadius: shape.rSm),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: 8),
-            child: Center(
-              widthFactor: 1,
-              child: Text(
-                '${page + 1}',
-                style: text.labelLarge?.copyWith(color: fg),
+    return Semantics(
+      button: true,
+      selected: active,
+      enabled: onTap != null,
+      label: label,
+      excludeSemantics: true,
+      child: Material(
+        color: bg,
+        borderRadius: shape.rSm,
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          customBorder: RoundedRectangleBorder(borderRadius: shape.rSm),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 8),
+              child: Center(
+                widthFactor: 1,
+                child: Text(
+                  '${page + 1}',
+                  style: text.labelLarge?.copyWith(color: fg),
+                ),
               ),
             ),
           ),
@@ -560,12 +610,22 @@ class _AccordionTile extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
 
+    final reduced = NeptuneAccessibility.duration(
+        context, const Duration(milliseconds: 200));
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Material(
           type: MaterialType.transparency,
-          child: InkWell(
+          // The header is a button that owns an expanded/collapsed state; the
+          // chevron is its glyph, not a second stop.
+          child: Semantics(
+            button: true,
+            expanded: expanded,
+            label: panel.title,
+            excludeSemantics: true,
+            child: InkWell(
             onTap: onTap,
             child: ConstrainedBox(
               constraints: const BoxConstraints(minHeight: 48),
@@ -586,7 +646,7 @@ class _AccordionTile extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     AnimatedRotation(
-                      duration: const Duration(milliseconds: 200),
+                      duration: reduced,
                       curve: Curves.easeOut,
                       turns: expanded ? 0.5 : 0,
                       child: Icon(
@@ -599,10 +659,11 @@ class _AccordionTile extends StatelessWidget {
                 ),
               ),
             ),
+            ),
           ),
         ),
         AnimatedCrossFade(
-          duration: const Duration(milliseconds: 200),
+          duration: reduced,
           sizeCurve: Curves.easeOut,
           firstCurve: Curves.easeOut,
           secondCurve: Curves.easeOut,
