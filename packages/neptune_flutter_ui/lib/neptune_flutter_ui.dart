@@ -63,6 +63,10 @@ export 'src/widgets/neptune_loaders.dart';
 export 'src/widgets/neptune_splash.dart';
 // 2.14.0 — the swipe-up unlock ritual (returning-user lock screen).
 export 'src/widgets/neptune_unlock_reveal.dart';
+// 2.25.0 — the register composition (`statement-ledger`) and the paper
+// pre-login shell (`paper-lockup`): what those lever names draw.
+export 'src/widgets/neptune_register.dart';
+export 'src/widgets/neptune_paper_welcome.dart';
 // 2.7.0 — the composed screen templates (all nine from templates.html).
 export 'src/templates/neptune_templates.dart';
 export 'src/templates/neptune_onboarding_flow.dart';
