@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'neptune_buttons.dart' show neptuneBusyLabel;
+
 /// The brand primary action. Wraps [FilledButton] so it inherits the brand's
 /// pill shape and 48dp-min target from the theme. Optional leading icon and
 /// busy state. Theme-only, RTL-safe.
@@ -25,12 +27,16 @@ class NeptunePrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final child = busy
-        ? SizedBox(
-            width: 20,
-            height: 20,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(scheme.onPrimary),
+        ? neptuneBusyLabel(
+            context,
+            label,
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation<Color>(scheme.onPrimary),
+              ),
             ),
           )
         : Text(label);

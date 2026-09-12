@@ -4,10 +4,23 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/density.dart';
 import '../theme/extensions.dart';
 import '../theme/feedback.dart';
 import '../theme/identity.dart';
+
+/// The busy face of a button: the spinner replaces the visible label, so the
+/// label must be re-attached for assistive technology or the button becomes an
+/// anonymous "button, disabled". The spinner itself says nothing.
+Widget neptuneBusyLabel(BuildContext context, String label, Widget spinner) {
+  final strings = NeptuneAccessibility.of(context);
+  return Semantics(
+    label: '$label, ${strings.loading}',
+    liveRegion: true,
+    child: ExcludeSemantics(child: spinner),
+  );
+}
 
 /// Visual style for [NeptuneButton], mirroring the web `<npt-button>` variants.
 enum NeptuneButtonStyle { filled, tonal, outlined, text }
@@ -38,12 +51,16 @@ class NeptuneButton extends StatelessWidget {
     final onTap = busy ? null : onPressed;
     final hasIcon = icon != null && !busy;
 
-    Widget spinner(Color c) => SizedBox(
-          width: 18,
-          height: 18,
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            valueColor: AlwaysStoppedAnimation<Color>(c),
+    Widget spinner(Color c) => neptuneBusyLabel(
+          context,
+          label,
+          SizedBox(
+            width: 18,
+            height: 18,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(c),
+            ),
           ),
         );
 
@@ -218,10 +235,20 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
       ],
     );
 
-    final btn = AnimatedScale(
+    // An InkWell carries no button role of its own: without this a CTA reads
+    // as bare text with a tap action, and the arrow contributes nothing. One
+    // node, one name, the enabled state - the whole reason a confirm step is
+    // unambiguous to a screen reader.
+    final btn = Semantics(
+      button: true,
+      enabled: enabled,
+      label: widget.label,
+      excludeSemantics: true,
+      child: AnimatedScale(
       // Web `.cta:active { transform: scale(.98) }` on the emphasized curve.
       scale: _pressed ? 0.98 : 1,
-      duration: const Duration(milliseconds: 220),
+      duration: NeptuneAccessibility.duration(
+          context, const Duration(milliseconds: 220)),
       curve: motion.emphasized,
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -296,6 +323,7 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
             ),
           ),
         ),
+      ),
       ),
     );
 

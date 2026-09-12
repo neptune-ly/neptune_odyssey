@@ -12,6 +12,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import 'neptune_buttons.dart';
 import 'neptune_shell_feedback.dart';
@@ -60,7 +61,14 @@ class _NeptuneShimmerState extends State<NeptuneShimmer>
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    if (MediaQuery.of(context).disableAnimations) return widget.child;
+    // A skeleton is a placeholder: it says "loading" once and its bones say
+    // nothing, so a screen reader is not walked across empty grey blocks.
+    final child = Semantics(
+      label: NeptuneAccessibility.of(context).loading,
+      liveRegion: true,
+      child: ExcludeSemantics(child: widget.child),
+    );
+    if (MediaQuery.of(context).disableAnimations) return child;
     final rtl = Directionality.of(context) == TextDirection.rtl;
     return AnimatedBuilder(
       animation: _c,
@@ -82,7 +90,7 @@ class _NeptuneShimmerState extends State<NeptuneShimmer>
           child: child,
         );
       },
-      child: widget.child,
+      child: child,
     );
   }
 }
@@ -261,11 +269,18 @@ class NeptuneStateSwitcher extends StatelessWidget {
         KeyedSubtree(key: const ValueKey('ready'), child: child),
     };
 
+    // The error and empty faces arrive without a tap; the live region reads
+    // them out. The ready face is ordinary content and is not a live region,
+    // or every list would be announced whole on arrival.
+    final announced = state == NeptuneDataState.ready
+        ? face
+        : Semantics(liveRegion: true, container: true, child: face);
+
     return AnimatedSwitcher(
-      duration: motion.durationStandard,
+      duration: NeptuneAccessibility.duration(context, motion.durationStandard),
       switchInCurve: motion.standard,
       switchOutCurve: motion.standard,
-      child: face,
+      child: announced,
     );
   }
 }

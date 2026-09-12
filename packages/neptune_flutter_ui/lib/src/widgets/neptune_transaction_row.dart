@@ -2,12 +2,15 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
 
 /// A single transaction line: leading glyph, title/subtitle, signed amount.
-/// Credits use the `success` role; debits use `onSurface`. Theme-only, RTL-safe,
-/// 48dp-min touch target.
+/// Credits use the `success` role AND a leading "+" sign; debits use
+/// `onSurface` with a leading "-". Direction is never colour alone. Spoken as
+/// one stop: "title, subtitle, credit, 1,250.000 Libyan dinars". Theme-only,
+/// RTL-safe, 48dp-min touch target.
 class NeptuneTransactionRow extends StatelessWidget {
   final String title;
   final String? subtitle;
@@ -15,6 +18,14 @@ class NeptuneTransactionRow extends StatelessWidget {
   final bool isCredit;
   final IconData icon;
   final VoidCallback? onTap;
+
+  /// The ISO code or symbol for the spoken amount when [amount] carries none.
+  final String? currency;
+
+  /// Prefix the visible amount with "+" (credit) / "-" (debit) when the
+  /// string does not already start with a sign. On by default: a customer who
+  /// cannot tell green from grey must still be able to tell in from out.
+  final bool showSign;
 
   const NeptuneTransactionRow({
     super.key,
@@ -24,6 +35,8 @@ class NeptuneTransactionRow extends StatelessWidget {
     this.isCredit = false,
     this.icon = Icons.swap_horiz,
     this.onTap,
+    this.currency,
+    this.showSign = true,
   });
 
   @override
@@ -32,11 +45,31 @@ class NeptuneTransactionRow extends StatelessWidget {
     final shape = Theme.of(context).extension<NptShape>()!;
     final npt = Theme.of(context).extension<NptColors>()!;
     final textTheme = Theme.of(context).textTheme;
+    final strings = NeptuneAccessibility.of(context);
     final amountColor = isCredit ? npt.success : scheme.onSurface;
     final money = NeptuneTheme.moneyStyle(context, base: textTheme.titleMedium)
         .copyWith(color: amountColor);
 
-    return InkWell(
+    final trimmed = amount.trimLeft();
+    final signed = !showSign || trimmed.startsWith('+') || trimmed.startsWith('-')
+        ? amount
+        : '${isCredit ? '+' : '-'}$amount';
+    final unsigned = trimmed.startsWith('+') || trimmed.startsWith('-')
+        ? trimmed.substring(1).trimLeft()
+        : trimmed;
+
+    final spoken = [
+      title,
+      if (subtitle != null) subtitle!,
+      isCredit ? strings.credit : strings.debit,
+      NeptuneAccessibility.money(context, unsigned, currency: currency),
+    ].join(', ');
+
+    return Semantics(
+      button: onTap != null,
+      label: spoken,
+      excludeSemantics: true,
+      child: InkWell(
       onTap: onTap,
       borderRadius: shape.rSm,
       child: ConstrainedBox(
@@ -80,10 +113,11 @@ class NeptuneTransactionRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(NeptuneTheme.formatDigits(context, amount), style: money),
+              Text(NeptuneTheme.formatDigits(context, signed), style: money),
             ],
           ),
         ),
+      ),
       ),
     );
   }

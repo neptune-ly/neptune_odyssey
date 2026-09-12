@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
 import 'neptune_identity_surfaces.dart';
@@ -20,6 +21,9 @@ class NeptuneBalanceCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool hero;
 
+  /// The ISO code or symbol for the spoken amount when [amount] carries none.
+  final String? currency;
+
   const NeptuneBalanceCard({
     super.key,
     required this.label,
@@ -28,6 +32,7 @@ class NeptuneBalanceCard extends StatelessWidget {
     this.trailing,
     this.onTap,
     this.hero = false,
+    this.currency,
   });
 
   @override
@@ -68,6 +73,16 @@ class NeptuneBalanceCard extends StatelessWidget {
           : null,
     );
 
+    // The card announces as one live stop - "Available balance, 12,480.500
+    // Libyan dinars, ending in 4 8 2 1" - and re-announces when the balance
+    // changes under a refresh. [trailing] stays its own node (it is usually
+    // a button the host owns).
+    final spoken = [
+      label,
+      NeptuneAccessibility.money(context, amount, currency: currency),
+      if (caption != null) NeptuneAccessibility.maskedNumber(context, caption!),
+    ].join(', ');
+
     return DecoratedBox(
       decoration: decoration,
       child: Material(
@@ -83,7 +98,9 @@ class NeptuneBalanceCard extends StatelessWidget {
               // motif over the gradient (templates layer `--npt-motif`).
               if (hero)
                 Positioned.fill(
-                  child: NeptuneMotifLayer(color: onColor, strength: 0.8),
+                  child: ExcludeSemantics(
+                    child: NeptuneMotifLayer(color: onColor, strength: 0.8),
+                  ),
                 ),
               Padding(
             padding: EdgeInsetsDirectional.all(hero ? 24 : 20),
@@ -94,22 +111,33 @@ class NeptuneBalanceCard extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        label,
-                        style: textTheme.labelLarge?.copyWith(color: onColor),
+                      child: Semantics(
+                        button: onTap != null,
+                        liveRegion: true,
+                        label: spoken,
+                        excludeSemantics: true,
+                        child: Text(
+                          label,
+                          style: textTheme.labelLarge?.copyWith(color: onColor),
+                        ),
                       ),
                     ),
                     if (trailing != null) trailing!,
                   ],
                 ),
                 SizedBox(height: hero ? 14 : 12),
-                Text(NeptuneTheme.formatDigits(context, amount), style: money),
+                ExcludeSemantics(
+                  child: Text(NeptuneTheme.formatDigits(context, amount),
+                      style: money),
+                ),
                 if (caption != null) ...[
                   const SizedBox(height: 6),
-                  Text(
-                    caption!,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: onColor.withValues(alpha: 0.8),
+                  ExcludeSemantics(
+                    child: Text(
+                      caption!,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: onColor.withValues(alpha: 0.8),
+                      ),
                     ),
                   ),
                 ],

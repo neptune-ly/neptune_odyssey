@@ -26,6 +26,12 @@ class NeptuneNumeral extends StatelessWidget {
   final int? maxLines;
   final TextOverflow? overflow;
 
+  /// The spoken form. A visual "12,480.500 LYD" should be heard as
+  /// "12,480.500 Libyan dinars" and a masked "•••• 4821" as "ending in 4 8 2
+  /// 1"; the host supplies that through [NeptuneAccessibility] helpers and
+  /// passes it here. Null speaks [value] as written.
+  final String? semanticsLabel;
+
   const NeptuneNumeral(
     this.value, {
     super.key,
@@ -33,6 +39,7 @@ class NeptuneNumeral extends StatelessWidget {
     this.textAlign,
     this.maxLines,
     this.overflow,
+    this.semanticsLabel,
   });
 
   /// Wraps [value] in Unicode isolate marks so it can be interpolated into a
@@ -55,6 +62,7 @@ class NeptuneNumeral extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
+      semanticsLabel: semanticsLabel,
       // The whole point. Position still comes from the parent's direction.
       textDirection: TextDirection.ltr,
     );

@@ -54,7 +54,16 @@ class NeptuneQuickAction extends StatelessWidget {
 
     final chipRadius = BorderRadius.circular(shape.full);
 
-    return Column(
+    // The chip and its caption are one button named by the caption. Without
+    // the merge the chip is an unnamed tap target and the caption a stray
+    // text node after it.
+    return Semantics(
+      button: true,
+      enabled: onTap != null,
+      label: label,
+      excludeSemantics: true,
+      onTap: onTap,
+      child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Material(
@@ -90,6 +99,7 @@ class NeptuneQuickAction extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }

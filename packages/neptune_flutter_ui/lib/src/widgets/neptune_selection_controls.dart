@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/feedback.dart';
 
@@ -57,6 +58,10 @@ class NeptuneCheckbox extends StatelessWidget {
     return Semantics(
       checked: value,
       enabled: isOn,
+      // The box is the whole control: drop the InkWell's tap-only node and
+      // the check glyph so the checkbox is ONE node with a checked state.
+      excludeSemantics: true,
+      onTap: tap,
       child: SizedBox(
         width: 48,
         height: 48,
@@ -67,7 +72,7 @@ class NeptuneCheckbox extends StatelessWidget {
             customBorder: const CircleBorder(),
             child: Center(
               child: AnimatedContainer(
-                duration: motion.fast,
+                duration: NeptuneAccessibility.duration(context, motion.fast),
                 curve: motion.standard,
                 width: 22,
                 height: 22,
@@ -123,7 +128,15 @@ class NeptuneCheckboxTile extends StatelessWidget {
     final radius = shape.rMd;
     final fg = enabled ? scheme.onSurface : scheme.onSurface.withValues(alpha: 0.38);
 
-    return Material(
+    // The row and its box are one checkbox named by the label, not a row
+    // that says "Save payee" and a second, anonymous checkbox beside it.
+    return Semantics(
+      checked: value,
+      enabled: enabled,
+      label: description == null ? label : '$label, $description',
+      excludeSemantics: true,
+      onTap: enabled ? () => onChanged!(!value) : null,
+      child: Material(
       color: scheme.surfaceContainerLow,
       borderRadius: radius,
       clipBehavior: Clip.antiAlias,
@@ -167,6 +180,7 @@ class NeptuneCheckboxTile extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }
@@ -259,10 +273,17 @@ class _NeptuneRadioTile<T> extends StatelessWidget {
         enabled ? scheme.primary : scheme.onSurface.withValues(alpha: 0.38);
     final fg = enabled ? scheme.onSurface : scheme.onSurface.withValues(alpha: 0.38);
 
+    final fast = NeptuneAccessibility.duration(context, motion.fast);
+
     return Semantics(
       inMutuallyExclusiveGroup: true,
       checked: selected,
       enabled: enabled,
+      label: option.description == null
+          ? option.label
+          : '${option.label}, ${option.description}',
+      excludeSemantics: true,
+      onTap: onTap,
       child: Material(
         color: selected
             ? scheme.secondaryContainer.withValues(alpha: 0.4)
@@ -282,7 +303,7 @@ class _NeptuneRadioTile<T> extends StatelessWidget {
               child: Row(
                 children: [
                   AnimatedContainer(
-                    duration: motion.fast,
+                    duration: fast,
                     curve: motion.standard,
                     width: 22,
                     height: 22,
@@ -292,7 +313,7 @@ class _NeptuneRadioTile<T> extends StatelessWidget {
                     ),
                     alignment: Alignment.center,
                     child: AnimatedScale(
-                      duration: motion.fast,
+                      duration: fast,
                       curve: motion.standard,
                       scale: selected ? 1 : 0,
                       child: Container(
@@ -382,9 +403,13 @@ class NeptuneSwitch extends StatelessWidget {
         ? (isOn ? scheme.onPrimary : scheme.surface)
         : (isOn ? scheme.outline : scheme.onSurface.withValues(alpha: 0.38));
 
+    final fast = NeptuneAccessibility.duration(context, motion.fast);
+
     return Semantics(
       toggled: value,
       enabled: isOn,
+      excludeSemantics: true,
+      onTap: tap,
       child: SizedBox(
         width: 56,
         height: 48,
@@ -397,7 +422,7 @@ class NeptuneSwitch extends StatelessWidget {
             ),
             child: Center(
               child: AnimatedContainer(
-                duration: motion.fast,
+                duration: fast,
                 curve: motion.standard,
                 width: 52,
                 height: 32,
@@ -407,7 +432,7 @@ class NeptuneSwitch extends StatelessWidget {
                   borderRadius: BorderRadius.circular(shape.full),
                 ),
                 child: AnimatedAlign(
-                  duration: motion.fast,
+                  duration: fast,
                   curve: motion.emphasized,
                   alignment: value
                       ? AlignmentDirectional.centerEnd
@@ -564,8 +589,11 @@ class _SegmentButton<T> extends StatelessWidget {
       button: true,
       selected: selected,
       enabled: enabled,
+      label: segment.label,
+      excludeSemantics: true,
+      onTap: onTap,
       child: AnimatedContainer(
-        duration: motion.fast,
+        duration: NeptuneAccessibility.duration(context, motion.fast),
         curve: motion.standard,
         decoration: BoxDecoration(
           color: selected
@@ -579,8 +607,10 @@ class _SegmentButton<T> extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             customBorder: RoundedRectangleBorder(borderRadius: pill),
+            // 48, not 40: the segment IS the touch target - the 4dp pill
+            // padding around the row does not hit-test to a segment.
             child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 40),
+              constraints: const BoxConstraints(minHeight: 48),
               child: Padding(
                 padding: const EdgeInsetsDirectional.symmetric(
                   horizontal: 16,

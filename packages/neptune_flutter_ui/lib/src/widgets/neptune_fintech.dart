@@ -116,8 +116,9 @@ class NeptuneInsightCard extends StatelessWidget {
                         horizontal: 12,
                         vertical: 8,
                       ),
-                      minimumSize: const Size(0, 40),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      // 48, not 40 with shrinkWrap: the visual stays compact
+                      // but the hit target meets the 48dp floor.
+                      minimumSize: const Size(48, 48),
                     ),
                     child: Text(actionLabel!),
                   ),

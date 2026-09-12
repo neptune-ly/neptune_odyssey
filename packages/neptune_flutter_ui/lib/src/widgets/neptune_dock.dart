@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/identity.dart';
 import 'neptune_icon_slot.dart';
@@ -136,11 +137,16 @@ class _DockItem extends StatelessWidget {
     final motion = theme.extension<NptMotion>()!;
     final text = theme.textTheme;
     final active = item.active;
+    // Under reduced motion the selection jumps to its end state - the raised
+    // circle is a STATE, so it is shown, not skipped.
+    final standard =
+        NeptuneAccessibility.duration(context, motion.durationStandard);
+    final fast = NeptuneAccessibility.duration(context, motion.fast);
 
     // The raised-active circle springs up on the brand's motion curve and
     // carries the primary key-light while lifted.
     final circle = AnimatedContainer(
-      duration: motion.durationStandard,
+      duration: standard,
       curve: motion.spring,
       width: 44,
       height: 44,
@@ -173,7 +179,14 @@ class _DockItem extends StatelessWidget {
       ),
     );
 
-    return InkWell(
+    // A tab: named by its label, flagged selected when active, so TalkBack
+    // and VoiceOver say "Home, selected, tab" rather than "Home" twice.
+    return Semantics(
+      button: true,
+      selected: active,
+      label: item.label,
+      excludeSemantics: true,
+      child: InkWell(
       onTap: item.onTap,
       borderRadius: shape.rLg,
       child: Padding(
@@ -182,13 +195,13 @@ class _DockItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             AnimatedSlide(
-              duration: motion.durationStandard,
+              duration: standard,
               curve: motion.spring,
               offset: Offset(0, active ? -0.30 : 0),
               child: circle,
             ),
             AnimatedDefaultTextStyle(
-              duration: motion.fast,
+              duration: fast,
               curve: motion.standard,
               style: (text.labelSmall ?? const TextStyle()).copyWith(
                 color: active ? scheme.primary : scheme.onSurfaceVariant,
@@ -201,6 +214,7 @@ class _DockItem extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }
@@ -257,12 +271,15 @@ class NeptuneAppBar extends StatelessWidget {
             // title does, without needing an invisible Text underneath.
             child: stacked
                 ? const SizedBox.shrink()
-                : Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: variant == NeptuneAppBarVariant.center ? TextAlign.center : TextAlign.start,
-                    style: rowTitleStyle,
+                : Semantics(
+                    header: true,
+                    child: Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: variant == NeptuneAppBarVariant.center ? TextAlign.center : TextAlign.start,
+                      style: rowTitleStyle,
+                    ),
                   ),
           ),
           if (actions != null) ...actions!,

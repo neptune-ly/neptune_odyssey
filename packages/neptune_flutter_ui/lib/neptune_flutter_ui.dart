@@ -13,6 +13,9 @@ export 'src/color/palette.dart';
 export 'src/color/seed_extractor.dart';
 
 // Theming.
+// 2.23.1 — the accessibility contract: host-localised screen-reader strings,
+// spoken money, reduced-motion helpers.
+export 'src/theme/accessibility.dart';
 export 'src/theme/color_schemes.dart';
 export 'src/theme/density.dart';
 export 'src/theme/extensions.dart';

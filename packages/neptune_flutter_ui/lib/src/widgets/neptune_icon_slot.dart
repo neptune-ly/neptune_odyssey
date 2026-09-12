@@ -38,26 +38,39 @@ class NeptuneIconSlot extends StatelessWidget {
   /// The glyph box. Null falls back to the ambient [IconTheme] size.
   final double? size;
 
+  /// What the glyph MEANS, for assistive technology. Null (the default)
+  /// marks it decorative: an icon beside a text label must not be read as
+  /// a second, meaningless stop. Set it only for an icon that stands alone.
+  final String? semanticLabel;
+
   const NeptuneIconSlot({
     super.key,
     required this.color,
     this.icon,
     this.iconWidget,
     this.size,
+    this.semanticLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final custom = iconWidget;
-    if (custom == null) return Icon(icon, size: size, color: color);
-
-    final box = size ?? IconTheme.of(context).size;
-    return IconTheme.merge(
-      data: IconThemeData(color: color, size: box),
-      child: DefaultTextStyle.merge(
-        style: TextStyle(color: color),
-        child: box == null ? custom : SizedBox.square(dimension: box, child: custom),
-      ),
-    );
+    final Widget glyph;
+    if (custom == null) {
+      glyph = Icon(icon, size: size, color: color);
+    } else {
+      final box = size ?? IconTheme.of(context).size;
+      glyph = IconTheme.merge(
+        data: IconThemeData(color: color, size: box),
+        child: DefaultTextStyle.merge(
+          style: TextStyle(color: color),
+          child:
+              box == null ? custom : SizedBox.square(dimension: box, child: custom),
+        ),
+      );
+    }
+    final label = semanticLabel;
+    if (label == null) return ExcludeSemantics(child: glyph);
+    return Semantics(label: label, image: custom != null, child: ExcludeSemantics(child: glyph));
   }
 }

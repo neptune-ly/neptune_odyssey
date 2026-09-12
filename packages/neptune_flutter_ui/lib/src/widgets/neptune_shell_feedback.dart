@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 
 /// The page-level masthead (web `<npt-page-header>`): a display-font title, an
@@ -35,13 +36,16 @@ class NeptunePageHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: Text(
-                  title,
-                  style: text.displaySmall?.copyWith(
-                    fontFamily: type.display,
-                    fontWeight: type.displayFontWeight,
-                    letterSpacing: type.displayTracking,
-                    color: scheme.onSurface,
+                child: Semantics(
+                  header: true,
+                  child: Text(
+                    title,
+                    style: text.displaySmall?.copyWith(
+                      fontFamily: type.display,
+                      fontWeight: type.displayFontWeight,
+                      letterSpacing: type.displayTracking,
+                      color: scheme.onSurface,
+                    ),
                   ),
                 ),
               ),
@@ -98,22 +102,28 @@ class NeptuneSearchField extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.search, size: 20, color: scheme.onSurfaceVariant),
+          ExcludeSemantics(
+            child: Icon(Icons.search, size: 20, color: scheme.onSurfaceVariant),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: TextField(
-              controller: controller,
-              onChanged: onChanged,
-              style: text.bodyLarge?.copyWith(color: scheme.onSurface),
-              cursorColor: scheme.primary,
-              decoration: InputDecoration(
-                isDense: true,
-                border: InputBorder.none,
-                hintText: hint ?? 'Search',
-                hintStyle: text.bodyLarge?.copyWith(
-                  color: scheme.onSurfaceVariant.withValues(alpha: 0.7),
+            child: Semantics(
+              label: hint ?? NeptuneAccessibility.of(context).search,
+              child: TextField(
+                controller: controller,
+                onChanged: onChanged,
+                style: text.bodyLarge?.copyWith(color: scheme.onSurface),
+                cursorColor: scheme.primary,
+                decoration: InputDecoration(
+                  isDense: true,
+                  border: InputBorder.none,
+                  hintText: hint ?? NeptuneAccessibility.of(context).search,
+                  hintStyle: text.bodyLarge?.copyWith(
+                    color: scheme.onSurfaceVariant.withValues(alpha: 0.7),
+                  ),
+                  contentPadding:
+                      const EdgeInsetsDirectional.symmetric(vertical: 12),
                 ),
-                contentPadding: const EdgeInsetsDirectional.symmetric(vertical: 12),
               ),
             ),
           ),
@@ -153,23 +163,28 @@ class NeptuneEmptyState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-              color: scheme.surfaceContainerHigh,
-              borderRadius: BorderRadius.circular(shape.full),
+          ExcludeSemantics(
+            child: Container(
+              width: 64,
+              height: 64,
+              decoration: BoxDecoration(
+                color: scheme.surfaceContainerHigh,
+                borderRadius: BorderRadius.circular(shape.full),
+              ),
+              child: Icon(icon, size: 28, color: scheme.onSurfaceVariant),
             ),
-            child: Icon(icon, size: 28, color: scheme.onSurfaceVariant),
           ),
           const SizedBox(height: 16),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: text.titleLarge?.copyWith(
-              fontFamily: type.display,
-              fontWeight: type.displayFontWeight,
-              color: scheme.onSurface,
+          Semantics(
+            header: true,
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: text.titleLarge?.copyWith(
+                fontFamily: type.display,
+                fontWeight: type.displayFontWeight,
+                color: scheme.onSurface,
+              ),
             ),
           ),
           if (message != null) ...[
@@ -233,8 +248,24 @@ class NeptuneAlert extends StatelessWidget {
     final npt = Theme.of(context).extension<NptColors>()!;
     final text = Theme.of(context).textTheme;
     final accent = _accent(scheme, npt);
+    final strings = NeptuneAccessibility.of(context);
 
-    return Container(
+    // The tone is a colour and a glyph; it is spoken as a word first so
+    // "warning" and "error" are never carried by red alone. An alert arrives
+    // without a tap, so it is a live region: it reads itself out.
+    final toneWord = switch (tone) {
+      NeptuneAlertTone.info => strings.info,
+      NeptuneAlertTone.success => strings.success,
+      NeptuneAlertTone.warning => strings.warning,
+      NeptuneAlertTone.danger => strings.error,
+    };
+    final spoken = [toneWord, if (title != null) title!, message].join(': ');
+
+    return Semantics(
+      liveRegion: true,
+      label: spoken,
+      excludeSemantics: true,
+      child: Container(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.12),
@@ -269,6 +300,7 @@ class NeptuneAlert extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }
@@ -305,13 +337,19 @@ class NeptuneBanner extends StatelessWidget {
       child: Row(
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 20, color: scheme.onSecondaryContainer),
+            ExcludeSemantics(
+              child: Icon(icon, size: 20, color: scheme.onSecondaryContainer),
+            ),
             const SizedBox(width: 12),
           ],
           Expanded(
-            child: Text(
-              message,
-              style: text.bodyMedium?.copyWith(color: scheme.onSecondaryContainer),
+            child: Semantics(
+              liveRegion: true,
+              child: Text(
+                message,
+                style: text.bodyMedium
+                    ?.copyWith(color: scheme.onSecondaryContainer),
+              ),
             ),
           ),
           if (action != null) ...[

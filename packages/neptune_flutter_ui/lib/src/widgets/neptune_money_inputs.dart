@@ -1,7 +1,9 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart' show SemanticsValidationResult;
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
 
@@ -37,12 +39,18 @@ class NeptuneAmountInput extends StatefulWidget {
   final String? hint;
   final ValueChanged<String>? onChanged;
 
+  /// What the field is FOR, spoken to assistive technology ("Amount to
+  /// send"). Defaults to the host's word for "amount". The currency affix is
+  /// appended so a blind customer knows which currency they are typing.
+  final String? semanticLabel;
+
   const NeptuneAmountInput({
     super.key,
     required this.value,
     this.currency,
     this.hint,
     this.onChanged,
+    this.semanticLabel,
   });
 
   @override
@@ -91,8 +99,11 @@ class _NeptuneAmountInputState extends State<NeptuneAmountInput> {
       letterSpacing: type.displayTracking,
     );
     final affix = text.titleMedium?.copyWith(color: scheme.onSurfaceVariant);
+    final strings = NeptuneAccessibility.of(context);
 
     final currency = widget.currency;
+    final hasCurrency = currency != null && currency.isNotEmpty;
+    final spokenLabel = widget.semanticLabel ?? strings.amount;
 
     return Container(
       constraints: const BoxConstraints(minHeight: 64),
@@ -107,25 +118,31 @@ class _NeptuneAmountInputState extends State<NeptuneAmountInput> {
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
         children: [
-          if (currency != null && currency.isNotEmpty) ...[
-            Text(currency, style: affix),
+          if (hasCurrency) ...[
+            // Spoken as part of the field's label, not as a stray "LYD" stop.
+            ExcludeSemantics(child: Text(currency, style: affix)),
             const SizedBox(width: 8),
           ],
           Expanded(
-            child: TextField(
-              controller: _controller,
-              onChanged: _handleChanged,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              textAlign: TextAlign.end,
-              style: money,
-              cursorColor: scheme.primary,
-              decoration: InputDecoration(
-                isCollapsed: true,
-                border: InputBorder.none,
-                hintText: widget.hint ?? '0.00',
-                hintStyle: money.copyWith(
-                  color: scheme.onSurfaceVariant.withValues(alpha: 0.5),
+            child: Semantics(
+              label: hasCurrency
+                  ? '$spokenLabel, ${strings.currencyName(currency)}'
+                  : spokenLabel,
+              child: TextField(
+                controller: _controller,
+                onChanged: _handleChanged,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                textAlign: TextAlign.end,
+                style: money,
+                cursorColor: scheme.primary,
+                decoration: InputDecoration(
+                  isCollapsed: true,
+                  border: InputBorder.none,
+                  hintText: widget.hint ?? '0.00',
+                  hintStyle: money.copyWith(
+                    color: scheme.onSurfaceVariant.withValues(alpha: 0.5),
+                  ),
                 ),
               ),
             ),
@@ -203,6 +220,7 @@ class _NeptuneCurrencyFieldState extends State<NeptuneCurrencyField> {
 
     final options = widget.currencies;
     final hasMenu = options != null && options.isNotEmpty;
+    final strings = NeptuneAccessibility.of(context);
 
     final pill = Container(
       constraints: const BoxConstraints(minHeight: 32),
@@ -240,42 +258,62 @@ class _NeptuneCurrencyFieldState extends State<NeptuneCurrencyField> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _controller,
-              onChanged: _handleChanged,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              textAlign: TextAlign.end,
-              style: amountStyle,
-              cursorColor: scheme.primary,
-              decoration: InputDecoration(
-                isCollapsed: true,
-                border: InputBorder.none,
-                hintText: '0.00',
-                hintStyle: amountStyle.copyWith(
-                  color: scheme.onSurfaceVariant.withValues(alpha: 0.6),
+            child: Semantics(
+              label: '${strings.amount}, ${strings.currencyName(widget.currency)}',
+              child: TextField(
+                controller: _controller,
+                onChanged: _handleChanged,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                textAlign: TextAlign.end,
+                style: amountStyle,
+                cursorColor: scheme.primary,
+                decoration: InputDecoration(
+                  isCollapsed: true,
+                  border: InputBorder.none,
+                  hintText: '0.00',
+                  hintStyle: amountStyle.copyWith(
+                    color: scheme.onSurfaceVariant.withValues(alpha: 0.6),
+                  ),
                 ),
               ),
             ),
           ),
           const SizedBox(width: 12),
           if (hasMenu)
-            PopupMenuButton<String>(
-              tooltip: 'Select currency',
-              padding: EdgeInsets.zero,
-              position: PopupMenuPosition.under,
-              onSelected: (c) => widget.onCurrencyChanged?.call(c),
-              itemBuilder: (context) => [
-                for (final c in options)
-                  PopupMenuItem<String>(
-                    value: c,
-                    child: Text(c, style: currencyStyle),
-                  ),
-              ],
-              child: pill,
+            // The pill is a button whose value is the chosen currency; the
+            // tooltip and label come from the host's vocabulary, not English.
+            Semantics(
+              button: true,
+              label: strings.selectCurrency,
+              value: widget.currency,
+              excludeSemantics: true,
+              child: ConstrainedBox(
+                constraints:
+                    const BoxConstraints(minWidth: 48, minHeight: 48),
+                child: PopupMenuButton<String>(
+                  tooltip: strings.selectCurrency,
+                  padding: EdgeInsets.zero,
+                  position: PopupMenuPosition.under,
+                  onSelected: (c) => widget.onCurrencyChanged?.call(c),
+                  itemBuilder: (context) => [
+                    for (final c in options)
+                      PopupMenuItem<String>(
+                        value: c,
+                        child: Text(c, style: currencyStyle),
+                      ),
+                  ],
+                  child: Center(child: pill),
+                ),
+              ),
             )
           else
-            pill,
+            Semantics(
+              label: strings.currency,
+              value: widget.currency,
+              excludeSemantics: true,
+              child: pill,
+            ),
         ],
       ),
     );
@@ -345,6 +383,7 @@ class _NeptuneIbanFieldState extends State<NeptuneIbanField> {
     final borderColor = !hasValue
         ? scheme.outline
         : (widget.valid ? npt.success : scheme.error);
+    final strings = NeptuneAccessibility.of(context);
 
     return Container(
       constraints: const BoxConstraints(minHeight: 48),
@@ -358,31 +397,45 @@ class _NeptuneIbanFieldState extends State<NeptuneIbanField> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _controller,
-              onChanged: _handleChanged,
-              textCapitalization: TextCapitalization.characters,
-              autocorrect: false,
-              enableSuggestions: false,
-              style: ibanStyle,
-              cursorColor: scheme.primary,
-              decoration: InputDecoration(
-                isCollapsed: true,
-                border: InputBorder.none,
-                hintText: 'LY00 0000 0000 0000',
-                hintStyle: ibanStyle.copyWith(
-                  color: scheme.onSurfaceVariant.withValues(alpha: 0.6),
-                  letterSpacing: 0,
+            child: Semantics(
+              label: strings.iban,
+              validationResult: !hasValue
+                  ? SemanticsValidationResult.none
+                  : widget.valid
+                      ? SemanticsValidationResult.valid
+                      : SemanticsValidationResult.invalid,
+              child: TextField(
+                controller: _controller,
+                onChanged: _handleChanged,
+                textCapitalization: TextCapitalization.characters,
+                autocorrect: false,
+                enableSuggestions: false,
+                style: ibanStyle,
+                cursorColor: scheme.primary,
+                decoration: InputDecoration(
+                  isCollapsed: true,
+                  border: InputBorder.none,
+                  hintText: 'LY00 0000 0000 0000',
+                  hintStyle: ibanStyle.copyWith(
+                    color: scheme.onSurfaceVariant.withValues(alpha: 0.6),
+                    letterSpacing: 0,
+                  ),
                 ),
               ),
             ),
           ),
           if (hasValue) ...[
             const SizedBox(width: 12),
-            Icon(
-              widget.valid ? Icons.check_circle : Icons.cancel,
-              size: 20,
-              color: widget.valid ? npt.success : scheme.error,
+            // The green/red glyph is the only visible verdict; spoken as
+            // "valid IBAN" / "invalid IBAN" and announced when it flips.
+            Semantics(
+              liveRegion: true,
+              label: widget.valid ? strings.ibanValid : strings.ibanInvalid,
+              child: Icon(
+                widget.valid ? Icons.check_circle : Icons.cancel,
+                size: 20,
+                color: widget.valid ? npt.success : scheme.error,
+              ),
             ),
           ],
         ],

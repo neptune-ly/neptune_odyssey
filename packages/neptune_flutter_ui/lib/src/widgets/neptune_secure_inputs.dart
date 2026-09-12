@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
 
@@ -136,6 +137,7 @@ class _NeptuneOtpInputState extends State<NeptuneOtpInput> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = NeptuneAccessibility.of(context);
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Row(
@@ -143,11 +145,14 @@ class _NeptuneOtpInputState extends State<NeptuneOtpInput> {
         children: [
           for (var i = 0; i < widget.length; i++) ...[
             if (i > 0) const SizedBox(width: 8),
+            // "digit 3 of 6": a blind customer must know which cell holds
+            // focus, or a six-box code is six identical unnamed edit boxes.
             _OtpCell(
               controller: _controllers[i],
               focusNode: _nodes[i],
               obscure: widget.obscure,
               isLast: i == widget.length - 1,
+              semanticLabel: strings.otpDigit(i + 1, widget.length),
               onChanged: (raw) => _onChanged(i, raw),
               onKey: (node, event) => _onKey(i, node, event),
             ),
@@ -164,6 +169,7 @@ class _OtpCell extends StatefulWidget {
   final FocusNode focusNode;
   final bool obscure;
   final bool isLast;
+  final String semanticLabel;
   final ValueChanged<String> onChanged;
   final KeyEventResult Function(FocusNode, KeyEvent) onKey;
 
@@ -172,6 +178,7 @@ class _OtpCell extends StatefulWidget {
     required this.focusNode,
     required this.obscure,
     required this.isLast,
+    required this.semanticLabel,
     required this.onChanged,
     required this.onKey,
   });
@@ -227,9 +234,14 @@ class _OtpCellState extends State<_OtpCell> {
     return SizedBox(
       width: 48,
       height: 56,
+      // The outer Focus is a keyboard hook only; its semantics are switched
+      // off so the label lands on the text field node itself.
       child: Focus(
         onKeyEvent: widget.onKey,
-        child: TextField(
+        includeSemantics: false,
+        child: Semantics(
+          label: widget.semanticLabel,
+          child: TextField(
           controller: widget.controller,
           focusNode: widget.focusNode,
           keyboardType: TextInputType.number,
@@ -259,6 +271,7 @@ class _OtpCellState extends State<_OtpCell> {
               borderRadius: shape.rSm,
               borderSide: BorderSide(color: scheme.primary, width: 2),
             ),
+          ),
           ),
         ),
       ),
@@ -353,22 +366,37 @@ class _KeypadKey extends StatelessWidget {
       base: text.headlineSmall ?? text.titleLarge,
     ).copyWith(color: scheme.onSurface);
 
+    final strings = NeptuneAccessibility.of(context);
+
     final Widget child = value == 'back'
         ? Icon(Icons.backspace_outlined,
             size: 24, color: scheme.onSurfaceVariant)
         : Text(value, style: keyStyle);
 
+    // The backspace tile was an unlabelled icon and "." was spoken as a
+    // full stop; every key is now a named button.
+    final spoken = switch (value) {
+      'back' => strings.backspace,
+      '.' => strings.decimalPoint,
+      _ => value,
+    };
+
     return Material(
       color: isAction ? null : scheme.surfaceContainerHigh,
       borderRadius: shape.rMd,
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: shape.rMd,
-        child: Container(
-          constraints: const BoxConstraints(minHeight: 56),
-          alignment: Alignment.center,
-          child: child,
+      child: Semantics(
+        button: true,
+        label: spoken,
+        excludeSemantics: true,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: shape.rMd,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 56),
+            alignment: Alignment.center,
+            child: child,
+          ),
         ),
       ),
     );

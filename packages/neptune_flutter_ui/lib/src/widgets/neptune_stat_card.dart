@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
 import 'neptune_identity_surfaces.dart';
@@ -35,8 +36,19 @@ class NeptuneStatCard extends StatelessWidget {
         .copyWith(color: scheme.onSurface, fontWeight: FontWeight.w700);
     final isDown = (delta ?? '').trimLeft().startsWith('-');
     final deltaColor = isDown ? scheme.error : npt.success;
+    final strings = NeptuneAccessibility.of(context);
 
-    return Container(
+    // "Income, 9,120 LYD, up 8.2 percent": one stop, direction as a word.
+    final spoken = [
+      label,
+      NeptuneAccessibility.money(context, value, currency: unit),
+      if (delta != null) '${isDown ? strings.down : strings.up} ${delta!.replaceFirst(RegExp(r'^\s*[+-]'), '')}',
+    ].join(', ');
+
+    return Semantics(
+      label: spoken,
+      excludeSemantics: chart == null,
+      child: Container(
       decoration: BoxDecoration(color: scheme.surfaceContainer, borderRadius: shape.rLg),
       padding: const EdgeInsetsDirectional.all(16),
       child: Column(
@@ -68,6 +80,7 @@ class NeptuneStatCard extends StatelessWidget {
           ],
           if (chart != null) ...[const SizedBox(height: 10), chart!],
         ],
+      ),
       ),
     );
   }
