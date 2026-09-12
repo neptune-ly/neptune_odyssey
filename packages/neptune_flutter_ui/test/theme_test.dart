@@ -414,8 +414,10 @@ void main() {
         // The flag moves the ground, not the scheme: every role is unchanged.
         expect(theme.colorScheme, plain.colorScheme);
         expect(plain.scaffoldBackgroundColor, plain.colorScheme.surface);
+        // The field fill is NOT gated on the flag: since 2.27.0 every light
+        // scheme draws a field white inside its ring. Only the ground moves.
         expect(plain.inputDecorationTheme.fillColor,
-            plain.colorScheme.surfaceContainerHighest);
+            plain.colorScheme.surfaceContainerLowest);
         // And a paper canvas built from the theme sits on that ground.
         expect(NptBrandCanvas.paperOf(theme).canvas, white);
         expect(NptBrandCanvas.paperOf(plain).canvas, plain.colorScheme.surface);
