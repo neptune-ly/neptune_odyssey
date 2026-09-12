@@ -399,8 +399,12 @@ class NeptuneTheme {
     // tone and would invert the meaning.
     final white = whiteGround && scheme.brightness == Brightness.light;
     final ground = white ? scheme.surfaceContainerLowest : scheme.surface;
-    final fieldFill =
-        white ? scheme.surfaceContainerLowest : scheme.surfaceContainerHighest;
+    // A field is white inside its ring in EVERY light scheme, not only under
+    // `whiteGround`: the tone-90 slab is the grey box that made every form look
+    // unthemed. Dark keeps `surfaceContainerHighest`, which is a lift there.
+    final fieldFill = scheme.brightness == Brightness.light
+        ? scheme.surfaceContainerLowest
+        : scheme.surfaceContainerHighest;
     // A host face replaces EVERY face, Arabic ones included: the host has one
     // typeface for both scripts and the brandprint's registry names are for
     // the web/Studio ports, not this theme.
@@ -527,6 +531,13 @@ class NeptuneTheme {
       // `outline` is Material's role for a real component boundary and
       // measures 3.47:1 (light) / 4.40:1 (dark) against the surface, clearing
       // the 3:1 non-text-contrast floor in both.
+      //
+      // `surfaceContainerLowest` for the fill, because that is the web recipe
+      // (`inputs.ts`: `background: surface-container-lowest; border: 1px
+      // outline`) and this port had drifted to `surfaceContainerHighest` - the
+      // darkest container tone, a grey slab on every form. Under the ring the
+      // field is the lightest tone the scheme has, which is what makes the
+      // ring the boundary rather than the fill-vs-page step (2.26.0).
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: fieldFill,

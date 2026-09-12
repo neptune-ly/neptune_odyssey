@@ -106,7 +106,7 @@ Honest status — nothing silently dropped.
 | Data | `NeptuneDataTable`/`NeptuneColumn` | `npt-data-table` |
 | Onboarding | `NeptuneOnboarding` | `npt-onboarding` |
 | Money inputs | `NeptuneAmountInput`, `NeptuneCurrencyField`, `NeptuneIbanField`, `NeptuneOtpInput`, `NeptunePinInput`, `NeptuneAmountKeypad` | `npt-amount-input`, `npt-currency-field`, `npt-iban-field`, `npt-otp-input`, `npt-pin-input`, `npt-amount-keypad` |
-| Money movement | `NeptuneStepper`, `NeptuneTransferReview`, `NeptuneMethodRow`, `NeptuneBeneficiaryTile`, `NeptuneSuccess`, `NeptuneReceipt` | `npt-stepper`, `npt-transfer-review`, `npt-method-row`, `npt-beneficiary-tile`, `npt-success`, `npt-receipt` |
+| Money movement | `NeptuneStepper`, `NeptuneTransferReview`, `NeptuneMethodRow`, `NeptuneBeneficiaryTile`, `NeptuneSuccess`, `NeptuneReceipt`, `NeptuneDetailList`/`NeptuneDetailItem` (2.26.0) | `npt-stepper`, `npt-transfer-review`, `npt-method-row`, `npt-beneficiary-tile`, `npt-success`, `npt-receipt`, `npt-detail-list` (Flutter-first; no web element yet) |
 | Data-viz | `NeptuneSparkline`, `NeptuneDonut`, `NeptuneLimitMeter`, `NeptuneTrend` | `npt-sparkline`, `npt-donut`, `npt-limit-meter`, `npt-trend` |
 | Corporate | `NeptuneApprovalItem`, `NeptuneBatchCard`, `NeptuneAuditRow`, `NeptuneUserRow`, `NeptunePermissionToggle`, `NeptuneWorkflowStatus` | `npt-approval-item`, `npt-batch-card`, `npt-audit-row`, `npt-user-row`, `npt-permission-toggle`, `npt-workflow-status` |
 | Wallet / pay | `NeptuneMerchantRow`, `NeptuneVoucherCard`, `NeptuneQrPay`, `NeptuneTopupRow`, `NeptuneTierBadge` | `npt-merchant-row`, `npt-voucher-card`, `npt-qr-pay`, `npt-topup-row`, `npt-tier-badge` |

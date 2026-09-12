@@ -49,6 +49,8 @@ export 'src/widgets/neptune_money_inputs.dart';
 export 'src/widgets/neptune_secure_inputs.dart';
 export 'src/widgets/neptune_money_movement.dart';
 export 'src/widgets/neptune_receipt.dart';
+// 2.26.0 - the labelled-value list every detail screen is made of.
+export 'src/widgets/neptune_detail_list.dart';
 export 'src/widgets/neptune_data_viz.dart';
 export 'src/widgets/neptune_corporate.dart';
 export 'src/widgets/neptune_wallet_pay.dart';

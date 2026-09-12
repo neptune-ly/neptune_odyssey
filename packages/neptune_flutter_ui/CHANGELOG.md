@@ -1,3 +1,50 @@
+## 2.27.0
+
+- **Accessibility: the widget set speaks.** 2.23.0 shipped `Semantics` in two of twenty-seven
+  widget files; a blind customer met unnamed tap targets, colour-only states and amounts spelled
+  digit by digit. This release adds one contract and threads it through every widget:
+  - `NeptuneAccessibility` + `NeptuneA11yStrings` (`theme/accessibility.dart`). The library has
+    no l10n layer, so every word a screen reader hears from a widget - credit, debit, balance,
+    loading, digit 3 of 6, valid IBAN - comes from the HOST through this inherited widget, with an
+    English fallback when none is mounted. A bank whose customers speak Arabic must mount it above
+    the navigator or they hear English mid-screen. `money(amount, currency)` and `currencyName`
+    are the spoken-money hooks: the visual stays tabular, the label says "12,480.500 Libyan
+    dinars". `maskedNumber()` turns "•••• 4821" into "ending in 4 8 2 1".
+  - Roles and states. `NeptuneCta`, `NeptuneQuickAction`, `NeptuneAccountTile`,
+    `NeptuneTransactionRow`, `NeptuneMethodRow`, `NeptuneBeneficiaryTile`, `NeptuneListTile`,
+    `NeptuneDateField`, `NeptuneMenu`'s anchor, the keypad tiles, pagination, breadcrumbs and
+    accordion headers were `InkWell`s with no button role - now named buttons. Dock items, tabs,
+    segments, page pills, rating stars, beneficiary tiles carry `selected`; accordion `expanded`;
+    the freeze control `toggled`; method rows and radio tiles `inMutuallyExclusiveGroup`.
+  - One stop per row. Account tile, transaction row, balance card, receipt rows, transfer-review
+    rows and total, stat card, checkbox tile, radio tile and beneficiary tile merge their fragments
+    into one label with `excludeSemantics`, so a row is heard once, whole.
+  - Live regions. Toast, alert, banner, the outcome motion (success / rejected was PAINTED and
+    silent), skeletons and loaders ("loading"), field errors, the IBAN verdict, the stepper, the
+    balance card and `NeptuneStateSwitcher`'s error/empty faces announce themselves.
+  - Busy buttons keep their name: `NeptuneButton`/`NeptunePrimaryButton` with `busy: true` were
+    an anonymous "button, disabled"; now "Confirm, loading".
+  - Fields: an outer `Semantics(label:)` merges INTO a `TextField`'s node (verified against the
+    framework), so `NeptuneTextField`, `NeptuneSelect`, `NeptuneAmountInput`,
+    `NeptuneCurrencyField`, `NeptuneIbanField`, `NeptuneSearchField` and every OTP cell are named
+    edit boxes; errors carry `validationResult`.
+  - Never colour alone: `NeptuneTransactionRow` shows a "+"/"-" sign (`showSign`, default on) and
+    says credit/debit; `NeptuneAlert` speaks its tone first; `NeptuneStatCard` says up/down.
+  - Targets: `NeptuneTag` remove (was ~18dp), pagination arrows and pills (40), segments (40),
+    breadcrumbs, `NeptuneInsightCard` action (40, shrinkWrap) are 48dp.
+  - Reduced motion: dock, tabs, accordion, toast, checkbox, radio, switch, segment, CTA press
+    scale and the state switcher collapse to `Duration.zero` under
+    `MediaQuery.disableAnimations` - the END STATE is shown, never nothing.
+  - Fixed: `NeptuneCheckbox`/`NeptuneSwitch` passed the VALUE as `enabled:`; a checked, disabled
+    control read as enabled.
+  - Localised what was hardcoded English: stepper tooltips, "Select currency", dialog "OK",
+    receipt "Share", search hint, transfer-review captions (`fromCaption` etc.).
+  - `NeptuneIconSlot.semanticLabel`, `NeptuneNumeral.semanticsLabel`, `currency:` on the money
+    widgets, `selected:` on `NeptuneAccountTile`.
+  - `test/accessibility_test.dart`: 39 tests, each named for the assertion that fails on 2.23.0.
+  Branched from `v2.23.0` because that is the tag the Neptune app pins; forward-merge into
+  `main` (2.24.x / 2.25.0) is still to do.
+
 ## 2.26.0
 
 - **`NptGlance` - the wrist scale.** A watch has no room for the fifteen-step Material type
@@ -44,6 +91,25 @@
   40dp hairline under it, the bank's name as an eyebrow, the CTA pair at the foot. Colours come
   from `NptBrandCanvas.paper`, so it re-tones with the theme; no orbs, no motif, no watermark - a
   body, not a screen, so the host keeps its own `Scaffold` and language switch.
+- **Text fields are the lightest tone inside an `outline` ring, as on the web.** `inputs.ts`
+  has always drawn `<npt-text-field>` as `surface-container-lowest` with a 1px `outline`
+  stroke; this port drifted to `surfaceContainerHighest` - the darkest container tone - in
+  the theme's `inputDecorationTheme` and, with no ring at rest, in `NeptuneTextField`,
+  `NeptuneSelect`, `NeptuneStepperInput` and `NeptuneDateField`. Every form became a row of
+  grey slabs, and a host mixing those widgets with a bare themed `TextField` got two kinds
+  of field on one screen. All five now share one recipe: `surfaceContainerLowest` fill, 1px
+  `outline` at rest, 2px `primary` on focus, `error` when errored.
+- **`NeptuneDetailList` + `NeptuneDetailItem`** (`neptune_detail_list.dart`) - the
+  labelled-value list a transaction detail, a bill summary or a payee's particulars are
+  made of. One `surfaceContainerLow` surface on the `lg` corner, rows on `outlineVariant`
+  hairlines, label at the start edge and value at the end; `numeric` pins a value LTR
+  through `NeptuneNumeral`, `emphasis` sets the one row that is the figure in the money
+  face, `trailing` holds a 40dp end-edge action (copy, chevron). An optional `title` is an
+  eyebrow above the surface, not a heading inside a box. Hosts had been re-inventing this
+  with `Container`s at a different radius each time.
+- **`NeptuneListTile.flat`** - transparent, square, ripple clipped to the row, for a tile
+  that sits inside a grouped surface (a `NeptuneDetailList` of payees) where a per-row
+  `surfaceContainerLow` slab with its own corners read as boxes on a box.
 
 ## 2.24.1
 
@@ -103,52 +169,6 @@
 - **`NptBrandCanvas`** (new, `theme/brand_canvas.dart`) + `context.brandCanvas()`: the eight fixed
   pre-login colour roles, brightness-invariant for the same reason the card-art roles are.
 - `NptType` gains `bundled` and `fontFamilyFallback` (carried through `copyWith`/`lerp`).
-## 2.23.1
-
-- **Accessibility: the widget set speaks.** 2.23.0 shipped `Semantics` in two of twenty-seven
-  widget files; a blind customer met unnamed tap targets, colour-only states and amounts spelled
-  digit by digit. This release adds one contract and threads it through every widget:
-  - `NeptuneAccessibility` + `NeptuneA11yStrings` (`theme/accessibility.dart`). The library has
-    no l10n layer, so every word a screen reader hears from a widget - credit, debit, balance,
-    loading, digit 3 of 6, valid IBAN - comes from the HOST through this inherited widget, with an
-    English fallback when none is mounted. A bank whose customers speak Arabic must mount it above
-    the navigator or they hear English mid-screen. `money(amount, currency)` and `currencyName`
-    are the spoken-money hooks: the visual stays tabular, the label says "12,480.500 Libyan
-    dinars". `maskedNumber()` turns "•••• 4821" into "ending in 4 8 2 1".
-  - Roles and states. `NeptuneCta`, `NeptuneQuickAction`, `NeptuneAccountTile`,
-    `NeptuneTransactionRow`, `NeptuneMethodRow`, `NeptuneBeneficiaryTile`, `NeptuneListTile`,
-    `NeptuneDateField`, `NeptuneMenu`'s anchor, the keypad tiles, pagination, breadcrumbs and
-    accordion headers were `InkWell`s with no button role - now named buttons. Dock items, tabs,
-    segments, page pills, rating stars, beneficiary tiles carry `selected`; accordion `expanded`;
-    the freeze control `toggled`; method rows and radio tiles `inMutuallyExclusiveGroup`.
-  - One stop per row. Account tile, transaction row, balance card, receipt rows, transfer-review
-    rows and total, stat card, checkbox tile, radio tile and beneficiary tile merge their fragments
-    into one label with `excludeSemantics`, so a row is heard once, whole.
-  - Live regions. Toast, alert, banner, the outcome motion (success / rejected was PAINTED and
-    silent), skeletons and loaders ("loading"), field errors, the IBAN verdict, the stepper, the
-    balance card and `NeptuneStateSwitcher`'s error/empty faces announce themselves.
-  - Busy buttons keep their name: `NeptuneButton`/`NeptunePrimaryButton` with `busy: true` were
-    an anonymous "button, disabled"; now "Confirm, loading".
-  - Fields: an outer `Semantics(label:)` merges INTO a `TextField`'s node (verified against the
-    framework), so `NeptuneTextField`, `NeptuneSelect`, `NeptuneAmountInput`,
-    `NeptuneCurrencyField`, `NeptuneIbanField`, `NeptuneSearchField` and every OTP cell are named
-    edit boxes; errors carry `validationResult`.
-  - Never colour alone: `NeptuneTransactionRow` shows a "+"/"-" sign (`showSign`, default on) and
-    says credit/debit; `NeptuneAlert` speaks its tone first; `NeptuneStatCard` says up/down.
-  - Targets: `NeptuneTag` remove (was ~18dp), pagination arrows and pills (40), segments (40),
-    breadcrumbs, `NeptuneInsightCard` action (40, shrinkWrap) are 48dp.
-  - Reduced motion: dock, tabs, accordion, toast, checkbox, radio, switch, segment, CTA press
-    scale and the state switcher collapse to `Duration.zero` under
-    `MediaQuery.disableAnimations` - the END STATE is shown, never nothing.
-  - Fixed: `NeptuneCheckbox`/`NeptuneSwitch` passed the VALUE as `enabled:`; a checked, disabled
-    control read as enabled.
-  - Localised what was hardcoded English: stepper tooltips, "Select currency", dialog "OK",
-    receipt "Share", search hint, transfer-review captions (`fromCaption` etc.).
-  - `NeptuneIconSlot.semanticLabel`, `NeptuneNumeral.semanticsLabel`, `currency:` on the money
-    widgets, `selected:` on `NeptuneAccountTile`.
-  - `test/accessibility_test.dart`: 39 tests, each named for the assertion that fails on 2.23.0.
-  Branched from `v2.23.0` because that is the tag the Neptune app pins; forward-merge into
-  `main` (2.24.x / 2.25.0) is still to do.
 
 ## 2.23.0
 
