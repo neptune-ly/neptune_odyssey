@@ -513,9 +513,16 @@ class NeptuneTheme {
       // `outline` is Material's role for a real component boundary and
       // measures 3.47:1 (light) / 4.40:1 (dark) against the surface, clearing
       // the 3:1 non-text-contrast floor in both.
+      //
+      // `surfaceContainerLowest` for the fill, because that is the web recipe
+      // (`inputs.ts`: `background: surface-container-lowest; border: 1px
+      // outline`) and this port had drifted to `surfaceContainerHighest` - the
+      // darkest container tone, a grey slab on every form. Under the ring the
+      // field is the lightest tone the scheme has, which is what makes the
+      // ring the boundary rather than the fill-vs-page step (2.26.0).
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: scheme.surfaceContainerHighest,
+        fillColor: scheme.surfaceContainerLowest,
         border: field(scheme.outline),
         enabledBorder: field(scheme.outline),
         focusedBorder: field(scheme.primary, width: 2),

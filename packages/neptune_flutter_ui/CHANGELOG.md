@@ -1,3 +1,25 @@
+## 2.26.0
+
+- **Text fields are the lightest tone inside an `outline` ring, as on the web.** `inputs.ts`
+  has always drawn `<npt-text-field>` as `surface-container-lowest` with a 1px `outline`
+  stroke; this port drifted to `surfaceContainerHighest` - the darkest container tone - in
+  the theme's `inputDecorationTheme` and, with no ring at rest, in `NeptuneTextField`,
+  `NeptuneSelect`, `NeptuneStepperInput` and `NeptuneDateField`. Every form became a row of
+  grey slabs, and a host mixing those widgets with a bare themed `TextField` got two kinds
+  of field on one screen. All five now share one recipe: `surfaceContainerLowest` fill, 1px
+  `outline` at rest, 2px `primary` on focus, `error` when errored.
+- **`NeptuneDetailList` + `NeptuneDetailItem`** (`neptune_detail_list.dart`) - the
+  labelled-value list a transaction detail, a bill summary or a payee's particulars are
+  made of. One `surfaceContainerLow` surface on the `lg` corner, rows on `outlineVariant`
+  hairlines, label at the start edge and value at the end; `numeric` pins a value LTR
+  through `NeptuneNumeral`, `emphasis` sets the one row that is the figure in the money
+  face, `trailing` holds a 40dp end-edge action (copy, chevron). An optional `title` is an
+  eyebrow above the surface, not a heading inside a box. Hosts had been re-inventing this
+  with `Container`s at a different radius each time.
+- **`NeptuneListTile.flat`** - transparent, square, ripple clipped to the row, for a tile
+  that sits inside a grouped surface (a `NeptuneDetailList` of payees) where a per-row
+  `surfaceContainerLow` slab with its own corners read as boxes on a box.
+
 ## 2.24.1
 
 - **`textButtonTheme` carries the label captured at assembly**, exactly as `filledButtonTheme`

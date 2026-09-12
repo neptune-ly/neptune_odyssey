@@ -2,9 +2,16 @@
 //
 // Branded form inputs (web `<npt-text-field>`, `<npt-select>`,
 // `<npt-stepper>`, `<npt-date-field>`): themed text/select/stepper/date
-// controls that match the brand decoration of the money inputs — filled
-// surfaceContainerHighest, shape.rSm corners, primary focus ring, error
-// states. Theme-only (no literal colours/radii/fonts), RTL-safe.
+// controls on the web field recipe (`inputs.ts`): surfaceContainerLowest
+// fill inside a 1px `outline` ring, shape.rSm corners, primary focus ring,
+// error states. Theme-only (no literal colours/radii/fonts), RTL-safe.
+//
+// 2.26.0: every control here read `surfaceContainerHighest` - the darkest
+// container tone - for its fill, with no ring at rest. The web component has
+// always been the lightest tone inside an `outline` stroke, and the theme's
+// own `inputDecorationTheme` is too; the drift made every Flutter form a
+// row of grey slabs. Same tone and ring as the theme now, so a host mixing
+// these with a bare `TextField` gets one field, not two.
 
 import 'package:flutter/material.dart';
 
@@ -13,9 +20,10 @@ import '../theme/extensions.dart';
 /// A labelled, branded text input (web `<npt-text-field>`).
 ///
 /// Renders an optional [label] (labelMedium, onSurfaceVariant) above a filled
-/// [TextField] (surfaceContainerHighest, [NptShape.rSm] corners: no border at
-/// rest, a 2px primary ring on focus, the error colour when [errorText] is
-/// set), with optional prefix/suffix icons and helper/error text below.
+/// [TextField] (surfaceContainerLowest, [NptShape.rSm] corners, a 1px
+/// `outline` ring at rest, a 2px primary ring on focus, the error colour when
+/// [errorText] is set), with optional prefix/suffix icons and helper/error
+/// text below.
 /// Theme-only, RTL-safe.
 class NeptuneTextField extends StatelessWidget {
   /// Optional field label shown above the input.
@@ -117,8 +125,8 @@ class NeptuneTextField extends StatelessWidget {
             isDense: true,
             filled: true,
             fillColor: enabled
-                ? scheme.surfaceContainerHighest
-                : scheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                ? scheme.surfaceContainerLowest
+                : scheme.surfaceContainerLowest.withValues(alpha: 0.5),
             hintText: hint,
             hintStyle: text.bodyLarge?.copyWith(
               color: scheme.onSurfaceVariant.withValues(alpha: 0.6),
@@ -134,17 +142,11 @@ class NeptuneTextField extends StatelessWidget {
               horizontal: 16,
               vertical: 14,
             ),
-            // No visible border at rest; primary ring on focus; error tint.
-            border: OutlineInputBorder(
-              borderRadius: shape.rSm,
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: hasError
-                ? border(scheme.error, 1)
-                : OutlineInputBorder(
-                    borderRadius: shape.rSm,
-                    borderSide: BorderSide.none,
-                  ),
+            // The web ring: 1px `outline` at rest, primary on focus, error
+            // tint. `outline`, not `outlineVariant` - the variant reads as
+            // nothing against the page (see the theme's own decoration).
+            border: border(scheme.outline, 1),
+            enabledBorder: border(hasError ? scheme.error : scheme.outline, 1),
             disabledBorder: OutlineInputBorder(
               borderRadius: shape.rSm,
               borderSide: BorderSide(color: scheme.outlineVariant),
@@ -192,8 +194,8 @@ class NeptuneSelectOption<T> {
 /// A labelled, branded dropdown select (web `<npt-select>`).
 ///
 /// A themed [DropdownButtonFormField] whose decoration matches
-/// [NeptuneTextField] (filled surfaceContainerHighest, [NptShape.rSm] corners,
-/// primary focus ring). Menu items show an optional [NeptuneSelectOption.icon]
+/// [NeptuneTextField] (surfaceContainerLowest inside a 1px `outline` ring,
+/// [NptShape.rSm] corners, primary focus ring). Menu items show an optional [NeptuneSelectOption.icon]
 /// before the label. Theme-only, RTL-safe.
 class NeptuneSelect<T> extends StatelessWidget {
   /// Optional field label shown above the select.
@@ -270,20 +272,14 @@ class NeptuneSelect<T> extends StatelessWidget {
             isDense: true,
             filled: true,
             fillColor: enabled
-                ? scheme.surfaceContainerHighest
-                : scheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                ? scheme.surfaceContainerLowest
+                : scheme.surfaceContainerLowest.withValues(alpha: 0.5),
             contentPadding: const EdgeInsetsDirectional.symmetric(
               horizontal: 16,
               vertical: 14,
             ),
-            border: OutlineInputBorder(
-              borderRadius: shape.rSm,
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: shape.rSm,
-              borderSide: BorderSide.none,
-            ),
+            border: border(scheme.outline, 1),
+            enabledBorder: border(scheme.outline, 1),
             disabledBorder: OutlineInputBorder(
               borderRadius: shape.rSm,
               borderSide: BorderSide(color: scheme.outlineVariant),
@@ -393,9 +389,9 @@ class NeptuneStepperInput extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: scheme.surfaceContainerHighest,
+            color: scheme.surfaceContainerLowest,
             borderRadius: radius,
-            border: Border.all(color: scheme.outlineVariant),
+            border: Border.all(color: scheme.outline),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -510,8 +506,11 @@ class NeptuneDateField extends StatelessWidget {
           const SizedBox(height: 6),
         ],
         Material(
-          color: scheme.surfaceContainerHighest,
-          borderRadius: shape.rSm,
+          color: scheme.surfaceContainerLowest,
+          shape: RoundedRectangleBorder(
+            borderRadius: shape.rSm,
+            side: BorderSide(color: scheme.outline),
+          ),
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             onTap: () => _pick(context),

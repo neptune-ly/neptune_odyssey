@@ -598,6 +598,12 @@ class NeptuneListTile extends StatelessWidget {
   /// Tap handler. When null the row is non-interactive.
   final VoidCallback? onTap;
 
+  /// Draw no surface of its own: transparent, square, the ripple clipped to
+  /// the row. For a tile that sits INSIDE a grouped surface such as
+  /// [NeptuneDetailList], where a per-row `surfaceContainerLow` slab with
+  /// its own corners would read as a stack of boxes on a box (2.26.0).
+  final bool flat;
+
   const NeptuneListTile({
     super.key,
     this.leading,
@@ -606,6 +612,7 @@ class NeptuneListTile extends StatelessWidget {
     this.subtitle,
     this.trailing,
     this.onTap,
+    this.flat = false,
   });
 
   @override
@@ -668,6 +675,12 @@ class NeptuneListTile extends StatelessWidget {
       ),
     );
 
+    if (flat) {
+      return Material(
+        type: MaterialType.transparency,
+        child: onTap == null ? row : InkWell(onTap: onTap, child: row),
+      );
+    }
     return Material(
       color: scheme.surfaceContainerLow,
       borderRadius: radius,
