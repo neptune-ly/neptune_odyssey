@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
 import '../theme/identity.dart';
+import '../theme/accessibility.dart';
 import '../theme/neptune_theme.dart';
+import 'neptune_numeral.dart';
 
 /// A payment-card visual — the Flutter counterpart of web `<npt-card-art>`.
 ///
@@ -177,12 +179,20 @@ class NeptuneCardArt extends StatelessWidget {
                             ],
                           ],
                         ),
-                        // Masked card number.
-                        Text(
+                        // Masked card number. ISOLATED, not a bare `Text`: a
+                        // card number is a Latin-order string, and in an
+                        // RTL paragraph the bidi algorithm reorders the runs
+                        // around the bullets — the real last four moved to
+                        // the FRONT of the line, so an Arabic customer read
+                        // "4471 •••• •••• ••••" and the one part of the
+                        // number that means anything was in the wrong place.
+                        NeptuneNumeral(
                           '•••• •••• •••• $last4',
                           style: numberStyle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          semanticsLabel: NeptuneAccessibility.maskedNumber(
+                              context, '•••• •••• •••• $last4'),
                         ),
                         // Bottom row: holder + expiry block.
                         Row(
