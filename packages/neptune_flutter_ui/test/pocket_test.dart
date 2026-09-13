@@ -173,6 +173,57 @@ void main() {
     });
   });
 
+  group('a declared accent is identity, not chrome (2.30.0)', () {
+    test('it is the SAME colour in light and dark', () {
+      // A bank's red is the same red at midnight. Ramped per mode it came out
+      // vermilion in light and salmon in dark, so the pre-login mark, the
+      // primary CTA and the lead verb all changed colour with the customer's
+      // phone setting.
+      final light = NeptuneTheme.fromConfig(_base, brightness: Brightness.light)
+          .extension<NptColors>()!;
+      final dark = NeptuneTheme.fromConfig(_base, brightness: Brightness.dark)
+          .extension<NptColors>()!;
+      expect(dark.accent, light.accent);
+      expect(dark.onAccent, light.onAccent);
+    });
+
+    test('an UNdeclared accent still re-tones — it is the primary', () {
+      // Without `accentOnTertiary` the accent IS the primary, a genuine
+      // Material role. Pinning that would hand every brand without a second
+      // colour an unreadable dark mode.
+      const plain = BrandprintConfig(
+        primary: Seed(l: 0.4, c: 0.145, h: 264),
+        tertiary: Seed(l: 0.615, c: 0.205, h: 32),
+        corners: Corners(xs: 12, sm: 18, md: 24, lg: 30, xl: 38, xxl: 52),
+        displayWeight: 700,
+        displayTracking: -0.03,
+        fontDisplay: 'Readex Pro',
+        fontText: 'Readex Pro',
+        fontNum: 'Readex Pro',
+        loginShell: 'paper-lockup',
+        dashboardHero: 'balance-cards',
+        contentTone: 'clear-calm',
+        glassTint: 'oceanic',
+        motion: 'smooth-fluid',
+      );
+      final light = NeptuneTheme.fromConfig(plain, brightness: Brightness.light)
+          .extension<NptColors>()!;
+      final dark = NeptuneTheme.fromConfig(plain, brightness: Brightness.dark)
+          .extension<NptColors>()!;
+      expect(dark.accent, isNot(light.accent));
+    });
+
+    testWidgets('the pinned accent still carries its label in the dark',
+        (t) async {
+      final colors = NeptuneTheme.fromConfig(_base, brightness: Brightness.dark)
+          .extension<NptColors>()!;
+      double lum(Color c) => c.computeLuminance();
+      final ratio = (lum(colors.onAccent) + 0.05) / (lum(colors.accent) + 0.05);
+      expect(ratio > 3.0 || ratio < 1 / 3.0, isTrue,
+          reason: 'on-accent must stay legible once the accent is pinned');
+    });
+  });
+
   group('the host font roles (2.30.0)', () {
     test('one family still collapses all three roles', () {
       final t = NeptuneTheme.fromConfig(_base,

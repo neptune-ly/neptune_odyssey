@@ -86,6 +86,18 @@
   arrow. The first DIRECTIONAL motif: it mirrors under RTL, because a brand that reads right to left
   and keeps its arrow pointing left to right has drawn its own logo backwards.
 
+- **A DECLARED ACCENT IS BRIGHTNESS-INVARIANT.** `accentOnTertiary` means a brand has named a second
+  colour and said it means one thing: forward. That is identity, not chrome — and a bank's red is the
+  same red at midnight. Ramped per mode it came out vermilion in light and SALMON in dark, so the
+  pre-login mark, the primary CTA and the lead verb all changed colour with the customer's phone
+  setting. It is now generated from the LIGHT ramp in both modes, exactly like `cardGradientStart/End`
+  and `onCard`, with `on-accent` pinned alongside it so the label stays legible.
+  - Third instance of one class in this release: the card face inverted, then the pre-login mark took
+    `onAccent` and went near-black in dark, then this. The rule is now stated where it belongs —
+    **a DEPICTED brand colour is pinned; only genuine Material roles re-tone** — and an undeclared
+    accent is explicitly left re-toning, because there `accent` IS the primary and pinning it would
+    hand every brand without a second colour an unreadable dark mode.
+
 - **`NeptuneEyebrow` sets in the TEXT face, not the display face.** An eyebrow is `labelMedium` —
   twelve logical pixels — and a display face is chosen to work at thirty-six and up. A brand that
   bundles a genuinely expressive display face (a kufic, a high-contrast serif) had its smallest

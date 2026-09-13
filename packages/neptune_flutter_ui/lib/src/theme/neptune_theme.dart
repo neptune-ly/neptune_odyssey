@@ -272,12 +272,30 @@ class NeptuneTheme {
     final Color accent;
     final Color onAccent;
     if (cfg.accentOnTertiary) {
-      // The same tone the tertiary recipe would have given it, so a bank's
-      // accent sits at the chroma and lightness a second brand colour does.
-      final a = generatePaletteArgb(primary, tertiary, palette);
+      // A DECLARED ACCENT IS BRIGHTNESS-INVARIANT. It is generated from the
+      // LIGHT ramp in both modes, exactly like `cardGradientStart/End` and
+      // `onCard`, and for the same reason.
+      //
+      // A brand that sets `accentOnTertiary` has named a second colour and
+      // said it means one thing: forward. That is identity, not chrome — and
+      // a bank's red is the same red at midnight. Ramped per mode it came out
+      // vermilion in light and SALMON in dark, so the mark on the pre-login
+      // screen, the primary CTA and the lead verb all changed colour with the
+      // customer's phone setting. This is the third instance of one class of
+      // bug in this release (the card face inverted, then the mark's arrow
+      // took `onAccent`), which is why it is fixed here in the ramp rather
+      // than at the third call site.
+      //
+      // The contrast holds because `on-accent` is pinned with it: a near-white
+      // label on a mid-tone vermilion reads in both schemes, which is exactly
+      // what makes a physical card face work.
+      final a = generatePaletteArgb(primary, tertiary, 'light');
       accent = Color(a['tertiary']!);
       onAccent = Color(a['on-tertiary']!);
     } else {
+      // NOT pinned. Without a declared accent, `accent` IS the primary — a
+      // genuine Material role that must re-tone, or every brand without a
+      // second colour gets an unreadable dark mode.
       accent = c('primary');
       onAccent = c('on-primary');
     }

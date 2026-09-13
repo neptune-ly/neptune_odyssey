@@ -271,8 +271,17 @@ void main() {
 
           // The accent is the red - the tone the tertiary recipe gives the seed
           // in the unflagged theme - and is not the primary.
-          expect(colors.accent, plain.colorScheme.tertiary);
-          expect(colors.onAccent, plain.colorScheme.onTertiary);
+          //
+          // Read from the LIGHT unflagged theme in BOTH modes since 2.30.0: a
+          // declared accent is brightness-invariant, like the card-art roles.
+          // It is identity, not chrome, and a bank's red is the same red at
+          // midnight — ramped per mode it came out vermilion in light and
+          // salmon in dark, and the pre-login mark, the primary CTA and the
+          // lead verb all changed colour with the phone's setting.
+          final plainLight =
+              NeptuneTheme.fromConfig(flagged(false), brightness: Brightness.light);
+          expect(colors.accent, plainLight.colorScheme.tertiary);
+          expect(colors.onAccent, plainLight.colorScheme.onTertiary);
           expect(colors.accent, isNot(scheme.primary));
 
           // And the red is nowhere in chrome: the tertiary roles and the card

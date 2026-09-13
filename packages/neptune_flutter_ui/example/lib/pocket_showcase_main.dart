@@ -55,16 +55,26 @@ class PocketShowcaseApp extends StatefulWidget {
 // mouse, and a blind click on someone's desktop is a bad way to take a
 // screenshot. `--dart-define=SECTION=cards|art`, `--dart-define=RTL=true`,
 // and the platform's own appearance for brightness.
-const String _kSection = String.fromEnvironment('SECTION', defaultValue: 'home');
+const String _kSection =
+    String.fromEnvironment('SECTION', defaultValue: 'home');
 const bool _kRtl = bool.fromEnvironment('RTL');
 const bool _kRevealed = bool.fromEnvironment('REVEALED');
+
+/// `--dart-define=CHROME=off` removes the section switcher AND the dock, so a
+/// capture carries nothing of the harness on it.
+///
+/// It exists because a reviewer cannot sign off a frame with my tab strip
+/// across the top of it, and a signed-in dock under a PRE-LOGIN screen is
+/// worse than noise: it looks like a defect in the product.
+const bool _kChrome = bool.fromEnvironment('CHROME', defaultValue: true);
 
 class _PocketShowcaseAppState extends State<PocketShowcaseApp> {
   bool? _darkOverride;
   bool _rtl = _kRtl;
 
   bool _isDark(BuildContext context) =>
-      _darkOverride ?? MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+      _darkOverride ??
+      MediaQuery.platformBrightnessOf(context) == Brightness.dark;
 
   @override
   Widget build(BuildContext context) {
@@ -111,12 +121,8 @@ class _Showcase extends StatefulWidget {
 class _ShowcaseState extends State<_Showcase> {
   bool _revealed = _kRevealed;
   bool _flipped = _kRevealed;
-  int _section = switch (_kSection) {
-        'cards' => 1,
-        'art' => 2,
-        'welcome' => 3,
-        _ => 0
-      };
+  int _section =
+      switch (_kSection) { 'cards' => 1, 'art' => 2, 'welcome' => 3, _ => 0 };
 
   @override
   Widget build(BuildContext context) {
@@ -127,14 +133,15 @@ class _ShowcaseState extends State<_Showcase> {
         bottom: false,
         child: Column(
           children: [
-            _Switcher(
-              dark: widget.dark,
-              rtl: widget.rtl,
-              onDark: widget.onDark,
-              onRtl: widget.onRtl,
-              section: _section,
-              onSection: (v) => setState(() => _section = v),
-            ),
+            if (_kChrome)
+              _Switcher(
+                dark: widget.dark,
+                rtl: widget.rtl,
+                onDark: widget.onDark,
+                onRtl: widget.onRtl,
+                section: _section,
+                onSection: (v) => setState(() => _section = v),
+              ),
             Expanded(
               child: switch (_section) {
                 0 => _home(rtl),
@@ -146,22 +153,27 @@ class _ShowcaseState extends State<_Showcase> {
           ],
         ),
       ),
-      bottomNavigationBar: NeptuneDock(
-        shell: NeptuneDockShell.rule,
-        items: [
-          NeptuneDockItem(
-              icon: Icons.home_outlined,
-              label: rtl ? 'الرئيسية' : 'Home',
-              active: true),
-          NeptuneDockItem(
-              icon: Icons.account_balance_wallet_outlined,
-              label: rtl ? 'الحسابات' : 'Accounts'),
-          NeptuneDockItem(
-              icon: Icons.credit_card, label: rtl ? 'البطاقات' : 'Cards'),
-          NeptuneDockItem(
-              icon: Icons.more_horiz, label: rtl ? 'المزيد' : 'More'),
-        ],
-      ),
+      // No dock on the pre-login section, ever: a signed-out customer must
+      // never see the signed-in tab bar, and a capture that shows one is
+      // indistinguishable from a product that ships one.
+      bottomNavigationBar: (!_kChrome || _section == 3)
+          ? null
+          : NeptuneDock(
+              shell: NeptuneDockShell.rule,
+              items: [
+                NeptuneDockItem(
+                    icon: Icons.home_outlined,
+                    label: rtl ? 'الرئيسية' : 'Home',
+                    active: true),
+                NeptuneDockItem(
+                    icon: Icons.account_balance_wallet_outlined,
+                    label: rtl ? 'الحسابات' : 'Accounts'),
+                NeptuneDockItem(
+                    icon: Icons.credit_card, label: rtl ? 'البطاقات' : 'Cards'),
+                NeptuneDockItem(
+                    icon: Icons.more_horiz, label: rtl ? 'المزيد' : 'More'),
+              ],
+            ),
       backgroundColor: scheme.surface,
     );
   }
@@ -274,8 +286,7 @@ class _ShowcaseState extends State<_Showcase> {
                   color: colors.accent,
                 ),
                 alignment: Alignment.center,
-                child: Icon(Icons.north_east,
-                    color: colors.onCard, size: 34),
+                child: Icon(Icons.north_east, color: colors.onCard, size: 34),
               ),
               const SizedBox(height: 20),
               Text('FGLB',
@@ -289,8 +300,7 @@ class _ShowcaseState extends State<_Showcase> {
                       fontFamily: type.display,
                       fontWeight: FontWeight.w700,
                       height: 1.15,
-                      letterSpacing:
-                          NeptuneTheme.displayTracking(context, 36),
+                      letterSpacing: NeptuneTheme.displayTracking(context, 36),
                     ),
               ),
               const Spacer(),
@@ -338,8 +348,7 @@ class _ShowcaseState extends State<_Showcase> {
               children: [
                 NeptuneSpotArt(kind, size: 120),
                 const SizedBox(height: 8),
-                Text(kind.name,
-                    style: Theme.of(context).textTheme.labelMedium),
+                Text(kind.name, style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
         ],
@@ -368,7 +377,8 @@ class _Switcher extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     return Container(
       color: scheme.surfaceContainerLow,
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 6),
+      padding:
+          const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 6),
       child: Row(
         children: [
           for (final (i, label) in const [
