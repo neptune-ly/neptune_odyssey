@@ -21,7 +21,14 @@
   - `NeptuneSpotArt` / `NptSpotArtKind` — six flat drawings painted from the theme, so they recolour
     with the brand and mirror under RTL. The VOCABULARY is the point (two flat fills, one ink, one
     off-register echo, the brand's own mark as the only character) — that is what makes six
-    unrelated pictures look like one hand instead of six stock downloads.
+    unrelated pictures look like one hand instead of six stock downloads. Three of them had to be
+    redrawn after looking at them on a phone, which is the only place any of this was visible: a
+    circle over a horizon with two short lines on it is a FACE at 120dp (a sleeping emoji, which is
+    a joke about the customer's empty account); a triangle above a rounded box is a HANGING SIGN,
+    not a wallet; two chevrons facing each other are a mathematical operator, not a lock; and one
+    chevron rotated on the diagonal is a tick or a numeral, because the arms go asymmetric and the
+    eye resolves it as a glyph. The tonal fill also follows the ground rather than sitting at
+    `primary` 16%, which on a warm page is a cold lilac that appears on no other surface.
 
 - **`warmGround`** (extension byte, bit 1) — the brand's own page. The neutral ramp was the one part
   of the palette a brand could not aim: it rode the primary hue, so every cool-primary bank shipped

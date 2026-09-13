@@ -110,7 +110,11 @@ class NeptuneSpotArt extends StatelessWidget {
         kind: kind,
         ink: ink ?? scheme.onSurface,
         accent: accent ?? colors?.accent ?? scheme.primary,
-        tonal: scheme.primary,
+        // `secondaryContainer`, not `primary` at low alpha. A navy at 16% on a
+        // warm page is a cold LILAC, and six drawings in a colour that is on
+        // no other surface read as clip art someone pasted in. The tonal chip
+        // role already follows the ground.
+        tonal: scheme.secondaryContainer,
         rtl: rtl,
       ),
     );
@@ -167,8 +171,7 @@ class _SpotArtPainter extends CustomPainter {
     canvas.restore();
   }
 
-  Paint get _fillTonal =>
-      Paint()..color = tonal.withValues(alpha: 0.16);
+  Paint get _fillTonal => Paint()..color = tonal;
   Paint get _fillAccent => Paint()..color = accent;
   Paint get _echo => Paint()..color = ink.withValues(alpha: 0.08);
   Paint get _line => Paint()
@@ -187,51 +190,88 @@ class _SpotArtPainter extends CustomPainter {
   RRect _rr(Rect r, double radius) =>
       RRect.fromRectAndRadius(r, Radius.circular(radius));
 
+  /// Nothing in it: a wallet seen face on, its flap folded back, the chevron
+  /// that would have been money rising out of the opening.
+  ///
+  /// The flap was a straight triangle above the body on the first pass, which
+  /// at this size reads as a HANGING SIGN on a rope — a shop sign, not a
+  /// wallet. Folded back INSIDE the top edge as a curve it reads as an
+  /// opening, and the whole shape stays one object instead of two.
   void _emptyPocket(Canvas canvas) {
-    const body = Rect.fromLTWH(14, 38, 72, 46);
-    canvas.drawRRect(_rr(body.shift(const Offset(6, 6)), 12), _echo);
+    const body = Rect.fromLTWH(16, 34, 68, 52);
+    canvas.drawRRect(_rr(body.shift(const Offset(7, 7)), 12), _echo);
     canvas.drawRRect(_rr(body, 12), _fillTonal);
-    // The flap, lifted: an empty pocket is an OPEN one.
-    final flap = Path()
-      ..moveTo(14, 44)
-      ..lineTo(50, 20)
-      ..lineTo(86, 44);
-    canvas.drawPath(flap, _line);
     canvas.drawRRect(_rr(body, 12), _line);
-    // The one accent note: the chevron that would have been money, resting
-    // on the floor of the pocket.
+    // The flap, folded back over the top third — a curve, not a roof.
     canvas.drawPath(
-      _chevron(const Offset(50, 66), 9, 8),
+      Path()
+        ..moveTo(16, 48)
+        ..quadraticBezierTo(50, 30, 84, 48),
+      _line,
+    );
+    // LEAVING, as a trail rather than a single mark. One chevron rotated on
+    // the diagonal reads as a tick or a numeral — the arms go asymmetric and
+    // the eye resolves it as a glyph, not as an arrow. Two of them losing ink
+    // along the same line can only be read as movement.
+    for (var i = 0; i < 2; i++) {
+      canvas.save();
+      canvas.translate(62.0 + i * 13, 24.0 - i * 11);
+      canvas.rotate(-0.7853981633974483); // 45 degrees: up and away
+      canvas.drawPath(
+        _chevron(Offset.zero, 7, 6.5),
+        Paint()
+          ..color = accent.withValues(alpha: 0.45 + i * 0.5)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 4
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round,
+      );
+      canvas.restore();
+    }
+  }
+
+  /// Nothing moved: a list with nothing in it.
+  ///
+  /// The first attempt was a circle over a horizon with two short lines on it,
+  /// and at 120dp that is a FACE with a mouth — a sleeping emoji, which is a
+  /// joke about the customer's empty account. The picture has to say "there is
+  /// a list here and it has no rows", so it draws the list.
+  void _quiet(Canvas canvas) {
+    const card = Rect.fromLTWH(16, 26, 68, 52);
+    canvas.drawRRect(_rr(card.shift(const Offset(7, 7)), 10), _echo);
+    canvas.drawRRect(_rr(card, 10), _fillTonal);
+    canvas.drawRRect(_rr(card, 10), _line);
+    // Three rows that are not there: hairlines shortening down the card.
+    for (var i = 0; i < 3; i++) {
+      canvas.drawLine(
+        Offset(28, 42.0 + i * 13),
+        Offset(72.0 - i * 12, 42.0 + i * 13),
+        Paint()
+          ..color = ink.withValues(alpha: 0.22 - i * 0.06)
+          ..strokeWidth = 2.6
+          ..strokeCap = StrokeCap.round,
+      );
+    }
+    // The chevron is the last ROW of the list, not a glyph parked under it:
+    // below the card it read as a stray caret that had escaped some other
+    // drawing. Inside, at row scale, it is the one entry there is.
+    canvas.drawPath(
+      _chevron(const Offset(28, 68), 5, 5),
       _fillAccent
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 4
+        ..strokeWidth = 3
         ..strokeCap = StrokeCap.round
         ..strokeJoin = StrokeJoin.round,
     );
-  }
-
-  void _quiet(Canvas canvas) {
-    canvas.drawCircle(const Offset(56, 46), 30, _echo);
-    canvas.drawCircle(const Offset(50, 42), 30, _fillTonal);
-    // The horizon.
-    canvas.drawLine(const Offset(10, 76), const Offset(90, 76), _line);
-    // The chevron lying down on it — nothing is travelling.
-    canvas.drawPath(
-      _chevron(const Offset(50, 76), 10, 0.01),
-      _fillAccent
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 4
-        ..strokeCap = StrokeCap.round,
-    );
-    canvas.drawLine(const Offset(34, 40), const Offset(46, 40), _line);
-    canvas.drawLine(const Offset(34, 52), const Offset(60, 52), _line);
   }
 
   void _sent(Canvas canvas) {
     // The trail: three chevrons losing ink as they leave.
     for (var i = 0; i < 3; i++) {
       final p = Paint()
-        ..color = accent.withValues(alpha: 0.18 + i * 0.16)
+        // 0.34 up, not 0.18: at the old floor the two faint chevrons were
+        // invisible on a dark ground and read as smudges rather than a trail.
+        ..color = accent.withValues(alpha: 0.34 + i * 0.22)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 3.4 + i * 0.6
         ..strokeCap = StrokeCap.round
@@ -295,17 +335,20 @@ class _SpotArtPainter extends CustomPainter {
     canvas.restore();
     canvas.drawPath(shield, _fillTonal);
     canvas.drawPath(shield, _line);
-    // Two chevrons meeting: the mark, used as a lock.
-    final p = _fillAccent
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4.4
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
-    canvas.drawPath(_chevron(const Offset(44, 46), 8, 9), p);
+    // ONE mark on the shield. Two chevrons facing each other read as a
+    // mathematical operator, not as a lock — a drawing has to be guessable in
+    // half a second and that one needed explaining.
     canvas.save();
-    canvas.translate(100, 0);
-    canvas.scale(-1, 1);
-    canvas.drawPath(_chevron(const Offset(44, 60), 8, 9), p);
+    canvas.translate(50, 52);
+    canvas.rotate(-1.5707963267948966); // pointing up: held, not travelling
+    canvas.drawPath(
+      _chevron(Offset.zero, 13, 12),
+      _fillAccent
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 5.4
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round,
+    );
     canvas.restore();
   }
 
