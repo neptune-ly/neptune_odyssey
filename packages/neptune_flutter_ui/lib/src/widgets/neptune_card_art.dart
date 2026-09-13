@@ -305,12 +305,20 @@ class _CardKeyLight extends CustomPainter {
     canvas.drawRect(
       Offset.zero & size,
       Paint()
+        // ADDITIVE, not source-over. A warm accent composited over a cool
+        // card face is a colour MIX: a vermilion light at 34% over the Visa
+        // navy came out violet, and a purple corner on a blue card reads as a
+        // gradient somebody got wrong rather than as a light. Added, the same
+        // colour raises the warm channels and leaves the face's own hue
+        // underneath — which is what a light actually does.
+        ..blendMode = BlendMode.plus
         ..shader = RadialGradient(
-          // 0.34, with a mid stop: a two-stop radial falls off linearly and
-          // reads as a flat cone. The third stop is what makes it light.
+          // Lower than source-over needed (0.34 -> 0.22): addition brightens,
+          // so the same alpha blows the corner out. The mid stop stays — a
+          // two-stop radial falls off linearly and reads as a flat cone.
           colors: [
-            accent.withValues(alpha: 0.34),
-            accent.withValues(alpha: 0.10),
+            accent.withValues(alpha: 0.22),
+            accent.withValues(alpha: 0.07),
             accent.withValues(alpha: 0),
           ],
           stops: const [0, 0.45, 1],
