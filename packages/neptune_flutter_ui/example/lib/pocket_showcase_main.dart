@@ -111,7 +111,12 @@ class _Showcase extends StatefulWidget {
 class _ShowcaseState extends State<_Showcase> {
   bool _revealed = _kRevealed;
   bool _flipped = _kRevealed;
-  int _section = switch (_kSection) { 'cards' => 1, 'art' => 2, _ => 0 };
+  int _section = switch (_kSection) {
+        'cards' => 1,
+        'art' => 2,
+        'welcome' => 3,
+        _ => 0
+      };
 
   @override
   Widget build(BuildContext context) {
