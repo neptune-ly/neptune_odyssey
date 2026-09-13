@@ -142,7 +142,14 @@ class NeptuneCardArt extends StatelessWidget {
                       child: IgnorePointer(
                         child: CustomPaint(
                           painter: _CardKeyLight(
-                            accent: npt.accent,
+                            // A WARM WHITE, not the raw accent. Added light
+                            // is additive by definition, so a saturated
+                            // vermilion over a blue face resolves to magenta
+                            // however low the alpha goes — a purple corner on
+                            // a blue card. Lerped 45% toward the card's own
+                            // ink it stays recognisably the brand's warmth
+                            // and stops being a second hue.
+                            accent: Color.lerp(npt.accent, onCard, 0.45)!,
                             rtl: Directionality.of(context) ==
                                 TextDirection.rtl,
                           ),
