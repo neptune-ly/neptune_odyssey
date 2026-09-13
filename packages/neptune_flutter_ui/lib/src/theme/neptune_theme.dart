@@ -48,12 +48,40 @@ class NptHostFont {
   /// The bundled family, as declared under `fonts:` in the host's pubspec.
   final String family;
 
+  /// An optional second bundled family for the DISPLAY face — headlines, the
+  /// eyebrow, the hero figure. Null keeps [family] everywhere, which is what
+  /// every host did before 2.30.0.
+  ///
+  /// It exists because a host could bundle its brand's faces and still only
+  /// declare one of them. A brandprint names `fontDisplay`, `fontText` and
+  /// `fontNum` separately for exactly the reason every type system does — the
+  /// face that sets a 64dp balance is not the face that sets a 14dp
+  /// transaction row — and then the host override collapsed all three back
+  /// into one family, so a bank that bundled a display face had no way to
+  /// reach it without the `google_fonts` loader it bundled the face to avoid.
+  final String? display;
+
+  /// An optional third bundled family for FIGURES (`NeptuneTheme.moneyStyle`
+  /// and the numeral styles). Null falls back to [family].
+  final String? num;
+
   /// Fallback chain behind [family] — a host's Latin safety net behind an
   /// Arabic-first face, for example. Rides on every text style the theme
   /// builds.
   final List<String> fallback;
 
-  const NptHostFont({required this.family, this.fallback = const []});
+  const NptHostFont({
+    required this.family,
+    this.display,
+    this.num,
+    this.fallback = const [],
+  });
+
+  /// The display family, or [family] when the host declared only one.
+  String get displayFamily => display ?? family;
+
+  /// The figure family, or [family] when the host declared only one.
+  String get numFamily => num ?? family;
 }
 
 /// Entry points for building Neptune Odyssey [ThemeData].
@@ -223,7 +251,12 @@ class NeptuneTheme {
     // into chrome. The seed itself surfaces only as `NptColors.accent`.
     final chromeTertiary = cfg.accentOnTertiary ? primary : tertiary;
     final palette = isLight ? 'light' : 'dark';
-    final p = generatePaletteArgb(primary, chromeTertiary, palette);
+    // The warm seed is the brand's real tertiary, NOT `chromeTertiary`: with
+    // `accentOnTertiary` the latter is the primary, and keying the ground off
+    // it made the lever a no-op for exactly the brands most likely to want it.
+    final warmSeed = cfg.warmGround ? tertiary : null;
+    final p = generatePaletteArgb(primary, chromeTertiary, palette,
+        warmSeed: warmSeed);
     Color c(String role) => Color(p[role]!);
 
     final scheme = _customScheme(p, mode);
@@ -232,7 +265,8 @@ class NeptuneTheme {
     final lightScheme = isLight
         ? scheme
         : _customScheme(
-            generatePaletteArgb(primary, chromeTertiary, 'light'),
+            generatePaletteArgb(primary, chromeTertiary, 'light',
+                warmSeed: warmSeed),
             Brightness.light);
 
     final Color accent;
@@ -417,18 +451,20 @@ class NeptuneTheme {
     final OutlinedBorder controlShape = ruledRegister
         ? RoundedRectangleBorder(borderRadius: shape.rMd)
         : const StadiumBorder();
-    // A host face replaces EVERY face, Arabic ones included: the host has one
-    // typeface for both scripts and the brandprint's registry names are for
-    // the web/Studio ports, not this theme.
+    // A host face replaces EVERY face, Arabic ones included: a host bundles
+    // one typeface per ROLE covering both scripts, and the brandprint's
+    // registry names are for the web/Studio ports, not this theme. A host
+    // that declares only `family` still collapses all three roles onto it,
+    // which is what every host did before 2.30.0.
     final type = hostFont == null
         ? brandType
         : NptType(
-            display: hostFont.family,
+            display: hostFont.displayFamily,
             text: hostFont.family,
-            num: hostFont.family,
-            displayAr: hostFont.family,
+            num: hostFont.numFamily,
+            displayAr: hostFont.displayFamily,
             textAr: hostFont.family,
-            numAr: hostFont.family,
+            numAr: hostFont.numFamily,
             displayWeight: brandType.displayWeight,
             displayTracking: brandType.displayTracking,
             bundled: true,

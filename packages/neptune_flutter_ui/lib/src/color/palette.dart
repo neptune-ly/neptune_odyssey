@@ -145,10 +145,32 @@ const Map<String, _Recipe> _dark = {
   'on-card': _Recipe(0.97, _Chroma.abs(0.015), _primary),
 };
 
-double _resolveHue(_HueSource src, double primaryH, double tertiaryH) {
+/// How much of the tertiary seed's chroma a warm neutral carries, as a
+/// multiplier on the recipe's own declared (absolute) chroma.
+///
+/// 2.4 is the smallest value at which the light ground reads as a chosen
+/// paper rather than as a cast: tone 98 at 0.006 is a colour nobody picked,
+/// and at 0.0144 it is a cream. Above ~3 the surface starts competing with
+/// `tertiary-container` and a page of cards stops separating from it.
+const double _warmNeutralChroma = 2.4;
+
+double _resolveHue(
+    _HueSource src, double primaryH, double tertiaryH, double? neutralH) {
   if (src.fixed != null) return src.fixed!;
   if (src.channel == 'tertiary') return tertiaryH;
-  return primaryH; // primary + neutral both ride the primary hue
+  // The neutral channel is the one part of the palette a brand could not aim:
+  // it rode the primary hue, so every cool-primary bank got the same
+  // blue-grey page. `warmSeed` points it somewhere the brand chose.
+  //
+  // It is its OWN parameter rather than a re-read of the tertiary channel
+  // because the two disagree exactly where it matters. A brand with
+  // `accentOnTertiary` hands this function `tertiary == primary` on purpose —
+  // the accent is kept out of every Material role — so a warm ground keyed on
+  // the tertiary CHANNEL silently resolved back to the cool primary and the
+  // lever did nothing. The warm seed is the brand's real warm colour,
+  // accent-gated or not.
+  if (src.channel == 'neutral' && neutralH != null) return neutralH;
+  return primaryH;
 }
 
 double _resolveChroma(_Chroma c, double seedC) =>
@@ -156,26 +178,40 @@ double _resolveChroma(_Chroma c, double seedC) =>
 
 /// Generate a full 37-role palette (role -> "#rrggbb") from primary + tertiary
 /// seeds via the v1 ramp. Used for custom (non-reference) seeds.
-Map<String, String> generatePalette(Oklch primary, Oklch tertiary, String mode) {
+Map<String, String> generatePalette(Oklch primary, Oklch tertiary, String mode,
+    {Oklch? warmSeed}) {
   final ramp = mode == 'light' ? _light : _dark;
+  // Light only. A dark ground warmed toward a red-orange accent is brown, and
+  // no amount of tuning makes a brown app read as anything but a mistake.
+  final warm = mode == 'light' ? warmSeed : null;
   final out = <String, String>{};
   ramp.forEach((role, recipe) {
-    final hue = _resolveHue(recipe.hue, primary.h, tertiary.h);
+    final hue = _resolveHue(recipe.hue, primary.h, tertiary.h, warm?.h);
     final seedC = recipe.hue.channel == 'tertiary' ? tertiary.c : primary.c;
-    final c = _resolveChroma(recipe.c, seedC);
+    var c = _resolveChroma(recipe.c, seedC);
+    if (warm != null && recipe.hue.channel == 'neutral') {
+      c *= _warmNeutralChroma;
+    }
     out[role] = oklchToHex(Oklch(recipe.l, c, hue));
   });
   return out;
 }
 
 /// Same as [generatePalette] but returns 0xAARRGGBB ints per role.
-Map<String, int> generatePaletteArgb(Oklch primary, Oklch tertiary, String mode) {
+Map<String, int> generatePaletteArgb(Oklch primary, Oklch tertiary, String mode,
+    {Oklch? warmSeed}) {
   final ramp = mode == 'light' ? _light : _dark;
+  // Light only. A dark ground warmed toward a red-orange accent is brown, and
+  // no amount of tuning makes a brown app read as anything but a mistake.
+  final warm = mode == 'light' ? warmSeed : null;
   final out = <String, int>{};
   ramp.forEach((role, recipe) {
-    final hue = _resolveHue(recipe.hue, primary.h, tertiary.h);
+    final hue = _resolveHue(recipe.hue, primary.h, tertiary.h, warm?.h);
     final seedC = recipe.hue.channel == 'tertiary' ? tertiary.c : primary.c;
-    final c = _resolveChroma(recipe.c, seedC);
+    var c = _resolveChroma(recipe.c, seedC);
+    if (warm != null && recipe.hue.channel == 'neutral') {
+      c *= _warmNeutralChroma;
+    }
     out[role] = oklchToArgb(Oklch(recipe.l, c, hue));
   });
   return out;

@@ -1,3 +1,53 @@
+## 2.30.0
+
+- **The POCKET composition** — `pocket-balance` (dashboard hero) and `pocket-aurora` (login shell),
+  plus the flat spot-art family that illustrates them. Every hero in `kDashboardHeroes` before this
+  answered "what do I have" by enumerating accounts, which is the same question and the same shape
+  as the app's own Accounts tab; every pre-login shell before it was a document. Both are right for
+  a bank whose product is a branch. A bank whose product is a POCKET opens on one figure, a reveal
+  control and a row of VERBS, and the first thing a customer sees moves.
+  - `NeptunePocketBalance` — the hero. It draws NO container: every other hero puts the money inside
+    something, and a container is a promise that there is more than one of them.
+  - `NeptuneAuroraCanvas` — the pre-login ground. Two Lissajous blooms on 22/27s, deliberately the
+    one piece of ambient motion in the system: the pre-login screen has no data to give feedback
+    about, and "this is alive" is the only message it has to carry. The ticker is created in
+    `didChangeDependencies`, not `initState` — reduced motion is a `MediaQuery`, and a ticker made
+    before it is read runs for the whole session on a device that asked for none.
+  - `NeptuneCardFlip` — a real perspective turn with the back face pre-rotated, so its content is
+    not mirrored on arrival. Instant swap under reduced motion: a card number is information.
+  - `NeptuneSpotArt` / `NptSpotArtKind` — six flat drawings painted from the theme, so they recolour
+    with the brand and mirror under RTL. The VOCABULARY is the point (two flat fills, one ink, one
+    off-register echo, the brand's own mark as the only character) — that is what makes six
+    unrelated pictures look like one hand instead of six stock downloads.
+
+- **`warmGround`** (extension byte, bit 1). The neutral ramp was the one part of the palette a brand
+  could not aim: it rode the primary hue, so every cool-primary bank shipped the same blue-grey page
+  under a different logo, and `whiteGround` could only take that tint to zero. This points the
+  neutral channel at the brand's warm seed at 2.4x chroma. LIGHT ONLY, and not for symmetry with
+  `whiteGround`: a dark ground warmed toward a red-orange accent is brown.
+  - It takes the brand's REAL tertiary seed, not the `chromeTertiary` the palette is generated from.
+    A brand with `accentOnTertiary` hands the generator `tertiary == primary` on purpose, so a warm
+    ground keyed on the tertiary CHANNEL silently resolved back to the cool primary — the lever
+    would have done nothing for exactly the brands most likely to want it.
+
+- **`NptHostFont` gains `display:` and `num:`.** A brandprint names three faces for the reason every
+  type system does — the face that sets a 64dp balance is not the face that sets a 14dp transaction
+  row — and the host override then collapsed all three back into one family, so a bank that bundled
+  a display face had no way to reach it without the `google_fonts` loader it bundled the face to
+  avoid. Both are optional and default to `family`, so every existing host is byte-identical.
+
+- **`arrow-drift` motif.** A drift of chevrons on the reading diagonal, for a brand whose mark IS an
+  arrow. The first DIRECTIONAL motif: it mirrors under RTL, because a brand that reads right to left
+  and keeps its arrow pointing left to right has drawn its own logo backwards.
+
+- **`NeptuneCardArt` takes its one key light.** The face already refused a tiled micro-pattern (it
+  reads cheap at card size) but never took the other half of that finding — "at most one large soft
+  glow". A brand with a declared accent kept it out of every Material role on purpose, which also
+  kept it off the one surface in the app that depicts a physical object: the gradient ran
+  primary → primary and the card was a flat navy rectangle. One accent bloom and one oversized
+  chevron leaving the frame, both under the content. A brand with no declared accent is unchanged —
+  `accent` equals `primary` there and the bloom would be invisible.
+
 ## 2.28.0
 
 - **Two more composition levers: `navShell` and `actionRow`.** The lesson of 2.24.0 was that hue is

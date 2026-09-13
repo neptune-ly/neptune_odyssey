@@ -114,7 +114,7 @@ class NeptuneCardArt extends StatelessWidget {
               onTap: onTap,
               child: Stack(
                 children: [
-                  // No brand-motif texture here (there was a tiled repeating
+                  // No brand-motif TEXTURE here (there was a tiled repeating
                   // pattern before) — every reference card in the category
                   // (Mercury, Chase, Monzo, N26, Chime, Airwallex, Brex,
                   // PayPal, Revolut Business) uses a clean flat/gradient
@@ -122,6 +122,32 @@ class NeptuneCardArt extends StatelessWidget {
                   // glow. A tiled micro-pattern on a compact card reads as
                   // busy/cheap, not premium — the brand's gradient + type do
                   // the identity work here.
+                  //
+                  // "At most one large soft glow" is the other half of that
+                  // finding, and 2.30.0 takes it. A brand that declared a
+                  // direction ACCENT (`accentOnTertiary`) keeps the accent out
+                  // of every Material role on purpose, which also kept it off
+                  // the one surface in the app that is a physical object: the
+                  // gradient then ran primary → primary and the card was a
+                  // flat navy rectangle. One bloom of the brand's own accent,
+                  // in the top-trailing corner, is the difference between a
+                  // card and a placeholder — and it is ONE element, not a
+                  // field of them. A brand with no declared accent gets
+                  // nothing new: `accent` equals `primary` there, and the
+                  // bloom would be invisible anyway.
+                  if (npt.accent != npt.cardGradientStart)
+                    Positioned.fill(
+                      child: IgnorePointer(
+                        child: CustomPaint(
+                          painter: _CardKeyLight(
+                            accent: npt.accent,
+                            ink: onCard,
+                            rtl: Directionality.of(context) ==
+                                TextDirection.rtl,
+                          ),
+                        ),
+                      ),
+                    ),
                   Padding(
                     padding: const EdgeInsetsDirectional.all(24),
                     child: Column(
@@ -231,4 +257,69 @@ class NeptuneCardArt extends StatelessWidget {
       child: card,
     );
   }
+}
+
+/// The card's single key light: one soft accent bloom in the top-trailing
+/// corner, and one oversized brand chevron leaving the frame under it.
+///
+/// TWO ELEMENTS, BOTH LARGER THAN THE CARD. That is what separates this from
+/// the tiled motif the card face refused: a pattern is read as texture and
+/// reads cheap at card size, while a shape that runs off the edge is read as
+/// an object the card is a window onto. Both sit under the content and neither
+/// competes with the number — the bloom peaks at 30% and the chevron at 9%.
+class _CardKeyLight extends CustomPainter {
+  final Color accent;
+  final Color ink;
+
+  /// The gradient already mirrors (it is `AlignmentDirectional`); a chevron
+  /// that did not would point back at the start edge on an Arabic screen.
+  final bool rtl;
+
+  const _CardKeyLight({
+    required this.accent,
+    required this.ink,
+    required this.rtl,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.save();
+    if (rtl) {
+      canvas.translate(size.width, 0);
+      canvas.scale(-1, 1);
+    }
+    final origin = Offset(size.width * 0.94, size.height * 0.06);
+    final r = size.width * 0.72;
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            accent.withValues(alpha: 0.30),
+            accent.withValues(alpha: 0),
+          ],
+        ).createShader(Rect.fromCircle(center: origin, radius: r)),
+    );
+    // One chevron, bottom-trailing, big enough to leave the card.
+    final c = Offset(size.width * 0.86, size.height * 0.78);
+    final w = size.width * 0.30;
+    final h = size.height * 0.34;
+    canvas.drawPath(
+      Path()
+        ..moveTo(c.dx - w, c.dy - h)
+        ..lineTo(c.dx + w * 0.4, c.dy)
+        ..lineTo(c.dx - w, c.dy + h),
+      Paint()
+        ..color = ink.withValues(alpha: 0.09)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = size.height * 0.07
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round,
+    );
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(_CardKeyLight old) =>
+      old.accent != accent || old.ink != ink || old.rtl != rtl;
 }

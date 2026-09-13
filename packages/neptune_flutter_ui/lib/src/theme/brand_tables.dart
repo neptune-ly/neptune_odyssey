@@ -188,6 +188,7 @@ const Map<String, NptMotifKind> _motifByName = {
   'grid-spark': NptMotifKind.gridSpark,
   'guilloche': NptMotifKind.guilloche,
   'none': NptMotifKind.none,
+  'arrow-drift': NptMotifKind.arrowDrift,
 };
 
 /// Resolve the [NptIdentity] for a brandprint config (reference or custom).

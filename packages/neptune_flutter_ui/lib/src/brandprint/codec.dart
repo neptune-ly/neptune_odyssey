@@ -35,6 +35,11 @@ const List<String> kLoginShells = [
   'shield-guilloche',
   'paper-lockup',
   'lockup-rule',
+  // 2.30.0. The first pre-login shell that is not a document. A full-bleed
+  // brand canvas with two slow colour blooms drifting behind a lockup set
+  // low, so the first thing a customer sees moves. For a brand whose product
+  // is a pocket rather than a branch.
+  'pocket-aurora',
 ];
 
 /// Append-only dashboard-hero registry. The last two (2.24.0):
@@ -48,6 +53,15 @@ const List<String> kDashboardHeroes = [
   'restrained-balance',
   'statement-ledger',
   'chevron-summary',
+  // 2.30.0. The wallet answer, and the first hero here that is not a list of
+  // accounts. Every other entry answers "what do I have" by enumerating them
+  // — the same question, and the same shape, as the app's own Accounts tab,
+  // so a bank that ships both ships one screen twice and the home is the
+  // weaker copy. This one states ONE figure at display scale, puts a reveal
+  // control beside it and a row of VERBS under it, and hands the enumeration
+  // to the tab that owns it. Every other entry here is a noun; this is the
+  // only one that leads with what a customer can DO.
+  'pocket-balance',
 ];
 
 /// Append-only content-tone registry.
@@ -86,6 +100,10 @@ const List<String> kMotifs = [
   'grid-spark',
   'guilloche',
   'none',
+  // 2.30.0. A drift of chevrons on the reading diagonal, for a brand whose
+  // mark IS an arrow. Unlike the other four it is DIRECTIONAL: it mirrors
+  // under RTL, so it always points the way the page is read.
+  'arrow-drift',
 ];
 
 /// Append-only navigation-shell registry - flags bits 4-5 (2.28.0). The bar a
@@ -248,6 +266,26 @@ class BrandprintConfig {
   /// the filled slabs.
   final bool ruledRegister;
 
+  /// Byte 27 (the extension byte), bit 1 (2.30.0). THE WARM GROUND: the
+  /// neutral ramp rides the TERTIARY hue instead of the primary's, at 2.4x
+  /// its declared chroma, so the page ground is a tinted paper in the
+  /// brand's warm direction rather than a cool cast of its primary.
+  ///
+  /// It exists because the neutral channel was the one part of the palette a
+  /// brand could not aim. [whiteGround] can only take the tint to ZERO; a
+  /// brand whose character is warm had no way to say so, and every
+  /// cool-primary bank therefore shipped the same blue-grey page under a
+  /// different logo. Tone 98 at chroma 0.006 off a navy seed is a colour
+  /// nobody chose.
+  ///
+  /// LIGHT ONLY, like [whiteGround], and for a sharper reason than symmetry:
+  /// a dark ground warmed toward a red-orange accent is brown, and no amount
+  /// of tuning makes a brown app read as anything but a mistake. A dark
+  /// scheme keeps the primary-tinted ink it already had.
+  ///
+  /// False, which every pre-2.30.0 string decodes to, keeps the cool ramp.
+  final bool warmGround;
+
   const BrandprintConfig({
     this.version = 1,
     required this.primary,
@@ -271,6 +309,7 @@ class BrandprintConfig {
     this.navShell = 'raised-dock',
     this.actionRow = 'filled-circles',
     this.ruledRegister = false,
+    this.warmGround = false,
   });
 
   @override
@@ -297,7 +336,8 @@ class BrandprintConfig {
       other.whiteGround == whiteGround &&
       other.navShell == navShell &&
       other.actionRow == actionRow &&
-      other.ruledRegister == ruledRegister;
+      other.ruledRegister == ruledRegister &&
+      other.warmGround == warmGround;
 
   @override
   int get hashCode => Object.hashAll([
@@ -323,6 +363,7 @@ class BrandprintConfig {
         navShell,
         actionRow,
         ruledRegister,
+        warmGround,
       ]);
 }
 
@@ -388,6 +429,7 @@ class Brandprint {
     // config that predates it produces exactly the 28 bytes it always did.
     var ext = 0;
     if (cfg.ruledRegister) ext |= 1;
+    if (cfg.warmGround) ext |= 2;
     final extended = ext != 0;
     final buf = Uint8List(extended ? _payloadBytesExtended : _payloadBytes);
     final dv = ByteData.view(buf.buffer);
@@ -522,6 +564,7 @@ class Brandprint {
       navShell: kNavShells[((f >> 4) & 3).clamp(0, kNavShells.length - 1)],
       actionRow: kActionRows[((f >> 6) & 3).clamp(0, kActionRows.length - 1)],
       ruledRegister: (ext & 1) != 0,
+      warmGround: (ext & 2) != 0,
     );
   }
 }

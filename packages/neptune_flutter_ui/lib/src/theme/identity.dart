@@ -33,6 +33,12 @@ enum NptMotifKind {
   /// (Chime/Monzo card faces). Appended last: exhaustive switches depend on
   /// the order, so never reorder.
   none,
+
+  /// A drift of chevrons on the reading diagonal, for a brand whose mark IS
+  /// an arrow. The only DIRECTIONAL motif: it mirrors under RTL so it always
+  /// points the way the page is read. Appended after [none] for the same
+  /// reason [none] was appended last.
+  arrowDrift,
 }
 
 /// Brand identity levers + material recipes. Read via

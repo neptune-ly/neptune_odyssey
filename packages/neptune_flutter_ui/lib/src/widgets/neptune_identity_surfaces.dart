@@ -62,18 +62,29 @@ class NeptuneMotifLayer extends StatelessWidget {
         NptMotifKind.gridSpark => Alignment.center,
         NptMotifKind.guilloche => Alignment.center,
         NptMotifKind.none => Alignment.center,
+        // The drift enters from the start-top corner and travels with the
+        // reading direction; the fade has to start where the pattern does or
+        // the two disagree. Mirrored by the caller under RTL.
+        NptMotifKind.arrowDrift => const Alignment(-0.9, -0.85),
       };
+
+  /// A directional motif's origin mirrors with the page; a centred one is
+  /// unchanged by the flip, so this is safe to apply to all of them.
+  static Alignment _mirror(Alignment a, bool rtl) =>
+      rtl ? Alignment(-a.x, a.y) : a;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final identity = theme.extension<NptIdentity>()!;
     final c = color ?? theme.colorScheme.onSurface;
+    final rtl = Directionality.of(context) == TextDirection.rtl;
     Widget layer = CustomPaint(
       painter: _MotifPainter(
         kind: identity.motif,
         color: c,
         strength: identity.motifStrength * strength,
+        rtl: rtl,
       ),
       size: Size.infinite,
     );
@@ -81,7 +92,7 @@ class NeptuneMotifLayer extends StatelessWidget {
       layer = ShaderMask(
         blendMode: BlendMode.dstIn,
         shaderCallback: (rect) => RadialGradient(
-          center: _originOf(identity.motif),
+          center: _mirror(_originOf(identity.motif), rtl),
           radius: 1.1,
           colors: const [Colors.white, Colors.white, Colors.transparent],
           stops: const [0, 0.28, 1],
@@ -104,10 +115,16 @@ class _MotifPainter extends CustomPainter {
   final Color color;
   final double strength;
 
+  /// Only [NptMotifKind.arrowDrift] reads it — the other four are symmetric
+  /// or unsigned, and mirroring them would be a no-op that still cost a
+  /// canvas transform.
+  final bool rtl;
+
   const _MotifPainter({
     required this.kind,
     required this.color,
     required this.strength,
+    this.rtl = false,
   });
 
   @override
@@ -124,6 +141,8 @@ class _MotifPainter extends CustomPainter {
         _guilloche(canvas, size);
       case NptMotifKind.none:
         return;
+      case NptMotifKind.arrowDrift:
+        _arrows(canvas, size);
     }
   }
 
@@ -180,6 +199,44 @@ class _MotifPainter extends CustomPainter {
     }
   }
 
+  /// FGLB — a drift of chevrons on the reading diagonal. 44x38 tiles, every
+  /// other row offset by half a tile so the field never reads as a grid, and
+  /// the ink falling off along the travel so it behaves like a trail rather
+  /// than wallpaper. Stroked, never filled: a filled arrow at this density is
+  /// a dazzle pattern.
+  ///
+  /// Mirrored under RTL. It is the one motif that MEANS something
+  /// directional, so a brand that reads right-to-left and keeps it pointing
+  /// left-to-right has drawn its own logo backwards.
+  void _arrows(Canvas canvas, Size size) {
+    const tw = 44.0, th = 38.0;
+    const w = 9.0, h = 7.0; // half-extents of one chevron
+    canvas.save();
+    if (rtl) {
+      canvas.translate(size.width, 0);
+      canvas.scale(-1, 1);
+    }
+    var row = 0;
+    for (var y = th / 2; y < size.height + th; y += th) {
+      final dx = row.isEven ? 0.0 : tw / 2;
+      for (var x = tw / 2 + dx; x < size.width + tw; x += tw) {
+        // Fade along the travel: full ink at the start-top corner, a third of
+        // it by the far corner, so the drift has a source.
+        final t = ((x / size.width) + (y / size.height)) / 2;
+        final paint = _ink(0.16 * (1 - 0.66 * t.clamp(0.0, 1.0)), 2)
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round;
+        final path = Path()
+          ..moveTo(x - w, y - h)
+          ..lineTo(x + w * 0.35, y)
+          ..lineTo(x - w, y + h);
+        canvas.drawPath(path, paint);
+      }
+      row++;
+    }
+    canvas.restore();
+  }
+
   /// Proteus — ±45° guilloché crosshatch, 1px ink every 12px.
   void _guilloche(Canvas canvas, Size size) {
     final paint = _ink(0.07, 1);
@@ -197,6 +254,7 @@ class _MotifPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_MotifPainter old) =>
+      old.rtl != rtl ||
       old.kind != kind || old.color != color || old.strength != strength;
 }
 

@@ -89,3 +89,6 @@ export 'src/widgets/neptune_overlays.dart';
 export 'src/widgets/neptune_navigation.dart';
 export 'src/widgets/neptune_display.dart';
 export 'src/widgets/neptune_fintech.dart';
+// 2.30.0 — the POCKET composition: what `pocket-balance` and `pocket-aurora`
+// draw, plus the flat spot-art family the empty states are illustrated with.
+export 'src/widgets/neptune_pocket.dart';
