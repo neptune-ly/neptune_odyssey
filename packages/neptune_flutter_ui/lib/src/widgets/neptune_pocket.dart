@@ -189,32 +189,34 @@ class _SpotArtPainter extends CustomPainter {
   RRect _rr(Rect r, double radius) =>
       RRect.fromRectAndRadius(r, Radius.circular(radius));
 
-  /// Nothing in it: a wallet seen face on, its flap folded back, the chevron
-  /// that would have been money rising out of the opening.
+  /// Nothing in it: a wallet seen from the SIDE, open, with the last of what
+  /// was in it leaving on the diagonal.
   ///
-  /// The flap was a straight triangle above the body on the first pass, which
-  /// at this size reads as a HANGING SIGN on a rope — a shop sign, not a
-  /// wallet. Folded back INSIDE the top edge as a curve it reads as an
-  /// opening, and the whole shape stays one object instead of two.
+  /// The third attempt. Face-on with a folded flap it is a bag or a case — a
+  /// wallet is only recognisable as a wallet in profile, because the thing
+  /// that identifies it is the SLOT, and face-on there is no slot to draw.
+  /// Before that it had a straight triangle above a rounded box, which is a
+  /// hanging shop sign on a rope.
   void _emptyPocket(Canvas canvas) {
-    const body = Rect.fromLTWH(16, 34, 68, 52);
-    canvas.drawRRect(_rr(body.shift(const Offset(7, 7)), 12), _echo);
-    canvas.drawRRect(_rr(body, 12), _fillTonal);
-    canvas.drawRRect(_rr(body, 12), _line);
-    // The flap, folded back over the top third — a curve, not a roof.
-    canvas.drawPath(
-      Path()
-        ..moveTo(16, 48)
-        ..quadraticBezierTo(50, 30, 84, 48),
-      _line,
-    );
+    // The back panel, taller, and the front panel over it: two edges and a
+    // gap, which is the whole silhouette of an open wallet in profile.
+    const back = Rect.fromLTWH(18, 42, 64, 40);
+    const front = Rect.fromLTWH(18, 54, 64, 30);
+    canvas.drawRRect(_rr(back.shift(const Offset(7, 7)), 8), _echo);
+    canvas.drawRRect(_rr(back, 8), _fillTonal);
+    canvas.drawRRect(_rr(back, 8), _line);
+    canvas.drawRRect(_rr(front, 6), _fillTonal);
+    canvas.drawRRect(_rr(front, 6), _line);
+    // The empty slot: one stroke along the front panel's mouth, and nothing
+    // standing in it.
+    canvas.drawLine(const Offset(26, 54), const Offset(74, 54), _line);
     // LEAVING, as a trail rather than a single mark. One chevron rotated on
     // the diagonal reads as a tick or a numeral — the arms go asymmetric and
     // the eye resolves it as a glyph, not as an arrow. Two of them losing ink
     // along the same line can only be read as movement.
     for (var i = 0; i < 2; i++) {
       canvas.save();
-      canvas.translate(62.0 + i * 13, 24.0 - i * 11);
+      canvas.translate(58.0 + i * 13, 36.0 - i * 11);
       canvas.rotate(-0.7853981633974483); // 45 degrees: up and away
       canvas.drawPath(
         _chevron(Offset.zero, 7, 6.5),
