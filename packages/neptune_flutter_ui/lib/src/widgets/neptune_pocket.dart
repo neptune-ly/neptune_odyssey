@@ -404,15 +404,19 @@ class _VerbTileState extends State<_VerbTile> {
     final colors = theme.extension<NptColors>();
     final verb = widget.verb;
     final lead = verb.lead;
-    // `secondaryContainer`, not `surfaceContainerHigh`: on a brand that
-    // declares its own ground the container tones sit within a few percent of
-    // the page and the unfilled tiles vanished into it.
+    // THE TILES ARE PAPER, NOT CHROME. `secondaryContainer` is ramped from
+    // the primary, so on a brand that warms its own ground the page was cream,
+    // the account chip was warm and the four tiles were BLUE — three tints on
+    // one screen, and the eye reads that as an accident rather than a scheme.
+    // `surfaceContainerHighest` keeps them in the ground's own family; the
+    // hairline below is what stops them dissolving into it, which is the
+    // problem `secondaryContainer` was reached for in the first place.
     final fill = lead
         ? (colors?.accent ?? scheme.primary)
-        : scheme.secondaryContainer;
+        : scheme.surfaceContainerHighest;
     final on = lead
         ? (colors?.onAccent ?? scheme.onPrimary)
-        : scheme.onSecondaryContainer;
+        : scheme.onSurface;
     // Press feedback only. A tile that animates on its own is decoration.
     final reduced = NeptuneAccessibility.reducedMotion(context);
     final scale = _down && !reduced ? 0.94 : 1.0;
@@ -449,6 +453,9 @@ class _VerbTileState extends State<_VerbTile> {
                 height: 58,
                 decoration: BoxDecoration(
                   color: fill,
+                  border: lead
+                      ? null
+                      : Border.all(color: scheme.outlineVariant),
                   // `rMd`, not `rLg`. Flutter clamps a radius to half the box,
                   // so on a 58dp tile every brand whose `lg` is 30 or more
                   // gets a CIRCLE — which is `filled-circles`, another bank's
