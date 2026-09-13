@@ -1,5 +1,42 @@
 # Changelog
 
+## 2.31.2
+
+- **`2.31.1` traded a truncated balance at 2.0x for a shredded account name at 1.0x. This is the
+  correction; do not ship `2.31.1`.** Repinning the app moved 80 goldens, and they split cleanly:
+  64 at a 0.28–0.78% pixel delta were the intended change (the balance sliding to the row's end
+  edge), and 16 at 19–62% were a regression.
+
+  **What went wrong, measured.** `2.31.1` made the balance a non-flex `Row` child so it would be
+  laid out first and keep its natural width — which was the right half of the fix, and is why those
+  64 goldens moved correctly. But it gave that claim no ceiling. A real balance of `14,678,363.00`
+  measures **235.9dp of a 358dp row**, leaving the `Expanded` name column **18.1dp**; a masked
+  account number is one unbreakable token, so it wrapped to a character per line and the tile went
+  **76dp → 284dp**. A row became a tower. The knock-on is the part worth remembering: those extra
+  208dp pushed a "confirm purchase" CTA out of a lazy `ListView`'s build window, so four goldens in
+  an unrelated flow silently rendered the wrong screen **and still passed**.
+
+  * **The balance keeps its non-flex, measured-first placement** — unchanged from `2.31.1`, and
+    every 1.0x rendering of a balance that fits is byte-identical to it.
+  * **It now has a ceiling of 0.58 of the contested measure**, and both edges of that number are
+    measured rather than chosen: a realistic long balance (`LYD 1,234,567.890`, ~162dp of a 286dp
+    measure) must clear it at full size, which puts the floor at 0.568; and the 42% left to the
+    name column must still seat a masked number on one line, which needs ~112dp and puts the
+    ceiling under 0.610.
+  * **Over that ceiling the figure is scaled down, never wrapped and never ellipsized** —
+    `FittedBox(fit: BoxFit.scaleDown)`, one line, at both text sizes. Shrinking a figure is bad for
+    low vision; dropping its digits is worse; and a balance running one digit per line is worse
+    than both.
+  * **The masked number now carries `maxLines: 1`**, so the tower is impossible by construction and
+    not merely unlikely at the current ceiling. Ellipsis is safe there in a way it never is on a
+    balance: those digits are already redacted, and the semantics label speaks the number in full.
+  * The 2.0x reflow from `2.31.1` is unchanged.
+
+  Two test files now pull against each other on purpose, and both must stay green:
+  `account_tile_large_text_test.dart` (13 cases, all fail at `2.31.0`) and
+  `account_tile_wide_balance_test.dart` (7 cases, all fail at `2.31.1`). Widening the balance's
+  claim until the second passes re-truncates the first.
+
 ## 2.31.1
 
 - **`NeptuneAccountTile` dropped the digits off a balance at large text, on the screen that

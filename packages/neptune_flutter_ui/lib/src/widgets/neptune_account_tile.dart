@@ -91,11 +91,16 @@ class NeptuneAccountTile extends StatelessWidget {
     // grows.
     final stacked = MediaQuery.textScalerOf(context).scale(14) > 20;
 
+    // ONE line, always, and never ellipsized. A truncated account NAME is
+    // recoverable from the masked number beside it; a truncated BALANCE is a
+    // different figure on the screen that decides a transfer, and a balance
+    // broken across lines is worse than either. When the figure is wider than
+    // the room it is allowed, the FittedBox below shrinks it instead - a
+    // smaller number is bad for low vision, a wrong one is not a number.
     final balanceText = Text(
       balance,
-      // No `maxLines`/`ellipsis`: a truncated account NAME is recoverable, a
-      // truncated BALANCE is a different number on the screen that decides a
-      // transfer. `1,000.000` must never render as `1,000.`.
+      maxLines: 1,
+      softWrap: false,
       textAlign: stacked ? TextAlign.start : TextAlign.end,
       style: money,
     );
@@ -121,7 +126,21 @@ class NeptuneAccountTile extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsetsDirectional.symmetric(
                 horizontal: 16, vertical: 12),
-            child: Row(
+            child: LayoutBuilder(
+                builder: (context, constraints) {
+            // What the two text columns actually compete for, once the 44dp
+            // glyph and the two gaps are spent.
+            final measure = constraints.maxWidth - 44 - 16 - 12;
+
+            // The ceiling, and both sides of it are measured rather than
+            // chosen. A realistic long balance must clear it at full size -
+            // `LYD 1,234,567.890` is ~162dp of a 286dp measure, i.e. 0.568 -
+            // and the 42% left to the name column must still seat the masked
+            // number on one line, which needs ~112dp, i.e. a ceiling under
+            // 0.610. 0.58 sits inside that window with room on both sides.
+            final balanceCeiling = measure * 0.58;
+
+            return Row(
               children: [
                 Container(
                   width: 44,
@@ -158,27 +177,56 @@ class NeptuneAccountTile extends StatelessWidget {
                       ),
                       Text(
                         maskedNumber,
+                        // The ceiling above is what keeps this line fed; this
+                        // is what makes the 2.31.1 tower impossible rather
+                        // than merely unlikely. A masked number is one
+                        // unbreakable token, so in any squeeze it wrapped to
+                        // one character per line and took the row's height
+                        // with it. Ellipsis is safe here in a way it never was
+                        // on the balance: the digits are already redacted, and
+                        // the semantics label speaks them in full regardless.
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: textTheme.bodySmall
                             ?.copyWith(color: scheme.onSurfaceVariant),
                       ),
                       if (stacked) ...[
                         const SizedBox(height: 4),
-                        balanceText,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: AlignmentDirectional.centerStart,
+                          child: balanceText,
+                        ),
                       ],
                     ],
                   ),
                 ),
-                // The name column stays `Expanded` and the balance takes no
-                // flex at all, so the balance is measured FIRST at its own
-                // width and the name gets what is left. Before, both were flex
-                // children of weight 1: they split the row down the middle and
-                // the balance lost digits to a half it had no claim on.
+                // The balance takes no flex, so it is measured FIRST at its
+                // own width and the name column gets what is left. Before
+                // 2.31.1 both were flex children of weight 1: they split the
+                // row down the middle and the balance lost digits to a half it
+                // had no claim on.
+                //
+                // Measured-first with no ceiling is then how 2.31.1 starved the
+                // name: a real balance of `14,678,363.00` claims 235.9 of 358dp
+                // and leaves the column 18dp, and a masked number is ONE
+                // unbreakable token - so the row stopped being a row and became
+                // a tower one character wide. Hence the ceiling: the balance
+                // may take a clear majority of the measure and no more.
                 if (!stacked) ...[
                   const SizedBox(width: 12),
-                  balanceText,
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: balanceCeiling),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: balanceText,
+                    ),
+                  ),
                 ],
               ],
-            ),
+            );
+                }),
           ),
         ),
         ),
