@@ -1,7 +1,7 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 //
 // The POCKET composition (2.30.0) — what the `pocket-balance` dashboard hero
-// and the `pocket-aurora` login shell draw, plus the flat spot-art family
+// and the `pocket-drift` login shell draw, plus the flat spot-art family
 // those surfaces and the empty states are illustrated with.
 //
 // It exists because every hero in `kDashboardHeroes` before it answered "what
@@ -10,7 +10,7 @@
 // bank whose product is a branch. A bank whose product is a POCKET opens on
 // one figure and a row of verbs, and the first thing a customer sees moves.
 //
-// Web counterparts: `site/wallet.html`'s pocket hero and aurora auth ground.
+// Web counterparts: `site/wallet.html`'s pocket hero and drift auth ground.
 
 import 'dart:math' as math;
 
@@ -747,64 +747,67 @@ class _NeptunePocketBalanceState extends State<NeptunePocketBalance> {
 // The pre-login ground
 // ---------------------------------------------------------------------------
 
-/// The `pocket-aurora` login shell's ground: the brand canvas with two slow
-/// colour blooms drifting behind it, the brand motif at wash strength, and
-/// the host's content on top. Web counterpart: `site/templates.html`
-/// `.auth-aurora`.
+/// The `pocket-drift` login shell's ground: the bank's OWN PAPER, with its
+/// signature motif drifting slowly across it. Web counterpart:
+/// `site/templates.html` `.auth-drift`.
 ///
-/// The blooms are the ONE piece of ambient motion in the system, and they are
-/// deliberate: the pre-login screen has no data to give feedback about, and a
-/// bank's first impression is the one moment where "this is alive" is the
-/// message. They run at 22/27s — slow enough that a customer reading a phone
-/// number field never sees them move, fast enough that the screen is never
-/// the same twice. Under `MediaQuery.disableAnimationsOf` the blooms hold at
-/// their starting position and the ticker is never started at all.
-class NeptuneAuroraCanvas extends StatefulWidget {
+/// IT SHIPPED ONCE AS A GRADIENT AND THAT WAS WRONG THREE TIMES OVER. Two
+/// slow colour blooms over a cool canvas resolve to MAUVE — the screen was a
+/// blue-to-purple gradient, which is the single most recognisable "a machine
+/// made this" signature in the category. It shared no material with the
+/// signed-in app, so a customer met one product and signed into another. And
+/// it was the only surface in the set carrying none of the three things that
+/// made the brand legible. A pre-login screen is the same bank at a different
+/// moment; it is made of the same things.
+///
+/// What moves is the brand's own MARK, not a colour. The motif translates
+/// along its own reading diagonal on a 34s loop — slow enough that a customer
+/// reading a phone-number field never catches it, present enough that the
+/// screen is never twice the same. It is still the one deliberate piece of
+/// ambient motion in the system, for the same reason: a pre-login screen has
+/// no data to give feedback about, and "this is alive" is the only message it
+/// has to carry. Under `MediaQuery.disableAnimationsOf` the field holds still
+/// and the ticker is never started.
+class NeptuneDriftCanvas extends StatefulWidget {
   final Widget child;
 
-  /// Strength multiplier on the brand motif wash. Zero for a brand whose
-  /// motif is `none`; the default is the page-wash level.
+  /// Strength multiplier on the brand motif. Zero for a brand whose motif is
+  /// `none` — which is a brand that should not be on this shell at all, since
+  /// the motif IS the composition here.
   final double motifStrength;
 
-  const NeptuneAuroraCanvas({
+  const NeptuneDriftCanvas({
     super.key,
     required this.child,
-    this.motifStrength = 0.5,
+    this.motifStrength = 0.55,
   });
 
   @override
-  State<NeptuneAuroraCanvas> createState() => _NeptuneAuroraCanvasState();
+  State<NeptuneDriftCanvas> createState() => _NeptuneDriftCanvasState();
 }
 
-class _NeptuneAuroraCanvasState extends State<NeptuneAuroraCanvas>
-    with TickerProviderStateMixin {
-  AnimationController? _a;
-  AnimationController? _b;
+class _NeptuneDriftCanvasState extends State<NeptuneDriftCanvas>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _drift;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Started here, not in initState: reduced-motion is a MediaQuery, and a
+    // Started here, not in initState: reduced motion is a MediaQuery, and a
     // ticker created before it is read runs for the whole session on a device
     // that asked for no animation.
-    final reduced = NeptuneAccessibility.reducedMotion(context);
-    if (reduced) {
-      _a?.stop();
-      _b?.stop();
+    if (NeptuneAccessibility.reducedMotion(context)) {
+      _drift?.stop();
       return;
     }
-    _a ??= AnimationController(
-        vsync: this, duration: const Duration(seconds: 22))
-      ..repeat();
-    _b ??= AnimationController(
-        vsync: this, duration: const Duration(seconds: 27))
+    _drift ??= AnimationController(
+        vsync: this, duration: const Duration(seconds: 34))
       ..repeat();
   }
 
   @override
   void dispose() {
-    _a?.dispose();
-    _b?.dispose();
+    _drift?.dispose();
     super.dispose();
   }
 
@@ -812,41 +815,37 @@ class _NeptuneAuroraCanvasState extends State<NeptuneAuroraCanvas>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final colors = theme.extension<NptColors>();
     final canvas = theme.extension<NptBrandCanvas>();
-    final ground = canvas?.canvas ?? scheme.primary;
-    final onGround = canvas?.onCanvas ?? scheme.onPrimary;
-    final accent = colors?.accent ?? scheme.tertiary;
-
-    final listenable = Listenable.merge([_a, _b]);
+    final ground = canvas?.canvas ?? scheme.surface;
+    final ink = canvas?.onCanvas ?? scheme.onSurface;
 
     return Container(
       color: ground,
       child: Stack(
         fit: StackFit.expand,
         children: [
-          RepaintBoundary(
-            child: AnimatedBuilder(
-              animation: listenable,
-              builder: (context, _) => CustomPaint(
-                painter: _AuroraPainter(
-                  t1: _a?.value ?? 0,
-                  t2: _b?.value ?? 0,
-                  // The accent bloom is the smaller and the hotter of the
-                  // two: on a navy ground a large warm field stops being a
-                  // light and becomes a background colour.
-                  warm: accent,
-                  cool: Color.lerp(ground, onGround, 0.34)!,
-                ),
-              ),
-            ),
-          ),
           if (widget.motifStrength > 0)
-            Positioned.fill(
-              child: NeptuneMotifLayer(
-                color: onGround,
-                strength: widget.motifStrength,
-                fade: true,
+            RepaintBoundary(
+              child: AnimatedBuilder(
+                animation: _drift ?? const AlwaysStoppedAnimation<double>(0),
+                builder: (context, _) {
+                  // ONE TILE OF TRAVEL, then back to zero. The motif is a
+                  // periodic field, so shifting its ORIGIN by exactly one tile
+                  // makes the loop point invisible — a fade or a reset would
+                  // be the only thing on the screen that announced itself.
+                  //
+                  // The origin moves, not the widget. Translating the widget
+                  // leaves a bare wedge at the trailing edge, and the usual
+                  // fix — an `OverflowBox` with infinite constraints — hands
+                  // unbounded width to a `CustomPaint` sized `Size.infinite`,
+                  // which does not render, it hangs. That cost a test run.
+                  final t = _drift?.value ?? 0;
+                  return NeptuneMotifLayer(
+                    color: ink,
+                    strength: widget.motifStrength,
+                    offset: Offset(-44 * t, 38 * t),
+                  );
+                },
               ),
             ),
           Positioned.fill(child: widget.child),
@@ -856,69 +855,6 @@ class _NeptuneAuroraCanvasState extends State<NeptuneAuroraCanvas>
   }
 }
 
-class _AuroraPainter extends CustomPainter {
-  final double t1;
-  final double t2;
-  final Color warm;
-  final Color cool;
-
-  const _AuroraPainter({
-    required this.t1,
-    required this.t2,
-    required this.warm,
-    required this.cool,
-  });
-
-  void _bloom(Canvas canvas, Size size, Offset at, double r, Color c,
-      double alpha) {
-    // THE SHADER IS PLACED ON THE CIRCLE; THE PAINT COVERS THE PAGE.
-    //
-    // Drawing the rect the shader was built from clips the gradient at its own
-    // bounding box, so the outer ring — the part that is supposed to be
-    // transparent — simply stops, and a soft bloom renders as a hard-edged
-    // rectangle with a visible seam down the screen. It looks like a stray
-    // translucent panel, not a light, which is the opposite of the one thing
-    // this surface is for.
-    final paint = Paint()
-      ..shader = RadialGradient(
-        colors: [c.withValues(alpha: alpha), c.withValues(alpha: 0)],
-        stops: const [0, 1],
-      ).createShader(Rect.fromCircle(center: at, radius: r));
-    canvas.drawRect(Offset.zero & size, paint);
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final w = size.width, h = size.height;
-    // Two independent Lissajous drifts. Different periods and different
-    // phases, so the pair never returns to the same arrangement within a
-    // session — the cheapest way to stop a loop reading as a loop.
-    final a1 = t1 * 2 * math.pi;
-    final a2 = t2 * 2 * math.pi;
-    _bloom(
-      canvas,
-      size,
-      Offset(w * (0.26 + 0.16 * math.cos(a1)),
-          h * (0.22 + 0.10 * math.sin(a1 * 1.6))),
-      w * 0.82,
-      cool,
-      0.55,
-    );
-    _bloom(
-      canvas,
-      size,
-      Offset(w * (0.80 + 0.14 * math.sin(a2)),
-          h * (0.66 + 0.12 * math.cos(a2 * 1.3))),
-      w * 0.58,
-      warm,
-      0.40,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_AuroraPainter old) =>
-      old.t1 != t1 || old.t2 != t2 || old.warm != warm || old.cool != cool;
-}
 
 // ---------------------------------------------------------------------------
 // The card flip

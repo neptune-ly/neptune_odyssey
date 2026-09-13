@@ -23,7 +23,7 @@ const _base = BrandprintConfig(
   fontDisplay: 'Reem Kufi',
   fontText: 'Readex Pro',
   fontNum: 'Readex Pro',
-  loginShell: 'pocket-aurora',
+  loginShell: 'pocket-drift',
   dashboardHero: 'pocket-balance',
   contentTone: 'light-instant',
   glassTint: 'navy-steel',
@@ -50,7 +50,7 @@ void main() {
   group('the 2.30.0 registry entries', () {
     test('the three appended names round-trip', () {
       final back = Brandprint.decode(Brandprint.encode(_base));
-      expect(back.loginShell, 'pocket-aurora');
+      expect(back.loginShell, 'pocket-drift');
       expect(back.dashboardHero, 'pocket-balance');
       expect(back.motif, 'arrow-drift');
     });
@@ -61,7 +61,7 @@ void main() {
       // that catches it, because a reordered list still round-trips.
       expect(kLoginShells.indexOf('depth-emblem'), 0);
       expect(kLoginShells.indexOf('lockup-rule'), 5);
-      expect(kLoginShells.indexOf('pocket-aurora'), kLoginShells.length - 1);
+      expect(kLoginShells.indexOf('pocket-drift'), 6);
       expect(kDashboardHeroes.indexOf('balance-cards'), 0);
       expect(kDashboardHeroes.indexOf('chevron-summary'), 5);
       // THE INDEX IS THE WIRE FORMAT, AND TWO BRANCHES APPENDED AT ONCE.
@@ -86,7 +86,7 @@ void main() {
         fontDisplay: 'Readex Pro',
         fontText: 'Readex Pro',
         fontNum: 'Readex Pro',
-        loginShell: 'pocket-aurora',
+        loginShell: 'pocket-drift',
         dashboardHero: 'pocket-balance',
         contentTone: 'light-instant',
         glassTint: 'navy-steel',
@@ -282,27 +282,27 @@ void main() {
     });
   });
 
-  group('NeptuneAuroraCanvas', () {
+  group('NeptuneDriftCanvas', () {
     testWidgets('starts no ticker under reduced motion', (t) async {
       await t.pumpWidget(MediaQuery(
         data: const MediaQueryData(disableAnimations: true),
         child: _host(
           NeptuneTheme.fromConfig(_base, brightness: Brightness.light),
-          const NeptuneAuroraCanvas(child: SizedBox.shrink()),
+          const NeptuneDriftCanvas(child: SizedBox.shrink()),
         ),
       ));
       // A running ticker would make this pump forever.
       await t.pumpAndSettle();
-      expect(find.byType(NeptuneAuroraCanvas), findsOneWidget);
+      expect(find.byType(NeptuneDriftCanvas), findsOneWidget);
     });
 
     testWidgets('drifts when motion is allowed', (t) async {
       await t.pumpWidget(_host(
         NeptuneTheme.fromConfig(_base, brightness: Brightness.dark),
-        const NeptuneAuroraCanvas(child: SizedBox.shrink()),
+        const NeptuneDriftCanvas(child: SizedBox.shrink()),
       ));
       await t.pump(const Duration(seconds: 3));
-      expect(find.byType(NeptuneAuroraCanvas), findsOneWidget);
+      expect(find.byType(NeptuneDriftCanvas), findsOneWidget);
     });
   });
 

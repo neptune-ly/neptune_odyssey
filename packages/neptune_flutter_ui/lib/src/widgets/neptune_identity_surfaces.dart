@@ -46,11 +46,22 @@ class NeptuneMotifLayer extends StatelessWidget {
   /// caller keeps the pattern it has.
   final bool fade;
 
+  /// Shifts the pattern's ORIGIN, in logical pixels, without moving the box.
+  ///
+  /// It exists so a caller can animate a tiled field without laying anything
+  /// out. Translating the widget is the obvious way and it is wrong twice: a
+  /// tiled motif drawn from (0,0) leaves a bare wedge at the trailing edge as
+  /// soon as it moves, and the usual fix — an `OverflowBox` with infinite
+  /// constraints around it — hands unbounded width to a `CustomPaint` sized
+  /// `Size.infinite`, which does not render, it hangs.
+  final Offset offset;
+
   const NeptuneMotifLayer({
     super.key,
     this.color,
     this.strength = 1,
     this.fade = false,
+    this.offset = Offset.zero,
   });
 
   /// Where each motif emanates from, as a fraction of its box - the same
@@ -85,6 +96,7 @@ class NeptuneMotifLayer extends StatelessWidget {
         color: c,
         strength: identity.motifStrength * strength,
         rtl: rtl,
+        offset: offset,
       ),
       size: Size.infinite,
     );
@@ -120,16 +132,34 @@ class _MotifPainter extends CustomPainter {
   /// canvas transform.
   final bool rtl;
 
+  /// See [NeptuneMotifLayer.offset].
+  final Offset offset;
+
   const _MotifPainter({
     required this.kind,
     required this.color,
     required this.strength,
     this.rtl = false,
+    this.offset = Offset.zero,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     if (strength <= 0) return;
+    if (offset != Offset.zero) {
+      // The box is unchanged; only the pattern moves inside it. The layer is
+      // already clipped by `NeptuneMotifLayer`, and every motif here draws
+      // past its own bounds by design, so a shifted origin exposes nothing.
+      canvas.save();
+      canvas.translate(offset.dx, offset.dy);
+      _draw(canvas, size);
+      canvas.restore();
+      return;
+    }
+    _draw(canvas, size);
+  }
+
+  void _draw(Canvas canvas, Size size) {
     switch (kind) {
       case NptMotifKind.sonarRings:
         _sonar(canvas, size);
@@ -254,6 +284,7 @@ class _MotifPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_MotifPainter old) =>
+      old.offset != offset ||
       old.rtl != rtl ||
       old.kind != kind || old.color != color || old.strength != strength;
 }

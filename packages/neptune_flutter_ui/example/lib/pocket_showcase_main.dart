@@ -1,4 +1,4 @@
-// The POCKET composition, on one page: `pocket-aurora`, `pocket-balance`, the
+// The POCKET composition, on one page: `pocket-drift`, `pocket-balance`, the
 // card key light, the card flip and the six spot drawings — in both
 // brightnesses and both directions.
 //
@@ -31,7 +31,7 @@ const BrandprintConfig kPocketBrandprint = BrandprintConfig(
   fontDisplay: 'Reem Kufi',
   fontText: 'Readex Pro',
   fontNum: 'Readex Pro',
-  loginShell: 'pocket-aurora',
+  loginShell: 'pocket-drift',
   dashboardHero: 'pocket-balance',
   contentTone: 'light-instant',
   glassTint: 'navy-steel',

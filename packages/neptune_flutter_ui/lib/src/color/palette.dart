@@ -190,6 +190,15 @@ const Set<String> _groundRoles = {
 const Set<String> _groundTintedChrome = {
   'secondary-container',
   'on-secondary-container',
+  // `primary-container` is the tonal square behind an account's mark, and
+  // being the BRAND's own role does not make it right on a page the brand has
+  // grounded: at tone 91 and 47% of the seed chroma a navy resolves to a pale
+  // periwinkle, which on cream is the one cool object on the screen and reads
+  // as a Material default rather than as the bank. Hue only — it keeps its own
+  // chroma, so it is still the strongest tint on the page and still separates
+  // from both the paper and `secondary-container`.
+  'primary-container',
+  'on-primary-container',
 };
 
 double _resolveHue(_HueSource src, double primaryH, double tertiaryH) {

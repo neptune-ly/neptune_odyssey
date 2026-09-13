@@ -35,11 +35,19 @@ const List<String> kLoginShells = [
   'shield-guilloche',
   'paper-lockup',
   'lockup-rule',
-  // 2.30.0. The first pre-login shell that is not a document. A full-bleed
-  // brand canvas with two slow colour blooms drifting behind a lockup set
-  // low, so the first thing a customer sees moves. For a brand whose product
-  // is a pocket rather than a branch.
-  'pocket-aurora',
+  // 2.30.0, index 6. The first pre-login shell that is neither a document nor
+  // a colour field: the bank's OWN PAPER, with its signature motif drifting
+  // slowly across it and the mark set over the top.
+  //
+  // It shipped for one build as two drifting colour blooms and was wrong for
+  // three reasons at once. A warm bloom over a cool canvas resolves to MAUVE,
+  // so the screen was a blue-to-purple gradient — the single most recognisable
+  // "a machine made this" signature there is. It shared no material with the
+  // signed-in app, so a customer met one product and signed into another. And
+  // it was the only surface in the set with none of the three things that made
+  // the brand legible. A pre-login screen is the same bank at a different
+  // moment, and it should be made of the same things.
+  'pocket-drift',
 ];
 
 /// Append-only dashboard-hero registry. The last two (2.24.0):
