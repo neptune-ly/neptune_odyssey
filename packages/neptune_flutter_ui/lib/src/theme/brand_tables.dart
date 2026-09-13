@@ -213,5 +213,6 @@ NptIdentity identityFor(BrandprintConfig cfg) {
     dashboardHero: cfg.dashboardHero,
     loginShell: cfg.loginShell,
     contentTone: cfg.contentTone,
+    ruledRegister: cfg.ruledRegister,
   );
 }

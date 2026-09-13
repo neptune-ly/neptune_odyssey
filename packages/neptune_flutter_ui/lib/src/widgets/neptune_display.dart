@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../theme/accessibility.dart';
 import '../theme/density.dart';
 import '../theme/extensions.dart';
+import '../theme/identity.dart';
 
 /// A circular avatar. Renders, in priority order: an [image], otherwise
 /// [initials] (on a `primaryContainer` fill), otherwise an [icon]. Falls back to
@@ -670,6 +671,11 @@ class NeptuneListTile extends StatelessWidget {
     final density = Theme.of(context).extension<NptDensity>() ?? const NptDensity(1);
     final text = Theme.of(context).textTheme;
     final radius = shape.rMd;
+    // THE RULED REGISTER (`NptIdentity.ruledRegister`): the row is drawn on
+    // the page inside a hairline instead of on a tone-filled slab, and the
+    // leading glyph loses its tinted square for the same reason - a filled
+    // chip inside a ruled row is the slab smuggled back in at a smaller size.
+    final ruled = Theme.of(context).extension<NptIdentity>()!.ruledRegister;
 
     Widget? lead = leading;
     lead ??= leadingIcon == null
@@ -680,11 +686,15 @@ class NeptuneListTile extends StatelessWidget {
               height: 40,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: scheme.primaryContainer,
+                color: ruled ? null : scheme.primaryContainer,
                 borderRadius: shape.rSm,
+                border:
+                    ruled ? Border.all(color: scheme.outlineVariant) : null,
               ),
-              child:
-                  Icon(leadingIcon, size: 20, color: scheme.onPrimaryContainer),
+              child: Icon(leadingIcon,
+                  size: 20,
+                  color:
+                      ruled ? scheme.primary : scheme.onPrimaryContainer),
             ),
           );
 
@@ -733,8 +743,13 @@ class NeptuneListTile extends StatelessWidget {
       );
     }
     return Material(
-      color: scheme.surfaceContainerLow,
-      borderRadius: radius,
+      color: ruled ? Colors.transparent : scheme.surfaceContainerLow,
+      shape: RoundedRectangleBorder(
+        borderRadius: radius,
+        side: ruled
+            ? BorderSide(color: scheme.outlineVariant)
+            : BorderSide.none,
+      ),
       clipBehavior: Clip.antiAlias,
       child: onTap == null
           ? row

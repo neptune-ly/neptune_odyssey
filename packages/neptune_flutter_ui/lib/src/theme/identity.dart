@@ -62,6 +62,13 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
   final String loginShell;
   final String contentTone;
 
+  /// `BrandprintConfig.ruledRegister`: this brand draws structure in LINES.
+  /// Read by the library's grouped surfaces ([NeptuneListTile],
+  /// [NeptuneAccountTile], [NeptuneDetailList]) to draw a hairline-ruled group
+  /// on the page instead of a tone-filled card floating on it; the button
+  /// shape is applied at assembly.
+  final bool ruledRegister;
+
   const NptIdentity({
     required this.motif,
     required this.motifStrength,
@@ -72,6 +79,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     required this.dashboardHero,
     required this.loginShell,
     required this.contentTone,
+    this.ruledRegister = false,
   });
 
   // --- glass ----------------------------------------------------------------
@@ -168,6 +176,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     String? dashboardHero,
     String? loginShell,
     String? contentTone,
+    bool? ruledRegister,
   }) =>
       NptIdentity(
         motif: motif ?? this.motif,
@@ -179,6 +188,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
         dashboardHero: dashboardHero ?? this.dashboardHero,
         loginShell: loginShell ?? this.loginShell,
         contentTone: contentTone ?? this.contentTone,
+        ruledRegister: ruledRegister ?? this.ruledRegister,
       );
 
   @override
@@ -196,6 +206,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
       dashboardHero: pick.dashboardHero,
       loginShell: pick.loginShell,
       contentTone: pick.contentTone,
+      ruledRegister: pick.ruledRegister,
     );
   }
 }

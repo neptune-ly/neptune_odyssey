@@ -195,7 +195,19 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
     // second colour gets it here and in no other filled button.
     final bg = widget.tonal ? scheme.secondaryContainer : colors.accent;
     final fg = widget.tonal ? scheme.onSecondaryContainer : colors.onAccent;
-    final radius = shape.rXxl;
+    // THE RULED REGISTER (`NptIdentity.ruledRegister`) reaches the CTA the
+    // same way it reaches every other button - `md`, not `xxl`, because xxl on
+    // a 54dp button is past Flutter's half-height clamp and draws the pill it
+    // is meant to replace.
+    //
+    // It also takes the FLOURISH OFF. The repeating sheen sweep and the accent
+    // glow are decoration on a permanent loop: they announce the button every
+    // few seconds whether or not anything has changed, which is the opposite
+    // of motion that serves feedback. A brand that draws its structure in
+    // hairlines cannot have the loudest object on its confirm screen be a
+    // button that shines at you. The press scale stays - that IS feedback.
+    final ruled = identity.ruledRegister;
+    final radius = ruled ? shape.rMd : shape.rXxl;
     final enabled = widget.onPressed != null;
 
     final labelStyle = (text.titleMedium ?? const TextStyle()).copyWith(
@@ -258,7 +270,7 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
         decoration: BoxDecoration(
           borderRadius: radius,
           // The primary key-light glow (web `--npt-glow-primary`).
-          boxShadow: widget.tonal || !enabled
+          boxShadow: widget.tonal || !enabled || ruled
               ? null
               : [
                   ...identity.elevation3(scheme),
@@ -289,7 +301,7 @@ class _NeptuneCtaState extends State<NeptuneCta> with TickerProviderStateMixin {
                 children: [
                   // Specular sheen — an on-colour tinted highlight sweeping
                   // across on the 4.8s cycle (web `.sheen`).
-                  if (!reduced)
+                  if (!reduced && !ruled)
                     Positioned.fill(
                       child: IgnorePointer(
                         child: AnimatedBuilder(

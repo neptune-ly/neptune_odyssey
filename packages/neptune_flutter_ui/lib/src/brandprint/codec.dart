@@ -169,6 +169,29 @@ class BrandprintConfig {
   /// string decodes to, keeps the tinted ground and the filled fields.
   final bool whiteGround;
 
+  /// Flags bit 4 (2.28.0). THE RULED REGISTER: this brand draws structure in
+  /// LINES rather than in filled slabs. Buttons are ruled rectangles at the
+  /// brand's own `md` corner instead of stadium pills, and the grouped
+  /// surfaces - list tile, account tile, detail list - are hairline-ruled
+  /// groups on the page instead of tone-filled cards floating on it.
+  ///
+  /// It is the other half of [whiteGround], which already says structure is
+  /// drawn in lines and then only reaches the page ground and the field fill.
+  /// Everything a customer actually looks at on a signed-in screen stayed a
+  /// tone-filled slab, so a brand could declare the white register and still
+  /// ship its sibling's cards.
+  ///
+  /// The button half is not derivable from [corners]. Flutter clamps a radius
+  /// to half the height, so 44 (a round brand) and 28 (a square one) both
+  /// resolve to the same pill on a 52dp button: the corner family cannot
+  /// express the distinction on its own, which is why six declared numbers
+  /// reached cards, sheets, fields and chips and stopped at the one component
+  /// a customer touches on every screen.
+  ///
+  /// False, which every pre-2.28.0 string decodes to, keeps the stadium and
+  /// the filled slabs.
+  final bool ruledRegister;
+
   const BrandprintConfig({
     this.version = 1,
     required this.primary,
@@ -189,6 +212,7 @@ class BrandprintConfig {
     this.defaultRtl = false,
     this.accentOnTertiary = false,
     this.whiteGround = false,
+    this.ruledRegister = false,
   });
 
   @override
@@ -212,7 +236,8 @@ class BrandprintConfig {
       other.defaultDark == defaultDark &&
       other.defaultRtl == defaultRtl &&
       other.accentOnTertiary == accentOnTertiary &&
-      other.whiteGround == whiteGround;
+      other.whiteGround == whiteGround &&
+      other.ruledRegister == ruledRegister;
 
   @override
   int get hashCode => Object.hashAll([
@@ -235,6 +260,7 @@ class BrandprintConfig {
         defaultRtl,
         accentOnTertiary,
         whiteGround,
+        ruledRegister,
       ]);
 }
 
@@ -296,6 +322,7 @@ class Brandprint {
     if (cfg.defaultRtl) f |= 2;
     if (cfg.accentOnTertiary) f |= 4;
     if (cfg.whiteGround) f |= 8;
+    if (cfg.ruledRegister) f |= 16;
     buf[o++] = f;
     buf[o++] = _ix(kMotifs, cfg.motif);
     var sum = 0;
@@ -380,6 +407,7 @@ class Brandprint {
       defaultRtl: (f & 2) != 0,
       accentOnTertiary: (f & 4) != 0,
       whiteGround: (f & 8) != 0,
+      ruledRegister: (f & 16) != 0,
     );
   }
 }
