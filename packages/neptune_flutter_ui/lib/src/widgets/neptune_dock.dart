@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/accessibility.dart';
+import '../theme/brand_canvas.dart';
 import '../theme/extensions.dart';
 import '../theme/identity.dart';
 import 'neptune_icon_slot.dart';
@@ -65,6 +66,27 @@ enum NeptuneDockShell {
   /// of that rule in the brand's ACCENT. Structure drawn in lines, not slabs,
   /// and the accent used as direction — which is the one job it has.
   rule,
+
+  /// A SOLID stadium of the brand's own ink, floating clear of every edge,
+  /// with the content scrolling visibly underneath it. The active item is a
+  /// lozenge of the on-canvas tone inside that stadium.
+  ///
+  /// It is not [raised] in another colour, and the difference is the whole
+  /// point of it being its own shell. `raised` is GLASS: it borrows the page's
+  /// colour, so it recedes, and it marks the active item by lifting a circle
+  /// out of the bar — an object rising toward the customer. This one is
+  /// OPAQUE: it is the single darkest object on a pale page, so it advances,
+  /// and it marks the active item by moving a lozenge INSIDE itself — nothing
+  /// leaves the bar's outline. A greyscale screenshot of the two is not the
+  /// same picture, which is the test this enum exists to pass.
+  ///
+  /// It takes its fill from [NptBrandCanvas.canvas] rather than from
+  /// `colorScheme.primary`, so it is the bank's real colour at both
+  /// brightnesses instead of a light tone at night. A page under it must be
+  /// laid out with `extendBody: true` and enough trailing padding for the bar
+  /// to overlap rather than cover: the overlap IS the signal that the list
+  /// continues, and a bar that hides the last row is a bug, not a composition.
+  inkPill,
 }
 
 /// The bottom navigation bar (web `<npt-dock>`) in one of three
@@ -112,7 +134,44 @@ class NeptuneDock extends StatelessWidget {
       NeptuneDockShell.raised => _buildRaised(context),
       NeptuneDockShell.register => _buildFlat(context, ruled: false),
       NeptuneDockShell.rule => _buildFlat(context, ruled: true),
+      NeptuneDockShell.inkPill => _buildInkPill(context),
     };
+  }
+
+  /// The solid brand stadium. See [NeptuneDockShell.inkPill].
+  Widget _buildInkPill(BuildContext context) {
+    final theme = Theme.of(context);
+    final canvas = theme.extension<NptBrandCanvas>()!;
+    final identity = theme.extension<NptIdentity>()!;
+
+    return Padding(
+      // The bar floats, so it is inset from all three edges. The bottom inset
+      // is measured from the gesture area rather than added to it: a stadium
+      // that clears the home indicator by a fixed 16 sits too low on a device
+      // with no indicator and too high on one with a tall one.
+      padding: EdgeInsetsDirectional.fromSTEB(
+          20, 0, 20, 10 + MediaQuery.paddingOf(context).bottom),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: canvas.canvas,
+          borderRadius: BorderRadius.circular(999),
+          // The one shadow in this composition, and it earns its place: the
+          // bar has to read as being IN FRONT of the content passing under it,
+          // and on a pale page an opaque dark stadium with no shadow reads as
+          // a hole cut in the page instead.
+          boxShadow: identity.elevation3(theme.colorScheme),
+        ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 6),
+          child: Row(
+            children: [
+              for (final item in items)
+                Expanded(child: _InkPillItem(item: item, canvas: canvas)),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   /// The flat bars. [ruled] picks the marker: false marks the active item by
@@ -230,6 +289,86 @@ class NeptuneDock extends StatelessWidget {
       SizedBox(width: centerGapWidth),
       for (var i = split; i < items.length; i++) Expanded(child: _DockItem(item: items[i])),
     ];
+  }
+}
+
+/// One cell of the [NeptuneDockShell.inkPill] stadium: mark and label side by
+/// side, the active one inside a lozenge.
+///
+/// The label is drawn for the ACTIVE item only. A stadium that fits on one
+/// line with four labels in it has labels too small to read, and an icon row
+/// with no words at all is the thing every customer complains about; showing
+/// the word for where you ARE resolves both, because the other three are the
+/// places you are not and their marks only have to be recognisable, not
+/// self-explaining. Assistive technology still hears every label — see the
+/// [Semantics] below, which does not depend on what is painted.
+class _InkPillItem extends StatelessWidget {
+  final NeptuneDockItem item;
+  final NptBrandCanvas canvas;
+
+  const _InkPillItem({required this.item, required this.canvas});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final motion = theme.extension<NptMotion>()!;
+    final text = theme.textTheme;
+    final fast = NeptuneAccessibility.duration(context, motion.fast);
+    // Inactive ink is the muted on-canvas tone the brand already checked
+    // against this exact ground, not an alpha guess: `onCanvasMuted` is the
+    // one value in the theme that is guaranteed to read on `canvas`.
+    final ink = item.active ? canvas.onCanvas : canvas.onCanvasMuted;
+
+    return Semantics(
+      button: true,
+      selected: item.active,
+      label: item.label,
+      excludeSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: item.onTap,
+        child: AnimatedContainer(
+          duration: fast,
+          curve: motion.standard,
+          height: 46,
+          decoration: BoxDecoration(
+            color: item.active
+                ? canvas.onCanvas.withValues(alpha: 0.16)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              NeptuneIconSlot(
+                icon: item.icon,
+                iconWidget: item.iconWidget,
+                size: 21,
+                color: ink,
+              ),
+              // The label animates its WIDTH in and out with the lozenge, so
+              // the marks slide rather than jumping between two layouts.
+              AnimatedSize(
+                duration: fast,
+                curve: motion.standard,
+                child: item.active
+                    ? Padding(
+                        padding: const EdgeInsetsDirectional.only(start: 7, end: 3),
+                        child: Text(
+                          item.label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: (text.labelMedium ?? const TextStyle())
+                              .copyWith(color: ink, fontWeight: FontWeight.w700),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

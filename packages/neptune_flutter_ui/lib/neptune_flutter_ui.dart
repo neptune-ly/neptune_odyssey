@@ -16,6 +16,7 @@ export 'src/color/seed_extractor.dart';
 // 2.23.1 — the accessibility contract: host-localised screen-reader strings,
 // spoken money, reduced-motion helpers.
 export 'src/theme/accessibility.dart';
+export 'src/theme/brand_scheme.dart';
 export 'src/theme/color_schemes.dart';
 export 'src/theme/density.dart';
 export 'src/theme/extensions.dart';
@@ -36,7 +37,9 @@ export 'src/theme/brand_tables.dart'
 // Widgets.
 export 'src/widgets/neptune_numeral.dart';
 export 'src/widgets/neptune_balance_card.dart';
+export 'src/widgets/neptune_amount_stage.dart';
 export 'src/widgets/neptune_card_art.dart';
+export 'src/widgets/neptune_drift_field.dart';
 export 'src/widgets/neptune_transaction_row.dart';
 export 'src/widgets/neptune_primary_button.dart';
 export 'src/widgets/neptune_account_tile.dart';

@@ -35,6 +35,11 @@ const List<String> kLoginShells = [
   'shield-guilloche',
   'paper-lockup',
   'lockup-rule',
+  // 2.29.0. The pre-login moment as a SCENE rather than a lockup: the brand's
+  // objects suspended in its own deep ground at different depths, drifting,
+  // with the headline low and one call to action under it. Index 6 of a full
+  // byte, so there is room for many more.
+  'drift-depth',
 ];
 
 /// Append-only dashboard-hero registry. The last two (2.24.0):
@@ -108,6 +113,13 @@ const List<String> kNavShells = [
   'raised-dock',
   'register-bar',
   'rule-bar',
+  // 2.29.0, AND THIS IS THE LAST SLOT. A solid stadium of the brand's own ink
+  // floating over content that scrolls under it - opaque where `raised-dock`
+  // is glass, and marking the active item with a lozenge inside its own
+  // outline rather than a circle lifted out of it. A fifth shell needs a
+  // format bump; the 29-byte form's extension byte has bits 1-7 free, so that
+  // bump is available, but it is a wire change and not a list edit.
+  'ink-pill',
 ];
 
 /// Append-only quick-action-row registry - flags bits 6-7 (2.28.0). The

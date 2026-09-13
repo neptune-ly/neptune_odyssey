@@ -1,5 +1,67 @@
 # Changelog
 
+## 2.29.0
+
+- **A brand may hand Odyssey its finished `ColorScheme` (`NptBrandScheme`).** The v1 ramp reads only
+  hue and chroma off a seed and pins every role's LIGHTNESS to a constant — `_light['primary']` is
+  `_Recipe(0.48, ...)` whatever it is given. So a bank whose primary is a deep navy could not be
+  seeded into existence: Nuran's `#114075` (L 0.372) came back a mid blue, and no amount of tuning
+  was going to change that, because the seed's `l` is discarded on the way in. That is fine for a
+  brand being designed inside Odyssey and wrong for one that has already shipped — a palette in
+  customers' hands is a fact, not a starting point, and "close enough" is the wrong standard for a
+  colour someone has been looking at for a year. Pass `scheme:` to `fromConfig` / `fromBrandprint`
+  and the Material roles come from the brand verbatim; pass nothing and the generated path runs
+  byte for byte as before (asserted). It costs **no byte, no flag bit and no registry slot** — this
+  is theme construction, not a wire change, and the brandprint still carries the seeds that the web
+  and Studio ports build from. Both brightnesses are required, because a brand supplying one would
+  silently fall back to the ramp at the other, which is the inversion bug `NptBrandCanvas` exists to
+  prevent. On this path the card gradient travels `primary -> secondary`, never `-> tertiary`: a
+  shipped scheme's `tertiary` is a free accent role and one real bank's is a 12%-alpha grey, which
+  as a gradient stop is a translucent smudge.
+
+- **`NeptuneDriftField` — the pre-login moment as a scene rather than a lockup.** Objects suspended
+  at different depths in a brand's own ground, drifting on an ambient clock and answering a drag
+  with parallax. Depth is one number per object and it drives THREE things at once — scale, travel
+  distance and how far the object is carried toward the ground colour — because any one of them
+  alone reads as a sticker sliding about and together they read as space. It is deliberately not
+  blurred: an `ImageFiltered` per object is a full-screen blur per object per frame, and on a 120Hz
+  display that is the difference between a scene that floats and one that stutters. Under reduced
+  motion every object still renders at its resting position, scale and tilt — the composition is
+  complete and simply still, never an empty ground. Decorative objects are `ExcludeSemantics`, so a
+  screen reader moves from the headline to the button instead of stopping on five anonymous images.
+
+- **`NeptuneAmountStage` + `NeptuneStageKeypad` — the amount as the screen.** No container: no box,
+  no ring, no underline, no placeholder frame. The figure steps DOWN a ladder as digits arrive
+  rather than scaling continuously, because a continuously-scaled numeral has a different stroke
+  weight at every size and money that gets lighter as it gets larger reads as a rendering fault; it
+  is set in tabular figures so the number does not jitter sideways as it is typed, and the currency
+  sits on the figure's own baseline rather than centred against its box, where it would read as a
+  superscript. The keypad has **no keys** — no fills, no separators, no grid — so the two things a
+  drawn key really provides are provided another way: the target is the whole cell (60dp, clear of
+  the 44pt floor) and the press is confirmed by a tonal bloom plus the brand's own haptic weight.
+  The grid is NOT mirrored under RTL, because a keypad is a physical object customers have muscle
+  memory for and no Arabic keypad mirrors; the backspace IS mirrored, because it is an arrow.
+  `NeptuneAmountKeypad` stays exactly as it was and is still the right one when the amount is a
+  value on a form — both widgets now say which case they are for.
+
+- **`NeptuneDockShell.inkPill` — a solid stadium of the brand's ink, floating over the content.**
+  Not `raised` in another colour: `raised` is glass, so it borrows the page and recedes, and it
+  marks the active item by lifting a circle OUT of the bar; this is opaque, so it is the darkest
+  object on a pale page and advances, and it marks the active item with a lozenge INSIDE its own
+  outline. It fills from `NptBrandCanvas.canvas`, so it is the bank's real colour at both
+  brightnesses instead of a light tone at night, and the label is painted for the active item only
+  while every label is still announced.
+
+- Registry appends, no flag bit claimed and no existing index moved, so every brandprint already in
+  the wild encodes and decodes unchanged:
+
+      kLoginShells += 'drift-depth'   index 6 of a full byte    free
+      kNavShells   += 'ink-pill'      index 3 - THE LAST SLOT
+
+  `kNavShells` is two bits and is now full at four values. A fifth navigation shell needs a format
+  bump rather than another line in that list — the 29-byte form's extension byte has bits 1-7 free,
+  so the bump is available, but it is a wire change and must be agreed, not taken.
+
 All notable changes to Neptune Odyssey are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com); the system follows [Semantic Versioning](https://semver.org) against the token layer (see `docs/09-governance-and-versioning.md`).
 

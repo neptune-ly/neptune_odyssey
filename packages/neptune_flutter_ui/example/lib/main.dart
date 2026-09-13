@@ -444,6 +444,119 @@ class _GalleryScreenState extends State<GalleryScreen> {
                     ),
                   ),
 
+                  // ---- The amount as the screen ----------------------------
+                  // The other half of the pair above: no field, no keys, and
+                  // the figure the size of a fist. Shown on the brand canvas
+                  // because that is the composition it is built for.
+                  _Section(
+                    title: 'Amount stage (2.29.0)',
+                    child: Builder(builder: (context) {
+                      final brand = Theme.of(context).extension<NptBrandCanvas>()!;
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: ColoredBox(
+                          color: brand.canvas,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 28),
+                            child: Column(
+                              children: [
+                                NeptuneAmountStage(
+                                  value: '1250',
+                                  currency: 'LYD',
+                                  color: brand.onCanvas,
+                                  footnote: const Text('Available 4,120.500'),
+                                ),
+                                const SizedBox(height: 24),
+                                SizedBox(
+                                  height: 280,
+                                  child: NeptuneStageKeypad(
+                                    onDigit: (_) {},
+                                    onBackspace: () {},
+                                    onDecimal: () {},
+                                    color: brand.onCanvas,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+
+                  // ---- The pre-login scene ---------------------------------
+                  _Section(
+                    title: 'Drift field (2.29.0)',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: SizedBox(
+                        height: 360,
+                        child: Builder(builder: (context) {
+                          final brand = Theme.of(context).extension<NptBrandCanvas>()!;
+                          final colors = Theme.of(context).extension<NptColors>()!;
+                          Widget tile(IconData icon) => DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: brand.card,
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                                child: Icon(icon, color: brand.canvas, size: 30),
+                              );
+                          return NeptuneDriftField(
+                            ground: brand.canvas,
+                            objects: [
+                              NeptuneDriftObject(
+                                  child: tile(Icons.lock_outline),
+                                  at: const Alignment(-0.7, -0.5),
+                                  depth: 0.25,
+                                  size: 70,
+                                  turns: -0.04),
+                              NeptuneDriftObject(
+                                  child: tile(Icons.qr_code_2),
+                                  at: const Alignment(0.78, -0.2),
+                                  depth: 0.5,
+                                  size: 78,
+                                  turns: 0.035),
+                              NeptuneDriftObject(
+                                  at: const Alignment(0.1, -0.55),
+                                  depth: 0.95,
+                                  size: 190,
+                                  turns: -0.03,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(22),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          colors.cardGradientStart,
+                                          colors.cardGradientEnd
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ],
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Text(
+                                  'Manage your money\nwithout all the fees',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(
+                                          color: brand.onCanvas,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.06),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+
                   // ---- Money movement --------------------------------------
                   _Section(
                     title: 'Money movement',
@@ -667,6 +780,50 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         ),
                         const SizedBox(height: 12),
                         NeptuneSlider(value: _slider, label: 'Monthly limit', onChanged: (v) => setState(() => _slider = v)),
+                      ],
+                    ),
+                  ),
+
+                  // ---- The four bars ---------------------------------------
+                  // A greyscale screenshot of any two of these must not be the
+                  // same picture. That is the test the lever exists to pass,
+                  // and it is why they are shown together rather than one per
+                  // brand page.
+                  _Section(
+                    title: 'Dock shells (ink-pill new in 2.29.0)',
+                    child: Column(
+                      children: [
+                        for (final shell in NeptuneDockShell.values) ...[
+                          Text(shell.name,
+                              style: Theme.of(context).textTheme.labelSmall),
+                          const SizedBox(height: 4),
+                          SizedBox(
+                            height: 86,
+                            child: NeptuneDock(
+                              shell: shell,
+                              items: [
+                                NeptuneDockItem(
+                                    icon: Icons.home_outlined,
+                                    label: 'Home',
+                                    active: true,
+                                    onTap: () {}),
+                                NeptuneDockItem(
+                                    icon: Icons.credit_card,
+                                    label: 'Cards',
+                                    onTap: () {}),
+                                NeptuneDockItem(
+                                    icon: Icons.swap_horiz,
+                                    label: 'Transfer',
+                                    onTap: () {}),
+                                NeptuneDockItem(
+                                    icon: Icons.person_outline,
+                                    label: 'Me',
+                                    onTap: () {}),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
                       ],
                     ),
                   ),
