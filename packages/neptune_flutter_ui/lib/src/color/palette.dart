@@ -187,18 +187,47 @@ const Set<String> _groundRoles = {
 /// ground, peach controls and blue chips reads as an accident rather than a
 /// scheme. Hue only: it already carries enough chroma to separate from the
 /// paper, and multiplying it would turn a chip into a swatch.
+///
+/// `primary-container` AND `on-primary-container` WERE IN THIS SET AND ARE NOT
+/// ANY MORE. The argument for them was the same one as above — a pale
+/// periwinkle square on a cream page is the one cool object on the screen —
+/// and on its own terms it was right. What it did not account for is the
+/// brand that makes the ground warm in the first place.
+///
+/// `warmGround` is fed the brand's TERTIARY seed, and on a brand that also
+/// sets `accentOnTertiary` that seed is the ACCENT — a colour whose whole
+/// contract is that it feeds `NptColors.accent` and no Material role at all,
+/// so that it cannot collide with an error state and cannot be spent twice on
+/// one screen. Tinting a container role to it broke that contract at the
+/// source: FGLB's light `primary-container` generated as #ffd4c9 with
+/// #400000 ink — a pink chip with near-black-red text — while its `primary`
+/// was navy #385aa3. Every account row, every balance card, every overlay
+/// glyph square the bank drew in light mode carried it.
+///
+/// THE ASYMMETRY IS WHAT GIVES IT AWAY. The ground lever is two-sided (see
+/// [generatePalette]): `groundH` is the warm seed's hue in light but the
+/// PRIMARY's in dark. So in dark these two roles were already resolving to
+/// exactly the hue they resolve to without this set, and the same line of code
+/// produced a correct navy there and a pink here. A rule that only fires in
+/// one brightness is not a rule about tint; it is a leak with a tint-shaped
+/// comment on it.
+///
+/// Consequence, stated rather than discovered later: on a warm-ground brand
+/// the tonal square is once again a cool tint on a warm page. That is the
+/// trade the original comment was trying to avoid, and it is the right way
+/// round — a brand role that reads slightly cool is a smaller fault than a
+/// brand role wearing the one colour the brandprint reserved. A brand that
+/// wants the square in its ground's family should say so with a lever, not
+/// inherit it from the paper.
+///
+/// `secondary-container` STAYS, deliberately and narrowly: it is not a
+/// `primary-*` Material role, nothing reserves it, and it is what the pocket
+/// hero's own tonal chips resolve through on the one composition that is
+/// already signed off. Removing it is a separate change with a separate
+/// review, not a free rider on this one.
 const Set<String> _groundTintedChrome = {
   'secondary-container',
   'on-secondary-container',
-  // `primary-container` is the tonal square behind an account's mark, and
-  // being the BRAND's own role does not make it right on a page the brand has
-  // grounded: at tone 91 and 47% of the seed chroma a navy resolves to a pale
-  // periwinkle, which on cream is the one cool object on the screen and reads
-  // as a Material default rather than as the bank. Hue only — it keeps its own
-  // chroma, so it is still the strongest tint on the page and still separates
-  // from both the paper and `secondary-container`.
-  'primary-container',
-  'on-primary-container',
 };
 
 double _resolveHue(_HueSource src, double primaryH, double tertiaryH) {

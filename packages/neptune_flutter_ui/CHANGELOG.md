@@ -1,3 +1,33 @@
+## 2.30.1
+
+- **The accent stopped leaking into `primary-container`.** `warmGround` is fed the brand's
+  TERTIARY seed, and on a brand that also sets `accentOnTertiary` that seed is the ACCENT — a
+  colour whose whole contract is that it feeds `NptColors.accent` and no Material role, so it can
+  never collide with an error state or be spent twice on one screen. `primary-container` and
+  `on-primary-container` were in `_groundTintedChrome`, which tinted them to the ground's hue, so
+  on such a brand they generated FROM THE ACCENT. FGLB's light scheme produced
+  `primary-container` #ffd4c9 with #400000 ink — a pink chip with near-black-red text — while its
+  `primary` was navy #385aa3, on every account row, balance card and glyph square it drew in light
+  mode.
+
+  The asymmetry is what gives it away: `groundH` is the warm seed's hue in light but the PRIMARY's
+  in dark, so in dark these two roles were already resolving to exactly the hue they resolve to
+  without the set. The same line produced a correct navy there and a pink here. A rule that fires
+  in only one brightness is not a rule about tint.
+
+  Both roles now ramp from `primary` in both modes, as every other `primary-*` role does.
+  `secondary-container` is untouched — it is not a reserved `primary-*` role and it is what an
+  already-signed-off composition resolves its tonal chips through.
+
+  Measured across all three brands × both modes × every role: **exactly two values change**, both
+  `fglb|light`. `primary-container` #ffd4c9 → #cee2ff, `on-primary-container` #400000 → #02124c.
+  FGLB dark, Andalus and Nuran are byte-identical.
+
+  Consequence, stated: on a warm-ground brand the tonal square is once again a cool tint on a warm
+  page. That is the trade the old behaviour was avoiding, and it is the right way round — a brand
+  role that reads slightly cool is a smaller fault than a brand role wearing the one colour the
+  brandprint reserved.
+
 ## 2.30.0
 
 - **The POCKET composition** — `pocket-balance` (dashboard hero) and `pocket-aurora` (login shell),
