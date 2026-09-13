@@ -359,23 +359,40 @@ class _InkPillItem extends StatelessWidget {
                 size: 21,
                 color: ink,
               ),
-              // The label animates its WIDTH in and out with the lozenge, so
-              // the marks slide rather than jumping between two layouts.
-              AnimatedSize(
+              // The label reveals by WIDTH FACTOR, so the marks slide rather
+              // than jumping between two layouts.
+              //
+              // NOT `AnimatedSize`. That measures its child, then restarts its
+              // own animation from inside `performLayout`, and when reduced
+              // motion collapses the duration to zero it re-dirties itself
+              // mid-layout and throws - "a RenderObject must not re-dirty
+              // itself while still being laid out". It is not a test artefact:
+              // it is every customer who has switched animations off. A
+              // clipped `Align` lays the label out once at its full size and
+              // reveals a fraction of it, so there is no layout feedback loop
+              // to close.
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: item.active ? 1 : 0, end: item.active ? 1 : 0),
                 duration: fast,
                 curve: motion.standard,
-                child: item.active
-                    ? Padding(
-                        padding: const EdgeInsetsDirectional.only(start: 7, end: 3),
-                        child: Text(
-                          item.label,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: (text.labelMedium ?? const TextStyle())
-                              .copyWith(color: ink, fontWeight: FontWeight.w700),
-                        ),
-                      )
-                    : const SizedBox.shrink(),
+                builder: (context, t, child) => ClipRect(
+                  child: Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    widthFactor: t,
+                    child: child,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 7, end: 3),
+                  child: Text(
+                    item.label,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    style: (text.labelMedium ?? const TextStyle())
+                        .copyWith(color: ink, fontWeight: FontWeight.w700),
+                  ),
+                ),
               ),
             ],
           ),

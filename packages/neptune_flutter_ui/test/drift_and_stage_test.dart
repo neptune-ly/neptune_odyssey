@@ -343,12 +343,37 @@ void main() {
       await tester.pumpWidget(
           _host(NeptuneDock(items: items, shell: NeptuneDockShell.inkPill)));
       await tester.pumpAndSettle();
-      expect(find.text('Home'), findsOneWidget);
-      expect(find.text('Cards'), findsNothing);
-      // ...but a screen reader hears every one of them.
+      // The inactive labels are laid out and CLIPPED to nothing rather than
+      // removed, which is what lets them slide instead of jumping. So the test
+      // is what a customer can SEE: zero width.
+      // Measured on the CLIP, not on the Text: the label is laid out at its
+      // full size either way, and what changes is how much of it is revealed.
+      double revealed(String label) => tester
+          .getSize(find.ancestor(
+              of: find.text(label), matching: find.byType(ClipRect)).first)
+          .width;
+      expect(revealed('Home'), greaterThan(0));
+      expect(revealed('Cards'), 0);
+      // ...and a screen reader hears every one of them regardless.
       expect(find.bySemanticsLabel('Cards'), findsOneWidget);
       expect(find.bySemanticsLabel('Me'), findsOneWidget);
       handle.dispose();
+    });
+
+    testWidgets('it lays out under reduced motion without throwing',
+        (tester) async {
+      // THE BUG THIS EXISTS FOR, and it was not a test artefact. The label
+      // reveal was an `AnimatedSize`, which measures its child and then
+      // restarts its own animation from inside `performLayout`; with the
+      // duration collapsed to zero it re-dirtied itself mid-layout and threw
+      // "a RenderObject must not re-dirty itself while still being laid out".
+      // That is every customer who has switched animations off.
+      await tester.pumpWidget(_host(
+        NeptuneDock(items: items, shell: NeptuneDockShell.inkPill),
+        reduceMotion: true,
+      ));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
     });
 
     testWidgets('it is a stadium, not the raised dock in another colour',
