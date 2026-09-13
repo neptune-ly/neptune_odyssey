@@ -178,6 +178,20 @@ const Set<String> _groundRoles = {
   'outline-variant',
 };
 
+/// Chrome roles that follow the ground's HUE but keep their own chroma.
+///
+/// `secondary-container` is the tonal chip behind a glyph — a quick action, a
+/// list-row avatar, a selected segment — and it is ramped from the primary at
+/// a fixed low chroma, so on a navy brand it is pale BLUE. Against a warmed
+/// page that is the only foreign tint on the screen, and a screen with a cream
+/// ground, peach controls and blue chips reads as an accident rather than a
+/// scheme. Hue only: it already carries enough chroma to separate from the
+/// paper, and multiplying it would turn a chip into a swatch.
+const Set<String> _groundTintedChrome = {
+  'secondary-container',
+  'on-secondary-container',
+};
+
 double _resolveHue(_HueSource src, double primaryH, double tertiaryH) {
   if (src.fixed != null) return src.fixed!;
   if (src.channel == 'tertiary') return tertiaryH;
@@ -209,6 +223,8 @@ Map<String, String> generatePalette(Oklch primary, Oklch tertiary, String mode,
     if (groundH != null && _groundRoles.contains(role)) {
       hue = groundH;
       c *= _groundChroma;
+    } else if (groundH != null && _groundTintedChrome.contains(role)) {
+      hue = groundH;
     }
     out[role] = oklchToHex(Oklch(recipe.l, c, hue));
   });
@@ -236,6 +252,8 @@ Map<String, int> generatePaletteArgb(Oklch primary, Oklch tertiary, String mode,
     if (groundH != null && _groundRoles.contains(role)) {
       hue = groundH;
       c *= _groundChroma;
+    } else if (groundH != null && _groundTintedChrome.contains(role)) {
+      hue = groundH;
     }
     out[role] = oklchToArgb(Oklch(recipe.l, c, hue));
   });

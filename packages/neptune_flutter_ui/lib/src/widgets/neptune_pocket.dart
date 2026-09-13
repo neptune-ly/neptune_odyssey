@@ -19,7 +19,6 @@ import 'package:flutter/material.dart';
 import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/brand_canvas.dart';
-import '../theme/identity.dart';
 import '../theme/neptune_theme.dart';
 import 'neptune_identity_surfaces.dart';
 
@@ -463,8 +462,18 @@ class _VerbTileState extends State<_VerbTile> {
                   // corner is the one that still reads as the brand's own
                   // rectangle at this size.
                   borderRadius: shape.rMd,
+                  // The ACCENT's glow, not the primary's. `glowPrimary` puts a
+                  // navy halo under a vermilion tile, which reads as a
+                  // shadow somebody tinted by mistake; a light under a lit
+                  // object is the colour of the object.
                   boxShadow: lead
-                      ? theme.extension<NptIdentity>()!.glowPrimary(scheme)
+                      ? [
+                          BoxShadow(
+                            color: fill.withValues(alpha: 0.34),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                        ]
                       : null,
                 ),
                 alignment: Alignment.center,
