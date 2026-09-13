@@ -18,7 +18,6 @@ import 'package:flutter/material.dart';
 
 import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
-import '../theme/brand_canvas.dart';
 import '../theme/neptune_theme.dart';
 import 'neptune_identity_surfaces.dart';
 
