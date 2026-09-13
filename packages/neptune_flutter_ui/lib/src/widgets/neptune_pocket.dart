@@ -774,12 +774,17 @@ class NeptuneDriftCanvas extends StatefulWidget {
   /// Strength multiplier on the brand motif. Zero for a brand whose motif is
   /// `none` — which is a brand that should not be on this shell at all, since
   /// the motif IS the composition here.
+  ///
+  /// 0.22, not the 0.55 this shipped with for one build. A motif is a WASH:
+  /// at half strength across a full screen it stops being a texture behind
+  /// the type and becomes wallpaper the type is sitting on, and the mark
+  /// stops reading as the brand's because there are ninety of it.
   final double motifStrength;
 
   const NeptuneDriftCanvas({
     super.key,
     required this.child,
-    this.motifStrength = 0.55,
+    this.motifStrength = 0.22,
   });
 
   @override
@@ -844,6 +849,11 @@ class _NeptuneDriftCanvasState extends State<NeptuneDriftCanvas>
                     color: ink,
                     strength: widget.motifStrength,
                     offset: Offset(-44 * t, 38 * t),
+                    // Attenuated from where the drift enters, so the field is
+                    // densest in the corner nothing is set in and thinnest
+                    // under the headline and the actions. An even field over
+                    // a whole screen gives the type nowhere to be quiet.
+                    fade: true,
                   );
                 },
               ),
