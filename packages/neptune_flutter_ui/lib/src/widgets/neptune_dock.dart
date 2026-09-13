@@ -175,7 +175,8 @@ class NeptuneDock extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 6),
+          padding:
+              const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 6),
           child: Row(
             children: [
               for (final item in items)
@@ -235,8 +236,7 @@ class NeptuneDock extends StatelessWidget {
                         child: Container(
                           height: item.active ? 3 : 1,
                           width: double.infinity,
-                          color:
-                              item.active ? accent : scheme.outlineVariant,
+                          color: item.active ? accent : scheme.outlineVariant,
                         ),
                       ),
                     ),
@@ -298,9 +298,11 @@ class NeptuneDock extends StatelessWidget {
     }
     final split = items.length ~/ 2;
     return [
-      for (var i = 0; i < split; i++) Expanded(child: _DockItem(item: items[i])),
+      for (var i = 0; i < split; i++)
+        Expanded(child: _DockItem(item: items[i])),
       SizedBox(width: centerGapWidth),
-      for (var i = split; i < items.length; i++) Expanded(child: _DockItem(item: items[i])),
+      for (var i = split; i < items.length; i++)
+        Expanded(child: _DockItem(item: items[i])),
     ];
   }
 }
@@ -371,26 +373,36 @@ class _InkPillItem extends StatelessWidget {
               // clipped `Align` lays the label out once at its full size and
               // reveals a fraction of it, so there is no layout feedback loop
               // to close.
-              TweenAnimationBuilder<double>(
-                tween: Tween(begin: item.active ? 1 : 0, end: item.active ? 1 : 0),
-                duration: fast,
-                curve: motion.standard,
-                builder: (context, t, child) => ClipRect(
-                  child: Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    widthFactor: t,
-                    child: child,
+              // FLEXIBLE, because the label is laid out at its natural width
+              // before it is clipped and a long one overflowed the cell - by
+              // 4.7px on "Accounts" in English, which is the width of one
+              // letter and therefore exactly the kind of thing that is fine in
+              // the language it was designed in and broken in the next one.
+              // Loose fit: it takes what it needs up to what is left, and
+              // ellipsises beyond that.
+              Flexible(
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween(
+                      begin: item.active ? 1 : 0, end: item.active ? 1 : 0),
+                  duration: fast,
+                  curve: motion.standard,
+                  builder: (context, t, child) => ClipRect(
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      widthFactor: t,
+                      child: child,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 7, end: 3),
-                  child: Text(
-                    item.label,
-                    maxLines: 1,
-                    softWrap: false,
-                    overflow: TextOverflow.clip,
-                    style: (text.labelMedium ?? const TextStyle())
-                        .copyWith(color: ink, fontWeight: FontWeight.w700),
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 7, end: 3),
+                    child: Text(
+                      item.label,
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                      style: (text.labelMedium ?? const TextStyle())
+                          .copyWith(color: ink, fontWeight: FontWeight.w700),
+                    ),
                   ),
                 ),
               ),
@@ -449,8 +461,7 @@ class _FlatDockItem extends StatelessWidget {
                 curve: motion.standard,
                 style: (text.labelSmall ?? const TextStyle()).copyWith(
                   color: color,
-                  fontWeight:
-                      item.active ? FontWeight.w700 : FontWeight.w500,
+                  fontWeight: item.active ? FontWeight.w700 : FontWeight.w500,
                 ),
                 child: Text(
                   item.label,
@@ -529,34 +540,34 @@ class _DockItem extends StatelessWidget {
       label: item.label,
       excludeSemantics: true,
       child: InkWell(
-      onTap: item.onTap,
-      borderRadius: shape.rLg,
-      child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(vertical: 4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AnimatedSlide(
-              duration: standard,
-              curve: motion.spring,
-              offset: Offset(0, active ? -0.30 : 0),
-              child: circle,
-            ),
-            AnimatedDefaultTextStyle(
-              duration: fast,
-              curve: motion.standard,
-              style: (text.labelSmall ?? const TextStyle()).copyWith(
-                color: active ? scheme.primary : scheme.onSurfaceVariant,
-                fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+        onTap: item.onTap,
+        borderRadius: shape.rLg,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(vertical: 4),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedSlide(
+                duration: standard,
+                curve: motion.spring,
+                offset: Offset(0, active ? -0.30 : 0),
+                child: circle,
               ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.only(top: active ? 0 : 2),
-                child: Text(item.label),
+              AnimatedDefaultTextStyle(
+                duration: fast,
+                curve: motion.standard,
+                style: (text.labelSmall ?? const TextStyle()).copyWith(
+                  color: active ? scheme.primary : scheme.onSurfaceVariant,
+                  fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.only(top: active ? 0 : 2),
+                  child: Text(item.label),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -592,7 +603,8 @@ class NeptuneAppBar extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final type = Theme.of(context).extension<NptType>()!;
     final text = Theme.of(context).textTheme;
-    final stacked = variant == NeptuneAppBarVariant.medium || variant == NeptuneAppBarVariant.large;
+    final stacked = variant == NeptuneAppBarVariant.medium ||
+        variant == NeptuneAppBarVariant.large;
 
     final rowTitleStyle = text.titleLarge?.copyWith(
       fontFamily: type.display,
@@ -602,7 +614,8 @@ class NeptuneAppBar extends StatelessWidget {
 
     final row = Container(
       constraints: const BoxConstraints(minHeight: 56),
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
+      padding:
+          const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           if (leading != null) ...[leading!, const SizedBox(width: 12)],
@@ -619,7 +632,9 @@ class NeptuneAppBar extends StatelessWidget {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      textAlign: variant == NeptuneAppBarVariant.center ? TextAlign.center : TextAlign.start,
+                      textAlign: variant == NeptuneAppBarVariant.center
+                          ? TextAlign.center
+                          : TextAlign.start,
                       style: rowTitleStyle,
                     ),
                   ),
@@ -635,11 +650,14 @@ class NeptuneAppBar extends StatelessWidget {
       return Container(color: scheme.surface, child: row);
     }
 
-    final headlineStyle = (variant == NeptuneAppBarVariant.large ? text.displayMedium : text.headlineMedium)
+    final headlineStyle = (variant == NeptuneAppBarVariant.large
+            ? text.displayMedium
+            : text.headlineMedium)
         ?.copyWith(
       fontFamily: type.display,
       fontWeight: type.displayFontWeight,
-      letterSpacing: type.displayTracking * (variant == NeptuneAppBarVariant.large ? 45 : 28),
+      letterSpacing: type.displayTracking *
+          (variant == NeptuneAppBarVariant.large ? 45 : 28),
       color: scheme.onSurface,
     );
 
@@ -655,7 +673,8 @@ class NeptuneAppBar extends StatelessWidget {
           Semantics(
             header: true,
             child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 24),
+              padding: const EdgeInsetsDirectional.only(
+                  start: 16, end: 16, bottom: 24),
               child: Text(
                 title,
                 maxLines: 1,
