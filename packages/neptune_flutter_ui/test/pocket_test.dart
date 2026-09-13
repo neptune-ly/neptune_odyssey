@@ -8,6 +8,8 @@
 // lever proves two things — that it round-trips, and that every string
 // without it is byte-identical to what it was before the lever existed.
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
@@ -62,13 +64,19 @@ void main() {
       expect(kLoginShells.indexOf('pocket-aurora'), kLoginShells.length - 1);
       expect(kDashboardHeroes.indexOf('balance-cards'), 0);
       expect(kDashboardHeroes.indexOf('chevron-summary'), 5);
+      // THE INDEX IS THE WIRE FORMAT, AND TWO BRANCHES APPENDED AT ONCE.
+      // `position-line` is another branch's entry, named here at the index it
+      // took there so the two lists cannot disagree after a merge — a hole
+      // would decode as that name on one side and as nothing on the other.
+      expect(kDashboardHeroes.indexOf('position-line'), 6);
+      expect(kDashboardHeroes.indexOf('pocket-balance'), 7);
       expect(kMotifs.indexOf('auto'), 0);
       expect(kMotifs.indexOf('none'), 5);
     });
   });
 
   group('the warm ground (2.30.0)', () {
-    test('extension bit 1 round-trips and leaves bit 0 alone', () {
+    test('extension bit 2 round-trips and leaves bits 0 and 1 alone', () {
       const warm = BrandprintConfig(
         primary: Seed(l: 0.4, c: 0.145, h: 264),
         tertiary: Seed(l: 0.615, c: 0.205, h: 32),
@@ -88,6 +96,14 @@ void main() {
       final back = Brandprint.decode(Brandprint.encode(warm));
       expect(back.warmGround, isTrue);
       expect(back.ruledRegister, isFalse);
+      // Bit 2, not bit 1. Bit 1 belongs to another brand's lever landing in
+      // parallel, and a bit claimed twice is a brandprint that decodes to a
+      // theme nobody chose. Pinned as a number, because the symptom of
+      // getting it wrong is silence.
+      final raw = Brandprint.encode(warm);
+      final bytes = base64Url.decode(raw.substring(4).padRight(
+          (raw.length - 4 + 3) ~/ 4 * 4, '='));
+      expect(bytes[27] & 0x07, 0x04);
 
       final both = Brandprint.decode(
           Brandprint.encode(_ruled(warm, ruled: true)));

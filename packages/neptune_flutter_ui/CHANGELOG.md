@@ -30,7 +30,11 @@
     eye resolves it as a glyph. The tonal fill also follows the ground rather than sitting at
     `primary` 16%, which on a warm page is a cold lilac that appears on no other surface.
 
-- **`warmGround`** (extension byte, bit 1) — the brand's own page. The neutral ramp was the one part
+- **`warmGround`** (extension byte, **bit 2**) — the brand's own page. Bit 1 belongs to another
+  brand's lever that landed in parallel; the extension byte is allocated centrally now, and
+  `pocket-balance` sits at `kDashboardHeroes` index **7** with index 6 left to `position-line` for
+  the same reason. The wire format IS the index, and two branches appending at once is exactly how a
+  brandprint ends up decoding to a theme nobody chose. The neutral ramp was the one part
   of the palette a brand could not aim: it rode the primary hue, so every cool-primary bank shipped
   the same blue-grey page under a different logo, and `whiteGround` could only take that tint to
   zero. Three things this lever learned the hard way:

@@ -53,14 +53,19 @@ const List<String> kDashboardHeroes = [
   'restrained-balance',
   'statement-ledger',
   'chevron-summary',
-  // 2.30.0. The wallet answer, and the first hero here that is not a list of
-  // accounts. Every other entry answers "what do I have" by enumerating them
-  // — the same question, and the same shape, as the app's own Accounts tab,
-  // so a bank that ships both ships one screen twice and the home is the
-  // weaker copy. This one states ONE figure at display scale, puts a reveal
-  // control beside it and a row of VERBS under it, and hands the enumeration
-  // to the tab that owns it. Every other entry here is a noun; this is the
-  // only one that leads with what a customer can DO.
+  // RESERVED FOR `design/fglb-institutional`, which took index 6 on its own
+  // branch: the position stated in one ruled line per currency, handing the
+  // enumeration to the Accounts tab. It is named here rather than skipped
+  // because the wire format IS the index — a hole would decode as this name
+  // anyway on one branch and as nothing on the other, and the two would only
+  // disagree after a merge, which is the expensive place to find out.
+  'position-line',
+  // 2.30.0, index 7. The wallet answer, and the second hero here that is not a
+  // list of
+  // accounts. Where `position-line` still answers "what do I have" (in one
+  // line instead of five), this one answers "what can I DO, and what moved":
+  // ONE figure at display scale, a reveal control beside it, and a row of
+  // VERBS under it. Every other entry here is a noun.
   'pocket-balance',
 ];
 
@@ -266,7 +271,7 @@ class BrandprintConfig {
   /// the filled slabs.
   final bool ruledRegister;
 
-  /// Byte 27 (the extension byte), bit 1 (2.30.0). THE WARM GROUND: the
+  /// Byte 27 (the extension byte), bit 2 (2.30.0). THE WARM GROUND: the
   /// neutral ramp rides the TERTIARY hue instead of the primary's, at 2.4x
   /// its declared chroma, so the page ground is a tinted paper in the
   /// brand's warm direction rather than a cool cast of its primary.
@@ -429,7 +434,9 @@ class Brandprint {
     // config that predates it produces exactly the 28 bytes it always did.
     var ext = 0;
     if (cfg.ruledRegister) ext |= 1;
-    if (cfg.warmGround) ext |= 2;
+    // Bit 2. Bit 1 belongs to another brand's lever, landed in parallel; the
+    // extension byte is now allocated centrally for exactly this reason.
+    if (cfg.warmGround) ext |= 4;
     final extended = ext != 0;
     final buf = Uint8List(extended ? _payloadBytesExtended : _payloadBytes);
     final dv = ByteData.view(buf.buffer);
@@ -564,7 +571,7 @@ class Brandprint {
       navShell: kNavShells[((f >> 4) & 3).clamp(0, kNavShells.length - 1)],
       actionRow: kActionRows[((f >> 6) & 3).clamp(0, kActionRows.length - 1)],
       ruledRegister: (ext & 1) != 0,
-      warmGround: (ext & 2) != 0,
+      warmGround: (ext & 4) != 0,
     );
   }
 }
