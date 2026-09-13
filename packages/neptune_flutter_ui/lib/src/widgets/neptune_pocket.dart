@@ -674,7 +674,10 @@ class _NeptunePocketBalanceState extends State<NeptunePocketBalance> {
         children: [
           Flexible(child: figure),
           if (widget.onRevealChanged != null) ...[
-            const SizedBox(width: 4),
+            // No spacer. The control's own 48dp target already carries more
+            // than a type gap's worth of padding on each side, and adding to
+            // it pushed the eye a thumb's width clear of the figure it acts
+            // on — two objects instead of one line.
             Semantics(
               button: true,
               label: widget.revealLabel,
@@ -682,8 +685,12 @@ class _NeptunePocketBalanceState extends State<NeptunePocketBalance> {
                 onPressed: () => widget.onRevealChanged!(!widget.revealed),
                 iconSize: 22,
                 color: scheme.onSurfaceVariant,
+                // 48dp of TARGET, 20 of padding: the tap area stays legal
+                // while the glyph sits close enough to read as part of the
+                // figure's line.
                 constraints:
                     const BoxConstraints.tightFor(width: 48, height: 48),
+                padding: EdgeInsets.zero,
                 icon: Icon(widget.revealed
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined),
