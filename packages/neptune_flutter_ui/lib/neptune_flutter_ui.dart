@@ -45,6 +45,7 @@ export 'src/widgets/neptune_onboarding.dart';
 export 'src/widgets/neptune_buttons.dart';
 export 'src/widgets/neptune_stat_card.dart';
 export 'src/widgets/neptune_dock.dart';
+export 'src/widgets/neptune_tide.dart';
 export 'src/widgets/neptune_money_inputs.dart';
 export 'src/widgets/neptune_secure_inputs.dart';
 export 'src/widgets/neptune_money_movement.dart';

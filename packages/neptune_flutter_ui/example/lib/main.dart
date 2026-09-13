@@ -328,6 +328,63 @@ class _GalleryScreenState extends State<GalleryScreen> {
                     ),
                   ),
 
+                  // ---- The depth register ----------------------------------
+                  _Section(
+                    title: 'Depth register',
+                    description:
+                        'A brand whose identity is LUMINOSITY: a ground that '
+                        'travels, the bloom where the light enters, one arc. '
+                        'Every colour is derived from NptBrandCanvas, so this '
+                        'is the active brand\u2019s water, not a blue.',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ClipRRect(
+                          borderRadius:
+                              Theme.of(context).extension<NptShape>()!.rXl,
+                          child: const SizedBox(
+                            height: 190,
+                            child: NeptuneTideField(),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        // The card carries the band; its neighbour does not.
+                        // A host with no second figure passes no band rather
+                        // than keeping an empty shape for symmetry.
+                        const SizedBox(
+                          height: 168,
+                          child: NeptuneTideCard(
+                            label: 'Current account',
+                            amount: 'LYD 12,480.50',
+                            caption: '\u2022\u2022\u2022\u2022 4471  LYD',
+                            bandLabel: 'IBAN',
+                            bandValue: '\u2022\u2022\u2022\u2022 0071 4471',
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        const SizedBox(
+                          height: 168,
+                          child: NeptuneTideCard(
+                            label: 'Savings',
+                            amount: 'LYD 3,100.00',
+                            caption: '\u2022\u2022\u2022\u2022 9902  LYD',
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        // The dock reserves the hole; the host owns the
+                        // button and the route behind it.
+                        Align(
+                          alignment: Alignment.center,
+                          child: NeptuneCentreAction(
+                            icon: const Icon(Icons.swap_horiz_rounded),
+                            label: 'Transfer',
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   // ---- Cards / finance -------------------------------------
                   _Section(
                     title: 'Cards & balances',

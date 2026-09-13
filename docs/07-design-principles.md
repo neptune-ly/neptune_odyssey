@@ -28,6 +28,24 @@ Adopt M3 **Expressive** shape, motion and emphasis to carry brand feeling — ov
 ## 6. Same, but unmistakable
 The white-label rule. Twelve brand levers separate every bank; **a brand must move at least six**. Move too few and two banks look like the same app reskinned lazily; ignore the shared skeleton and they stop feeling like one product family. Six-of-twelve is the band that keeps every bank distinct *and* coherent. The twelve levers and the per-brand counts live in `03-theming-white-label.md` and `06-platform-plan.md §4`.
 
+## 7. A brand device has a job
+Colour, shape, type and motion can all be turned up without a screen becoming
+decorated — because each of them is doing something. An ornament is different:
+it is a shape added after the composition is finished, and it is the fastest
+way to make a serious product look cheap.
+
+The test is removal. Take the element away: if the screen loses information,
+structure or direction, it earned its place. If the screen merely becomes
+plainer, it was decoration and it goes. A watermark that frames nothing, a
+pattern tiled behind content, a shape in a corner — all fail it.
+
+This is why **vibrancy and ornament are not the same thing**, and why a brand
+that wants to feel alive should reach for depth, colour and motion before it
+reaches for shapes. `NeptuneTideField`'s arc frames the content block; its
+travel gives the surface a direction to read in; its bloom says where the light
+is. A brand wearing that register needs no motif on top, and declaring one
+anyway is two devices arguing over one surface.
+
 ---
 
 ### How the principles resolve conflicts

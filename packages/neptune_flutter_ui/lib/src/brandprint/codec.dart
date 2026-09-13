@@ -33,6 +33,11 @@ const List<String> kLoginShells = [
   'shield-guilloche',
   'paper-lockup',
   'lockup-rule',
+  // 2.29.0. The lockup on a luminous depth field rather than on a plane:
+  // the brand gradient travelling under a bloom, framed by one arc. For a
+  // bank whose identity is light arriving, which neither a flat canvas nor
+  // paper can state.
+  'tide-depth',
 ];
 
 /// Append-only dashboard-hero registry. The last two (2.24.0):
@@ -46,6 +51,12 @@ const List<String> kDashboardHeroes = [
   'restrained-balance',
   'statement-ledger',
   'chevron-summary',
+  // 2.29.0. A carousel again, but in the depth register: cards that travel
+  // from a deep tone to a bright one with the brand's own wave planes struck
+  // across them, sized so the next card peeks in at the reading edge. The
+  // peek is the lever's point - `balance-cards` fills the viewport, so a
+  // customer with four accounts has to be TOLD there are four.
+  'tide-carousel',
 ];
 
 /// Append-only content-tone registry.
@@ -106,6 +117,17 @@ const List<String> kNavShells = [
   'raised-dock',
   'register-bar',
   'rule-bar',
+  // 2.29.0, AND THE LAST ENTRY THIS REGISTRY CAN TAKE - two bits, four values,
+  // full. A fifth navigation shell needs a format bump, not another line here.
+  //
+  // `centre-dock` is the raised pill with a hole in the middle of it: the
+  // bank's primary verb has left the quick-action row at the top of the page
+  // and become a circle in the bar, reachable with one thumb from any tab.
+  // The dock still does not own that button (see [NeptuneDock.centerGap]) -
+  // it reserves the space and the host stacks its own action over it, because
+  // which verb is primary is the host's decision and the route behind it is
+  // the host's too.
+  'centre-dock',
 ];
 
 /// Append-only quick-action-row registry - flags bits 6-7 (2.28.0). The

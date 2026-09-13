@@ -65,6 +65,15 @@ enum NeptuneDockShell {
   /// of that rule in the brand's ACCENT. Structure drawn in lines, not slabs,
   /// and the accent used as direction — which is the one job it has.
   rule,
+
+  /// [raised] with the centre gap already open: the composition for a brand
+  /// whose primary verb lives in the BAR rather than in a row at the top of
+  /// the page. Identical to passing `centerGap: true` by hand, and named so a
+  /// brand can declare it rather than every host remembering to.
+  ///
+  /// The button itself is still the host's ([NeptuneCentreAction] draws one) —
+  /// the dock reserves the hole and nothing else.
+  centre,
 }
 
 /// The bottom navigation bar (web `<npt-dock>`) in one of three
@@ -110,6 +119,7 @@ class NeptuneDock extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (shell) {
       NeptuneDockShell.raised => _buildRaised(context),
+      NeptuneDockShell.centre => _buildRaised(context),
       NeptuneDockShell.register => _buildFlat(context, ruled: false),
       NeptuneDockShell.rule => _buildFlat(context, ruled: true),
     };
@@ -221,7 +231,7 @@ class NeptuneDock extends StatelessWidget {
   /// before; [centerGap] only splices one fixed-width inert box into the middle
   /// of that list, so the untouched-path layout is byte-for-byte identical.
   List<Widget> _cells() {
-    if (!centerGap) {
+    if (!centerGap && shell != NeptuneDockShell.centre) {
       return [for (final it in items) Expanded(child: _DockItem(item: it))];
     }
     final split = items.length ~/ 2;

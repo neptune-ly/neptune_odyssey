@@ -6,6 +6,44 @@ Format follows [Keep a Changelog](https://keepachangelog.com); the system follow
 ## [Unreleased]
 
 ### Added
+- **THE DEPTH REGISTER - `NeptuneTideField`, `NeptuneTideCard`,
+  `NeptuneCentreAction`, and the `centre-dock` bar.** A brand could be drawn two
+  ways: an opaque brand plane (`NptBrandCanvas`) or paper with structure ruled
+  on it (`NeptuneRegister*`). Both are flat, so a brand whose identity is
+  LUMINOSITY - light arriving from somewhere, colour changing across the
+  surface, a mark built from layered translucent planes - could only be
+  approximated by picking one of its colours and filling with it. That is how a
+  vivid identity ends up looking like a duller version of the bank next door,
+  and it is what happened to the first bank that owned one.
+
+  The register is a ground that TRAVELS (brand-deep to brand-luminous), a bloom
+  where the light enters it, and one arc that frames the content block - and
+  nothing else. Both are load-bearing: take the arc away and the composition
+  loses its frame; take the travel away and the surface loses the direction it
+  reads in. A brand wearing it declares `motif: none`, because a pattern struck
+  over a tide field is two brand devices arguing on one surface.
+
+  Every colour is derived from **`NptBrandCanvas`, never from `colorScheme`**.
+  `canvas` is the one value pinned across brightness; `primary` and `tertiary`
+  are chrome, and Material re-tones chrome - built on the scheme the field came
+  out brighter at night than in the day, i.e. the bank's own ground inverting.
+  The same trap has a second half, and it bit too: in a dark scheme `primary`
+  is a LIGHT tone, so `colorScheme.onPrimary` is near-black, and the card's own
+  label rendered near-black on deep teal. The ink is `NptBrandCanvas.onCanvas`.
+  Both are asserted in `test/tide_test.dart`.
+
+  `NeptuneCentreAction` is the circular primary verb for a bar whose middle is
+  open. **The dock never owns that button** - which verb is primary, and the
+  route behind it, are the host's decisions; the dock reserves the hole
+  (`NeptuneDockShell.centre`, or `centerGap: true`) and nothing more.
+
+  Registry appends: `kDashboardHeroes += 'tide-carousel'` and
+  `kLoginShells += 'tide-depth'` (byte registries, free), and
+  `kNavShells += 'centre-dock'` - **index 3, the last slot that registry has.**
+  Two bits, four values, now full: a fifth navigation shell needs a format
+  bump. No flag bit was claimed and no existing index moved, so every
+  brandprint already in the wild encodes and decodes unchanged.
+
 - **The glance subset, emitted for native surfaces.** A Lock Screen Live Activity, a Dynamic
   Island and an ongoing Android notification are drawn by the operating system from a widget
   extension or a RemoteViews layout, and neither can import `neptune_flutter_ui` or

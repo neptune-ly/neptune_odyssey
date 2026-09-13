@@ -28,6 +28,41 @@ Every component is theme-driven and ships in light/dark, LTR/RTL. Anatomy + stat
 ## Cards
 - **Elevated** — `surface-container-lowest` + shadow. **Filled** — `surface-container-highest`. **Outlined** — `outline-variant` border. Corner `md`. Choose one emphasis level per context; don't stack shadows.
 
+## The depth register — `NeptuneTideField`, `NeptuneTideCard`, `NeptuneCentreAction`
+For a brand whose identity is **luminosity** rather than a flat colour or ruled
+paper. Odyssey could already draw a brand two ways — an opaque brand plane
+(`NptBrandCanvas`) or paper with structure ruled on it (`NeptuneRegister*`).
+Both are flat. A brand whose mark is layered translucent planes could only be
+approximated by picking one of its colours and filling with it, which is how a
+vivid identity ends up looking like a duller version of the bank next door.
+
+- **`NeptuneTideField`** — a ground that travels: brand-deep → brand → brand-
+  luminous, a radial bloom where the light enters, and **one** arc framing the
+  content block. `sink` takes the whole travel down so a second tide surface
+  can float on it with a real edge. `arc` is refused under 180dp, where a
+  frame stops being a frame and becomes a stray curve.
+- **`NeptuneTideCard`** — the same travel at card scale, the mark's wave planes
+  struck across it, and an optional lighter band at the foot for a second
+  figure. **The band is a slot, not a flourish**: a host with nothing to put
+  in it passes no `bandLabel` and no band is drawn.
+- **`NeptuneCentreAction`** — the circular primary verb a host stacks over
+  `NeptuneDock(centerGap: true)` / `NeptuneDockShell.centre`. The dock reserves
+  the hole and never owns the button, because which verb is primary and what
+  route sits behind it are the host's decisions.
+
+**What it refuses.** It draws nothing that carries no information: take the arc
+away and the composition loses its frame; take the travel away and the surface
+loses the direction it reads in. Neither is ornament, and nothing else is
+added. A pattern motif on top of a tide field is two brand devices arguing on
+one surface — a brand that wears this register declares `motif: none`.
+
+**Derive from `NptBrandCanvas`, never from `colorScheme`.** `canvas` is the one
+value guaranteed identical in light and dark; `primary` and `tertiary` are
+chrome and Material re-tones chrome. Built on the scheme, a tide field comes
+out brighter at night than in the day — the brand's own ground inverting. The
+same trap has a second half: `colorScheme.onPrimary` is near-black in a dark
+scheme, so the ink must be `NptBrandCanvas.onCanvas`.
+
 ## Lists
 - 40–44dp leading icon/avatar (corner sm or full), title (title) + supporting (body, on-surface-variant), trailing value/meta. Dividers use `outline-variant`. Credits in `success`.
 
