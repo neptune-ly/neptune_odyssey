@@ -121,13 +121,39 @@ void main() {
           greaterThan(0.9));
     });
 
-    test('dark: untouched — a warm dark ground is brown', () {
-      final cool = NeptuneTheme.fromConfig(_base, brightness: Brightness.dark);
-      final warm = NeptuneTheme.fromConfig(
+    test('dark: deepens on the PRIMARY hue — a warm dark ground is brown', () {
+      final plain = NeptuneTheme.fromConfig(_base, brightness: Brightness.dark);
+      final ground = NeptuneTheme.fromConfig(
           _warm(_base), brightness: Brightness.dark);
-      expect(warm.colorScheme.surface, cool.colorScheme.surface);
-      expect(warm.colorScheme.surfaceContainerHigh,
-          cool.colorScheme.surfaceContainerHigh);
+      // Not the warm seed: a dark ground taken toward a red-orange accent is
+      // brown, and nothing makes a brown app read as anything but a mistake.
+      final hue = HSLColor.fromColor(ground.colorScheme.surface).hue;
+      expect(hue, greaterThan(180),
+          reason: 'dark ground hue \$hue should stay in the brand navy');
+      expect(HSLColor.fromColor(ground.colorScheme.surface).saturation,
+          greaterThan(HSLColor.fromColor(plain.colorScheme.surface).saturation));
+      // Still a dark ground, not a navy block.
+      expect(HSLColor.fromColor(ground.colorScheme.surface).lightness,
+          lessThan(0.2));
+    });
+
+    test('the ground is PAPER, never INK', () {
+      // The regression: the first cut warmed every role whose hue came from
+      // the neutral channel, `on-surface` and `outline` included, so a navy
+      // bank shipped a home screen with no navy on it. Ink is not ground.
+      for (final b in Brightness.values) {
+        final plain = NeptuneTheme.fromConfig(_base, brightness: b);
+        final ground = NeptuneTheme.fromConfig(_warm(_base), brightness: b);
+        expect(ground.colorScheme.onSurface, plain.colorScheme.onSurface,
+            reason: 'onSurface moved in \$b');
+        expect(ground.colorScheme.onSurfaceVariant,
+            plain.colorScheme.onSurfaceVariant);
+        expect(ground.colorScheme.outline, plain.colorScheme.outline);
+        expect(ground.colorScheme.inverseSurface,
+            plain.colorScheme.inverseSurface);
+        expect(ground.colorScheme.surface, isNot(plain.colorScheme.surface),
+            reason: 'the ground itself must move in \$b');
+      }
     });
   });
 

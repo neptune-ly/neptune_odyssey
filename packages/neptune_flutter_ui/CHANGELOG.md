@@ -20,15 +20,31 @@
     off-register echo, the brand's own mark as the only character) — that is what makes six
     unrelated pictures look like one hand instead of six stock downloads.
 
-- **`warmGround`** (extension byte, bit 1). The neutral ramp was the one part of the palette a brand
-  could not aim: it rode the primary hue, so every cool-primary bank shipped the same blue-grey page
-  under a different logo, and `whiteGround` could only take that tint to zero. This points the
-  neutral channel at the brand's warm seed at 2.4x chroma. LIGHT ONLY, and not for symmetry with
-  `whiteGround`: a dark ground warmed toward a red-orange accent is brown.
+- **`warmGround`** (extension byte, bit 1) — the brand's own page. The neutral ramp was the one part
+  of the palette a brand could not aim: it rode the primary hue, so every cool-primary bank shipped
+  the same blue-grey page under a different logo, and `whiteGround` could only take that tint to
+  zero. Three things this lever learned the hard way:
   - It takes the brand's REAL tertiary seed, not the `chromeTertiary` the palette is generated from.
     A brand with `accentOnTertiary` hands the generator `tertiary == primary` on purpose, so a warm
     ground keyed on the tertiary CHANNEL silently resolved back to the cool primary — the lever
     would have done nothing for exactly the brands most likely to want it.
+  - **It is PAPER, never INK.** The first cut warmed every role whose hue came from the neutral
+    channel — which is also where `on-surface`, `outline` and `inverse-surface` live — so a bank
+    whose identity is navy and red shipped a home screen with no navy anywhere on it: the balance
+    figure, the greeting and every label went brown along with the page under them. Found on a
+    device, because it is valid colour in a valid role and nothing about it is visible from code.
+    The touched set is now explicit (`_groundRoles`).
+  - **It is two-sided.** Light warms toward the warm seed; dark deepens on the PRIMARY hue at the
+    same chroma. Warming a dark ground toward a red-orange is brown and nothing rescues it, but a
+    dark scheme that keeps the default 0.008 is a characterless near-black — the same "colour nobody
+    chose" problem the lever exists to fix, one brightness over.
+
+- **`NeptuneEyebrow` does not track Arabic.** The eyebrow's whole recipe — uppercase, 0.08em of
+  tracking — is a Latin typographic device. Arabic is a connected script: letter-spacing does not
+  open a word up, it pulls the joins apart, so every eyebrow in the primary language of every bank
+  on this system rendered as a row of disconnected shapes. Keyed on the DIRECTION, not on a scan of
+  the string: a mixed eyebrow has Latin in it and still must not be tracked, because the Arabic is
+  the part that breaks. LTR rendering is byte-identical.
 
 - **`NptHostFont` gains `display:` and `num:`.** A brandprint names three faces for the reason every
   type system does — the face that sets a 64dp balance is not the face that sets a 14dp transaction

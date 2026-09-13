@@ -415,12 +415,26 @@ class NeptuneEyebrow extends StatelessWidget {
     final type = theme.extension<NptType>()!;
     final base = theme.textTheme.labelMedium ?? const TextStyle();
     final fontSize = base.fontSize ?? 12;
+    // ARABIC IS NOT TRACKED, AND `toUpperCase` IS A NO-OP ON IT.
+    //
+    // The eyebrow's whole recipe — uppercase, 0.08em of tracking — is a Latin
+    // typographic device. Arabic is a CONNECTED script: letter-spacing does
+    // not open a word up, it pulls the joins apart, so `الرصيد المتاح` came
+    // out as a row of disconnected shapes with the ligature seams showing.
+    // Found on a device in the primary language of every bank on this system,
+    // which is the only place it could have been found: it is valid text in a
+    // valid style and nothing about it is detectable from code.
+    //
+    // Keyed on the DIRECTION, not on a scan of the string: a mixed eyebrow
+    // ("الرصيد المتاح  LYD") has Latin in it and still must not be tracked,
+    // because the Arabic is the part that breaks.
+    final rtl = Directionality.maybeOf(context) == TextDirection.rtl;
     return Text(
-      text.toUpperCase(),
+      rtl ? text : text.toUpperCase(),
       style: base.copyWith(
         fontFamily: type.display,
         fontWeight: FontWeight.w700,
-        letterSpacing: 0.08 * fontSize,
+        letterSpacing: rtl ? 0 : 0.08 * fontSize,
         color: color ?? theme.colorScheme.onSurfaceVariant,
       ),
     );

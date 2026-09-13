@@ -145,32 +145,43 @@ const Map<String, _Recipe> _dark = {
   'on-card': _Recipe(0.97, _Chroma.abs(0.015), _primary),
 };
 
-/// How much of the tertiary seed's chroma a warm neutral carries, as a
-/// multiplier on the recipe's own declared (absolute) chroma.
+/// How much chroma a branded ground carries, as a multiplier on the recipe's
+/// own declared (absolute) chroma.
 ///
 /// 2.4 is the smallest value at which the light ground reads as a chosen
 /// paper rather than as a cast: tone 98 at 0.006 is a colour nobody picked,
 /// and at 0.0144 it is a cream. Above ~3 the surface starts competing with
 /// `tertiary-container` and a page of cards stops separating from it.
-const double _warmNeutralChroma = 2.4;
+const double _groundChroma = 2.4;
 
-double _resolveHue(
-    _HueSource src, double primaryH, double tertiaryH, double? neutralH) {
+/// The neutral roles the ground lever is allowed to touch: the PAPER, never
+/// the INK.
+///
+/// Found on a device, not in a review. The first cut warmed every role whose
+/// hue came from the neutral channel, which is also where `on-surface`,
+/// `outline` and `inverse-surface` live — so a bank whose identity is navy
+/// and red shipped a home screen with no navy anywhere on it: the balance
+/// figure, the greeting and every label had gone brown along with the page
+/// they sat on. The ground is a surface the brand chose; the text on it is
+/// still the brand's ink.
+const Set<String> _groundRoles = {
+  'background',
+  'surface',
+  'surface-variant',
+  'surface-container-lowest',
+  'surface-container-low',
+  'surface-container',
+  'surface-container-high',
+  'surface-container-highest',
+  // The hairline BETWEEN rows is part of the paper — a cool rule on a warm
+  // page is the one seam that gives the tint away.
+  'outline-variant',
+};
+
+double _resolveHue(_HueSource src, double primaryH, double tertiaryH) {
   if (src.fixed != null) return src.fixed!;
   if (src.channel == 'tertiary') return tertiaryH;
-  // The neutral channel is the one part of the palette a brand could not aim:
-  // it rode the primary hue, so every cool-primary bank got the same
-  // blue-grey page. `warmSeed` points it somewhere the brand chose.
-  //
-  // It is its OWN parameter rather than a re-read of the tertiary channel
-  // because the two disagree exactly where it matters. A brand with
-  // `accentOnTertiary` hands this function `tertiary == primary` on purpose —
-  // the accent is kept out of every Material role — so a warm ground keyed on
-  // the tertiary CHANNEL silently resolved back to the cool primary and the
-  // lever did nothing. The warm seed is the brand's real warm colour,
-  // accent-gated or not.
-  if (src.channel == 'neutral' && neutralH != null) return neutralH;
-  return primaryH;
+  return primaryH; // primary + neutral both ride the primary hue
 }
 
 double _resolveChroma(_Chroma c, double seedC) =>
@@ -181,16 +192,23 @@ double _resolveChroma(_Chroma c, double seedC) =>
 Map<String, String> generatePalette(Oklch primary, Oklch tertiary, String mode,
     {Oklch? warmSeed}) {
   final ramp = mode == 'light' ? _light : _dark;
-  // Light only. A dark ground warmed toward a red-orange accent is brown, and
-  // no amount of tuning makes a brown app read as anything but a mistake.
-  final warm = mode == 'light' ? warmSeed : null;
+  final light = mode == 'light';
+  // The ground lever is TWO-SIDED, because "the brand chose its own page" is
+  // one idea with two correct answers. In light the paper warms toward the
+  // brand's warm seed — a cream, a sand, a blush. In dark it does NOT: warming
+  // a dark ground toward a red-orange is brown, and nothing makes a brown app
+  // read as anything but a mistake. Dark instead DEEPENS on the primary hue at
+  // the same chroma, which turns a characterless near-black into the brand's
+  // own ink. Same bit, same sentence, opposite direction.
+  final groundH = warmSeed == null ? null : (light ? warmSeed.h : primary.h);
   final out = <String, String>{};
   ramp.forEach((role, recipe) {
-    final hue = _resolveHue(recipe.hue, primary.h, tertiary.h, warm?.h);
-    final seedC = recipe.hue.channel == 'tertiary' ? tertiary.c : primary.c;
-    var c = _resolveChroma(recipe.c, seedC);
-    if (warm != null && recipe.hue.channel == 'neutral') {
-      c *= _warmNeutralChroma;
+    var hue = _resolveHue(recipe.hue, primary.h, tertiary.h);
+    var c = _resolveChroma(
+        recipe.c, recipe.hue.channel == 'tertiary' ? tertiary.c : primary.c);
+    if (groundH != null && _groundRoles.contains(role)) {
+      hue = groundH;
+      c *= _groundChroma;
     }
     out[role] = oklchToHex(Oklch(recipe.l, c, hue));
   });
@@ -201,16 +219,23 @@ Map<String, String> generatePalette(Oklch primary, Oklch tertiary, String mode,
 Map<String, int> generatePaletteArgb(Oklch primary, Oklch tertiary, String mode,
     {Oklch? warmSeed}) {
   final ramp = mode == 'light' ? _light : _dark;
-  // Light only. A dark ground warmed toward a red-orange accent is brown, and
-  // no amount of tuning makes a brown app read as anything but a mistake.
-  final warm = mode == 'light' ? warmSeed : null;
+  final light = mode == 'light';
+  // The ground lever is TWO-SIDED, because "the brand chose its own page" is
+  // one idea with two correct answers. In light the paper warms toward the
+  // brand's warm seed — a cream, a sand, a blush. In dark it does NOT: warming
+  // a dark ground toward a red-orange is brown, and nothing makes a brown app
+  // read as anything but a mistake. Dark instead DEEPENS on the primary hue at
+  // the same chroma, which turns a characterless near-black into the brand's
+  // own ink. Same bit, same sentence, opposite direction.
+  final groundH = warmSeed == null ? null : (light ? warmSeed.h : primary.h);
   final out = <String, int>{};
   ramp.forEach((role, recipe) {
-    final hue = _resolveHue(recipe.hue, primary.h, tertiary.h, warm?.h);
-    final seedC = recipe.hue.channel == 'tertiary' ? tertiary.c : primary.c;
-    var c = _resolveChroma(recipe.c, seedC);
-    if (warm != null && recipe.hue.channel == 'neutral') {
-      c *= _warmNeutralChroma;
+    var hue = _resolveHue(recipe.hue, primary.h, tertiary.h);
+    var c = _resolveChroma(
+        recipe.c, recipe.hue.channel == 'tertiary' ? tertiary.c : primary.c);
+    if (groundH != null && _groundRoles.contains(role)) {
+      hue = groundH;
+      c *= _groundChroma;
     }
     out[role] = oklchToArgb(Oklch(recipe.l, c, hue));
   });
