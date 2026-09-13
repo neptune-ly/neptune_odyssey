@@ -528,6 +528,14 @@ class NeptunePocketBalance extends StatefulWidget {
   /// an as-of time. One line, never two.
   final String? caption;
 
+  /// An optional control between the figure and the verbs — the usual case is
+  /// the account the figure belongs to, as one tappable pill.
+  ///
+  /// It sits ABOVE the verbs because it qualifies the FIGURE. Below them it
+  /// read as a fifth action, and a customer who taps it expecting to do
+  /// something gets a list of their own accounts.
+  final Widget? qualifier;
+
   /// 3 to 5 verbs. Fewer than three is a button, more than five is a menu.
   final List<NeptunePocketVerb> verbs;
 
@@ -541,6 +549,7 @@ class NeptunePocketBalance extends StatefulWidget {
     this.onRevealChanged,
     this.revealLabel,
     this.caption,
+    this.qualifier,
   }) : assert(onRevealChanged == null || revealLabel != null,
             'a reveal control needs an accessible name');
 
@@ -632,6 +641,13 @@ class _NeptunePocketBalanceState extends State<NeptunePocketBalance> {
           overflow: TextOverflow.ellipsis,
           style: theme.textTheme.bodyMedium
               ?.copyWith(color: scheme.onSurfaceVariant),
+        ),
+      ],
+      if (widget.qualifier != null) ...[
+        const SizedBox(height: 14),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: widget.qualifier,
         ),
       ],
       const SizedBox(height: 22),
