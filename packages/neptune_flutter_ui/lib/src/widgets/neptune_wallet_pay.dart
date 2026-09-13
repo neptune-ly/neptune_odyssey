@@ -100,7 +100,7 @@ class NeptuneMerchantRow extends StatelessWidget {
                               horizontal: 8, vertical: 1),
                           decoration: BoxDecoration(
                             color: scheme.tertiaryContainer,
-                            borderRadius: BorderRadius.circular(shape.full),
+                            borderRadius: BorderRadius.circular(shape.pill),
                           ),
                           child: Text(
                             'pending',
@@ -485,7 +485,7 @@ class NeptuneTierBadge extends StatelessWidget {
           const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 2),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(shape.full),
+        borderRadius: BorderRadius.circular(shape.pill),
         border: border == null ? null : Border.all(color: border),
       ),
       child: Row(

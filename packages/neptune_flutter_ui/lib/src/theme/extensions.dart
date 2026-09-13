@@ -98,7 +98,7 @@ class NptColors extends ThemeExtension<NptColors> {
   }
 }
 
-/// The six brand corner radii (px) plus `full` (9999 → stadium/pill).
+/// The six brand corner radii (px) plus `full` (9999 → a circle) and [pill].
 @immutable
 class NptShape extends ThemeExtension<NptShape> {
   final double xs;
@@ -107,7 +107,29 @@ class NptShape extends ThemeExtension<NptShape> {
   final double lg;
   final double xl;
   final double xxl;
+
+  /// A CIRCLE. Reach for it when the thing being drawn is round whatever the
+  /// brand is: an avatar, a badge, a dot, a round icon button, the dock's
+  /// raised-active puck.
   final double full;
+
+  /// A STADIUM-SHAPED CONTAINER — a chip, a segmented track, a switch track,
+  /// a search field, a pill button.
+  ///
+  /// It is a separate token from [full] because those two used to be the same
+  /// number and a brand had no way to tell them apart: `ruledRegister` said
+  /// "this bank draws structure in lines, not slabs", the button theme and
+  /// the CTA honoured it, and then every chip, tab indicator and segmented
+  /// control on the same screen went on drawing a stadium — because they read
+  /// `full`, which also means "circle", and squaring `full` would have turned
+  /// the avatars into squares too. A sharp institutional brand shipped a
+  /// ruled button sitting on a row of pills, which is exactly the mushy middle
+  /// the lever exists to prevent.
+  ///
+  /// Resolves to [full] for a brand in the default register and to [md] under
+  /// `BrandprintConfig.ruledRegister` — the same corner its ruled buttons,
+  /// fields and sheets carry, so the whole screen is drawn at one radius.
+  final double pill;
 
   const NptShape({
     required this.xs,
@@ -117,7 +139,8 @@ class NptShape extends ThemeExtension<NptShape> {
     required this.xl,
     required this.xxl,
     this.full = 9999,
-  });
+    double? pill,
+  }) : pill = pill ?? full;
 
   BorderRadius get rXs => BorderRadius.circular(xs);
   BorderRadius get rSm => BorderRadius.circular(sm);
@@ -125,6 +148,16 @@ class NptShape extends ThemeExtension<NptShape> {
   BorderRadius get rLg => BorderRadius.circular(lg);
   BorderRadius get rXl => BorderRadius.circular(xl);
   BorderRadius get rXxl => BorderRadius.circular(xxl);
+
+  /// The stadium container's radius, ready to use.
+  BorderRadius get rPill => BorderRadius.circular(pill);
+
+  /// The stadium container as an [OutlinedBorder] — a real [StadiumBorder]
+  /// when the brand is round, so a Material widget that lerps its shape keeps
+  /// lerping between the same two classes it always did.
+  OutlinedBorder get pillBorder => pill >= 9999
+      ? const StadiumBorder()
+      : RoundedRectangleBorder(borderRadius: rPill);
 
   @override
   NptShape copyWith({
@@ -135,6 +168,7 @@ class NptShape extends ThemeExtension<NptShape> {
     double? xl,
     double? xxl,
     double? full,
+    double? pill,
   }) =>
       NptShape(
         xs: xs ?? this.xs,
@@ -144,6 +178,7 @@ class NptShape extends ThemeExtension<NptShape> {
         xl: xl ?? this.xl,
         xxl: xxl ?? this.xxl,
         full: full ?? this.full,
+        pill: pill ?? this.pill,
       );
 
   @override
@@ -158,6 +193,7 @@ class NptShape extends ThemeExtension<NptShape> {
       xl: l(xl, other.xl),
       xxl: l(xxl, other.xxl),
       full: l(full, other.full),
+      pill: l(pill, other.pill),
     );
   }
 }

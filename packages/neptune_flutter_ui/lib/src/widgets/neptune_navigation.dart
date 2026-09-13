@@ -188,8 +188,8 @@ class _Tab extends StatelessWidget {
                       ? scheme.primary
                       : scheme.primary.withValues(alpha: 0),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(shape.full),
-                    topRight: Radius.circular(shape.full),
+                    topLeft: Radius.circular(shape.pill),
+                    topRight: Radius.circular(shape.pill),
                   ),
                 ),
               ),

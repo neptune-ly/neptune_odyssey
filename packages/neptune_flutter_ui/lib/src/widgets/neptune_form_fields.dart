@@ -387,7 +387,7 @@ class NeptuneStepperInput extends StatelessWidget {
     final strings = NeptuneAccessibility.of(context);
     final canDecrement = onChanged != null && value > min;
     final canIncrement = onChanged != null && value < max;
-    final radius = BorderRadius.circular(shape.full);
+    final radius = BorderRadius.circular(shape.pill);
 
     void emit(int next) => onChanged?.call(next.clamp(min, max));
 

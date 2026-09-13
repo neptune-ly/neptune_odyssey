@@ -43,6 +43,7 @@ public val kDashboardHeroes: List<String> = listOf(
     "restrained-balance",
     "statement-ledger",
     "chevron-summary",
+    "position-line",
 )
 
 /** Append-only content-tone registry. */

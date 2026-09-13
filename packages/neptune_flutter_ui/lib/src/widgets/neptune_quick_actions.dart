@@ -208,7 +208,7 @@ class NeptuneQuickAction extends StatelessWidget {
     final shape = Theme.of(context).extension<NptShape>()!;
     final textTheme = Theme.of(context).textTheme;
 
-    final chipRadius = BorderRadius.circular(shape.full);
+    final chipRadius = BorderRadius.circular(shape.pill);
 
     // The chip and its caption are one button named by the caption. Without
     // the merge the chip is an unnamed tap target and the caption a stray

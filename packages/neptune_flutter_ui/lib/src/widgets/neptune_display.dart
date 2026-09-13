@@ -280,7 +280,7 @@ class NeptuneTag extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(shape.full),
+        borderRadius: BorderRadius.circular(shape.pill),
       ),
       padding: EdgeInsetsDirectional.only(
         start: icon != null ? 8 : 12,
@@ -368,7 +368,7 @@ class NeptuneProgressBar extends StatelessWidget {
     final fill = color ?? scheme.primary;
     final track = scheme.surfaceContainerHighest;
     final clamped = value.clamp(0.0, 1.0);
-    final radius = BorderRadius.circular(shape.full);
+    final radius = BorderRadius.circular(shape.pill);
     final strings = NeptuneAccessibility.of(context);
 
     // A progress bar has a value; a screen reader gets "Upload, 40 percent".

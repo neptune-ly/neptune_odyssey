@@ -264,7 +264,7 @@ class _ChangePill extends StatelessWidget {
           const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.14),
-        borderRadius: BorderRadius.circular(shape.full),
+        borderRadius: BorderRadius.circular(shape.pill),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -486,7 +486,7 @@ class NeptuneSpendBreakdown extends StatelessWidget {
     for (final s in slices) {
       if (s.amount.isFinite && s.amount > 0) total += s.amount;
     }
-    final radius = BorderRadius.circular(shape.full);
+    final radius = BorderRadius.circular(shape.pill);
 
     // Stacked bar: each segment flexes by its share of the total.
     final segments = <Widget>[];

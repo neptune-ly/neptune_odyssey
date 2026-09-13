@@ -271,7 +271,7 @@ class _NeptuneSheetBody extends StatelessWidget {
                   height: 4,
                   decoration: BoxDecoration(
                     color: scheme.onSurfaceVariant.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(shape.full),
+                    borderRadius: BorderRadius.circular(shape.pill),
                   ),
                 ),
               ),

@@ -125,6 +125,10 @@ class NeptuneSideNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    // The rail item is a stadium container, so it follows the brand's pill
+    // token rather than a hardcoded StadiumBorder: a ruled brand's rail is
+    // drawn at the same corner as its buttons and its chips.
+    final pillShape = Theme.of(context).extension<NptShape>()!.pillBorder;
     final fg = active ? scheme.onSecondaryContainer : scheme.onSurfaceVariant;
 
     final row = Padding(
@@ -152,7 +156,7 @@ class NeptuneSideNavItem extends StatelessWidget {
       constraints: const BoxConstraints(minHeight: 48),
       child: InkWell(
         onTap: enabled ? onTap : null,
-        customBorder: const StadiumBorder(),
+        customBorder: pillShape,
         child: row,
       ),
     );
@@ -160,13 +164,13 @@ class NeptuneSideNavItem extends StatelessWidget {
     final pill = active
         ? Material(
             color: scheme.secondaryContainer,
-            shape: const StadiumBorder(),
+            shape: pillShape,
             clipBehavior: Clip.antiAlias,
             child: content,
           )
         : Material(
             type: MaterialType.transparency,
-            shape: const StadiumBorder(),
+            shape: pillShape,
             clipBehavior: Clip.antiAlias,
             child: content,
           );

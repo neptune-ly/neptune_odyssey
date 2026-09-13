@@ -34,6 +34,9 @@ export const HERO = [
   "restrained-balance",
   "statement-ledger",
   "chevron-summary",
+  // 2.29.0. The first hero that is not a list of accounts: one ruled
+  // position line per currency, the enumeration left to the Accounts tab.
+  "position-line",
 ] as const;
 
 export const TONE = [

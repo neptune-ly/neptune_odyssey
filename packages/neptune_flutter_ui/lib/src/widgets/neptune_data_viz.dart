@@ -266,7 +266,7 @@ class NeptuneLimitMeter extends StatelessWidget {
 
     final pct = value.isNaN ? 0.0 : value.clamp(0.0, 1.0).toDouble();
     final fill = warn ? scheme.error : scheme.primary;
-    final radius = BorderRadius.circular(shape.full);
+    final radius = BorderRadius.circular(shape.pill);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,7 +345,7 @@ class NeptuneTrend extends StatelessWidget {
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
         color: scheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(shape.full),
+        borderRadius: BorderRadius.circular(shape.pill),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

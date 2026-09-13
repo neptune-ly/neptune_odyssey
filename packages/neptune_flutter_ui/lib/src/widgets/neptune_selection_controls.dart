@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/feedback.dart';
+import '../theme/identity.dart';
 
 /// A branded checkbox: a 22dp rounded ([NptShape.xs]) box that fills with
 /// [ColorScheme.primary] and shows an [ColorScheme.onPrimary] check when
@@ -418,7 +419,7 @@ class NeptuneSwitch extends StatelessWidget {
           child: InkWell(
             onTap: tap,
             customBorder: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(shape.full),
+              borderRadius: BorderRadius.circular(shape.pill),
             ),
             child: Center(
               child: AnimatedContainer(
@@ -429,7 +430,7 @@ class NeptuneSwitch extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.all(3),
                 decoration: BoxDecoration(
                   color: trackColor,
-                  borderRadius: BorderRadius.circular(shape.full),
+                  borderRadius: BorderRadius.circular(shape.pill),
                 ),
                 child: AnimatedAlign(
                   duration: fast,
@@ -504,13 +505,21 @@ class NeptuneSegmented<T> extends StatelessWidget {
     final motion = Theme.of(context).extension<NptMotion>()!;
     final text = Theme.of(context).textTheme;
     final enabled = onChanged != null;
-    final radius = BorderRadius.circular(shape.full);
+    final radius = BorderRadius.circular(shape.pill);
+    // THE RULED REGISTER (`NptIdentity.ruledRegister`): a brand that draws
+    // structure in lines gets a hairline strip, not a tone-filled track with a
+    // tonal capsule sliding inside it. The slab was the heaviest object on
+    // the transfer form for a brand whose whole argument is navy line-work on
+    // white, and the corner family could not reach it — a track and a chip are
+    // still slabs at 4dp.
+    final ruled = Theme.of(context).extension<NptIdentity>()!.ruledRegister;
 
     return Container(
-      padding: const EdgeInsetsDirectional.all(4),
+      padding: EdgeInsetsDirectional.all(ruled ? 0 : 4),
       decoration: BoxDecoration(
-        color: scheme.surfaceContainer,
+        color: ruled ? null : scheme.surfaceContainer,
         borderRadius: radius,
+        border: ruled ? Border.all(color: scheme.outlineVariant) : null,
       ),
       // Equal-width segments when the parent bounds our width; shrink-wrapped
       // segments in unbounded slots (e.g. a NeptuneListTile trailing) — flex
@@ -535,6 +544,7 @@ class NeptuneSegmented<T> extends StatelessWidget {
                         text: text,
                         motion: motion,
                         pill: radius,
+                        ruled: ruled,
                       ),
                     )
                   else
@@ -546,6 +556,7 @@ class NeptuneSegmented<T> extends StatelessWidget {
                       text: text,
                       motion: motion,
                       pill: radius,
+                      ruled: ruled,
                     ),
               ],
             ),
@@ -566,6 +577,9 @@ class _SegmentButton<T> extends StatelessWidget {
   final NptMotion motion;
   final BorderRadius pill;
 
+  /// See [NeptuneSegmented]: the brand draws structure in lines.
+  final bool ruled;
+
   const _SegmentButton({
     required this.segment,
     required this.selected,
@@ -574,13 +588,17 @@ class _SegmentButton<T> extends StatelessWidget {
     required this.text,
     required this.motion,
     required this.pill,
+    required this.ruled,
   });
 
   @override
   Widget build(BuildContext context) {
     final enabled = onTap != null;
+    // In the ruled register the selected segment is marked the way a document
+    // marks a heading - the brand colour and a rule under it - rather than by
+    // a capsule of tone. Same information, one fewer filled shape.
     final fg = selected
-        ? scheme.onSecondaryContainer
+        ? (ruled ? scheme.primary : scheme.onSecondaryContainer)
         : (enabled
             ? scheme.onSurfaceVariant
             : scheme.onSurface.withValues(alpha: 0.38));
@@ -596,10 +614,24 @@ class _SegmentButton<T> extends StatelessWidget {
         duration: NeptuneAccessibility.duration(context, motion.fast),
         curve: motion.standard,
         decoration: BoxDecoration(
-          color: selected
-              ? scheme.secondaryContainer
-              : scheme.surface.withValues(alpha: 0),
+          color: ruled
+              ? scheme.surface.withValues(alpha: 0)
+              : (selected
+                  ? scheme.secondaryContainer
+                  : scheme.surface.withValues(alpha: 0)),
           borderRadius: pill,
+          // One shadow-free rule, and it is emitted in BOTH states with only
+          // the alpha moving - an implicitly-animated border that appears and
+          // disappears is the same lerp trap the dock's key-light hit.
+          border: !ruled
+              ? null
+              : Border(
+                  bottom: BorderSide(
+                    color: scheme.primary
+                        .withValues(alpha: selected ? 1 : 0),
+                    width: 2,
+                  ),
+                ),
         ),
         clipBehavior: Clip.antiAlias,
         child: Material(
@@ -629,7 +661,12 @@ class _SegmentButton<T> extends StatelessWidget {
                         segment.label,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: text.labelLarge?.copyWith(color: fg),
+                        style: text.labelLarge?.copyWith(
+                          color: fg,
+                          fontWeight: ruled && selected
+                              ? FontWeight.w700
+                              : null,
+                        ),
                       ),
                     ),
                   ],

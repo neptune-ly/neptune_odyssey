@@ -168,7 +168,7 @@ class NeptuneCompareBars extends StatelessWidget {
               color: down
                   ? npt.successContainer
                   : scheme.errorContainer,
-              borderRadius: BorderRadius.circular(shape.full),
+              borderRadius: BorderRadius.circular(shape.pill),
             ),
             child: Text(
               '${down ? '−' : '+'}${deltaPct.abs().toStringAsFixed(1)}%',

@@ -124,6 +124,13 @@ Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
   `flutter test`).
 - Money: `NeptuneTheme.moneyStyle(context, base:)` — brand num face + tabular
   figures, direction-aware (Arabic numeral face under RTL).
+- **A stadium is not a circle** (2.29.0). `NptShape.full` used to mean both, so a brand that
+  declared `ruledRegister` got ruled buttons and then a full row of capsule chips beside them:
+  squaring `full` would have squared the avatars too, so nobody did. Reach for `NptShape.pill`
+  (`rPill` / `pillBorder`) for anything whose shape is "a rounded-ended CONTAINER" — chip, tag,
+  segmented track, switch track, progress bar, drag handle, search field — and keep `full` for
+  things that are round whatever the brand is. `pill` is derived from `ruledRegister`, so it
+  costs no codec bit and no brandprint field.
 - **The direction accent is spent, not sprayed** (2.24.0). `NptColors.accent`
   is for the forward CTA, the active step and an upward movement — `NeptuneCta`
   reads it, and since 2.28.0 so do the two compositions whose whole structure IS

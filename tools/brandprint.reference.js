@@ -8,7 +8,7 @@
 }(typeof self !== 'undefined' ? self : this, function () {
   const FONTS  = ["Hanken Grotesk","Bricolage Grotesque","Space Grotesk","Sora","IBM Plex Sans Arabic","Reem Kufi","Tajawal","Readex Pro","Noto Kufi Arabic"];
   const LOGIN  = ["depth-emblem","arcade-arches","light-grid-spark","shield-guilloche","paper-lockup","lockup-rule"];
-  const HERO   = ["balance-cards","warm-balance-cards","wallet-hero","restrained-balance","statement-ledger","chevron-summary"];
+  const HERO   = ["balance-cards","warm-balance-cards","wallet-hero","restrained-balance","statement-ledger","chevron-summary","position-line"];
   const TONE   = ["clear-calm","warm-hospitable","light-instant","formal-authoritative"];
   const GLASS  = ["oceanic","warm-amber","violet-luminous","navy-steel"];
   const MOTION = ["smooth-fluid","calm-graceful","light-quick-crisp","stable-minimal-authoritative"];

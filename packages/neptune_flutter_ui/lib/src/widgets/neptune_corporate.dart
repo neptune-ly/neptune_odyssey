@@ -257,7 +257,7 @@ class _StatusChip extends StatelessWidget {
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(shape.full),
+        borderRadius: BorderRadius.circular(shape.pill),
       ),
       alignment: Alignment.center,
       child: Text(
@@ -475,7 +475,7 @@ class _UserStatusChip extends StatelessWidget {
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
         color: scheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(shape.full),
+        borderRadius: BorderRadius.circular(shape.pill),
       ),
       alignment: Alignment.center,
       child: Text(
@@ -605,7 +605,7 @@ class NeptuneWorkflowStatus extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ClipRRect(
-          borderRadius: BorderRadius.circular(shape.full),
+          borderRadius: BorderRadius.circular(shape.pill),
           child: LinearProgressIndicator(
             value: progress.clamp(0.0, 1.0),
             minHeight: 4,

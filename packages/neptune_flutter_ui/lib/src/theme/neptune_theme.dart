@@ -384,7 +384,7 @@ class NeptuneTheme {
     ColorScheme scheme,
     ColorScheme lightScheme,
     NptColors colors,
-    NptShape shape,
+    NptShape brandShape,
     NptType brandType,
     NptMotion motion,
     NptIdentity identity,
@@ -400,6 +400,13 @@ class NeptuneTheme {
     // tone 100, not the tinted tone 98, and a field is white inside its ring.
     // Light only - a dark scheme's `surfaceContainerLowest` is its darkest
     // tone and would invert the meaning.
+    // `NptShape.pill` is DERIVED, not declared: a brand that has already said
+    // it draws in lines has said everything the stadium question needs. It is
+    // resolved here, once, so a widget reads one number off the theme instead
+    // of every widget re-deciding what `ruledRegister` means for its own shape.
+    final shape = brandShape.copyWith(
+      pill: ruledRegister ? brandShape.md : brandShape.full,
+    );
     final white = whiteGround && scheme.brightness == Brightness.light;
     final ground = white ? scheme.surfaceContainerLowest : scheme.surface;
     // A field is white inside its ring in EVERY light scheme, not only under
@@ -414,9 +421,7 @@ class NeptuneTheme {
     // brand's own fields and sheets already carry, which is what makes a
     // ruled button read as part of the same drawn structure rather than as a
     // shorter pill.
-    final OutlinedBorder controlShape = ruledRegister
-        ? RoundedRectangleBorder(borderRadius: shape.rMd)
-        : const StadiumBorder();
+    final OutlinedBorder controlShape = shape.pillBorder;
     // A host face replaces EVERY face, Arabic ones included: the host has one
     // typeface for both scripts and the brandprint's registry names are for
     // the web/Studio ports, not this theme.

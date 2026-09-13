@@ -167,7 +167,7 @@ class _PageDots extends StatelessWidget {
             width: i == activeStep ? 22 : 8,
             height: 8,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(shape.full),
+              borderRadius: BorderRadius.circular(shape.pill),
               color: i == activeStep ? scheme.primary : scheme.outlineVariant,
             ),
           ),
@@ -261,7 +261,7 @@ class NeptuneChip extends StatelessWidget {
         selected ? scheme.secondaryContainer : scheme.surfaceContainerHigh;
     final fg =
         selected ? scheme.onSecondaryContainer : scheme.onSurfaceVariant;
-    final radius = BorderRadius.circular(shape.full);
+    final radius = BorderRadius.circular(shape.pill);
 
     return Material(
       color: bg,
@@ -352,7 +352,7 @@ class NeptuneStatusChip extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(shape.full),
+        borderRadius: BorderRadius.circular(shape.pill),
       ),
       padding: const EdgeInsetsDirectional.symmetric(
         horizontal: 12,

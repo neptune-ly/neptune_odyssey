@@ -1,3 +1,36 @@
+## 2.29.0
+
+- **`NptShape.pill` — the stadium a brand can square, separated from the circle it cannot.**
+  `ruledRegister` (2.28.0) said "this brand draws structure in lines, not in filled slabs", and
+  the button theme and `NeptuneCta` honoured it. Every chip, tag, tab indicator, segmented
+  track, switch track, progress bar, drag handle, rail item and quick-action chip on the same
+  screen went on drawing a capsule, because they all read `NptShape.full` — and `full` also
+  means "a circle", so squaring it would have squared the avatars, the legend dots and the
+  dock's raised-active puck along with them. The result was a ruled button sitting in a row of
+  pills: the mushy middle the lever exists to prevent.
+
+  `pill` is now its own token, DERIVED not declared — it resolves to `full` for a brand in the
+  default register and to the brand's own `md` under `ruledRegister`, so no brandprint changes
+  and no codec bit is spent. `rPill` and `pillBorder` are the ready-made forms; `pillBorder`
+  returns a real `StadiumBorder` when the brand is round, so a Material widget that lerps its
+  shape keeps lerping between the same two classes it always did. Thirty stadium containers
+  across sixteen widgets moved to it; every genuine circle was left on `full`.
+
+- **`NeptuneSegmented` follows the ruled register.** It was the heaviest object on a transfer
+  form: a tone-filled track with a tonal capsule sliding inside it. Under `ruledRegister` the
+  track is a hairline strip and the selected segment is marked the way a document marks a
+  heading — the brand colour, a weight step and a 2dp rule under it. The rule is emitted in
+  BOTH states with only its alpha moving, because an implicitly-animated border that appears
+  and disappears is the same lerp trap the dock's key-light hit in 2.15.0.
+
+- **New `dashboardHero`: `position-line`** (registry index 6, appended to `kDashboardHeroes` in
+  Dart, TS, the JS reference and the KMP port). Every other hero answers "what do I have" by
+  enumerating the accounts — which is the same question, and the same shape, as a banking app's
+  own Accounts tab, so a bank that has both ships the same screen twice and its home is the
+  weaker copy. `position-line` states the position in one ruled line per currency and leaves the
+  enumeration to the tab that owns it, which buys the rest of the page back for what a customer
+  actually opens a banking app to see: what moved.
+
 ## 2.28.0
 
 - **Two more composition levers: `navShell` and `actionRow`.** The lesson of 2.24.0 was that hue is

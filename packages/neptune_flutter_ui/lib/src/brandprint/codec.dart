@@ -37,10 +37,19 @@ const List<String> kLoginShells = [
   'lockup-rule',
 ];
 
-/// Append-only dashboard-hero registry. The last two (2.24.0):
-/// `statement-ledger` (one tabular balance statement, then compact account
-/// rows - no carousel) and `chevron-summary` (the total across the top, each
-/// account row carrying a movement chevron in the brand's accent).
+/// Append-only dashboard-hero registry. `statement-ledger` (one tabular
+/// balance statement, then compact account rows - no carousel) and
+/// `chevron-summary` (the total across the top, each account row carrying a
+/// movement chevron in the brand's accent) arrived in 2.24.0.
+///
+/// `position-line` (2.29.0) is the first hero that is NOT a list of accounts.
+/// Every other entry here answers "what do I have" by enumerating the
+/// accounts - which is the same question, and the same shape, as the app's
+/// own Accounts tab, so a bank that has both ships the same screen twice and
+/// the home is the weaker copy. This one states the position in ONE ruled
+/// line per currency and hands the enumeration to the tab that owns it, which
+/// buys the rest of the page back for what a customer actually opens a
+/// banking app to see: what moved.
 const List<String> kDashboardHeroes = [
   'balance-cards',
   'warm-balance-cards',
@@ -48,6 +57,7 @@ const List<String> kDashboardHeroes = [
   'restrained-balance',
   'statement-ledger',
   'chevron-summary',
+  'position-line',
 ];
 
 /// Append-only content-tone registry.
