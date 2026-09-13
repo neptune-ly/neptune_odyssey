@@ -97,9 +97,17 @@ class NeptuneDriftField extends StatefulWidget {
   /// The ground the objects hang in. Defaults to the theme's surface.
   final Color? ground;
 
-  /// What the far plane is carried toward, and the colour a far object's tone
-  /// is mixed with. Defaults to [ground], which is what makes distance read as
-  /// atmosphere rather than as transparency.
+  /// What a far object's tone is mixed with: the colour of the air between the
+  /// customer and it.
+  ///
+  /// Defaults to [ground], which is right when the ground is the brand's own
+  /// colour. It is a SEPARATE knob from the ground because of a specific
+  /// failure: on a near-black ground, mixing a white object toward the ground
+  /// desaturates it, and a white tile carried a third of the way to black is
+  /// simply a GREY BOX — the thing every one of these surfaces is trying not
+  /// to be. Atmosphere is coloured. A scene on a deep ground should haze
+  /// toward the brand's mid tone instead, and then a far object reads as being
+  /// behind the brand's own air rather than as a desaturated near one.
   final Color? haze;
 
   /// Content drawn over the field — the headline, the call to action. It is a
@@ -247,7 +255,7 @@ class _DriftedObject extends StatelessWidget {
   /// The three depth cues, all read off the one number.
   double get _scale => 0.72 + object.depth * 0.46;
   double get _travel => 0.25 + object.depth * 0.75;
-  double get _presence => 0.55 + object.depth * 0.45;
+  double get _presence => 0.62 + object.depth * 0.38;
 
   @override
   Widget build(BuildContext context) {
