@@ -217,5 +217,8 @@ NptIdentity identityFor(BrandprintConfig cfg) {
     navShell: cfg.navShell,
     actionRow: cfg.actionRow,
     ruledRegister: cfg.ruledRegister,
+    // `light-instant` is the only tone that draws. The other three are a
+    // measured voice, and a measured voice does not open with a cartoon.
+    illustratedEmptyStates: cfg.contentTone == 'light-instant',
   );
 }

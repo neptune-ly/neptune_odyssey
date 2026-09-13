@@ -78,6 +78,17 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
   /// `filled-circles`, the ruled `register-rows` strip, or the hairline
   /// `rule-grid` whose lead action carries the accent.
   final String actionRow;
+  /// Whether this brand ILLUSTRATES an empty state or draws an icon in a
+  /// circle. Derived from [contentTone] in `identityFor`, not carried on the
+  /// wire: it costs no bit, and "is this brand's voice expressive enough to
+  /// draw pictures" is exactly the question a content tone already answers.
+  ///
+  /// An empty state is the one data surface with no data in it, which makes it
+  /// the only place in a banking app where a drawing takes nothing away from a
+  /// figure, a row or a status. A brand whose tone is measured should still
+  /// get the icon — this is a lever, not an upgrade.
+  final bool illustratedEmptyStates;
+
   /// `BrandprintConfig.ruledRegister`: this brand draws structure in LINES.
   /// Read by the library's grouped surfaces ([NeptuneListTile],
   /// [NeptuneAccountTile], [NeptuneDetailList]) to draw a hairline-ruled group
@@ -98,6 +109,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     required this.navShell,
     required this.actionRow,
     this.ruledRegister = false,
+    this.illustratedEmptyStates = false,
   });
 
   // --- glass ----------------------------------------------------------------
@@ -197,6 +209,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     String? navShell,
     String? actionRow,
     bool? ruledRegister,
+    bool? illustratedEmptyStates,
   }) =>
       NptIdentity(
         motif: motif ?? this.motif,
@@ -211,6 +224,8 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
         navShell: navShell ?? this.navShell,
         actionRow: actionRow ?? this.actionRow,
         ruledRegister: ruledRegister ?? this.ruledRegister,
+        illustratedEmptyStates:
+            illustratedEmptyStates ?? this.illustratedEmptyStates,
       );
 
   @override
@@ -231,6 +246,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
       navShell: pick.navShell,
       actionRow: pick.actionRow,
       ruledRegister: pick.ruledRegister,
+      illustratedEmptyStates: pick.illustratedEmptyStates,
     );
   }
 }

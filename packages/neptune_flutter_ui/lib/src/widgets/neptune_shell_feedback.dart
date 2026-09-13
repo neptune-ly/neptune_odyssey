@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
+import '../theme/identity.dart';
+import 'neptune_pocket.dart';
 
 /// The page-level masthead (web `<npt-page-header>`): a display-font title, an
 /// optional supporting subtitle below, and trailing actions inline-end of the
@@ -133,14 +135,30 @@ class NeptuneSearchField extends StatelessWidget {
   }
 }
 
-/// A centred placeholder for empty collections (web `<npt-empty-state>`): an
-/// icon in a tinted circle, a display-font title, an optional supporting
-/// message, and an optional action. Theme-only, RTL-safe.
+/// A centred placeholder for empty collections (web `<npt-empty-state>`): a
+/// display-font title, an optional supporting message, an optional action,
+/// and above them either an icon in a tinted circle or a flat drawing —
+/// whichever the BRAND's tone calls for (`NptIdentity.illustratedEmptyStates`).
+///
+/// THE CALLER NEVER ASKS WHICH BRAND IT IS. Fifty-three call sites in one host
+/// app reach this widget, and any design that needed each of them to know
+/// whether its bank illustrates would have been fifty-three places to get it
+/// wrong. The call site names the SUBJECT ([art]) and the theme decides
+/// whether a subject is drawn at all; a brand whose tone is measured keeps the
+/// icon it has today and nothing moves.
 class NeptuneEmptyState extends StatelessWidget {
   final IconData icon;
   final String title;
   final String? message;
   final Widget? action;
+
+  /// WHICH drawing, for a brand that illustrates. Ignored entirely by a brand
+  /// that does not, so every call site can name one safely.
+  ///
+  /// The default is deliberately the most general of the six: an empty list is
+  /// usually just quiet, and a caller that has not thought about which picture
+  /// it wants should get the one that claims the least.
+  final NptSpotArtKind art;
 
   const NeptuneEmptyState({
     super.key,
@@ -148,6 +166,7 @@ class NeptuneEmptyState extends StatelessWidget {
     required this.title,
     this.message,
     this.action,
+    this.art = NptSpotArtKind.quiet,
   });
 
   @override
@@ -163,17 +182,21 @@ class NeptuneEmptyState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          ExcludeSemantics(
-            child: Container(
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                color: scheme.surfaceContainerHigh,
-                borderRadius: BorderRadius.circular(shape.full),
+          if (Theme.of(context).extension<NptIdentity>()?.illustratedEmptyStates
+              ?? false)
+            NeptuneSpotArt(art, size: 140)
+          else
+            ExcludeSemantics(
+              child: Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHigh,
+                  borderRadius: BorderRadius.circular(shape.full),
+                ),
+                child: Icon(icon, size: 28, color: scheme.onSurfaceVariant),
               ),
-              child: Icon(icon, size: 28, color: scheme.onSurfaceVariant),
             ),
-          ),
           const SizedBox(height: 16),
           Semantics(
             header: true,

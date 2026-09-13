@@ -52,6 +52,13 @@
   a display face had no way to reach it without the `google_fonts` loader it bundled the face to
   avoid. Both are optional and default to `family`, so every existing host is byte-identical.
 
+- **The empty state illustrates when the brand's TONE says to.** `NptIdentity.illustratedEmptyStates`
+  is derived from `contentTone` (`light-instant` draws; the other three keep the icon), so the
+  fifty-three call sites in one host app name the SUBJECT (`art:`) and never the bank. Any design
+  that needed each call site to know whether its brand illustrates would have been fifty-three
+  places to get it wrong. It costs no codec bit: whether a brand's voice is expressive enough to
+  draw pictures is exactly the question a content tone already answers.
+
 - **`arrow-drift` motif.** A drift of chevrons on the reading diagonal, for a brand whose mark IS an
   arrow. The first DIRECTIONAL motif: it mirrors under RTL, because a brand that reads right to left
   and keeps its arrow pointing left to right has drawn its own logo backwards.

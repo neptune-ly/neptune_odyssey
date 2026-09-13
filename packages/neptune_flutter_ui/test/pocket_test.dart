@@ -290,6 +290,39 @@ void main() {
     });
   });
 
+  group('the illustrated empty state (2.30.0)', () {
+    Widget empty(ThemeData t) => _host(
+          t,
+          const NeptuneEmptyState(
+            icon: Icons.receipt_long_outlined,
+            title: 'Nothing yet',
+            art: NptSpotArtKind.emptyPocket,
+          ),
+        );
+
+    testWidgets('a light-instant brand draws; the icon is gone', (t) async {
+      await t.pumpWidget(
+          empty(NeptuneTheme.fromConfig(_base, brightness: Brightness.light)));
+      expect(find.byType(NeptuneSpotArt), findsOneWidget);
+      expect(find.byIcon(Icons.receipt_long_outlined), findsNothing);
+    });
+
+    testWidgets('a measured brand keeps the icon it has today', (t) async {
+      // The regression this guards is a silent upgrade: fifty-three call sites
+      // reach this widget in one host app, and a change that illustrated all
+      // of them would have re-skinned two other banks without a word.
+      for (final tone in ['clear-calm', 'formal-authoritative',
+          'warm-hospitable']) {
+        await t.pumpWidget(empty(NeptuneTheme.fromConfig(
+            _tone(_base, tone),
+            brightness: Brightness.light)));
+        expect(find.byType(NeptuneSpotArt), findsNothing, reason: tone);
+        expect(find.byIcon(Icons.receipt_long_outlined), findsOneWidget,
+            reason: tone);
+      }
+    });
+  });
+
   group('NeptuneSpotArt', () {
     testWidgets('every kind paints in both directions and both modes',
         (t) async {
@@ -362,4 +395,24 @@ BrandprintConfig _ruled(BrandprintConfig c, {required bool ruled}) =>
       actionRow: c.actionRow,
       warmGround: c.warmGround,
       ruledRegister: ruled,
+    );
+
+BrandprintConfig _tone(BrandprintConfig c, String tone) => BrandprintConfig(
+      primary: c.primary,
+      tertiary: c.tertiary,
+      corners: c.corners,
+      displayWeight: c.displayWeight,
+      displayTracking: c.displayTracking,
+      fontDisplay: c.fontDisplay,
+      fontText: c.fontText,
+      fontNum: c.fontNum,
+      loginShell: c.loginShell,
+      dashboardHero: c.dashboardHero,
+      contentTone: tone,
+      glassTint: c.glassTint,
+      motion: c.motion,
+      motif: c.motif,
+      accentOnTertiary: c.accentOnTertiary,
+      navShell: c.navShell,
+      actionRow: c.actionRow,
     );
