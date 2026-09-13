@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/extensions.dart';
+import '../theme/identity.dart';
 import '../theme/neptune_theme.dart';
 import 'neptune_identity_surfaces.dart';
 import 'neptune_numeral.dart';
@@ -51,13 +52,25 @@ class NeptuneDetailList extends StatelessWidget {
       rows.add(children[i]);
     }
 
+    // THE RULED REGISTER (`NptIdentity.ruledRegister`): the same rows, on the
+    // page rather than on a slab, held together by a rule above and below
+    // instead of by a tone step. That is what this component's own docstring
+    // already claims the surface is for - "the rows are what the eye reads,
+    // the surface only says they belong together" - and a rule says it with
+    // one pixel where a fill says it with a box.
+    final ruled = Theme.of(context).extension<NptIdentity>()!.ruledRegister;
     final surface = DecoratedBox(
       decoration: BoxDecoration(
-        color: scheme.surfaceContainerLow,
-        borderRadius: shape.rLg,
+        color: ruled ? null : scheme.surfaceContainerLow,
+        borderRadius: ruled ? null : shape.rLg,
+        border: ruled
+            ? Border.symmetric(
+                horizontal: BorderSide(color: scheme.outlineVariant),
+              )
+            : null,
       ),
       child: ClipRRect(
-        borderRadius: shape.rLg,
+        borderRadius: ruled ? BorderRadius.zero : shape.rLg,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,

@@ -1,6 +1,7 @@
 // Neptune Odyssey — brandprint codec (TypeScript port) · © 2026 Neptune.Fintech (neptune.ly)
-// Faithful, byte-identical port of tools/brandprint.reference.js. 28-byte fixed layout ->
-// base64url, version "NO1-", checksummed. Golden-tested against the JS reference.
+// Faithful, byte-identical port of the Dart codec (neptune_flutter_ui). 28-byte layout
+// (version byte 1) or, from 2.28.0, 29 bytes (version byte 2) when the extension byte
+// carries something -> base64url, prefix "NO1-", checksummed. Golden-tested.
 // See docs/11-config-hash.md for the wire format.
 
 import {
@@ -81,6 +82,16 @@ export interface BrandprintConfig {
    * "filled-circles", the tonal circle behind every glyph.
    */
   actionRow?: ActionRow;
+  /**
+   * Byte 27 (the extension byte), bit 0 (2.28.0). THE RULED REGISTER: this brand
+   * draws structure in LINES - ruled rectangular buttons at the brand's own `md`
+   * corner instead of stadium pills, and hairline-ruled groups instead of
+   * tone-filled cards. It does NOT ride the flags byte: bits 4-7 are the two
+   * composition registries and byte 26 is the motif, so the 28-byte layout was
+   * full. Setting it grows the payload to 29 bytes and the version byte to 2;
+   * omitted/false encodes to exactly the 28 bytes it always did.
+   */
+  ruledRegister?: boolean;
 }
 
 export interface DecodedBrandprint extends BrandprintConfig {
@@ -90,11 +101,16 @@ export interface DecodedBrandprint extends BrandprintConfig {
   whiteGround: boolean;
   navShell: NavShell;
   actionRow: ActionRow;
+  ruledRegister: boolean;
 }
 
+/** The version byte of the original 28-byte layout. */
 export const VERSION = 1;
+/** The version byte of the 29-byte layout, which carries the extension byte. */
+export const VERSION_EXTENDED = 2;
 const PREFIX = "NO1-";
 const PAYLOAD_BYTES = 28;
+const PAYLOAD_BYTES_EXTENDED = 29;
 
 const ix = <T>(arr: readonly T[], v: T): number => {
   const i = arr.indexOf(v);
@@ -125,10 +141,15 @@ function fromBase64Url(s: string): Uint8Array {
 
 /** Encode a config to its `NO1-…` brandprint string. */
 export function encode(cfg: BrandprintConfig): string {
-  const buf = new Uint8Array(PAYLOAD_BYTES);
+  // The extension byte is written only when it would carry something, so a config
+  // that predates it produces exactly the 28 bytes it always did.
+  let ext = 0;
+  if (cfg.ruledRegister) ext |= 1;
+  const extended = ext !== 0;
+  const buf = new Uint8Array(extended ? PAYLOAD_BYTES_EXTENDED : PAYLOAD_BYTES);
   const dv = new DataView(buf.buffer);
   let o = 0;
-  buf[o++] = VERSION;
+  buf[o++] = extended ? VERSION_EXTENDED : VERSION;
   buf[o++] = Math.round(cfg.primary.L * 255);
   buf[o++] = Math.min(255, Math.round(cfg.primary.C * 1000));
   dv.setUint16(o, cfg.primary.H);
@@ -163,24 +184,34 @@ export function encode(cfg: BrandprintConfig): string {
   f |= (ix(ACTION_ROW, cfg.actionRow ?? "filled-circles") & 3) << 6;
   buf[o++] = f;
   buf[o++] = ix(MOTIF, cfg.motif ?? "auto"); // motif (byte 26)
+  if (extended) buf[o++] = ext; // byte 27, the extension byte
   let sum = 0;
   for (let i = 0; i < o; i++) sum = (sum + buf[i]!) & 255;
   buf[o++] = sum; // checksum
-  return PREFIX + toBase64Url(buf.subarray(0, PAYLOAD_BYTES));
+  return PREFIX + toBase64Url(buf);
 }
 
 /** Decode a `NO1-…` brandprint string. Throws on bad prefix/length/checksum/version. */
 export function decode(str: string): DecodedBrandprint {
   if (!str.startsWith(PREFIX)) throw new Error("bad prefix");
   const buf = fromBase64Url(str.slice(4));
-  if (buf.length !== PAYLOAD_BYTES) throw new Error("bad length");
+  if (buf.length !== PAYLOAD_BYTES && buf.length !== PAYLOAD_BYTES_EXTENDED) {
+    throw new Error("bad length");
+  }
   const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
+  const last = buf.length - 1; // the checksum is always the final byte
   let sum = 0;
-  for (let i = 0; i < 27; i++) sum = (sum + buf[i]!) & 255;
-  if (sum !== buf[27]) throw new Error("checksum mismatch");
+  for (let i = 0; i < last; i++) sum = (sum + buf[i]!) & 255;
+  if (sum !== buf[last]) throw new Error("checksum mismatch");
   let o = 0;
   const version = buf[o++]!;
-  if (version !== VERSION) throw new Error(`version ${version} unsupported`);
+  // The version byte NAMES the length. Accepting a mismatch would let a truncated
+  // or padded payload decode as a plausible neighbour.
+  const expected =
+    version === VERSION ? PAYLOAD_BYTES : version === VERSION_EXTENDED ? PAYLOAD_BYTES_EXTENDED : -1;
+  if (expected !== buf.length) {
+    throw new Error(`version ${version} unsupported at ${buf.length} bytes`);
+  }
   const primary: Seed = { L: buf[o++]! / 255, C: buf[o++]! / 1000, H: dv.getUint16((o += 2, o - 2)) };
   const tertiary: Seed = { L: buf[o++]! / 255, C: buf[o++]! / 1000, H: dv.getUint16((o += 2, o - 2)) };
   const corners = {} as Corners;
@@ -200,6 +231,9 @@ export function decode(str: string): DecodedBrandprint {
   const motion = MOTION[buf[o++]!] as Motion;
   const f = buf[o++]!;
   const motif = MOTIF[buf[o++]!] as Motif;
+  // Absent on a 28-byte payload, which is exactly how every pre-2.28.0 string
+  // decodes to the defaults it always had.
+  const ext = buf.length === PAYLOAD_BYTES_EXTENDED ? buf[o++]! : 0;
   return {
     version,
     primary,
@@ -220,5 +254,6 @@ export function decode(str: string): DecodedBrandprint {
     whiteGround: !!(f & 8),
     navShell: (NAV_SHELL[(f >> 4) & 3] ?? NAV_SHELL[0]) as NavShell,
     actionRow: (ACTION_ROW[(f >> 6) & 3] ?? ACTION_ROW[0]) as ActionRow,
+    ruledRegister: !!(ext & 1),
   };
 }

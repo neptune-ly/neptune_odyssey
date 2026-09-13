@@ -19,27 +19,79 @@ import '../theme/identity.dart';
 /// [color] defaults to the ambient `onSurface`; on gradient heroes pass
 /// `onPrimary`. [strength] multiplies the brand's base motif strength — the
 /// web uses 1.0 on emblems, ~0.65–0.8 on cards, ~0.055 tinted page washes.
+///
+/// IT IS A FILL LAYER, SO IT FILLS ITS BOX AND NOTHING ELSE. `CustomPaint`
+/// does not clip, and `sonarRings` draws to the farthest corner of the size it
+/// is given: dropped into a 132dp band it painted rings of ~500dp radius
+/// straight through the band, across the whole page and over every field and
+/// label on it. The caller had sized the band precisely to keep the pattern
+/// off the content and the pattern ignored it. `ClipRect` is what makes the
+/// caller's box mean something; on the web the same layer is a
+/// `background-image`, which has never been able to leave its element.
 class NeptuneMotifLayer extends StatelessWidget {
   final Color? color;
   final double strength;
 
-  const NeptuneMotifLayer({super.key, this.color, this.strength = 1});
+  /// Dissolve the pattern away from its own origin instead of ending at the
+  /// clip.
+  ///
+  /// A CLIP EDGE IS WORSE THAN NO PATTERN. Bounded to a band behind a lockup,
+  /// `sonarRings` ends in two dead-straight horizontal cuts and the whole
+  /// thing reads as a rectangular window onto wallpaper - a texture fragment,
+  /// which is exactly the decoration a restrained brand is trying not to
+  /// draw. Faded from the source the same rings read as a signal attenuating
+  /// with distance, which is what the motif means.
+  ///
+  /// Off by default: a full-bleed hero has no edge to hide and every existing
+  /// caller keeps the pattern it has.
+  final bool fade;
+
+  const NeptuneMotifLayer({
+    super.key,
+    this.color,
+    this.strength = 1,
+    this.fade = false,
+  });
+
+  /// Where each motif emanates from, as a fraction of its box - the same
+  /// origin its painter uses, so the fade and the pattern cannot disagree.
+  /// The tiled motifs have no source and fade from the centre.
+  static Alignment _originOf(NptMotifKind kind) => switch (kind) {
+        NptMotifKind.sonarRings => const Alignment(0.72, -0.88),
+        NptMotifKind.coastalArcs => Alignment.center,
+        NptMotifKind.gridSpark => Alignment.center,
+        NptMotifKind.guilloche => Alignment.center,
+        NptMotifKind.none => Alignment.center,
+      };
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final identity = theme.extension<NptIdentity>()!;
     final c = color ?? theme.colorScheme.onSurface;
+    Widget layer = CustomPaint(
+      painter: _MotifPainter(
+        kind: identity.motif,
+        color: c,
+        strength: identity.motifStrength * strength,
+      ),
+      size: Size.infinite,
+    );
+    if (fade) {
+      layer = ShaderMask(
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (rect) => RadialGradient(
+          center: _originOf(identity.motif),
+          radius: 1.1,
+          colors: const [Colors.white, Colors.white, Colors.transparent],
+          stops: const [0, 0.28, 1],
+        ).createShader(rect),
+        child: layer,
+      );
+    }
     return IgnorePointer(
       child: RepaintBoundary(
-        child: CustomPaint(
-          painter: _MotifPainter(
-            kind: identity.motif,
-            color: c,
-            strength: identity.motifStrength * strength,
-          ),
-          size: Size.infinite,
-        ),
+        child: ClipRect(child: layer),
       ),
     );
   }

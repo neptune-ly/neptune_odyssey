@@ -72,6 +72,12 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
   /// `filled-circles`, the ruled `register-rows` strip, or the hairline
   /// `rule-grid` whose lead action carries the accent.
   final String actionRow;
+  /// `BrandprintConfig.ruledRegister`: this brand draws structure in LINES.
+  /// Read by the library's grouped surfaces ([NeptuneListTile],
+  /// [NeptuneAccountTile], [NeptuneDetailList]) to draw a hairline-ruled group
+  /// on the page instead of a tone-filled card floating on it; the button
+  /// shape is applied at assembly.
+  final bool ruledRegister;
 
   const NptIdentity({
     required this.motif,
@@ -85,6 +91,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     required this.contentTone,
     required this.navShell,
     required this.actionRow,
+    this.ruledRegister = false,
   });
 
   // --- glass ----------------------------------------------------------------
@@ -183,6 +190,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     String? contentTone,
     String? navShell,
     String? actionRow,
+    bool? ruledRegister,
   }) =>
       NptIdentity(
         motif: motif ?? this.motif,
@@ -196,6 +204,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
         contentTone: contentTone ?? this.contentTone,
         navShell: navShell ?? this.navShell,
         actionRow: actionRow ?? this.actionRow,
+        ruledRegister: ruledRegister ?? this.ruledRegister,
       );
 
   @override
@@ -215,6 +224,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
       contentTone: pick.contentTone,
       navShell: pick.navShell,
       actionRow: pick.actionRow,
+      ruledRegister: pick.ruledRegister,
     );
   }
 }

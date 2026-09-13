@@ -2,6 +2,21 @@
 
 Neptune Odyssey ships **89 web components**. The Flutter package gives you:
 
+1. **Composition levers, three of them (2.28.0).** The bar, the quick-action row
+   and the register a brand draws structure in are now data, not chrome every
+   white-label bank inherits: `NeptuneDock(shell:)` (`.raised` / `.register` /
+   `.rule`), `NeptuneQuickActions(shell:)` (`.filledCircles` / `.registerRows` /
+   `.ruleGrid`), and `NptIdentity.ruledRegister`, which turns `NeptuneButton`
+   into a ruled rectangle at the brand's own `md` corner and `NeptuneListTile` /
+   `NeptuneAccountTile` / `NeptuneDetailList` into hairline-ruled groups on the
+   page. Honest scope: Flutter only — the web set has no `shell` attribute on
+   `npt-dock` or `npt-quick-actions` and no ruled register, so a web preview of
+   a brand that picks any non-default draws the default. On the wire the first
+   two are two bits each in the flags byte's high nibble (**four entries max
+   per registry, permanently**) and the third is bit 0 of the new **extension
+   byte** — the 28-byte payload was full, so it grew to 29 under version byte 2
+   and every string issued before this release still encodes byte-identically.
+   `Brandprint.kt` reads none of it and rejects a 29-byte payload outright.
 1. **The wrist scale (2.26.0).** `NptGlance` on every assembled theme: the four
    glance registers (figure/unit/provenance/rows), the eyebrow, and the round-face
    safe inset, with `figureStyle`/`eyebrowStyle` helpers. Tokens only - no glance

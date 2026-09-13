@@ -200,6 +200,7 @@ class NeptuneTheme {
       feedback ?? NptFeedback(hapticWeight: hapticWeightFor(cfg.contentTone)),
       hostFont,
       cfg.whiteGround,
+      cfg.ruledRegister,
     );
   }
 
@@ -291,6 +292,7 @@ class NeptuneTheme {
       feedback ?? NptFeedback(hapticWeight: hapticWeightFor(cfg.contentTone)),
       hostFont,
       cfg.whiteGround,
+      cfg.ruledRegister,
     );
   }
 
@@ -392,6 +394,7 @@ class NeptuneTheme {
     NptFeedback feedback,
     NptHostFont? hostFont,
     bool whiteGround,
+    bool ruledRegister,
   ) {
     // The white register (`BrandprintConfig.whiteGround`): the ground is
     // tone 100, not the tinted tone 98, and a field is white inside its ring.
@@ -405,6 +408,15 @@ class NeptuneTheme {
     final fieldFill = scheme.brightness == Brightness.light
         ? scheme.surfaceContainerLowest
         : scheme.surfaceContainerHighest;
+    // `BrandprintConfig.ruledRegister`. `md`, not `xxl`: xxl on a 52dp button
+    // is past the half-height clamp for every brand in the registry, so it
+    // draws the same pill it is meant to replace. `md` is the corner the
+    // brand's own fields and sheets already carry, which is what makes a
+    // ruled button read as part of the same drawn structure rather than as a
+    // shorter pill.
+    final OutlinedBorder controlShape = ruledRegister
+        ? RoundedRectangleBorder(borderRadius: shape.rMd)
+        : const StadiumBorder();
     // A host face replaces EVERY face, Arabic ones included: the host has one
     // typeface for both scripts and the brandprint's registry names are for
     // the web/Studio ports, not this theme.
@@ -491,14 +503,14 @@ class NeptuneTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           minimumSize: const Size(64, 48),
-          shape: const StadiumBorder(),
+          shape: controlShape,
           textStyle: textTheme.labelLarge,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           minimumSize: const Size(64, 48),
-          shape: const StadiumBorder(),
+          shape: controlShape,
           side: BorderSide(color: scheme.outline),
           textStyle: textTheme.labelLarge,
         ),
@@ -617,13 +629,20 @@ class NeptuneTheme {
   /// tabular figures so digits stay column-aligned. Direction-aware — under RTL
   /// it uses the Arabic numeral face, mirroring the web's `dir="rtl"` swap.
   /// With a host font at assembly both faces ARE the host family.
+  ///
+  /// TABULAR FIGURES ARE THE CONTRACT; the brand face is the enhancement. Under
+  /// a theme with no [NptType] - a bare `MaterialApp` in a host's test harness,
+  /// a widget mounted above the Odyssey theme - the `!` here threw, so a host
+  /// that routed a list of amounts through this crashed the row rather than
+  /// setting it in the default face. The digits still line up without a brand.
   static TextStyle moneyStyle(BuildContext context, {TextStyle? base}) {
-    final type = Theme.of(context).extension<NptType>()!;
+    final type = Theme.of(context).extension<NptType>();
+    final b = base ?? Theme.of(context).textTheme.titleLarge ?? const TextStyle();
+    const tabular = [FontFeature.tabularFigures()];
+    if (type == null) return b.copyWith(fontFeatures: tabular);
     final rtl = Directionality.maybeOf(context) == TextDirection.rtl;
     final family = rtl ? type.numAr : type.num;
-    final b = base ?? Theme.of(context).textTheme.titleLarge ?? const TextStyle();
-    return _face(type, family, b)
-        .copyWith(fontFeatures: const [FontFeature.tabularFigures()]);
+    return _face(type, family, b).copyWith(fontFeatures: tabular);
   }
 
   /// Apply the active theme's numerals lever (R6) to [text] — swaps ASCII

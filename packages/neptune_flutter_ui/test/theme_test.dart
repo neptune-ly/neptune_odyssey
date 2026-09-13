@@ -432,6 +432,79 @@ void main() {
       });
     });
 
+    group('the ruled register (2.28.0)', () {
+      BrandprintConfig ruled(bool on) => BrandprintConfig(
+            primary: _custom.primary,
+            tertiary: _custom.tertiary,
+            // A deliberately square family, and an xxl that is still past the
+            // half-height clamp on a 48dp button - which is the whole reason
+            // this is a lever and not a reading of `corners`.
+            corners: const Corners(xs: 6, sm: 10, md: 12, lg: 16, xl: 20, xxl: 28),
+            displayWeight: _custom.displayWeight,
+            displayTracking: _custom.displayTracking,
+            fontDisplay: _custom.fontDisplay,
+            fontText: _custom.fontText,
+            fontNum: _custom.fontNum,
+            loginShell: 'paper-lockup',
+            dashboardHero: 'statement-ledger',
+            contentTone: _custom.contentTone,
+            glassTint: _custom.glassTint,
+            motion: _custom.motion,
+            motif: 'sonar-rings',
+            whiteGround: true,
+            ruledRegister: on,
+          );
+
+      test('flags bit 4 round-trips and leaves bits 0-3 alone', () {
+        final d = Brandprint.decode(Brandprint.encode(ruled(true)));
+        expect(d.ruledRegister, isTrue);
+        expect(d.whiteGround, isTrue);
+        expect(d.accentOnTertiary, isFalse);
+        expect(d.defaultDark, isFalse);
+        expect(d.defaultRtl, isFalse);
+        expect(Brandprint.decode(Brandprint.encode(ruled(false))).ruledRegister,
+            isFalse);
+      });
+
+      test('buttons are the brand md corner, not the stadium', () {
+        final on = NeptuneTheme.fromConfig(ruled(true));
+        final off = NeptuneTheme.fromConfig(ruled(false));
+        final shape = on.extension<NptShape>()!;
+
+        for (final s in [
+          on.filledButtonTheme.style!.shape!.resolve({}),
+          on.outlinedButtonTheme.style!.shape!.resolve({}),
+        ]) {
+          expect(s, isA<RoundedRectangleBorder>());
+          expect((s! as RoundedRectangleBorder).borderRadius, shape.rMd);
+        }
+        // Off is the stadium every brandprint in the wild already decodes to.
+        expect(off.filledButtonTheme.style!.shape!.resolve({}),
+            isA<StadiumBorder>());
+        expect(off.outlinedButtonTheme.style!.shape!.resolve({}),
+            isA<StadiumBorder>());
+      });
+
+      test('the lever reaches the widgets through NptIdentity', () {
+        expect(
+            NeptuneTheme.fromConfig(ruled(true))
+                .extension<NptIdentity>()!
+                .ruledRegister,
+            isTrue);
+        expect(
+            NeptuneTheme.fromConfig(ruled(false))
+                .extension<NptIdentity>()!
+                .ruledRegister,
+            isFalse);
+        // And through a dark assembly, which is a different code path.
+        expect(
+            NeptuneTheme.fromConfig(ruled(true), brightness: Brightness.dark)
+                .extension<NptIdentity>()!
+                .ruledRegister,
+            isTrue);
+      });
+    });
+
     group('NptBrandCanvas.paper (2.24.0)', () {
       test('re-tones with brightness, unlike the brand canvas', () {
         final light = NeptuneTheme.light('proteus');

@@ -1,5 +1,6 @@
 // Neptune Odyssey — Brandprint codec (reference implementation) · v1 · Neptune.Fintech
-// Deterministic, portable theme string. 28-byte fixed layout -> base64url, version "NO1-", checksummed.
+// Deterministic, portable theme string. 28-byte layout (version byte 1), or 29 bytes (version byte 2)
+// from 2.28.0 when the extension byte carries something -> base64url, prefix "NO1-", checksummed.
 // Registries are APPEND-ONLY — never reorder (indices are the wire format). See docs/11-config-hash.md.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -12,12 +13,18 @@
   const GLASS  = ["oceanic","warm-amber","violet-luminous","navy-steel"];
   const MOTION = ["smooth-fluid","calm-graceful","light-quick-crisp","stable-minimal-authoritative"];
   const MOTIF  = ["auto","sonar-rings","coastal-arcs","grid-spark","guilloche","none"]; // byte 26 (was reserved); 0 = derive from glassTint
+  const NAV    = ["raised-dock","register-bar","rule-bar"];                    // flags bits 4-5 (2.28.0); FOUR MAX
+  const AROW   = ["filled-circles","register-rows","rule-grid"];               // flags bits 6-7 (2.28.0); FOUR MAX
   const ix = (a,v)=>{ const i=a.indexOf(v); return i<0?0:i; };
   const b64url = b => (typeof btoa!=='undefined' ? btoa(String.fromCharCode.apply(null,b)) : Buffer.from(b).toString('base64')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
   const unb64url = s => { s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4)s+='='; const bin = (typeof atob!=='undefined'?atob(s):Buffer.from(s,'base64').toString('binary')); return Uint8Array.from(bin,c=>c.charCodeAt(0)); };
   function encode(cfg){
-  const buf=new Uint8Array(28), dv=new DataView(buf.buffer); let o=0;
-  buf[o++]=1;                                            // version
+  // Byte 27 is the extension byte (2.28.0). Written ONLY when it would carry something, so a config
+  // that predates it encodes to exactly the 28 bytes it always did.
+  let ext=0; if(cfg.ruledRegister)ext|=1;
+  const extended=ext!==0;
+  const buf=new Uint8Array(extended?29:28), dv=new DataView(buf.buffer); let o=0;
+  buf[o++]=extended?2:1;                                 // version
   buf[o++]=Math.round(cfg.primary.L*255);
   buf[o++]=Math.min(255,Math.round(cfg.primary.C*1000));
   dv.setUint16(o,cfg.primary.H); o+=2;
@@ -35,18 +42,25 @@
   buf[o++]=ix(TONE,cfg.contentTone);
   buf[o++]=ix(GLASS,cfg.glassTint);
   buf[o++]=ix(MOTION,cfg.motion);
-  let f=0; if(cfg.defaultDark)f|=1; if(cfg.defaultRtl)f|=2; if(cfg.accentOnTertiary)f|=4; buf[o++]=f;  // flags: bit2 = accent on tertiary (2.24.0)
+  let f=0; if(cfg.defaultDark)f|=1; if(cfg.defaultRtl)f|=2; if(cfg.accentOnTertiary)f|=4; if(cfg.whiteGround)f|=8;
+  f|=(ix(NAV,cfg.navShell||'raised-dock')&3)<<4;         // flags bits 4-5 (2.28.0)
+  f|=(ix(AROW,cfg.actionRow||'filled-circles')&3)<<6;    // flags bits 6-7 (2.28.0)
+  buf[o++]=f;                                            // flags: bit2 accent (2.24.0), bit3 whiteGround (2.25.0)
   buf[o++]=ix(MOTIF,cfg.motif||'auto');                  // motif (byte 26)
+  if(extended) buf[o++]=ext;                             // extension byte (byte 27)
   let sum=0; for(let i=0;i<o;i++) sum=(sum+buf[i])&255; buf[o++]=sum;  // checksum
-  return 'NO1-'+b64url(buf.subarray(0,28));
+  return 'NO1-'+b64url(buf);
 }
   function decode(str){
   if(!/^NO1-/.test(str)) throw new Error('bad prefix');
   const buf=unb64url(str.slice(4)), dv=new DataView(buf.buffer,buf.byteOffset,buf.byteLength);
-  if(buf.length!==28) throw new Error('bad length');
-  let sum=0; for(let i=0;i<27;i++) sum=(sum+buf[i])&255;
-  if(sum!==buf[27]) throw new Error('checksum mismatch');
-  let o=0; const v=buf[o++]; if(v!==1) throw new Error('version '+v+' unsupported');
+  if(buf.length!==28&&buf.length!==29) throw new Error('bad length');
+  const last=buf.length-1;                               // the checksum is always the final byte
+  let sum=0; for(let i=0;i<last;i++) sum=(sum+buf[i])&255;
+  if(sum!==buf[last]) throw new Error('checksum mismatch');
+  // The version byte NAMES the length: a mismatch is a truncated or padded string.
+  let o=0; const v=buf[o++]; const want = v===1?28 : v===2?29 : -1;
+  if(want!==buf.length) throw new Error('version '+v+' unsupported at '+buf.length+' bytes');
   const primary={L:buf[o++]/255, C:buf[o++]/1000, H:(dv.getUint16(o),(o+=2,dv.getUint16(o-2)))};
   const tertiary={L:buf[o++]/255, C:buf[o++]/1000, H:(o+=2,dv.getUint16(o-2))};
   const corners={}; for(const k of ['xs','sm','md','lg','xl','xxl']) corners[k]=buf[o++];
@@ -55,9 +69,12 @@
   const fonts={display:FONTS[buf[o++]], text:FONTS[buf[o++]], num:FONTS[buf[o++]]};
   const loginShell=LOGIN[buf[o++]], dashboardHero=HERO[buf[o++]], contentTone=TONE[buf[o++]], glassTint=GLASS[buf[o++]], motion=MOTION[buf[o++]];
   const f=buf[o++]; const motif=MOTIF[buf[o++]];
+  const ext = buf.length===29 ? buf[o++] : 0;            // absent on a 28-byte payload
   return { version:v, primary, tertiary, corners, displayWeight, displayTracking, fonts,
            loginShell, dashboardHero, contentTone, glassTint, motion,
-           defaultDark:!!(f&1), defaultRtl:!!(f&2), motif, accentOnTertiary:!!(f&4) };
+           defaultDark:!!(f&1), defaultRtl:!!(f&2), motif, accentOnTertiary:!!(f&4),
+           whiteGround:!!(f&8), navShell:NAV[(f>>4)&3]||NAV[0], actionRow:AROW[(f>>6)&3]||AROW[0],
+           ruledRegister:!!(ext&1) };
 }
-  return { encode: encode, decode: decode, VERSION: 1, registries: { FONTS, LOGIN, HERO, TONE, GLASS, MOTION, MOTIF } };
+  return { encode: encode, decode: decode, VERSION: 1, registries: { FONTS, LOGIN, HERO, TONE, GLASS, MOTION, MOTIF, NAV_SHELL: NAV, ACTION_ROW: AROW } };
 }));

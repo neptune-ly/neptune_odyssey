@@ -31,9 +31,56 @@
     handset the first thing to slide into it was a transaction divider, drawing a stray hairline
     beside the home pill. The inset belongs inside `Container(color: surface)`, so it lives in
     `.register` / `.rule` rather than in every host that adopts them.
-  - Mirrored in the TypeScript reference (`neptune_tokens` `registries.ts` / `codec.ts`).
-    **The KMP port is NOT updated yet** — `Brandprint.kt` still ignores the nibble, which is safe
-    (it decodes the default) but means a Compose host cannot read either lever.
+- **The ruled register: `ruledRegister`, and the payload that had to grow to hold it.** The white
+  register landed in 2.25.0 and reached the page ground and the field fill — and then stopped. Every
+  surface a customer actually looks at on a signed-in screen was still a tone-filled slab, so a bank
+  could declare the white, structural register and still ship its sibling's cards. `ruledRegister`
+  finishes it: buttons are ruled rectangles at the brand's **own `md` corner** instead of stadium
+  pills, and the grouped surfaces — `NeptuneListTile`, `NeptuneAccountTile`, `NeptuneDetailList` —
+  are hairline-ruled groups **on** the page instead of tone-filled cards floating on it.
+  - The button half is genuinely not derivable from `corners`. Flutter clamps a radius to half the
+    height, so 44 (a round brand) and 28 (a square one) both resolve to the same pill on a 52dp
+    button: the corner family cannot express the distinction. That is how six declared numbers
+    reached cards, sheets, fields and chips and stopped at the one component a customer touches on
+    every screen. So it is **declared, not inferred** — the same rule that made `motif` its own
+    lever in 2.24.0 rather than a thing read off `glassTint`. Deriving it from `whiteGround` would
+    have been one line and would have taken the choice away from the two banks that want the white
+    ground and keep their cards.
+  - **`ruledRegister` and `navShell` were authored against the same bit.** Two design branches each
+    claimed flags bit 4, independently, because the flags byte looked like it still had room and
+    then did not: bits 0-3 are the existing booleans, bits 4-7 are the two registries above, byte 26
+    is the motif. No spare bit, no spare byte. The resolution is **not** to cram — a bit that means
+    two things is a bug with a scheduled delivery date — but to do what 2.24.0 did when it claimed
+    the reserved byte, only one step further: **grow the payload.**
+  - **28 bytes (version byte `1`) or 29 bytes (version byte `2`).** The 29-byte layout keeps bytes
+    0-26 exactly as they are, adds an **extension flags** byte at 27 (bit 0 `ruledRegister`, bits
+    1-7 reserved and written `0`), and moves the checksum to byte 28 — it is always the last byte.
+    `encode` emits the long form **only when the extension byte would carry something**, so a config
+    that sets no extension flag produces the identical 28 bytes it produced in 2.27.0. The version
+    byte and the length must **agree**, so a truncated or padded payload is rejected rather than
+    decoding as a plausible neighbour. The `NO1-` prefix does not move: it is the codec family, and
+    `NO2-` stays reserved for a genuinely breaking change (a reordered or removed registry). Growth
+    that leaves old strings decoding unchanged is a version byte, not a new prefix.
+  - **Proven on the banks, not on a synthetic.** `test/brandprint_production_test.dart` carries the
+    three brandprints that are actually in production — Andalus, Nuran, FGLB — copied from the app's
+    `lib/core/brand/brandprints.dart`, alongside the exact strings a worktree at tag `v2.27.0`
+    encodes them to. It asserts byte-identical re-encoding, a 28-byte payload on version byte 1, a
+    decode that returns every lever including the 2.28.0 ones at their index-0 defaults, and
+    `encode(decode(x)) == x`. A value this tree produced could not have proved this tree did not
+    shift it, which is why the expected strings come from the old tag.
+  - Mirrored in the TypeScript reference (`neptune_tokens` `registries.ts` / `codec.ts`) **and** in
+    `tools/brandprint.reference.js`, which had silently drifted three releases: it never learned
+    `whiteGround` (2.25.0) or the 2.28.0 nibble, and `neptune_tokens`' golden suite had been failing
+    four parity assertions against it. The vendored copy the test loads
+    (`packages/neptune_tokens/assets/brandprint.reference.cjs`) is synced in the same change, and
+    that suite is green again: **75 pass, 0 fail** (was 61 pass, 4 fail).
+  - **The KMP port is NOT updated, for either half of this release.** `Brandprint.kt` still reads a
+    28-byte payload only: it ignores the flags high nibble and knows nothing about the extension
+    byte, so a Compose host decodes `raised-dock` / `filled-circles` / `ruledRegister: false` and —
+    worse — **throws `bad length` on a 29-byte brandprint** rather than degrading to the defaults.
+    That is safe for the three banks in production, none of which sets an extension flag, but it
+    means a brandprint carrying the ruled register cannot be read by a Compose host at all. Naming
+    it here rather than letting it drift silently; it is the next port's first task.
 
 ## 2.27.0
 

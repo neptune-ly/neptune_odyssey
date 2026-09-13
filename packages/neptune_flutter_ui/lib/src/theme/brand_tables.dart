@@ -215,5 +215,6 @@ NptIdentity identityFor(BrandprintConfig cfg) {
     contentTone: cfg.contentTone,
     navShell: cfg.navShell,
     actionRow: cfg.actionRow,
+    ruledRegister: cfg.ruledRegister,
   );
 }

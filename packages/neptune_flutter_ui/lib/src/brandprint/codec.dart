@@ -1,9 +1,11 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 //
 // Brandprint codec (Dart port). Faithful, byte-identical port of the TypeScript
-// reference (packages/neptune_tokens/src/brandprint/codec.ts). 28-byte fixed
-// layout -> base64url, version "NO1-", checksummed. Golden-tested against the
-// four reference brands. See docs/11-config-hash.md for the wire format.
+// reference (packages/neptune_tokens/src/brandprint/codec.ts). 28-byte layout
+// (version byte 1) or, from 2.28.0, 29 bytes (version byte 2) when the
+// extension byte carries something -> base64url, prefix "NO1-", checksummed.
+// Golden-tested against the four reference brands AND against the three
+// brandprints live in production. See docs/11-config-hash.md.
 
 import 'dart:convert';
 import 'dart:typed_data';
@@ -217,6 +219,35 @@ class BrandprintConfig {
   /// decodes to.
   final String actionRow;
 
+  /// Byte 27 (the extension byte), bit 0 (2.28.0). THE RULED REGISTER: this brand draws structure in
+  /// LINES rather than in filled slabs. Buttons are ruled rectangles at the
+  /// brand's own `md` corner instead of stadium pills, and the grouped
+  /// surfaces - list tile, account tile, detail list - are hairline-ruled
+  /// groups on the page instead of tone-filled cards floating on it.
+  ///
+  /// It is the other half of [whiteGround], which already says structure is
+  /// drawn in lines and then only reaches the page ground and the field fill.
+  /// Everything a customer actually looks at on a signed-in screen stayed a
+  /// tone-filled slab, so a brand could declare the white register and still
+  /// ship its sibling's cards.
+  ///
+  /// The button half is not derivable from [corners]. Flutter clamps a radius
+  /// to half the height, so 44 (a round brand) and 28 (a square one) both
+  /// resolve to the same pill on a 52dp button: the corner family cannot
+  /// express the distinction on its own, which is why six declared numbers
+  /// reached cards, sheets, fields and chips and stopped at the one component
+  /// a customer touches on every screen.
+  ///
+  /// It does NOT ride the flags byte: bits 4-7 are the two composition
+  /// registries above and byte 26 is the motif, so the 28-byte layout was
+  /// genuinely full. It rides the EXTENSION byte the payload grew instead -
+  /// see [Brandprint] for why that keeps every string already in the wild
+  /// byte-identical.
+  ///
+  /// False, which every pre-2.28.0 string decodes to, keeps the stadium and
+  /// the filled slabs.
+  final bool ruledRegister;
+
   const BrandprintConfig({
     this.version = 1,
     required this.primary,
@@ -239,6 +270,7 @@ class BrandprintConfig {
     this.whiteGround = false,
     this.navShell = 'raised-dock',
     this.actionRow = 'filled-circles',
+    this.ruledRegister = false,
   });
 
   @override
@@ -264,7 +296,8 @@ class BrandprintConfig {
       other.accentOnTertiary == accentOnTertiary &&
       other.whiteGround == whiteGround &&
       other.navShell == navShell &&
-      other.actionRow == actionRow;
+      other.actionRow == actionRow &&
+      other.ruledRegister == ruledRegister;
 
   @override
   int get hashCode => Object.hashAll([
@@ -289,16 +322,49 @@ class BrandprintConfig {
         whiteGround,
         navShell,
         actionRow,
+        ruledRegister,
       ]);
 }
 
 /// Encode/decode the portable `NO1-…` brandprint string.
+///
+/// TWO LENGTHS, ONE PREFIX (2.28.0). The payload was 28 bytes and, once
+/// [kNavShells] and [kActionRows] took the free high nibble of the flags byte
+/// and 2.24.0 took the reserved motif byte, it was genuinely full - no spare
+/// bit, no spare byte. Rather than cram a second meaning onto a bit that
+/// already has one, the payload GREW by one byte:
+///
+/// * **version byte 1 -> 28 bytes**, laid out exactly as before: byte 27 is
+///   the checksum. Every brandprint issued before this release is this, and
+///   decodes byte-for-byte to the config it always did.
+/// * **version byte 2 -> 29 bytes**: bytes 0-26 unchanged, byte 27 is a new
+///   EXTENSION FLAGS byte (bit 0 [BrandprintConfig.ruledRegister], bits 1-7
+///   reserved and written as 0), byte 28 is the checksum.
+///
+/// [encode] emits the 29-byte form ONLY when the extension byte would carry
+/// something. A config that sets no extension flag encodes to the identical
+/// 28 bytes it encoded to in 2.27.0, so `encode(decode(x)) == x` still holds
+/// for every string in the wild and no bank's brandprint shifts.
+///
+/// The version byte and the length must AGREE - a 29-byte payload claiming
+/// version 1, or a 28-byte one claiming version 2, is rejected, so a
+/// truncated or padded string cannot decode as a plausible neighbour. The
+/// `NO1-` prefix is the codec FAMILY, not the layout: it changes only for a
+/// genuinely breaking change (a reordered or removed registry), which is what
+/// `NO2-` is reserved for. Growth that leaves old strings decoding unchanged
+/// is a version byte, not a new prefix.
 class Brandprint {
   Brandprint._();
 
+  /// The version byte of the original 28-byte layout.
   static const int version = 1;
+
+  /// The version byte of the 29-byte layout, which carries the extension byte.
+  static const int versionExtended = 2;
+
   static const String _prefix = 'NO1-';
   static const int _payloadBytes = 28;
+  static const int _payloadBytesExtended = 29;
 
   static int _ix(List<String> arr, String v) {
     final i = arr.indexOf(v);
@@ -318,10 +384,15 @@ class Brandprint {
 
   /// Encode a config to its `NO1-…` brandprint string.
   static String encode(BrandprintConfig cfg) {
-    final buf = Uint8List(_payloadBytes);
+    // The extension byte is written only when it would carry something, so a
+    // config that predates it produces exactly the 28 bytes it always did.
+    var ext = 0;
+    if (cfg.ruledRegister) ext |= 1;
+    final extended = ext != 0;
+    final buf = Uint8List(extended ? _payloadBytesExtended : _payloadBytes);
     final dv = ByteData.view(buf.buffer);
     var o = 0;
-    buf[o++] = version;
+    buf[o++] = extended ? versionExtended : version;
     buf[o++] = (cfg.primary.l * 255).round();
     buf[o++] = (cfg.primary.c * 1000).round().clamp(0, 255);
     dv.setUint16(o, cfg.primary.h, Endian.big);
@@ -357,6 +428,7 @@ class Brandprint {
     f |= (_ix(kActionRows, cfg.actionRow) & 3) << 6;
     buf[o++] = f;
     buf[o++] = _ix(kMotifs, cfg.motif);
+    if (extended) buf[o++] = ext; // byte 27, the extension byte
     var sum = 0;
     for (var i = 0; i < o; i++) {
       sum = (sum + buf[i]) & 255;
@@ -372,21 +444,26 @@ class Brandprint {
       throw const FormatException('bad prefix');
     }
     final buf = _fromBase64Url(str.substring(4));
-    if (buf.length != _payloadBytes) {
+    if (buf.length != _payloadBytes && buf.length != _payloadBytesExtended) {
       throw const FormatException('bad length');
     }
     final dv = ByteData.view(buf.buffer, buf.offsetInBytes, buf.lengthInBytes);
+    final last = buf.length - 1; // the checksum is always the final byte
     var sum = 0;
-    for (var i = 0; i < 27; i++) {
+    for (var i = 0; i < last; i++) {
       sum = (sum + buf[i]) & 255;
     }
-    if (sum != buf[27]) {
+    if (sum != buf[last]) {
       throw const FormatException('checksum mismatch');
     }
     var o = 0;
     final ver = buf[o++];
-    if (ver != version) {
-      throw FormatException('version $ver unsupported');
+    // The version byte NAMES the length. Accepting a mismatch would let a
+    // truncated or padded payload decode as a plausible neighbour.
+    final expected =
+        ver == version ? _payloadBytes : (ver == versionExtended ? _payloadBytesExtended : -1);
+    if (expected != buf.length) {
+      throw FormatException('version $ver unsupported at ${buf.length} bytes');
     }
     final primary = Seed(
       l: buf[o++] / 255,
@@ -419,6 +496,9 @@ class Brandprint {
     final motion = kMotions[buf[o++]];
     final f = buf[o++];
     final motif = kMotifs[buf[o++]];
+    // Absent on a 28-byte payload, which is exactly how every pre-2.28.0
+    // string decodes to the defaults it always had.
+    final ext = buf.length == _payloadBytesExtended ? buf[o++] : 0;
     return BrandprintConfig(
       version: ver,
       primary: primary,
@@ -441,6 +521,7 @@ class Brandprint {
       whiteGround: (f & 8) != 0,
       navShell: kNavShells[((f >> 4) & 3).clamp(0, kNavShells.length - 1)],
       actionRow: kActionRows[((f >> 6) & 3).clamp(0, kActionRows.length - 1)],
+      ruledRegister: (ext & 1) != 0,
     );
   }
 }

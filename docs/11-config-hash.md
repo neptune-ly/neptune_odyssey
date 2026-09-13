@@ -12,11 +12,30 @@ The **inputs** a theme is generated from — not the resolved palette (that's re
 - **Shape** — the six corner values `xs sm md lg xl xxl` (px).
 - **Type** — `display / text / num` font (registry index) + `displayWeight` + `displayTracking`.
 - **Levers (enums)** — `loginShell`, `dashboardHero`, `contentTone`, `glassTint`, `motion`, `motif` (2.24.0; `auto` = derive from `glassTint`).
-- **Flags** — default dark, default RTL, accent-on-tertiary (2.24.0: the tertiary seed is a direction/confirmation accent that feeds no Material role).
+- **Flags** — default dark, default RTL, accent-on-tertiary (2.24.0), white ground (2.25.0), `navShell` / `actionRow` (2.28.0, two bits each in the flags byte's high nibble).
+- **Extension flags** (2.28.0, byte 27, only present on a 29-byte payload) — `ruledRegister`.
 
-## Wire format (v1)
+## Wire format
 
-`NO1-` + base64url( 28-byte payload ). Version-tagged, fixed offsets, last byte is a checksum.
+`NO1-` + base64url( payload ). Version-tagged, fixed offsets, **last byte is always the checksum.**
+
+There are two payload lengths, and the version byte names which one you are holding:
+
+| version byte | payload | layout |
+|---:|---:|---|
+| `1` | 28 bytes | the original. Byte 27 is the checksum. |
+| `2` | 29 bytes | 2.28.0. Bytes 0-26 unchanged, byte 27 is the **extension flags** byte, byte 28 is the checksum. |
+
+`encode` emits the 29-byte form **only when the extension byte would carry something**, so a config
+that sets no extension flag produces the identical 28 bytes it produced in 2.27.0 — every brandprint
+already in the wild, the three banks in production included, is byte-for-byte unchanged
+(`packages/neptune_flutter_ui/test/brandprint_production_test.dart` asserts exactly that against
+their real strings). A version byte that disagrees with the length is rejected, so a truncated or
+padded payload cannot decode as a plausible neighbour.
+
+The `NO1-` prefix is the codec **family**, not the layout. It changes only for a genuinely breaking
+change — a reordered or removed registry — which is what `NO2-` is reserved for. Additive growth
+that leaves old strings decoding unchanged is a version byte, not a new prefix.
 
 | Off | Bytes | Field | Encoding |
 |----:|------:|-------|----------|
@@ -36,9 +55,11 @@ The **inputs** a theme is generated from — not the resolved palette (that's re
 | 22 | 1 | contentTone | TONE index |
 | 23 | 1 | glassTint | GLASS index |
 | 24 | 1 | motion | MOTION index |
-| 25 | 1 | flags | bit0 defaultDark, bit1 defaultRtl, bit2 accentOnTertiary (2.24.0 — every older string has it clear, so decodes unchanged) |
+| 25 | 1 | flags | bit0 defaultDark, bit1 defaultRtl, bit2 accentOnTertiary (2.24.0), bit3 whiteGround (2.25.0), bits **4-5** navShell, bits **6-7** actionRow (2.28.0 — index 0 on both, so every older string decodes unchanged). **This byte is now FULL.** |
 | 26 | 1 | motif | MOTIF index (`0` = `auto`, derive from glassTint — the byte was reserved and always `0` before 2.24.0, so every older string decodes unchanged) |
-| 27 | 1 | checksum | `sum(bytes[0..26]) mod 256` |
+| 27 | 1 | checksum (v1) | `sum(bytes[0..26]) mod 256` |
+| 27 | 1 | extension flags (v2) | bit0 `ruledRegister` (2.28.0); bits 1-7 reserved, written `0` |
+| 28 | 1 | checksum (v2) | `sum(bytes[0..27]) mod 256` |
 
 Result is ~42 characters. Seeds are quantised (L ±1/255 ≈ 0.4%, C ±0.001, tracking ±0.001em) — imperceptible for a seed, and the codec is **idempotent** (`encode(decode(x)) === x`).
 
@@ -57,7 +78,12 @@ TONE   = [clear-calm, warm-hospitable, light-instant, formal-authoritative]
 GLASS  = [oceanic, warm-amber, violet-luminous, navy-steel]
 MOTION = [smooth-fluid, calm-graceful, light-quick-crisp, stable-minimal-authoritative]
 MOTIF  = [auto, sonar-rings, coastal-arcs, grid-spark, guilloche, none]
+NAV_SHELL  = [raised-dock, register-bar, rule-bar]      # flags bits 4-5 — FOUR ENTRIES MAX
+ACTION_ROW = [filled-circles, register-rows, rule-grid]  # flags bits 6-7 — FOUR ENTRIES MAX
 ```
+
+`NAV_SHELL` and `ACTION_ROW` are **two bits each, not a byte**. A fifth entry in either needs a
+format change, not a list append — that is the cost of having spent the last free nibble.
 
 ## Determinism — the contract that makes it work
 

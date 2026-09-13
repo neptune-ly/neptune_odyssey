@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
+import '../theme/identity.dart';
 import '../theme/neptune_theme.dart';
 import 'neptune_icon_slot.dart';
 
@@ -74,9 +75,22 @@ class NeptuneAccountTile extends StatelessWidget {
       '${strings.balance} ${NeptuneAccessibility.money(context, balance, currency: currency)}',
     ].join(', ');
 
+    // THE RULED REGISTER (`NptIdentity.ruledRegister`). A brand that draws
+    // structure in lines gets the same row with no slab under it and a
+    // hairline around it: the tone step is what makes a tile read as a card
+    // floating on the page, and removing it is what makes it read as a row
+    // ruled onto it. Everything else - the glyph, the measure, the tabular
+    // balance at the end edge - is identical, so the two registers stay one
+    // component rather than two.
+    final ruled = Theme.of(context).extension<NptIdentity>()!.ruledRegister;
     return Material(
-      color: scheme.surfaceContainerLow,
-      borderRadius: shape.rMd,
+      color: ruled ? Colors.transparent : scheme.surfaceContainerLow,
+      shape: ruled
+          ? RoundedRectangleBorder(
+              borderRadius: shape.rMd,
+              side: BorderSide(color: scheme.outlineVariant),
+            )
+          : RoundedRectangleBorder(borderRadius: shape.rMd),
       clipBehavior: Clip.antiAlias,
       child: Semantics(
         button: onTap != null,
@@ -96,14 +110,21 @@ class NeptuneAccountTile extends StatelessWidget {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: scheme.primaryContainer,
+                    // A filled chip inside a ruled row is a second slab
+                    // smuggled back in - and on this component the only one
+                    // left, so it becomes the loudest object in the group.
+                    color: ruled ? null : scheme.primaryContainer,
                     borderRadius: shape.rSm,
+                    border: ruled
+                        ? Border.all(color: scheme.outlineVariant)
+                        : null,
                   ),
                   alignment: AlignmentDirectional.center,
                   child: NeptuneIconSlot(
                     icon: icon,
                     iconWidget: iconWidget,
-                    color: scheme.onPrimaryContainer,
+                    color:
+                        ruled ? scheme.primary : scheme.onPrimaryContainer,
                   ),
                 ),
                 const SizedBox(width: 16),
