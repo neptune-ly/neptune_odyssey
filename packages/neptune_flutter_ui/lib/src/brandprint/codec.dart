@@ -86,6 +86,45 @@ const List<String> kMotifs = [
   'none',
 ];
 
+/// Append-only navigation-shell registry - flags bits 4-5 (2.28.0). The bar a
+/// bank's signed-in app stands on, which until now every bank inherited from
+/// Andalus:
+///
+/// * `raised-dock` - the floating glass pill, the active item lifted into a
+///   filled circle. Index 0, so every brandprint already in the wild decodes
+///   to exactly the dock it has today.
+/// * `register-bar` - a flat, full-width bar on one `outlineVariant`
+///   hairline. No pill, no float, no fill: the active item is marked by
+///   weight and the brand colour, nothing else.
+/// * `rule-bar` - a full-width bar under a rule, the active item marked by a
+///   segment of that rule in the brand's accent. Structure drawn in lines.
+///
+/// FOUR ENTRIES MAX: this registry is two bits on the wire (the 28-byte
+/// layout has no spare byte left), so a fifth shell needs a format bump, not
+/// another list entry.
+const List<String> kNavShells = [
+  'raised-dock',
+  'register-bar',
+  'rule-bar',
+];
+
+/// Append-only quick-action-row registry - flags bits 6-7 (2.28.0). The
+/// treatment behind a home quick action:
+///
+/// * `filled-circles` - the tonal `secondaryContainer` circle behind every
+///   glyph. Index 0: what every existing brandprint already draws.
+/// * `register-rows` - no chip at all. One strip ruled top and bottom, the
+///   actions divided by hairlines, like a column header in a ledger.
+/// * `rule-grid` - each action in its own hairline cell, and the FIRST action
+///   - the one that moves the customer forward - carries the brand accent.
+///
+/// FOUR ENTRIES MAX, for the same reason as [kNavShells].
+const List<String> kActionRows = [
+  'filled-circles',
+  'register-rows',
+  'rule-grid',
+];
+
 /// An OKLCH seed colour (perceptual lightness, chroma, hue degrees).
 class Seed {
   final double l;
@@ -169,6 +208,15 @@ class BrandprintConfig {
   /// string decodes to, keeps the tinted ground and the filled fields.
   final bool whiteGround;
 
+  /// One of [kNavShells], flags bits 4-5 (2.28.0). The signed-in bar. Index 0
+  /// (`raised-dock`) is what every pre-2.28.0 string decodes to.
+  final String navShell;
+
+  /// One of [kActionRows], flags bits 6-7 (2.28.0). The home quick-action
+  /// treatment. Index 0 (`filled-circles`) is what every pre-2.28.0 string
+  /// decodes to.
+  final String actionRow;
+
   const BrandprintConfig({
     this.version = 1,
     required this.primary,
@@ -189,6 +237,8 @@ class BrandprintConfig {
     this.defaultRtl = false,
     this.accentOnTertiary = false,
     this.whiteGround = false,
+    this.navShell = 'raised-dock',
+    this.actionRow = 'filled-circles',
   });
 
   @override
@@ -212,7 +262,9 @@ class BrandprintConfig {
       other.defaultDark == defaultDark &&
       other.defaultRtl == defaultRtl &&
       other.accentOnTertiary == accentOnTertiary &&
-      other.whiteGround == whiteGround;
+      other.whiteGround == whiteGround &&
+      other.navShell == navShell &&
+      other.actionRow == actionRow;
 
   @override
   int get hashCode => Object.hashAll([
@@ -235,6 +287,8 @@ class BrandprintConfig {
         defaultRtl,
         accentOnTertiary,
         whiteGround,
+        navShell,
+        actionRow,
       ]);
 }
 
@@ -296,6 +350,11 @@ class Brandprint {
     if (cfg.defaultRtl) f |= 2;
     if (cfg.accentOnTertiary) f |= 4;
     if (cfg.whiteGround) f |= 8;
+    // The high nibble carries the two composition shells, two bits each. The
+    // 28-byte layout is full, and both registries default to index 0, so
+    // every brandprint issued before 2.28.0 encodes and decodes unchanged.
+    f |= (_ix(kNavShells, cfg.navShell) & 3) << 4;
+    f |= (_ix(kActionRows, cfg.actionRow) & 3) << 6;
     buf[o++] = f;
     buf[o++] = _ix(kMotifs, cfg.motif);
     var sum = 0;
@@ -380,6 +439,8 @@ class Brandprint {
       defaultRtl: (f & 2) != 0,
       accentOnTertiary: (f & 4) != 0,
       whiteGround: (f & 8) != 0,
+      navShell: kNavShells[((f >> 4) & 3).clamp(0, kNavShells.length - 1)],
+      actionRow: kActionRows[((f >> 6) & 3).clamp(0, kActionRows.length - 1)],
     );
   }
 }

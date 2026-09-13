@@ -1,3 +1,40 @@
+## 2.28.0
+
+- **Two more composition levers: `navShell` and `actionRow`.** The lesson of 2.24.0 was that hue is
+  not identity, composition is — and it was only half-applied. A brand could pick its own pre-login
+  shell and its own dashboard hero, and then every white-label bank wore the SAME bar underneath:
+  the floating glass pill with the raised circular active button, which is one bank's signature, not
+  a neutral default. Same for the home quick actions, where a pale `secondaryContainer` circle sat
+  behind every glyph on every brand and said nothing about any of them. A greyscale screenshot of
+  two banks' chrome was indistinguishable. Now:
+  - `NeptuneDock(shell:)` — `NeptuneDockShell.raised` (the floating glass pill, unchanged and still
+    the default), `.register` (a flat, full-width bar on one `outlineVariant` hairline: no pill, no
+    float, no fill, the active item marked by weight and the brand colour so it survives greyscale)
+    and `.rule` (a full-width bar under a rule, the active item claiming its segment of that rule in
+    `NptColors.accent` — structure drawn in lines, and the accent used as direction, its one job).
+  - `NeptuneQuickActions(shell:)` — `.filledCircles` (the tonal chip, unchanged and the default),
+    `.registerRows` (no chip: one strip ruled top and bottom, actions divided by hairlines) and
+    `.ruleGrid` (a hairline cell per action, the FIRST action — the one that moves the customer
+    forward — carrying the accent). The row publishes the shell to its children through an inherited
+    scope, so a host still hands over a plain `List<NeptuneQuickAction>`.
+  - The levers are data: `kNavShells` / `kActionRows` in the codec, `NptIdentity.navShell` /
+    `.actionRow` on the theme. **The 28-byte wire layout had no spare byte**, so both ride the free
+    high nibble of the flags byte, two bits each — index 0 on both is exactly today's composition,
+    so every brandprint already in the wild encodes and decodes byte-identically. Two bits means
+    FOUR entries max per registry; a fifth shell needs a format bump, not a list entry.
+  - A widget never reads the lever string itself. The host parses its brandprint's lever once, at
+    one place, and passes the enum — so a lever name no template exists for fails at the host's
+    parse instead of silently drawing the default (the "capability that gates nothing" bug).
+  - **A flat bar eats the bottom safe area inside its own fill.** The floating dock is inset by the
+    host, so the obvious thing was to let the host pad the flat bars too — and that leaves a
+    transparent strip under a bar the page scrolls behind (`extendBody: true`). On a gesture-nav
+    handset the first thing to slide into it was a transaction divider, drawing a stray hairline
+    beside the home pill. The inset belongs inside `Container(color: surface)`, so it lives in
+    `.register` / `.rule` rather than in every host that adopts them.
+  - Mirrored in the TypeScript reference (`neptune_tokens` `registries.ts` / `codec.ts`).
+    **The KMP port is NOT updated yet** — `Brandprint.kt` still ignores the nibble, which is safe
+    (it decodes the default) but means a Compose host cannot read either lever.
+
 ## 2.27.0
 
 - **Accessibility: the widget set speaks.** 2.23.0 shipped `Semantics` in two of twenty-seven

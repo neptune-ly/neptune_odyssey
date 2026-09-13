@@ -5,6 +5,49 @@ import 'package:flutter/material.dart';
 import '../theme/extensions.dart';
 import 'neptune_icon_slot.dart';
 
+/// How a row of quick actions is composed — the `actionRow` lever (codec
+/// `kActionRows`), rendered.
+///
+/// The pale tonal circle behind every glyph carries no information: it is the
+/// same shape, the same size and the same role colour for "transfer" as for
+/// "services", and it was identical on every white-label bank. These three
+/// are compositions, not tints.
+enum NeptuneQuickActionShell {
+  /// The tonal `secondaryContainer` circle behind each glyph. The default,
+  /// and what every host that names no shell keeps.
+  filledCircles,
+
+  /// No chip. One strip ruled top and bottom, the actions divided by
+  /// hairlines — the column header of a register.
+  registerRows,
+
+  /// Each action in its own hairline cell, and the FIRST action — the one
+  /// that moves the customer forward — marked in the brand's accent. The
+  /// host orders its actions so the forward one leads.
+  ruleGrid,
+}
+
+/// Carries the row's composition down to each [NeptuneQuickAction], so the
+/// host keeps handing over a plain list of actions and no action has to be
+/// told which bank it belongs to.
+class _QuickActionShellScope extends InheritedWidget {
+  final NeptuneQuickActionShell shell;
+  final bool lead;
+
+  const _QuickActionShellScope({
+    required this.shell,
+    required this.lead,
+    required super.child,
+  });
+
+  static _QuickActionShellScope? maybeOf(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<_QuickActionShellScope>();
+
+  @override
+  bool updateShouldNotify(_QuickActionShellScope old) =>
+      old.shell != shell || old.lead != lead;
+}
+
 /// A single quick action: a circular tonal icon chip above a short label.
 ///
 /// Mirrors the web `<npt-quick-action>` tonal treatment — a
@@ -48,6 +91,119 @@ class NeptuneQuickAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scope = _QuickActionShellScope.maybeOf(context);
+    return switch (scope?.shell ?? NeptuneQuickActionShell.filledCircles) {
+      NeptuneQuickActionShell.filledCircles => _buildChip(context),
+      NeptuneQuickActionShell.registerRows => _buildBare(context),
+      NeptuneQuickActionShell.ruleGrid =>
+        _buildCell(context, lead: scope?.lead ?? false),
+    };
+  }
+
+  /// The quiet register: the mark and its label on the page itself, no chip
+  /// to draw a shape that says nothing.
+  Widget _buildBare(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return _tappable(
+      context,
+      Padding(
+        padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 26,
+              child: Center(
+                child: NeptuneIconSlot(
+                  icon: icon,
+                  iconWidget: iconWidget,
+                  size: 24,
+                  color: scheme.onSurface,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            _caption(textTheme, scheme.onSurfaceVariant),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Line structure: a hairline cell per action, and the accent spent once on
+  /// the [lead] one — the action that moves the customer forward.
+  Widget _buildCell(BuildContext context, {required bool lead}) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final shape = theme.extension<NptShape>()!;
+    final accent = theme.extension<NptColors>()!.accent;
+    final textTheme = theme.textTheme;
+    final mark = lead ? accent : scheme.onSurface;
+
+    return _tappable(
+      context,
+      DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: shape.rSm,
+          border: Border.all(
+            color: lead ? accent : scheme.outlineVariant,
+            width: 1,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(vertical: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 26,
+                child: Center(
+                  child: NeptuneIconSlot(
+                    icon: icon,
+                    iconWidget: iconWidget,
+                    size: 24,
+                    color: mark,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              _caption(textTheme, lead ? accent : scheme.onSurfaceVariant),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _caption(TextTheme textTheme, Color color) => Text(
+        label,
+        maxLines: 1,
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
+        style: textTheme.labelMedium?.copyWith(color: color),
+      );
+
+  /// The chip and its caption are one button named by the caption — the same
+  /// semantics wrapper every shell wears.
+  Widget _tappable(BuildContext context, Widget child) {
+    final shape = Theme.of(context).extension<NptShape>()!;
+    return Semantics(
+      button: true,
+      enabled: onTap != null,
+      label: label,
+      excludeSemantics: true,
+      onTap: onTap,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: shape.rSm,
+        child: child,
+      ),
+    );
+  }
+
+  Widget _buildChip(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final shape = Theme.of(context).extension<NptShape>()!;
     final textTheme = Theme.of(context).textTheme;
@@ -117,14 +273,20 @@ class NeptuneQuickActions extends StatelessWidget {
   /// The number of actions per row before wrapping. Defaults to 4.
   final int columns;
 
+  /// The composition — see [NeptuneQuickActionShell]. The host reads its
+  /// brandprint's `actionRow` lever once and passes the result here.
+  final NeptuneQuickActionShell shell;
+
   const NeptuneQuickActions({
     super.key,
     required this.actions,
     this.columns = 4,
+    this.shell = NeptuneQuickActionShell.filledCircles,
   });
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     final perRow = columns < 1 ? 1 : columns;
 
     final rows = <Widget>[];
@@ -133,25 +295,66 @@ class NeptuneQuickActions extends StatelessWidget {
           (start + perRow) < actions.length ? start + perRow : actions.length;
       final slice = actions.sublist(start, end);
 
+      final gridded = shell == NeptuneQuickActionShell.ruleGrid;
+      final ruled = shell == NeptuneQuickActionShell.registerRows;
+
       final cells = <Widget>[
-        for (final action in slice) Expanded(child: action),
+        for (final (i, action) in slice.indexed) ...[
+          // The hairline between two register cells belongs to neither of
+          // them, so it is drawn here rather than as a border on both.
+          if (ruled && i > 0)
+            Container(width: 1, color: scheme.outlineVariant),
+          if (gridded && i > 0) const SizedBox(width: 10),
+          Expanded(
+            child: _QuickActionShellScope(
+              shell: shell,
+              lead: start + i == 0,
+              child: action,
+            ),
+          ),
+        ],
         // Pad the final row so trailing cells keep their natural width.
-        for (var i = slice.length; i < perRow; i++)
+        for (var i = slice.length; i < perRow; i++) ...[
+          if (gridded) const SizedBox(width: 10),
           const Expanded(child: SizedBox.shrink()),
+        ],
       ];
 
       if (rows.isNotEmpty) rows.add(const SizedBox(height: 16));
       rows.add(
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: cells,
-        ),
+        // The register strip's dividers run the full height of the tallest
+        // cell, which needs a bounded height — a stretched Row in an
+        // unbounded box is the trap the rulebook names.
+        ruled
+            ? IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: cells,
+                ),
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: cells,
+              ),
       );
     }
 
-    return Column(
+    final body = Column(
       mainAxisSize: MainAxisSize.min,
       children: rows,
+    );
+
+    if (shell != NeptuneQuickActionShell.registerRows) return body;
+
+    // Ruled top and bottom: the strip is one entry in the register, not four
+    // floating chips.
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.symmetric(
+          horizontal: BorderSide(color: scheme.outlineVariant, width: 1),
+        ),
+      ),
+      child: body,
     );
   }
 }

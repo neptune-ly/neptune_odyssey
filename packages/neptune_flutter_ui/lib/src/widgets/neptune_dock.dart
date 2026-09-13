@@ -41,10 +41,35 @@ class NeptuneDockItem {
         );
 }
 
-/// The floating glass dock (web `<npt-dock>`): a backdrop-blurred
-/// surface-container pane with a hairline border and soft elevation, where the
-/// active item lifts into a filled accent circle — the signature "raised
-/// active" indicator, sprung on the brand's motion curve. Theme-only, RTL-safe.
+/// Which bar a brand's signed-in app stands on — the `navShell` lever
+/// (codec `kNavShells`), rendered.
+///
+/// THE BAR IS IDENTITY, NOT CHROME. Until 2.28.0 the dock had exactly one
+/// composition, so every white-label bank wore Andalus's floating pill with
+/// its raised circle and differed only in hue — the same "hue is not
+/// identity" mistake the login shell and dashboard hero levers already fixed
+/// one layer up. A greyscale screenshot of two brands' bars must not look
+/// the same; these three do not.
+enum NeptuneDockShell {
+  /// The floating glass pill, the active item lifted into a filled circle on
+  /// the brand spring. The loud register; the default, and what every host
+  /// that names no shell keeps.
+  raised,
+
+  /// A flat, full-width bar sitting on one `outlineVariant` hairline. No
+  /// pill, no float, no fill, no lift: the active item is marked by weight
+  /// and the brand colour and nothing else. The quiet, documentary register.
+  register,
+
+  /// A full-width bar under a rule, where the active item claims its segment
+  /// of that rule in the brand's ACCENT. Structure drawn in lines, not slabs,
+  /// and the accent used as direction — which is the one job it has.
+  rule,
+}
+
+/// The bottom navigation bar (web `<npt-dock>`) in one of three
+/// compositions — see [NeptuneDockShell]; [NeptuneDockShell.raised] is the
+/// original floating glass dock and the default.
 ///
 /// Set [centerGap] to reserve a hole in the middle of the item row so a host
 /// app can float its own centre FAB over the dock (the dock itself never owns
@@ -52,10 +77,17 @@ class NeptuneDockItem {
 class NeptuneDock extends StatelessWidget {
   final List<NeptuneDockItem> items;
 
+  /// The composition. The host reads its brandprint's `navShell` lever once
+  /// and passes the result here; the widget never reads the theme string
+  /// itself, so a lever no template exists for fails at the host's parse
+  /// rather than silently drawing the default.
+  final NeptuneDockShell shell;
+
   /// Reserve [centerGapWidth] of empty, inert space in the middle of the item
   /// row for a host-owned floating action button. The glass pane, hairline and
   /// raised-active spring are untouched; taps in the gap hit whatever the host
-  /// stacked above it. No-op when false (the default).
+  /// stacked above it. No-op when false (the default), and no-op on the flat
+  /// shells — a bar a FAB hovers over is the raised composition by definition.
   ///
   /// With an even number of [items] — the layout a centre FAB wants — the gap
   /// lands exactly on the dock's centre line. With an odd count the extra item
@@ -69,12 +101,89 @@ class NeptuneDock extends StatelessWidget {
   const NeptuneDock({
     super.key,
     required this.items,
+    this.shell = NeptuneDockShell.raised,
     this.centerGap = false,
     this.centerGapWidth = 72,
   });
 
   @override
   Widget build(BuildContext context) {
+    return switch (shell) {
+      NeptuneDockShell.raised => _buildRaised(context),
+      NeptuneDockShell.register => _buildFlat(context, ruled: false),
+      NeptuneDockShell.rule => _buildFlat(context, ruled: true),
+    };
+  }
+
+  /// The flat bars. [ruled] picks the marker: false marks the active item by
+  /// weight and the brand colour alone (`register`), true adds the accent
+  /// segment on the rule above it (`rule`).
+  ///
+  /// Both are full-width and flush — a bar is not a floating object, so the
+  /// host insets it by nothing and the BAR ITSELF eats the bottom safe area.
+  /// That inset has to live inside the fill: a host that pads the widget from
+  /// outside leaves a transparent strip under a bar the page scrolls behind
+  /// (`extendBody: true`), and the first thing to slide into it is a divider
+  /// from the content — a stray hairline floating beside the gesture pill.
+  Widget _buildFlat(BuildContext context, {required bool ruled}) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final accent = theme.extension<NptColors>()!.accent;
+
+    final cells = [
+      for (final item in items)
+        Expanded(
+          child: _FlatDockItem(
+            item: item,
+            // A bar cannot lift, so the state has to read without the colour
+            // too: _FlatDockItem carries the weight as well.
+            color: item.active
+                ? (ruled ? accent : scheme.primary)
+                : scheme.onSurfaceVariant,
+          ),
+        ),
+    ];
+
+    return Container(
+      color: scheme.surface,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (ruled)
+            // One rule across the whole width, thickened into the accent over
+            // the active item: the bank's arrow pointing at where you are.
+            SizedBox(
+              height: 3,
+              child: Row(
+                children: [
+                  for (final item in items)
+                    Expanded(
+                      child: Align(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        child: Container(
+                          height: item.active ? 3 : 1,
+                          width: double.infinity,
+                          color:
+                              item.active ? accent : scheme.outlineVariant,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            )
+          else
+            Container(height: 1, color: scheme.outlineVariant),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(
+                4, 8, 4, 6 + MediaQuery.paddingOf(context).bottom),
+            child: Row(children: cells),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRaised(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final shape = theme.extension<NptShape>()!;
@@ -121,6 +230,70 @@ class NeptuneDock extends StatelessWidget {
       SizedBox(width: centerGapWidth),
       for (var i = split; i < items.length; i++) Expanded(child: _DockItem(item: items[i])),
     ];
+  }
+}
+
+/// One cell of a flat bar ([NeptuneDockShell.register] / `.rule`): the mark
+/// over its label, both in [color], no chip and no lift. The active state is
+/// the colour AND the weight, so it survives a greyscale screenshot.
+class _FlatDockItem extends StatelessWidget {
+  final NeptuneDockItem item;
+  final Color color;
+
+  const _FlatDockItem({required this.item, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final shape = theme.extension<NptShape>()!;
+    final motion = theme.extension<NptMotion>()!;
+    final text = theme.textTheme;
+    final fast = NeptuneAccessibility.duration(context, motion.fast);
+
+    return Semantics(
+      button: true,
+      selected: item.active,
+      label: item.label,
+      excludeSemantics: true,
+      child: InkWell(
+        onTap: item.onTap,
+        borderRadius: shape.rSm,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(vertical: 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 28,
+                child: Center(
+                  child: NeptuneIconSlot(
+                    icon: item.icon,
+                    iconWidget: item.iconWidget,
+                    size: 22,
+                    color: color,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
+              AnimatedDefaultTextStyle(
+                duration: fast,
+                curve: motion.standard,
+                style: (text.labelSmall ?? const TextStyle()).copyWith(
+                  color: color,
+                  fontWeight:
+                      item.active ? FontWeight.w700 : FontWeight.w500,
+                ),
+                child: Text(
+                  item.label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

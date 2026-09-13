@@ -89,6 +89,13 @@ in the layers ABOVE the colour scheme:
 **A surface without gradients, glass, motif, glow or the type details is not
 done — it's a grey Material mockup.**
 
+**The chrome is identity too (2.28.0).** A bank picking its login shell and its
+dashboard hero while standing on another bank's bottom bar is still a re-skin:
+the dock was one composition for every brand, and so was the quick-action row.
+`navShell` and `actionRow` are levers like the other two — `NeptuneDock(shell:)`
+and `NeptuneQuickActions(shell:)` — and the test is blunt: **if a greyscale
+screenshot of two brands' docks looks the same, the lever has not been used.**
+
 The reader-facing version of this argument (a live side-by-side of the same
 balance card as a stock M3 baseline vs. brand-themed) lives at
 `site/vs-material.html` — keep the two in sync when either changes.
@@ -119,7 +126,11 @@ Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
   figures, direction-aware (Arabic numeral face under RTL).
 - **The direction accent is spent, not sprayed** (2.24.0). `NptColors.accent`
   is for the forward CTA, the active step and an upward movement — `NeptuneCta`
-  reads it and no other themed widget does. A brand that sets
+  reads it, and since 2.28.0 so do the two compositions whose whole structure IS
+  direction: `NeptuneDock`'s `rule` shell (the accent segment on the rule marks
+  where you are — an active step) and `NeptuneQuickActions`' `ruleGrid` (the one
+  lead action). Nothing else does, and each of those spends it exactly once per
+  screen. A brand that sets
   `accentOnTertiary` has chosen a second colour that would read as an error
   state on chrome; the theme keeps it out of every Material role on purpose,
   and a widget that reaches for `accent` as a general highlight undoes that.

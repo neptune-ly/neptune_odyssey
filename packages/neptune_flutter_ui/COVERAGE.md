@@ -100,8 +100,8 @@ Honest status — nothing silently dropped.
 | Group | Flutter widgets | Web |
 |---|---|---|
 | Cards / finance | `NeptuneBalanceCard`, `NeptuneStatCard`, `NeptuneTransactionRow`, `NeptuneAccountTile` (+`iconWidget`), `NeptuneCardArt` (+`selected`) | `npt-balance-card`, `npt-stat-card`, `npt-transaction-row`, `npt-card-row`, `npt-card-art` |
-| Actions | `NeptuneButton` (filled/tonal/outlined/text), `NeptunePrimaryButton`, `NeptuneCta`, `NeptuneQuickActions`/`NeptuneQuickAction` (+`iconWidget`) | `npt-button`, `npt-cta`, `npt-quick-actions` |
-| Navigation / shell | `NeptuneDock` (+`centerGap`)/`NeptuneDockItem` (+`iconWidget`), `NeptuneAppBar`, `NeptunePageHeader`, `NeptuneSection`, `NeptuneSearchField`, `NeptuneAppShell`, `NeptuneSideNav`/`NeptuneSideNavItem`, `NeptuneToolbar`, `NeptuneNavRail`/`NeptuneNavRailItem` | `npt-dock`, `npt-app-bar`, `npt-page-header`, `npt-section`, `npt-search-field`, `npt-app-shell`, `npt-side-nav`, `npt-side-nav-item`, `npt-toolbar`, `npt-nav-rail` |
+| Actions | `NeptuneButton` (filled/tonal/outlined/text), `NeptunePrimaryButton`, `NeptuneCta`, `NeptuneQuickActions`/`NeptuneQuickAction` (+`iconWidget`, +`shell`) | `npt-button`, `npt-cta`, `npt-quick-actions` |
+| Navigation / shell | `NeptuneDock` (+`centerGap`, +`shell`)/`NeptuneDockItem` (+`iconWidget`), `NeptuneAppBar`, `NeptunePageHeader`, `NeptuneSection`, `NeptuneSearchField`, `NeptuneAppShell`, `NeptuneSideNav`/`NeptuneSideNavItem`, `NeptuneToolbar`, `NeptuneNavRail`/`NeptuneNavRailItem` | `npt-dock`, `npt-app-bar`, `npt-page-header`, `npt-section`, `npt-search-field`, `npt-app-shell`, `npt-side-nav`, `npt-side-nav-item`, `npt-toolbar`, `npt-nav-rail` |
 | Card management | `NeptuneCardControls`, `NeptuneAddCard` | `npt-card-controls`, `npt-add-card` |
 | Data | `NeptuneDataTable`/`NeptuneColumn` | `npt-data-table` |
 | Onboarding | `NeptuneOnboarding` | `npt-onboarding` |

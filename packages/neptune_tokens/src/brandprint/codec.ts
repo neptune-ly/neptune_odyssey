@@ -18,6 +18,10 @@ import {
   type GlassTint,
   type Motion,
   type Motif,
+  NAV_SHELL,
+  type NavShell,
+  ACTION_ROW,
+  type ActionRow,
 } from "./registries.js";
 
 export interface Seed {
@@ -66,6 +70,17 @@ export interface BrandprintConfig {
    * tinted ground and the filled fields; dark mode is untouched either way.
    */
   whiteGround?: boolean;
+  /**
+   * Flags bits 4-5 (2.28.0). The bar the signed-in app stands on. Omitted =
+   * "raised-dock", the floating glass dock every brandprint had before the
+   * nibble was claimed.
+   */
+  navShell?: NavShell;
+  /**
+   * Flags bits 6-7 (2.28.0). The home quick-action treatment. Omitted =
+   * "filled-circles", the tonal circle behind every glyph.
+   */
+  actionRow?: ActionRow;
 }
 
 export interface DecodedBrandprint extends BrandprintConfig {
@@ -73,6 +88,8 @@ export interface DecodedBrandprint extends BrandprintConfig {
   motif: Motif;
   accentOnTertiary: boolean;
   whiteGround: boolean;
+  navShell: NavShell;
+  actionRow: ActionRow;
 }
 
 export const VERSION = 1;
@@ -139,6 +156,11 @@ export function encode(cfg: BrandprintConfig): string {
   if (cfg.defaultRtl) f |= 2;
   if (cfg.accentOnTertiary) f |= 4;
   if (cfg.whiteGround) f |= 8;
+  // The high nibble carries the two composition shells, two bits each: the
+  // 28-byte layout has no spare byte, and index 0 on both keeps every string
+  // issued before 2.28.0 byte-identical.
+  f |= (ix(NAV_SHELL, cfg.navShell ?? "raised-dock") & 3) << 4;
+  f |= (ix(ACTION_ROW, cfg.actionRow ?? "filled-circles") & 3) << 6;
   buf[o++] = f;
   buf[o++] = ix(MOTIF, cfg.motif ?? "auto"); // motif (byte 26)
   let sum = 0;
@@ -196,5 +218,7 @@ export function decode(str: string): DecodedBrandprint {
     motif,
     accentOnTertiary: !!(f & 4),
     whiteGround: !!(f & 8),
+    navShell: (NAV_SHELL[(f >> 4) & 3] ?? NAV_SHELL[0]) as NavShell,
+    actionRow: (ACTION_ROW[(f >> 6) & 3] ?? ACTION_ROW[0]) as ActionRow,
   };
 }

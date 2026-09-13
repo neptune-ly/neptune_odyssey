@@ -62,6 +62,17 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
   final String loginShell;
   final String contentTone;
 
+  /// The signed-in bar this brand stands on (codec `kNavShells`): the
+  /// floating `raised-dock`, the flat `register-bar`, or the ruled
+  /// `rule-bar`. Read by the host at ONE place - the widget that builds the
+  /// bottom navigation - and handed to [NeptuneDock] as a shell.
+  final String navShell;
+
+  /// The home quick-action treatment (codec `kActionRows`): tonal
+  /// `filled-circles`, the ruled `register-rows` strip, or the hairline
+  /// `rule-grid` whose lead action carries the accent.
+  final String actionRow;
+
   const NptIdentity({
     required this.motif,
     required this.motifStrength,
@@ -72,6 +83,8 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     required this.dashboardHero,
     required this.loginShell,
     required this.contentTone,
+    required this.navShell,
+    required this.actionRow,
   });
 
   // --- glass ----------------------------------------------------------------
@@ -168,6 +181,8 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     String? dashboardHero,
     String? loginShell,
     String? contentTone,
+    String? navShell,
+    String? actionRow,
   }) =>
       NptIdentity(
         motif: motif ?? this.motif,
@@ -179,6 +194,8 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
         dashboardHero: dashboardHero ?? this.dashboardHero,
         loginShell: loginShell ?? this.loginShell,
         contentTone: contentTone ?? this.contentTone,
+        navShell: navShell ?? this.navShell,
+        actionRow: actionRow ?? this.actionRow,
       );
 
   @override
@@ -196,6 +213,8 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
       dashboardHero: pick.dashboardHero,
       loginShell: pick.loginShell,
       contentTone: pick.contentTone,
+      navShell: pick.navShell,
+      actionRow: pick.actionRow,
     );
   }
 }

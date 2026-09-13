@@ -57,6 +57,19 @@ export const MOTION = [
 // every brandprint already in the wild decodes to the identical theme.
 export const MOTIF = ["auto", "sonar-rings", "coastal-arcs", "grid-spark", "guilloche", "none"] as const;
 
+/**
+ * The signed-in bar (flags bits 4-5, 2.28.0). `raised-dock` is index 0, so every
+ * brandprint issued before 2.28.0 keeps the floating dock it has today.
+ * FOUR ENTRIES MAX - this registry is two bits, not a byte.
+ */
+export const NAV_SHELL = ["raised-dock", "register-bar", "rule-bar"] as const;
+
+/**
+ * The home quick-action treatment (flags bits 6-7, 2.28.0). `filled-circles` is
+ * index 0. FOUR ENTRIES MAX, same reason.
+ */
+export const ACTION_ROW = ["filled-circles", "register-rows", "rule-grid"] as const;
+
 export type Font = (typeof FONTS)[number];
 export type LoginShell = (typeof LOGIN)[number];
 export type DashboardHero = (typeof HERO)[number];
@@ -64,5 +77,7 @@ export type ContentTone = (typeof TONE)[number];
 export type GlassTint = (typeof GLASS)[number];
 export type Motion = (typeof MOTION)[number];
 export type Motif = (typeof MOTIF)[number];
+export type NavShell = (typeof NAV_SHELL)[number];
+export type ActionRow = (typeof ACTION_ROW)[number];
 
-export const REGISTRIES = { FONTS, LOGIN, HERO, TONE, GLASS, MOTION, MOTIF } as const;
+export const REGISTRIES = { FONTS, LOGIN, HERO, TONE, GLASS, MOTION, MOTIF, NAV_SHELL, ACTION_ROW } as const;
