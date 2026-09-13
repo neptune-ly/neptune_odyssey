@@ -96,6 +96,14 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
   /// shape is applied at assembly.
   final bool ruledRegister;
 
+  /// `BrandprintConfig.amountFirstTransfer`: a transfer on this brand starts
+  /// with the AMOUNT and chooses the rail afterwards. Read by the host's
+  /// transfer hub and by nothing in the library — Odyssey ships the amount
+  /// stage and the keypad, but which question a bank asks first is a screen's
+  /// decision and the screen needs the lever to make it without asking which
+  /// bank it is drawing.
+  final bool amountFirstTransfer;
+
   const NptIdentity({
     required this.motif,
     required this.motifStrength,
@@ -110,6 +118,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     required this.actionRow,
     this.ruledRegister = false,
     this.illustratedEmptyStates = false,
+    this.amountFirstTransfer = false,
   });
 
   // --- glass ----------------------------------------------------------------
@@ -210,6 +219,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
     String? actionRow,
     bool? ruledRegister,
     bool? illustratedEmptyStates,
+    bool? amountFirstTransfer,
   }) =>
       NptIdentity(
         motif: motif ?? this.motif,
@@ -223,6 +233,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
         contentTone: contentTone ?? this.contentTone,
         navShell: navShell ?? this.navShell,
         actionRow: actionRow ?? this.actionRow,
+        amountFirstTransfer: amountFirstTransfer ?? this.amountFirstTransfer,
         ruledRegister: ruledRegister ?? this.ruledRegister,
         illustratedEmptyStates:
             illustratedEmptyStates ?? this.illustratedEmptyStates,
@@ -247,6 +258,7 @@ class NptIdentity extends ThemeExtension<NptIdentity> {
       actionRow: pick.actionRow,
       ruledRegister: pick.ruledRegister,
       illustratedEmptyStates: pick.illustratedEmptyStates,
+      amountFirstTransfer: pick.amountFirstTransfer,
     );
   }
 }

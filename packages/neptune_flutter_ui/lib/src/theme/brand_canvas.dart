@@ -63,6 +63,38 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
   /// Hairlines and field outlines inside [card].
   final Color cardOutline;
 
+  /// THE CANVAS WITH A BELOW: the brand's ground taken deep enough that the
+  /// brand's OWN objects can float on it.
+  ///
+  /// It exists because of a specific, repeatable failure. A card's gradient
+  /// starts at the brand's primary, and [canvas] IS the brand's primary — so
+  /// the moment a scene puts a real card face on the brand ground, the card is
+  /// the ground and disappears. Every brand hits this, not one, because both
+  /// values come from the same role by design.
+  ///
+  /// The rule is a lerp toward the scheme's own `scrim`, at 0.70. A lerp to
+  /// black leaves hue and chroma untouched and moves only lightness, so this
+  /// is still unmistakably the bank's colour and not a second, invented
+  /// navy — the same kind of stated relationship as [onCanvasMuted]'s 82%. It
+  /// is FIXED ACROSS BRIGHTNESS like everything else here: a ground that got
+  /// lighter at night would be the inversion this class exists to prevent.
+  ///
+  /// [onCanvas] is the ink for it too. It is near-white and already had to
+  /// clear [canvas]; a darker ground can only improve that, never worsen it.
+  ///
+  /// WHAT IT DOES NOT PROMISE, and this matters more than what it does. For a
+  /// brand whose primary is ALREADY dark, no amount of darkening will separate
+  /// the ground from that brand's own card by luminance: both are the same
+  /// deep colour, and the ratio asymptotes below 2:1 however far down the
+  /// ground goes. That is not a tuning failure, it is arithmetic, and reaching
+  /// for a lighter ground to "fix" it would mean inventing a colour the bank
+  /// does not own — the exact mistake [NptBrandScheme] exists to stop. A dark
+  /// object on a dark ground reads the way a dark object reads in a dark room:
+  /// by its EDGE and its shadow. A scene placing one here owes it a rim and a
+  /// contact shadow; this role owes it a ground that is unmistakably behind
+  /// it, and a ground that near-white ink can still be set on.
+  final Color deep;
+
   /// Error ink for content INSIDE [card] — a field's error ring and its
   /// label. Taken from the brandprint's LIGHT scheme, because the card is a
   /// light surface whatever the app brightness is.
@@ -77,6 +109,11 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
   /// where it can be seen: on the ring and label inside the card.
   final Color onCardError;
 
+  /// The rule behind [deep], in one place so no factory can disagree with
+  /// another about how far down the brand's ground goes.
+  static Color deepen(Color canvas, Color scrim) =>
+      Color.lerp(canvas, scrim, 0.70)!;
+
   const NptBrandCanvas({
     required this.canvas,
     required this.onCanvas,
@@ -86,6 +123,7 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
     required this.onCardMuted,
     required this.cardOutline,
     required this.onCardError,
+    required this.deep,
   });
 
   /// The PAPER canvas: the same eight roles for a pre-login shell that puts
@@ -107,6 +145,7 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
       onCardMuted: scheme.onSurfaceVariant,
       cardOutline: scheme.outlineVariant,
       onCardError: scheme.error,
+      deep: deepen(scheme.surface, scheme.scrim),
     );
   }
 
@@ -132,6 +171,7 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
       onCardMuted: light.onSurfaceVariant,
       cardOutline: light.outlineVariant,
       onCardError: light.error,
+      deep: deepen(light.primary, light.scrim),
     );
   }
 
@@ -145,6 +185,7 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
     Color? onCardMuted,
     Color? cardOutline,
     Color? onCardError,
+    Color? deep,
   }) {
     return NptBrandCanvas(
       canvas: canvas ?? this.canvas,
@@ -155,6 +196,7 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
       onCardMuted: onCardMuted ?? this.onCardMuted,
       cardOutline: cardOutline ?? this.cardOutline,
       onCardError: onCardError ?? this.onCardError,
+      deep: deep ?? this.deep,
     );
   }
 
@@ -170,6 +212,7 @@ class NptBrandCanvas extends ThemeExtension<NptBrandCanvas> {
       onCardMuted: Color.lerp(onCardMuted, other.onCardMuted, t)!,
       cardOutline: Color.lerp(cardOutline, other.cardOutline, t)!,
       onCardError: Color.lerp(onCardError, other.onCardError, t)!,
+      deep: Color.lerp(deep, other.deep, t)!,
     );
   }
 }
@@ -196,6 +239,7 @@ extension BrandCanvasAccess on BuildContext {
       // The fallback path has only the ambient scheme; `error` is at least
       // guaranteed to be legible on that scheme's own surfaces.
       onCardError: scheme.error,
+      deep: NptBrandCanvas.deepen(scheme.primary, scheme.scrim),
     );
   }
 }

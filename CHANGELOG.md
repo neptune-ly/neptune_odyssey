@@ -1,5 +1,138 @@
 # Changelog
 
+## 2.31.0
+
+- **The two design lines are one again, and `drift-depth` moved from login-shell index 6 to 7.**
+  `design/fglb-wallet` (the POCKET composition) and `design/nuran-ink` (the INK composition) forked
+  from the same commit and were strictly disjoint in both directions, so neither pin could compile
+  the other bank and the app could not ship either one. They are merged here. Nothing from either
+  side was dropped: `NeptunePocketBalance`, `NeptuneDriftCanvas`, `NeptuneSpotArt`,
+  `NeptuneCardFlip`, `NptSpotArtKind` and `warmGround` arrive beside `NeptuneDriftField`,
+  `NptBrandScheme`, `NptBrandCanvas.deep`, `NeptuneAmountStage`, `NeptuneDockShell.inkPill` and
+  `BrandprintConfig.amountFirstTransfer`.
+
+  **The one real collision was an ordinal.** Both lines appended a seventh entry at index 6 of
+  `kLoginShells`: FGLB's `pocket-drift` and Nuran's `drift-depth`. An index in that registry IS the
+  wire format, so the two could not both be 6. **`pocket-drift` keeps index 6; `drift-depth` is now
+  index 7.**
+
+  Why that is safe, stated plainly rather than assumed:
+
+  * `kLoginShells` is encoded as a **whole byte** (`buf[o++] = _ix(kLoginShells, cfg.loginShell)`),
+    not as a packed field. Indices 6 and 7 both fit with 248 slots still free, so the payload did
+    **not** have to grow and no string changes length.
+  * **No brandprint in customers' hands encodes index 6.** The three production strings decode to
+    login shells 0 (`depth-emblem`, Andalus), 4 (`paper-lockup`) and 5 (`lockup-rule`), and all
+    three are 28-byte version-1 payloads with no extension byte at all. The renumber therefore
+    repoints nothing that was ever issued, and every production string encodes to the same bytes
+    after this release as before it — asserted by test, byte for byte, for all three.
+  * FGLB kept 6 because its line is the larger divergence and carries the published 2.30.x
+    numbering, so leaving it alone is the cheaper side.
+
+  **The one thing that DOES break:** a brandprint string minted from a **pre-merge
+  `design/nuran-ink` build** carries byte 6 for its login shell and will now decode as
+  `pocket-drift`, not `drift-depth` — silently, because the byte is still valid. That build produced
+  one artifact and it was never distributed. Any such string must be re-minted against 2.31.0.
+
+- **The extension byte needed no arbitration.** FGLB took bit 2 (`warmGround`) knowing Nuran held
+  bit 1 (`amountFirstTransfer`); both are kept exactly where they were authored, and bits 3-7 remain
+  free. `kNavShells` is likewise untouched by the merge — `ink-pill` keeps index 3, which is the
+  last slot in that two-bit field.
+
+- **Version.** 2.31.0, not 2.30.2: this release adds new capability from both sides, so it is a
+  minor bump.
+
+## 2.29.0
+
+- **A brand may hand Odyssey its finished `ColorScheme` (`NptBrandScheme`).** The v1 ramp reads only
+  hue and chroma off a seed and pins every role's LIGHTNESS to a constant — `_light['primary']` is
+  `_Recipe(0.48, ...)` whatever it is given. So a bank whose primary is a deep navy could not be
+  seeded into existence: Nuran's `#114075` (L 0.372) came back a mid blue, and no amount of tuning
+  was going to change that, because the seed's `l` is discarded on the way in. That is fine for a
+  brand being designed inside Odyssey and wrong for one that has already shipped — a palette in
+  customers' hands is a fact, not a starting point, and "close enough" is the wrong standard for a
+  colour someone has been looking at for a year. Pass `scheme:` to `fromConfig` / `fromBrandprint`
+  and the Material roles come from the brand verbatim; pass nothing and the generated path runs
+  byte for byte as before (asserted). It costs **no byte, no flag bit and no registry slot** — this
+  is theme construction, not a wire change, and the brandprint still carries the seeds that the web
+  and Studio ports build from. Both brightnesses are required, because a brand supplying one would
+  silently fall back to the ramp at the other, which is the inversion bug `NptBrandCanvas` exists to
+  prevent. On this path the card gradient travels `primary -> secondary`, never `-> tertiary`: a
+  shipped scheme's `tertiary` is a free accent role and one real bank's is a 12%-alpha grey, which
+  as a gradient stop is a translucent smudge.
+
+- **`NptBrandCanvas.deep` — the brand's ground with a below.** A card's gradient starts at the
+  brand's primary and `canvas` IS the brand's primary, so the moment a scene puts a real card face
+  on the brand ground the card *is* the ground and vanishes. Every brand hits it, because both
+  values come from the same role by design. `deep` is the canvas carried 70% toward the scheme's own
+  `scrim` — a lerp to black moves lightness only, so it stays unmistakably the bank's colour rather
+  than a second invented navy, and it is fixed across brightness like everything else on this class.
+  It deliberately does NOT promise 3:1 against that card: for a brand whose primary is already dark
+  the ratio asymptotes below 2:1 at any lerp, and reaching for a lighter ground to "fix" that would
+  mean inventing a colour the bank does not own. A dark object on a dark ground reads by its edge
+  and its shadow; the role owes a ground that is unmistakably behind it and one near-white ink can
+  still be set on (18.6:1 measured).
+
+- **`NeptuneDriftField` — the pre-login moment as a scene rather than a lockup.** Objects suspended
+  at different depths in a brand's own ground, drifting on an ambient clock and answering a drag
+  with parallax. Depth is one number per object and it drives THREE things at once — scale, travel
+  distance and how far the object is carried toward the ground colour — because any one of them
+  alone reads as a sticker sliding about and together they read as space. It is deliberately not
+  blurred: an `ImageFiltered` per object is a full-screen blur per object per frame, and on a 120Hz
+  display that is the difference between a scene that floats and one that stutters. Under reduced
+  motion every object still renders at its resting position, scale and tilt — the composition is
+  complete and simply still, never an empty ground. Decorative objects are `ExcludeSemantics`, so a
+  screen reader moves from the headline to the button instead of stopping on five anonymous images.
+
+- **`NeptuneAmountStage` + `NeptuneStageKeypad` — the amount as the screen.** No container: no box,
+  no ring, no underline, no placeholder frame. The figure steps DOWN a ladder as digits arrive
+  rather than scaling continuously, because a continuously-scaled numeral has a different stroke
+  weight at every size and money that gets lighter as it gets larger reads as a rendering fault; it
+  is set in tabular figures so the number does not jitter sideways as it is typed, and the currency
+  sits on the figure's own baseline rather than centred against its box, where it would read as a
+  superscript. The keypad has **no keys** — no fills, no separators, no grid — so the two things a
+  drawn key really provides are provided another way: the target is the whole cell (60dp, clear of
+  the 44pt floor) and the press is confirmed by a tonal bloom plus the brand's own haptic weight.
+  The grid is NOT mirrored under RTL, because a keypad is a physical object customers have muscle
+  memory for and no Arabic keypad mirrors; the backspace IS mirrored, because it is an arrow.
+  `NeptuneAmountKeypad` stays exactly as it was and is still the right one when the amount is a
+  value on a form — both widgets now say which case they are for.
+
+- **`BrandprintConfig.amountFirstTransfer` — extension byte, bit 1.** Whether a transfer on this
+  brand starts with the AMOUNT (a full-bleed figure and a keypad, rail chosen afterwards) or with
+  the rail list, amount inside the rail's own form. It is a lever rather than a redesign of the
+  shared screen because the order those two questions are asked in is a brand decision: a bank
+  whose identity is a list of correspondent services reads worse amount-first, and a bank whose
+  argument is that sending money is one gesture reads worse rail-first. Both orders funnel into the
+  same rail forms, the same validation and the same confirm path. False for every string issued
+  before this release, so nothing already in the wild changes. Bit 0 (`ruledRegister`) is
+  undisturbed and both are round-tripped together in `drift_and_stage_test.dart`.
+
+- **`NeptuneAmountStage` groups the integer part as it is typed.** An ungrouped seven-digit figure
+  is the one number on an amount screen a customer cannot check at a glance, and "is that two
+  hundred thousand or two million" should never be a question you count digits to answer. It is a
+  DISPLAY transform only — the host's value stays plain digits, so nothing downstream has to strip
+  a separator back out, and a screen reader still hears the figure rather than the punctuation.
+
+- **`NeptuneDockShell.inkPill` — a solid stadium of the brand's ink, floating over the content.**
+  Not `raised` in another colour: `raised` is glass, so it borrows the page and recedes, and it
+  marks the active item by lifting a circle OUT of the bar; this is opaque, so it is the darkest
+  object on a pale page and advances, and it marks the active item with a lozenge INSIDE its own
+  outline. It fills from `NptBrandCanvas.canvas`, so it is the bank's real colour at both
+  brightnesses instead of a light tone at night, and the label is painted for the active item only
+  while every label is still announced.
+
+- Registry appends, no flag bit claimed and no existing index moved, so every brandprint already in
+  the wild encodes and decodes unchanged:
+
+      kLoginShells += 'drift-depth'   index 6 of a full byte    free
+                                      (moved to index 7 in 2.31.0 — see above)
+      kNavShells   += 'ink-pill'      index 3 - THE LAST SLOT
+
+  `kNavShells` is two bits and is now full at four values. A fifth navigation shell needs a format
+  bump rather than another line in that list — the 29-byte form's extension byte has bits 1-7 free,
+  so the bump is available, but it is a wire change and must be agreed, not taken.
+
 All notable changes to Neptune Odyssey are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com); the system follows [Semantic Versioning](https://semver.org) against the token layer (see `docs/09-governance-and-versioning.md`).
 

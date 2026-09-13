@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/accessibility.dart';
+import '../theme/brand_canvas.dart';
 import '../theme/extensions.dart';
 import '../theme/identity.dart';
 import 'neptune_icon_slot.dart';
@@ -65,6 +66,27 @@ enum NeptuneDockShell {
   /// of that rule in the brand's ACCENT. Structure drawn in lines, not slabs,
   /// and the accent used as direction — which is the one job it has.
   rule,
+
+  /// A SOLID stadium of the brand's own ink, floating clear of every edge,
+  /// with the content scrolling visibly underneath it. The active item is a
+  /// lozenge of the on-canvas tone inside that stadium.
+  ///
+  /// It is not [raised] in another colour, and the difference is the whole
+  /// point of it being its own shell. `raised` is GLASS: it borrows the page's
+  /// colour, so it recedes, and it marks the active item by lifting a circle
+  /// out of the bar — an object rising toward the customer. This one is
+  /// OPAQUE: it is the single darkest object on a pale page, so it advances,
+  /// and it marks the active item by moving a lozenge INSIDE itself — nothing
+  /// leaves the bar's outline. A greyscale screenshot of the two is not the
+  /// same picture, which is the test this enum exists to pass.
+  ///
+  /// It takes its fill from [NptBrandCanvas.canvas] rather than from
+  /// `colorScheme.primary`, so it is the bank's real colour at both
+  /// brightnesses instead of a light tone at night. A page under it must be
+  /// laid out with `extendBody: true` and enough trailing padding for the bar
+  /// to overlap rather than cover: the overlap IS the signal that the list
+  /// continues, and a bar that hides the last row is a bug, not a composition.
+  inkPill,
 }
 
 /// The bottom navigation bar (web `<npt-dock>`) in one of three
@@ -112,7 +134,58 @@ class NeptuneDock extends StatelessWidget {
       NeptuneDockShell.raised => _buildRaised(context),
       NeptuneDockShell.register => _buildFlat(context, ruled: false),
       NeptuneDockShell.rule => _buildFlat(context, ruled: true),
+      NeptuneDockShell.inkPill => _buildInkPill(context),
     };
+  }
+
+  /// The solid brand stadium. See [NeptuneDockShell.inkPill].
+  Widget _buildInkPill(BuildContext context) {
+    final theme = Theme.of(context);
+    final canvas = theme.extension<NptBrandCanvas>()!;
+
+    return Padding(
+      // The bar floats, so it is inset from all three edges. The bottom inset
+      // is measured from the gesture area rather than added to it: a stadium
+      // that clears the home indicator by a fixed 16 sits too low on a device
+      // with no indicator and too high on one with a tall one.
+      padding: EdgeInsetsDirectional.fromSTEB(
+          20, 0, 20, 10 + MediaQuery.paddingOf(context).bottom),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: canvas.canvas,
+          borderRadius: BorderRadius.circular(999),
+          // The one shadow in this composition, and it earns its place: the
+          // bar has to read as being IN FRONT of the content passing under it,
+          // and on a pale page an opaque dark stadium with no shadow reads as
+          // a hole cut in the page instead.
+          //
+          // It is NOT `identity.elevation3`, which is tuned for the glass dock
+          // — a tight, fairly opaque neutral drop that sits correctly under a
+          // translucent pane and, under a solid dark stadium, rendered as a
+          // hard GREY BAND reading as a second bar below the first. This is
+          // the bar's own colour at low alpha, spread wide and soft: a dark
+          // object's shadow is its own colour darkened, never neutral grey,
+          // and a wide blur is what reads as height rather than as an outline.
+          boxShadow: [
+            BoxShadow(
+              color: canvas.canvas.withValues(alpha: 0.28),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding:
+              const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 6),
+          child: Row(
+            children: [
+              for (final item in items)
+                Expanded(child: _InkPillItem(item: item, canvas: canvas)),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   /// The flat bars. [ruled] picks the marker: false marks the active item by
@@ -163,8 +236,7 @@ class NeptuneDock extends StatelessWidget {
                         child: Container(
                           height: item.active ? 3 : 1,
                           width: double.infinity,
-                          color:
-                              item.active ? accent : scheme.outlineVariant,
+                          color: item.active ? accent : scheme.outlineVariant,
                         ),
                       ),
                     ),
@@ -226,10 +298,119 @@ class NeptuneDock extends StatelessWidget {
     }
     final split = items.length ~/ 2;
     return [
-      for (var i = 0; i < split; i++) Expanded(child: _DockItem(item: items[i])),
+      for (var i = 0; i < split; i++)
+        Expanded(child: _DockItem(item: items[i])),
       SizedBox(width: centerGapWidth),
-      for (var i = split; i < items.length; i++) Expanded(child: _DockItem(item: items[i])),
+      for (var i = split; i < items.length; i++)
+        Expanded(child: _DockItem(item: items[i])),
     ];
+  }
+}
+
+/// One cell of the [NeptuneDockShell.inkPill] stadium: mark and label side by
+/// side, the active one inside a lozenge.
+///
+/// The label is drawn for the ACTIVE item only. A stadium that fits on one
+/// line with four labels in it has labels too small to read, and an icon row
+/// with no words at all is the thing every customer complains about; showing
+/// the word for where you ARE resolves both, because the other three are the
+/// places you are not and their marks only have to be recognisable, not
+/// self-explaining. Assistive technology still hears every label — see the
+/// [Semantics] below, which does not depend on what is painted.
+class _InkPillItem extends StatelessWidget {
+  final NeptuneDockItem item;
+  final NptBrandCanvas canvas;
+
+  const _InkPillItem({required this.item, required this.canvas});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final motion = theme.extension<NptMotion>()!;
+    final text = theme.textTheme;
+    final fast = NeptuneAccessibility.duration(context, motion.fast);
+    // Inactive ink is the muted on-canvas tone the brand already checked
+    // against this exact ground, not an alpha guess: `onCanvasMuted` is the
+    // one value in the theme that is guaranteed to read on `canvas`.
+    final ink = item.active ? canvas.onCanvas : canvas.onCanvasMuted;
+
+    return Semantics(
+      button: true,
+      selected: item.active,
+      label: item.label,
+      excludeSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: item.onTap,
+        child: AnimatedContainer(
+          duration: fast,
+          curve: motion.standard,
+          height: 46,
+          decoration: BoxDecoration(
+            color: item.active
+                ? canvas.onCanvas.withValues(alpha: 0.16)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              NeptuneIconSlot(
+                icon: item.icon,
+                iconWidget: item.iconWidget,
+                size: 21,
+                color: ink,
+              ),
+              // The label reveals by WIDTH FACTOR, so the marks slide rather
+              // than jumping between two layouts.
+              //
+              // NOT `AnimatedSize`. That measures its child, then restarts its
+              // own animation from inside `performLayout`, and when reduced
+              // motion collapses the duration to zero it re-dirties itself
+              // mid-layout and throws - "a RenderObject must not re-dirty
+              // itself while still being laid out". It is not a test artefact:
+              // it is every customer who has switched animations off. A
+              // clipped `Align` lays the label out once at its full size and
+              // reveals a fraction of it, so there is no layout feedback loop
+              // to close.
+              // FLEXIBLE, because the label is laid out at its natural width
+              // before it is clipped and a long one overflowed the cell - by
+              // 4.7px on "Accounts" in English, which is the width of one
+              // letter and therefore exactly the kind of thing that is fine in
+              // the language it was designed in and broken in the next one.
+              // Loose fit: it takes what it needs up to what is left, and
+              // ellipsises beyond that.
+              Flexible(
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween(
+                      begin: item.active ? 1 : 0, end: item.active ? 1 : 0),
+                  duration: fast,
+                  curve: motion.standard,
+                  builder: (context, t, child) => ClipRect(
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      widthFactor: t,
+                      child: child,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 7, end: 3),
+                    child: Text(
+                      item.label,
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                      style: (text.labelMedium ?? const TextStyle())
+                          .copyWith(color: ink, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -280,8 +461,7 @@ class _FlatDockItem extends StatelessWidget {
                 curve: motion.standard,
                 style: (text.labelSmall ?? const TextStyle()).copyWith(
                   color: color,
-                  fontWeight:
-                      item.active ? FontWeight.w700 : FontWeight.w500,
+                  fontWeight: item.active ? FontWeight.w700 : FontWeight.w500,
                 ),
                 child: Text(
                   item.label,
@@ -360,34 +540,34 @@ class _DockItem extends StatelessWidget {
       label: item.label,
       excludeSemantics: true,
       child: InkWell(
-      onTap: item.onTap,
-      borderRadius: shape.rLg,
-      child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(vertical: 4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AnimatedSlide(
-              duration: standard,
-              curve: motion.spring,
-              offset: Offset(0, active ? -0.30 : 0),
-              child: circle,
-            ),
-            AnimatedDefaultTextStyle(
-              duration: fast,
-              curve: motion.standard,
-              style: (text.labelSmall ?? const TextStyle()).copyWith(
-                color: active ? scheme.primary : scheme.onSurfaceVariant,
-                fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+        onTap: item.onTap,
+        borderRadius: shape.rLg,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(vertical: 4),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedSlide(
+                duration: standard,
+                curve: motion.spring,
+                offset: Offset(0, active ? -0.30 : 0),
+                child: circle,
               ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.only(top: active ? 0 : 2),
-                child: Text(item.label),
+              AnimatedDefaultTextStyle(
+                duration: fast,
+                curve: motion.standard,
+                style: (text.labelSmall ?? const TextStyle()).copyWith(
+                  color: active ? scheme.primary : scheme.onSurfaceVariant,
+                  fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.only(top: active ? 0 : 2),
+                  child: Text(item.label),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -423,7 +603,8 @@ class NeptuneAppBar extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final type = Theme.of(context).extension<NptType>()!;
     final text = Theme.of(context).textTheme;
-    final stacked = variant == NeptuneAppBarVariant.medium || variant == NeptuneAppBarVariant.large;
+    final stacked = variant == NeptuneAppBarVariant.medium ||
+        variant == NeptuneAppBarVariant.large;
 
     final rowTitleStyle = text.titleLarge?.copyWith(
       fontFamily: type.display,
@@ -433,7 +614,8 @@ class NeptuneAppBar extends StatelessWidget {
 
     final row = Container(
       constraints: const BoxConstraints(minHeight: 56),
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
+      padding:
+          const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           if (leading != null) ...[leading!, const SizedBox(width: 12)],
@@ -450,7 +632,9 @@ class NeptuneAppBar extends StatelessWidget {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      textAlign: variant == NeptuneAppBarVariant.center ? TextAlign.center : TextAlign.start,
+                      textAlign: variant == NeptuneAppBarVariant.center
+                          ? TextAlign.center
+                          : TextAlign.start,
                       style: rowTitleStyle,
                     ),
                   ),
@@ -466,11 +650,14 @@ class NeptuneAppBar extends StatelessWidget {
       return Container(color: scheme.surface, child: row);
     }
 
-    final headlineStyle = (variant == NeptuneAppBarVariant.large ? text.displayMedium : text.headlineMedium)
+    final headlineStyle = (variant == NeptuneAppBarVariant.large
+            ? text.displayMedium
+            : text.headlineMedium)
         ?.copyWith(
       fontFamily: type.display,
       fontWeight: type.displayFontWeight,
-      letterSpacing: type.displayTracking * (variant == NeptuneAppBarVariant.large ? 45 : 28),
+      letterSpacing: type.displayTracking *
+          (variant == NeptuneAppBarVariant.large ? 45 : 28),
       color: scheme.onSurface,
     );
 
@@ -486,7 +673,8 @@ class NeptuneAppBar extends StatelessWidget {
           Semantics(
             header: true,
             child: Padding(
-              padding: const EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 24),
+              padding: const EdgeInsetsDirectional.only(
+                  start: 16, end: 16, bottom: 24),
               child: Text(
                 title,
                 maxLines: 1,

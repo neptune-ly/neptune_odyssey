@@ -308,6 +308,9 @@ class NeptunePinInput extends StatelessWidget {
 /// 0, and a backspace. Each key is a large (>= 56dp) themed tile in the number
 /// font. Emits the pressed key string ('0'–'9' or '.') via [onKey], and
 /// [onBackspace] for the delete key. Theme-only, RTL-safe (logical grid).
+/// See [NeptuneStageKeypad] for the other keypad and when each applies: this
+/// one has drawn keys and belongs under a form field, that one has none and
+/// belongs under an amount that is the whole screen.
 class NeptuneAmountKeypad extends StatelessWidget {
   final ValueChanged<String>? onKey;
   final VoidCallback? onBackspace;

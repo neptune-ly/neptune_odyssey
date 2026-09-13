@@ -220,5 +220,6 @@ NptIdentity identityFor(BrandprintConfig cfg) {
     // `light-instant` is the only tone that draws. The other three are a
     // measured voice, and a measured voice does not open with a cartoon.
     illustratedEmptyStates: cfg.contentTone == 'light-instant',
+    amountFirstTransfer: cfg.amountFirstTransfer,
   );
 }

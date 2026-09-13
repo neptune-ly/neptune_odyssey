@@ -48,6 +48,22 @@ const List<String> kLoginShells = [
   // the brand legible. A pre-login screen is the same bank at a different
   // moment, and it should be made of the same things.
   'pocket-drift',
+  // 2.29.0, RENUMBERED TO INDEX 7 BY THE 2.31.0 MERGE. The pre-login moment as
+  // a SCENE rather than a lockup: the brand's objects suspended in its own deep
+  // ground at different depths, drifting, with the headline low and one call to
+  // action under it.
+  //
+  // It was authored at index 6 on `design/nuran-ink` while `pocket-drift` took
+  // the same index on `design/fglb-wallet`. This registry is a FULL BYTE on the
+  // wire, not a packed field, so both fit with 248 slots to spare and the
+  // payload did not have to grow. `pocket-drift` kept 6 because its line
+  // carries the published 2.30.x numbering; this one moved to 7. No brandprint
+  // in customers' hands encodes either index - the three production strings
+  // decode to shells 0, 4 and 5 - so the renumber repoints nothing that was
+  // ever issued. A string minted from a PRE-MERGE `design/nuran-ink` build
+  // would still carry byte 6 and would now decode as `pocket-drift`; those
+  // builds were never distributed, and any such string must be re-minted.
+  'drift-depth',
 ];
 
 /// Append-only dashboard-hero registry. The last two (2.24.0):
@@ -139,6 +155,13 @@ const List<String> kNavShells = [
   'raised-dock',
   'register-bar',
   'rule-bar',
+  // 2.29.0, AND THIS IS THE LAST SLOT. A solid stadium of the brand's own ink
+  // floating over content that scrolls under it - opaque where `raised-dock`
+  // is glass, and marking the active item with a lozenge inside its own
+  // outline rather than a circle lifted out of it. A fifth shell needs a
+  // format bump; the 29-byte form's extension byte has bits 1-7 free, so that
+  // bump is available, but it is a wire change and not a list edit.
+  'ink-pill',
 ];
 
 /// Append-only quick-action-row registry - flags bits 6-7 (2.28.0). The
@@ -299,6 +322,21 @@ class BrandprintConfig {
   /// False, which every pre-2.30.0 string decodes to, keeps the cool ramp.
   final bool warmGround;
 
+  /// Byte 27 (the extension byte), bit 1 (2.29.0). **THE AMOUNT COMES FIRST.**
+  /// A transfer on this brand starts with the figure — a full-bleed amount and
+  /// a keypad — and the rail is chosen afterwards. False, which every string
+  /// issued before this release decodes to, keeps the rail list first and the
+  /// amount inside the rail's own form.
+  ///
+  /// It is a lever rather than a redesign of the shared screen because the
+  /// order in which a customer is asked for the amount and the rail is a brand
+  /// decision: a bank whose identity is a list of correspondent services reads
+  /// worse amount-first, and a bank whose whole argument is that sending money
+  /// is one gesture reads worse rail-first. Both screens funnel into the SAME
+  /// rail forms, the same validation and the same confirm path; what differs
+  /// is only which question is asked first.
+  final bool amountFirstTransfer;
+
   const BrandprintConfig({
     this.version = 1,
     required this.primary,
@@ -323,6 +361,7 @@ class BrandprintConfig {
     this.actionRow = 'filled-circles',
     this.ruledRegister = false,
     this.warmGround = false,
+    this.amountFirstTransfer = false,
   });
 
   @override
@@ -350,7 +389,8 @@ class BrandprintConfig {
       other.navShell == navShell &&
       other.actionRow == actionRow &&
       other.ruledRegister == ruledRegister &&
-      other.warmGround == warmGround;
+      other.warmGround == warmGround &&
+      other.amountFirstTransfer == amountFirstTransfer;
 
   @override
   int get hashCode => Object.hashAll([
@@ -377,6 +417,7 @@ class BrandprintConfig {
         actionRow,
         ruledRegister,
         warmGround,
+        amountFirstTransfer,
       ]);
 }
 
@@ -392,8 +433,10 @@ class BrandprintConfig {
 ///   the checksum. Every brandprint issued before this release is this, and
 ///   decodes byte-for-byte to the config it always did.
 /// * **version byte 2 -> 29 bytes**: bytes 0-26 unchanged, byte 27 is a new
-///   EXTENSION FLAGS byte (bit 0 [BrandprintConfig.ruledRegister], bits 1-7
-///   reserved and written as 0), byte 28 is the checksum.
+///   EXTENSION FLAGS byte (bit 0 [BrandprintConfig.ruledRegister], bit 1
+///   [BrandprintConfig.amountFirstTransfer], bit 2
+///   [BrandprintConfig.warmGround], bits 3-7 reserved and written as 0), byte
+///   28 is the checksum.
 ///
 /// [encode] emits the 29-byte form ONLY when the extension byte would carry
 /// something. A config that sets no extension flag encodes to the identical
@@ -442,8 +485,11 @@ class Brandprint {
     // config that predates it produces exactly the 28 bytes it always did.
     var ext = 0;
     if (cfg.ruledRegister) ext |= 1;
-    // Bit 2. Bit 1 belongs to another brand's lever, landed in parallel; the
-    // extension byte is now allocated centrally for exactly this reason.
+    // Bits 1 and 2 were allocated on two parallel design lines and merged in
+    // 2.31.0: bit 1 is Nuran's lever, bit 2 is FGLB's. They were disjoint on
+    // purpose, which is why the extension byte needed no arbitration here -
+    // only the login-shell registry did. Bits 3-7 are still free.
+    if (cfg.amountFirstTransfer) ext |= 2;
     if (cfg.warmGround) ext |= 4;
     final extended = ext != 0;
     final buf = Uint8List(extended ? _payloadBytesExtended : _payloadBytes);
@@ -579,6 +625,7 @@ class Brandprint {
       navShell: kNavShells[((f >> 4) & 3).clamp(0, kNavShells.length - 1)],
       actionRow: kActionRows[((f >> 6) & 3).clamp(0, kActionRows.length - 1)],
       ruledRegister: (ext & 1) != 0,
+      amountFirstTransfer: (ext & 2) != 0,
       warmGround: (ext & 4) != 0,
     );
   }

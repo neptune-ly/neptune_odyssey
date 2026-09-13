@@ -21,6 +21,7 @@ import '../brandprint/codec.dart';
 import '../color/oklch.dart';
 import '../color/palette.dart';
 import 'brand_canvas.dart';
+import 'brand_scheme.dart';
 import 'brand_tables.dart';
 import 'color_schemes.dart';
 import 'density.dart';
@@ -138,6 +139,7 @@ class NeptuneTheme {
     NeptuneNumeralStyle numerals = NeptuneNumeralStyle.latin,
     NptFeedback? feedback,
     NptHostFont? hostFont,
+    NptBrandScheme? scheme,
   }) =>
       fromConfig(Brandprint.decode(brandprint),
           brightness: brightness,
@@ -145,7 +147,8 @@ class NeptuneTheme {
           density: density,
           numerals: numerals,
           feedback: feedback,
-          hostFont: hostFont);
+          hostFont: hostFont,
+          scheme: scheme);
 
   /// Build a theme from a [BrandprintConfig]. If the seeds match a reference
   /// brand, the pinned canonical scheme is used (byte-identical); otherwise the
@@ -163,8 +166,21 @@ class NeptuneTheme {
     NeptuneNumeralStyle numerals = NeptuneNumeralStyle.latin,
     NptFeedback? feedback,
     NptHostFont? hostFont,
+
+    /// The brand's finished schemes, used INSTEAD of the generated ramp — see
+    /// [NptBrandScheme]. For a bank whose palette already exists in customers'
+    /// hands and therefore is not ours to re-derive.
+    NptBrandScheme? scheme,
   }) {
     final mode = brightness ?? (cfg.defaultDark ? Brightness.dark : Brightness.light);
+    // AN EXPLICIT SCHEME SHORT-CIRCUITS THE REFERENCE MATCH TOO. A brand that
+    // handed over its own palette must get its own palette, and a seed pair
+    // that happened to land near a reference brand's would otherwise have
+    // silently swapped a shipped bank's colours for a demo brand's.
+    if (scheme != null) {
+      return _explicit(
+          cfg, scheme, mode, arabic, density, numerals, feedback, hostFont);
+    }
     final ref = _matchReferenceBrand(cfg.primary, cfg.tertiary);
     if (ref != null) {
       return _forBrandWithConfig(
@@ -231,6 +247,106 @@ class NeptuneTheme {
       cfg.ruledRegister,
     );
   }
+
+  // --- explicit brand scheme ------------------------------------------------
+
+  /// The brand's own schemes, verbatim. Everything that is NOT a Material role
+  /// — corners, faces, motion, the identity levers — still comes from the
+  /// brandprint, because those are levers rather than colours and the ramp was
+  /// never involved in them.
+  static ThemeData _explicit(
+      BrandprintConfig cfg,
+      NptBrandScheme brand,
+      Brightness mode,
+      bool arabic,
+      NeptuneDensityMode density,
+      NeptuneNumeralStyle numerals,
+      NptFeedback? feedback,
+      NptHostFont? hostFont) {
+    final scheme = brand.of(mode);
+    final success = brand.successOf(mode);
+
+    // THE CARD TRAVELS PRIMARY -> SECONDARY, NOT PRIMARY -> TERTIARY.
+    //
+    // The generated path rides the tertiary SEED, which on this path does not
+    // exist as a card colour: a shipped Material scheme's `tertiary` is an
+    // accent role and a bank may put anything in it. Nuran's is `0x1f767680`,
+    // a 12%-alpha grey — an iOS system fill pasted in — so a card gradient
+    // ending there would be a translucent smudge over whatever sat behind it.
+    // `secondary` is the role a hand-written scheme reliably fills with the
+    // brand's second colour, and it is what the bank's own card art uses.
+    //
+    // AND IT IS THE LIGHT SCHEME'S PAIR IN BOTH BRIGHTNESSES. A payment card
+    // depicts a physical instrument, so it does not invert (see
+    // [NptColors.cardGradientStart]); riding the dark scheme's `primary` would
+    // make the card the brightest object on a dark page. It is used
+    // un-deepened because a supplied palette's light pair is a real colour and
+    // a darkened version of it is not: any factor we applied here would be a
+    // colour the bank never approved.
+    final colors = NptColors(
+      success: success,
+      onSuccess: scheme.onPrimary,
+      successContainer: _successContainer(success, scheme),
+      onSuccessContainer: _onSuccessContainer(success, scheme),
+      cardGradientStart: brand.light.primary,
+      cardGradientEnd: brand.light.secondary,
+      onCard: brand.light.onPrimary,
+      // `accentOnTertiary` still points the accent at the scheme's tertiary,
+      // exactly as the pinned reference path does.
+      accent: cfg.accentOnTertiary ? scheme.tertiary : scheme.primary,
+      onAccent: cfg.accentOnTertiary ? scheme.onTertiary : scheme.onPrimary,
+    );
+
+    final cc = cfg.corners;
+    return _assemble(
+      scheme,
+      // The brand canvas is brightness-INVARIANT, so it is built from the
+      // brand's LIGHT scheme in both themes — the bank's blue is the same blue
+      // at midnight.
+      brand.light,
+      colors,
+      NptShape(
+        xs: cc.xs.toDouble(),
+        sm: cc.sm.toDouble(),
+        md: cc.md.toDouble(),
+        lg: cc.lg.toDouble(),
+        xl: cc.xl.toDouble(),
+        xxl: cc.xxl.toDouble(),
+      ),
+      NptType(
+        display: cfg.fontDisplay,
+        text: cfg.fontText,
+        num: cfg.fontNum,
+        displayWeight: cfg.displayWeight,
+        displayTracking: cfg.displayTracking,
+      ),
+      motionFor(cfg.motion),
+      identityFor(cfg),
+      arabic,
+      NptDensity.of(density),
+      NptNumerals(numerals),
+      feedback ?? NptFeedback(hapticWeight: hapticWeightFor(cfg.contentTone)),
+      hostFont,
+      cfg.whiteGround,
+      cfg.ruledRegister,
+    );
+  }
+
+  /// The success container, derived rather than asked for.
+  ///
+  /// No shipped Material scheme carries one — Material has no success family
+  /// at all — so a brand supplying [NptBrandScheme] has nothing to hand over
+  /// here. Taking it from the ramp instead would put a generated green at a
+  /// fixed hue behind the bank's own green, which is the one pairing certain
+  /// to look wrong. This keeps it in the brand's OWN green and only moves it
+  /// toward the page, which is the same relationship the ramp expresses.
+  static Color _successContainer(Color success, ColorScheme scheme) =>
+      Color.lerp(success, scheme.surface, 0.86)!;
+
+  /// Ink on [_successContainer]: the brand's green carried most of the way to
+  /// the page's own ink, so it stays legible at body size on that tint.
+  static Color _onSuccessContainer(Color success, ColorScheme scheme) =>
+      Color.lerp(success, scheme.onSurface, 0.35)!;
 
   // --- custom seeds ---------------------------------------------------------
 
