@@ -216,5 +216,6 @@ NptIdentity identityFor(BrandprintConfig cfg) {
     navShell: cfg.navShell,
     actionRow: cfg.actionRow,
     ruledRegister: cfg.ruledRegister,
+    amountFirstTransfer: cfg.amountFirstTransfer,
   );
 }

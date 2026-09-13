@@ -44,6 +44,16 @@
   `NeptuneAmountKeypad` stays exactly as it was and is still the right one when the amount is a
   value on a form — both widgets now say which case they are for.
 
+- **`BrandprintConfig.amountFirstTransfer` — extension byte, bit 1.** Whether a transfer on this
+  brand starts with the AMOUNT (a full-bleed figure and a keypad, rail chosen afterwards) or with
+  the rail list, amount inside the rail's own form. It is a lever rather than a redesign of the
+  shared screen because the order those two questions are asked in is a brand decision: a bank
+  whose identity is a list of correspondent services reads worse amount-first, and a bank whose
+  argument is that sending money is one gesture reads worse rail-first. Both orders funnel into the
+  same rail forms, the same validation and the same confirm path. False for every string issued
+  before this release, so nothing already in the wild changes. Bit 0 (`ruledRegister`) is
+  undisturbed and both are round-tripped together in `drift_and_stage_test.dart`.
+
 - **`NeptuneDockShell.inkPill` — a solid stadium of the brand's ink, floating over the content.**
   Not `raised` in another colour: `raised` is glass, so it borrows the page and recedes, and it
   marks the active item by lifting a circle OUT of the bar; this is opaque, so it is the darkest

@@ -283,4 +283,89 @@ void main() {
           findsNothing);
     });
   });
+
+  group('amountFirstTransfer (extension bit 1)', () {
+    const base = BrandprintConfig(
+      primary: Seed(l: 0.372, c: 0.104, h: 262),
+      tertiary: Seed(l: 0.47, c: 0.083, h: 243),
+      corners: Corners(xs: 8, sm: 12, md: 16, lg: 20, xl: 26, xxl: 200),
+      displayWeight: 700,
+      displayTracking: -0.02,
+      fontDisplay: 'IBM Plex Sans Arabic',
+      fontText: 'IBM Plex Sans Arabic',
+      fontNum: 'IBM Plex Sans Arabic',
+      loginShell: 'drift-depth',
+      dashboardHero: 'statement-ledger',
+      contentTone: 'formal-authoritative',
+      glassTint: 'oceanic',
+      motion: 'calm-graceful',
+      navShell: 'ink-pill',
+      actionRow: 'register-rows',
+      motif: 'none',
+    );
+
+    test('survives a round trip, and does not disturb bit 0', () {
+      for (final amountFirst in [false, true]) {
+        for (final ruled in [false, true]) {
+          final cfg = BrandprintConfig(
+            primary: base.primary,
+            tertiary: base.tertiary,
+            corners: base.corners,
+            displayWeight: base.displayWeight,
+            displayTracking: base.displayTracking,
+            fontDisplay: base.fontDisplay,
+            fontText: base.fontText,
+            fontNum: base.fontNum,
+            loginShell: base.loginShell,
+            dashboardHero: base.dashboardHero,
+            contentTone: base.contentTone,
+            glassTint: base.glassTint,
+            motion: base.motion,
+            navShell: base.navShell,
+            actionRow: base.actionRow,
+            motif: base.motif,
+            ruledRegister: ruled,
+            amountFirstTransfer: amountFirst,
+          );
+          final back = Brandprint.decode(Brandprint.encode(cfg));
+          expect(back.amountFirstTransfer, amountFirst);
+          expect(back.ruledRegister, ruled);
+        }
+      }
+    });
+
+    test('a brand that never sets it still emits the 28-byte form', () {
+      // The whole reason the payload grew rather than sharing a bit: a string
+      // that carries no extension flag must be byte-for-byte what it always
+      // was, so every brandprint already in the wild keeps decoding.
+      final plain = Brandprint.encode(base);
+      final extended = Brandprint.encode(BrandprintConfig(
+        primary: base.primary,
+        tertiary: base.tertiary,
+        corners: base.corners,
+        displayWeight: base.displayWeight,
+        displayTracking: base.displayTracking,
+        fontDisplay: base.fontDisplay,
+        fontText: base.fontText,
+        fontNum: base.fontNum,
+        loginShell: base.loginShell,
+        dashboardHero: base.dashboardHero,
+        contentTone: base.contentTone,
+        glassTint: base.glassTint,
+        motion: base.motion,
+        navShell: base.navShell,
+        actionRow: base.actionRow,
+        motif: base.motif,
+        amountFirstTransfer: true,
+      ));
+      expect(extended.length, greaterThan(plain.length));
+      expect(Brandprint.decode(plain).amountFirstTransfer, isFalse);
+    });
+
+    test('it reaches the theme, so a screen can read it without asking which '
+        'bank it is drawing', () {
+      final off = NeptuneTheme.fromConfig(base, brightness: Brightness.light);
+      expect(off.extension<NptIdentity>()!.amountFirstTransfer, isFalse);
+    });
+  });
 }

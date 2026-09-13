@@ -260,6 +260,21 @@ class BrandprintConfig {
   /// the filled slabs.
   final bool ruledRegister;
 
+  /// Byte 27 (the extension byte), bit 1 (2.29.0). **THE AMOUNT COMES FIRST.**
+  /// A transfer on this brand starts with the figure — a full-bleed amount and
+  /// a keypad — and the rail is chosen afterwards. False, which every string
+  /// issued before this release decodes to, keeps the rail list first and the
+  /// amount inside the rail's own form.
+  ///
+  /// It is a lever rather than a redesign of the shared screen because the
+  /// order in which a customer is asked for the amount and the rail is a brand
+  /// decision: a bank whose identity is a list of correspondent services reads
+  /// worse amount-first, and a bank whose whole argument is that sending money
+  /// is one gesture reads worse rail-first. Both screens funnel into the SAME
+  /// rail forms, the same validation and the same confirm path; what differs
+  /// is only which question is asked first.
+  final bool amountFirstTransfer;
+
   const BrandprintConfig({
     this.version = 1,
     required this.primary,
@@ -283,6 +298,7 @@ class BrandprintConfig {
     this.navShell = 'raised-dock',
     this.actionRow = 'filled-circles',
     this.ruledRegister = false,
+    this.amountFirstTransfer = false,
   });
 
   @override
@@ -309,7 +325,8 @@ class BrandprintConfig {
       other.whiteGround == whiteGround &&
       other.navShell == navShell &&
       other.actionRow == actionRow &&
-      other.ruledRegister == ruledRegister;
+      other.ruledRegister == ruledRegister &&
+      other.amountFirstTransfer == amountFirstTransfer;
 
   @override
   int get hashCode => Object.hashAll([
@@ -335,6 +352,7 @@ class BrandprintConfig {
         navShell,
         actionRow,
         ruledRegister,
+        amountFirstTransfer,
       ]);
 }
 
@@ -350,7 +368,8 @@ class BrandprintConfig {
 ///   the checksum. Every brandprint issued before this release is this, and
 ///   decodes byte-for-byte to the config it always did.
 /// * **version byte 2 -> 29 bytes**: bytes 0-26 unchanged, byte 27 is a new
-///   EXTENSION FLAGS byte (bit 0 [BrandprintConfig.ruledRegister], bits 1-7
+///   EXTENSION FLAGS byte (bit 0 [BrandprintConfig.ruledRegister], bit 1
+///   [BrandprintConfig.amountFirstTransfer], bits 2-7
 ///   reserved and written as 0), byte 28 is the checksum.
 ///
 /// [encode] emits the 29-byte form ONLY when the extension byte would carry
@@ -400,6 +419,7 @@ class Brandprint {
     // config that predates it produces exactly the 28 bytes it always did.
     var ext = 0;
     if (cfg.ruledRegister) ext |= 1;
+    if (cfg.amountFirstTransfer) ext |= 2;
     final extended = ext != 0;
     final buf = Uint8List(extended ? _payloadBytesExtended : _payloadBytes);
     final dv = ByteData.view(buf.buffer);
@@ -534,6 +554,7 @@ class Brandprint {
       navShell: kNavShells[((f >> 4) & 3).clamp(0, kNavShells.length - 1)],
       actionRow: kActionRows[((f >> 6) & 3).clamp(0, kActionRows.length - 1)],
       ruledRegister: (ext & 1) != 0,
+      amountFirstTransfer: (ext & 2) != 0,
     );
   }
 }
