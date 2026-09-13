@@ -1,5 +1,38 @@
 # Changelog
 
+## 2.31.1
+
+- **`NeptuneAccountTile` dropped the digits off a balance at large text, on the screen that
+  decides a transfer.** At 2.0x text scale `1,000.000` rendered as `1,000.` — a customer using
+  large text could read a number the account does not hold, in all three production brands and in
+  both languages. The widget's semantics were already correct; this was purely layout, and nothing
+  about the spoken form, the `minHeight: 64` floor or the ruled/slab registers changed.
+
+  The cause was a flex contest the balance had no way to win. The name column was an `Expanded`
+  and the balance a `Flexible` of the same weight, so the two split the row down the middle and the
+  balance was ellipsized against a half it had no claim on — while the row still had room the name
+  column was not using.
+
+  * **The balance is now measured first, at its own width, and the name column takes what is
+    left.** The balance is a plain, non-flex child; `Expanded` on the name column consumes the
+    remainder. A truncated account NAME is recoverable from the masked number beside it; a
+    truncated BALANCE is a different figure on a transfer screen.
+  * **`maxLines: 1` and `TextOverflow.ellipsis` are gone from the balance.** A money figure has no
+    safe truncation point.
+  * **Above `textScaler.scale(14) > 20` the balance reflows UNDER the name column** instead of
+    competing with it for the same line. `minHeight: 64` was already a floor, so the row grows.
+
+  **This moves the 1.0x rendering, by design, in one way:** the balance now sits flush at the row's
+  end edge and the name column gains that measure (about 55dp on a 390dp-wide tile), where before
+  the balance floated short of the edge at half the free width. That is the placement the
+  component's own documentation already described ("the tabular balance at the end edge"). Hosts
+  carrying pixel goldens of an account row should expect them to move by that amount and no other.
+
+  One residual is recorded rather than papered over: in the narrow band between 1.2x and the
+  large-text step, a balance of roughly twenty characters or more can now overflow the row instead
+  of ellipsizing. Capping it again would re-shrink realistic long balances (`LYD 1,234,567.890`)
+  that this change keeps at full size, so the cap was not reinstated.
+
 ## 2.31.0
 
 - **The two design lines are one again, and `drift-depth` moved from login-shell index 6 to 7.**

@@ -83,6 +83,23 @@ class NeptuneAccountTile extends StatelessWidget {
     // balance at the end edge - is identical, so the two registers stay one
     // component rather than two.
     final ruled = Theme.of(context).extension<NptIdentity>()!.ruledRegister;
+
+    // At large text the balance and the name cannot both hold a line: the row
+    // is 44dp of glyph plus two gaps before either of them starts. So above
+    // this step the balance moves UNDER the name column instead of competing
+    // with it for the same line. `minHeight: 64` is a floor, so the row simply
+    // grows.
+    final stacked = MediaQuery.textScalerOf(context).scale(14) > 20;
+
+    final balanceText = Text(
+      balance,
+      // No `maxLines`/`ellipsis`: a truncated account NAME is recoverable, a
+      // truncated BALANCE is a different number on the screen that decides a
+      // transfer. `1,000.000` must never render as `1,000.`.
+      textAlign: stacked ? TextAlign.start : TextAlign.end,
+      style: money,
+    );
+
     return Material(
       color: ruled ? Colors.transparent : scheme.surfaceContainerLow,
       shape: ruled
@@ -144,19 +161,22 @@ class NeptuneAccountTile extends StatelessWidget {
                         style: textTheme.bodySmall
                             ?.copyWith(color: scheme.onSurfaceVariant),
                       ),
+                      if (stacked) ...[
+                        const SizedBox(height: 4),
+                        balanceText,
+                      ],
                     ],
                   ),
                 ),
-                const SizedBox(width: 12),
-                Flexible(
-                  child: Text(
-                    balance,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.end,
-                    style: money,
-                  ),
-                ),
+                // The name column stays `Expanded` and the balance takes no
+                // flex at all, so the balance is measured FIRST at its own
+                // width and the name gets what is left. Before, both were flex
+                // children of weight 1: they split the row down the middle and
+                // the balance lost digits to a half it had no claim on.
+                if (!stacked) ...[
+                  const SizedBox(width: 12),
+                  balanceText,
+                ],
               ],
             ),
           ),
