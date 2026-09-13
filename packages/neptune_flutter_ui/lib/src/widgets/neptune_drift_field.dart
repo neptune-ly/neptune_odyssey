@@ -20,9 +20,26 @@ class NeptuneDriftObject {
   /// What is suspended. A brand's own artwork, a card face, a glyph.
   final Widget child;
 
-  /// Where it sits at rest, as a fraction of the field: (-1,-1) is the top
-  /// start corner, (0,0) the centre, (1,1) the bottom end corner. Mirrors
-  /// under RTL, like [Alignment].
+  /// Where the object's CENTRE sits, as a fraction of the field: (-1,-1) is
+  /// the top-left corner, (0,0) the middle, (1,1) the bottom-right.
+  ///
+  /// IT POSITIONS THE CENTRE, WHICH IS NOT WHAT [Alignment] NORMALLY DOES.
+  /// Material's alignment insets an object so it never leaves its box, so the
+  /// same alignment lands two objects of different sizes in different places —
+  /// which is exactly how a scene composed by eye collapses into a pile the
+  /// moment one object is resized. Here the centre is where you said and the
+  /// size is irrelevant to it, so a composition can be reasoned about. An
+  /// object whose centre is near an edge is CROPPED by it, and that is a
+  /// feature: something continuing past the viewport is one of the strongest
+  /// cues that a scene is bigger than the screen.
+  ///
+  /// IT DOES NOT MIRROR UNDER RTL, and that is deliberate. A scene of physical
+  /// objects is a picture, not a layout: reading order mirrors, columns of
+  /// text mirror, a photograph does not. The same rule governs what is drawn
+  /// INSIDE an object — a card's chip, an embossed mark, a magnetic stripe are
+  /// all `Alignment`, never `AlignmentDirectional`, because a card in an
+  /// Arabic speaker's wallet has its chip in the same corner as anyone
+  /// else's.
   final Alignment at;
 
   /// The object's plane, 0 (far) to 1 (near).
@@ -263,9 +280,10 @@ class _DriftedObject extends StatelessWidget {
     // opacity would let whatever is behind it show through, and there is
     // nothing behind it but the ground anyway — so this is the same picture at
     // a quarter of the cost, and it composites on one layer instead of two.
-    final body = SizedBox(
-      width: object.size,
-      height: object.size,
+    // The depth scale is applied to the LAID-OUT box rather than as a
+    // transform on top of it, so the object's real size is what the placement
+    // arithmetic sees and an object's centre stays where it was put.
+    final body = SizedBox.expand(
       child: _presence >= 0.999
           ? object.child
           : ColorFiltered(
@@ -277,9 +295,26 @@ class _DriftedObject extends StatelessWidget {
             ),
     );
 
-    final placed = Align(
-      alignment: object.at,
-      child: body,
+    // Positioned by its CENTRE over the measured field - see
+    // [NeptuneDriftObject.at] for why `Align` is wrong here.
+    final placed = LayoutBuilder(
+      builder: (context, constraints) {
+        final w = constraints.maxWidth;
+        final h = constraints.maxHeight;
+        final side = object.size * _scale;
+        return Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              left: (object.at.x + 1) / 2 * w - side / 2,
+              top: (object.at.y + 1) / 2 * h - side / 2,
+              width: side,
+              height: side,
+              child: body,
+            ),
+          ],
+        );
+      },
     );
 
     // Semantics: an object that carries no meaning is REMOVED from the tree
@@ -294,7 +329,7 @@ class _DriftedObject extends StatelessWidget {
       return Transform.rotate(
         angle: object.turns * 2 * math.pi,
         alignment: Alignment.center,
-        child: Transform.scale(scale: _scale, child: described),
+        child: described,
       );
     }
 
@@ -316,7 +351,7 @@ class _DriftedObject extends StatelessWidget {
           child: Transform.rotate(
             angle: tilt,
             alignment: Alignment.center,
-            child: Transform.scale(scale: _scale, child: child),
+            child: child,
           ),
         );
       },

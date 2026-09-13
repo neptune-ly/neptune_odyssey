@@ -101,6 +101,52 @@ void main() {
       // Leave no live animation behind for the next test.
       await tester.pumpWidget(const SizedBox.shrink());
     });
+
+    testWidgets('an object\'s centre does not move when its size changes',
+        (tester) async {
+      // THE BUG THIS EXISTS FOR. Material's `Align` insets an object so it
+      // never leaves its box, so two objects at the same alignment but
+      // different sizes land in different places - which is how a composition
+      // laid out by eye collapses into a pile the moment one object is
+      // resized. Here the centre is what was specified.
+      Future<Offset> centreAt(double size) async {
+        await tester.pumpWidget(_host(
+          NeptuneDriftField(
+            objects: [
+              NeptuneDriftObject(
+                child: const ColoredBox(key: nearKey, color: Color(0xFF00FF00)),
+                at: const Alignment(0.4, -0.6),
+                depth: 0.5,
+                size: size,
+              ),
+            ],
+          ),
+          reduceMotion: true,
+        ));
+        return tester.getCenter(find.byKey(nearKey));
+      }
+
+      final small = await centreAt(40);
+      final large = await centreAt(160);
+      expect(large.dx, moreOrLessEquals(small.dx, epsilon: 0.5));
+      expect(large.dy, moreOrLessEquals(small.dy, epsilon: 0.5));
+    });
+
+    testWidgets('the scene does not mirror under RTL', (tester) async {
+      // A scene of physical objects is a picture, not a layout. Reading order
+      // mirrors; a photograph does not.
+      Future<double> xIn(TextDirection dir) async {
+        await tester.pumpWidget(_host(
+          NeptuneDriftField(objects: objects),
+          dir: dir,
+          reduceMotion: true,
+        ));
+        return tester.getCenter(find.byKey(nearKey)).dx;
+      }
+
+      expect(await xIn(TextDirection.rtl),
+          moreOrLessEquals(await xIn(TextDirection.ltr), epsilon: 0.5));
+    });
   });
 
   group('NeptuneAmountStage', () {
