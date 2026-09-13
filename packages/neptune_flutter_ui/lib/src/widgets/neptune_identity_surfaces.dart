@@ -432,7 +432,15 @@ class NeptuneEyebrow extends StatelessWidget {
     return Text(
       rtl ? text : text.toUpperCase(),
       style: base.copyWith(
-        fontFamily: type.display,
+        // THE TEXT FACE, NOT THE DISPLAY FACE. An eyebrow is labelMedium —
+        // twelve logical pixels — and a display face is chosen to work at
+        // thirty-six and up. A brand that bundles a genuinely expressive
+        // display face (a kufic, a high-contrast serif) had its smallest
+        // label set in it, and the result was mush: closed counters, joins
+        // that merge, a word a customer has to decode. It costs nothing for a
+        // brand whose display and text faces are the same family, which until
+        // now was every brand here — which is exactly why nobody saw it.
+        fontFamily: rtl ? type.textAr : type.text,
         fontWeight: FontWeight.w700,
         letterSpacing: rtl ? 0 : 0.08 * fontSize,
         color: color ?? theme.colorScheme.onSurfaceVariant,

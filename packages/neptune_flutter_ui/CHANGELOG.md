@@ -75,13 +75,27 @@
   arrow. The first DIRECTIONAL motif: it mirrors under RTL, because a brand that reads right to left
   and keeps its arrow pointing left to right has drawn its own logo backwards.
 
+- **`NeptuneEyebrow` sets in the TEXT face, not the display face.** An eyebrow is `labelMedium` —
+  twelve logical pixels — and a display face is chosen to work at thirty-six and up. A brand that
+  bundles a genuinely expressive display face (a kufic, a high-contrast serif) had its smallest
+  label set in it and the result was mush: closed counters, joins that merge, a word a customer has
+  to decode. It is a no-op for every brand whose display and text families are the same string,
+  which until 2.30.0 was all of them — which is exactly why nobody saw it.
+
 - **`NeptuneCardArt` takes its one key light.** The face already refused a tiled micro-pattern (it
   reads cheap at card size) but never took the other half of that finding — "at most one large soft
   glow". A brand with a declared accent kept it out of every Material role on purpose, which also
   kept it off the one surface in the app that depicts a physical object: the gradient ran
   primary → primary and the card was a flat navy rectangle. One accent bloom and one oversized
-  chevron leaving the frame, both under the content. A brand with no declared accent is unchanged —
-  `accent` equals `primary` there and the bloom would be invisible.
+  chevron leaving the frame, both under the content — and then the chevron came straight back out.
+  On a real card at real size, 9% ink on a 15dp stroke read as a grey swoosh someone had forgotten
+  to delete: the SAME failure as the tiled micro-pattern this face removed, arrived at from the
+  other direction. The finding was "at most one large soft GLOW", and a glow is a light, not a
+  drawing. What ships is one bloom, centred just OUTSIDE the trailing edge so only the falloff is on
+  the face (a bloom whose centre is on the card has a hot spot, and a hot spot on a flat gradient
+  looks like a rendering artifact) with a mid stop, because a two-stop radial falls off linearly and
+  reads as a flat cone. A brand with no declared accent is unchanged — `accent` equals `primary`
+  there and the bloom would be invisible.
 
 ## 2.28.0
 

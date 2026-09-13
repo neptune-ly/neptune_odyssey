@@ -360,6 +360,23 @@ void main() {
     });
   });
 
+  group('the eyebrow is a label, not a specimen (2.30.0)', () {
+    testWidgets('it sets in the TEXT face even when a display face exists',
+        (t) async {
+      // A display face is chosen to work at 36dp and up. An eyebrow is 12.
+      // For every brand before FGLB the two families were the same string, so
+      // the bug had no way to show itself.
+      await t.pumpWidget(_host(
+        NeptuneTheme.fromConfig(_base,
+            brightness: Brightness.light,
+            hostFont: const NptHostFont(family: 'Body', display: 'Head')),
+        const NeptuneEyebrow('TOTAL'),
+      ));
+      final style = t.widget<Text>(find.byType(Text)).style!;
+      expect(style.fontFamily, 'Body');
+    });
+  });
+
   group('NeptuneSpotArt', () {
     testWidgets('every kind paints in both directions and both modes',
         (t) async {

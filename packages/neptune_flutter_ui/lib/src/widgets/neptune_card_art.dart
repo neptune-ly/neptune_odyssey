@@ -141,7 +141,6 @@ class NeptuneCardArt extends StatelessWidget {
                         child: CustomPaint(
                           painter: _CardKeyLight(
                             accent: npt.accent,
-                            ink: onCard,
                             rtl: Directionality.of(context) ==
                                 TextDirection.rtl,
                           ),
@@ -259,27 +258,26 @@ class NeptuneCardArt extends StatelessWidget {
   }
 }
 
-/// The card's single key light: one soft accent bloom in the top-trailing
-/// corner, and one oversized brand chevron leaving the frame under it.
+/// The card's single key light: ONE soft accent bloom in the top-trailing
+/// corner. Nothing else.
 ///
-/// TWO ELEMENTS, BOTH LARGER THAN THE CARD. That is what separates this from
-/// the tiled motif the card face refused: a pattern is read as texture and
-/// reads cheap at card size, while a shape that runs off the edge is read as
-/// an object the card is a window onto. Both sit under the content and neither
-/// competes with the number — the bloom peaks at 30% and the chevron at 9%.
+/// It had a second element for one build — an oversized brand chevron leaving
+/// the frame — on the theory that a shape running off the edge reads as an
+/// object rather than as texture. On a real card at real size it did not: at
+/// 9% ink and a 15dp stroke it read as a grey swoosh someone had forgotten to
+/// delete, which is the SAME failure as the tiled micro-pattern this face
+/// removed, arrived at from the other direction. The reference set's finding
+/// was "at most one large soft GLOW", and a glow is a light, not a drawing.
+/// The brand is already on this card twice — in the gradient and in the
+/// accent of the light itself.
 class _CardKeyLight extends CustomPainter {
   final Color accent;
-  final Color ink;
 
   /// The gradient already mirrors (it is `AlignmentDirectional`); a chevron
   /// that did not would point back at the start edge on an Arabic screen.
   final bool rtl;
 
-  const _CardKeyLight({
-    required this.accent,
-    required this.ink,
-    required this.rtl,
-  });
+  const _CardKeyLight({required this.accent, required this.rtl});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -288,38 +286,30 @@ class _CardKeyLight extends CustomPainter {
       canvas.translate(size.width, 0);
       canvas.scale(-1, 1);
     }
-    final origin = Offset(size.width * 0.94, size.height * 0.06);
-    final r = size.width * 0.72;
+    // Off the corner, not in it: a bloom whose centre is ON the card has a
+    // visible hot spot, and a hot spot on a flat gradient looks like a
+    // rendering artifact. Centred just outside the trailing edge, only the
+    // falloff is on the face.
+    final origin = Offset(size.width * 1.02, -size.height * 0.10);
+    final r = size.width * 0.78;
     canvas.drawRect(
       Offset.zero & size,
       Paint()
         ..shader = RadialGradient(
+          // 0.34, with a mid stop: a two-stop radial falls off linearly and
+          // reads as a flat cone. The third stop is what makes it light.
           colors: [
-            accent.withValues(alpha: 0.30),
+            accent.withValues(alpha: 0.34),
+            accent.withValues(alpha: 0.10),
             accent.withValues(alpha: 0),
           ],
+          stops: const [0, 0.45, 1],
         ).createShader(Rect.fromCircle(center: origin, radius: r)),
-    );
-    // One chevron, bottom-trailing, big enough to leave the card.
-    final c = Offset(size.width * 0.86, size.height * 0.78);
-    final w = size.width * 0.30;
-    final h = size.height * 0.34;
-    canvas.drawPath(
-      Path()
-        ..moveTo(c.dx - w, c.dy - h)
-        ..lineTo(c.dx + w * 0.4, c.dy)
-        ..lineTo(c.dx - w, c.dy + h),
-      Paint()
-        ..color = ink.withValues(alpha: 0.09)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = size.height * 0.07
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round,
     );
     canvas.restore();
   }
 
   @override
   bool shouldRepaint(_CardKeyLight old) =>
-      old.accent != accent || old.ink != ink || old.rtl != rtl;
+      old.accent != accent || old.rtl != rtl;
 }
