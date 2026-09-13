@@ -134,7 +134,8 @@ class _ShowcaseState extends State<_Showcase> {
               child: switch (_section) {
                 0 => _home(rtl),
                 1 => _cards(),
-                _ => _art(),
+                2 => _art(),
+                _ => _welcome(rtl),
               },
             ),
           ],
@@ -246,6 +247,81 @@ class _ShowcaseState extends State<_Showcase> {
         ],
       );
 
+  /// `pocket-drift`: the bank's own paper with its mark drifting across it.
+  /// No gradient anywhere — the whole point of the shell.
+  Widget _welcome(bool rtl) {
+    final scheme = Theme.of(context).colorScheme;
+    final colors = Theme.of(context).extension<NptColors>()!;
+    final type = Theme.of(context).extension<NptType>()!;
+    final shape = Theme.of(context).extension<NptShape>()!;
+    return NeptuneDriftCanvas(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              const Spacer(),
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: colors.accent,
+                ),
+                alignment: Alignment.center,
+                child: Icon(Icons.north_east,
+                    color: colors.onCard, size: 34),
+              ),
+              const SizedBox(height: 20),
+              Text('FGLB',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontFamily: type.display, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 24),
+              Text(
+                rtl ? 'خدمات مصرفية متميزة' : 'Banking that keeps up',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      fontFamily: type.display,
+                      fontWeight: FontWeight.w700,
+                      height: 1.15,
+                      letterSpacing:
+                          NeptuneTheme.displayTracking(context, 36),
+                    ),
+              ),
+              const Spacer(),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: colors.accent,
+                    foregroundColor: colors.onAccent,
+                    minimumSize: const Size.fromHeight(56),
+                  ),
+                  onPressed: () {},
+                  child: Text(rtl ? 'افتح حسابك الآن' : 'Open an account'),
+                ),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(56),
+                    side: BorderSide(color: scheme.outline),
+                    shape: RoundedRectangleBorder(borderRadius: shape.rXxl),
+                  ),
+                  onPressed: () {},
+                  child: Text(rtl ? 'تسجيل الدخول' : 'Log in'),
+                ),
+              ),
+              const SizedBox(height: 32),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _art() => GridView.count(
         crossAxisCount: 2,
         padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 32),
@@ -290,7 +366,12 @@ class _Switcher extends StatelessWidget {
       padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 6),
       child: Row(
         children: [
-          for (final (i, label) in const [(0, 'Home'), (1, 'Cards'), (2, 'Art')])
+          for (final (i, label) in const [
+            (0, 'Home'),
+            (1, 'Cards'),
+            (2, 'Art'),
+            (3, 'Pre')
+          ])
             TextButton(
               onPressed: () => onSection(i),
               child: Text(label,
