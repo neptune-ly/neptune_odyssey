@@ -805,13 +805,20 @@ class _AuroraPainter extends CustomPainter {
 
   void _bloom(Canvas canvas, Size size, Offset at, double r, Color c,
       double alpha) {
-    final rect = Rect.fromCircle(center: at, radius: r);
+    // THE SHADER IS PLACED ON THE CIRCLE; THE PAINT COVERS THE PAGE.
+    //
+    // Drawing the rect the shader was built from clips the gradient at its own
+    // bounding box, so the outer ring — the part that is supposed to be
+    // transparent — simply stops, and a soft bloom renders as a hard-edged
+    // rectangle with a visible seam down the screen. It looks like a stray
+    // translucent panel, not a light, which is the opposite of the one thing
+    // this surface is for.
     final paint = Paint()
       ..shader = RadialGradient(
         colors: [c.withValues(alpha: alpha), c.withValues(alpha: 0)],
         stops: const [0, 1],
-      ).createShader(rect);
-    canvas.drawRect(rect, paint);
+      ).createShader(Rect.fromCircle(center: at, radius: r));
+    canvas.drawRect(Offset.zero & size, paint);
   }
 
   @override

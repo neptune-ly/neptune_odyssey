@@ -323,6 +323,43 @@ void main() {
     });
   });
 
+  group('Arabic is never tracked (2.30.0)', () {
+    test('the display styles drop the brand tracking under Arabic', () {
+      // `_base` declares -0.03. Negative tracking on a connected script does
+      // not tighten a word, it crashes the letters into each other, and a
+      // brand slogan set that way is unreadable rather than tight.
+      final latin = NeptuneTheme.fromConfig(_base,
+          brightness: Brightness.light, arabic: false);
+      final arabic = NeptuneTheme.fromConfig(_base,
+          brightness: Brightness.light, arabic: true);
+      expect(latin.textTheme.displayLarge!.letterSpacing, isNot(0));
+      expect(arabic.textTheme.displayLarge!.letterSpacing, 0);
+      expect(arabic.textTheme.displayMedium!.letterSpacing, 0);
+    });
+
+    testWidgets('the host-facing helper follows the DIRECTION', (t) async {
+      late double rtlTrack;
+      late double ltrTrack;
+      for (final dir in TextDirection.values) {
+        await t.pumpWidget(_host(
+          NeptuneTheme.fromConfig(_base, brightness: Brightness.light),
+          Builder(builder: (context) {
+            final v = NeptuneTheme.displayTracking(context, 36);
+            if (dir == TextDirection.rtl) {
+              rtlTrack = v;
+            } else {
+              ltrTrack = v;
+            }
+            return const SizedBox.shrink();
+          }),
+          dir: dir,
+        ));
+      }
+      expect(rtlTrack, 0);
+      expect(ltrTrack, lessThan(0));
+    });
+  });
+
   group('NeptuneSpotArt', () {
     testWidgets('every kind paints in both directions and both modes',
         (t) async {

@@ -618,9 +618,15 @@ class NeptuneTheme {
         );
     TextStyle body(double size, {FontWeight? weight}) =>
         _face(type, text, TextStyle(fontSize: size, fontWeight: weight));
+    // ARABIC IS NEVER TRACKED. Tracking is a Latin device; Arabic is a
+    // CONNECTED script, so positive tracking pulls the joins apart and
+    // negative tracking — which is what most display faces here declare —
+    // crashes the letters into each other. A brand that declared -0.03 set its
+    // own slogan as an unreadable pile. Same rule as `NeptuneEyebrow`.
+    final tracking = arabic ? 0.0 : type.displayTracking;
     return TextTheme(
-      displayLarge: disp(57, height: 64 / 57, letterSpacing: type.displayTracking * 57),
-      displayMedium: disp(45, height: 52 / 45, letterSpacing: type.displayTracking * 45),
+      displayLarge: disp(57, height: 64 / 57, letterSpacing: tracking * 57),
+      displayMedium: disp(45, height: 52 / 45, letterSpacing: tracking * 45),
       displaySmall: disp(36, height: 44 / 36),
       headlineLarge: disp(32),
       headlineMedium: disp(28),
@@ -679,6 +685,20 @@ class NeptuneTheme {
     final rtl = Directionality.maybeOf(context) == TextDirection.rtl;
     final family = rtl ? type.numAr : type.num;
     return _face(type, family, b).copyWith(fontFeatures: tabular);
+  }
+
+  /// The display tracking a host should apply at [fontSize], in logical
+  /// pixels — `NptType.displayTracking` is an em fraction, the way the web
+  /// token is, and it is ZERO under RTL.
+  ///
+  /// It exists because the rule cannot live only in the text theme. A host
+  /// that sets its own headline (a pre-login masthead, a hero) reaches for
+  /// `displayTracking * fontSize` by hand, and every one of those call sites
+  /// was a place to crash a connected script into itself.
+  static double displayTracking(BuildContext context, double fontSize) {
+    if (Directionality.maybeOf(context) == TextDirection.rtl) return 0;
+    final type = Theme.of(context).extension<NptType>();
+    return (type?.displayTracking ?? 0) * fontSize;
   }
 
   /// Apply the active theme's numerals lever (R6) to [text] — swaps ASCII

@@ -8,7 +8,10 @@
   control and a row of VERBS, and the first thing a customer sees moves.
   - `NeptunePocketBalance` — the hero. It draws NO container: every other hero puts the money inside
     something, and a container is a promise that there is more than one of them.
-  - `NeptuneAuroraCanvas` — the pre-login ground. Two Lissajous blooms on 22/27s, deliberately the
+  - `NeptuneAuroraCanvas` — the pre-login ground. A bloom's shader is placed on its circle and
+    PAINTED OVER THE PAGE: filling the rect the shader was built from clips the gradient at its own
+    bounding box, so the transparent outer ring simply stops and a soft light renders as a
+    hard-edged rectangle with a seam down the screen. Two Lissajous blooms on 22/27s, deliberately the
     one piece of ambient motion in the system: the pre-login screen has no data to give feedback
     about, and "this is alive" is the only message it has to carry. The ticker is created in
     `didChangeDependencies`, not `initState` — reduced motion is a `MediaQuery`, and a ticker made
@@ -38,6 +41,15 @@
     same chroma. Warming a dark ground toward a red-orange is brown and nothing rescues it, but a
     dark scheme that keeps the default 0.008 is a characterless near-black — the same "colour nobody
     chose" problem the lever exists to fix, one brightness over.
+
+- **ARABIC IS NEVER TRACKED — the text theme, the eyebrow, and a helper for the host.** Tracking is
+  a Latin device; Arabic is a connected script, so positive tracking pulls the joins apart and
+  negative tracking — which is what most display faces here declare — crashes the letters into each
+  other. A brand that declared `-0.03` set its own slogan as an unreadable pile, in the primary
+  language of every bank on this system. Fixed in `_buildTextTheme` (gated on `arabic`, so no Latin
+  style moves) and exposed as `NeptuneTheme.displayTracking(context, fontSize)`, because the rule
+  cannot live only in the text theme: a host that sets its own masthead reaches for
+  `displayTracking * fontSize` by hand, and every one of those call sites was the same bug again.
 
 - **`NeptuneEyebrow` does not track Arabic.** The eyebrow's whole recipe — uppercase, 0.08em of
   tracking — is a Latin typographic device. Arabic is a connected script: letter-spacing does not
