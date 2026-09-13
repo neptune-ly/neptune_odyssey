@@ -50,30 +50,44 @@ class PocketShowcaseApp extends StatefulWidget {
   State<PocketShowcaseApp> createState() => _PocketShowcaseAppState();
 }
 
+// The page's state is also settable from the launch, so a capture sweep does
+// not have to click anything: clicking a simulator means driving the HOST's
+// mouse, and a blind click on someone's desktop is a bad way to take a
+// screenshot. `--dart-define=SECTION=cards|art`, `--dart-define=RTL=true`,
+// and the platform's own appearance for brightness.
+const String _kSection = String.fromEnvironment('SECTION', defaultValue: 'home');
+const bool _kRtl = bool.fromEnvironment('RTL');
+const bool _kRevealed = bool.fromEnvironment('REVEALED');
+
 class _PocketShowcaseAppState extends State<PocketShowcaseApp> {
-  bool _dark = false;
-  bool _rtl = false;
+  bool? _darkOverride;
+  bool _rtl = _kRtl;
+
+  bool _isDark(BuildContext context) =>
+      _darkOverride ?? MediaQuery.platformBrightnessOf(context) == Brightness.dark;
 
   @override
   Widget build(BuildContext context) {
-    final theme = NeptuneTheme.fromConfig(
-      kPocketBrandprint,
-      brightness: _dark ? Brightness.dark : Brightness.light,
-      arabic: _rtl,
-    );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme,
-      home: Directionality(
-        textDirection: _rtl ? TextDirection.rtl : TextDirection.ltr,
-        child: _Showcase(
-          dark: _dark,
-          rtl: _rtl,
-          onDark: (v) => setState(() => _dark = v),
-          onRtl: (v) => setState(() => _rtl = v),
+    return Builder(builder: (context) {
+      final dark = _isDark(context);
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: NeptuneTheme.fromConfig(
+          kPocketBrandprint,
+          brightness: dark ? Brightness.dark : Brightness.light,
+          arabic: _rtl,
         ),
-      ),
-    );
+        home: Directionality(
+          textDirection: _rtl ? TextDirection.rtl : TextDirection.ltr,
+          child: _Showcase(
+            dark: dark,
+            rtl: _rtl,
+            onDark: (v) => setState(() => _darkOverride = v),
+            onRtl: (v) => setState(() => _rtl = v),
+          ),
+        ),
+      );
+    });
   }
 }
 
@@ -95,9 +109,9 @@ class _Showcase extends StatefulWidget {
 }
 
 class _ShowcaseState extends State<_Showcase> {
-  bool _revealed = false;
-  bool _flipped = false;
-  int _section = 0;
+  bool _revealed = _kRevealed;
+  bool _flipped = _kRevealed;
+  int _section = switch (_kSection) { 'cards' => 1, 'art' => 2, _ => 0 };
 
   @override
   Widget build(BuildContext context) {

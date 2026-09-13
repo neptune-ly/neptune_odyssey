@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/neptune_theme.dart';
+import 'neptune_numeral.dart';
 
 /// A single transaction line: leading glyph, title/subtitle, signed amount.
 /// Credits use the `success` role AND a leading "+" sign; debits use
@@ -102,7 +103,7 @@ class NeptuneTransactionRow extends StatelessWidget {
                       style: textTheme.titleSmall,
                     ),
                     if (subtitle != null)
-                      Text(
+                      NeptuneNumeral(
                         subtitle!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -113,7 +114,19 @@ class NeptuneTransactionRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(NeptuneTheme.formatDigits(context, signed), style: money),
+              // ISOLATED. A signed amount is a Latin-order run — sign, digits,
+              // separators — dropped into whatever paragraph direction the app
+              // is in, and in RTL the bidi algorithm moves the sign to the far
+              // side: `+3,250.000` rendered as `3,250.000+`, which is not a
+              // convention anywhere, it is the opposite of what the row is
+              // trying to say. The subtitle has the same problem for the same
+              // reason (`5 Sep 2026` came out `Sep 2026 5`).
+              NeptuneNumeral(
+                NeptuneTheme.formatDigits(context, signed),
+                style: money,
+                semanticsLabel: NeptuneAccessibility.money(context, unsigned,
+                    currency: currency),
+              ),
             ],
           ),
         ),
