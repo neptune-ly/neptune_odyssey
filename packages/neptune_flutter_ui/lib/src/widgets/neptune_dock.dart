@@ -142,7 +142,6 @@ class NeptuneDock extends StatelessWidget {
   Widget _buildInkPill(BuildContext context) {
     final theme = Theme.of(context);
     final canvas = theme.extension<NptBrandCanvas>()!;
-    final identity = theme.extension<NptIdentity>()!;
 
     return Padding(
       // The bar floats, so it is inset from all three edges. The bottom inset
@@ -159,7 +158,21 @@ class NeptuneDock extends StatelessWidget {
           // bar has to read as being IN FRONT of the content passing under it,
           // and on a pale page an opaque dark stadium with no shadow reads as
           // a hole cut in the page instead.
-          boxShadow: identity.elevation3(theme.colorScheme),
+          //
+          // It is NOT `identity.elevation3`, which is tuned for the glass dock
+          // — a tight, fairly opaque neutral drop that sits correctly under a
+          // translucent pane and, under a solid dark stadium, rendered as a
+          // hard GREY BAND reading as a second bar below the first. This is
+          // the bar's own colour at low alpha, spread wide and soft: a dark
+          // object's shadow is its own colour darkened, never neutral grey,
+          // and a wide blur is what reads as height rather than as an outline.
+          boxShadow: [
+            BoxShadow(
+              color: canvas.canvas.withValues(alpha: 0.28),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 6),

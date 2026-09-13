@@ -54,6 +54,11 @@ class NeptuneAmountStage extends StatelessWidget {
   /// Overrides the largest size. The scale steps down from here.
   final double maxFontSize;
 
+  /// The thousands separator drawn between groups of the integer part. Pass
+  /// the locale's; null switches grouping off for a currency that is not
+  /// grouped.
+  final String? groupSeparator;
+
   const NeptuneAmountStage({
     super.key,
     required this.value,
@@ -63,7 +68,31 @@ class NeptuneAmountStage extends StatelessWidget {
     this.mutedColor,
     this.footnote,
     this.maxFontSize = 84,
+    this.groupSeparator = ',',
   });
+
+  /// The integer part in groups of three, the decimal part untouched.
+  ///
+  /// GROUPED AS IT IS TYPED, not at the end. An ungrouped seven-digit figure
+  /// is the one number on this screen a customer cannot check at a glance, and
+  /// "is that two hundred thousand or two million" is a question they should
+  /// never have to count digits to answer. It is a DISPLAY transform only: the
+  /// host's value is untouched, so what the rail form receives is still plain
+  /// digits and nothing downstream has to strip a separator out again.
+  String _grouped(String raw) {
+    final sep = groupSeparator;
+    if (sep == null) return raw;
+    final dot = raw.indexOf('.');
+    final whole = dot < 0 ? raw : raw.substring(0, dot);
+    final rest = dot < 0 ? '' : raw.substring(dot);
+    if (whole.length <= 3) return raw;
+    final buf = StringBuffer();
+    for (var i = 0; i < whole.length; i++) {
+      if (i > 0 && (whole.length - i) % 3 == 0) buf.write(sep);
+      buf.write(whole[i]);
+    }
+    return '$buf$rest';
+  }
 
   /// The step-down ladder. Chosen so a 9-digit figure with a currency still
   /// fits the narrowest phone this app supports at the largest Dynamic Type
@@ -131,7 +160,8 @@ class NeptuneAmountStage extends StatelessWidget {
               // the numerals' feet and reads as a superscript.
               crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
-                Text(numerals?.format(shown) ?? shown, style: figure),
+                Text(numerals?.format(_grouped(shown)) ?? _grouped(shown),
+                    style: figure),
                 const SizedBox(width: 10),
                 Text(currency, style: currencyStyle),
               ],

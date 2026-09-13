@@ -167,7 +167,9 @@ void main() {
       final short = sizeOf('12');
       await tester.pumpWidget(
           _host(const NeptuneAmountStage(value: '123456789', currency: 'LYD')));
-      final long = sizeOf('123456789');
+      // Grouped on screen; the ladder keys off the DIGIT count, not the
+      // rendered string's length, so the separators do not shrink it further.
+      final long = sizeOf('123,456,789');
       expect(long, lessThan(short));
       expect(tester.takeException(), isNull);
     });
@@ -188,6 +190,32 @@ void main() {
       await tester.pumpWidget(
           _host(const NeptuneAmountStage(value: '120', currency: 'LYD')));
       expect(find.bySemanticsLabel(RegExp('120')), findsOneWidget);
+      handle.dispose();
+    });
+
+    testWidgets('the integer part is grouped as it is typed', (tester) async {
+      await tester.pumpWidget(
+          _host(const NeptuneAmountStage(value: '2450000', currency: 'LYD')));
+      expect(find.text('2,450,000'), findsOneWidget);
+      // Display only: three digits or fewer are left alone, and the decimal
+      // part is never grouped.
+      await tester.pumpWidget(
+          _host(const NeptuneAmountStage(value: '450.25', currency: 'LYD')));
+      expect(find.text('450.25'), findsOneWidget);
+      await tester.pumpWidget(
+          _host(const NeptuneAmountStage(value: '12345.5', currency: 'LYD')));
+      expect(find.text('12,345.5'), findsOneWidget);
+    });
+
+    testWidgets('grouping is a display transform, not a value change',
+        (tester) async {
+      final handle = tester.ensureSemantics();
+      await tester.pumpWidget(
+          _host(const NeptuneAmountStage(value: '2450000', currency: 'LYD')));
+      // What a screen reader hears, and what the host still holds, is the
+      // plain figure - a separator that reached the value would have to be
+      // stripped out again by every caller downstream.
+      expect(find.bySemanticsLabel(RegExp(r'2450000')), findsOneWidget);
       handle.dispose();
     });
 

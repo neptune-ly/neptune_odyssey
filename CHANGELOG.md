@@ -66,6 +66,12 @@
   before this release, so nothing already in the wild changes. Bit 0 (`ruledRegister`) is
   undisturbed and both are round-tripped together in `drift_and_stage_test.dart`.
 
+- **`NeptuneAmountStage` groups the integer part as it is typed.** An ungrouped seven-digit figure
+  is the one number on an amount screen a customer cannot check at a glance, and "is that two
+  hundred thousand or two million" should never be a question you count digits to answer. It is a
+  DISPLAY transform only — the host's value stays plain digits, so nothing downstream has to strip
+  a separator back out, and a screen reader still hears the figure rather than the punctuation.
+
 - **`NeptuneDockShell.inkPill` — a solid stadium of the brand's ink, floating over the content.**
   Not `raised` in another colour: `raised` is glass, so it borrows the page and recedes, and it
   marks the active item by lifting a circle OUT of the bar; this is opaque, so it is the darkest
