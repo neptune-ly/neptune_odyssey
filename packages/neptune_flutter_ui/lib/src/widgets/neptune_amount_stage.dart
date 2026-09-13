@@ -283,10 +283,15 @@ class NeptuneStageKeypad extends StatelessWidget {
               const Expanded(child: SizedBox.shrink()),
             digit('0'),
             cell(
-              // The one mirrored glyph on the pad: an arrow means "back along
-              // the line of text", which is the other way round in Arabic.
-              Directionality(
-                textDirection: Directionality.of(context),
+              // THE ONE MIRRORED GLYPH ON THE PAD, and it has to be mirrored by
+              // hand. Backspace means "back along the line of text", which in
+              // Arabic is the other way round - and `Icons.backspace_outlined`
+              // declares `matchTextDirection: false`, so wrapping it in a
+              // `Directionality` does exactly nothing. That was the first
+              // version of this and the glyph pointed the wrong way in every
+              // Arabic build while a comment above it claimed otherwise.
+              Transform.scale(
+                scaleX: Directionality.of(context) == TextDirection.rtl ? -1 : 1,
                 child: Icon(Icons.backspace_outlined, size: 26, color: ink),
               ),
               onTap: onBackspace,

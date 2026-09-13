@@ -8,17 +8,22 @@ import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
 ThemeData _theme({Brightness mode = Brightness.light}) =>
     NeptuneTheme.light('neptune').copyWith(brightness: mode);
 
+/// The `Directionality` goes INSIDE the `MaterialApp`, and that is not a
+/// detail: `MaterialApp` inserts its own `Directionality` from its locale, so
+/// one wrapped around it is overridden before the widget under test ever sees
+/// it. Two RTL tests in this file were written the other way round and were
+/// quietly asserting LTR twice.
 Widget _host(Widget child,
         {bool reduceMotion = false,
         TextDirection dir = TextDirection.ltr,
         ThemeData? theme}) =>
     MediaQuery(
       data: MediaQueryData(disableAnimations: reduceMotion),
-      child: Directionality(
-        textDirection: dir,
-        child: MaterialApp(
-          theme: theme ?? _theme(),
-          home: Scaffold(body: child),
+      child: MaterialApp(
+        theme: theme ?? _theme(),
+        home: Directionality(
+          textDirection: dir,
+          child: Scaffold(body: child),
         ),
       ),
     );
@@ -466,6 +471,36 @@ void main() {
           .extension<NptBrandCanvas>()!
           .deep;
       expect(deepFor(Brightness.dark), deepFor(Brightness.light));
+    });
+  });
+
+  group('the backspace glyph', () {
+    testWidgets('points against the reading direction in BOTH scripts',
+        (tester) async {
+      Future<double> scaleXIn(TextDirection dir) async {
+        await tester.pumpWidget(_host(
+          SizedBox(
+            height: 320,
+            child: NeptuneStageKeypad(onDigit: (_) {}, onBackspace: () {}),
+          ),
+          dir: dir,
+        ));
+        // The mirroring Transform is not necessarily the innermost ancestor -
+        // the pressed-state container contributes its own - so the flip is
+        // looked for across all of them rather than at a fixed depth.
+        final all = tester.widgetList<Transform>(find.ancestor(
+            of: find.byIcon(Icons.backspace_outlined),
+            matching: find.byType(Transform)));
+        return all
+            .map((t) => t.transform.storage[0])
+            .reduce((a, b) => a * b);
+      }
+
+      // `Icons.backspace_outlined` declares `matchTextDirection: false`, so a
+      // `Directionality` around it does nothing at all - which is what the
+      // first version of this did, while a comment claimed it mirrored.
+      expect(await scaleXIn(TextDirection.ltr), greaterThan(0));
+      expect(await scaleXIn(TextDirection.rtl), lessThan(0));
     });
   });
 }
