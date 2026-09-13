@@ -17,6 +17,18 @@
   shipped scheme's `tertiary` is a free accent role and one real bank's is a 12%-alpha grey, which
   as a gradient stop is a translucent smudge.
 
+- **`NptBrandCanvas.deep` — the brand's ground with a below.** A card's gradient starts at the
+  brand's primary and `canvas` IS the brand's primary, so the moment a scene puts a real card face
+  on the brand ground the card *is* the ground and vanishes. Every brand hits it, because both
+  values come from the same role by design. `deep` is the canvas carried 70% toward the scheme's own
+  `scrim` — a lerp to black moves lightness only, so it stays unmistakably the bank's colour rather
+  than a second invented navy, and it is fixed across brightness like everything else on this class.
+  It deliberately does NOT promise 3:1 against that card: for a brand whose primary is already dark
+  the ratio asymptotes below 2:1 at any lerp, and reaching for a lighter ground to "fix" that would
+  mean inventing a colour the bank does not own. A dark object on a dark ground reads by its edge
+  and its shadow; the role owes a ground that is unmistakably behind it and one near-white ink can
+  still be set on (18.6:1 measured).
+
 - **`NeptuneDriftField` — the pre-login moment as a scene rather than a lockup.** Objects suspended
   at different depths in a brand's own ground, drifting on an ambient clock and answering a drag
   with parallax. Depth is one number per object and it drives THREE things at once — scale, travel

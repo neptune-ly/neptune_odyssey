@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 
 import 'package:flutter/material.dart';
@@ -366,6 +367,59 @@ void main() {
         'bank it is drawing', () {
       final off = NeptuneTheme.fromConfig(base, brightness: Brightness.light);
       expect(off.extension<NptIdentity>()!.amountFirstTransfer, isFalse);
+    });
+  });
+
+  group('NptBrandCanvas.deep', () {
+    test('a brand card can be seen on it, which is the whole reason', () {
+      final theme = NeptuneTheme.light('neptune');
+      final brand = theme.extension<NptBrandCanvas>()!;
+      final colors = theme.extension<NptColors>()!;
+      // The failure it fixes: a card's first gradient stop IS `canvas`, so a
+      // card placed on the plain brand ground is the ground.
+      expect(colors.cardGradientStart, brand.canvas,
+          reason: 'if these ever differ, re-read why `deep` exists');
+      double lum(Color c) {
+        double f(double v) =>
+            v <= 0.03928 ? v / 12.92 : math.pow((v + 0.055) / 1.055, 2.4) as double;
+        return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+      }
+      double ratio(Color a, Color b) {
+        final x = lum(a), y = lum(b);
+        return (math.max(x, y) + 0.05) / (math.min(x, y) + 0.05);
+      }
+      // NOT 3:1, and the reason is worth the comment. 3:1 is the floor for a
+      // graphical object whose SHAPE carries information; a drifting card in a
+      // pre-login scene carries none (it is `ExcludeSemantics`, and a customer
+      // who cannot see it misses nothing). And for a brand whose primary is
+      // already dark the ratio cannot reach 3:1 at any lerp - both colours are
+      // the same deep navy - so asserting it would only ever be satisfied by
+      // inventing a lighter ground the bank does not own. What IS owed is that
+      // the ground is meaningfully BEHIND the card, so the card's rim and
+      // shadow have something to sit against.
+      expect(ratio(brand.deep, colors.cardGradientStart),
+          greaterThanOrEqualTo(1.5));
+      // ...and the near-white ink still reads on the deeper ground.
+      expect(ratio(brand.deep, brand.onCanvas), greaterThanOrEqualTo(4.5));
+    });
+
+    test('it is the bank\'s own colour, only darker', () {
+      final brand =
+          NeptuneTheme.light('neptune').extension<NptBrandCanvas>()!;
+      final a = HSLColor.fromColor(brand.canvas);
+      final b = HSLColor.fromColor(brand.deep);
+      // A lerp to black moves lightness and nothing else; a `deep` that had
+      // drifted in hue would be a second, invented navy.
+      expect(b.hue, moreOrLessEquals(a.hue, epsilon: 1.0));
+      expect(b.lightness, lessThan(a.lightness));
+    });
+
+    test('it does not re-tone at night', () {
+      Color deepFor(Brightness mode) => NeptuneTheme.fromConfig(
+              brandConfig['neptune']!, brightness: mode)
+          .extension<NptBrandCanvas>()!
+          .deep;
+      expect(deepFor(Brightness.dark), deepFor(Brightness.light));
     });
   });
 }
