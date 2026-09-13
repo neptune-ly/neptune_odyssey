@@ -820,9 +820,17 @@ class _NeptuneDriftCanvasState extends State<NeptuneDriftCanvas>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final canvas = theme.extension<NptBrandCanvas>();
-    final ground = canvas?.canvas ?? scheme.surface;
-    final ink = canvas?.onCanvas ?? scheme.onSurface;
+    // THE THEME'S OWN GROUND, not `NptBrandCanvas.canvas`.
+    //
+    // `pocket-drift` is a PAPER shell — that is the whole correction it exists
+    // to carry: pre-login is the same bank at a different moment, so it stands
+    // on the same ground the signed-in app does. Reading the brand canvas put
+    // the widget back on the bank's colour, which is how the gallery rendered
+    // a blue pre-login while the host app rendered the cream one. A widget
+    // whose ground depends on the caller remembering to swap an extension is
+    // a widget with two answers.
+    final ground = scheme.surface;
+    final ink = scheme.onSurface;
 
     return Container(
       color: ground,
