@@ -1,616 +1,635 @@
 {
-  "account_icon": {
-    "class": "icon",
-    "src": "lucide:user-round",
-    "sel": "tabler-filled:user"
-  },
-  "account_icon_selected": {
-    "class": "alias",
-    "of": "account_icon",
-    "state": "filled"
-  },
-  "accounts_icon": {
-    "class": "icon",
-    "src": "lucide:wallet-cards",
-    "sel": "tabler-filled:cards"
-  },
-  "address_book_logo": {
-    "class": "icon",
-    "src": "lucide:book-user"
-  },
-  "address_icon": {
-    "class": "icon",
-    "src": "lucide:map-pinned"
-  },
-  "andafx_logo": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus"
-    ],
-    "note": "AndaFX is an Andalus product. Not a Neptune glyph; Andalus's own artwork."
-  },
-  "andalus_logo": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus"
-    ],
-    "note": "Institution wordmark."
-  },
-  "andalus_toolbar_logo": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus"
-    ],
-    "note": "Institution wordmark."
-  },
-  "appearance_icon": {
-    "class": "icon",
-    "src": "lucide:palette"
-  },
-  "archive_icon": {
-    "class": "icon",
-    "src": "lucide:archive"
-  },
-  "arrow_left": {
-    "class": "icon",
-    "src": "lucide:arrow-left",
-    "dir": true
-  },
-  "arrow_right": {
-    "class": "icon",
-    "src": "lucide:arrow-right",
-    "dir": true
-  },
-  "attachment_selected_icon": {
-    "class": "icon",
-    "src": "lucide:paperclip"
-  },
-  "attention_icon": {
-    "class": "icon",
-    "src": "lucide:circle-alert"
-  },
-  "bank_transfer_icon": {
-    "class": "icon",
-    "src": "lucide:landmark"
-  },
-  "biometrics_icon": {
-    "class": "spot",
-    "src": "lucide:scan-face"
-  },
-  "biometrics_permission_icon": {
-    "class": "spot",
-    "src": "lucide:fingerprint"
-  },
-  "branch_icon": {
-    "class": "icon",
-    "src": "lucide:building-2"
-  },
-  "calendar_icon": {
-    "class": "icon",
-    "src": "lucide:calendar"
-  },
-  "card_block_status_icon": {
-    "class": "icon",
-    "src": "lucide:credit-card",
-    "overlay": "slash"
-  },
-  "card_icon": {
-    "class": "icon",
-    "src": "lucide:credit-card",
-    "sel": "tabler-filled:credit-card"
-  },
-  "card_icon_selected": {
-    "class": "alias",
-    "of": "card_icon",
-    "state": "filled"
-  },
-  "cards_icon": {
-    "class": "icon",
-    "src": "lucide:wallet-cards"
-  },
-  "certified_cheque_request": {
-    "class": "icon",
-    "src": "lucide:file-check-2"
-  },
-  "check_checked": {
-    "class": "icon",
-    "src": "lucide:circle-check-big"
-  },
-  "check_checked_square": {
-    "class": "icon",
-    "src": "lucide:square-check-big"
-  },
-  "checkbook_request": {
-    "class": "icon",
-    "src": "lucide:book-open-check"
-  },
-  "checkmark_fail_icon": {
-    "class": "icon",
-    "src": "lucide:circle-x"
-  },
-  "checkmark_icon": {
-    "class": "icon",
-    "src": "lucide:circle-check"
-  },
-  "cheveron_left": {
-    "class": "icon",
-    "src": "lucide:chevron-left",
-    "dir": true
-  },
-  "cloud_icon": {
-    "class": "spot",
-    "src": "lucide:cloud"
-  },
-  "contacts_icon": {
-    "class": "icon",
-    "src": "lucide:contact-round"
-  },
-  "copy_card_icon": {
-    "class": "icon",
-    "src": "lucide:copy"
-  },
-  "copy_icon": {
-    "class": "icon",
-    "src": "lucide:copy"
-  },
-  "country_icon": {
-    "class": "icon",
-    "src": "lucide:flag"
-  },
-  "customer_id": {
-    "class": "icon",
-    "src": "lucide:id-card"
-  },
-  "delete_contact": {
-    "class": "icon",
-    "src": "lucide:user-x"
-  },
-  "devices_icon": {
-    "class": "icon",
-    "src": "lucide:smartphone"
-  },
-  "devmode_icon": {
-    "class": "spot",
-    "src": "lucide:code-xml"
-  },
-  "download_icon": {
-    "class": "spot",
-    "src": "lucide:download"
-  },
-  "edit_contact_icon": {
-    "class": "icon",
-    "src": "lucide:user-pen"
-  },
-  "edit_info": {
-    "class": "icon",
-    "src": "lucide:pencil"
-  },
-  "email_icon": {
-    "class": "icon",
-    "src": "lucide:mail"
-  },
-  "email_statement_icon": {
-    "class": "icon",
-    "src": "lucide:mail-check"
-  },
-  "excelamation_mark": {
-    "class": "icon",
-    "src": "lucide:triangle-alert"
-  },
-  "expected_salary_icon": {
-    "class": "icon",
-    "src": "lucide:hand-coins"
-  },
-  "file-text": {
-    "class": "icon",
-    "src": "lucide:file-text"
-  },
-  "fingerprint_icon": {
-    "class": "icon",
-    "src": "lucide:fingerprint"
-  },
-  "google_authenticator_icon": {
-    "class": "icon",
-    "src": "lucide:shield-ellipsis"
-  },
-  "home_icon": {
-    "class": "icon",
-    "src": "lucide:house",
-    "sel": "tabler-filled:home"
-  },
-  "home_icon_selected": {
-    "class": "alias",
-    "of": "home_icon",
-    "state": "filled"
-  },
-  "iban_scan_icon": {
-    "class": "icon",
-    "src": "lucide:scan-line"
-  },
-  "inbox_icon": {
-    "class": "icon",
-    "src": "lucide:inbox"
-  },
-  "info_icon": {
-    "class": "icon",
-    "src": "lucide:info"
-  },
-  "info_outlined_icon": {
-    "class": "icon",
-    "src": "lucide:info"
-  },
-  "instant_transfer_icon": {
-    "class": "icon",
-    "src": "lucide:zap"
-  },
-  "internal_transfer_icon": {
-    "class": "icon",
-    "src": "lucide:arrow-left-right",
-    "symmetric": true
-  },
-  "job_icon": {
-    "class": "icon",
-    "src": "lucide:briefcase"
-  },
-  "language_icon": {
-    "class": "icon",
-    "src": "lucide:languages"
-  },
-  "letter_icon": {
-    "class": "icon",
-    "src": "lucide:mail-open"
-  },
-  "linkedin": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus",
-      "nuran",
-      "fglb"
-    ],
-    "note": "LinkedIn Corporation trademark — used to link, never restyled."
-  },
-  "location_icon": {
-    "class": "icon",
-    "src": "lucide:map"
-  },
-  "location_pin_icon": {
-    "class": "icon",
-    "src": "lucide:map-pin"
-  },
-  "lock_icon": {
-    "class": "icon",
-    "src": "lucide:lock"
-  },
-  "logout_icon": {
-    "class": "icon",
-    "src": "lucide:log-out",
-    "dir": true
-  },
-  "lypay_icon": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus",
-      "nuran",
-      "fglb"
-    ],
-    "note": "LyPay rail mark."
-  },
-  "maintenance_icon": {
-    "class": "spot",
-    "src": "lucide:wrench"
-  },
-  "merchant_qr": {
-    "class": "icon",
-    "src": "lucide:store"
-  },
-  "microphone_icon": {
-    "class": "icon",
-    "src": "lucide:mic"
-  },
-  "money_icon": {
-    "class": "icon",
-    "src": "lucide:banknote"
-  },
-  "more_info_arrow": {
-    "class": "icon",
-    "src": "lucide:chevron-right",
-    "dir": true
-  },
-  "municipality_icon": {
-    "class": "icon",
-    "src": "lucide:landmark"
-  },
-  "national_id_icon": {
-    "class": "icon",
-    "src": "lucide:id-card"
-  },
-  "no_internet": {
-    "class": "spot",
-    "src": "lucide:wifi-off"
-  },
-  "notification_icon": {
-    "class": "icon",
-    "src": "lucide:bell"
-  },
-  "notification_permission_icon": {
-    "class": "spot",
-    "src": "lucide:bell-ring"
-  },
-  "onepay_icon": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus",
-      "nuran",
-      "fglb"
-    ],
-    "note": "OnePay / CBL DPS rail mark."
-  },
-  "other_services_icon": {
-    "class": "icon",
-    "src": "lucide:layout-grid"
-  },
-  "others_icon": {
-    "class": "icon",
-    "src": "lucide:ellipsis",
-    "sel": "tabler-filled:dots"
-  },
-  "others_icon_selected": {
-    "class": "alias",
-    "of": "others_icon",
-    "state": "filled"
-  },
-  "passkey_icon": {
-    "class": "icon",
-    "src": "lucide:key-round"
-  },
-  "passport_icon": {
-    "class": "icon",
-    "src": "lucide:book-user"
-  },
-  "password": {
-    "class": "icon",
-    "src": "lucide:asterisk"
-  },
-  "password_icon": {
-    "class": "icon",
-    "src": "lucide:key-round"
-  },
-  "pay_icon": {
-    "class": "icon",
-    "src": "lucide:hand-coins"
-  },
-  "pay_qr_icon": {
-    "class": "icon",
-    "src": "lucide:qr-code"
-  },
-  "phone": {
-    "class": "icon",
-    "src": "lucide:phone"
-  },
-  "phone_icon": {
-    "class": "icon",
-    "src": "lucide:phone"
-  },
-  "plus_circle_icon": {
-    "class": "icon",
-    "src": "lucide:circle-plus"
-  },
-  "power_icon": {
-    "class": "icon",
-    "src": "lucide:power"
-  },
-  "prepaid_cards_icon": {
-    "class": "icon",
-    "src": "lucide:credit-card"
-  },
-  "profile_icon": {
-    "class": "icon",
-    "src": "lucide:circle-user-round"
-  },
-  "purchase_icon": {
-    "class": "icon",
-    "src": "lucide:shopping-bag"
-  },
-  "qr_icon": {
-    "class": "icon",
-    "src": "lucide:qr-code"
-  },
-  "qr_icon1": {
-    "class": "icon",
-    "src": "lucide:scan-qr-code"
-  },
-  "qr_icon2": {
-    "class": "icon",
-    "src": "lucide:scan-line"
-  },
-  "qr_operations_icon": {
-    "class": "icon",
-    "src": "lucide:qr-code"
-  },
-  "qrcode_icon": {
-    "class": "icon",
-    "src": "lucide:qr-code"
-  },
-  "refresh_icon": {
-    "class": "icon",
-    "src": "lucide:refresh-cw"
-  },
-  "remove_attachment_icon": {
-    "class": "icon",
-    "src": "lucide:x"
-  },
-  "renew_card_request": {
-    "class": "icon",
-    "src": "lucide:credit-card",
-    "overlay": "renew"
-  },
-  "renew_pin_icon": {
-    "class": "icon",
-    "src": "lucide:lock-keyhole"
-  },
-  "reset_pin_attempts": {
-    "class": "icon",
-    "src": "lucide:rotate-ccw-key"
-  },
-  "services_icon": {
-    "class": "icon",
-    "src": "lucide:layout-grid"
-  },
-  "settings_account": {
-    "class": "icon",
-    "src": "lucide:user-round"
-  },
-  "settings_appearance": {
-    "class": "icon",
-    "src": "lucide:palette"
-  },
-  "settings_balance_widget": {
-    "class": "icon",
-    "src": "lucide:layout-dashboard"
-  },
-  "settings_currency": {
-    "class": "icon",
-    "src": "lucide:coins"
-  },
-  "settings_glance_amount": {
-    "class": "icon",
-    "src": "lucide:eye"
-  },
-  "settings_icon": {
-    "class": "icon",
-    "src": "lucide:settings"
-  },
-  "settings_language": {
-    "class": "icon",
-    "src": "lucide:languages"
-  },
-  "settings_limits": {
-    "class": "icon",
-    "src": "lucide:gauge"
-  },
-  "settings_location": {
-    "class": "icon",
-    "src": "lucide:map-pin"
-  },
-  "settings_offers": {
-    "class": "icon",
-    "src": "lucide:tag"
-  },
-  "settings_security": {
-    "class": "icon",
-    "src": "lucide:shield-check"
-  },
-  "settings_support": {
-    "class": "icon",
-    "src": "lucide:life-buoy"
-  },
-  "settings_switch_user": {
-    "class": "icon",
-    "src": "lucide:users"
-  },
-  "settings_username": {
-    "class": "icon",
-    "src": "lucide:at-sign"
-  },
-  "settings_whats_new": {
-    "class": "icon",
-    "src": "lucide:sparkle"
-  },
-  "share_card_icon": {
-    "class": "icon",
-    "src": "lucide:share-2"
-  },
-  "share_icon": {
-    "class": "icon",
-    "src": "lucide:share-2"
-  },
-  "square_plus_icon": {
-    "class": "icon",
-    "src": "lucide:square-plus"
-  },
-  "statement_icon": {
-    "class": "icon",
-    "src": "lucide:receipt-text"
-  },
-  "transfer_icon": {
-    "class": "icon",
-    "src": "lucide:arrow-left-right",
-    "sel": "tabler-filled:exchange",
-    "symmetric": true
-  },
-  "transfer_icon_selected": {
-    "class": "alias",
-    "of": "transfer_icon",
-    "state": "filled"
-  },
-  "transfer_icon_selected_btm_nav": {
-    "class": "alias",
-    "of": "transfer_icon",
-    "state": "filled"
-  },
-  "transfer_option_icon": {
-    "class": "icon",
-    "src": "lucide:send-horizontal",
-    "dir": true
-  },
-  "transfer_pin_icon": {
-    "class": "icon",
-    "src": "lucide:lock-keyhole"
-  },
-  "update_required_icon": {
-    "class": "spot",
-    "src": "lucide:arrow-big-up-dash"
-  },
-  "vouchers_icon": {
-    "class": "icon",
-    "src": "lucide:ticket"
-  },
-  "warning_icon": {
-    "class": "icon",
-    "src": "lucide:triangle-alert"
-  },
-  "whatsapp": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus",
-      "nuran",
-      "fglb"
-    ],
-    "note": "WhatsApp / Meta trademark."
-  },
-  "wifi_icon": {
-    "class": "spot",
-    "src": "lucide:wifi"
-  },
-  "wu_icon": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus",
-      "nuran",
-      "fglb"
-    ],
-    "note": "Western Union trademark."
-  },
-  "x": {
-    "class": "icon",
-    "src": "lucide:x"
-  },
-  "x_logo_white": {
-    "class": "mark",
-    "keep": true,
-    "banks": [
-      "andalus",
-      "nuran",
-      "fglb"
-    ],
-    "note": "X Corp. trademark."
-  }
+ "account_icon": {
+  "class": "icon",
+  "src": "lucide:user-round",
+  "sel": "tabler-filled:user"
+ },
+ "account_icon_selected": {
+  "class": "alias",
+  "of": "account_icon",
+  "state": "filled"
+ },
+ "accounts_icon": {
+  "class": "icon",
+  "src": "lucide:wallet-cards",
+  "sel": "tabler-filled:cards"
+ },
+ "address_book_logo": {
+  "class": "icon",
+  "src": "lucide:book-user"
+ },
+ "address_icon": {
+  "class": "icon",
+  "src": "lucide:map-pinned"
+ },
+ "andafx_logo": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "colour",
+  "keep": true,
+  "banks": [
+   "andalus"
+  ],
+  "note": "AndaFX is an Andalus product. Not a Neptune glyph; Andalus's own artwork."
+ },
+ "andalus_logo": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "colour",
+  "keep": true,
+  "banks": [
+   "andalus"
+  ],
+  "note": "Institution wordmark."
+ },
+ "andalus_toolbar_logo": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "mono",
+  "keep": true,
+  "banks": [
+   "andalus"
+  ],
+  "note": "Institution wordmark."
+ },
+ "appearance_icon": {
+  "class": "icon",
+  "src": "lucide:palette"
+ },
+ "archive_icon": {
+  "class": "icon",
+  "src": "lucide:archive"
+ },
+ "arrow_left": {
+  "class": "icon",
+  "src": "lucide:arrow-left",
+  "dir": true
+ },
+ "arrow_right": {
+  "class": "icon",
+  "src": "lucide:arrow-right",
+  "dir": true
+ },
+ "attachment_selected_icon": {
+  "class": "icon",
+  "src": "lucide:paperclip"
+ },
+ "attention_icon": {
+  "class": "icon",
+  "src": "lucide:circle-alert"
+ },
+ "bank_transfer_icon": {
+  "class": "icon",
+  "src": "lucide:landmark"
+ },
+ "biometrics_icon": {
+  "class": "spot",
+  "src": "lucide:scan-face"
+ },
+ "biometrics_permission_icon": {
+  "class": "spot",
+  "src": "lucide:fingerprint"
+ },
+ "branch_icon": {
+  "class": "icon",
+  "src": "lucide:building-2"
+ },
+ "calendar_icon": {
+  "class": "icon",
+  "src": "lucide:calendar"
+ },
+ "card_block_status_icon": {
+  "class": "icon",
+  "src": "lucide:credit-card",
+  "overlay": "slash"
+ },
+ "card_icon": {
+  "class": "icon",
+  "src": "lucide:credit-card",
+  "sel": "tabler-filled:credit-card"
+ },
+ "card_icon_selected": {
+  "class": "alias",
+  "of": "card_icon",
+  "state": "filled"
+ },
+ "cards_icon": {
+  "class": "icon",
+  "src": "lucide:wallet-cards"
+ },
+ "certified_cheque_request": {
+  "class": "icon",
+  "src": "lucide:file-check-2"
+ },
+ "check_checked": {
+  "class": "icon",
+  "src": "lucide:circle-check-big"
+ },
+ "check_checked_square": {
+  "class": "icon",
+  "src": "lucide:square-check-big"
+ },
+ "checkbook_request": {
+  "class": "icon",
+  "src": "lucide:book-open-check"
+ },
+ "checkmark_fail_icon": {
+  "class": "icon",
+  "src": "lucide:circle-x"
+ },
+ "checkmark_icon": {
+  "class": "icon",
+  "src": "lucide:circle-check"
+ },
+ "cheveron_left": {
+  "class": "icon",
+  "src": "lucide:chevron-left",
+  "dir": true
+ },
+ "cloud_icon": {
+  "class": "spot",
+  "src": "lucide:cloud"
+ },
+ "contacts_icon": {
+  "class": "icon",
+  "src": "lucide:contact-round"
+ },
+ "copy_card_icon": {
+  "class": "icon",
+  "src": "lucide:copy"
+ },
+ "copy_icon": {
+  "class": "icon",
+  "src": "lucide:copy"
+ },
+ "country_icon": {
+  "class": "icon",
+  "src": "lucide:flag"
+ },
+ "customer_id": {
+  "class": "icon",
+  "src": "lucide:id-card"
+ },
+ "delete_contact": {
+  "class": "icon",
+  "src": "lucide:user-x"
+ },
+ "devices_icon": {
+  "class": "icon",
+  "src": "lucide:smartphone"
+ },
+ "devmode_icon": {
+  "class": "spot",
+  "src": "lucide:code-xml"
+ },
+ "download_icon": {
+  "class": "spot",
+  "src": "lucide:download"
+ },
+ "edit_contact_icon": {
+  "class": "icon",
+  "src": "lucide:user-pen"
+ },
+ "edit_info": {
+  "class": "icon",
+  "src": "lucide:pencil"
+ },
+ "email_icon": {
+  "class": "icon",
+  "src": "lucide:mail"
+ },
+ "email_statement_icon": {
+  "class": "icon",
+  "src": "lucide:mail-check"
+ },
+ "excelamation_mark": {
+  "class": "icon",
+  "src": "lucide:triangle-alert"
+ },
+ "expected_salary_icon": {
+  "class": "icon",
+  "src": "lucide:hand-coins"
+ },
+ "file-text": {
+  "class": "icon",
+  "src": "lucide:file-text"
+ },
+ "fingerprint_icon": {
+  "class": "icon",
+  "src": "lucide:fingerprint"
+ },
+ "google_authenticator_icon": {
+  "class": "icon",
+  "src": "lucide:shield-ellipsis"
+ },
+ "home_icon": {
+  "class": "icon",
+  "src": "lucide:house",
+  "sel": "tabler-filled:home"
+ },
+ "home_icon_selected": {
+  "class": "alias",
+  "of": "home_icon",
+  "state": "filled"
+ },
+ "iban_scan_icon": {
+  "class": "icon",
+  "src": "lucide:scan-line"
+ },
+ "inbox_icon": {
+  "class": "icon",
+  "src": "lucide:inbox"
+ },
+ "info_icon": {
+  "class": "icon",
+  "src": "lucide:info"
+ },
+ "info_outlined_icon": {
+  "class": "icon",
+  "src": "lucide:info"
+ },
+ "instant_transfer_icon": {
+  "class": "icon",
+  "src": "lucide:zap"
+ },
+ "internal_transfer_icon": {
+  "class": "icon",
+  "src": "lucide:arrow-left-right",
+  "symmetric": true
+ },
+ "job_icon": {
+  "class": "icon",
+  "src": "lucide:briefcase"
+ },
+ "language_icon": {
+  "class": "icon",
+  "src": "lucide:languages"
+ },
+ "letter_icon": {
+  "class": "icon",
+  "src": "lucide:mail-open"
+ },
+ "linkedin": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "mono",
+  "keep": true,
+  "banks": [
+   "andalus",
+   "nuran",
+   "fglb"
+  ],
+  "note": "LinkedIn Corporation trademark — used to link, never restyled."
+ },
+ "location_icon": {
+  "class": "icon",
+  "src": "lucide:map"
+ },
+ "location_pin_icon": {
+  "class": "icon",
+  "src": "lucide:map-pin"
+ },
+ "lock_icon": {
+  "class": "icon",
+  "src": "lucide:lock"
+ },
+ "logout_icon": {
+  "class": "icon",
+  "src": "lucide:log-out",
+  "dir": true
+ },
+ "lypay_icon": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "mono",
+  "keep": true,
+  "banks": [
+   "andalus",
+   "nuran",
+   "fglb"
+  ],
+  "note": "LyPay rail mark."
+ },
+ "maintenance_icon": {
+  "class": "spot",
+  "src": "lucide:wrench"
+ },
+ "merchant_qr": {
+  "class": "icon",
+  "src": "lucide:store"
+ },
+ "microphone_icon": {
+  "class": "icon",
+  "src": "lucide:mic"
+ },
+ "money_icon": {
+  "class": "icon",
+  "src": "lucide:banknote"
+ },
+ "more_info_arrow": {
+  "class": "icon",
+  "src": "lucide:chevron-right",
+  "dir": true
+ },
+ "municipality_icon": {
+  "class": "icon",
+  "src": "lucide:landmark"
+ },
+ "national_id_icon": {
+  "class": "icon",
+  "src": "lucide:id-card"
+ },
+ "no_internet": {
+  "class": "spot",
+  "src": "lucide:wifi-off"
+ },
+ "notification_icon": {
+  "class": "icon",
+  "src": "lucide:bell"
+ },
+ "notification_permission_icon": {
+  "class": "spot",
+  "src": "lucide:bell-ring"
+ },
+ "onepay_icon": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "colour",
+  "keep": true,
+  "banks": [
+   "andalus",
+   "nuran",
+   "fglb"
+  ],
+  "note": "OnePay / CBL DPS rail mark."
+ },
+ "other_services_icon": {
+  "class": "icon",
+  "src": "lucide:layout-grid"
+ },
+ "others_icon": {
+  "class": "icon",
+  "src": "lucide:ellipsis",
+  "sel": "tabler-filled:dots"
+ },
+ "others_icon_selected": {
+  "class": "alias",
+  "of": "others_icon",
+  "state": "filled"
+ },
+ "passkey_icon": {
+  "class": "icon",
+  "src": "lucide:key-round"
+ },
+ "passport_icon": {
+  "class": "icon",
+  "src": "lucide:book-user"
+ },
+ "password": {
+  "class": "icon",
+  "src": "lucide:asterisk"
+ },
+ "password_icon": {
+  "class": "icon",
+  "src": "lucide:key-round"
+ },
+ "pay_icon": {
+  "class": "icon",
+  "src": "lucide:hand-coins"
+ },
+ "pay_qr_icon": {
+  "class": "icon",
+  "src": "lucide:qr-code"
+ },
+ "phone": {
+  "class": "icon",
+  "src": "lucide:phone"
+ },
+ "phone_icon": {
+  "class": "icon",
+  "src": "lucide:phone"
+ },
+ "plus_circle_icon": {
+  "class": "icon",
+  "src": "lucide:circle-plus"
+ },
+ "power_icon": {
+  "class": "icon",
+  "src": "lucide:power"
+ },
+ "prepaid_cards_icon": {
+  "class": "icon",
+  "src": "lucide:credit-card"
+ },
+ "profile_icon": {
+  "class": "icon",
+  "src": "lucide:circle-user-round"
+ },
+ "purchase_icon": {
+  "class": "icon",
+  "src": "lucide:shopping-bag"
+ },
+ "qr_icon": {
+  "class": "icon",
+  "src": "lucide:qr-code"
+ },
+ "qr_icon1": {
+  "class": "icon",
+  "src": "lucide:scan-qr-code"
+ },
+ "qr_icon2": {
+  "class": "icon",
+  "src": "lucide:scan-line"
+ },
+ "qr_operations_icon": {
+  "class": "icon",
+  "src": "lucide:qr-code"
+ },
+ "qrcode_icon": {
+  "class": "icon",
+  "src": "lucide:qr-code"
+ },
+ "refresh_icon": {
+  "class": "icon",
+  "src": "lucide:refresh-cw"
+ },
+ "remove_attachment_icon": {
+  "class": "icon",
+  "src": "lucide:x"
+ },
+ "renew_card_request": {
+  "class": "icon",
+  "src": "lucide:credit-card",
+  "overlay": "renew"
+ },
+ "renew_pin_icon": {
+  "class": "icon",
+  "src": "lucide:lock-keyhole"
+ },
+ "reset_pin_attempts": {
+  "class": "icon",
+  "src": "lucide:rotate-ccw-key",
+  "dir": true
+ },
+ "services_icon": {
+  "class": "icon",
+  "src": "lucide:layout-grid"
+ },
+ "settings_account": {
+  "class": "icon",
+  "src": "lucide:user-round"
+ },
+ "settings_appearance": {
+  "class": "icon",
+  "src": "lucide:palette"
+ },
+ "settings_balance_widget": {
+  "class": "icon",
+  "src": "lucide:layout-dashboard"
+ },
+ "settings_currency": {
+  "class": "icon",
+  "src": "lucide:coins"
+ },
+ "settings_glance_amount": {
+  "class": "icon",
+  "src": "lucide:eye"
+ },
+ "settings_icon": {
+  "class": "icon",
+  "src": "lucide:settings"
+ },
+ "settings_language": {
+  "class": "icon",
+  "src": "lucide:languages"
+ },
+ "settings_limits": {
+  "class": "icon",
+  "src": "lucide:gauge"
+ },
+ "settings_location": {
+  "class": "icon",
+  "src": "lucide:map-pin"
+ },
+ "settings_offers": {
+  "class": "icon",
+  "src": "lucide:tag"
+ },
+ "settings_security": {
+  "class": "icon",
+  "src": "lucide:shield-check"
+ },
+ "settings_support": {
+  "class": "icon",
+  "src": "lucide:life-buoy"
+ },
+ "settings_switch_user": {
+  "class": "icon",
+  "src": "lucide:users"
+ },
+ "settings_username": {
+  "class": "icon",
+  "src": "lucide:at-sign"
+ },
+ "settings_whats_new": {
+  "class": "icon",
+  "src": "lucide:sparkle"
+ },
+ "share_card_icon": {
+  "class": "icon",
+  "src": "lucide:share-2"
+ },
+ "share_icon": {
+  "class": "icon",
+  "src": "lucide:share-2"
+ },
+ "square_plus_icon": {
+  "class": "icon",
+  "src": "lucide:square-plus"
+ },
+ "statement_icon": {
+  "class": "icon",
+  "src": "lucide:receipt-text"
+ },
+ "transfer_icon": {
+  "class": "icon",
+  "src": "lucide:arrow-left-right",
+  "sel": "tabler-filled:exchange",
+  "symmetric": true
+ },
+ "transfer_icon_selected": {
+  "class": "alias",
+  "of": "transfer_icon",
+  "state": "filled"
+ },
+ "transfer_icon_selected_btm_nav": {
+  "class": "alias",
+  "of": "transfer_icon",
+  "state": "filled"
+ },
+ "transfer_option_icon": {
+  "class": "icon",
+  "src": "lucide:send-horizontal",
+  "dir": true
+ },
+ "transfer_pin_icon": {
+  "class": "icon",
+  "src": "lucide:lock-keyhole"
+ },
+ "update_required_icon": {
+  "class": "spot",
+  "src": "lucide:arrow-big-up-dash"
+ },
+ "vouchers_icon": {
+  "class": "icon",
+  "src": "lucide:ticket"
+ },
+ "warning_icon": {
+  "class": "icon",
+  "src": "lucide:triangle-alert"
+ },
+ "whatsapp": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "mono",
+  "keep": true,
+  "banks": [
+   "andalus",
+   "nuran",
+   "fglb"
+  ],
+  "note": "WhatsApp / Meta trademark."
+ },
+ "wifi_icon": {
+  "class": "spot",
+  "src": "lucide:wifi"
+ },
+ "wu_icon": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "mono",
+  "keep": true,
+  "banks": [
+   "andalus",
+   "nuran",
+   "fglb"
+  ],
+  "note": "Western Union trademark."
+ },
+ "x": {
+  "class": "icon",
+  "src": "lucide:x"
+ },
+ "x_logo_white": {
+  "class": "mark",
+  "isBrandMark": true,
+  "artwork": "mono",
+  "keep": true,
+  "banks": [
+   "andalus",
+   "nuran",
+   "fglb"
+  ],
+  "note": "X Corp. trademark."
+ }
 }

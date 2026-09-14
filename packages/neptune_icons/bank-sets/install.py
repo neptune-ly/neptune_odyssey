@@ -15,6 +15,7 @@ ROOTS = {"andalus": "assets/icons", "nuran": "assets/nuran/icons", "fglb": "asse
 SRC_MARKS = os.path.join(APP, "assets/icons")   # marks already live at their bank's own root
 
 DART_ROSTER = "lib/core/presentation/components/brand_marks.g.dart"
+DART_DIRECTION = "lib/core/presentation/components/icon_direction.g.dart"
 
 def write_brand_mark_roster():
     """Carry the roster's `isBrandMark` declaration into the running app.
@@ -52,6 +53,54 @@ def write_brand_mark_roster():
         "/// one is per-bank data in the roster and how it is PAINTED is not.\n"
         f"const brandMarkArtwork = <String, BrandMarkArtwork>{{\n{body}}};\n")
 
+def write_direction_roster():
+    """Carry the roster's RTL declaration into the app, RESOLVED.
+
+    `dir` says "this glyph points along the reading direction and must mirror in
+    Arabic"; `symmetric` says "this one looks directional and must NOT". Both are
+    declared on the base glyph, and an ALIAS inherits from its base — which is the
+    whole reason this is generated rather than read per file. Repeating the flag on
+    every alias is the shape the charter names as "a per-variant declaration that
+    must be repeated is a fall-through waiting for the variant nobody remembers":
+    `transfer_icon` is symmetric, and its two selected-state aliases carried
+    nothing, so a consumer keyed by file name would have mirrored the selected
+    transfer icon and left the unselected one alone.
+
+    A name absent from this table is neither — it is a glyph with no reading
+    direction, and mirroring it would be wrong.
+    """
+    out = {}
+    for name, spec in ROSTER.items():
+        base = ROSTER[spec["of"]] if spec.get("class") == "alias" else spec
+        if base.get("dir"):
+            out[name] = "mirror"
+        elif base.get("symmetric"):
+            out[name] = "never"
+    body = "".join(f'  "{n}": IconDirection.{v},\n' for n, v in sorted(out.items()))
+    open(os.path.join(APP, DART_DIRECTION), "w", encoding="utf8").write(
+        "// GENERATED from tools/icons/roster.json by tools/icons/install.py.\n"
+        "// Do not hand-edit: declare `dir` or `symmetric` on the glyph instead.\n"
+        "\n"
+        "/// What a glyph does when the reading direction flips.\n"
+        "enum IconDirection {\n"
+        "  /// Points along the reading direction: mirror it in RTL. A back arrow\n"
+        "  /// that still points left in Arabic points forward.\n"
+        "  mirror,\n"
+        "\n"
+        "  /// Looks directional and is NOT. A two-way transfer arrow means the same\n"
+        "  /// thing mirrored, so flipping it is churn; worse, flipping only half of\n"
+        "  /// a selected/unselected pair makes the nav item jump on tap.\n"
+        "  never,\n"
+        "}\n"
+        "\n"
+        "/// Every glyph with a declared reading direction, ALIASES RESOLVED.\n"
+        "///\n"
+        "/// Keyed by file name, which is the same under all three banks' roots: a\n"
+        "/// back arrow points backwards in every bank. A name that is absent has no\n"
+        "/// reading direction at all and must not be mirrored.\n"
+        f"const iconDirection = <String, IconDirection>{{\n{body}}};\n")
+
+
 def main():
     report = {b: {"generated": [], "mark": [], "removed": []} for b in ROOTS}
     for bank, rel in ROOTS.items():
@@ -88,6 +137,7 @@ def main():
                 os.remove(os.path.join(root, f))
                 report[bank]["removed"].append(f)
     write_brand_mark_roster()
+    write_direction_roster()
     os.makedirs("/tmp/gen", exist_ok=True)
     json.dump(report, open("/tmp/gen/install_report.json", "w"), indent=1)
     for b, r in report.items():
