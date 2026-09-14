@@ -447,19 +447,30 @@ class _VerbTileState extends State<_VerbTile> {
     final colors = theme.extension<NptColors>();
     final verb = widget.verb;
     final lead = verb.lead;
-    // THE TILES ARE PAPER, NOT CHROME. `secondaryContainer` is ramped from
-    // the primary, so on a brand that warms its own ground the page was cream,
-    // the account chip was warm and the four tiles were BLUE — three tints on
-    // one screen, and the eye reads that as an accident rather than a scheme.
-    // `surfaceContainerHighest` keeps them in the ground's own family; the
-    // hairline below is what stops them dissolving into it, which is the
-    // problem `secondaryContainer` was reached for in the first place.
-    final fill = lead
-        ? (colors?.accent ?? scheme.primary)
-        : scheme.surfaceContainerHighest;
-    final on = lead
-        ? (colors?.onAccent ?? scheme.onPrimary)
-        : scheme.onSurface;
+    // A PEER IS NOT A LESSER ACTION, AND GREY IS THE DISABLED SIGNAL.
+    //
+    // The three peers used to be filled `surfaceContainerHighest` — and that
+    // is not merely "a bit quiet", it is arithmetically the colour this app
+    // paints a control it has switched OFF. Material's disabled fill is
+    // `onSurface` at 12% over the surface, which resolves to `#DBDEE2` on this
+    // bank's light theme against a `#DBE0E8` tile, and `#292B2F` against
+    // `#282B31` on the dark one: **six values apart in light, two in dark.**
+    // Beside a saturated red disc the customer read three of four verbs as
+    // unavailable, and they were right to.
+    //
+    // So the ground goes back to PAPER and the peers are drawn in the bank's
+    // own navy — a hairline of it and a glyph of it, at full strength. The
+    // hierarchy is carried by FORM: the lead verb is the only FILLED tile on
+    // the row, and the only lit one. Nothing else had to surrender colour for
+    // it to be obvious, and the red is still spent exactly once.
+    //
+    // `onSurface` rather than `primary` on the dark theme: this bank's navy
+    // primary is a mid tone that goes dark-on-dark, and a peer outlined in a
+    // colour you cannot see is the same defect wearing a different name.
+    final dark = theme.brightness == Brightness.dark;
+    final peerInk = dark ? scheme.onSurface : scheme.primary;
+    final fill = lead ? (colors?.accent ?? scheme.primary) : null;
+    final on = lead ? (colors?.onAccent ?? scheme.onPrimary) : peerInk;
     // Press feedback only. A tile that animates on its own is decoration.
     final reduced = NeptuneAccessibility.reducedMotion(context);
     final scale = _down && !reduced ? 0.94 : 1.0;
@@ -498,7 +509,18 @@ class _VerbTileState extends State<_VerbTile> {
                   color: fill,
                   border: lead
                       ? null
-                      : Border.all(color: scheme.outlineVariant),
+                      // The bank's own ink, not the neutral ramp's rule.
+                      // `outlineVariant` is the hairline between two rows of a
+                      // list; it is not enough edge to say "this is a button".
+                      //
+                      // 0.65 IS MEASURED, NOT CHOSEN. The outline is the only
+                      // thing drawing this control's boundary, so WCAG 1.4.11
+                      // wants 3:1 against the page behind it. Navy `#2F5AA7`
+                      // over `#F8FAFE` reaches 3.01:1 at 0.65 and sits at
+                      // 2.05:1 at the 0.45 that looked right by eye; the dark
+                      // theme clears it at 6.72:1 on the same number.
+                      : Border.all(
+                          color: peerInk.withValues(alpha: 0.65), width: 1.2),
                   // `rMd`, not `rLg`. Flutter clamps a radius to half the box,
                   // so on a 58dp tile every brand whose `lg` is 30 or more
                   // gets a CIRCLE — which is `filled-circles`, another bank's
@@ -506,19 +528,25 @@ class _VerbTileState extends State<_VerbTile> {
                   // corner is the one that still reads as the brand's own
                   // rectangle at this size.
                   borderRadius: shape.rMd,
-                  // The ACCENT's glow, not the primary's. `glowPrimary` puts a
-                  // navy halo under a vermilion tile, which reads as a
-                  // shadow somebody tinted by mistake; a light under a lit
-                  // object is the colour of the object.
-                  boxShadow: lead
-                      ? [
-                          BoxShadow(
-                            color: fill.withValues(alpha: 0.34),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
-                          ),
-                        ]
-                      : null,
+                  // NO GLOW, AND THIS IS A CORRECTION.
+                  //
+                  // It shipped as the accent at 34%, blur 20, offset 8, under
+                  // the argument that "a light under a lit object is the
+                  // colour of the object". On this bank's near-white paper
+                  // that draws a PALE PINK ROUNDED RECT protruding below the
+                  // tile: at a 34% wash the blur's tail is the only part with
+                  // any weight left, so what a customer sees is not elevation,
+                  // it is an offset duplicate of the tile in a washed-out red.
+                  // A misaligned second layer on the most prominent control on
+                  // the screen, and it was reported as looking broken.
+                  //
+                  // It is also a rule violation, which is the stronger reason:
+                  // this bank separates with ink and rules and NEVER with a
+                  // tint, and it spends its red exactly once per screen. A
+                  // pink wash under the red tile is both a tint and the
+                  // accent's second appearance. The lead is already the only
+                  // filled tile on a row of keylines; it does not need
+                  // elevation to be found.
                 ),
                 alignment: Alignment.center,
                 child: glyph,
@@ -529,8 +557,16 @@ class _VerbTileState extends State<_VerbTile> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: theme.textTheme.labelMedium
-                    ?.copyWith(color: scheme.onSurfaceVariant),
+                // FULL-STRENGTH INK ON EVERY CAPTION. `onSurfaceVariant` is
+                // the muted role, and four muted captions under one lit tile
+                // read as one live verb and three annotations. The lead is
+                // told apart by WEIGHT, which costs no colour — the accent is
+                // already spent on the tile above it and a red caption would
+                // be a second red object on a screen allowed one.
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: scheme.onSurface,
+                  fontWeight: lead ? FontWeight.w700 : null,
+                ),
               ),
             ],
           ),

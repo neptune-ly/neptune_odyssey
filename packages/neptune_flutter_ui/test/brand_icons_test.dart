@@ -282,8 +282,11 @@ void main() {
     final scheme = NeptuneTheme.light('neptune').colorScheme;
     expect(tileIcon, scheme.onPrimaryContainer);
     expect(tileText, scheme.onPrimaryContainer);
-    expect(quickIcon, scheme.onSecondaryContainer);
-    expect(quickText, scheme.onSecondaryContainer);
+    // The BRAND's container, not the neutral ramp's secondary one — a peer
+    // action is enabled and has to look it. There is one action in this row,
+    // so it is the lead: filled `primary` with `onPrimary` on top of it.
+    expect(quickIcon, scheme.onPrimary);
+    expect(quickText, scheme.onPrimary);
   });
 
   // ── The dock's centre gap ────────────────────────────────────────────────

@@ -235,8 +235,70 @@ void main() {
         (tester) async {
       await tester.pumpWidget(host(NeptuneQuickActions(actions: actions())));
       final scheme = NeptuneTheme.light('neptune').colorScheme;
-      expect(chipColour(tester), scheme.secondaryContainer);
+      // The LEAD is the filled one; its peers wear `primaryContainer`.
+      expect(chipColour(tester), scheme.primary);
+      final fills = tester
+          .widgetList<Material>(find.descendant(
+              of: find.byType(NeptuneQuickActions),
+              matching: find.byType(Material)))
+          .map((m) => m.color)
+          .whereType<Color>()
+          .toList();
+      expect(fills.where((c) => c == scheme.primary), hasLength(1));
+      expect(fills.where((c) => c == scheme.primaryContainer),
+          hasLength(fills.length - 1));
     });
+
+    // THE BUG THIS ROW SHIPPED WITH, PINNED AS ARITHMETIC.
+    //
+    // A quick-action row is one primary and three peers, and every one of them
+    // is enabled. The peers used to be filled `secondaryContainer` — on the
+    // dark theme `#2C384D`, four values off the page — and on the pocket hero
+    // `surfaceContainerHighest`, which resolved to within SIX values of
+    // Material's own disabled fill (`onSurface` at 12% over the surface) in
+    // light and TWO in dark. Customers read three of four verbs as switched
+    // off, correctly.
+    //
+    // So: whatever a peer's ground is, it must not be the colour this app
+    // paints a control it has turned off. The test measures rather than
+    // naming a role, because the next regression will arrive as a different
+    // role that happens to land on the same pixel.
+    for (final brightness in Brightness.values) {
+      testWidgets('a peer action is never the disabled fill (${brightness.name})',
+          (tester) async {
+        final theme = brightness == Brightness.light
+            ? NeptuneTheme.light('neptune')
+            : NeptuneTheme.dark('neptune');
+        await tester.pumpWidget(MaterialApp(
+          theme: theme,
+          home: Scaffold(body: NeptuneQuickActions(actions: actions())),
+        ));
+        final scheme = theme.colorScheme;
+        final disabled =
+            Color.alphaBlend(scheme.onSurface.withValues(alpha: 0.12),
+                scheme.surface);
+        int channelSpread(Color a, Color b) => [
+              ((a.r - b.r) * 255).abs(),
+              ((a.g - b.g) * 255).abs(),
+              ((a.b - b.b) * 255).abs(),
+            ].reduce((x, y) => x > y ? x : y).round();
+
+        final fills = tester
+            .widgetList<Material>(find.descendant(
+                of: find.byType(NeptuneQuickActions),
+                matching: find.byType(Material)))
+            .map((m) => m.color)
+            .whereType<Color>()
+            .toList();
+        expect(fills, isNotEmpty);
+        for (final fill in fills) {
+          expect(channelSpread(fill, disabled), greaterThan(16),
+              reason: 'a quick-action ground $fill is within 16/255 of the '
+                  'disabled fill $disabled — that is the colour a customer '
+                  'reads as "you cannot tap this"');
+        }
+      });
+    }
 
     testWidgets('register rows draw no chip at all', (tester) async {
       await tester.pumpWidget(host(NeptuneQuickActions(
@@ -244,7 +306,7 @@ void main() {
         shell: NeptuneQuickActionShell.registerRows,
       )));
       final scheme = NeptuneTheme.light('neptune').colorScheme;
-      expect(chipColour(tester), isNot(scheme.secondaryContainer));
+      expect(chipColour(tester), isNot(scheme.primaryContainer));
       expect(find.byType(IntrinsicHeight), findsOneWidget);
     });
 
