@@ -12,18 +12,31 @@ import 'neptune_icon_slot.dart';
 /// same shape, the same size and the same role colour for "transfer" as for
 /// "services", and it was identical on every white-label bank. These three
 /// are compositions, not tints.
+///
+/// ALL THREE RANK THEIR ROW, AND NONE OF THEM RANKS IT BY DIMMING THE PEERS.
+/// A quick-action row is one primary and three peers, every one of them
+/// enabled; a peer drawn in the neutral ramp's tonal grey is wearing the
+/// colour this app paints a control it has switched off, and the customer
+/// reads it that way. So the peers keep the brand's own ink at full strength
+/// and the lead is told apart by FORM — filled against tonal, filled against
+/// outlined, ruled against bare — which is a difference each bank can express
+/// in its own vocabulary without any of them borrowing an accent it does not
+/// have.
 enum NeptuneQuickActionShell {
-  /// The tonal `secondaryContainer` circle behind each glyph. The default,
+  /// A tonal disc in the brand's own `primaryContainer` behind each glyph,
+  /// and the lead action filled in `primary` with its own glow. The default,
   /// and what every host that names no shell keeps.
   filledCircles,
 
   /// No chip. One strip ruled top and bottom, the actions divided by
-  /// hairlines — the column header of a register.
+  /// hairlines — the column header of a register. The lead action is marked
+  /// by a 2dp rule under its own cell and by weight, never by colour: this is
+  /// the shell a bank with no accent at all wears.
   registerRows,
 
-  /// Each action in its own hairline cell, and the FIRST action — the one
-  /// that moves the customer forward — marked in the brand's accent. The
-  /// host orders its actions so the forward one leads.
+  /// Each action in its own hairline cell on the page's own paper, and the
+  /// FIRST action — the one that moves the customer forward — marked in the
+  /// brand's accent. The host orders its actions so the forward one leads.
   ruleGrid,
 }
 
@@ -93,8 +106,10 @@ class NeptuneQuickAction extends StatelessWidget {
   Widget build(BuildContext context) {
     final scope = _QuickActionShellScope.maybeOf(context);
     return switch (scope?.shell ?? NeptuneQuickActionShell.filledCircles) {
-      NeptuneQuickActionShell.filledCircles => _buildChip(context),
-      NeptuneQuickActionShell.registerRows => _buildBare(context),
+      NeptuneQuickActionShell.filledCircles =>
+        _buildChip(context, lead: scope?.lead ?? false),
+      NeptuneQuickActionShell.registerRows =>
+        _buildBare(context, lead: scope?.lead ?? false),
       NeptuneQuickActionShell.ruleGrid =>
         _buildCell(context, lead: scope?.lead ?? false),
     };
@@ -102,31 +117,57 @@ class NeptuneQuickAction extends StatelessWidget {
 
   /// The quiet register: the mark and its label on the page itself, no chip
   /// to draw a shape that says nothing.
-  Widget _buildBare(BuildContext context) {
+  ///
+  /// ONE PRIMARY AND THREE PEERS, IN A BANK THAT HAS NO ACCENT TO SPEND. All
+  /// four cells used to be byte-identical, so the row stated four verbs and
+  /// ranked none of them — the opposite failure from a row whose peers look
+  /// switched off, and the same underlying miss: a quick-action row is not a
+  /// list, it is one action and three alternatives.
+  ///
+  /// This bank's emphasis is weight, ink and a drawn line, never colour and
+  /// never a slab, so the [lead] is marked by the register's own device: a
+  /// 2dp rule under its cell, its mark in the bank's ink and its caption at
+  /// display weight. Nothing is added to the peers and nothing is taken away
+  /// from them — they already sit on paper at full-strength ink, which is why
+  /// this bank never had the grey-reads-as-disabled problem the other two did.
+  Widget _buildBare(BuildContext context, {required bool lead}) {
     final scheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return _tappable(
       context,
-      Padding(
-        padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 26,
-              child: Center(
-                child: NeptuneIconSlot(
-                  icon: icon,
-                  iconWidget: iconWidget,
-                  size: 24,
-                  color: scheme.onSurface,
+      DecoratedBox(
+        decoration: BoxDecoration(
+          border: lead
+              ? Border(
+                  bottom: BorderSide(color: scheme.primary, width: 2),
+                )
+              : null,
+        ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 26,
+                child: Center(
+                  child: NeptuneIconSlot(
+                    icon: icon,
+                    iconWidget: iconWidget,
+                    size: 24,
+                    color: lead ? scheme.primary : scheme.onSurface,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 8),
-            _caption(textTheme, scheme.onSurfaceVariant),
-          ],
+              const SizedBox(height: 8),
+              _caption(
+                textTheme,
+                lead ? scheme.primary : scheme.onSurface,
+                bold: lead,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -140,7 +181,13 @@ class NeptuneQuickAction extends StatelessWidget {
     final shape = theme.extension<NptShape>()!;
     final accent = theme.extension<NptColors>()!.accent;
     final textTheme = theme.textTheme;
-    final mark = lead ? accent : scheme.onSurface;
+    // The peer's edge is the BANK'S ink, not the list-hairline role. See
+    // `_buildBare` and `NeptunePocketVerb`'s tile: a cell outlined in
+    // `outlineVariant` is a row in a table, and a customer does not read a
+    // table row as something they can press.
+    final dark = theme.brightness == Brightness.dark;
+    final peerInk = dark ? scheme.onSurface : scheme.primary;
+    final mark = lead ? accent : peerInk;
 
     return _tappable(
       context,
@@ -148,8 +195,10 @@ class NeptuneQuickAction extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: shape.rSm,
           border: Border.all(
-            color: lead ? accent : scheme.outlineVariant,
-            width: 1,
+            // 0.65 is the measured floor for WCAG 1.4.11's 3:1 on a control
+            // boundary — see `NeptunePocketVerb`'s tile for the arithmetic.
+            color: lead ? accent : peerInk.withValues(alpha: 0.65),
+            width: lead ? 1 : 1.2,
           ),
         ),
         child: Padding(
@@ -169,7 +218,10 @@ class NeptuneQuickAction extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              _caption(textTheme, lead ? accent : scheme.onSurfaceVariant),
+              // Full-strength ink on every caption, the lead told apart by
+              // weight — see `_buildBare`. A muted caption under an enabled
+              // control is the written half of the grey-reads-as-disabled bug.
+              _caption(textTheme, scheme.onSurface, bold: lead),
             ],
           ),
         ),
@@ -177,12 +229,14 @@ class NeptuneQuickAction extends StatelessWidget {
     );
   }
 
-  Widget _caption(TextTheme textTheme, Color color) => Text(
+  Widget _caption(TextTheme textTheme, Color color, {bool bold = false}) =>
+      Text(
         label,
         maxLines: 1,
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.labelMedium?.copyWith(color: color),
+        style: textTheme.labelMedium
+            ?.copyWith(color: color, fontWeight: bold ? FontWeight.w700 : null),
       );
 
   /// The chip and its caption are one button named by the caption — the same
@@ -203,7 +257,18 @@ class NeptuneQuickAction extends StatelessWidget {
     );
   }
 
-  Widget _buildChip(BuildContext context) {
+  /// The tonal disc. [lead] — the action that moves the customer forward — is
+  /// the only FILLED one, and the only lit one.
+  ///
+  /// THE PEERS WEAR THE BRAND'S OWN CONTAINER, NOT THE NEUTRAL RAMP'S.
+  /// `secondaryContainer` resolves to `#2C384D` on the dark theme — a slab
+  /// four values of lightness off the page it sits on, with a muted caption
+  /// under it. Next to it the app's genuinely disabled control is `#292B2F`.
+  /// A customer cannot be asked to tell those apart, and the honest reading of
+  /// the old row was three actions greyed out. `primaryContainer` is the same
+  /// idea in the bank's own blue, at a tone that is unmistakably ON in both
+  /// brightnesses; the fill and the glow are what say which one leads.
+  Widget _buildChip(BuildContext context, {required bool lead}) {
     final scheme = Theme.of(context).colorScheme;
     final shape = Theme.of(context).extension<NptShape>()!;
     final textTheme = Theme.of(context).textTheme;
@@ -222,23 +287,41 @@ class NeptuneQuickAction extends StatelessWidget {
       child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Material(
-          color: scheme.secondaryContainer,
-          borderRadius: chipRadius,
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: onTap,
-            customBorder: RoundedRectangleBorder(borderRadius: chipRadius),
-            child: SizedBox(
-              width: 56,
-              height: 56,
-              // Center loosens the chip's tight box so the glyph — or a
-              // host-supplied [iconWidget] — keeps its natural icon size.
-              child: Center(
-                child: NeptuneIconSlot(
-                  icon: icon,
-                  iconWidget: iconWidget,
-                  color: scheme.onSecondaryContainer,
+        DecoratedBox(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            // The lit one. The light under a lit object is the colour of the
+            // object, so this is the primary's own glow and not a grey shadow.
+            boxShadow: lead
+                ? [
+                    BoxShadow(
+                      color: scheme.primary.withValues(alpha: 0.30),
+                      blurRadius: 18,
+                      offset: const Offset(0, 7),
+                    ),
+                  ]
+                : null,
+          ),
+          child: Material(
+            color: lead ? scheme.primary : scheme.primaryContainer,
+            borderRadius: chipRadius,
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: onTap,
+              customBorder: RoundedRectangleBorder(borderRadius: chipRadius),
+              child: SizedBox(
+                width: 56,
+                height: 56,
+                // Center loosens the chip's tight box so the glyph — or a
+                // host-supplied [iconWidget] — keeps its natural icon size.
+                child: Center(
+                  child: NeptuneIconSlot(
+                    icon: icon,
+                    iconWidget: iconWidget,
+                    color: lead
+                        ? scheme.onPrimary
+                        : scheme.onPrimaryContainer,
+                  ),
                 ),
               ),
             ),
@@ -251,7 +334,8 @@ class NeptuneQuickAction extends StatelessWidget {
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           style: textTheme.labelMedium?.copyWith(
-            color: scheme.onSurfaceVariant,
+            color: scheme.onSurface,
+            fontWeight: lead ? FontWeight.w700 : null,
           ),
         ),
       ],
