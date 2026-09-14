@@ -25,6 +25,22 @@
   IS the spend, so the row put a second red object on the same screen from inside the component
   that exists to honour the rule. The host knows which screen it is on; the component cannot.
   Defaults true, so nothing shipped moves.
+- **Quick-action peers stop reading as disabled.** The three peer verbs were drawn on the neutral
+  ramp's tonal step, which measures within 2-30/255 of the colour this app paints a control it has
+  switched OFF — a customer reading three of four verbs as unavailable was reading the screen
+  correctly. The peers now keep the brand's own ink at full strength and the lead is told apart by
+  FORM, not by the peers being dimmed.
+
+- **The lead tile's glow is gone.** At ~30% brand colour, blur ~18, offset ~7 it rendered as a
+  hard-edged offset duplicate of the tile in a washed tint rather than as elevation — a pale slab
+  protruding below the most prominent control on the screen. The hierarchy never depended on it:
+  the lead is the only FILLED tile on a row of keylines.
+
+- **The register strip draws the page's own ink, not the neutral ramp's grey.** Its divider and
+  its two edges were `outlineVariant`, so on a bank that forbids grey slabs four cells read as an
+  unstyled table boxed in grey. One function at all three call sites, because the divider and the
+  two edges are one decision.
+
 ## 2.32.0
 
 - **Each bank draws its own icon set, and the difference between them is a table rather than a
