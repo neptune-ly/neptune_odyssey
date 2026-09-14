@@ -37,15 +37,15 @@ void main() {
     // Same declared size on both, so any difference measured on screen is the
     // depth ladder and nothing else.
     final objects = [
-      NeptuneDriftObject(
-        child: const ColoredBox(key: farKey, color: Color(0xFFFF0000)),
-        at: const Alignment(-0.6, -0.4),
+      const NeptuneDriftObject(
+        child: ColoredBox(key: farKey, color: Color(0xFFFF0000)),
+        at: Alignment(-0.6, -0.4),
         depth: 0.15,
         size: 100,
       ),
-      NeptuneDriftObject(
-        child: const ColoredBox(key: nearKey, color: Color(0xFF00FF00)),
-        at: const Alignment(0.5, 0.1),
+      const NeptuneDriftObject(
+        child: ColoredBox(key: nearKey, color: Color(0xFF00FF00)),
+        at: Alignment(0.5, 0.1),
         depth: 0.95,
         size: 100,
         semanticLabel: 'a card',
