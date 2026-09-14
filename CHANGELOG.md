@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.31.3
+
+- **`NeptuneAccountTile` takes a `ruled` override.** The tile decides between a tonal slab and a
+  hairline-ruled row off `NptIdentity.ruledRegister`, and that is still its default. But that one
+  flag carries a second, unrelated decision — it is also what squares the app's buttons out of
+  their stadium — so a brand whose LISTS are ruled and whose BUTTONS are capsules had no way to
+  say so. Two decisions on one bit is a collision, not a lever. `ruled: null` keeps the theme read,
+  so no existing caller and no shipped brand moves; the host states the list half explicitly where
+  it has to. The flags byte has no room for a second bit without a codec format bump, which is a
+  wire change and needs agreeing rather than editing in.
+
+- **And the ruled treatment is now an actual RULE.** It drew a hairline BORDER around the row with
+  the fill removed, and an outlined box is still a box: eight of them down a page is eight objects
+  where there is one list. The leading chip was the same failure one level down — an outlined
+  square is a slab with its fill taken out. Ruled rows now carry no border, no corner and no fill,
+  set the mark bare in the slot the chip occupied, and are separated by the hairline BETWEEN them,
+  run to both edges. No shipped brand sets `ruledRegister`, so nothing in the wild moves.
+
+- **`NeptuneQuickActions` takes `accentLead`.** The `rule-grid` shell marks the first action in the
+  brand's reserved accent, which is right on a home screen — the lead verb is the forward motion
+  and a brand that rations one colour per screen spends it there. It is wrong on a screen that has
+  already spent it: a card page draws the card, and on a brand whose mark is a red arrow the card
+  IS the spend, so the row put a second red object on the same screen from inside the component
+  that exists to honour the rule. The host knows which screen it is on; the component cannot.
+  Defaults true, so nothing shipped moves.
+
 ## 2.31.2
 
 - **`2.31.1` traded a truncated balance at 2.0x for a shredded account name at 1.0x. This is the

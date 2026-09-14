@@ -277,11 +277,28 @@ class NeptuneQuickActions extends StatelessWidget {
   /// brandprint's `actionRow` lever once and passes the result here.
   final NeptuneQuickActionShell shell;
 
+  /// Whether the FIRST action is marked in the brand's reserved accent.
+  ///
+  /// True is right where this row is the screen's forward motion: on a home
+  /// screen the lead verb is the thing the customer came to do, and a brand
+  /// that reserves one colour per screen spends it there.
+  ///
+  /// It is wrong on a screen that has ALREADY spent it. A card page draws the
+  /// card, and on a brand whose mark is a red arrow the card is the spend — so
+  /// an accented lead action put a second red object on the same screen and
+  /// broke the once-per-screen rule from inside the component that exists to
+  /// honour it. The host knows which screen it is on; the component cannot.
+  ///
+  /// Defaults true, so every existing caller and every shipped brand is
+  /// byte-identical.
+  final bool accentLead;
+
   const NeptuneQuickActions({
     super.key,
     required this.actions,
     this.columns = 4,
     this.shell = NeptuneQuickActionShell.filledCircles,
+    this.accentLead = true,
   });
 
   @override
@@ -308,7 +325,7 @@ class NeptuneQuickActions extends StatelessWidget {
           Expanded(
             child: _QuickActionShellScope(
               shell: shell,
-              lead: start + i == 0,
+              lead: accentLead && start + i == 0,
               child: action,
             ),
           ),
