@@ -287,22 +287,21 @@ class NeptuneQuickAction extends StatelessWidget {
       child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            // The lit one. The light under a lit object is the colour of the
-            // object, so this is the primary's own glow and not a grey shadow.
-            boxShadow: lead
-                ? [
-                    BoxShadow(
-                      color: scheme.primary.withValues(alpha: 0.30),
-                      blurRadius: 18,
-                      offset: const Offset(0, 7),
-                    ),
-                  ]
-                : null,
-          ),
-          child: Material(
+        // NO GLOW ON THE LEAD, IN EITHER SHELL. Both this row and the pocket
+        // hero's carried one — the brand colour at ~30%, blur ~18, offset ~7 —
+        // and in every frame this repo renders it comes out as a HARD-EDGED
+        // OFFSET DUPLICATE of the disc in a washed tint, not as a blur: a pale
+        // crescent hanging below the one control the row exists to point at.
+        // It was reported on FGLB as looking broken, and Andalus has it too.
+        //
+        // Whatever the blur is doing in the rasteriser, the conclusion is the
+        // same: a shadow that cannot be shown to render as a shadow does not
+        // ship as one, and it is what every golden and every review shot of
+        // this row will keep showing. The hierarchy does not need it — the
+        // lead is the only FILLED disc on a row of tonal ones, which is the
+        // whole point of `filledCircles` and survives the shadow's removal
+        // untouched.
+        Material(
             color: lead ? scheme.primary : scheme.primaryContainer,
             borderRadius: chipRadius,
             clipBehavior: Clip.antiAlias,
@@ -326,7 +325,6 @@ class NeptuneQuickAction extends StatelessWidget {
               ),
             ),
           ),
-        ),
         const SizedBox(height: 8),
         Text(
           label,

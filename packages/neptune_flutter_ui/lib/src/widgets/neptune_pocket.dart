@@ -528,19 +528,25 @@ class _VerbTileState extends State<_VerbTile> {
                   // corner is the one that still reads as the brand's own
                   // rectangle at this size.
                   borderRadius: shape.rMd,
-                  // The ACCENT's glow, not the primary's. `glowPrimary` puts a
-                  // navy halo under a vermilion tile, which reads as a
-                  // shadow somebody tinted by mistake; a light under a lit
-                  // object is the colour of the object.
-                  boxShadow: lead
-                      ? [
-                          BoxShadow(
-                            color: fill!.withValues(alpha: 0.34),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
-                          ),
-                        ]
-                      : null,
+                  // NO GLOW, AND THIS IS A CORRECTION.
+                  //
+                  // It shipped as the accent at 34%, blur 20, offset 8, under
+                  // the argument that "a light under a lit object is the
+                  // colour of the object". On this bank's near-white paper
+                  // that draws a PALE PINK ROUNDED RECT protruding below the
+                  // tile: at a 34% wash the blur's tail is the only part with
+                  // any weight left, so what a customer sees is not elevation,
+                  // it is an offset duplicate of the tile in a washed-out red.
+                  // A misaligned second layer on the most prominent control on
+                  // the screen, and it was reported as looking broken.
+                  //
+                  // It is also a rule violation, which is the stronger reason:
+                  // this bank separates with ink and rules and NEVER with a
+                  // tint, and it spends its red exactly once per screen. A
+                  // pink wash under the red tile is both a tint and the
+                  // accent's second appearance. The lead is already the only
+                  // filled tile on a row of keylines; it does not need
+                  // elevation to be found.
                 ),
                 alignment: Alignment.center,
                 child: glyph,
