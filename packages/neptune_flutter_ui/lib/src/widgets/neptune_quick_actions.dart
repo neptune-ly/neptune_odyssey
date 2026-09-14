@@ -344,6 +344,17 @@ class NeptuneQuickAction extends StatelessWidget {
   }
 }
 
+/// THE REGISTER'S RULES ARE THE BANK'S INK, NOT THE NEUTRAL RAMP'S.
+///
+/// `outlineVariant` is a grey — `#D1D5DC` on the bank this shell was designed
+/// for — and a strip of four cells boxed in grey on white is the "grey slab"
+/// its charter forbids outright: it read as an unstyled table floating between
+/// the band above it and the register below. The same rule at 0.22 of the
+/// page's own ink is the hairline a ruled document actually uses, and it is
+/// the same family as every other rule this bank draws.
+Color _registerRule(ColorScheme scheme) =>
+    scheme.onSurface.withValues(alpha: 0.22);
+
 /// A row of evenly-spaced [NeptuneQuickAction]s.
 ///
 /// Mirrors the web `<npt-quick-actions>` — actions are laid out in equal,
@@ -387,7 +398,7 @@ class NeptuneQuickActions extends StatelessWidget {
           // The hairline between two register cells belongs to neither of
           // them, so it is drawn here rather than as a border on both.
           if (ruled && i > 0)
-            Container(width: 1, color: scheme.outlineVariant),
+            Container(width: 1, color: _registerRule(scheme)),
           if (gridded && i > 0) const SizedBox(width: 10),
           Expanded(
             child: _QuickActionShellScope(
@@ -435,7 +446,7 @@ class NeptuneQuickActions extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         border: Border.symmetric(
-          horizontal: BorderSide(color: scheme.outlineVariant, width: 1),
+          horizontal: BorderSide(color: _registerRule(scheme), width: 1),
         ),
       ),
       child: body,
