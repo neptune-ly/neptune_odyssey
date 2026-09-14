@@ -11,15 +11,20 @@ const emitPy = readFileSync(
   "utf8",
 );
 
-/** Pull one bank's row out of emit.py's PROFILES table. */
+/** Pull one bank's row out of emit.py's PROFILES table.
+ *
+ * The row now spans two lines and carries a `libs=[...]` list, so the scan runs
+ * from the bank's key to the closing `)` rather than over a single line. */
 function pythonProfile(bank: string): Record<string, string> {
-  const line = emitPy
-    .split("\n")
-    .find((l) => l.trim().startsWith(`"${bank}":`));
-  expect(line, `emit.py has no profile for ${bank}`).toBeTruthy();
+  const m = new RegExp(`"${bank}":\\s*dict\\(`).exec(emitPy);
+  expect(m !== null, `emit.py has no profile for ${bank}`).toBe(true);
+  const start = m!.index;
+  const row = emitPy.slice(start, emitPy.indexOf("),", start));
   const out: Record<string, string> = {};
-  for (const [, k, v] of line!.matchAll(/(\w+)=("?[\w.]+"?)/g)) {
-    out[k] = v.replace(/"/g, "");
+  const libs = row.match(/libs=\[([^\]]*)\]/);
+  if (libs) out.libs = libs[1].replace(/["\s]/g, "");
+  for (const [, k, v] of row.matchAll(/(\w+)=("?[\w.]+"?)(?!\w)/g)) {
+    if (k !== "libs") out[k] = v.replace(/"/g, "");
   }
   return out;
 }
@@ -38,29 +43,33 @@ describe("the three banks' icon profiles", () => {
     (bank) => {
       const py = pythonProfile(bank);
       const ts = ICON_PROFILES[bank];
-      expect(Number(py.stroke)).toBe(ts.strokeWidth);
-      expect(py.cap).toBe(ts.linecap);
-      expect(py.join).toBe(ts.linejoin);
-      expect(Number(py.miter)).toBe(ts.miterlimit);
+      const libs = py.libs.split(",");
+      expect(libs[0]).toBe(ts.family);
+      expect(libs[1]).toBe(ts.gapFamily);
       expect(Number(py.scale)).toBe(ts.scale);
-      expect(Number(py.rx)).toBe(ts.cornerScale);
-      expect(Number(py.quant)).toBe(ts.grid);
       expect(py.filledActive).toBe(ts.filledActiveState ? "True" : "False");
+      expect(Number(py.gapStroke)).toBe(ts.gapStroke);
+      expect(py.gapCap).toBe(ts.gapLinecap);
+      expect(py.gapJoin).toBe(ts.gapLinejoin);
+      expect(Number(py.gapMiter)).toBe(ts.gapMiterlimit);
     },
   );
 
-  it("keeps the three visibly apart on every lever that shows", () => {
-    const strokes = ICON_PROFILE_NAMES.map((n) => ICON_PROFILES[n].strokeWidth);
-    const caps = ICON_PROFILE_NAMES.map((n) => ICON_PROFILES[n].linecap);
-    const corners = ICON_PROFILE_NAMES.map((n) => ICON_PROFILES[n].cornerScale);
-    expect(new Set(strokes).size).toBe(3);
-    expect(new Set(caps).size).toBe(3);
-    expect(new Set(corners).size).toBe(3);
-    // The charter's ordering: Nuran squarest, Andalus roundest, FGLB between.
-    expect(ICON_PROFILES.nuran.cornerScale).toBeLessThan(ICON_PROFILES.fglb.cornerScale);
-    expect(ICON_PROFILES.fglb.cornerScale).toBeLessThan(ICON_PROFILES.andalus.cornerScale);
-    expect(ICON_PROFILES.nuran.strokeWidth).toBeLessThan(ICON_PROFILES.andalus.strokeWidth);
-    expect(ICON_PROFILES.andalus.strokeWidth).toBeLessThan(ICON_PROFILES.fglb.strokeWidth);
+  it("gives each bank a DIFFERENT family, and never another bank's as its filler", () => {
+    const families = ICON_PROFILE_NAMES.map((n) => ICON_PROFILES[n].family);
+    expect(new Set(families).size).toBe(3);
+    // THE TRAP THIS GUARDS. Filling Nuran's missing credit card from Material
+    // Sharp made Nuran and FGLB draw the identical card, because Sharp and
+    // Outlined are the same paths. A gap-filler must never be a bank's family.
+    for (const n of ICON_PROFILE_NAMES) {
+      expect(families).not.toContain(ICON_PROFILES[n].gapFamily);
+    }
+  });
+
+  it("records a permissive licence for every family it ships", () => {
+    for (const n of ICON_PROFILE_NAMES) {
+      expect(["MIT", "Apache-2.0", "ISC"]).toContain(ICON_PROFILES[n].familyLicence);
+    }
   });
 
   it("has NO default — a bank with no profile throws", () => {
@@ -72,21 +81,21 @@ describe("the three banks' icon profiles", () => {
     );
   });
 
-  it("renders each bank's own weight and terminal", () => {
+  it("renders each bank's own terminal on the web family", () => {
     const nuran = iconSvg("home", { profile: "nuran" });
     expect(nuran).toContain('stroke-linecap="butt"');
     expect(nuran).toContain('data-npt-profile="nuran"');
-    // 1.0 / 0.88 — the group scale is compensated for, so the ink is 1.0 wide.
-    expect(nuran).toContain(`stroke-width="${1.0 / 0.88}"`);
-    expect(nuran).toContain("scale(0.88)");
+    // 1.7 / 0.94 — the group scale is compensated for, so the ink is 1.7 wide.
+    expect(nuran).toContain(`stroke-width="${1.7 / 0.94}"`);
+    expect(nuran).toContain("scale(0.94)");
 
     const fglb = iconSvg("home", { profile: "fglb" });
-    expect(fglb).toContain('stroke-linecap="square"');
-    expect(fglb).toContain('stroke-width="1.6"');
+    expect(fglb).toContain('stroke-linecap="butt"');
+    expect(fglb).toContain(`stroke-width="${1.9 / 0.94}"`);
 
     const andalus = iconSvg("home", { profile: "andalus" });
     expect(andalus).toContain('stroke-linecap="round"');
-    expect(andalus).toContain('stroke-width="1.25"');
+    expect(andalus).toContain('stroke-width="1.6"');
 
     // And an unprofiled call is untouched — the family's native cut.
     expect(iconSvg("home")).toContain('stroke-width="1.8"');
