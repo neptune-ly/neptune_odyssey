@@ -24,3 +24,12 @@ trademarks**, used to identify the service they name. They are not covered by
 the licences above, are **never** restyled or redrawn to a bank profile, and a
 mark belongs only to the banks that actually have that partner. See
 `NOTICE-brand-marks.md`.
+
+`bank-sets/roster.json` now says so in data rather than in prose: a mark declares
+`isBrandMark` and the `artwork` its owner supplies — `colour` (the file carries
+the mark's own inks, and nothing may repaint them) or `mono` (the owner's own
+single-ink variant, which takes the surrounding surface's ink so it stays legible
+on both grounds, and never a bank's accent). `install.py` compiles that
+declaration for the consuming app, so the rule is enforced where the mark is
+drawn instead of remembered at each call site. The Flutter app had tinted every
+mark it drew until 2026-09-14; see its `assets/ICON_LICENSES.md`.

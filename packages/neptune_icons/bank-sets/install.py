@@ -50,6 +50,44 @@ def classify(path):
     return "STROKE" if (has_stroke and not solid) else ("FILL" if solid and not has_stroke else
            ("MIXED" if has_stroke and solid else "NONE"))
 
+DART_ROSTER = "lib/core/presentation/components/brand_marks.g.dart"
+
+def write_brand_mark_roster():
+    """Carry the roster's `isBrandMark` declaration into the running app.
+
+    The app cannot read roster.json — `tools/` is not bundled, and bundling it
+    would ship all three banks' declarations inside each bank's build. So the
+    one declaration is compiled instead, from the same source that writes the
+    assets, by the same run. `brand_mark_roster_test.dart` fails if this file
+    and the roster ever disagree.
+    """
+    marks = sorted((n, s["artwork"]) for n, s in ROSTER.items()
+                   if s.get("isBrandMark"))
+    body = "".join(f'  "{n}": BrandMarkArtwork.{a},\n' for n, a in marks)
+    open(os.path.join(APP, DART_ROSTER), "w", encoding="utf8").write(
+        "// GENERATED from tools/icons/roster.json by tools/icons/install.py.\n"
+        "// Do not hand-edit: declare the mark in the roster instead.\n"
+        "\n"
+        "/// What artwork the owner of a brand mark actually supplies.\n"
+        "enum BrandMarkArtwork {\n"
+        "  /// The file carries the mark's own inks. Nothing may repaint it.\n"
+        "  colour,\n"
+        "\n"
+        "  /// The owner's single-ink variant: there are no colours in the file\n"
+        "  /// to preserve, so it takes the surface's own ink and never an accent\n"
+        "  /// or a selected-state colour — painting WhatsApp's glyph in a bank's\n"
+        "  /// blue is as much a restyle as flattening OnePay's gradients.\n"
+        "  mono,\n"
+        "}\n"
+        "\n"
+        "/// Every glyph the roster declares `isBrandMark`, with the artwork it\n"
+        "/// carries — a third-party or institution trademark either way.\n"
+        "///\n"
+        "/// Keyed by file name, which is the same under all three banks' roots: a\n"
+        "/// mark is the partner's artwork and not the bank's, so which banks CARRY\n"
+        "/// one is per-bank data in the roster and how it is PAINTED is not.\n"
+        f"const brandMarkArtwork = <String, BrandMarkArtwork>{{\n{body}}};\n")
+
 def main():
     report = {b: {"kept": [], "generated": [], "mark": [], "removed": []} for b in ROOTS}
     for bank, rel in ROOTS.items():
@@ -100,6 +138,8 @@ def main():
             if f.endswith(".png") or (f.endswith(".svg") and f not in want):
                 os.remove(os.path.join(root, f))
                 report[bank]["removed"].append(f)
+    write_brand_mark_roster()
+    os.makedirs("/tmp/gen", exist_ok=True)
     json.dump(report, open("/tmp/gen/install_report.json", "w"), indent=1)
     for b, r in report.items():
         print(f"{b:8} kept={len(r['kept']):3} generated={len(r['generated']):3} "

@@ -24,6 +24,8 @@
   },
   "andafx_logo": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "colour",
     "keep": true,
     "banks": [
       "andalus"
@@ -32,6 +34,8 @@
   },
   "andalus_logo": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "colour",
     "keep": true,
     "banks": [
       "andalus"
@@ -40,6 +44,8 @@
   },
   "andalus_toolbar_logo": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "mono",
     "keep": true,
     "banks": [
       "andalus"
@@ -265,6 +271,8 @@
   },
   "linkedin": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "mono",
     "keep": true,
     "banks": [
       "andalus",
@@ -292,6 +300,8 @@
   },
   "lypay_icon": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "mono",
     "keep": true,
     "banks": [
       "andalus",
@@ -343,6 +353,8 @@
   },
   "onepay_icon": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "colour",
     "keep": true,
     "banks": [
       "andalus",
@@ -577,6 +589,8 @@
   },
   "whatsapp": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "mono",
     "keep": true,
     "banks": [
       "andalus",
@@ -591,6 +605,8 @@
   },
   "wu_icon": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "mono",
     "keep": true,
     "banks": [
       "andalus",
@@ -605,6 +621,8 @@
   },
   "x_logo_white": {
     "class": "mark",
+    "isBrandMark": true,
+    "artwork": "mono",
     "keep": true,
     "banks": [
       "andalus",
