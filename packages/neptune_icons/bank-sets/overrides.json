@@ -1,0 +1,259 @@
+{
+ "_why": "Each entry is either (a) a cross-bank silhouette collision at 16/20dp broken by choosing a different glyph inside that bank's own library, or (b) two different roster concepts that auto-resolved onto one file inside a single bank, which would make two settings rows draw the same picture.",
+ "settings": {
+  "andalus": [
+   "phosphor",
+   "sliders-horizontal"
+  ],
+  "nuran": [
+   "carbon",
+   "list--boxes"
+  ],
+  "fglb": [
+   "msym",
+   "tune"
+  ]
+ },
+ "arrow-left-right": {
+  "andalus": [
+   "phosphor",
+   "arrows-left-right"
+  ],
+  "nuran": [
+   "carbon",
+   "arrows--horizontal"
+  ],
+  "fglb": [
+   "msym",
+   "sync_alt"
+  ]
+ },
+ "credit-card": {
+  "andalus": [
+   "phosphor",
+   "cardholder"
+  ],
+  "nuran": [
+   "iconoir",
+   "credit-card"
+  ]
+ },
+ "square-check-big": {
+  "andalus": [
+   "phosphor",
+   "check-square-offset"
+  ],
+  "nuran": [
+   "carbon",
+   "checkbox--checked"
+  ]
+ },
+ "calendar": {
+  "nuran": [
+   "carbon",
+   "calendar--heat-map"
+  ]
+ },
+ "inbox": {
+  "nuran": [
+   "iconoir",
+   "mail-in"
+  ],
+  "fglb": [
+   "msym",
+   "move_to_inbox"
+  ]
+ },
+ "square-plus": {
+  "nuran": [
+   "carbon",
+   "add--large"
+  ],
+  "fglb": [
+   "msym",
+   "library_add"
+  ]
+ },
+ "map-pinned": {
+  "andalus": [
+   "phosphor",
+   "map-pin-area"
+  ],
+  "nuran": [
+   "carbon",
+   "location"
+  ]
+ },
+ "gauge": {
+  "nuran": [
+   "carbon",
+   "meter"
+  ],
+  "fglb": [
+   "msym",
+   "speed"
+  ]
+ },
+ "banknote": {
+  "nuran": [
+   "carbon",
+   "currency"
+  ],
+  "fglb": [
+   "msym",
+   "payments"
+  ]
+ },
+ "circle-plus": {
+  "nuran": [
+   "carbon",
+   "add--alt"
+  ]
+ },
+ "shield-ellipsis": {
+  "andalus": [
+   "phosphor",
+   "shield-star"
+  ],
+  "nuran": [
+   "carbon",
+   "two-factor-authentication"
+  ],
+  "fglb": [
+   "msym",
+   "encrypted"
+  ]
+ },
+ "book-user": {
+  "andalus": [
+   "phosphor",
+   "identification-badge"
+  ]
+ },
+ "contact-round": {
+  "andalus": [
+   "phosphor",
+   "address-book"
+  ]
+ },
+ "lock-keyhole": {
+  "andalus": [
+   "phosphor",
+   "lock-key"
+  ],
+  "nuran": [
+   "carbon",
+   "password"
+  ],
+  "fglb": [
+   "msym",
+   "dialpad"
+  ]
+ },
+ "scan-qr-code": {
+  "andalus": [
+   "phosphor",
+   "frame-corners"
+  ],
+  "nuran": [
+   "carbon",
+   "scan--alt"
+  ],
+  "fglb": [
+   "msym",
+   "qr_code_scanner"
+  ]
+ },
+ "scan-line": {
+  "andalus": [
+   "phosphor",
+   "barcode"
+  ]
+ },
+ "hand-coins": {
+  "fglb": [
+   "msym",
+   "savings"
+  ]
+ },
+ "triangle-alert": {
+  "nuran": [
+   "carbon",
+   "warning--alt"
+  ]
+ },
+ "circle-alert": {
+  "nuran": [
+   "carbon",
+   "warning"
+  ]
+ },
+ "arrow-left": {
+  "fglb": [
+   "msym",
+   "arrow_back"
+  ]
+ },
+ "arrow-right": {
+  "fglb": [
+   "msym",
+   "arrow_forward"
+  ]
+ },
+ "notebook-tabs": {
+  "andalus": [
+   "phosphor",
+   "notebook"
+  ],
+  "nuran": [
+   "carbon",
+   "account"
+  ],
+  "fglb": [
+   "msym",
+   "list_alt"
+  ]
+ },
+ "ellipsis": {
+  "andalus": [
+   "phosphor",
+   "dots-three"
+  ],
+  "nuran": [
+   "carbon",
+   "overflow-menu--horizontal"
+  ],
+  "fglb": [
+   "msym",
+   "more_horiz"
+  ]
+ },
+ "arrow-down-up": {
+  "andalus": [
+   "phosphor",
+   "arrows-down-up"
+  ],
+  "nuran": [
+   "carbon",
+   "arrows--vertical"
+  ],
+  "fglb": [
+   "msym",
+   "swap_vert"
+  ]
+ },
+ "asterisk": {
+  "andalus": [
+   "phosphor",
+   "password"
+  ],
+  "nuran": [
+   "carbon",
+   "character-patterns"
+  ],
+  "fglb": [
+   "msym",
+   "password"
+  ]
+ }
+}

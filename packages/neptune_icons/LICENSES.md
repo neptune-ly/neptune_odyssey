@@ -33,3 +33,39 @@ on both grounds, and never a bank's accent). `install.py` compiles that
 declaration for the consuming app, so the rule is enforced where the mark is
 drawn instead of remembered at each call site. The Flutter app had tinted every
 mark it drew until 2026-09-14; see its `assets/ICON_LICENSES.md`.
+
+## 2026-09-14 — one family per bank
+
+Each bank now draws from a different professionally drawn, permissively licensed
+family rather than from one roster at three stroke weights:
+
+| Bank | Family | Version | Licence |
+|---|---|---|---|
+| Andalus | Phosphor | 2.1.1 | MIT |
+| Nuran | Carbon Design System (IBM) | 11.88.0 | Apache-2.0 |
+| FGLB | Material Symbols Outlined, weight 600 | 0.47.2 | Apache-2.0 |
+
+Gaps in a bank's own family are filled from a second permissive set — **never from
+another bank's family**, which is a rule with a scar behind it: filling Nuran's
+missing credit card from Material *Sharp*, whose flat terminals match Carbon
+beautifully, made Nuran and FGLB draw the identical card, because Sharp and
+Outlined are the same paths.
+
+| Filler | Version | Licence | Used by |
+|---|---|---|---|
+| Tabler Icons | 3.46.0 | MIT | Andalus |
+| Iconoir | 7.12.1 | MIT | Nuran |
+| Lucide | 1.45.0 | ISC (with an MIT Feather subset) | last resort, all banks |
+
+**Rejected on licence**, after reading the text in the published package rather than
+the npm metadata: **Untitled UI** (forbids distributing the icons in original or
+modified form, and forbids deriving an icon library from them); **Solar** (GPL-3.0 as
+published on npm); and **Remix Icon** — npm reports Apache-2.0, but the package ships
+a bespoke *Remix Icon License v1.0* whose §3.2 forbids using the icons to create a
+competing icon set "even if modified with only minor or superficial changes (such as
+colour, size, stroke width, corner radius, or layout)". This package is an icon
+library, so that clause is not one to argue with.
+
+Brand marks are unaffected: a partner's or an institution's wordmark, app-icon tile
+or rail lockup is that owner's artwork, carried verbatim and identical in every bank
+that has it. It belongs to no icon family and is exempt from all of the above.

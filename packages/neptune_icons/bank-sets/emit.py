@@ -1,231 +1,155 @@
 #!/usr/bin/env python3
 """Emit per-bank Odyssey icon sets from the shared roster.
 
-One roster, three profiles. The per-bank difference is entirely in PROFILES —
-there is no per-bank branch anywhere below this line.
+One roster, three banks, and **a different professionally drawn icon family per
+bank** — chosen because its house style is that bank's charter entry, not because
+it happens to look different:
+
+  Andalus  Phosphor        (MIT)         rounded terminals, generous counters, and
+                                         the only high-coverage family that ships
+                                         `fill` as its own drawn weight, which is
+                                         what this bank's filled selected state needs
+  Nuran    Carbon / IBM    (Apache-2.0)  flat terminals, orthogonal, the thinnest ink
+                                         of the three: the documentary set
+  FGLB     Material Symbols Outlined 600 (Apache-2.0)  a 20dp live area inside a 24dp
+                                         box, so spaciousness is the grid itself
+
+The reasoning, the survey that rejected the other ten families, and the licence
+findings are in `docs/design/PER_BANK_ICON_LIBRARIES.md`.
+
+**The per-bank difference is SELECTION, carried as data in `library_map.json`.**
+There is no per-bank branch anywhere below this line, and no bank restyles another
+bank's drawing — that was the earlier approach and it was rejected, because changing
+the stroke of one drawing is a filter, not a vocabulary.
 """
-import json, os, re, sys, math
+import json, os, re, sys
 
-LUCIDE = "/tmp/iconlibs/lucide/icons/%s.svg"
-TABLER_F = "/tmp/iconlibs/tabler/icons/filled/%s.svg"
+HERE = os.path.dirname(os.path.abspath(__file__))
+LIBROOT = os.environ.get("ICONLIBS", "/tmp/iconlibs")
 
-PROFILES = {
-    # stroke: weight in viewBox units at the canonical 24 grid
-    # cap/join/miter: terminal treatment
-    # scale: optical size — how much of the 24 box the glyph claims
-    # rx: multiplier on every source corner radius
-    # quant: coordinate snap, in viewBox units (0 = keep the drawn curve)
-    # filledActive: does this bank's selected state use a filled glyph?
-    # keepOwnDrawings: does this bank already own a designed set worth re-cutting?
-    "andalus": dict(stroke=1.25, cap="round",  join="round", miter=4, scale=1.00, rx=1.40, quant=0.0,  filledActive=True,  keepOwnDrawings=True),
-    "nuran":   dict(stroke=1.00, cap="butt",   join="miter", miter=2, scale=0.88, rx=0.00, quant=0.25, filledActive=False, keepOwnDrawings=False),
-    "fglb":    dict(stroke=1.60, cap="square", join="miter", miter=2, scale=1.00, rx=0.65, quant=0.0,  filledActive=False, keepOwnDrawings=False),
+# library -> (asset directory, transform onto the 0 0 24 24 box, how it is painted)
+#
+# All three primary families are FILLED-PATH sets: the "outline" look is drawn as a
+# closed shape, not stroked. That is why they need no stroke tuning and cannot be
+# given any — see the note on the profiles below.
+LIBS = {
+    "phosphor":      (f"{LIBROOT}/x_phosphor-icons-core/package/assets/regular", "scale(0.09375)", "fill"),
+    "phosphor_fill": (f"{LIBROOT}/x_phosphor-icons-core/package/assets/fill",    "scale(0.09375)", "fill"),
+    "carbon":        (f"{LIBROOT}/x_carbon-icons/package/svg/32",                "scale(0.75)",    "fill"),
+    "msym":          (f"{LIBROOT}/x_msym600/package/outlined",                   "scale(0.025) translate(0 960)", "fill"),
+    # the stroke-drawn gap-fillers
+    "tabler":        (f"{LIBROOT}/tabler/icons/outline",                         "scale(1)", "stroke"),
+    "iconoir":       (f"{LIBROOT}/x_iconoir/package/icons/regular",              "scale(1)", "stroke"),
+    "lucide":        (f"{LIBROOT}/lucide/icons",                                 "scale(1)", "stroke"),
 }
 
-NUM = re.compile(r'-?\d*\.?\d+(?:[eE][-+]?\d+)?')
-# per SVG path command: which argument slots are coordinates (quantisable)
-ARC_FLAGS = {3, 4}  # large-arc-flag, sweep-flag within each 7-tuple of A/a
+PROFILES = {
+    # libs:         this bank's family first, then its declared gap-filler, then Lucide.
+    #               A gap is NEVER filled from another bank's family: filling Nuran's
+    #               missing credit card from Material Sharp made Nuran and FGLB draw
+    #               the identical card, because Sharp and Outlined are the same paths.
+    # scale:        optical size — how much of the 24 box the glyph claims.
+    # filledActive: does this bank's selected state use a natively FILLED glyph?
+    # gap*:         terminal treatment for the STROKE-DRAWN gap-fillers only. The three
+    #               primary families are filled-path sets, so these never reach them —
+    #               they are not the old per-bank stroke filter and must not become it.
+    #               They exist so a Tabler or Iconoir fill-in sits inside its bank's
+    #               vocabulary instead of announcing itself.
+    "andalus": dict(libs=["phosphor", "tabler", "lucide"], scale=1.00, filledActive=True,
+                    gapStroke=1.60, gapCap="round", gapJoin="round", gapMiter=4),
+    "nuran":   dict(libs=["carbon", "iconoir", "lucide"],  scale=0.94, filledActive=False,
+                    gapStroke=1.70, gapCap="butt",  gapJoin="miter", gapMiter=2),
+    "fglb":    dict(libs=["msym", "lucide"],               scale=0.94, filledActive=False,
+                    gapStroke=1.90, gapCap="butt",  gapJoin="miter", gapMiter=2),
+}
 
-def quantise_path(d, q):
-    if not q:
-        return d
-    out, i, n = [], 0, len(d)
-    cmd = None
-    while i < n:
-        ch = d[i]
-        if ch.isalpha():
-            cmd = ch
-            out.append(ch)
-            i += 1
-            arg = 0
-            continue
-        if ch in ", \t\n":
-            out.append(ch); i += 1; continue
-        m = NUM.match(d, i)
-        if not m:
-            out.append(ch); i += 1; continue
-        val = float(m.group())
-        # never round arc flags
-        if cmd in "Aa":
-            # count which slot we are in by re-scanning this command's numbers
-            pass
-        out.append(m.group())
-        i = m.end()
-    # A proper slot-aware pass, done separately below.
-    return _quantise_tokens(d, q)
+# concept -> {bank: [library, glyph]}. Generated by tools/icons/resolve.py and then
+# hand-corrected; the corrections are the design decisions and are recorded with
+# their reason in the map's own `_why` block.
+MAP = json.load(open(os.path.join(HERE, "library_map.json"), encoding="utf8"))
 
-def _tokens(d):
-    """Command/number tokens, ARC-FLAG AWARE.
+BODY = re.compile(r"<svg[^>]*>(.*)</svg>", re.S)
+GUARD = re.compile(r'<(rect|path)\b[^>]*\bfill="none"[^>]*\bstroke="none"[^>]*/>')
+ROUND_TERMINAL = re.compile(r'\s*stroke-line(cap|join)="[^"]*"')
 
-    `a5 5 0 014-2` is legal SVG: inside an arc, the large-arc and sweep flags
-    are single characters and may be written with no separator at all. Read
-    naively that is one number, 14, and the command silently loses two of its
-    seven arguments — which is how a book-open-check turned into a path the
-    renderer refuses. Slots 3 and 4 of every 7-tuple are therefore consumed one
-    character at a time.
-    """
-    i, n = 0, len(d)
-    cmd, slot = None, 0
-    while i < n:
-        ch = d[i]
-        if ch.isalpha():
-            cmd, slot = ch, 0
-            yield ("cmd", ch)
-            i += 1
-            continue
-        if ch in ", \t\r\n":
-            i += 1
-            continue
-        if cmd in "Aa" and (slot % 7) in ARC_FLAGS:
-            yield ("flag", ch)
-            i += 1
-            slot += 1
-            continue
-        m = NUM.match(d, i)
-        if not m:
-            i += 1
-            continue
-        yield ("num", m.group())
-        i = m.end()
-        slot += 1
-
-def _quantise_tokens(d, q):
-    def snap(v):
-        return round(round(v / q) * q, 3)
-    out, cmd, slot = [], None, 0
-    for kind, tok in _tokens(d):
-        if kind == "cmd":
-            cmd, slot = tok, 0
-            out.append(("cmd", tok))
-            continue
-        if kind == "flag":
-            out.append(("flag", tok))
-            slot += 1
-            continue
-        v = float(tok)
-        # an arc's radii are grid coordinates; its x-axis rotation is not
-        keep = cmd in "Aa" and (slot % 7) == 2
-        out.append(("num", tok if keep else _fmt(snap(v))))
-        slot += 1
-    s = ""
-    for kind, t in out:
-        if not s:
-            s = t
-        elif kind == "cmd" or s[-1].isalpha():
-            s += t
-        elif kind == "flag":
-            s += " " + t
-        else:
-            s += ("" if t.startswith("-") else " ") + t
-    return s
 
 def _fmt(v):
-    s = f"{v:.3f}".rstrip("0").rstrip(".")
+    s = f"{v:.4f}".rstrip("0").rstrip(".")
     return s if s not in ("", "-0") else "0"
 
-TAG = re.compile(r'<(path|circle|rect|line|polyline|polygon|ellipse)\b([^>]*?)/?>', re.S)
-ATTR = re.compile(r'([a-zA-Z][a-zA-Z0-9-]*)\s*=\s*"([^"]*)"')
 
-def load_inner(path, drop_guard=True):
-    s = open(path, encoding="utf8").read()
-    els = []
-    for m in TAG.finditer(s):
-        tag, raw = m.group(1), m.group(2)
-        a = dict(ATTR.findall(raw))
-        if drop_guard and a.get("fill") == "none" and a.get("stroke") == "none":
-            continue  # tabler's transparent 24×24 guard rect
-        els.append((tag, a))
-    return els
+def load_inner(lib, name):
+    d, _, _ = LIBS[lib]
+    s = open(os.path.join(d, name + ".svg"), encoding="utf8").read()
+    body = BODY.search(s).group(1)
+    body = GUARD.sub("", body)              # Tabler's transparent 24x24 guard rect
+    # A gap-filler's own terminals are dropped so the bank's profile decides them;
+    # this is the ONLY thing a profile still tunes, and only on a stroked fill-in.
+    return ROUND_TERMINAL.sub("", body).strip()
 
-COORD_ATTRS = {"cx","cy","r","rx","ry","x","y","x1","y1","x2","y2","width","height"}
 
-# Lucide/Tabler draw a dot as a zero-length subpath and rely on a ROUND cap to
-# render it. A bank with butt terminals draws nothing at all there — the `!`
-# inside a warning triangle simply vanishes. So the idiom is rewritten into an
-# explicit filled circle for every bank, before any profile is applied.
-DOT = re.compile(r'^M\s*(-?[\d.]+)[ ,]+(-?[\d.]+)\s*[hv]\s*(-?[\d.]+)$')
+def paint_for(lib, p):
+    if LIBS[lib][2] == "fill":
+        return 'fill="currentColor"'
+    return (f'fill="none" stroke="currentColor" stroke-width="{_fmt(p["gapStroke"])}" '
+            f'stroke-linecap="{p["gapCap"]}" stroke-linejoin="{p["gapJoin"]}" '
+            f'stroke-miterlimit="{p["gapMiter"]}"')
 
-def dot_circle(d, p):
-    m = DOT.match(d.strip())
-    if not m or abs(float(m.group(3))) > 0.05:
-        return None
-    r = p["stroke"] / (2 * p["scale"])
-    return (f'<circle cx="{_fmt(float(m.group(1)))}" cy="{_fmt(float(m.group(2)))}" '
-            f'r="{_fmt(r)}" fill="currentColor" stroke="none"/>')
 
-def transform_el(tag, a, p, filled):
-    a = dict(a)
-    if tag == "path" and not filled and "d" in a:
-        c = dot_circle(a["d"], p)
-        if c:
-            return c
-    for junk in ("class","stroke-width","stroke-linecap","stroke-linejoin","fill","stroke","xmlns","width","height","viewBox"):
-        if tag != "rect" or junk not in ("width","height"):
-            a.pop(junk, None)
-    if tag == "rect":
-        for k in ("rx","ry"):
-            if k in a:
-                a[k] = _fmt(max(0.0, float(a[k]) * p["rx"]))
-        if "rx" not in a and p["rx"] < 1.0:
-            pass
-    q = p["quant"]
-    if q and not filled:
-        for k, v in list(a.items()):
-            if k == "d":
-                a[k] = _quantise_tokens(v, q)
-            elif k in ("points",):
-                a[k] = " ".join(_fmt(round(float(x)/q)*q) for x in re.findall(NUM, v))
-            elif k in COORD_ATTRS and k not in ("rx","ry"):
-                try:
-                    a[k] = _fmt(round(float(v)/q)*q)
-                except ValueError:
-                    pass
-    order = ["d","points","cx","cy","r","rx","ry","x","y","x1","y1","x2","y2","width","height"]
-    parts = [f'{k}="{a[k]}"' for k in order if k in a]
-    parts += [f'{k}="{v}"' for k, v in a.items() if k not in order]
-    return f'<{tag} {" ".join(parts)}/>'
+# `slash` and `renew` are Neptune's own two marks, drawn on top of a library glyph to
+# say "blocked" and "renew". They carry their own paint because the glyph underneath
+# may be a filled family or a stroked one, and an overlay that inherited either would
+# vanish in the other.
+SLASH = ('<path d="M4.6 19.4 19.4 4.6" fill="none" stroke="currentColor" '
+         'stroke-width="1.9" stroke-linecap="round"/>')
+RENEW = ('<g transform="translate(0.6 0.6) scale(0.8)">%s</g>'
+         '<g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" '
+         'stroke-linejoin="round">'
+         '<path d="M20.6 16.4a3 3 0 1 1-.9-2.1"/><path d="M20.9 12.4v2.3h-2.3"/></g>')
 
-SLASH = '<path d="M4.6 19.4 19.4 4.6"/>'
-RENEW = ('<g transform="translate(0.6,0.6) scale(0.8)">%s</g>'
-         '<path d="M20.6 16.4a3 3 0 1 1-.9-2.1"/><path d="M20.9 12.4v2.3h-2.3"/>')
+
+def resolve(bank, concept, filled):
+    """The one place a bank name meets a glyph name, and it is a table lookup."""
+    lib, name = MAP[concept][bank]
+    if filled and lib == "phosphor":
+        return "phosphor_fill", name + "-fill"
+    return lib, name
+
 
 def emit(bank, name, spec, roster):
     p = PROFILES[bank]
     cls = spec["class"]
-    if cls in ("mark",):
-        return None  # brand marks are never restyled
+    if cls == "mark":
+        return None            # a partner's trademark is not raw material
     filled = False
-    src = spec.get("src")
+    base = spec
     if cls == "alias":
         base = roster[spec["of"]]
-        if p["filledActive"] and base.get("sel"):
-            src, filled = base["sel"], True
-        else:
-            src = base["src"]
-    lib, ident = src.split(":", 1)
-    path = {"lucide": LUCIDE, "tabler-filled": TABLER_F}[lib] % ident
-    els = load_inner(path)
-    inner = "".join(transform_el(t, a, p, filled) for t, a in els)
+        filled = bool(p["filledActive"] and base.get("sel"))
+    concept = base["src"].split(":", 1)[1]
+    lib, glyph = resolve(bank, concept, filled)
+
+    s = p["scale"]
+    _, tf, _ = LIBS[lib]
+    # The library's own transform maps ITS grid onto the 24 box — Material's is
+    # scale(0.025), Phosphor's scale(0.09375). Neptune's own overlays are drawn in
+    # 24-unit coordinates, so they must sit OUTSIDE that transform: inside it the
+    # slash on a blocked card shrank to a fortieth of its size and disappeared.
+    body = f'<g transform="{tf}">{load_inner(lib, glyph)}</g>'
     ov = spec.get("overlay")
     if ov == "slash":
-        inner += SLASH
+        body += SLASH
     elif ov == "renew":
-        inner = RENEW % inner
-    s = p["scale"]
-    g_open = f'<g transform="translate(12 12) scale({_fmt(s)}) translate(-12 -12)">'
-    if filled:
-        paint = f'fill="currentColor" stroke="none"'
-    else:
-        paint = (f'fill="none" stroke="currentColor" stroke-width="{_fmt(p["stroke"]/s)}" '
-                 f'stroke-linecap="{p["cap"]}" stroke-linejoin="{p["join"]}" '
-                 f'stroke-miterlimit="{p["miter"]}"')
+        body = RENEW % body
     header = (f"<!-- Neptune Odyssey icon · bank={bank} · glyph={name}\n"
-              f"     source={src} · profile stroke={p['stroke']} cap={p['cap']} "
-              f"join={p['join']} scale={p['scale']} rx={p['rx']} quant={p['quant']}\n"
-              f"     GENERATED by packages/neptune_icons/scripts/emit_bank_icons.py — do not hand-edit.\n"
+              f"     source={lib}:{glyph} · concept={concept} · optical scale={s}\n"
+              f"     GENERATED by tools/icons/install.py — do not hand-edit.\n"
               f"     Licences: see assets/ICON_LICENSES.md -->\n")
     return (f'{header}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" '
-            f'width="24" height="24" {paint}>{g_open}{inner}</g></svg>\n')
+            f'width="24" height="24" {paint_for(lib, p)}>'
+            f'<g transform="translate(12 12) scale({_fmt(s)}) translate(-12 -12)">'
+            f'{body}</g></svg>\n')
+
 
 def main():
     roster = json.load(open(sys.argv[1]))
@@ -242,6 +166,7 @@ def main():
             n += 1
         counts[bank] = n
     print(json.dumps(counts))
+
 
 if __name__ == "__main__":
     main()

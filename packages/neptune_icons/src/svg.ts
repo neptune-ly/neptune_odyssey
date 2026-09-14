@@ -20,11 +20,14 @@ export interface IconSvgOptions {
   /** Optional class attribute to place on the root <svg>. */
   class?: string;
   /**
-   * Draw the glyph in one bank's own weight — see `profiles.ts`.
+   * Draw the glyph in one bank's voice — see `profiles.ts`.
    *
-   * Omit it for the family's native cut. Passing a profile overrides `stroke`
-   * and the terminal treatment, and scales the glyph to that bank's optical
-   * size; a bank with no profile throws rather than borrowing another's.
+   * Odyssey's web ICONS map is ONE stroke-drawn family, so a profile here gives
+   * it that bank's terminal treatment and optical size — the same values the
+   * generator applies to a stroke-drawn gap-fill. It is NOT the per-bank family
+   * selection: that only exists where there are three asset sets to select into,
+   * which is the Flutter apps. A bank with no profile throws rather than
+   * borrowing another's.
    */
   profile?: IconProfileName;
 }
@@ -49,10 +52,10 @@ export function iconSvg(name: IconName, opts: IconSvgOptions = {}): string {
   const p = opts.profile ? iconProfile(opts.profile) : null;
   // The group scales the geometry, so the declared weight is divided by that
   // scale to come out at the intended visual thickness.
-  const stroke = p ? p.strokeWidth / p.scale : (opts.stroke ?? 1.8);
-  const cap = p ? p.linecap : "round";
-  const join = p ? p.linejoin : "round";
-  const miter = p ? ` stroke-miterlimit="${p.miterlimit}"` : "";
+  const stroke = p ? p.gapStroke / p.scale : (opts.stroke ?? 1.8);
+  const cap = p ? p.gapLinecap : "round";
+  const join = p ? p.gapLinejoin : "round";
+  const miter = p ? ` stroke-miterlimit="${p.gapMiterlimit}"` : "";
   const bank = p ? ` data-npt-profile="${escapeAttr(opts.profile!)}"` : "";
   const raw = ICONS[name];
   const inner =
