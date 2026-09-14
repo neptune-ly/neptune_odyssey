@@ -8,6 +8,8 @@
 // never a literal colour.
 
 import { ICONS } from "./icons.js";
+import { iconProfile } from "./profiles.js";
+import type { IconProfileName } from "./profiles.js";
 import type { IconName } from "./types.js";
 
 export interface IconSvgOptions {
@@ -17,6 +19,14 @@ export interface IconSvgOptions {
   stroke?: number;
   /** Optional class attribute to place on the root <svg>. */
   class?: string;
+  /**
+   * Draw the glyph in one bank's own weight — see `profiles.ts`.
+   *
+   * Omit it for the family's native cut. Passing a profile overrides `stroke`
+   * and the terminal treatment, and scales the glyph to that bank's optical
+   * size; a bank with no profile throws rather than borrowing another's.
+   */
+  profile?: IconProfileName;
 }
 
 /** True when `name` is a known icon. Acts as a type guard for IconName. */
@@ -36,13 +46,24 @@ export function iconSvg(name: IconName, opts: IconSvgOptions = {}): string {
     throw new RangeError(`Unknown Neptune icon: "${String(name)}"`);
   }
   const size = opts.size ?? 24;
-  const stroke = opts.stroke ?? 1.8;
-  const inner = ICONS[name];
+  const p = opts.profile ? iconProfile(opts.profile) : null;
+  // The group scales the geometry, so the declared weight is divided by that
+  // scale to come out at the intended visual thickness.
+  const stroke = p ? p.strokeWidth / p.scale : (opts.stroke ?? 1.8);
+  const cap = p ? p.linecap : "round";
+  const join = p ? p.linejoin : "round";
+  const miter = p ? ` stroke-miterlimit="${p.miterlimit}"` : "";
+  const bank = p ? ` data-npt-profile="${escapeAttr(opts.profile!)}"` : "";
+  const raw = ICONS[name];
+  const inner =
+    p && p.scale !== 1
+      ? `<g transform="translate(12 12) scale(${p.scale}) translate(-12 -12)">${raw}</g>`
+      : raw;
   const cls = opts.class ? ` class="${escapeAttr(opts.class)}"` : "";
   return (
     `<svg${cls} viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" ` +
-    `stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" ` +
-    `stroke-linejoin="round" role="img" aria-label="${escapeAttr(name)}" ` +
-    `data-npt-icon="${escapeAttr(name)}">${inner}</svg>`
+    `stroke="currentColor" stroke-width="${stroke}" stroke-linecap="${cap}" ` +
+    `stroke-linejoin="${join}"${miter} role="img" aria-label="${escapeAttr(name)}" ` +
+    `data-npt-icon="${escapeAttr(name)}"${bank}>${inner}</svg>`
   );
 }

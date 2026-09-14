@@ -1,5 +1,42 @@
 # Changelog
 
+## 2.32.0
+
+- **Each bank draws its own icon set, and the difference between them is a table rather than a
+  pile of drawings.** `packages/neptune_icons/src/profiles.ts` declares the three banks on seven
+  levers — stroke weight, cap, join, miter limit, optical scale, corner-radius multiplier and
+  coordinate grid — plus whether the bank has a filled active state at all. `iconSvg(name, {
+  profile })` renders through one. There is **no default**: `iconProfile("sahara")` throws rather
+  than quietly handing back Andalus's weight, which is the same rule the Flutter asset roots
+  follow and for the same reason.
+
+  * **Andalus** — stroke 1.25, round terminals, corners ×1.40, and the only bank with a filled
+    cut for the selected state. 1.25 is not a number chosen for it: its existing 129-file set
+    measured 1.25 on 60 files against eight other values, and outline on 88 against 30 filled.
+    The majority is the rule; the set was brought onto it rather than redesigned.
+  * **Nuran** — stroke 1.00, **butt** terminals, corners ×0.00, drawn at 0.88 of the box with
+    every coordinate snapped to a 0.25 grid. Marks in a ledger. No filled state, because the nav
+    pill already carries selection and a second signal for one fact is two things arguing.
+  * **FGLB** — stroke 1.60, **square** terminals, corners ×0.65, full-frame and right-angled.
+    Nothing in the set names a colour, so the bank's one red spend per screen is never taken by
+    an icon.
+
+- **`bank-sets/` writes the Flutter apps' three asset roots from one roster.** 136 declared names,
+  each recording what it is, where it came from, which banks carry it and whether it mirrors in
+  RTL. `test/profiles.test.ts` parses `emit.py` and fails if its table and `profiles.ts` drift —
+  a bank must not be one weight on the phone and another on the web.
+
+- **Two bugs the generator had to be taught, both of which shipped broken glyphs before they were
+  found.** A dot written as a zero-length subpath (`M12 17h.01`) renders only under a *round* cap,
+  so Nuran's warning triangle had no `!` in it at all; the idiom is now rewritten to an explicit
+  circle before any profile is applied. And **arc flags are single characters** — `a5 5 0 014-2`
+  is legal SVG, a naive tokeniser reads `014` as one number, and five glyphs came out with two of
+  seven arc arguments missing and would not parse.
+
+- **Licences recorded.** Lucide 1.45.0 (ISC, with an MIT Feather-derived subset) and Tabler Icons
+  3.46.0 (MIT), in `packages/neptune_icons/LICENSES.md`. Brand marks stay third-party trademarks:
+  carried verbatim, never restyled to a profile, and only by the banks that have that partner.
+
 ## 2.31.2
 
 - **`2.31.1` traded a truncated balance at 2.0x for a shredded account name at 1.0x. This is the

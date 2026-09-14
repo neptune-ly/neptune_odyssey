@@ -13,6 +13,8 @@ export { ICONS } from "./icons.js";
 export { ICON_NAMES } from "./types.js";
 export type { IconName } from "./types.js";
 export { iconSvg, isIconName } from "./svg.js";
+export { ICON_PROFILES, ICON_PROFILE_NAMES, iconProfile, isIconProfileName } from "./profiles.js";
+export type { IconProfile, IconProfileName } from "./profiles.js";
 export type { IconSvgOptions } from "./svg.js";
 export { NptIcon, registerIcons } from "./element.js";
 

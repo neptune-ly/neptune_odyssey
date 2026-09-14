@@ -55,6 +55,24 @@ registerIcons(); // browser-only, idempotent
 Reactive attributes: `name`, `size` (px, default 24), `stroke` (default 1.8).
 Override colour with the `--npt-icon-color` custom property or plain `color`.
 
+## Per-bank profiles
+
+The Neptune mobile app ships as three banks, and each draws the roster in its
+own weight. `iconSvg(name, { profile })` renders through one:
+
+```ts
+import { iconSvg, ICON_PROFILES } from "@neptune.fintech/icons";
+
+iconSvg("transfer", { profile: "nuran" });   // 1.00 stroke, butt caps, square corners
+iconSvg("transfer", { profile: "fglb" });    // 1.60 stroke, square caps
+iconSvg("transfer", { profile: "andalus" }); // 1.25 stroke, round caps, roundest corners
+iconSvg("transfer");                          // the family's own 1.8 cut
+```
+
+There is **no default profile** — an unknown bank throws rather than borrowing
+another bank's weight. The same table drives the Flutter apps' SVG assets
+through `bank-sets/`; see `bank-sets/README.md` and `LICENSES.md`.
+
 ## Brand marks (third-party trademarks)
 
 > **Trademark notice.** The payment-network & fintech brand marks
