@@ -11,7 +11,7 @@
  },
  "accounts_icon": {
   "class": "icon",
-  "src": "lucide:wallet-cards",
+  "src": "lucide:notebook-tabs",
   "sel": "tabler-filled:cards"
  },
  "address_book_logo": {
@@ -123,7 +123,7 @@
  },
  "check_checked": {
   "class": "icon",
-  "src": "lucide:circle-check-big"
+  "src": "lucide:circle-check"
  },
  "check_checked_square": {
   "class": "icon",
@@ -254,7 +254,7 @@
  },
  "internal_transfer_icon": {
   "class": "icon",
-  "src": "lucide:arrow-left-right",
+  "src": "lucide:arrow-down-up",
   "symmetric": true
  },
  "job_icon": {
@@ -391,7 +391,7 @@
  },
  "password_icon": {
   "class": "icon",
-  "src": "lucide:key-round"
+  "src": "lucide:asterisk"
  },
  "pay_icon": {
   "class": "icon",
@@ -439,7 +439,7 @@
  },
  "qr_icon2": {
   "class": "icon",
-  "src": "lucide:scan-line"
+  "src": "lucide:qr-code"
  },
  "qr_operations_icon": {
   "class": "icon",

@@ -6,9 +6,11 @@
   "fglb": "material symbols outlined w600 (Apache-2.0) -> lucide (ISC)"
  },
  "_overrides": [
+  "arrow-down-up",
   "arrow-left",
   "arrow-left-right",
   "arrow-right",
+  "asterisk",
   "banknote",
   "book-user",
   "calendar",
@@ -16,11 +18,13 @@
   "circle-plus",
   "contact-round",
   "credit-card",
+  "ellipsis",
   "gauge",
   "hand-coins",
   "inbox",
   "lock-keyhole",
   "map-pinned",
+  "notebook-tabs",
   "scan-line",
   "scan-qr-code",
   "settings",
@@ -55,6 +59,20 @@
   "nuran": [
    "carbon",
    "arrow--up"
+  ]
+ },
+ "arrow-down-up": {
+  "andalus": [
+   "phosphor",
+   "arrows-down-up"
+  ],
+  "fglb": [
+   "msym",
+   "swap_vert"
+  ],
+  "nuran": [
+   "carbon",
+   "arrows--vertical"
   ]
  },
  "arrow-left": {
@@ -102,15 +120,15 @@
  "asterisk": {
   "andalus": [
    "phosphor",
-   "asterisk"
+   "password"
   ],
   "fglb": [
    "msym",
-   "asterisk"
+   "password"
   ],
   "nuran": [
    "carbon",
-   "asterisk"
+   "character-patterns"
   ]
  },
  "at-sign": {
@@ -295,20 +313,6 @@
    "checkmark--outline"
   ]
  },
- "circle-check-big": {
-  "andalus": [
-   "phosphor",
-   "check-circle"
-  ],
-  "fglb": [
-   "msym",
-   "check_circle"
-  ],
-  "nuran": [
-   "carbon",
-   "checkmark--outline"
-  ]
- },
  "circle-plus": {
   "andalus": [
    "phosphor",
@@ -456,7 +460,7 @@
   ],
   "fglb": [
    "msym",
-   "more"
+   "more_horiz"
   ],
   "nuran": [
    "carbon",
@@ -722,7 +726,7 @@
   ],
   "fglb": [
    "msym",
-   "password"
+   "dialpad"
   ],
   "nuran": [
    "carbon",
@@ -839,6 +843,20 @@
   "nuran": [
    "carbon",
    "microphone"
+  ]
+ },
+ "notebook-tabs": {
+  "andalus": [
+   "phosphor",
+   "notebook"
+  ],
+  "fglb": [
+   "msym",
+   "list_alt"
+  ],
+  "nuran": [
+   "carbon",
+   "account"
   ]
  },
  "palette": {

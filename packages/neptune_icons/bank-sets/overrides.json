@@ -147,7 +147,7 @@
   ],
   "fglb": [
    "msym",
-   "password"
+   "dialpad"
   ]
  },
  "scan-qr-code": {
@@ -198,6 +198,62 @@
   "fglb": [
    "msym",
    "arrow_forward"
+  ]
+ },
+ "notebook-tabs": {
+  "andalus": [
+   "phosphor",
+   "notebook"
+  ],
+  "nuran": [
+   "carbon",
+   "account"
+  ],
+  "fglb": [
+   "msym",
+   "list_alt"
+  ]
+ },
+ "ellipsis": {
+  "andalus": [
+   "phosphor",
+   "dots-three"
+  ],
+  "nuran": [
+   "carbon",
+   "overflow-menu--horizontal"
+  ],
+  "fglb": [
+   "msym",
+   "more_horiz"
+  ]
+ },
+ "arrow-down-up": {
+  "andalus": [
+   "phosphor",
+   "arrows-down-up"
+  ],
+  "nuran": [
+   "carbon",
+   "arrows--vertical"
+  ],
+  "fglb": [
+   "msym",
+   "swap_vert"
+  ]
+ },
+ "asterisk": {
+  "andalus": [
+   "phosphor",
+   "password"
+  ],
+  "nuran": [
+   "carbon",
+   "character-patterns"
+  ],
+  "fglb": [
+   "msym",
+   "password"
   ]
  }
 }

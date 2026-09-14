@@ -1,0 +1,809 @@
+{
+"house": [
+"home"
+],
+"mail": [
+"envelope",
+"email",
+"mail-all",
+"email-1"
+],
+"ellipsis": [
+"dots",
+"more",
+"dots-three",
+"dots-horizontal",
+"overflow-menu-horizontal",
+"more-2",
+"menu-dots"
+],
+"user-round": [
+"user",
+"person",
+"account",
+"profile",
+"avatar",
+"user-avatar",
+"user-1",
+"account-circle",
+"user-single"
+],
+"users": [
+"user-multiple",
+"people",
+"user-group",
+"persons",
+"account-multiple",
+"group",
+"users-group",
+"user-3"
+],
+"credit-card": [
+"card",
+"payment",
+"credit-card-1",
+"bank-card",
+"payment-method"
+],
+"banknote": [
+"money",
+"cash",
+"money-bill",
+"currency-dollar",
+"banknotes",
+"cash-bill",
+"money-dollar-box",
+"payments",
+"dollar"
+],
+"qr-code": [
+"qr",
+"qr-code-scanner",
+"qr-code-1",
+"qrcode"
+],
+"ticket": [
+"coupon",
+"voucher",
+"ticket-percent",
+"confirmation-number",
+"ticket-1",
+"ticket-2"
+],
+"settings": [
+"gear",
+"cog",
+"cog-6-tooth",
+"settings-adjust",
+"adjustments",
+"settings-1",
+"settings-3",
+"settings-gear"
+],
+"log-out": [
+"logout",
+"sign-out",
+"exit",
+"logout-box-r",
+"arrow-right-on-rectangle",
+"logout-1",
+"exit-to-app"
+],
+"landmark": [
+"bank",
+"building-bank",
+"account-balance",
+"institution",
+"university",
+"bank-1",
+"government"
+],
+"store": [
+"storefront",
+"shop",
+"building-storefront",
+"store-2",
+"store-1",
+"shopping-store"
+],
+"map-pin": [
+"pin",
+"location",
+"map-pin-line",
+"location-on",
+"place",
+"map-marker",
+"map-pin-1",
+"pin-alt"
+],
+"map-pinned": [
+"map-pin",
+"location",
+"pin-alt",
+"map-marker-check",
+"map-pin-5",
+"where-to-vote",
+"location-check"
+],
+"life-buoy": [
+"lifebuoy",
+"support",
+"help-buoy",
+"headset",
+"life-ring",
+"customer-service",
+"lifebuoy-1",
+"help-circle",
+"support-agent"
+],
+"gauge": [
+"speedometer",
+"dashboard",
+"meter",
+"tachometer",
+"gauge-chart",
+"dashboard-3",
+"speed",
+"meter-alt"
+],
+"at-sign": [
+"at",
+"alternate-email",
+"at-symbol",
+"at-1"
+],
+"sparkle": [
+"sparkles",
+"star",
+"shine",
+"auto-awesome",
+"new",
+"sparkle-1",
+"magic",
+"stars"
+],
+"asterisk": [
+"asterisk-simple",
+"password",
+"star-of-david",
+"asterisk-1",
+"emergency"
+],
+"zap": [
+"lightning",
+"bolt",
+"flash",
+"thunderbolt",
+"flashlight",
+"flash-1",
+"offline-bolt"
+],
+"arrow-left-right": [
+"arrows-left-right",
+"swap-horizontal",
+"transfer",
+"arrows-horizontal",
+"exchange",
+"swap-horiz",
+"arrows-exchange",
+"arrow-left-right-1",
+"data-transfer-both",
+"arrow-left-right-2"
+],
+"send-horizontal": [
+"paper-plane-right",
+"send",
+"send-plane",
+"paper-airplane",
+"send-2",
+"navigation",
+"send-1",
+"send-plane-2"
+],
+"receipt-text": [
+"receipt",
+"receipt-long",
+"bill",
+"invoice",
+"receipt-1",
+"file-list"
+],
+"scan-face": [
+"face-id",
+"face-recognition",
+"user-focus",
+"scan-smiley",
+"face",
+"face-6",
+"face-retouching",
+"facial-recognition"
+],
+"scan-line": [
+"scan",
+"barcode",
+"line-scan",
+"scan-alt",
+"document-scanner",
+"scan-2",
+"scan-1"
+],
+"scan-qr-code": [
+"qr-code",
+"scan",
+"qr-scan",
+"qrcode-scan",
+"qr-scan-2",
+"qr-code-scanner"
+],
+"id-card": [
+"identification",
+"identification-card",
+"id",
+"id-badge",
+"badge",
+"contact-card",
+"id-card-2",
+"identification-1",
+"user-id"
+],
+"book-user": [
+"passport",
+"address-book",
+"user-book",
+"book-account",
+"contact-book",
+"contacts-book",
+"book-open-user",
+"identification-card"
+],
+"contact-round": [
+"address-book",
+"user-list",
+"contact",
+"user-rectangle",
+"contacts-book",
+"contacts",
+"contact-1",
+"account-box",
+"recent-actors"
+],
+"hand-coins": [
+"hand-money",
+"money-hand",
+"coins-hand",
+"hand-deposit",
+"payments",
+"coin-hand",
+"hand-coin",
+"hand-holding-dollar",
+"hand-card",
+"volunteer-activism",
+"hand-cash"
+],
+"wallet-cards": [
+"wallet",
+"cards",
+"cards-three",
+"card-stack",
+"credit-card-alt",
+"wallet-3",
+"wallet-2",
+"cards-1"
+],
+"layout-grid": [
+"grid",
+"squares-2x2",
+"grid-four",
+"apps",
+"dashboard",
+"view-grid",
+"grid-3x3",
+"function",
+"grid-1",
+"apps-2"
+],
+"layout-dashboard": [
+"dashboard",
+"squares-plus",
+"layout",
+"grid-four",
+"browsers",
+"space-dashboard",
+"dashboard-1",
+"layout-5"
+],
+"circle-alert": [
+"alert-circle",
+"exclamation-circle",
+"warning-circle",
+"error-circle",
+"info-circle",
+"error",
+"error-outline",
+"warning-1"
+],
+"triangle-alert": [
+"warning",
+"alert-triangle",
+"warning-triangle",
+"exclamation-triangle",
+"warning-alt",
+"warning-2",
+"report-problem"
+],
+"circle-check-big": [
+"check-circle",
+"checkmark-outline",
+"circle-check",
+"task-complete",
+"check-circle-1",
+"checkbox-circle",
+"check-circle-outline"
+],
+"square-check-big": [
+"checkbox",
+"check-square",
+"checkmark-filled",
+"task",
+"checkbox-1",
+"check-box",
+"task-view"
+],
+"circle-x": [
+"x-circle",
+"close-circle",
+"error-circle",
+"misuse-outline",
+"x-mark-circle",
+"close-circle-1",
+"cancel",
+"highlight-off"
+],
+"circle-check": [
+"check-circle",
+"checkmark-outline",
+"checkbox-circle",
+"check-circle-outline",
+"task-complete"
+],
+"circle-plus": [
+"plus-circle",
+"add-alt",
+"add-circle",
+"plus-circle-1",
+"add-circle-outline"
+],
+"circle-user-round": [
+"user-circle",
+"account-circle",
+"user-avatar",
+"profile-circle",
+"user-circle-1",
+"account-circle-1"
+],
+"square-plus": [
+"add-square",
+"plus-square",
+"plus-box",
+"add-box",
+"add-alt",
+"add-box-1"
+],
+"shield-check": [
+"shield-checkmark",
+"verified",
+"security",
+"shield-tick",
+"shield-check-1",
+"verified-user",
+"shield-keyhole"
+],
+"shield-ellipsis": [
+"shield-keyhole",
+"shield-lock",
+"shield",
+"security",
+"shield-1",
+"password-check"
+],
+"key-round": [
+"key",
+"password",
+"key-1",
+"vpn-key",
+"key-2"
+],
+"lock-keyhole": [
+"lock",
+"lock-password",
+"locked",
+"lock-1",
+"key-lock",
+"lock-2"
+],
+"lock": [
+"locked",
+"lock-closed",
+"lock-1",
+"lock-2"
+],
+"rotate-ccw-key": [
+"key-reset",
+"restart",
+"reset",
+"key-return",
+"undo",
+"password-reset",
+"lock-reset",
+"restart-alt",
+"reset-1"
+],
+"refresh-cw": [
+"refresh",
+"renew",
+"rotate",
+"reload",
+"arrows-clockwise",
+"restart-alt",
+"refresh-1",
+"renew-1",
+"update"
+],
+"arrow-big-up-dash": [
+"arrow-up",
+"upgrade",
+"arrow-line-up",
+"system-update",
+"upload",
+"arrow-up-1",
+"upgrade-1",
+"arrow-up-circle"
+],
+"code-xml": [
+"code",
+"code-slash",
+"embed",
+"code-1",
+"code-2",
+"xml"
+],
+"smartphone": [
+"device-mobile",
+"mobile",
+"phone-iphone",
+"smartphone-1",
+"device-phone-mobile",
+"mobile-1",
+"phone-android"
+],
+"wifi-off": [
+"wifi-slash",
+"signal-wifi-off",
+"wifi-none",
+"wifi-x",
+"wifi-1",
+"wifi-off-1",
+"signal-wifi-bad"
+],
+"wifi": [
+"signal-wifi-4-bar",
+"wifi-1",
+"network-wifi"
+],
+"bell-ring": [
+"bell-ringing",
+"bell-alert",
+"notifications-active",
+"bell-notification",
+"notification-3",
+"bell-1",
+"ring-volume"
+],
+"file-check-2": [
+"file-check",
+"document-check",
+"file-checkmark",
+"document-tasks",
+"file-check-1",
+"document-tasks-1",
+"checkmark-outline",
+"file-list-3"
+],
+"book-open-check": [
+"book-open",
+"book-checkmark",
+"book-open-text",
+"menu-book",
+"book-1",
+"book-2",
+"book-read"
+],
+"user-pen": [
+"user-edit",
+"edit-user",
+"user-pencil",
+"person-edit",
+"user-settings",
+"user-edit-1",
+"manage-accounts",
+"account-edit"
+],
+"user-x": [
+"user-minus",
+"user-remove",
+"user-delete",
+"person-remove",
+"user-unfollow",
+"user-forbid",
+"person-off"
+],
+"mail-check": [
+"email-check",
+"mark-email-read",
+"mail-checkmark",
+"mail-open-1",
+"mail-check-1",
+"email-1",
+"drafts"
+],
+"mail-open": [
+"envelope-open",
+"drafts",
+"open-email",
+"mail-open-1",
+"mail-unread",
+"envelope-open-1"
+],
+"paperclip": [
+"paper-clip",
+"attach",
+"attachment",
+"attach-file",
+"attachment-1",
+"attachment-2"
+],
+"building-2": [
+"building",
+"buildings",
+"office",
+"building-1",
+"apartment",
+"building-4",
+"corporate-fare"
+],
+"briefcase": [
+"work",
+"business-center",
+"briefcase-1",
+"briefcase-4",
+"suitcase"
+],
+"languages": [
+"translate",
+"language",
+"globe-alt",
+"g-translate",
+"translate-1",
+"translate-2"
+],
+"palette": [
+"color-palette",
+"paint",
+"brush",
+"palette-1",
+"color-palette-1",
+"colors"
+],
+"shopping-bag": [
+"bag",
+"handbag",
+"shopping",
+"shopping-bag-1",
+"shopping-bag-3",
+"local-mall"
+],
+"coins": [
+"money",
+"currency",
+"paid",
+"coin",
+"coins-1",
+"coin-1",
+"monetization-on"
+],
+"eye": [
+"view",
+"visibility",
+"eye-1",
+"view-1"
+],
+"tag": [
+"price-tag",
+"local-offer",
+"pricetag",
+"tag-1",
+"price-tag-3",
+"sell"
+],
+"share-2": [
+"share",
+"share-network",
+"share-nodes",
+"share-android",
+"share-forward",
+"share-1",
+"share-alt"
+],
+"download": [
+"arrow-down-tray",
+"file-download",
+"download-1",
+"download-2",
+"save-alt"
+],
+"inbox": [
+"tray",
+"archive",
+"inbox-1",
+"inbox-2",
+"inbox-unarchive"
+],
+"archive": [
+"box",
+"inbox-archive",
+"archive-1",
+"archive-2",
+"inventory-2"
+],
+"cloud": [
+"cloud-1",
+"cloud-2"
+],
+"copy": [
+"duplicate",
+"content-copy",
+"copy-1",
+"copy-2",
+"file-copy",
+"document-copy"
+],
+"calendar": [
+"calendar-month",
+"event",
+"calendar-1",
+"calendar-2"
+],
+"flag": [
+"flag-1",
+"outlined-flag",
+"flag-2",
+"flag-3"
+],
+"fingerprint": [
+"finger-print",
+"fingerprint-1",
+"fingerprint-recognition",
+"fingerprint-2"
+],
+"mic": [
+"microphone",
+"keyboard-voice",
+"mic-1",
+"microphone-1",
+"mic-2"
+],
+"phone": [
+"call",
+"telephone",
+"phone-enabled",
+"phone-1",
+"phone-2"
+],
+"info": [
+"information",
+"info-circle",
+"information-circle",
+"info-1",
+"information-1",
+"information-filled"
+],
+"wrench": [
+"tool",
+"build",
+"settings-wrench",
+"construction",
+"wrench-1",
+"tools",
+"handyman",
+"hammer"
+],
+"power": [
+"power-settings-new",
+"shutdown",
+"power-off",
+"power-1",
+"shut-down"
+],
+"pencil": [
+"edit",
+"pencil-simple",
+"create",
+"edit-2",
+"pencil-1",
+"edit-1",
+"pencil-alt"
+],
+"x": [
+"close",
+"xmark",
+"x-mark",
+"cancel",
+"multiply",
+"close-1",
+"close-large"
+],
+"chevron-left": [
+"caret-left",
+"arrow-ios-left",
+"nav-arrow-left",
+"keyboard-arrow-left",
+"arrow-left-s",
+"chevron-backward"
+],
+"chevron-right": [
+"caret-right",
+"nav-arrow-right",
+"keyboard-arrow-right",
+"arrow-right-s",
+"chevron-forward"
+],
+"arrow-left": [
+"arrow-left-1",
+"arrow-left-alt",
+"west"
+],
+"arrow-right": [
+"arrow-right-1",
+"arrow-right-alt",
+"east"
+],
+"map": [
+"map-1",
+"map-outline",
+"map-2"
+],
+"bell": [
+"notification",
+"notifications",
+"bell-1",
+"notification-2",
+"alarm"
+],
+"file-text": [
+"document-text",
+"document",
+"description",
+"file-lines",
+"file-text-1",
+"file-list",
+"article"
+],
+"internal-transfer": [],
+"notebook-tabs": [
+"notebook",
+"account",
+"list_alt",
+"ledger",
+"catalog",
+"book",
+"notepad",
+"ballot"
+],
+"arrow-down-up": [
+"arrows-down-up",
+"arrows--vertical",
+"swap_vert",
+"arrows-vertical",
+"import_export"
+]
+}
