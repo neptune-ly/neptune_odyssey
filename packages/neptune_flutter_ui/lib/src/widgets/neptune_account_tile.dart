@@ -42,6 +42,20 @@ class NeptuneAccountTile extends StatelessWidget {
   /// Spoken as "selected"; the visual is unchanged.
   final bool selected;
 
+  /// RULE OR SLAB, when the HOST has to be the one to say.
+  ///
+  /// The tile reads `NptIdentity.ruledRegister` by default and that is still
+  /// the right answer for almost every caller. It is the wrong answer for a
+  /// brand whose LISTS are ruled and whose BUTTONS are stadiums, because that
+  /// one flag carries both decisions: turning it on to rule the register also
+  /// squares every call to action in the app. Two decisions on one bit is not
+  /// a lever, it is a collision, and until the flags byte has room for a
+  /// second one the host can state this half here.
+  ///
+  /// Null keeps the theme read, so no existing caller and no existing brand
+  /// moves.
+  final bool? ruled;
+
   const NeptuneAccountTile({
     super.key,
     required this.name,
@@ -52,6 +66,7 @@ class NeptuneAccountTile extends StatelessWidget {
     this.onTap,
     this.currency,
     this.selected = false,
+    this.ruled,
   }) : assert(
           icon != null || iconWidget != null,
           'NeptuneAccountTile needs a glyph: pass `icon` (IconData) or `iconWidget`.',
@@ -82,7 +97,8 @@ class NeptuneAccountTile extends StatelessWidget {
     // ruled onto it. Everything else - the glyph, the measure, the tabular
     // balance at the end edge - is identical, so the two registers stay one
     // component rather than two.
-    final ruled = Theme.of(context).extension<NptIdentity>()!.ruledRegister;
+    final ruled = this.ruled ??
+        Theme.of(context).extension<NptIdentity>()!.ruledRegister;
 
     // At large text the balance and the name cannot both hold a line: the row
     // is 44dp of glyph plus two gaps before either of them starts. So above
@@ -105,13 +121,18 @@ class NeptuneAccountTile extends StatelessWidget {
       style: money,
     );
 
+    // A RULE, NOT AN OUTLINE. The ruled branch used to draw a hairline BORDER
+    // around the row with the fill removed, which is still a box — eight of
+    // them down a page is eight objects where there is one list, and it is the
+    // shape that makes an account page read as a form rather than as a
+    // statement. A register separates rows with the line BETWEEN them: no
+    // border, no corner, no fill, and the rule runs to both edges of whatever
+    // the row is given, because a rule that stops short of the edge is a box
+    // drawn on three sides.
     return Material(
       color: ruled ? Colors.transparent : scheme.surfaceContainerLow,
       shape: ruled
-          ? RoundedRectangleBorder(
-              borderRadius: shape.rMd,
-              side: BorderSide(color: scheme.outlineVariant),
-            )
+          ? const RoundedRectangleBorder()
           : RoundedRectangleBorder(borderRadius: shape.rMd),
       clipBehavior: Clip.antiAlias,
       child: Semantics(
@@ -121,11 +142,11 @@ class NeptuneAccountTile extends StatelessWidget {
         excludeSemantics: true,
         child: InkWell(
         onTap: onTap,
-        child: ConstrainedBox(
+        child: _maybeRuled(context, ruled, scheme, ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 64),
           child: Padding(
-            padding: const EdgeInsetsDirectional.symmetric(
-                horizontal: 16, vertical: 12),
+            padding: EdgeInsetsDirectional.symmetric(
+                horizontal: ruled ? 0 : 16, vertical: 12),
             child: LayoutBuilder(
                 builder: (context, constraints) {
             // What the two text columns actually compete for, once the 44dp
@@ -142,26 +163,38 @@ class NeptuneAccountTile extends StatelessWidget {
 
             return Row(
               children: [
-                Container(
+                SizedBox(
                   width: 44,
                   height: 44,
-                  decoration: BoxDecoration(
-                    // A filled chip inside a ruled row is a second slab
-                    // smuggled back in - and on this component the only one
-                    // left, so it becomes the loudest object in the group.
-                    color: ruled ? null : scheme.primaryContainer,
-                    borderRadius: shape.rSm,
-                    border: ruled
-                        ? Border.all(color: scheme.outlineVariant)
-                        : null,
-                  ),
-                  alignment: AlignmentDirectional.center,
-                  child: NeptuneIconSlot(
-                    icon: icon,
-                    iconWidget: iconWidget,
-                    color:
-                        ruled ? scheme.primary : scheme.onPrimaryContainer,
-                  ),
+                  // A filled chip inside a ruled row is a second slab smuggled
+                  // back in - and on this component the only one left, so it
+                  // becomes the loudest object in the group. An OUTLINED chip
+                  // is the same object with its fill taken out: still a box,
+                  // still drawn once per row, still saying nothing. The ruled
+                  // register sets the mark bare in the slot the chip occupied.
+                  child: ruled
+                      ? Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: NeptuneIconSlot(
+                            icon: icon,
+                            iconWidget: iconWidget,
+                            color: scheme.primary,
+                          ),
+                        )
+                      : DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: scheme.primaryContainer,
+                            borderRadius: shape.rSm,
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional.center,
+                            child: NeptuneIconSlot(
+                              icon: icon,
+                              iconWidget: iconWidget,
+                              color: scheme.onPrimaryContainer,
+                            ),
+                          ),
+                        ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -228,9 +261,27 @@ class NeptuneAccountTile extends StatelessWidget {
             );
                 }),
           ),
-        ),
+        )),
         ),
       ),
+    );
+  }
+
+  /// The rule under a ruled row, and nothing at all under a slab one.
+  Widget _maybeRuled(
+    BuildContext context,
+    bool ruled,
+    ColorScheme scheme,
+    Widget row,
+  ) {
+    if (!ruled) return row;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        row,
+        Divider(height: 1, thickness: 1, color: scheme.outlineVariant),
+      ],
     );
   }
 }
