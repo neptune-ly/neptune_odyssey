@@ -1,55 +1,108 @@
 # AGENTS.md — implementing Neptune Odyssey
 
-You are turning **Neptune Odyssey** (the Neptune.Fintech white-label banking design system) into a real product (Flutter app, web app, or another surface). Read this before writing code.
+You are turning **Neptune Odyssey** — Neptune.Fintech's cross-product digital design system and
+product-experience framework — into a real product. Odyssey powers banking and fintech, but it
+is **not a banking-only UI kit**. Read this before writing code.
 
-> **⚠️ Also read [`ODYSSEY_RULEBOOK.md`](./ODYSSEY_RULEBOOK.md)** — the
-> distilled doctrine and every mistake already made (the identity layer,
-> Flutter layout traps, pixel verification via the SHOTS harness, ship flow,
-> client-material rules). This file is the mental model; the rulebook is the
-> law. Agents: the `odyssey-ui` project skill enforces the same checklist.
+> Also read [`ODYSSEY_RULEBOOK.md`](./ODYSSEY_RULEBOOK.md) for implementation mistakes,
+> verification harnesses and shipping discipline, and [`docs/12-product-worlds.md`](./docs/12-product-worlds.md)
+> for the Odyssey 2.0 product-world contract. Where older visual doctrine conflicts with the
+> current product-world contract, preserve its engineering/accessibility rules but follow the
+> newer flat-first, product-specific direction.
 
 ## Mental model
 
-```
-seed colour (per brand)  ─┐
-corner family (per brand) ├─►  THEME  ─►  applied to  ─►  shared COMPONENTS  ─►  shared SCREENS
-display type (per brand)  ─┘                                  (never brand-aware)
+Odyssey has two orthogonal expression layers over one shared engineering system:
+
+```text
+TENANT / BRAND                         PRODUCT WORLD
+whose product?                         what kind of experience?
+
+seed palette ─┐                        voyage / pulse / market
+shape family ─┼─► tenant theme    +    harbor / grid / canvas
+brand type  ──┘                              │
+       │                                      │
+       └──────────────┬───────────────────────┘
+                      ▼
+        shared trust + engineering primitives
+                      ▼
+      components / responsive behavior / screens
 ```
 
-- A **theme** is data: a colour scheme (M3 roles), a shape scale, a type set, motion tokens.
-- A **component** reads the active theme. It contains *zero* brand knowledge.
-- A **screen** composes components. Switching a bank changes only the theme object passed in.
+- A **tenant theme** is deterministic data: M3 semantic color roles, tenant shape/type,
+  Brandprint and client expression levers.
+- A **product world** is product-personality data: composition guidance, expressive color
+  roles, display family, geometry emphasis and default interaction-motion intensity.
+- A **component** contains zero hardcoded bank/tenant/product knowledge. It consumes semantic
+  tokens and behavior contracts.
+- A **screen** may compose the same primitives very differently by product world. A taxi app,
+  travel app, wallet and corporate portal are not required to share one skeleton.
 
-If a bank wants to look different, that is a theme change — not a component fork.
+A customer wanting a distinct identity is **not** permission to fork core behavior. A product
+category needing a different composition is **not** permission to disguise the same screen by
+changing only color/radius.
 
 ## Source of truth
 
-1. `tokens/themes.css` — exact values for every `--md-sys-color-*`, corner and font, per brand (neptune/triton/nereid/proteus), light + dark.
-2. `tokens/tokens.json` — same data, structured for codegen.
-3. `Neptune Design System.dc.html` (mobile), `Neptune Web Banking.dc.html` (web), `Neptune Wallet Web.dc.html` (wallet) — the visual contract. If your build doesn't match them, your build is wrong.
-4. `configs/*.tenant.json` — the five reference tenants. A bank is one config set, never a fork.
-5. `docs/07-design-principles.md`, `docs/09-governance-and-versioning.md`, `docs/10-token-naming.md` — the doctrine, the versioning gate, the token contract.
+1. `tokens/themes.css` + `tokens/tokens.json` — tenant semantic palette, shape and type data.
+2. `packages/neptune_tokens/src/worlds.ts` — Odyssey 2.0 product-world and interaction-motion
+   definitions; these are orthogonal to tenant themes.
+3. The live Odyssey 2.0 Figma file — current visual contract for worlds, illustration, motion,
+   adaptive behavior and product studies. Continuation pages 24–27 prove non-financial use.
+4. `docs/12-product-worlds.md` — product-world architecture, RTL and motion contract.
+5. `configs/*.tenant.json` — reference tenants. A tenant is one config set, never a fork.
+6. `docs/07-design-principles.md`, `docs/09-governance-and-versioning.md`,
+   `docs/10-token-naming.md` — design, versioning and token governance.
 
-## Workflow to add or port a theme
+Older `.dc.html` finance contracts remain useful reference material for the financial product
+family; they no longer define the full boundary of Odyssey.
 
-1. Take the brand's seed hue(s) → generate the full M3 tonal palette (see `docs/03-theming-white-label.md`).
-2. Pick the corner family and display typeface.
-3. Emit a theme object for your platform (Flutter `ColorScheme` + `ThemeData`; CSS attribute block; etc.).
-4. Verify light **and** dark, LTR **and** RTL. Check contrast (≥ 4.5:1 body, ≥ 3:1 large/UI).
-5. Do not touch any component or screen code.
+## Workflow: tenant / brand work
+
+1. Take the tenant seed hue(s) and generate the full M3 tonal palette.
+2. Pick the tenant corner family and type identity.
+3. Resolve one theme object for the target platform.
+4. Verify light/dark, LTR/RTL and WCAG contrast.
+5. Do not introduce brand-specific component forks.
+
+## Workflow: product-world work
+
+1. Choose the nearest existing world before inventing another.
+2. Keep tenant semantic roles intact; use `--o2-world-*` / `theme.world` for product expression.
+3. Change composition, density, hierarchy, typography, framing, illustration and interaction
+   rhythm when the product genuinely requires it — not just palette.
+4. Reuse shared security, forms, state semantics, accessibility and component APIs.
+5. Verify Light/Dark and LTR/RTL. Mirror only semantically directional graphics.
+6. Select the lowest motion level that communicates the state; sensitive financial/security
+   confirmation stays restrained.
 
 ## Hard rules
 
-- **No literals in components.** Colour → `colorScheme.*`. Radius → shape token. Font → text theme. Spacing → 4px scale.
-- **Directional-agnostic.** Use start/end, not left/right. Test RTL.
-- **Both modes.** Every screen must be designed and tested in light and dark.
-- **Accessibility is not optional.** Hit targets ≥ 48dp. Respect text scaling. Meet WCAG AA.
-- **Stay on Material 3.** Extend via theme + Expressive guidance; don't build a parallel kit.
-- **Tokens are the public API.** Every visual change is a token change first; components inherit. A token rename is a breaking change (semver) — see `docs/09-governance-and-versioning.md`.
-- **Each brand moves ≥ 6 of 12 levers.** Same skeleton, unmistakable skin.
+- **No literals in components.** Color → semantic/world token. Radius → shape token. Font →
+  theme/world type guidance. Spacing → shared scale.
+- **No cheap white-labeling.** Logo + primary color + radius is not a distinct product.
+- **Directional-agnostic engineering.** Use start/end and logical properties; test RTL.
+- **Directional art is deliberate.** Mirror routes, vehicles, aircraft and navigation when
+  direction carries meaning; do not blindly mirror buildings, product images or status icons.
+- **Both modes.** Every meaningful surface must work in light and dark.
+- **Accessibility is non-negotiable.** Touch targets ≥48dp, text scaling, keyboard/focus and
+  WCAG AA remain shared trust primitives.
+- **Material 3 is architectural, not the visual identity.** Reuse semantics, accessibility and
+  platform behavior; Odyssey owns its visual language. Do not build a second behavior system.
+- **Flat-first visual language.** Gradients, blur and glass are exceptions. Do not use glowing
+  blobs, mesh gradients or glossy crypto styling as generic identity filler.
+- **Tokens are public API.** Rename/removal is a breaking change; follow semver governance.
+- **Product worlds and tenant brands stay orthogonal.** Never add `voyage`, `grid`, etc. to the
+  tenant Brandprint brand registry.
+- **Motion is truthful.** Never animate fake payment completion, booking progress or location.
+  Reduced motion removes travel/stagger/overshoot.
 
 ## Platform notes
 
-- **Flutter** (production mobile): `docs/04-flutter-implementation.md`. Use `ThemeData(useMaterial3: true)`, drive everything from `ColorScheme.fromSeed` + overrides, expose brand swap as a `ThemeData` provider.
-- **Web**: load `tokens/themes.css`, set `data-theme` / `data-mode` / `dir` on `<html>`, style from the custom properties.
-- **Other (DTCG / Style Dictionary)**: consume `tokens/tokens.json`.
+- **Tokens / TypeScript:** `buildTheme(input, { mode, dir, world, motionLevel, reducedMotion })`.
+  Existing calls without world options retain the old tenant-theme output contract.
+- **Web:** `applyTheme(root, input, { world: "voyage", ... })` composes `data-theme`,
+  `data-world`, `data-mode` and `dir`; product expression lives in `--o2-world-*` variables.
+- **Flutter / KMP:** continue consuming tenant semantic themes. Product-world ports should expose
+  the same roles and motion levels without duplicating component behavior.
+- **Other / DTCG:** keep tenant semantic tokens and product-world roles as composable layers.
