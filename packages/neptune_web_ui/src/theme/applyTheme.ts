@@ -1,12 +1,11 @@
 // Neptune Odyssey — web theming surface · © 2026 Neptune.Fintech (neptune.ly)
 // Licensed under the Neptune Odyssey Community License v1.0 (see LICENSE).
 //
-// Theming is PURE CSS VARIABLES. For the four reference brands, the shipped
-// themes.css already defines every var — so re-skinning is zero JS: just set
-// data-theme / data-mode / dir. For a custom config or a brandprint string we
-// resolve the palette (via @neptune.fintech/tokens, the shared determinism
-// backbone) and write the vars onto the root element. SSR-safe: no module-level
-// DOM access; everything is guarded and runs only when called with an element.
+// Tenant theming is PURE CSS VARIABLES. For the four reference brands, shipped
+// themes.css defines every tenant var — so re-skinning remains zero JS: set
+// data-theme / data-mode / dir. Product worlds are an orthogonal layer: when a
+// caller opts into `world`, applyTheme writes only `--o2-world-*` and
+// interaction-motion variables, never replacing the tenant M3 semantic roles.
 
 import {
   buildTheme,
@@ -14,6 +13,8 @@ import {
   type NeptuneTheme,
   type ThemeInput,
   type Direction,
+  type MotionLevel,
+  type ProductWorld,
 } from "@neptune.fintech/tokens";
 
 export type ModeOption = "light" | "dark" | "system";
@@ -22,6 +23,12 @@ export type DirOption = Direction | "auto";
 export interface ApplyThemeOptions {
   mode?: ModeOption;
   dir?: DirOption;
+  /** Product personality, independent from the tenant/brand theme. */
+  world?: ProductWorld;
+  /** Optional contextual override for the world's default interaction intensity. */
+  motionLevel?: MotionLevel;
+  /** Remove travel/stagger/overshoot while retaining at most a short dissolve. */
+  reducedMotion?: boolean;
 }
 
 export interface ThemeHandle {
@@ -32,6 +39,21 @@ export interface ThemeHandle {
 }
 
 const REFERENCE_BRANDS = new Set(["neptune", "triton", "nereid", "proteus"]);
+
+const WORLD_PROPERTIES = [
+  "--o2-world-accent",
+  "--o2-world-on-accent",
+  "--o2-world-tint",
+  "--o2-world-hero",
+  "--o2-world-spark",
+  "--o2-world-background",
+  "--o2-world-radius",
+  "--o2-world-title-font",
+  "--o2-motion-level-duration",
+  "--o2-motion-level-distance",
+  "--o2-motion-level-stagger",
+  "--o2-motion-level-overshoot",
+] as const;
 
 function prefersDark(): boolean {
   return typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches;
@@ -52,7 +74,7 @@ function resolveDir(dir: DirOption | undefined, root: HTMLElement, fallback: Dir
   return fallback;
 }
 
-/** Write the resolved palette + npt expression vars onto the element (custom themes). */
+/** Write the resolved tenant palette + expression vars onto the element (custom themes). */
 function writeVars(root: HTMLElement, theme: NeptuneTheme): void {
   const s = root.style;
   for (const role of COLOR_ROLES) s.setProperty(`--md-sys-color-${role}`, theme.colors[role]);
@@ -71,7 +93,7 @@ function writeVars(root: HTMLElement, theme: NeptuneTheme): void {
   s.setProperty("--npt-font-num", `'${theme.type.num}'`);
   s.setProperty("--npt-display-weight", String(theme.type.displayWeight));
   s.setProperty("--npt-display-tracking", `${theme.type.displayTracking}em`);
-  // motion
+  // brand-level motion
   s.setProperty("--npt-ease-standard", theme.motion.ease.standard);
   s.setProperty("--npt-ease-emphasized", theme.motion.ease.emphasized);
   s.setProperty("--npt-ease-spring", theme.motion.ease.spring);
@@ -79,10 +101,46 @@ function writeVars(root: HTMLElement, theme: NeptuneTheme): void {
   s.setProperty("--npt-dur-standard", `${theme.motion.durMs.standard}ms`);
   s.setProperty("--npt-dur-slow", `${theme.motion.durMs.slow}ms`);
   s.setProperty("--npt-glass-blur", `${theme.motion.glassBlurPx}px`);
-  // named levers
+  // named tenant levers
   s.setProperty("--npt-login-shell", theme.levers.loginShell);
   s.setProperty("--npt-dashboard-hero", theme.levers.dashboardHero);
   s.setProperty("--npt-content-tone", theme.levers.contentTone);
+}
+
+/** Clear stale product-world values when a root is re-used without a world. */
+function clearWorldVars(root: HTMLElement): void {
+  for (const property of WORLD_PROPERTIES) root.style.removeProperty(property);
+  delete root.dataset.world;
+  delete root.dataset.motionLevel;
+  delete root.dataset.reducedMotion;
+}
+
+/** Write only the orthogonal product-personality + interaction-motion layer. */
+function writeWorldVars(root: HTMLElement, theme: NeptuneTheme): void {
+  clearWorldVars(root);
+  if (!theme.world) return;
+
+  const s = root.style;
+  const c = theme.world.colors;
+  root.dataset.world = theme.world.id;
+  s.setProperty("--o2-world-accent", c.accent);
+  s.setProperty("--o2-world-on-accent", c.onAccent);
+  s.setProperty("--o2-world-tint", c.tint);
+  s.setProperty("--o2-world-hero", c.hero);
+  s.setProperty("--o2-world-spark", c.spark);
+  s.setProperty("--o2-world-background", c.background);
+  s.setProperty("--o2-world-radius", `${theme.world.radius}px`);
+  s.setProperty("--o2-world-title-font", `'${theme.world.titleFont}'`);
+
+  if (theme.interactionMotion) {
+    const m = theme.interactionMotion;
+    root.dataset.motionLevel = m.level;
+    root.dataset.reducedMotion = String(m.reduced);
+    s.setProperty("--o2-motion-level-duration", `${m.durationMs}ms`);
+    s.setProperty("--o2-motion-level-distance", `${m.distancePx}px`);
+    s.setProperty("--o2-motion-level-stagger", `${m.staggerMs}ms`);
+    s.setProperty("--o2-motion-level-overshoot", String(m.overshoot));
+  }
 }
 
 /**
@@ -90,23 +148,28 @@ function writeVars(root: HTMLElement, theme: NeptuneTheme): void {
  *
  * @example
  * applyTheme(document.documentElement, "triton", { mode: "system", dir: "auto" });
+ * applyTheme(root, "neptune", { world: "voyage", mode: "dark", dir: "rtl" });
  * applyTheme(root, "NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA");
- * applyTheme(root, { primary: {L,C,H}, tertiary: {…}, corners: {…}, … });
  */
 export function applyTheme(
   root: HTMLElement,
   input: ThemeInput,
   options: ApplyThemeOptions = {},
 ): ThemeHandle {
-  const isReferenceBrand =
-    typeof input === "string" && REFERENCE_BRANDS.has(input);
+  const isReferenceBrand = typeof input === "string" && REFERENCE_BRANDS.has(input);
   const cleanups: Array<() => void> = [];
 
   const paint = () => {
     const base = buildTheme(input);
     const mode = resolveMode(options.mode, base.mode);
     const dir = resolveDir(options.dir, root, base.dir);
-    const theme = buildTheme(input, { mode, dir });
+    const theme = buildTheme(input, {
+      mode,
+      dir,
+      ...(options.world ? { world: options.world } : {}),
+      ...(options.motionLevel ? { motionLevel: options.motionLevel } : {}),
+      ...(options.reducedMotion !== undefined ? { reducedMotion: options.reducedMotion } : {}),
+    });
 
     if (isReferenceBrand) {
       root.dataset.theme = input as string;
@@ -116,6 +179,7 @@ export function applyTheme(
     }
     root.dataset.mode = mode;
     root.setAttribute("dir", dir);
+    writeWorldVars(root, theme);
     return theme;
   };
 
