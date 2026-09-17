@@ -1,6 +1,7 @@
 // Neptune Odyssey — @neptune.fintech/tokens · © 2026 Neptune.Fintech (neptune.ly)
 // The determinism backbone: OKLCH→sRGB color math, the seed→palette ramp, the
-// brandprint codec, pinned reference palettes, and the unified theme builder.
+// brandprint codec, pinned reference palettes, product worlds, motion levels,
+// and the unified theme builder.
 // Licensed under the Neptune Odyssey Community License v1.0 (see LICENSE).
 
 export * from "./types.js";
@@ -9,6 +10,7 @@ export * from "./color/palette.js";
 export * from "./brandprint/registries.js";
 export * from "./brandprint/codec.js";
 export * from "./resolve.js";
+export * from "./worlds.js";
 export * from "./theme.js";
 export * from "./generate/css.js";
 export * from "./generate/dart.js";
