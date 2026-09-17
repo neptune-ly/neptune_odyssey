@@ -1,0 +1,56 @@
+{
+  "project": "Neptune Odyssey 2.0",
+  "date": "2026-09-17",
+  "philosophy": "Distinct worlds. Shared trust.",
+  "figmaFile": "JuC8o1hJzoGv8G6EHGXoro",
+  "branch": "feat/odyssey-orbit-move-commerce-20260917",
+  "scope": {
+    "newEnglishMobileScreens": 51,
+    "representativeArabicScreens": 14,
+    "darkPreviews": 9,
+    "desktopWorkspaces": 3,
+    "originalSceneComponents": 3,
+    "motionFamilies": 3,
+    "motionVariants": 12
+  },
+  "entryPoints": {
+    "orbit": "310:78",
+    "moveRider": "313:384",
+    "moveDriver": "317:690",
+    "commerce": "319:75",
+    "arabicOrbit": "328:119",
+    "arabicMove": "328:430",
+    "arabicCommerce": "328:730",
+    "agencyWorkspace": "325:128",
+    "dispatchWorkspace": "325:267",
+    "commerceOperations": "325:371",
+    "motion": "333:888"
+  },
+  "pages": {
+    "travelMobility": "268:33",
+    "commerce": "272:33",
+    "adaptiveArabic": "2:9",
+    "web": "54:3",
+    "illustration": "2:6",
+    "motion": "2:8",
+    "components": "2:5"
+  },
+  "scenes": {
+    "orbitDeparture": "302:689",
+    "moveStreet": "303:72",
+    "marketStudio": "304:72"
+  },
+  "architecture": {
+    "originalWorlds": ["orbit", "current", "bloom", "atelier", "signal", "horizon"],
+    "productRecipes": {"travel": "voyage", "mobility": "pulse", "driver": "pulse", "commerce": "market"},
+    "productNameCaution": "Neptune Orbit is the travel product. It does not rename or replace the existing Orbit visual world."
+  },
+  "verification": {
+    "policyChecks": 51,
+    "browserChecks": 19,
+    "repositoryWideCI": "not run locally",
+    "fullArabicParity": false,
+    "productionIntegrations": false,
+    "publishedPackages": false
+  }
+}

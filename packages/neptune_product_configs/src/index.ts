@@ -66,3 +66,6 @@ export function enabledFeatures(id: TenantId): string[] {
 }
 
 export const PRODUCT_CONFIGS_VERSION = "2.0.0";
+
+// Additive cross-product policy; existing tenant APIs remain unchanged.
+export * from "./experience.js";
