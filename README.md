@@ -1,122 +1,176 @@
 # Neptune Odyssey
 
-**A vendor-neutral, white-label banking design system by [Neptune.Fintech](https://neptune.ly).**
+**Neptune.Fintech's cross-product design system and product-experience framework.**
 
-One Material 3 + Material 3 Expressive core that any institution wears as its own — colour,
-shape, type, motion and brand expression all flex to the brand, while structure,
-accessibility and engineering stay identical. **Structure is shared; skin is per-brand.**
-A component built once is correct for every bank, in every mode, in both directions. If a
-bank wants to look different, that's a *theme* — never a fork.
+**Distinct worlds. Shared trust.** Odyssey provides one deterministic engineering foundation
+for financial and non-financial products while allowing products and customers to feel
+materially different through composition, typography, shape language, density, illustration,
+navigation, motion and content rhythm.
 
-`v1.0.0 · Stable`
+Odyssey can power retail and corporate banking, wallets, merchant/POS experiences, payment
+apps, onboarding/KYC and gateways — but also travel, mobility, commerce, hospitality, SaaS,
+lifestyle and other digital products. It is **not** a banking-only UI kit and it is **not** a
+“same Material screen + new logo/color/radius” white-label engine.
 
-**▶ Live:** [**Demo gallery**](https://neptune-ly.github.io/neptune_odyssey/) — every brand ×
-light/dark × LTR/RTL across the product types · [**Theme builder**](https://neptune-ly.github.io/neptune_odyssey/configurator/)
-— the hash-preset maker: pick a theme, copy its `NO1-…` brandprint, use it anywhere.
+Material 3 / Material 3 Expressive provide architectural guidance for semantics,
+accessibility and platform behavior. Odyssey owns the visual language above those primitives:
+flat-first color, expressive silhouettes, deliberate typography, editorial composition,
+product-specific illustration and truthful motion.
+
+`v2.0 · Odyssey product worlds in active development`
+
+**▶ Live:** [**Demo gallery**](https://neptune-ly.github.io/neptune_odyssey/) ·
+[**Theme builder**](https://neptune-ly.github.io/neptune_odyssey/configurator/)
 
 > **Source-available, not open source.** Neptune Odyssey is licensed under the
 > **Neptune Odyssey Community License v1.0** ([`LICENSE`](LICENSE)): free for non-commercial
 > use and for organizations under **USD $25,000/yr** revenue; a commercial license is
 > required above that. Keep the attribution; don't pass it off as your own; don't use the
-> Neptune.Fintech marks. This is how the project stays **public yet protected**.
+> Neptune.Fintech marks.
 
-The four example brands — `neptune`, `triton`, `nereid`, `proteus` — are **reference
-illustrations only**. They exist to prove the white-label engine (the same-but-distinct
-rule: every brand moves ≥ 6 of 12 levers). They are not real partner products and convey
-no rights. The system itself belongs to no bank — it is Neptune.Fintech's platform.
+The four example tenants — `neptune`, `triton`, `nereid`, `proteus` — are **reference
+illustrations only**. They prove tenant/Brandprint determinism and convey no partner rights.
+Product worlds are a separate axis and are never encoded as tenant brand IDs.
 
-## The headline feature — the brandprint
+## The Odyssey 2.0 model
 
-A **brandprint** is a short, deterministic string (`NO1-…`) that encodes a theme. Pick
-colours, shape, type and the five expression levers in the configurator → copy the
-brandprint → paste it into any Odyssey library and get the **identical** theme.
+Odyssey deliberately separates two questions:
 
+- **Tenant / brand theme — “whose product is this?”** Semantic M3 palette, tenant type and
+  shape, Brandprint and client identity levers.
+- **Product world — “what kind of experience is this?”** Composition, density, expressive
+  roles, display family, illustration language and interaction-motion intensity.
+
+Those layers compose over shared accessibility, security, state semantics, responsive rules,
+RTL, Light/Dark behavior and component APIs.
+
+The first six non-financial worlds implemented in `@neptune.fintech/tokens` are:
+
+| World | Product family | Display family | Default motion |
+|---|---|---|---|
+| `voyage` | travel / booking / itinerary | Sora | expressive |
+| `pulse` | mobility / live trip | Space Grotesk | expressive |
+| `market` | commerce / marketplace | Plus Jakarta Sans | expressive |
+| `harbor` | hospitality / in-stay service | Fraunces | standard |
+| `grid` | SaaS / admin / productivity | IBM Plex Sans | standard |
+| `canvas` | lifestyle / editorial consumer | DM Sans | expressive |
+
+See [`docs/12-product-worlds.md`](docs/12-product-worlds.md) for the complete contract.
+
+## The brandprint
+
+A **brandprint** is a short, deterministic string (`NO1-…`) that encodes the tenant identity
+layer. Pick tenant colours, shape, type and expression levers in the configurator → copy the
+brandprint → paste it into any Odyssey library and get the identical tenant theme.
+
+```text
+NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA   →   Triton reference tenant, everywhere
 ```
-NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA   →   the Triton reference theme, everywhere
-```
 
-Same string ⇒ same theme on every platform. That guarantee is enforced by golden tests.
+Same string ⇒ same tenant identity on every platform. Product worlds compose on top and do not
+mutate the Brandprint.
 
 ## Packages
 
-All JS/TS packages are **live on npm** under [`@neptune.fintech`](https://www.npmjs.com/org/neptune.fintech);
-`neptune_flutter_ui` and `neptune_sound_kit` are **live on pub.dev**.
+All JS/TS packages are published under [`@neptune.fintech`](https://www.npmjs.com/org/neptune.fintech);
+`neptune_flutter_ui` and `neptune_sound_kit` target pub.dev.
 
 | Package | What it is | Status |
 |---------|-----------|--------|
-| [`@neptune.fintech/tokens`](packages/neptune_tokens) | The determinism backbone — OKLCH→sRGB math, seed→palette ramp, brandprint codec, pinned palettes, `buildTheme()` | **npm ✓** · v2.0.0 |
-| [`neptune_flutter_ui`](packages/neptune_flutter_ui) | Flutter `ThemeData` per brand/mode, ~150 themed widgets, templates, motion, feedback | **pub.dev ✓** · v2.13.0 |
-| [`neptune_sound_kit`](packages/neptune_sound_kit) | Optional Flutter sound cues (synthesized, not recorded) wired to `NptFeedback.onSoundCue` | **Stable** · not yet published (chimes pending review) |
-| [`@neptune.fintech/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **npm ✓** · v2.4.0 |
-| [`@neptune.fintech/svelte-ui`](packages/neptune_svelte_ui) | Svelte `use:theme` action + provider | **npm ✓** · v2.0.1 |
-| [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 provider + typed wrappers | **npm ✓** · v2.0.1 |
-| [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + `useNeptuneTheme` hook + typed wrappers | **npm ✓** · v2.0.1 |
-| [`neptune_laravel_ui`](packages/neptune_laravel_ui) | Blade components over the web kit + vendored assets — zero Node/npm build step for the 4 reference brands | **Stable** · Composer, not yet on Packagist |
-| [`@neptune.fintech/react-native-ui`](packages/neptune_react_native_ui) | React Native provider + hook + themed native components | **npm ✓** · v2.0.0 · maintenance mode |
-| [`@neptune.fintech/icons`](packages/neptune_icons) | 63 original SVG icons + `<npt-icon>` element | **npm ✓** · v2.4.2 |
-| [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | 5 reference tenants + loader | **npm ✓** · v2.0.0 |
-| [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product flavor + feature flags | **npm ✓** · v2.0.0 |
-| [`create-neptune`](packages/create-neptune) | Starter-app scaffolder CLI (`npm create neptune@latest`) | **npm ✓** · v2.0.0 |
-| [`apps/configurator`](apps/configurator) | Client-only theme builder (brandprint encode/decode + live preview + AA check) | **Stable** |
-| [`apps/neptune_studio`](apps/neptune_studio) | Desktop GUI for the client-demo factory — drop a logo, tune levers, generate + run a branded demo | **Stable** · dev tool, not published |
-| [`apps/neptune_desktop`](apps/neptune_desktop) | Cross-platform (macOS/Windows) demo shell app | **Stable** · dev tool, not published |
-| [`@neptune.fintech/docs`](packages/neptune_docs) | The written system + the `.dc.html` visual contracts | — |
-| [`neptune-odyssey-kmp`](packages/neptune_kmp_ui) | Kotlin/Compose Multiplatform — theme engine + identity layer + 78 components + templates + demo shell, one `commonMain` for Android/iOS/desktop/web(js+wasm) | **Stable** · Maven, not yet on Central |
+| [`@neptune.fintech/tokens`](packages/neptune_tokens) | Determinism backbone — palette math, Brandprint, tenant themes, product worlds and interaction motion | **npm ✓** · v2.0.0 |
+| [`neptune_flutter_ui`](packages/neptune_flutter_ui) | Flutter theme + component library | **pub.dev ✓** · v2.13.0 |
+| [`neptune_sound_kit`](packages/neptune_sound_kit) | Optional Flutter sound cues | **Stable** · not yet published |
+| [`@neptune.fintech/web-ui`](packages/neptune_web_ui) | Framework-agnostic CSS-variable core + custom elements + `applyTheme` | **npm ✓** · v2.5.1 |
+| [`@neptune.fintech/svelte-ui`](packages/neptune_svelte_ui) | Svelte integration | **npm ✓** · v2.0.1 |
+| [`@neptune.fintech/vue-ui`](packages/neptune_vue_ui) | Vue 3 integration | **npm ✓** · v2.0.1 |
+| [`@neptune.fintech/react-ui`](packages/neptune_react_ui) | React provider + hook + typed wrappers | **npm ✓** · v2.0.1 |
+| [`neptune_laravel_ui`](packages/neptune_laravel_ui) | Blade components over the web kit | **Stable** |
+| [`@neptune.fintech/react-native-ui`](packages/neptune_react_native_ui) | React Native provider + themed native components | **npm ✓** · maintenance mode |
+| [`@neptune.fintech/icons`](packages/neptune_icons) | Original icon library + `<npt-icon>` | **npm ✓** |
+| [`@neptune.fintech/brand-configs`](packages/neptune_brand_configs) | Reference tenant configs + loader | **npm ✓** |
+| [`@neptune.fintech/product-configs`](packages/neptune_product_configs) | Product configuration + feature flags | **npm ✓** |
+| [`create-neptune`](packages/create-neptune) | Starter-app scaffolder CLI | **npm ✓** |
+| [`apps/configurator`](apps/configurator) | Tenant theme/Brandprint configurator | **Stable** |
+| [`apps/neptune_studio`](apps/neptune_studio) | Desktop client-demo factory | **Stable** |
+| [`apps/neptune_desktop`](apps/neptune_desktop) | Cross-platform demo shell | **Stable** |
+| [`@neptune.fintech/docs`](packages/neptune_docs) | Written system + visual contracts | — |
+| [`neptune-odyssey-kmp`](packages/neptune_kmp_ui) | Kotlin/Compose Multiplatform system | **Stable** |
 
-**Dev tooling (not packages, live in `tools/`):** `tools/client-demo` (logo → OKLCH seeds →
-running branded Flutter app, one command) and `tools/sound-identity` (bank → a distinct
-5-file sound family — success + 4 notification cues — via FluidSynth, the sound half of
-white-label). See each tool's own README.
-
-## Three ways to theme — one surface, everywhere
+## Compose tenant + product world
 
 ```ts
-// web / svelte / vue
-applyTheme(root, "triton", { mode: "system", dir: "auto" }); // 1 · reference brand id
-applyTheme(root, "NO1-AYB4AK…");                               // 2 · brandprint string
-applyTheme(root, { primary:{L,C,H}, corners:{…}, motion:"calm-graceful", … }); // 3 · config
+import { buildTheme } from "@neptune.fintech/tokens";
+import { applyTheme } from "@neptune.fintech/web-ui";
+
+const theme = buildTheme("neptune", {
+  mode: "dark",
+  dir: "rtl",
+  world: "voyage",
+});
+
+// Tenant semantic identity stays stable.
+theme.colors;
+theme.brandprint;
+
+// Product personality is additive.
+theme.world?.colors;
+theme.world?.titleFont;
+theme.interactionMotion;
+
+applyTheme(document.documentElement, "neptune", {
+  mode: "dark",
+  dir: "rtl",
+  world: "voyage",
+});
+// data-theme="neptune" data-world="voyage" data-mode="dark" dir="rtl"
 ```
-```dart
-// flutter
-MaterialApp(
-  theme: NeptuneTheme.light('triton'),
-  darkTheme: NeptuneTheme.dark('triton'),
-  // or NeptuneTheme.fromBrandprint('NO1-…'), or NeptuneTheme.fromConfig(cfg)
-);
-```
 
-Plus global `mode` (`light|dark|system`) and `dir` (`ltr|rtl|auto`). Tokens are read only
-through the framework's theme context — **never a literal** in a component.
+Existing calls without `world` remain valid and retain the prior tenant-theme output contract.
 
-## The determinism contract (what the golden tests guarantee)
+## Motion
 
-1. **Pinned reference palettes are exact.** The resolved palette (`build/tokens.resolved.json`)
-   ships byte-identical in TS and Dart, so **Flutter == Web is exact by construction** for
-   the reference brands.
-2. **The shared OKLCH→sRGB converter** reproduces that data to **≤ 1 LSB per channel**
-   (93% exact; residuals are sub-perceptual browser rounding at gamut edges) — used for
-   custom seeds, where the TS and Dart ports run identical math and agree with each other.
-3. **The brandprint codec is byte-identical** to the reference (`tools/brandprint.reference.js`)
-   for the four brands, idempotent, and rejects tampered/short/wrong-version strings.
+Odyssey uses one motion grammar rather than per-product animation inventions:
+
+- **restrained** — 160ms / 4px / no overshoot: security, authorization, destructive and
+  sensitive confirmation;
+- **standard** — 240ms / 8px / ≤3% overshoot: navigation, sheets, filters, lists, dashboards;
+- **expressive** — 420ms / 16px / ≤8% overshoot: travel, mobility, commerce and lifestyle
+  discovery/editorial moments.
+
+Reduced motion keeps at most an 80ms dissolve and removes travel, stagger and overshoot.
+Motion never fabricates backend completion, booking progress, payment success or live location.
+
+## Shared trust contract
+
+Regardless of world or tenant, Odyssey keeps the same engineering guarantees: semantic states,
+WCAG accessibility, ≥48dp touch targets, keyboard/focus behavior, responsive rules, logical
+layout properties, Light/Dark, LTR/RTL, form/security patterns, deterministic tokens and stable
+component APIs.
+
+### Determinism
+
+1. Pinned tenant palettes remain exact across supported platforms.
+2. Shared OKLCH→sRGB math remains deterministic for custom tenant seeds.
+3. Brandprint remains byte-stable and idempotent.
+4. Product-world resolution is deterministic for `world + mode` and composes without changing
+   tenant palette or Brandprint.
 
 ## Develop
 
 ```sh
-corepack pnpm install        # or: npx pnpm@9.15.0 install
+corepack pnpm install
 pnpm -r --filter "./packages/**" run build
-pnpm -r --filter "./packages/**" run test     # JS/TS golden + unit tests
-( cd packages/neptune_flutter_ui && flutter test )   # Dart golden tests
+pnpm -r --filter "./packages/**" run test
+( cd packages/neptune_flutter_ui && flutter test )
 ```
 
-Production mobile stack is **Flutter** (Material 3). Web is a sibling, not stretched mobile.
-Supports **light + dark** and **LTR + RTL** (banks are largely MENA; logical properties only).
-Colours authored in **OKLCH**, resolved to hex/ARGB at build time.
+The CI suite additionally runs token/codegen/contrast gates, KMP builds, LTR/RTL visual sweeps
+and blank-region checks.
 
 ## Publishing
 
 Packages are publish-ready (`exports`, types, `sideEffects:false`, pubspec). Releases publish
-from CI on a `v*` tag (`.github/workflows/release.yml`) — add `NPM_TOKEN` and `PUB_CREDENTIALS`
-as repo secrets. No credentials ever touch a developer machine.
+from CI on a `v*` tag. Credentials belong in CI secrets and never in repository code.
 
 ---
 © 2026 Neptune.Fintech. "Neptune Odyssey" and "Neptune.Fintech" are marks of the Licensor.

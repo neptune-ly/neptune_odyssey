@@ -1,10 +1,20 @@
 # @neptune.fintech/tokens
 
-The **determinism backbone** of [Neptune Odyssey](https://neptune.ly) — the white-label
-banking design system by **Neptune.Fintech**. This package owns the color math, the
-seed→palette ramp, the brandprint codec, the pinned reference palettes, and the unified
-theme builder. Every other Odyssey library (Flutter, web, Svelte, Vue) resolves themes
-through the same logic, so **the same brandprint produces the same theme everywhere**.
+The **determinism backbone** of [Neptune Odyssey](https://neptune.ly) — Neptune.Fintech's
+cross-product digital design system. The package owns color math, the seed→palette ramp,
+the Brandprint codec, pinned reference palettes, product-world tokens, interaction-motion
+levels, and the unified theme builder.
+
+Tenant identity and product personality are deliberately separate:
+
+- **tenant/brand theme** answers *whose product is this?* — palette, shape family, type,
+  Brandprint and client expression levers;
+- **product world** answers *what kind of experience is this?* — travel, mobility,
+  commerce, hospitality, SaaS or lifestyle composition and expressive roles.
+
+A travel app and a bank can share Odyssey engineering primitives without looking like the
+same Material screen with different logos. Likewise, choosing `world: "voyage"` never
+changes the tenant Brandprint or its M3 semantic palette.
 
 > Source-available under the **Neptune Odyssey Community License v1.0** — free for
 > non-commercial use and for organizations under USD $25k/yr revenue. See `LICENSE`.
@@ -17,53 +27,127 @@ pnpm add @neptune.fintech/tokens
 
 ESM-only, `sideEffects: false`, fully tree-shakeable, SSR-safe. No runtime CSS-in-JS.
 
-## Three ways to theme — one surface
+## Tenant theme — three inputs, one surface
 
 ```ts
 import { buildTheme } from "@neptune.fintech/tokens";
 
-buildTheme("triton", { mode: "dark", dir: "rtl" }); // 1 · reference brand id
-buildTheme(myConfig);                                  // 2 · full config object
-buildTheme("NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA"); // 3 · brandprint string
+buildTheme("triton", { mode: "dark", dir: "rtl" }); // reference brand id
+buildTheme(myConfig);                                  // full config object
+buildTheme("NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA"); // Brandprint string
 ```
 
-`buildTheme()` returns a platform-agnostic `NeptuneTheme`: resolved `colors` (37 M3 roles
-incl. `success`), `shape` (xs…xxl), `type`, the five expression `levers`, `motion`
-(per-brand easings/durations), plus the canonical `brandprint`.
+`buildTheme()` returns the existing platform-agnostic `NeptuneTheme`: resolved `colors`
+(37 M3 roles incl. `success`), `shape` (xs…xxl), `type`, expression `levers`, brand-level
+`motion`, and canonical `brandprint`.
 
-## The brandprint codec
+## Product worlds — orthogonal composition language
+
+```ts
+import {
+  buildTheme,
+  resolveProductWorld,
+  resolveMotionLevel,
+} from "@neptune.fintech/tokens";
+
+const travel = buildTheme("neptune", {
+  mode: "dark",
+  dir: "rtl",
+  world: "voyage",
+});
+
+travel.colors;             // Neptune tenant M3 palette — unchanged
+travel.brandprint;         // Neptune Brandprint — unchanged
+travel.world?.colors;      // Voyage accent/tint/hero/spark/background roles
+travel.world?.titleFont;   // Sora
+travel.world?.radius;      // 20
+travel.interactionMotion;  // Voyage default: expressive
+
+resolveProductWorld("grid", "light");
+resolveMotionLevel("restrained", true); // reduced: 80ms, 0 travel/stagger/overshoot
+```
+
+The six first-class non-financial worlds are:
+
+| World | Product family | Display family | Radius | Default motion |
+|---|---|---|---:|---|
+| `voyage` | travel / booking / itinerary | Sora | 20 | expressive |
+| `pulse` | mobility / ride tracking | Space Grotesk | 12 | expressive |
+| `market` | commerce / marketplace | Plus Jakarta Sans | 18 | expressive |
+| `harbor` | hospitality / in-stay service | Fraunces | 28 | standard |
+| `grid` | SaaS / admin / productivity | IBM Plex Sans | 8 | standard |
+| `canvas` | lifestyle / editorial consumer | DM Sans | 24 | expressive |
+
+These world roles are **not substitutes for M3 semantic roles**. Shared controls continue
+to use the tenant theme. World tokens are for product composition, editorial backgrounds,
+hero art, category emphasis and world-specific framing.
+
+## Motion levels
+
+Odyssey uses three interaction levels over one shared physics system:
+
+- `restrained`: 160ms, 4px, 12ms stagger, no overshoot — security, destructive actions,
+  authorization and sensitive confirmation;
+- `standard`: 240ms, 8px, 24ms stagger, ≤3% overshoot — navigation, sheets, filters,
+  ordinary lists and dashboards;
+- `expressive`: 420ms, 16px, 40ms stagger, ≤8% overshoot — discovery, travel, mobility,
+  commerce and lifestyle editorial moments.
+
+`reducedMotion: true` keeps at most an 80ms dissolve and forces distance, stagger and
+overshoot to zero. Motion must never fabricate payment completion, service progress or
+live location.
+
+## CSS generation
+
+```ts
+import {
+  allProductWorldCss,
+  productWorldToCssBlock,
+  motionLevelToCssVars,
+} from "@neptune.fintech/tokens";
+
+productWorldToCssBlock("market", "dark");
+allProductWorldCss();
+motionLevelToCssVars("expressive", true);
+```
+
+Generated product-world variables use the `--o2-world-*` namespace and `[data-world]`
+selector. They do not overwrite `--md-sys-color-*`, so `data-theme`, `data-mode`, `dir`
+and `data-world` can compose independently on the same root element.
+
+## The Brandprint codec
 
 ```ts
 import { encode, decode } from "@neptune.fintech/tokens";
 
-const print = encode(config);   // "NO1-…"  · 28-byte payload, base64url, checksummed
+const print = encode(config);   // "NO1-…" · base64url, checksummed
 const config = decode(print);   // throws on bad prefix / length / checksum / version
 ```
 
-Registries are **append-only** — the enum indices *are* the wire format (see `docs/11`).
+Registries are **append-only** — enum indices are the wire format.
 
 ## Color & palette
 
 ```ts
 import { oklchToHex, oklchToArgb, generatePalette, resolvePalette } from "@neptune.fintech/tokens";
 
-oklchToHex({ L: 0.48, C: 0.15, H: 258 });          // "#1d5ab0"
-resolvePalette(primarySeed, tertiarySeed, "light"); // pinned for reference, ramp for custom
+oklchToHex({ L: 0.48, C: 0.15, H: 258 });
+resolvePalette(primarySeed, tertiarySeed, "light");
 ```
 
-## The determinism contract (what the golden tests guarantee)
+## Determinism contract
 
-1. **Pinned reference palettes are exact.** `getResolvedPalette(brand, mode)` equals
-   `build/tokens.resolved.json` byte-for-byte, and the Flutter package ships the identical
-   ARGB data — so **Flutter == Web is exact by construction** for the four reference brands.
-2. **The shared OKLCH→sRGB converter reproduces that data to ≤ 1 LSB per channel**
-   (275/296 roles exact = 93%; the 21 residuals are off-by-one at gamut edges — sub-perceptual
-   browser rounding). It is used for *custom* seeds, where the TS and Dart ports run identical
-   math and therefore agree with each other.
-3. **The brandprint codec is byte-identical** to `tools/brandprint.reference.js` for the four
-   brands, idempotent (`encode(decode(x)) === x`), and rejects tampered/short/wrong-version strings.
+Pinned tenant palettes remain exact, the shared OKLCH→sRGB converter remains the custom
+seed path, and Brandprint remains byte-stable. Product worlds add no entropy: the same
+`brandprint + mode + dir + world + motion level + reduced-motion flag` resolves to the
+same theme data on every call.
 
-Run them: `pnpm --filter @neptune.fintech/tokens test`.
+Run package validation with:
+
+```sh
+pnpm --filter @neptune.fintech/tokens build
+pnpm --filter @neptune.fintech/tokens test
+```
 
 ---
 © 2026 Neptune.Fintech. "Neptune Odyssey" and "Neptune.Fintech" are marks of the Licensor.
