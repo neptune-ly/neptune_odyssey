@@ -1,16 +1,29 @@
 // Neptune Odyssey — the unified theming surface · © 2026 Neptune.Fintech (neptune.ly)
 //
-// One API, three ways to theme (docs · HANDOFF_PROMPT "The theming API"):
+// One API, three ways to resolve the tenant/brand layer:
 //   1. brand id      — "neptune" | "triton" | "nereid" | "proteus"
 //   2. config object — a full BrandprintConfig (seeds, corners, type, levers, flags)
 //   3. brandprint    — "NO1-…"  (decode → config → theme)
-// Same brandprint ⇒ identical theme on every platform.
+//
+// Product personality is orthogonal to tenant identity. Pass `world` in
+// ThemeOptions when the product needs a Voyage/Pulse/Market/Harbor/Grid/Canvas
+// composition language. Existing calls without `world` remain byte-for-byte
+// equivalent in their tenant palette, type, shape, motion, direction and
+// canonical brandprint.
 
 import { decode, encode, type BrandprintConfig } from "./brandprint/codec.js";
 import { BRAND_CONFIG, BRAND_BRANDPRINT } from "./data/brands.generated.js";
 import { MOTION_PRESETS } from "./data/levers.generated.js";
 import { resolvePalette, matchReferenceBrand } from "./resolve.js";
 import { BRANDS, type Brand, type Direction, type Mode, type Palette } from "./types.js";
+import {
+  resolveMotionLevel,
+  resolveProductWorld,
+  type MotionLevel,
+  type MotionLevelTokens,
+  type ProductWorld,
+  type ResolvedProductWorld,
+} from "./worlds.js";
 
 export interface ThemeShape {
   xs: number;
@@ -55,6 +68,14 @@ export interface NeptuneTheme {
   type: ThemeType;
   levers: ThemeLevers;
   motion: ThemeMotion;
+  /**
+   * Optional product-personality layer. This does not replace the tenant
+   * palette or Brandprint contract; it supplies product-specific expressive
+   * roles, geometry and display-family guidance.
+   */
+  world?: ResolvedProductWorld;
+  /** Interaction choreography for the active product context. */
+  interactionMotion?: MotionLevelTokens;
   /** canonical brandprint for this theme (idempotent round-trip) */
   brandprint: string;
 }
@@ -62,6 +83,12 @@ export interface NeptuneTheme {
 export interface ThemeOptions {
   mode?: Mode;
   dir?: Direction;
+  /** Optional product personality, independent from tenant/brand identity. */
+  world?: ProductWorld;
+  /** Override the world's default interaction intensity for this context. */
+  motionLevel?: MotionLevel;
+  /** Removes travel, stagger and overshoot while retaining a short dissolve. */
+  reducedMotion?: boolean;
 }
 
 export type ThemeInput = Brand | BrandprintConfig | string;
@@ -110,6 +137,12 @@ export function buildTheme(input: ThemeInput, opts: ThemeOptions = {}): NeptuneT
   const brandprint =
     isBrand(input) ? BRAND_BRANDPRINT[input]! : isBrandprint(input) ? input : encode(cfg);
 
+  const world = opts.world ? resolveProductWorld(opts.world, mode) : undefined;
+  const interactionLevel = opts.motionLevel ?? world?.defaultMotionLevel;
+  const interactionMotion = interactionLevel
+    ? resolveMotionLevel(interactionLevel, opts.reducedMotion ?? false)
+    : undefined;
+
   return {
     brand,
     mode,
@@ -131,6 +164,8 @@ export function buildTheme(input: ThemeInput, opts: ThemeOptions = {}): NeptuneT
       motion: cfg.motion,
     },
     motion: motionFor(cfg.motion),
+    ...(world ? { world } : {}),
+    ...(interactionMotion ? { interactionMotion } : {}),
     brandprint,
   };
 }
