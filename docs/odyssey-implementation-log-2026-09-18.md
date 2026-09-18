@@ -31,7 +31,7 @@ Nine canonical nodes that still lived in legacy pages were promoted with their n
 
 All 88 canonical component/component-set descriptions now record their web tag/class, exact source file, React/Vue symbols, Flutter mapping, verified KMP status and proof location. The parity board now reports the generated framework surface and verified KMP count.
 
-The component paint audit removed one literal fill and replaced all product-world bindings inside shared canonical components with shared identity aliases. Final live verification: zero literal solid paints and zero `o2/world/*` paint bindings across the 88 canonical nodes.
+The shipped component pages were also normalized as implementation-library galleries rather than historical canvas dumps. Core, Financial and Data/Operations now use a compact two-column page rhythm, consistent section geometry and visible component labels. Existing canonical component IDs were preserved; the pass only repositioned existing nodes and added documentation labels.\n\nThe component paint audit removed one literal fill and replaced all product-world bindings inside shared canonical components with shared identity aliases. Final live verification: zero literal solid paints and zero `o2/world/*` paint bindings across the 88 canonical nodes.
 
 ## Executable contract
 
