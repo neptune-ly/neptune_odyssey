@@ -6,7 +6,9 @@
   "baseBranch": "feat/odyssey-orbit-move-commerce-20260917",
   "figma": {
     "fileKey": "JuC8o1hJzoGv8G6EHGXoro",
-    "url": "https://www.figma.com/design/JuC8o1hJzoGv8G6EHGXoro"
+    "url": "https://www.figma.com/design/JuC8o1hJzoGv8G6EHGXoro",
+    "nativeCodeConnect": "unavailable-current-seat",
+    "mappingFallback": "canonical node IDs + shared plugin metadata + this contract"
   },
   "principles": [
     "Distinct worlds. Shared trust.",
@@ -22,7 +24,10 @@
     "ci": ".github/workflows/ci.yml"
   },
   "counts": {
-    "webRegistered": 89
+    "webRegistered": 89,
+    "figmaCanonical": 88,
+    "figmaHostApi": 1,
+    "figmaMissing": 0
   },
   "components": [
     {
@@ -44,7 +49,9 @@
       "figma": {
         "status": "canonical",
         "nodeId": "18:16",
-        "name": "O2/Action"
+        "name": "O2/Action",
+        "nodeType": "COMPONENT_SET",
+        "page": "04 · UI library / Shared trust"
       },
       "category": "actions",
       "contract": {
@@ -72,9 +79,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:618",
+        "name": "O2/Code/Card",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -104,7 +113,9 @@
       "figma": {
         "status": "canonical",
         "nodeId": "31:42",
-        "name": "O2/Money summary"
+        "name": "O2/Money summary",
+        "nodeType": "COMPONENT_SET",
+        "page": "04 · UI library / Shared trust"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -134,7 +145,9 @@
       "figma": {
         "status": "canonical",
         "nodeId": "20:2",
-        "name": "O2/Activity row"
+        "name": "O2/Activity row",
+        "nodeType": "COMPONENT",
+        "page": "04 · UI library / Shared trust"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -164,7 +177,9 @@
       "figma": {
         "status": "canonical",
         "nodeId": "19:14",
-        "name": "O2/Field"
+        "name": "O2/Field",
+        "nodeType": "COMPONENT_SET",
+        "page": "04 · UI library / Shared trust"
       },
       "category": "inputs-selection",
       "contract": {
@@ -192,9 +207,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:631",
+        "name": "O2/Code/Chip",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "inputs-selection",
       "contract": {
@@ -222,9 +239,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:640",
+        "name": "O2/Code/Badge",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "inputs-selection",
       "contract": {
@@ -252,9 +271,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "mapped-pattern",
+        "status": "canonical",
         "nodeId": "88:36",
-        "name": "O2K/Screen header"
+        "name": "O2K/Screen header",
+        "nodeType": "COMPONENT",
+        "page": "15 · Core controls / Mobile + web states"
       },
       "category": "navigation-shell",
       "contract": {
@@ -282,9 +303,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:612",
+        "name": "O2/Code/Nav bar",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -314,7 +337,9 @@
       "figma": {
         "status": "canonical",
         "nodeId": "30:36",
-        "name": "O2/Navigation item"
+        "name": "O2/Navigation item",
+        "nodeType": "COMPONENT_SET",
+        "page": "04 · UI library / Shared trust"
       },
       "category": "navigation-shell",
       "contract": {
@@ -342,9 +367,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:611",
+        "name": "O2/Code/Icon button",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "actions",
       "contract": {
@@ -372,9 +399,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:621",
+        "name": "O2/Code/FAB",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "actions",
       "contract": {
@@ -402,9 +431,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:622",
+        "name": "O2/Code/Segmented button",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "actions",
       "contract": {
@@ -432,9 +463,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:611",
+        "name": "O2/Code/Segmented option",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "actions",
       "contract": {
@@ -462,9 +495,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:655",
+        "name": "O2/Code/Checkbox",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "inputs-selection",
       "contract": {
@@ -492,9 +527,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:666",
+        "name": "O2/Code/Radio",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "inputs-selection",
       "contract": {
@@ -522,9 +559,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:679",
+        "name": "O2/Code/Switch",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "inputs-selection",
       "contract": {
@@ -552,9 +591,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:690",
+        "name": "O2/Code/Slider",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "inputs-selection",
       "contract": {
@@ -582,9 +623,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:712",
+        "name": "O2/Code/Progress",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -612,9 +655,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:650",
+        "name": "O2/Code/Snackbar",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -642,9 +687,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:759",
+        "name": "O2/Code/Tooltip",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -672,9 +719,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:742",
+        "name": "O2/Code/Banner",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -702,9 +751,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:629",
+        "name": "O2/Code/Dialog",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "overlays",
       "contract": {
@@ -732,9 +783,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:636",
+        "name": "O2/Code/Bottom sheet",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "overlays",
       "contract": {
@@ -762,9 +815,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:644",
+        "name": "O2/Code/Menu",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "overlays",
       "contract": {
@@ -792,9 +847,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:648",
+        "name": "O2/Code/Menu item",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "overlays",
       "contract": {
@@ -822,9 +879,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:633",
+        "name": "O2/Code/List",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -852,9 +911,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:735",
+        "name": "O2/Code/List item",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -882,9 +943,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:698",
+        "name": "O2/Code/Divider",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -912,9 +975,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:719",
+        "name": "O2/Code/Tabs",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -942,9 +1007,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:718",
+        "name": "O2/Code/Tab",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -972,9 +1039,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:649",
+        "name": "O2/Code/Accordion",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -1002,9 +1071,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:734",
+        "name": "O2/Code/Accordion item",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -1032,9 +1103,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:697",
+        "name": "O2/Code/Avatar",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "layout-display",
       "contract": {
@@ -1062,9 +1135,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:673",
+        "name": "O2/Code/Nav rail",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -1092,9 +1167,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:672",
+        "name": "O2/Code/Top app bar",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -1122,9 +1199,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:605",
+        "name": "O2/Code/Amount input",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1152,9 +1231,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:610",
+        "name": "O2/Code/Currency field",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1182,9 +1263,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:614",
+        "name": "O2/Code/IBAN field",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1212,9 +1295,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:618",
+        "name": "O2/Code/OTP input",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1242,9 +1327,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:631",
+        "name": "O2/Code/PIN input",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1272,9 +1359,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "mapped-pattern",
+        "status": "canonical",
         "nodeId": "93:39",
-        "name": "O2K/Keypad / LTR"
+        "name": "O2K/Keypad / LTR",
+        "nodeType": "COMPONENT",
+        "page": "15 · Core controls / Mobile + web states"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1302,9 +1391,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:651",
+        "name": "O2/Code/Card art",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1332,9 +1423,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:657",
+        "name": "O2/Code/Card row",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1362,9 +1455,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:662",
+        "name": "O2/Code/Add card",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1392,9 +1487,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:656",
+        "name": "O2/Code/Card controls",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1422,9 +1519,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:677",
+        "name": "O2/Code/Step",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1452,9 +1551,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:669",
+        "name": "O2/Code/Stepper",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1482,9 +1583,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "mapped-pattern",
+        "status": "canonical",
         "nodeId": "90:33",
-        "name": "O2K/Review summary"
+        "name": "O2K/Review summary",
+        "nodeType": "COMPONENT",
+        "page": "15 · Core controls / Mobile + web states"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1512,9 +1615,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "mapped-pattern",
-        "nodeId": "124:89",
-        "name": "O2K/Outcome"
+        "status": "canonical",
+        "nodeId": "471:678",
+        "name": "O2/Code/Success",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1542,9 +1647,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "mapped-pattern",
-        "nodeId": "124:89",
-        "name": "O2K/Outcome"
+        "status": "canonical",
+        "nodeId": "471:683",
+        "name": "O2/Code/Receipt",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1572,9 +1679,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:640",
+        "name": "O2/Code/Beneficiary tile",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1602,9 +1711,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:646",
+        "name": "O2/Code/Method row",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "financial-money-movement",
       "contract": {
@@ -1632,9 +1743,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:681",
+        "name": "O2/Code/Data table",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "data-viz",
       "contract": {
@@ -1662,9 +1775,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:706",
+        "name": "O2/Code/Stat card",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "data-viz",
       "contract": {
@@ -1692,9 +1807,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:710",
+        "name": "O2/Code/Sparkline",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "data-viz",
       "contract": {
@@ -1722,9 +1839,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:718",
+        "name": "O2/Code/Donut",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "data-viz",
       "contract": {
@@ -1752,9 +1871,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:722",
+        "name": "O2/Code/Limit meter",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "data-viz",
       "contract": {
@@ -1782,9 +1903,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:727",
+        "name": "O2/Code/Trend",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "data-viz",
       "contract": {
@@ -1812,9 +1935,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:750",
+        "name": "O2/Code/Skeleton",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -1842,9 +1967,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:755",
+        "name": "O2/Code/Empty state",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -1872,9 +1999,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:741",
+        "name": "O2/Code/Alert",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -1902,9 +2031,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:724",
+        "name": "O2/Code/Status chip",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -1932,9 +2063,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "466:747",
+        "name": "O2/Code/Toast",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "feedback-status",
       "contract": {
@@ -1962,9 +2095,10 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
+        "status": "host-api",
         "nodeId": null,
-        "name": null
+        "name": null,
+        "note": "Runtime toast queue/placement host; intentionally no visual Figma component."
       },
       "category": "feedback-status",
       "contract": {
@@ -1992,9 +2126,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:734",
+        "name": "O2/Code/Approval item",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "corporate-operations",
       "contract": {
@@ -2022,9 +2158,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:739",
+        "name": "O2/Code/Batch card",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "corporate-operations",
       "contract": {
@@ -2052,9 +2190,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:744",
+        "name": "O2/Code/Audit row",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "corporate-operations",
       "contract": {
@@ -2082,9 +2222,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:750",
+        "name": "O2/Code/User row",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "corporate-operations",
       "contract": {
@@ -2112,9 +2254,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:755",
+        "name": "O2/Code/Permission toggle",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "corporate-operations",
       "contract": {
@@ -2142,9 +2286,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:760",
+        "name": "O2/Code/Workflow status",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "corporate-operations",
       "contract": {
@@ -2172,9 +2318,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:686",
+        "name": "O2/Code/App shell",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2202,9 +2350,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "mapped-pattern",
-        "nodeId": "88:36",
-        "name": "O2K/Screen header"
+        "status": "canonical",
+        "nodeId": "467:696",
+        "name": "O2/Code/Page header",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2232,9 +2382,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:699",
+        "name": "O2/Code/Section",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2262,9 +2414,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:711",
+        "name": "O2/Code/Side nav",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2292,9 +2446,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:710",
+        "name": "O2/Code/Side nav item",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2322,9 +2478,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "mapped-pattern",
-        "nodeId": "89:57",
-        "name": "O2K/Field"
+        "status": "canonical",
+        "nodeId": "467:702",
+        "name": "O2/Code/Search field",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2352,9 +2510,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "467:705",
+        "name": "O2/Code/Toolbar",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2382,9 +2542,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:772",
+        "name": "O2/Code/Quick actions",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "wallet-pay",
       "contract": {
@@ -2414,7 +2576,9 @@
       "figma": {
         "status": "canonical",
         "nodeId": "30:37",
-        "name": "O2/Quick action"
+        "name": "O2/Quick action",
+        "nodeType": "COMPONENT",
+        "page": "04 · UI library / Shared trust"
       },
       "category": "wallet-pay",
       "contract": {
@@ -2442,9 +2606,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:785",
+        "name": "O2/Code/Merchant row",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "wallet-pay",
       "contract": {
@@ -2472,9 +2638,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:791",
+        "name": "O2/Code/Voucher card",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "wallet-pay",
       "contract": {
@@ -2502,9 +2670,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:796",
+        "name": "O2/Code/QR pay",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "wallet-pay",
       "contract": {
@@ -2532,9 +2702,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:816",
+        "name": "O2/Code/Topup row",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "wallet-pay",
       "contract": {
@@ -2562,9 +2734,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:821",
+        "name": "O2/Code/Tier badge",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "wallet-pay",
       "contract": {
@@ -2592,9 +2766,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "468:824",
+        "name": "O2/Code/Dock",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2622,9 +2798,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:630",
+        "name": "O2/Code/Dock item",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "navigation-shell",
       "contract": {
@@ -2652,9 +2830,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:728",
+        "name": "O2/Code/Onboarding",
+        "nodeType": "COMPONENT",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "onboarding",
       "contract": {
@@ -2682,9 +2862,11 @@
         "source": "packages/neptune_kmp_ui/README.md"
       },
       "figma": {
-        "status": "missing-canonical",
-        "nodeId": null,
-        "name": null
+        "status": "canonical",
+        "nodeId": "471:759",
+        "name": "O2/Code/CTA",
+        "nodeType": "COMPONENT_SET",
+        "page": "40 · Code parity / Shipped components"
       },
       "category": "actions",
       "contract": {
