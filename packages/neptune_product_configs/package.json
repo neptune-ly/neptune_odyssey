@@ -32,7 +32,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "lint": "tsc -p tsconfig.json --noEmit",
-    "test:experience": "node test/experience.check.mjs"
+    "test:experience": "node test/experience.check.mjs",
+    "test:servicing": "node test/servicing.check.mjs"
   },
   "publishConfig": {
     "access": "public"
