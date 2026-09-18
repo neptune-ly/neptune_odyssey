@@ -21,13 +21,22 @@
     "web": "packages/neptune_web_ui/src/register.ts",
     "flutter": "packages/neptune_flutter_ui/COVERAGE.md",
     "kmp": "packages/neptune_kmp_ui/README.md",
-    "ci": ".github/workflows/ci.yml"
+    "ci": ".github/workflows/ci.yml",
+    "react": "packages/neptune_react_ui/src/index.tsx",
+    "vue": "packages/neptune_vue_ui/src/index.ts",
+    "svelte": "packages/neptune_svelte_ui/src/index.ts",
+    "reactNative": "packages/neptune_react_native_ui/src/index.ts"
   },
   "counts": {
     "webRegistered": 89,
     "figmaCanonical": 88,
     "figmaHostApi": 1,
-    "figmaMissing": 0
+    "figmaMissing": 0,
+    "reactTypedWrappers": 10,
+    "vueTypedWrappers": 10,
+    "svelteNativeWebSurface": 89,
+    "reactNativeMappedWebComponents": 4,
+    "kmpReportedComponents": 78
   },
   "components": [
     {
@@ -60,6 +69,32 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptButton"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptButton"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "native-wrapper",
+          "source": "packages/neptune_react_native_ui/src/index.ts",
+          "symbol": "NeptuneButton"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -92,6 +127,32 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptCard"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptCard"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "native-wrapper",
+          "source": "packages/neptune_react_native_ui/src/index.ts",
+          "symbol": "NeptuneCard"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -124,6 +185,32 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptBalanceCard"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptBalanceCard"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "native-wrapper",
+          "source": "packages/neptune_react_native_ui/src/index.ts",
+          "symbol": "NeptuneBalanceCard"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -156,6 +243,32 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTransactionRow"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTransactionRow"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "native-wrapper",
+          "source": "packages/neptune_react_native_ui/src/index.ts",
+          "symbol": "NeptuneTransactionRow"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -188,6 +301,31 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTextField"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTextField"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -220,6 +358,31 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptChip"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptChip"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -252,6 +415,31 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptBadge"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptBadge"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -284,6 +472,31 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAppBar"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAppBar"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -316,6 +529,31 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptNavBar"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptNavBar"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -348,6 +586,31 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptNavItem"
+        },
+        "vue": {
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptNavItem"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -380,6 +643,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -412,6 +698,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -444,6 +753,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -476,6 +808,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -508,6 +863,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -540,6 +918,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -572,6 +973,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -604,6 +1028,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -636,6 +1083,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -668,6 +1138,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -700,6 +1193,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -732,6 +1248,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -764,6 +1303,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -796,6 +1358,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -828,6 +1413,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -860,6 +1468,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -892,6 +1523,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -924,6 +1578,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -956,6 +1633,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -988,6 +1688,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1020,6 +1743,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1052,6 +1798,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1084,6 +1853,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1116,6 +1908,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1148,6 +1963,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1180,6 +2018,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1212,6 +2073,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1244,6 +2128,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1276,6 +2183,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1308,6 +2238,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1340,6 +2293,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1372,6 +2348,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1404,6 +2403,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1436,6 +2458,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1468,6 +2513,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1500,6 +2568,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1532,6 +2623,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1564,6 +2678,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1596,6 +2733,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1628,6 +2788,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1660,6 +2843,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1692,6 +2898,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1724,6 +2953,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1756,6 +3008,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1788,6 +3063,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1820,6 +3118,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1852,6 +3173,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1884,6 +3228,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1916,6 +3283,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1948,6 +3338,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -1980,6 +3393,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2012,6 +3448,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2044,6 +3503,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2076,6 +3558,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2107,6 +3612,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2139,6 +3667,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2171,6 +3722,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2203,6 +3777,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2235,6 +3832,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2267,6 +3887,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2299,6 +3942,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2331,6 +3997,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2363,6 +4052,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2395,6 +4107,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2427,6 +4162,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2459,6 +4217,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2491,6 +4272,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2523,6 +4327,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2555,6 +4382,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2587,6 +4437,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2619,6 +4492,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2651,6 +4547,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2683,6 +4602,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2715,6 +4657,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2747,6 +4712,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2779,6 +4767,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2811,6 +4822,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2843,6 +4877,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     },
     {
@@ -2875,6 +4932,29 @@
         "dark": "required",
         "reducedMotion": "required-where-animated",
         "targetSize": "48px/dp minimum where interactive"
+      },
+      "platforms": {
+        "react": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx"
+        },
+        "vue": {
+          "status": "web-element-no-typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts"
+        },
+        "svelte": {
+          "status": "native-web-custom-element",
+          "source": "packages/neptune_svelte_ui/src/index.ts"
+        },
+        "reactNative": {
+          "status": "not-implemented-as-native-component",
+          "source": "packages/neptune_react_native_ui/src/index.ts"
+        },
+        "kmp": {
+          "status": "verify-symbol-in-source",
+          "source": "packages/neptune_kmp_ui/README.md",
+          "note": "Package reports 78 components; do not infer one-to-one mapping from the web tag without inspecting Compose source."
+        }
       }
     }
   ]
