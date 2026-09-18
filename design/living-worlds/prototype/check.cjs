@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict');
+const {amount,money,initial,settle,bill}=require('./model.js');
+assert.equal(amount('0.001'),1);assert.equal(amount('250.123'),250123);
+for(const value of ['-1','1.0001','1e3','NaN',''])assert.throws(()=>amount(value));
+const s=initial();s.amount=amount('250.123');s.transfer='unknown';settle(s);assert.equal(s.balance,12228877);settle(s);assert.equal(s.balance,12228877);bill(s);bill(s);assert.equal(s.balance,12208877);assert.equal(money(1),'0.001 LYD');
+const failed=initial();failed.transfer='failed';assert.throws(()=>settle(failed));assert.equal(failed.balance,12480000);
+const over=initial();over.amount=over.balance;over.transfer='pending';assert.throws(()=>settle(over));assert.equal(over.balance,12480000);
+const fs=require('node:fs'),screens=JSON.parse(fs.readFileSync(__dirname+'/screens.json','utf8')),ids=new Set(screens.map(s=>s.key));
+for(const s of screens)for(const i of s.items)for(const to of [i.to,...(i.slots||[]).map(x=>x.to)].filter(Boolean))assert.ok(ids.has(to),s.key+' → '+to);
+console.log('PASS: exact amounts, validation, idempotent settlement, no debit on failure, '+ids.size+' screens with no broken targets.');

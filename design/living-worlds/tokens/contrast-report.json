@@ -1,0 +1,722 @@
+[
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.15,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 5.97,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 4.78,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 11.41,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 4.78,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 4.78,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 6.29,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 5.98,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 5.95,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Light",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.72,
+    "minimum": 3,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.79,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 10.64,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 7.68,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 6.52,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 4.78,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 4.78,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 7.4,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 8.13,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 7.71,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Clarity",
+    "mode": "Dark",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.26,
+    "minimum": 3,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.15,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 5.97,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 10.43,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 11.48,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 10.43,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 10.43,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 6.29,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 5.98,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 5.95,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Light",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.72,
+    "minimum": 3,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.79,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 10.64,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 7.97,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 7.31,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 10.43,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 10.43,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 7.4,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 8.13,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 7.71,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Reserve",
+    "mode": "Dark",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.26,
+    "minimum": 3,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.15,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 5.97,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 8.71,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 11.1,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 8.71,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 10.73,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 6.29,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 5.98,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 5.95,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Light",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.72,
+    "minimum": 3,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.79,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 10.64,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 8.72,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 7.95,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 8.71,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 10.73,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 7.4,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 8.13,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 7.71,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Drive",
+    "mode": "Dark",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.26,
+    "minimum": 3,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.15,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 5.97,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 13.01,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 11.64,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 13.01,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 10.33,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 6.29,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 5.98,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 5.95,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Light",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.72,
+    "minimum": 3,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/onSurface",
+    "background": "color/surface",
+    "ratio": 15.79,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/onSurfaceVariant",
+    "background": "color/surface",
+    "ratio": 10.64,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/onPrimary",
+    "background": "color/primary",
+    "ratio": 9.12,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/onPrimaryContainer",
+    "background": "color/primaryContainer",
+    "ratio": 8.5,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "brand/onPlate",
+    "background": "brand/plate",
+    "ratio": 13.01,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "brand/onHero",
+    "background": "brand/hero",
+    "ratio": 10.33,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/success",
+    "background": "color/successContainer",
+    "ratio": 7.4,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/warning",
+    "background": "color/warningContainer",
+    "ratio": 8.13,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/error",
+    "background": "color/errorContainer",
+    "ratio": 7.71,
+    "minimum": 4.5,
+    "pass": true
+  },
+  {
+    "brand": "Orbit",
+    "mode": "Dark",
+    "foreground": "color/outline",
+    "background": "color/surface",
+    "ratio": 3.26,
+    "minimum": 3,
+    "pass": true
+  }
+]
