@@ -1,0 +1,1621 @@
+{
+  "version": "3.0.0-design.1",
+  "source": "Vega-derived Odyssey refresh; separately versioned from production v2",
+  "brands": [
+    "Clarity",
+    "Reserve",
+    "Drive",
+    "Orbit"
+  ],
+  "palette": {
+    "navy": "#07315F",
+    "ink": "#142238",
+    "muted": "#546174",
+    "paper": "#FAF9F5",
+    "white": "#FFFFFF",
+    "line": "#DCDCD6",
+    "soft": "#F0EFE9",
+    "sky": "#3BC1EE",
+    "coral": "#EB4E4D",
+    "teal": "#00A8AE",
+    "sand": "#F0CE9D",
+    "mint": "#C8F2E7",
+    "lemon": "#F9E76B",
+    "lavender": "#DED4FD",
+    "peach": "#FFDCD0",
+    "night": "#111821",
+    "nightCard": "#1B2530",
+    "nightSoft": "#253240",
+    "nightText": "#F3F1EA",
+    "nightMuted": "#BFC9D4",
+    "nightLine": "#596B80",
+    "success": "#176541",
+    "successSoft": "#E8F5EC",
+    "successDark": "#92D7AE",
+    "successDeep": "#173B2B",
+    "warning": "#805314",
+    "warningSoft": "#FFF2D5",
+    "warningDark": "#EFCC85",
+    "warningDeep": "#3E321D",
+    "error": "#AC292C",
+    "errorSoft": "#FDEDEB",
+    "errorDark": "#FFB4AC",
+    "errorDeep": "#492729",
+    "clarity": "#216BED",
+    "claritySoft": "#EAF0FF",
+    "clarityDark": "#A9C8FF",
+    "clarityDeep": "#163A76",
+    "reserve": "#114075",
+    "reserveSoft": "#EAF2F5",
+    "reserveDark": "#B4CDEA",
+    "reserveDeep": "#173957",
+    "drive": "#125545",
+    "driveSoft": "#DCF3DE",
+    "driveDark": "#A9E0BC",
+    "driveDeep": "#173E32",
+    "orbit": "#07315F",
+    "orbitSoft": "#FFF3BB",
+    "orbitDark": "#B9DDF5",
+    "orbitDeep": "#283749",
+    "focus": "#0067C5",
+    "outline": "#77828C"
+  },
+  "collections": {
+    "Palette": [
+      "Value"
+    ],
+    "Identity": [
+      "Clarity",
+      "Reserve",
+      "Drive",
+      "Orbit"
+    ],
+    "Theme": [
+      "Light",
+      "Dark"
+    ],
+    "Dimensions": [
+      "Value"
+    ],
+    "Typography": [
+      "English",
+      "Arabic"
+    ],
+    "Motion": [
+      "Full",
+      "Reduced"
+    ]
+  },
+  "tokens": [
+    {
+      "collection": "Palette",
+      "name": "palette/navy",
+      "type": "COLOR",
+      "values": {
+        "Value": "#07315F"
+      },
+      "scopes": [],
+      "css": "--o3-palette-navy"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/ink",
+      "type": "COLOR",
+      "values": {
+        "Value": "#142238"
+      },
+      "scopes": [],
+      "css": "--o3-palette-ink"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/muted",
+      "type": "COLOR",
+      "values": {
+        "Value": "#546174"
+      },
+      "scopes": [],
+      "css": "--o3-palette-muted"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/paper",
+      "type": "COLOR",
+      "values": {
+        "Value": "#FAF9F5"
+      },
+      "scopes": [],
+      "css": "--o3-palette-paper"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/white",
+      "type": "COLOR",
+      "values": {
+        "Value": "#FFFFFF"
+      },
+      "scopes": [],
+      "css": "--o3-palette-white"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/line",
+      "type": "COLOR",
+      "values": {
+        "Value": "#DCDCD6"
+      },
+      "scopes": [],
+      "css": "--o3-palette-line"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/soft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#F0EFE9"
+      },
+      "scopes": [],
+      "css": "--o3-palette-soft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/sky",
+      "type": "COLOR",
+      "values": {
+        "Value": "#3BC1EE"
+      },
+      "scopes": [],
+      "css": "--o3-palette-sky"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/coral",
+      "type": "COLOR",
+      "values": {
+        "Value": "#EB4E4D"
+      },
+      "scopes": [],
+      "css": "--o3-palette-coral"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/teal",
+      "type": "COLOR",
+      "values": {
+        "Value": "#00A8AE"
+      },
+      "scopes": [],
+      "css": "--o3-palette-teal"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/sand",
+      "type": "COLOR",
+      "values": {
+        "Value": "#F0CE9D"
+      },
+      "scopes": [],
+      "css": "--o3-palette-sand"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/mint",
+      "type": "COLOR",
+      "values": {
+        "Value": "#C8F2E7"
+      },
+      "scopes": [],
+      "css": "--o3-palette-mint"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/lemon",
+      "type": "COLOR",
+      "values": {
+        "Value": "#F9E76B"
+      },
+      "scopes": [],
+      "css": "--o3-palette-lemon"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/lavender",
+      "type": "COLOR",
+      "values": {
+        "Value": "#DED4FD"
+      },
+      "scopes": [],
+      "css": "--o3-palette-lavender"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/peach",
+      "type": "COLOR",
+      "values": {
+        "Value": "#FFDCD0"
+      },
+      "scopes": [],
+      "css": "--o3-palette-peach"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/night",
+      "type": "COLOR",
+      "values": {
+        "Value": "#111821"
+      },
+      "scopes": [],
+      "css": "--o3-palette-night"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/nightCard",
+      "type": "COLOR",
+      "values": {
+        "Value": "#1B2530"
+      },
+      "scopes": [],
+      "css": "--o3-palette-nightCard"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/nightSoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#253240"
+      },
+      "scopes": [],
+      "css": "--o3-palette-nightSoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/nightText",
+      "type": "COLOR",
+      "values": {
+        "Value": "#F3F1EA"
+      },
+      "scopes": [],
+      "css": "--o3-palette-nightText"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/nightMuted",
+      "type": "COLOR",
+      "values": {
+        "Value": "#BFC9D4"
+      },
+      "scopes": [],
+      "css": "--o3-palette-nightMuted"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/nightLine",
+      "type": "COLOR",
+      "values": {
+        "Value": "#596B80"
+      },
+      "scopes": [],
+      "css": "--o3-palette-nightLine"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/success",
+      "type": "COLOR",
+      "values": {
+        "Value": "#176541"
+      },
+      "scopes": [],
+      "css": "--o3-palette-success"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/successSoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#E8F5EC"
+      },
+      "scopes": [],
+      "css": "--o3-palette-successSoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/successDark",
+      "type": "COLOR",
+      "values": {
+        "Value": "#92D7AE"
+      },
+      "scopes": [],
+      "css": "--o3-palette-successDark"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/successDeep",
+      "type": "COLOR",
+      "values": {
+        "Value": "#173B2B"
+      },
+      "scopes": [],
+      "css": "--o3-palette-successDeep"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/warning",
+      "type": "COLOR",
+      "values": {
+        "Value": "#805314"
+      },
+      "scopes": [],
+      "css": "--o3-palette-warning"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/warningSoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#FFF2D5"
+      },
+      "scopes": [],
+      "css": "--o3-palette-warningSoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/warningDark",
+      "type": "COLOR",
+      "values": {
+        "Value": "#EFCC85"
+      },
+      "scopes": [],
+      "css": "--o3-palette-warningDark"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/warningDeep",
+      "type": "COLOR",
+      "values": {
+        "Value": "#3E321D"
+      },
+      "scopes": [],
+      "css": "--o3-palette-warningDeep"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/error",
+      "type": "COLOR",
+      "values": {
+        "Value": "#AC292C"
+      },
+      "scopes": [],
+      "css": "--o3-palette-error"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/errorSoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#FDEDEB"
+      },
+      "scopes": [],
+      "css": "--o3-palette-errorSoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/errorDark",
+      "type": "COLOR",
+      "values": {
+        "Value": "#FFB4AC"
+      },
+      "scopes": [],
+      "css": "--o3-palette-errorDark"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/errorDeep",
+      "type": "COLOR",
+      "values": {
+        "Value": "#492729"
+      },
+      "scopes": [],
+      "css": "--o3-palette-errorDeep"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/clarity",
+      "type": "COLOR",
+      "values": {
+        "Value": "#216BED"
+      },
+      "scopes": [],
+      "css": "--o3-palette-clarity"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/claritySoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#EAF0FF"
+      },
+      "scopes": [],
+      "css": "--o3-palette-claritySoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/clarityDark",
+      "type": "COLOR",
+      "values": {
+        "Value": "#A9C8FF"
+      },
+      "scopes": [],
+      "css": "--o3-palette-clarityDark"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/clarityDeep",
+      "type": "COLOR",
+      "values": {
+        "Value": "#163A76"
+      },
+      "scopes": [],
+      "css": "--o3-palette-clarityDeep"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/reserve",
+      "type": "COLOR",
+      "values": {
+        "Value": "#114075"
+      },
+      "scopes": [],
+      "css": "--o3-palette-reserve"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/reserveSoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#EAF2F5"
+      },
+      "scopes": [],
+      "css": "--o3-palette-reserveSoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/reserveDark",
+      "type": "COLOR",
+      "values": {
+        "Value": "#B4CDEA"
+      },
+      "scopes": [],
+      "css": "--o3-palette-reserveDark"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/reserveDeep",
+      "type": "COLOR",
+      "values": {
+        "Value": "#173957"
+      },
+      "scopes": [],
+      "css": "--o3-palette-reserveDeep"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/drive",
+      "type": "COLOR",
+      "values": {
+        "Value": "#125545"
+      },
+      "scopes": [],
+      "css": "--o3-palette-drive"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/driveSoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#DCF3DE"
+      },
+      "scopes": [],
+      "css": "--o3-palette-driveSoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/driveDark",
+      "type": "COLOR",
+      "values": {
+        "Value": "#A9E0BC"
+      },
+      "scopes": [],
+      "css": "--o3-palette-driveDark"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/driveDeep",
+      "type": "COLOR",
+      "values": {
+        "Value": "#173E32"
+      },
+      "scopes": [],
+      "css": "--o3-palette-driveDeep"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/orbit",
+      "type": "COLOR",
+      "values": {
+        "Value": "#07315F"
+      },
+      "scopes": [],
+      "css": "--o3-palette-orbit"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/orbitSoft",
+      "type": "COLOR",
+      "values": {
+        "Value": "#FFF3BB"
+      },
+      "scopes": [],
+      "css": "--o3-palette-orbitSoft"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/orbitDark",
+      "type": "COLOR",
+      "values": {
+        "Value": "#B9DDF5"
+      },
+      "scopes": [],
+      "css": "--o3-palette-orbitDark"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/orbitDeep",
+      "type": "COLOR",
+      "values": {
+        "Value": "#283749"
+      },
+      "scopes": [],
+      "css": "--o3-palette-orbitDeep"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/focus",
+      "type": "COLOR",
+      "values": {
+        "Value": "#0067C5"
+      },
+      "scopes": [],
+      "css": "--o3-palette-focus"
+    },
+    {
+      "collection": "Palette",
+      "name": "palette/outline",
+      "type": "COLOR",
+      "values": {
+        "Value": "#77828C"
+      },
+      "scopes": [],
+      "css": "--o3-palette-outline"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/primaryLight",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/clarity}",
+        "Reserve": "{palette/reserve}",
+        "Drive": "{palette/drive}",
+        "Orbit": "{palette/navy}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ],
+      "css": "--o3-brand-primaryLight"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/primaryDark",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/clarityDark}",
+        "Reserve": "{palette/reserveDark}",
+        "Drive": "{palette/driveDark}",
+        "Orbit": "{palette/orbitDark}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ],
+      "css": "--o3-brand-primaryDark"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/containerLight",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/claritySoft}",
+        "Reserve": "{palette/reserveSoft}",
+        "Drive": "{palette/driveSoft}",
+        "Orbit": "{palette/orbitSoft}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ],
+      "css": "--o3-brand-containerLight"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/containerDark",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/clarityDeep}",
+        "Reserve": "{palette/reserveDeep}",
+        "Drive": "{palette/driveDeep}",
+        "Orbit": "{palette/orbitDeep}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ],
+      "css": "--o3-brand-containerDark"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/hero",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/clarity}",
+        "Reserve": "{palette/reserve}",
+        "Drive": "{palette/mint}",
+        "Orbit": "{palette/lemon}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ],
+      "css": "--o3-brand-hero"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/onHero",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/white}",
+        "Reserve": "{palette/white}",
+        "Drive": "{palette/navy}",
+        "Orbit": "{palette/navy}"
+      },
+      "scopes": [
+        "TEXT_FILL",
+        "SHAPE_FILL"
+      ],
+      "css": "--o3-brand-onHero"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/accent",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/sky}",
+        "Reserve": "{palette/sand}",
+        "Drive": "{palette/coral}",
+        "Orbit": "{palette/sky}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ],
+      "css": "--o3-brand-accent"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/plate",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/clarity}",
+        "Reserve": "{palette/reserve}",
+        "Drive": "{palette/drive}",
+        "Orbit": "{palette/navy}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE_COLOR"
+      ],
+      "css": "--o3-brand-plate"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/onPlate",
+      "type": "COLOR",
+      "values": {
+        "Clarity": "{palette/white}",
+        "Reserve": "{palette/white}",
+        "Drive": "{palette/white}",
+        "Orbit": "{palette/white}"
+      },
+      "scopes": [
+        "TEXT_FILL",
+        "SHAPE_FILL"
+      ],
+      "css": "--o3-brand-onPlate"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/controlRadius",
+      "type": "FLOAT",
+      "values": {
+        "Clarity": 12,
+        "Reserve": 8,
+        "Drive": 24,
+        "Orbit": 20
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-brand-controlRadius"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/surfaceRadius",
+      "type": "FLOAT",
+      "values": {
+        "Clarity": 16,
+        "Reserve": 12,
+        "Drive": 28,
+        "Orbit": 24
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-brand-surfaceRadius"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/illustrationCoverage",
+      "type": "FLOAT",
+      "values": {
+        "Clarity": 12,
+        "Reserve": 8,
+        "Drive": 36,
+        "Orbit": 40
+      },
+      "scopes": [],
+      "css": "--o3-brand-illustrationCoverage"
+    },
+    {
+      "collection": "Identity",
+      "name": "brand/displayFamily",
+      "type": "STRING",
+      "values": {
+        "Clarity": "Hanken Grotesk",
+        "Reserve": "Hanken Grotesk",
+        "Drive": "Baloo 2",
+        "Orbit": "Baloo 2"
+      },
+      "scopes": [
+        "FONT_FAMILY"
+      ],
+      "css": "--o3-brand-displayFamily"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/surface",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/paper}",
+        "Dark": "{palette/night}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-surface"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/surfaceContainer",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/white}",
+        "Dark": "{palette/nightCard}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-surface-container"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/surfaceSoft",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/soft}",
+        "Dark": "{palette/nightSoft}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-surface-soft"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/onSurface",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/ink}",
+        "Dark": "{palette/nightText}"
+      },
+      "scopes": [
+        "TEXT_FILL",
+        "SHAPE_FILL"
+      ],
+      "css": "--md-sys-color-on-surface"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/onSurfaceVariant",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/muted}",
+        "Dark": "{palette/nightMuted}"
+      },
+      "scopes": [
+        "TEXT_FILL",
+        "SHAPE_FILL"
+      ],
+      "css": "--md-sys-color-on-surface-variant"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/outline",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/outline}",
+        "Dark": "{palette/nightLine}"
+      },
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "css": "--md-sys-color-outline"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/outlineVariant",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/line}",
+        "Dark": "{palette/nightSoft}"
+      },
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "css": "--md-sys-color-outline-variant"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/primary",
+      "type": "COLOR",
+      "values": {
+        "Light": "{brand/primaryLight}",
+        "Dark": "{brand/primaryDark}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-primary"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/onPrimary",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/white}",
+        "Dark": "{palette/navy}"
+      },
+      "scopes": [
+        "TEXT_FILL",
+        "SHAPE_FILL"
+      ],
+      "css": "--md-sys-color-on-primary"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/primaryContainer",
+      "type": "COLOR",
+      "values": {
+        "Light": "{brand/containerLight}",
+        "Dark": "{brand/containerDark}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-primary-container"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/onPrimaryContainer",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/navy}",
+        "Dark": "{brand/primaryDark}"
+      },
+      "scopes": [
+        "TEXT_FILL",
+        "SHAPE_FILL"
+      ],
+      "css": "--md-sys-color-on-primary-container"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/success",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/success}",
+        "Dark": "{palette/successDark}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-success"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/successContainer",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/successSoft}",
+        "Dark": "{palette/successDeep}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-success-container"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/warning",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/warning}",
+        "Dark": "{palette/warningDark}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-warning"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/warningContainer",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/warningSoft}",
+        "Dark": "{palette/warningDeep}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-warning-container"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/error",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/error}",
+        "Dark": "{palette/errorDark}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-error"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/errorContainer",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/errorSoft}",
+        "Dark": "{palette/errorDeep}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-error-container"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/focus",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/focus}",
+        "Dark": "{palette/sky}"
+      },
+      "scopes": [
+        "STROKE_COLOR"
+      ],
+      "css": "--md-sys-color-focus"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/disabled",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/soft}",
+        "Dark": "{palette/nightSoft}"
+      },
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "TEXT_FILL"
+      ],
+      "css": "--md-sys-color-disabled"
+    },
+    {
+      "collection": "Theme",
+      "name": "color/onDisabled",
+      "type": "COLOR",
+      "values": {
+        "Light": "{palette/muted}",
+        "Dark": "{palette/nightMuted}"
+      },
+      "scopes": [
+        "TEXT_FILL",
+        "SHAPE_FILL"
+      ],
+      "css": "--md-sys-color-on-disabled"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/0",
+      "type": "FLOAT",
+      "values": {
+        "Value": 0
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-0"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/4",
+      "type": "FLOAT",
+      "values": {
+        "Value": 4
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-4"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/8",
+      "type": "FLOAT",
+      "values": {
+        "Value": 8
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-8"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/12",
+      "type": "FLOAT",
+      "values": {
+        "Value": 12
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-12"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/16",
+      "type": "FLOAT",
+      "values": {
+        "Value": 16
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-16"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/20",
+      "type": "FLOAT",
+      "values": {
+        "Value": 20
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-20"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/24",
+      "type": "FLOAT",
+      "values": {
+        "Value": 24
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-24"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/32",
+      "type": "FLOAT",
+      "values": {
+        "Value": 32
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-32"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/40",
+      "type": "FLOAT",
+      "values": {
+        "Value": 40
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-40"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/48",
+      "type": "FLOAT",
+      "values": {
+        "Value": 48
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-48"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/64",
+      "type": "FLOAT",
+      "values": {
+        "Value": 64
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-64"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "space/80",
+      "type": "FLOAT",
+      "values": {
+        "Value": 80
+      },
+      "scopes": [
+        "GAP"
+      ],
+      "css": "--o3-space-80"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/0",
+      "type": "FLOAT",
+      "values": {
+        "Value": 0
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-0"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/4",
+      "type": "FLOAT",
+      "values": {
+        "Value": 4
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-4"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/8",
+      "type": "FLOAT",
+      "values": {
+        "Value": 8
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-8"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/12",
+      "type": "FLOAT",
+      "values": {
+        "Value": 12
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-12"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/16",
+      "type": "FLOAT",
+      "values": {
+        "Value": 16
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-16"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/20",
+      "type": "FLOAT",
+      "values": {
+        "Value": 20
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-20"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/24",
+      "type": "FLOAT",
+      "values": {
+        "Value": 24
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-24"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/28",
+      "type": "FLOAT",
+      "values": {
+        "Value": 28
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-28"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/32",
+      "type": "FLOAT",
+      "values": {
+        "Value": 32
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-32"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "radius/999",
+      "type": "FLOAT",
+      "values": {
+        "Value": 999
+      },
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "css": "--o3-radius-999"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "size/touch",
+      "type": "FLOAT",
+      "values": {
+        "Value": 48
+      },
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "css": "--o3-size-touch"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "size/control",
+      "type": "FLOAT",
+      "values": {
+        "Value": 56
+      },
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "css": "--o3-size-control"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "size/icon",
+      "type": "FLOAT",
+      "values": {
+        "Value": 24
+      },
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "css": "--o3-size-icon"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "size/stroke",
+      "type": "FLOAT",
+      "values": {
+        "Value": 2
+      },
+      "scopes": [
+        "STROKE_FLOAT"
+      ],
+      "css": "--o3-size-stroke"
+    },
+    {
+      "collection": "Dimensions",
+      "name": "size/content",
+      "type": "FLOAT",
+      "values": {
+        "Value": 354
+      },
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "css": "--o3-size-content"
+    },
+    {
+      "collection": "Typography",
+      "name": "font/display",
+      "type": "STRING",
+      "values": {
+        "English": "{brand/displayFamily}",
+        "Arabic": "Beiruti"
+      },
+      "scopes": [
+        "FONT_FAMILY"
+      ],
+      "css": "--o3-font-display"
+    },
+    {
+      "collection": "Typography",
+      "name": "font/body",
+      "type": "STRING",
+      "values": {
+        "English": "Hanken Grotesk",
+        "Arabic": "Beiruti"
+      },
+      "scopes": [
+        "FONT_FAMILY"
+      ],
+      "css": "--o3-font-body"
+    },
+    {
+      "collection": "Typography",
+      "name": "font/expressive",
+      "type": "STRING",
+      "values": {
+        "English": "Baloo 2",
+        "Arabic": "Beiruti"
+      },
+      "scopes": [
+        "FONT_FAMILY"
+      ],
+      "css": "--o3-font-expressive"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/micro",
+      "type": "FLOAT",
+      "values": {
+        "English": 12,
+        "Arabic": 14
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-micro"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/caption",
+      "type": "FLOAT",
+      "values": {
+        "English": 14,
+        "Arabic": 16
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-caption"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/body",
+      "type": "FLOAT",
+      "values": {
+        "English": 16,
+        "Arabic": 18
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-body"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/title",
+      "type": "FLOAT",
+      "values": {
+        "English": 20,
+        "Arabic": 22
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-title"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/heading",
+      "type": "FLOAT",
+      "values": {
+        "English": 28,
+        "Arabic": 28
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-heading"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/display",
+      "type": "FLOAT",
+      "values": {
+        "English": 40,
+        "Arabic": 40
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-display"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/hero",
+      "type": "FLOAT",
+      "values": {
+        "English": 64,
+        "Arabic": 64
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-hero"
+    },
+    {
+      "collection": "Typography",
+      "name": "type/amount",
+      "type": "FLOAT",
+      "values": {
+        "English": 36,
+        "Arabic": 36
+      },
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "css": "--o3-type-amount"
+    },
+    {
+      "collection": "Motion",
+      "name": "motion/feedback",
+      "type": "FLOAT",
+      "values": {
+        "Full": 120,
+        "Reduced": 0
+      },
+      "scopes": [],
+      "css": "--o3-motion-feedback"
+    },
+    {
+      "collection": "Motion",
+      "name": "motion/enter",
+      "type": "FLOAT",
+      "values": {
+        "Full": 240,
+        "Reduced": 0
+      },
+      "scopes": [],
+      "css": "--o3-motion-enter"
+    },
+    {
+      "collection": "Motion",
+      "name": "motion/exit",
+      "type": "FLOAT",
+      "values": {
+        "Full": 160,
+        "Reduced": 0
+      },
+      "scopes": [],
+      "css": "--o3-motion-exit"
+    },
+    {
+      "collection": "Motion",
+      "name": "motion/scene",
+      "type": "FLOAT",
+      "values": {
+        "Full": 480,
+        "Reduced": 0
+      },
+      "scopes": [],
+      "css": "--o3-motion-scene"
+    },
+    {
+      "collection": "Motion",
+      "name": "motion/stagger",
+      "type": "FLOAT",
+      "values": {
+        "Full": 40,
+        "Reduced": 0
+      },
+      "scopes": [],
+      "css": "--o3-motion-stagger"
+    }
+  ]
+}

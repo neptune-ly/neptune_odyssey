@@ -1,0 +1,5812 @@
+[
+  {
+    "key": "A01",
+    "title": "Welcome",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your money.\nYour next chapter.",
+          "Detail": "Everyday banking, with a clear view of what matters.",
+          "Eyebrow": "Clarity Bank"
+        }
+      },
+      {
+        "key": "welcome-art",
+        "art": "local-bank",
+        "width": 276
+      },
+      {
+        "key": "sign-in",
+        "component": "Button",
+        "props": {
+          "Label": "Sign in"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A02"
+      },
+      {
+        "key": "open-account",
+        "component": "Button",
+        "props": {
+          "Label": "Open an account"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A17"
+      }
+    ]
+  },
+  {
+    "key": "A02",
+    "title": "Sign in",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Sign in",
+          "Back": "‹  Back"
+        },
+        "to": "A01"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Welcome back.",
+          "Detail": "Use your customer number and passcode.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "customer",
+        "component": "Field",
+        "props": {
+          "Label": "Customer number",
+          "Value": "1040 9281",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "passcode",
+        "component": "Field",
+        "props": {
+          "Label": "Passcode",
+          "Value": "••••••",
+          "Helper": "Never share your passcode with anyone."
+        }
+      },
+      {
+        "key": "continue",
+        "component": "Button",
+        "props": {
+          "Label": "Sign in securely"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A03"
+      },
+      {
+        "key": "recovery",
+        "component": "Button",
+        "props": {
+          "Label": "Need help signing in?"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "A18"
+      }
+    ]
+  },
+  {
+    "key": "A03",
+    "title": "Accounts",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Good morning, Amal",
+          "Detail": "",
+          "Eyebrow": "Clarity Bank"
+        }
+      },
+      {
+        "key": "balance",
+        "component": "Balance",
+        "to": "A14"
+      },
+      {
+        "key": "send",
+        "component": "Button",
+        "props": {
+          "Label": "Send money"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A04"
+      },
+      {
+        "key": "activity",
+        "component": "List row",
+        "props": {
+          "Title": "Medina Market",
+          "Detail": "Card payment · Completed · Today",
+          "Value": "−64.000 LYD"
+        },
+        "to": "A14"
+      },
+      {
+        "key": "help-panel",
+        "component": "Illustrated panel",
+        "props": {
+          "Title": "Your bank.\nWithin reach.",
+          "Detail": "Support when you need it."
+        },
+        "to": "A18"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "A03"
+          },
+          {
+            "label": "Activity",
+            "to": "A14"
+          },
+          {
+            "label": "Cards",
+            "to": "A12"
+          },
+          {
+            "label": "Profile",
+            "to": "A16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "A04",
+    "title": "Choose recipient",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Send money",
+          "Back": "‹  Back"
+        },
+        "to": "A03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Who are you sending to?",
+          "Detail": "Choose a saved recipient or add someone new.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "search",
+        "component": "Field",
+        "props": {
+          "Label": "Find a recipient",
+          "Value": "Name or account number",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "recipient",
+        "component": "List row",
+        "props": {
+          "Title": "Amal Ben Musa",
+          "Detail": "Clarity Bank · Account ending 4092",
+          "Value": ""
+        },
+        "to": "A05"
+      },
+      {
+        "key": "recipient-two",
+        "component": "List row",
+        "props": {
+          "Title": "Omar El Hadi",
+          "Detail": "Reserve Bank · Account ending 6250",
+          "Value": ""
+        },
+        "to": "A05"
+      },
+      {
+        "key": "new-recipient",
+        "component": "Button",
+        "props": {
+          "Label": "Add a recipient"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A19"
+      }
+    ]
+  },
+  {
+    "key": "A05",
+    "title": "Enter amount",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Amount",
+          "Back": "‹  Back"
+        },
+        "to": "A04"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Send to Amal",
+          "Detail": "Account ending 4092",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "amount",
+        "component": "Field",
+        "props": {
+          "Label": "Amount in LYD",
+          "Value": "250.000",
+          "Helper": "Available 12,480.000 LYD"
+        }
+      },
+      {
+        "key": "reference",
+        "component": "Field",
+        "props": {
+          "Label": "Note · optional",
+          "Value": "Family expenses",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Before you continue",
+          "Details": "Transfer amount  250.000 LYD\nService fee  1.000 LYD",
+          "Total": "You pay 251.000 LYD"
+        }
+      },
+      {
+        "key": "review",
+        "component": "Button",
+        "props": {
+          "Label": "Review transfer"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A06"
+      }
+    ]
+  },
+  {
+    "key": "A06",
+    "title": "Review transfer",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Review",
+          "Back": "‹  Back"
+        },
+        "to": "A05"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Check every detail.",
+          "Detail": "You will authorize this transfer in the next step.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Transfer details",
+          "Details": "To  Amal Ben Musa · 4092\nFrom  Current account · 2148\nAmount  250.000 LYD\nFee  1.000 LYD\nArrival  Usually within minutes",
+          "Total": "Total 251.000 LYD"
+        }
+      },
+      {
+        "key": "authorize",
+        "component": "Button",
+        "props": {
+          "Label": "Continue to verification"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A07"
+      },
+      {
+        "key": "edit",
+        "component": "Button",
+        "props": {
+          "Label": "Edit amount"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "A05"
+      }
+    ]
+  },
+  {
+    "key": "A07",
+    "title": "Authorize transfer",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Verify transfer",
+          "Back": "‹  Back"
+        },
+        "to": "A06"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Confirm it’s you.",
+          "Detail": "Enter the 6-digit code sent to ••• •• 0192.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "otp",
+        "component": "Field",
+        "props": {
+          "Label": "Verification code",
+          "Value": "1 2 3 4 5 6",
+          "Helper": "Code expires in 02:00"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "You are authorizing",
+          "Details": "Amal Ben Musa · 4092\nAmount 250.000 LYD + fee 1.000 LYD",
+          "Total": "Total 251.000 LYD"
+        }
+      },
+      {
+        "key": "confirm",
+        "component": "Button",
+        "props": {
+          "Label": "Confirm transfer"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A08"
+      },
+      {
+        "key": "wrong-code",
+        "component": "Button",
+        "props": {
+          "Label": "Code not working?"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "A20"
+      }
+    ]
+  },
+  {
+    "key": "A08",
+    "title": "Processing",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Checking your transfer.",
+          "Detail": "Keep this page open. Your request has been submitted.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "pending",
+        "component": "Status",
+        "state": "Pending",
+        "props": {
+          "Title": "Processing",
+          "Detail": "Reference O3-10482. Do not send again."
+        }
+      },
+      {
+        "key": "processing-art",
+        "art": "waiting-hourglass",
+        "width": 180
+      },
+      {
+        "key": "check-status",
+        "component": "Button",
+        "props": {
+          "Label": "Check transfer status"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A09"
+      },
+      {
+        "key": "connection",
+        "component": "Button",
+        "props": {
+          "Label": "Can’t see an update?"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "A10"
+      }
+    ]
+  },
+  {
+    "key": "A09",
+    "title": "Confirmed receipt",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Transfer confirmed.",
+          "Detail": "The recipient’s account has been credited.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Completed",
+          "Detail": "18 September 2026 · 14:32 · O3-10482"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Receipt",
+          "Details": "Amal Ben Musa · Account 4092\nTransfer  250.000 LYD\nService fee  1.000 LYD\nFrom  Current account · 2148",
+          "Total": "Total paid 251.000 LYD"
+        }
+      },
+      {
+        "key": "done",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A03"
+      },
+      {
+        "key": "receipt",
+        "component": "Button",
+        "props": {
+          "Label": "View activity"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A14"
+      }
+    ]
+  },
+  {
+    "key": "A10",
+    "title": "Unknown outcome",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "We’re checking the result.",
+          "Detail": "The connection ended after you confirmed.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Unknown",
+        "props": {
+          "Title": "Result not yet known",
+          "Detail": "Your original request is O3-10482. Check its status before attempting another transfer."
+        }
+      },
+      {
+        "key": "recheck",
+        "component": "Button",
+        "props": {
+          "Label": "Check original transfer"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A09"
+      },
+      {
+        "key": "support",
+        "component": "Button",
+        "props": {
+          "Label": "Contact support"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A18"
+      }
+    ]
+  },
+  {
+    "key": "A11",
+    "title": "Transfer not sent",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "The transfer was not sent.",
+          "Detail": "Your account was not debited.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Error"
+      },
+      {
+        "key": "correct",
+        "component": "Button",
+        "props": {
+          "Label": "Review transfer details"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A05"
+      },
+      {
+        "key": "home",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A03"
+      }
+    ]
+  },
+  {
+    "key": "A12",
+    "title": "Your cards",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Cards",
+          "Back": "‹  Back"
+        },
+        "to": "A03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Everyday spending.\nClearly in control.",
+          "Detail": "",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "card",
+        "component": "Payment card",
+        "props": {
+          "Brand": "Clarity Bank"
+        }
+      },
+      {
+        "key": "limits",
+        "component": "Choice",
+        "props": {
+          "Label": "Daily spending limit",
+          "Detail": "2,000.000 LYD · 460.000 used"
+        }
+      },
+      {
+        "key": "freeze",
+        "component": "Button",
+        "props": {
+          "Label": "Freeze card"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A13"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "A03"
+          },
+          {
+            "label": "Activity",
+            "to": "A14"
+          },
+          {
+            "label": "Cards",
+            "to": "A12"
+          },
+          {
+            "label": "Profile",
+            "to": "A16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "A13",
+    "title": "Card frozen",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Cards",
+          "Back": "‹  Back"
+        },
+        "to": "A12"
+      },
+      {
+        "key": "card",
+        "component": "Payment card",
+        "state": "Frozen",
+        "props": {
+          "Brand": "Clarity Bank"
+        }
+      },
+      {
+        "key": "frozen-info",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Card frozen",
+          "Detail": "New card purchases are blocked. Existing pending payments may still complete."
+        }
+      },
+      {
+        "key": "unfreeze",
+        "component": "Button",
+        "props": {
+          "Label": "Unfreeze card"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A12"
+      },
+      {
+        "key": "support",
+        "component": "Button",
+        "props": {
+          "Label": "Report a lost card"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "A18"
+      }
+    ]
+  },
+  {
+    "key": "A14",
+    "title": "Activity",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Activity",
+          "Back": "‹  Back"
+        },
+        "to": "A03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your money, in view.",
+          "Detail": "Current account · 2148",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "incoming",
+        "component": "List row",
+        "props": {
+          "Title": "Monthly salary",
+          "Detail": "Incoming · Completed · 18 Sep",
+          "Value": "+3,200.000 LYD"
+        }
+      },
+      {
+        "key": "outgoing",
+        "component": "List row",
+        "props": {
+          "Title": "Amal Ben Musa",
+          "Detail": "Transfer · Completed · 18 Sep",
+          "Value": "−251.000 LYD"
+        },
+        "to": "A09"
+      },
+      {
+        "key": "bill",
+        "component": "List row",
+        "props": {
+          "Title": "Pay a bill",
+          "Detail": "Utilities and services",
+          "Value": ""
+        },
+        "to": "A15"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "A03"
+          },
+          {
+            "label": "Activity",
+            "to": "A14"
+          },
+          {
+            "label": "Cards",
+            "to": "A12"
+          },
+          {
+            "label": "Profile",
+            "to": "A16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "A15",
+    "title": "Pay a bill",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Pay a bill",
+          "Back": "‹  Back"
+        },
+        "to": "A14"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Keep the everyday\nrunning smoothly.",
+          "Detail": "",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "provider",
+        "component": "Field",
+        "props": {
+          "Label": "Provider",
+          "Value": "Libyana",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "number",
+        "component": "Field",
+        "props": {
+          "Label": "Subscriber number",
+          "Value": "091 000 0192",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Bill details",
+          "Details": "Service  Mobile top-up\nAmount  20.000 LYD\nFee  0.000 LYD",
+          "Total": "Total 20.000 LYD"
+        }
+      },
+      {
+        "key": "pay",
+        "component": "Button",
+        "props": {
+          "Label": "Review bill payment"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A21"
+      }
+    ]
+  },
+  {
+    "key": "A16",
+    "title": "Preferences",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Profile",
+          "Back": "‹  Back"
+        },
+        "to": "A03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Make it yours.",
+          "Detail": "Amal Ben Musa",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "language",
+        "component": "List row",
+        "props": {
+          "Title": "Language",
+          "Detail": "English / العربية",
+          "Value": ""
+        },
+        "to": "AAR"
+      },
+      {
+        "key": "appearance",
+        "component": "List row",
+        "props": {
+          "Title": "Appearance",
+          "Detail": "Light / Dark",
+          "Value": ""
+        },
+        "to": "ADK"
+      },
+      {
+        "key": "help",
+        "component": "List row",
+        "props": {
+          "Title": "Help and support",
+          "Detail": "We’re here when you need us.",
+          "Value": ""
+        },
+        "to": "A18"
+      },
+      {
+        "key": "signout",
+        "component": "Button",
+        "props": {
+          "Label": "Sign out"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A01"
+      }
+    ]
+  },
+  {
+    "key": "A17",
+    "title": "Open an account",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Open an account",
+          "Back": "‹  Back"
+        },
+        "to": "A01"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "A clear start.",
+          "Detail": "Have your identity document and mobile number ready.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "onboard-art",
+        "art": "security-shield",
+        "width": 210
+      },
+      {
+        "key": "phone",
+        "component": "Field",
+        "props": {
+          "Label": "Mobile number",
+          "Value": "+218 91 000 0192",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "consent",
+        "component": "Choice",
+        "state": "Selected",
+        "props": {
+          "Label": "I agree to the account terms",
+          "Detail": "Identity checks and privacy information"
+        }
+      },
+      {
+        "key": "start",
+        "component": "Button",
+        "props": {
+          "Label": "Continue to identity check"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A22"
+      }
+    ]
+  },
+  {
+    "key": "A18",
+    "title": "Support",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Support",
+          "Back": "‹  Back"
+        },
+        "to": "A03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Let’s get this sorted.",
+          "Detail": "Choose what you need help with.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "track",
+        "component": "List row",
+        "props": {
+          "Title": "Check a transfer",
+          "Detail": "Use reference O3-10482",
+          "Value": ""
+        },
+        "to": "A10"
+      },
+      {
+        "key": "access",
+        "component": "List row",
+        "props": {
+          "Title": "Recover account access",
+          "Detail": "Verify your identity through a secure flow.",
+          "Value": ""
+        },
+        "to": "A02"
+      },
+      {
+        "key": "return",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A03"
+      }
+    ]
+  },
+  {
+    "key": "A19",
+    "title": "Add recipient",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "New recipient",
+          "Back": "‹  Back"
+        },
+        "to": "A04"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Add someone you trust.",
+          "Detail": "Check the account number with the recipient.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "name",
+        "component": "Field",
+        "props": {
+          "Label": "Full name",
+          "Value": "Amal Ben Musa",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "account",
+        "component": "Field",
+        "props": {
+          "Label": "Account number",
+          "Value": "•••• •••• 4092",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "verify",
+        "component": "Choice",
+        "state": "Selected",
+        "props": {
+          "Label": "Amal Ben Musa",
+          "Detail": "Account name verified"
+        }
+      },
+      {
+        "key": "save",
+        "component": "Button",
+        "props": {
+          "Label": "Save and enter amount"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A05"
+      }
+    ]
+  },
+  {
+    "key": "A20",
+    "title": "Code expired",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Verification",
+          "Back": "‹  Back"
+        },
+        "to": "A07"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "That code has expired.",
+          "Detail": "Your transfer has not been submitted.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Error",
+        "props": {
+          "Title": "A fresh code is needed",
+          "Detail": "Request a new code for the same amount and recipient."
+        }
+      },
+      {
+        "key": "resend",
+        "component": "Button",
+        "props": {
+          "Label": "Request a new code"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A07"
+      },
+      {
+        "key": "cancel",
+        "component": "Button",
+        "props": {
+          "Label": "Cancel transfer"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "A03"
+      }
+    ]
+  },
+  {
+    "key": "A21",
+    "title": "Bill confirmation",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Review bill",
+          "Back": "‹  Back"
+        },
+        "to": "A15"
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Confirm top-up",
+          "Details": "Libyana · 091 000 0192\nAmount  20.000 LYD\nFee  0.000 LYD\nFrom  Current account · 2148",
+          "Total": "Total 20.000 LYD"
+        }
+      },
+      {
+        "key": "confirm",
+        "component": "Button",
+        "props": {
+          "Label": "Confirm 20.000 LYD"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A23"
+      },
+      {
+        "key": "edit",
+        "component": "Button",
+        "props": {
+          "Label": "Edit details"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "A15"
+      }
+    ]
+  },
+  {
+    "key": "A22",
+    "title": "Identity review",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your application\nis being reviewed.",
+          "Detail": "We’ll notify you when the identity check is complete.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "state",
+        "component": "Status",
+        "state": "Pending",
+        "props": {
+          "Title": "Under review",
+          "Detail": "Application O3-APP-108. You can safely return later."
+        }
+      },
+      {
+        "key": "finish",
+        "component": "Button",
+        "props": {
+          "Label": "Return to sign in"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A01"
+      }
+    ]
+  },
+  {
+    "key": "A23",
+    "title": "Bill paid",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Top-up completed.",
+          "Detail": "20.000 LYD was added to 091 000 0192.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Completed",
+          "Detail": "Total 20.000 LYD · No fee · O3-BILL-209"
+        }
+      },
+      {
+        "key": "done",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A03"
+      }
+    ]
+  },
+  {
+    "key": "N01",
+    "title": "Welcome",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Banking with\npeace of mind.",
+          "Detail": "Everyday banking, with a clear view of what matters.",
+          "Eyebrow": "Reserve Bank"
+        }
+      },
+      {
+        "key": "welcome-art",
+        "art": "local-bank",
+        "width": 276
+      },
+      {
+        "key": "sign-in",
+        "component": "Button",
+        "props": {
+          "Label": "Sign in"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N02"
+      },
+      {
+        "key": "open-account",
+        "component": "Button",
+        "props": {
+          "Label": "Open an account"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N17"
+      }
+    ]
+  },
+  {
+    "key": "N02",
+    "title": "Sign in",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Sign in",
+          "Back": "‹  Back"
+        },
+        "to": "N01"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Welcome back.",
+          "Detail": "Use your customer number and passcode.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "customer",
+        "component": "Field",
+        "props": {
+          "Label": "Customer number",
+          "Value": "1040 9281",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "passcode",
+        "component": "Field",
+        "props": {
+          "Label": "Passcode",
+          "Value": "••••••",
+          "Helper": "Never share your passcode with anyone."
+        }
+      },
+      {
+        "key": "continue",
+        "component": "Button",
+        "props": {
+          "Label": "Sign in securely"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N03"
+      },
+      {
+        "key": "recovery",
+        "component": "Button",
+        "props": {
+          "Label": "Need help signing in?"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "N18"
+      }
+    ]
+  },
+  {
+    "key": "N03",
+    "title": "Accounts",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Good morning, Amal",
+          "Detail": "",
+          "Eyebrow": "Reserve Bank"
+        }
+      },
+      {
+        "key": "balance",
+        "component": "Balance",
+        "to": "N14"
+      },
+      {
+        "key": "send",
+        "component": "Button",
+        "props": {
+          "Label": "Send money"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N04"
+      },
+      {
+        "key": "activity",
+        "component": "List row",
+        "props": {
+          "Title": "Medina Market",
+          "Detail": "Card payment · Completed · Today",
+          "Value": "−64.000 LYD"
+        },
+        "to": "N14"
+      },
+      {
+        "key": "help-panel",
+        "component": "Illustrated panel",
+        "props": {
+          "Title": "Your bank.\nWithin reach.",
+          "Detail": "Support when you need it."
+        },
+        "to": "N18"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "N03"
+          },
+          {
+            "label": "Activity",
+            "to": "N14"
+          },
+          {
+            "label": "Cards",
+            "to": "N12"
+          },
+          {
+            "label": "Profile",
+            "to": "N16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "N04",
+    "title": "Choose recipient",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Send money",
+          "Back": "‹  Back"
+        },
+        "to": "N03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Who are you sending to?",
+          "Detail": "Choose a saved recipient or add someone new.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "search",
+        "component": "Field",
+        "props": {
+          "Label": "Find a recipient",
+          "Value": "Name or account number",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "recipient",
+        "component": "List row",
+        "props": {
+          "Title": "Amal Ben Musa",
+          "Detail": "Clarity Bank · Account ending 4092",
+          "Value": ""
+        },
+        "to": "N05"
+      },
+      {
+        "key": "recipient-two",
+        "component": "List row",
+        "props": {
+          "Title": "Omar El Hadi",
+          "Detail": "Reserve Bank · Account ending 6250",
+          "Value": ""
+        },
+        "to": "N05"
+      },
+      {
+        "key": "new-recipient",
+        "component": "Button",
+        "props": {
+          "Label": "Add a recipient"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N19"
+      }
+    ]
+  },
+  {
+    "key": "N05",
+    "title": "Enter amount",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Amount",
+          "Back": "‹  Back"
+        },
+        "to": "N04"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Send to Amal",
+          "Detail": "Account ending 4092",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "amount",
+        "component": "Field",
+        "props": {
+          "Label": "Amount in LYD",
+          "Value": "250.000",
+          "Helper": "Available 12,480.000 LYD"
+        }
+      },
+      {
+        "key": "reference",
+        "component": "Field",
+        "props": {
+          "Label": "Note · optional",
+          "Value": "Family expenses",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Before you continue",
+          "Details": "Transfer amount  250.000 LYD\nService fee  1.000 LYD",
+          "Total": "You pay 251.000 LYD"
+        }
+      },
+      {
+        "key": "review",
+        "component": "Button",
+        "props": {
+          "Label": "Review transfer"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N06"
+      }
+    ]
+  },
+  {
+    "key": "N06",
+    "title": "Review transfer",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Review",
+          "Back": "‹  Back"
+        },
+        "to": "N05"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Check every detail.",
+          "Detail": "You will authorize this transfer in the next step.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Transfer details",
+          "Details": "To  Amal Ben Musa · 4092\nFrom  Current account · 2148\nAmount  250.000 LYD\nFee  1.000 LYD\nArrival  Usually within minutes",
+          "Total": "Total 251.000 LYD"
+        }
+      },
+      {
+        "key": "authorize",
+        "component": "Button",
+        "props": {
+          "Label": "Continue to verification"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N07"
+      },
+      {
+        "key": "edit",
+        "component": "Button",
+        "props": {
+          "Label": "Edit amount"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "N05"
+      }
+    ]
+  },
+  {
+    "key": "N07",
+    "title": "Authorize transfer",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Verify transfer",
+          "Back": "‹  Back"
+        },
+        "to": "N06"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Confirm it’s you.",
+          "Detail": "Enter the 6-digit code sent to ••• •• 0192.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "otp",
+        "component": "Field",
+        "props": {
+          "Label": "Verification code",
+          "Value": "1 2 3 4 5 6",
+          "Helper": "Code expires in 02:00"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "You are authorizing",
+          "Details": "Amal Ben Musa · 4092\nAmount 250.000 LYD + fee 1.000 LYD",
+          "Total": "Total 251.000 LYD"
+        }
+      },
+      {
+        "key": "confirm",
+        "component": "Button",
+        "props": {
+          "Label": "Confirm transfer"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N08"
+      },
+      {
+        "key": "wrong-code",
+        "component": "Button",
+        "props": {
+          "Label": "Code not working?"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "N20"
+      }
+    ]
+  },
+  {
+    "key": "N08",
+    "title": "Processing",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Checking your transfer.",
+          "Detail": "Keep this page open. Your request has been submitted.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "pending",
+        "component": "Status",
+        "state": "Pending",
+        "props": {
+          "Title": "Processing",
+          "Detail": "Reference O3-10482. Do not send again."
+        }
+      },
+      {
+        "key": "processing-art",
+        "art": "waiting-hourglass",
+        "width": 180
+      },
+      {
+        "key": "check-status",
+        "component": "Button",
+        "props": {
+          "Label": "Check transfer status"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N09"
+      },
+      {
+        "key": "connection",
+        "component": "Button",
+        "props": {
+          "Label": "Can’t see an update?"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "N10"
+      }
+    ]
+  },
+  {
+    "key": "N09",
+    "title": "Confirmed receipt",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Transfer confirmed.",
+          "Detail": "The recipient’s account has been credited.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Completed",
+          "Detail": "18 September 2026 · 14:32 · O3-10482"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Receipt",
+          "Details": "Amal Ben Musa · Account 4092\nTransfer  250.000 LYD\nService fee  1.000 LYD\nFrom  Current account · 2148",
+          "Total": "Total paid 251.000 LYD"
+        }
+      },
+      {
+        "key": "done",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N03"
+      },
+      {
+        "key": "receipt",
+        "component": "Button",
+        "props": {
+          "Label": "View activity"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N14"
+      }
+    ]
+  },
+  {
+    "key": "N10",
+    "title": "Unknown outcome",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "We’re checking the result.",
+          "Detail": "The connection ended after you confirmed.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Unknown",
+        "props": {
+          "Title": "Result not yet known",
+          "Detail": "Your original request is O3-10482. Check its status before attempting another transfer."
+        }
+      },
+      {
+        "key": "recheck",
+        "component": "Button",
+        "props": {
+          "Label": "Check original transfer"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N09"
+      },
+      {
+        "key": "support",
+        "component": "Button",
+        "props": {
+          "Label": "Contact support"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N18"
+      }
+    ]
+  },
+  {
+    "key": "N11",
+    "title": "Transfer not sent",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "The transfer was not sent.",
+          "Detail": "Your account was not debited.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Error"
+      },
+      {
+        "key": "correct",
+        "component": "Button",
+        "props": {
+          "Label": "Review transfer details"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N05"
+      },
+      {
+        "key": "home",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N03"
+      }
+    ]
+  },
+  {
+    "key": "N12",
+    "title": "Your cards",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Cards",
+          "Back": "‹  Back"
+        },
+        "to": "N03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Everyday spending.\nClearly in control.",
+          "Detail": "",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "card",
+        "component": "Payment card",
+        "props": {
+          "Brand": "Reserve Bank"
+        }
+      },
+      {
+        "key": "limits",
+        "component": "Choice",
+        "props": {
+          "Label": "Daily spending limit",
+          "Detail": "2,000.000 LYD · 460.000 used"
+        }
+      },
+      {
+        "key": "freeze",
+        "component": "Button",
+        "props": {
+          "Label": "Freeze card"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N13"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "N03"
+          },
+          {
+            "label": "Activity",
+            "to": "N14"
+          },
+          {
+            "label": "Cards",
+            "to": "N12"
+          },
+          {
+            "label": "Profile",
+            "to": "N16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "N13",
+    "title": "Card frozen",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Cards",
+          "Back": "‹  Back"
+        },
+        "to": "N12"
+      },
+      {
+        "key": "card",
+        "component": "Payment card",
+        "state": "Frozen",
+        "props": {
+          "Brand": "Reserve Bank"
+        }
+      },
+      {
+        "key": "frozen-info",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Card frozen",
+          "Detail": "New card purchases are blocked. Existing pending payments may still complete."
+        }
+      },
+      {
+        "key": "unfreeze",
+        "component": "Button",
+        "props": {
+          "Label": "Unfreeze card"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N12"
+      },
+      {
+        "key": "support",
+        "component": "Button",
+        "props": {
+          "Label": "Report a lost card"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "N18"
+      }
+    ]
+  },
+  {
+    "key": "N14",
+    "title": "Activity",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Activity",
+          "Back": "‹  Back"
+        },
+        "to": "N03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your money, in view.",
+          "Detail": "Current account · 2148",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "incoming",
+        "component": "List row",
+        "props": {
+          "Title": "Monthly salary",
+          "Detail": "Incoming · Completed · 18 Sep",
+          "Value": "+3,200.000 LYD"
+        }
+      },
+      {
+        "key": "outgoing",
+        "component": "List row",
+        "props": {
+          "Title": "Amal Ben Musa",
+          "Detail": "Transfer · Completed · 18 Sep",
+          "Value": "−251.000 LYD"
+        },
+        "to": "N09"
+      },
+      {
+        "key": "bill",
+        "component": "List row",
+        "props": {
+          "Title": "Pay a bill",
+          "Detail": "Utilities and services",
+          "Value": ""
+        },
+        "to": "N15"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "N03"
+          },
+          {
+            "label": "Activity",
+            "to": "N14"
+          },
+          {
+            "label": "Cards",
+            "to": "N12"
+          },
+          {
+            "label": "Profile",
+            "to": "N16"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "N15",
+    "title": "Pay a bill",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Pay a bill",
+          "Back": "‹  Back"
+        },
+        "to": "N14"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Keep the everyday\nrunning smoothly.",
+          "Detail": "",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "provider",
+        "component": "Field",
+        "props": {
+          "Label": "Provider",
+          "Value": "Libyana",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "number",
+        "component": "Field",
+        "props": {
+          "Label": "Subscriber number",
+          "Value": "091 000 0192",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Bill details",
+          "Details": "Service  Mobile top-up\nAmount  20.000 LYD\nFee  0.000 LYD",
+          "Total": "Total 20.000 LYD"
+        }
+      },
+      {
+        "key": "pay",
+        "component": "Button",
+        "props": {
+          "Label": "Review bill payment"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N21"
+      }
+    ]
+  },
+  {
+    "key": "N16",
+    "title": "Preferences",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Profile",
+          "Back": "‹  Back"
+        },
+        "to": "N03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Make it yours.",
+          "Detail": "Amal Ben Musa",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "language",
+        "component": "List row",
+        "props": {
+          "Title": "Language",
+          "Detail": "English / العربية",
+          "Value": ""
+        },
+        "to": "NAR"
+      },
+      {
+        "key": "appearance",
+        "component": "List row",
+        "props": {
+          "Title": "Appearance",
+          "Detail": "Light / Dark",
+          "Value": ""
+        },
+        "to": "NDK"
+      },
+      {
+        "key": "help",
+        "component": "List row",
+        "props": {
+          "Title": "Help and support",
+          "Detail": "We’re here when you need us.",
+          "Value": ""
+        },
+        "to": "N18"
+      },
+      {
+        "key": "signout",
+        "component": "Button",
+        "props": {
+          "Label": "Sign out"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N01"
+      }
+    ]
+  },
+  {
+    "key": "N17",
+    "title": "Open an account",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Open an account",
+          "Back": "‹  Back"
+        },
+        "to": "N01"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "A clear start.",
+          "Detail": "Have your identity document and mobile number ready.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "onboard-art",
+        "art": "security-shield",
+        "width": 210
+      },
+      {
+        "key": "phone",
+        "component": "Field",
+        "props": {
+          "Label": "Mobile number",
+          "Value": "+218 91 000 0192",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "consent",
+        "component": "Choice",
+        "state": "Selected",
+        "props": {
+          "Label": "I agree to the account terms",
+          "Detail": "Identity checks and privacy information"
+        }
+      },
+      {
+        "key": "start",
+        "component": "Button",
+        "props": {
+          "Label": "Continue to identity check"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N22"
+      }
+    ]
+  },
+  {
+    "key": "N18",
+    "title": "Support",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Support",
+          "Back": "‹  Back"
+        },
+        "to": "N03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Let’s get this sorted.",
+          "Detail": "Choose what you need help with.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "track",
+        "component": "List row",
+        "props": {
+          "Title": "Check a transfer",
+          "Detail": "Use reference O3-10482",
+          "Value": ""
+        },
+        "to": "N10"
+      },
+      {
+        "key": "access",
+        "component": "List row",
+        "props": {
+          "Title": "Recover account access",
+          "Detail": "Verify your identity through a secure flow.",
+          "Value": ""
+        },
+        "to": "N02"
+      },
+      {
+        "key": "return",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N03"
+      }
+    ]
+  },
+  {
+    "key": "N19",
+    "title": "Add recipient",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "New recipient",
+          "Back": "‹  Back"
+        },
+        "to": "N04"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Add someone you trust.",
+          "Detail": "Check the account number with the recipient.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "name",
+        "component": "Field",
+        "props": {
+          "Label": "Full name",
+          "Value": "Amal Ben Musa",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "account",
+        "component": "Field",
+        "props": {
+          "Label": "Account number",
+          "Value": "•••• •••• 4092",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "verify",
+        "component": "Choice",
+        "state": "Selected",
+        "props": {
+          "Label": "Amal Ben Musa",
+          "Detail": "Account name verified"
+        }
+      },
+      {
+        "key": "save",
+        "component": "Button",
+        "props": {
+          "Label": "Save and enter amount"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N05"
+      }
+    ]
+  },
+  {
+    "key": "N20",
+    "title": "Code expired",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Verification",
+          "Back": "‹  Back"
+        },
+        "to": "N07"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "That code has expired.",
+          "Detail": "Your transfer has not been submitted.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Error",
+        "props": {
+          "Title": "A fresh code is needed",
+          "Detail": "Request a new code for the same amount and recipient."
+        }
+      },
+      {
+        "key": "resend",
+        "component": "Button",
+        "props": {
+          "Label": "Request a new code"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N07"
+      },
+      {
+        "key": "cancel",
+        "component": "Button",
+        "props": {
+          "Label": "Cancel transfer"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "N03"
+      }
+    ]
+  },
+  {
+    "key": "N21",
+    "title": "Bill confirmation",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Review bill",
+          "Back": "‹  Back"
+        },
+        "to": "N15"
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Confirm top-up",
+          "Details": "Libyana · 091 000 0192\nAmount  20.000 LYD\nFee  0.000 LYD\nFrom  Current account · 2148",
+          "Total": "Total 20.000 LYD"
+        }
+      },
+      {
+        "key": "confirm",
+        "component": "Button",
+        "props": {
+          "Label": "Confirm 20.000 LYD"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N23"
+      },
+      {
+        "key": "edit",
+        "component": "Button",
+        "props": {
+          "Label": "Edit details"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "N15"
+      }
+    ]
+  },
+  {
+    "key": "N22",
+    "title": "Identity review",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your application\nis being reviewed.",
+          "Detail": "We’ll notify you when the identity check is complete.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "state",
+        "component": "Status",
+        "state": "Pending",
+        "props": {
+          "Title": "Under review",
+          "Detail": "Application O3-APP-108. You can safely return later."
+        }
+      },
+      {
+        "key": "finish",
+        "component": "Button",
+        "props": {
+          "Label": "Return to sign in"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N01"
+      }
+    ]
+  },
+  {
+    "key": "N23",
+    "title": "Bill paid",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Top-up completed.",
+          "Detail": "20.000 LYD was added to 091 000 0192.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Completed",
+          "Detail": "Total 20.000 LYD · No fee · O3-BILL-209"
+        }
+      },
+      {
+        "key": "done",
+        "component": "Button",
+        "props": {
+          "Label": "Back to accounts"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N03"
+      }
+    ]
+  },
+  {
+    "key": "D01",
+    "title": "Welcome",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your city.\nYour pace.",
+          "Detail": "A ride for the everyday, and everything in between.",
+          "Eyebrow": "NEPTUNE DRIVE"
+        }
+      },
+      {
+        "key": "art",
+        "art": "drive-street",
+        "width": 354
+      },
+      {
+        "key": "ride",
+        "component": "Button",
+        "props": {
+          "Label": "Let’s go"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D02"
+      },
+      {
+        "key": "driver",
+        "component": "Button",
+        "props": {
+          "Label": "Drive with us"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D15"
+      }
+    ]
+  },
+  {
+    "key": "D02",
+    "title": "Rider home",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Where are we going?",
+          "Detail": "A little closer to your next plan.",
+          "Eyebrow": "NEPTUNE DRIVE"
+        }
+      },
+      {
+        "key": "pickup",
+        "component": "Field",
+        "props": {
+          "Label": "Pickup",
+          "Value": "Martyrs Square",
+          "Helper": ""
+        },
+        "to": "D04"
+      },
+      {
+        "key": "destination",
+        "component": "Field",
+        "props": {
+          "Label": "Destination",
+          "Value": "Where to?",
+          "Helper": ""
+        },
+        "to": "D03"
+      },
+      {
+        "key": "art",
+        "art": "drive-street",
+        "width": 300
+      },
+      {
+        "key": "plan",
+        "component": "Button",
+        "props": {
+          "Label": "Plan a ride"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D03"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Ride",
+            "to": "D02"
+          },
+          {
+            "label": "Trips",
+            "to": "D12"
+          },
+          {
+            "label": "Help",
+            "to": "D14"
+          },
+          {
+            "label": "Profile",
+            "to": "D20"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "D03",
+    "title": "Destination",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Where to?",
+          "Back": "‹  Back"
+        },
+        "to": "D02"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Pick your next stop.",
+          "Detail": "Search an address or a saved place.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "search",
+        "component": "Field",
+        "props": {
+          "Label": "Destination",
+          "Value": "Coastal District",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "result",
+        "component": "List row",
+        "props": {
+          "Title": "Coastal District",
+          "Detail": "Tripoli · Main road",
+          "Value": "8.4 km away"
+        },
+        "to": "D04"
+      },
+      {
+        "key": "saved",
+        "component": "List row",
+        "props": {
+          "Title": "Home",
+          "Detail": "Saved place · Coastal District",
+          "Value": ""
+        },
+        "to": "D04"
+      },
+      {
+        "key": "confirm",
+        "component": "Button",
+        "props": {
+          "Label": "Use this destination"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D04"
+      }
+    ]
+  },
+  {
+    "key": "D04",
+    "title": "Confirm pickup",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Pickup",
+          "Back": "‹  Back"
+        },
+        "to": "D03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Meet here.",
+          "Detail": "Confirm an easy place for your driver to stop.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "art",
+        "art": "route-preview",
+        "width": 354
+      },
+      {
+        "key": "journey",
+        "component": "Journey"
+      },
+      {
+        "key": "confirm",
+        "component": "Button",
+        "props": {
+          "Label": "Confirm pickup"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D05"
+      },
+      {
+        "key": "manual",
+        "component": "Button",
+        "props": {
+          "Label": "Enter pickup manually"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "D14"
+      }
+    ]
+  },
+  {
+    "key": "D05",
+    "title": "Choose ride",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Choose your ride",
+          "Back": "‹  Back"
+        },
+        "to": "D04"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "A good ride.\nA clear price.",
+          "Detail": "Estimates include the booking fee.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "everyday",
+        "component": "Ride option",
+        "state": "Selected",
+        "to": "D06"
+      },
+      {
+        "key": "comfort",
+        "component": "List row",
+        "props": {
+          "Title": "Drive Comfort",
+          "Detail": "No cars nearby right now",
+          "Value": "Unavailable"
+        }
+      },
+      {
+        "key": "continue",
+        "component": "Button",
+        "props": {
+          "Label": "Continue with Everyday"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D06"
+      }
+    ]
+  },
+  {
+    "key": "D06",
+    "title": "Review ride",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Review ride",
+          "Back": "‹  Back"
+        },
+        "to": "D05"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Ready when you are.",
+          "Detail": "Check your route and payment before requesting.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey"
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Fare estimate",
+          "Details": "Distance and time  16.000 LYD\nBooking fee  2.000 LYD\nPayment  Cash to driver\nFinal fare may change if the route changes.",
+          "Total": "Estimated total 18.000 LYD"
+        }
+      },
+      {
+        "key": "request",
+        "component": "Button",
+        "props": {
+          "Label": "Request Everyday"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D07"
+      }
+    ]
+  },
+  {
+    "key": "D07",
+    "title": "Finding driver",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Finding your ride.",
+          "Detail": "We’re looking for a driver nearby.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "art",
+        "art": "drive-street",
+        "width": 300
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Pending",
+        "props": {
+          "Title": "Looking for a driver",
+          "Detail": "Your fare estimate is 18.000 LYD. No payment has been taken."
+        }
+      },
+      {
+        "key": "update",
+        "component": "Button",
+        "props": {
+          "Label": "Check for a driver"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D08"
+      },
+      {
+        "key": "cancel",
+        "component": "Button",
+        "props": {
+          "Label": "Cancel request"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "D13"
+      }
+    ]
+  },
+  {
+    "key": "D08",
+    "title": "Driver assigned",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Mazen is on his way.",
+          "Detail": "Arriving in about 4 minutes.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "art",
+        "art": "route-preview",
+        "width": 354
+      },
+      {
+        "key": "driver",
+        "component": "List row",
+        "props": {
+          "Title": "Mazen · 4.9 rating",
+          "Detail": "White Toyota Corolla · Plate 45 218",
+          "Value": "Match the plate before you get in."
+        }
+      },
+      {
+        "key": "pin",
+        "component": "Choice",
+        "props": {
+          "Label": "Your pickup PIN: 4821",
+          "Detail": "Share it only with your assigned driver."
+        }
+      },
+      {
+        "key": "track",
+        "component": "Button",
+        "props": {
+          "Label": "Track your ride"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D09"
+      },
+      {
+        "key": "cancel",
+        "component": "Button",
+        "props": {
+          "Label": "Cancel ride"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "D13"
+      }
+    ]
+  },
+  {
+    "key": "D09",
+    "title": "In trip",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "On your way.",
+          "Detail": "Coastal District · About 18 minutes",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "art",
+        "art": "route-preview",
+        "width": 354
+      },
+      {
+        "key": "journey",
+        "component": "Journey"
+      },
+      {
+        "key": "driver",
+        "component": "List row",
+        "props": {
+          "Title": "Mazen · Toyota Corolla",
+          "Detail": "Plate 45 218 · Ride D-2048",
+          "Value": ""
+        }
+      },
+      {
+        "key": "safety",
+        "component": "Button",
+        "props": {
+          "Label": "Safety and trip help"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D14"
+      },
+      {
+        "key": "details",
+        "component": "Button",
+        "props": {
+          "Label": "Trip details"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "D21"
+      }
+    ]
+  },
+  {
+    "key": "D10",
+    "title": "Ride receipt",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "You’re there.",
+          "Detail": "Thanks for riding with Neptune Drive.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Trip completed",
+          "Detail": "18 September 2026 · Ride D-2048"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Your receipt",
+          "Details": "Martyrs Square → Coastal District\nDistance and time  16.000 LYD\nBooking fee  2.000 LYD\nPayment  Cash · Received by driver",
+          "Total": "Total 18.000 LYD"
+        }
+      },
+      {
+        "key": "rate",
+        "component": "Button",
+        "props": {
+          "Label": "Rate your ride"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D11"
+      },
+      {
+        "key": "done",
+        "component": "Button",
+        "props": {
+          "Label": "Back to Ride"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D02"
+      }
+    ]
+  },
+  {
+    "key": "D11",
+    "title": "Rate trip",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "How was your ride?",
+          "Back": "‹  Back"
+        },
+        "to": "D10"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "A little feedback\ngoes a long way.",
+          "Detail": "Your feedback helps improve the next ride.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "rating",
+        "component": "Choice",
+        "state": "Selected",
+        "props": {
+          "Label": "5 out of 5 · Great ride",
+          "Detail": "Friendly driver, comfortable car"
+        }
+      },
+      {
+        "key": "comment",
+        "component": "Field",
+        "props": {
+          "Label": "Anything to add? · optional",
+          "Value": "Smooth ride, thank you.",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "submit",
+        "component": "Button",
+        "props": {
+          "Label": "Send feedback"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D12"
+      },
+      {
+        "key": "skip",
+        "component": "Button",
+        "props": {
+          "Label": "Skip for now"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "D02"
+      }
+    ]
+  },
+  {
+    "key": "D12",
+    "title": "Your trips",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Places you’ve been.",
+          "Detail": "Your recent journeys, all in one place.",
+          "Eyebrow": "NEPTUNE DRIVE"
+        }
+      },
+      {
+        "key": "recent",
+        "component": "List row",
+        "props": {
+          "Title": "Coastal District",
+          "Detail": "18 September · Completed",
+          "Value": "18.000 LYD"
+        },
+        "to": "D10"
+      },
+      {
+        "key": "cancelled",
+        "component": "List row",
+        "props": {
+          "Title": "Martyrs Square",
+          "Detail": "16 September · Cancelled",
+          "Value": "No charge"
+        },
+        "to": "D19"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Ride",
+            "to": "D02"
+          },
+          {
+            "label": "Trips",
+            "to": "D12"
+          },
+          {
+            "label": "Help",
+            "to": "D14"
+          },
+          {
+            "label": "Profile",
+            "to": "D20"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "D13",
+    "title": "Cancel ride",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Your request",
+          "Back": "‹  Back"
+        },
+        "to": "D07"
+      },
+      {
+        "key": "cancel-sheet",
+        "component": "Sheet",
+        "props": {
+          "Title": "Cancel this ride?",
+          "Detail": "Your driver has not arrived. No cancellation fee applies."
+        }
+      },
+      {
+        "key": "keep",
+        "component": "Button",
+        "props": {
+          "Label": "Keep my ride"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D08"
+      },
+      {
+        "key": "cancel",
+        "component": "Button",
+        "props": {
+          "Label": "Cancel ride · No fee"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D19"
+      }
+    ]
+  },
+  {
+    "key": "D14",
+    "title": "Location and safety help",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Ride help",
+          "Back": "‹  Back"
+        },
+        "to": "D02"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "You’re in control.",
+          "Detail": "You can always enter your pickup without sharing live location.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "manual-pickup",
+        "component": "Field",
+        "props": {
+          "Label": "Pickup address",
+          "Value": "Martyrs Square, main entrance",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "use-address",
+        "component": "Button",
+        "props": {
+          "Label": "Use this pickup"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D04"
+      },
+      {
+        "key": "safety",
+        "component": "List row",
+        "props": {
+          "Title": "Trip safety",
+          "Detail": "Keep the driver, plate and trip reference visible.",
+          "Value": "D-2048"
+        },
+        "to": "D21"
+      },
+      {
+        "key": "return",
+        "component": "Button",
+        "props": {
+          "Label": "Back to Ride"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "D02"
+      }
+    ]
+  },
+  {
+    "key": "D15",
+    "title": "Driver start",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Make every mile\nmean more.",
+          "Detail": "Drive on your terms, with clear trip details.",
+          "Eyebrow": "DRIVE / PARTNER"
+        }
+      },
+      {
+        "key": "art",
+        "art": "drive-street",
+        "width": 320
+      },
+      {
+        "key": "online",
+        "component": "Button",
+        "props": {
+          "Label": "Go online"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D16"
+      },
+      {
+        "key": "earnings",
+        "component": "Button",
+        "props": {
+          "Label": "View earnings"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D18"
+      }
+    ]
+  },
+  {
+    "key": "D16",
+    "title": "Trip offer",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "A nearby pickup.",
+          "Detail": "You have 20 seconds to accept.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey"
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Trip offer",
+          "Details": "Pickup  1.2 km away · 4 minutes\nDestination  Coastal District\nEstimated trip  18 minutes\nService fee  2.000 LYD",
+          "Total": "Estimated net 16.000 LYD"
+        }
+      },
+      {
+        "key": "accept",
+        "component": "Button",
+        "props": {
+          "Label": "Accept trip"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D17"
+      },
+      {
+        "key": "decline",
+        "component": "Button",
+        "props": {
+          "Label": "Decline"
+        },
+        "state": "Style=Quiet, State=Default",
+        "to": "D15"
+      }
+    ]
+  },
+  {
+    "key": "D17",
+    "title": "Driver active trip",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your next pickup.",
+          "Detail": "Amal · Martyrs Square",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "art",
+        "art": "route-preview",
+        "width": 354
+      },
+      {
+        "key": "pin",
+        "component": "Field",
+        "props": {
+          "Label": "Passenger pickup PIN",
+          "Value": "4821",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "start",
+        "component": "Button",
+        "props": {
+          "Label": "Verify PIN and start"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D22"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Trip help"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D14"
+      }
+    ]
+  },
+  {
+    "key": "D18",
+    "title": "Driver earnings",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "A good day’s work.",
+          "Detail": "Your completed trips, clearly accounted for.",
+          "Eyebrow": "DRIVE / PARTNER"
+        }
+      },
+      {
+        "key": "earnings",
+        "component": "Balance",
+        "props": {
+          "Label": "Today · 6 completed trips",
+          "Amount": "96.000",
+          "Meta": "LYD net earnings · Cash collected"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Today’s summary",
+          "Details": "Gross fares  108.000 LYD\nService fees  12.000 LYD\nCash collected  108.000 LYD",
+          "Total": "Net earnings 96.000 LYD"
+        }
+      },
+      {
+        "key": "online",
+        "component": "Button",
+        "props": {
+          "Label": "Back to driver home"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D15"
+      }
+    ]
+  },
+  {
+    "key": "D19",
+    "title": "Ride cancelled",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Ride cancelled.",
+          "Detail": "No cancellation fee was charged.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "state": "Success",
+        "props": {
+          "Title": "Cancelled · No charge",
+          "Detail": "Your request is closed. You can book again when you’re ready."
+        }
+      },
+      {
+        "key": "again",
+        "component": "Button",
+        "props": {
+          "Label": "Plan another ride"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D02"
+      }
+    ]
+  },
+  {
+    "key": "D20",
+    "title": "Profile",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Your profile",
+          "Back": "‹  Back"
+        },
+        "to": "D02"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your everyday,\nyour way.",
+          "Detail": "Amal Ben Musa",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "language",
+        "component": "List row",
+        "props": {
+          "Title": "Language",
+          "Detail": "English / العربية",
+          "Value": ""
+        },
+        "to": "DAR"
+      },
+      {
+        "key": "theme",
+        "component": "List row",
+        "props": {
+          "Title": "Appearance",
+          "Detail": "Light / Dark",
+          "Value": ""
+        },
+        "to": "DDK"
+      },
+      {
+        "key": "driver",
+        "component": "Button",
+        "props": {
+          "Label": "Switch to driver"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D15"
+      },
+      {
+        "key": "home",
+        "component": "Button",
+        "props": {
+          "Label": "Back to Ride"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D02"
+      }
+    ]
+  },
+  {
+    "key": "D21",
+    "title": "Trip details",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Trip details",
+          "Back": "‹  Back"
+        },
+        "to": "D09"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your trip information.",
+          "Detail": "Keep these details available during your ride.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Ride D-2048",
+          "Details": "Mazen · White Toyota Corolla\nPlate 45 218\nPickup  Martyrs Square\nDestination  Coastal District\nPayment  Cash",
+          "Total": "Estimated fare 18.000 LYD"
+        }
+      },
+      {
+        "key": "back-trip",
+        "component": "Button",
+        "props": {
+          "Label": "Back to trip"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D09"
+      }
+    ]
+  },
+  {
+    "key": "D22",
+    "title": "Driver en route",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Trip in progress.",
+          "Detail": "Coastal District · Passenger on board",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey"
+      },
+      {
+        "key": "finish",
+        "component": "Button",
+        "props": {
+          "Label": "Complete trip"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D23"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Trip help"
+        },
+        "state": "Style=Secondary, State=Default",
+        "to": "D14"
+      }
+    ]
+  },
+  {
+    "key": "D23",
+    "title": "Driver settlement",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Trip completed.",
+          "Detail": "Cash payment to collect from the passenger.",
+          "Eyebrow": ""
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Fare breakdown",
+          "Details": "Distance and time  16.000 LYD\nBooking fee  2.000 LYD\nPayment  Cash",
+          "Total": "Collect 18.000 LYD"
+        }
+      },
+      {
+        "key": "collected",
+        "component": "Button",
+        "props": {
+          "Label": "Confirm cash received"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D18"
+      }
+    ]
+  },
+  {
+    "key": "O01",
+    "title": "Welcome",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "A new view\nstarts here.",
+          "Detail": "Make room for your next story.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "art",
+        "art": "orbit-departure"
+      },
+      {
+        "key": "start",
+        "component": "Button",
+        "props": {
+          "Label": "Find a flight"
+        },
+        "to": "O02",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "bookings",
+        "component": "Button",
+        "props": {
+          "Label": "Your bookings"
+        },
+        "to": "O13",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O02",
+    "title": "Search",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Where next?",
+          "Detail": "One way · 1 adult · Economy",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "from",
+        "component": "Field",
+        "props": {
+          "Label": "From",
+          "Value": "Tripoli · MJI",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "to",
+        "component": "Field",
+        "props": {
+          "Label": "To",
+          "Value": "Tunis · TUN",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "date",
+        "component": "Field",
+        "props": {
+          "Label": "Departure date",
+          "Value": "22 Oct 2026",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "search",
+        "component": "Button",
+        "props": {
+          "Label": "Search flights"
+        },
+        "to": "O03",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "props": {},
+        "slots": [
+          {
+            "label": "Explore",
+            "to": "O02"
+          },
+          {
+            "label": "Bookings",
+            "to": "O13"
+          },
+          {
+            "label": "Help",
+            "to": "O18"
+          },
+          {
+            "label": "Profile",
+            "to": "O20"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "O03",
+    "title": "Results",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O02"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Tripoli to Tunis",
+          "Detail": "22 October · 1 adult · Prices include taxes",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "flight",
+        "component": "Flight option",
+        "props": {
+          "Route": "10:30  MJI → 10:40  TUN",
+          "Detail": "Example Air · Direct · 1h 10m\nCabin bag 7 kg · Economy Light",
+          "Price": "620 LYD"
+        },
+        "to": "O04"
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "1 flight found",
+          "Detail": "All times are local. Airline and fare are sample data."
+        },
+        "state": "State=Pending"
+      },
+      {
+        "key": "select",
+        "component": "Button",
+        "props": {
+          "Label": "View fare"
+        },
+        "to": "O04",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "edit",
+        "component": "Button",
+        "props": {
+          "Label": "Change search"
+        },
+        "to": "O02",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O04",
+    "title": "Fare conditions",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Know your fare",
+          "Detail": "Economy Light · Example Air",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey",
+        "props": {
+          "Origin": "Tripoli · MJI",
+          "Destination": "Tunis · TUN",
+          "Detail": "22 Oct 2026  ·  10:30–10:40  ·  1h 10m\nAll departure / arrival times are local."
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Included in 620 LYD",
+          "Details": "1 personal item + cabin bag up to 7 kg\nChecked bag: optional, 90 LYD for 20 kg\nChanges: 120 LYD + fare difference\nCancellation: non-refundable fare",
+          "Total": "620 LYD"
+        }
+      },
+      {
+        "key": "continue",
+        "component": "Button",
+        "props": {
+          "Label": "Continue with Light"
+        },
+        "to": "O05",
+        "state": "Style=Primary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O05",
+    "title": "Passenger",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O04"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Who’s flying?",
+          "Detail": "Use the spelling shown on your passport.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "first",
+        "component": "Field",
+        "props": {
+          "Label": "Given name",
+          "Value": "Amal",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "last",
+        "component": "Field",
+        "props": {
+          "Label": "Family name",
+          "Value": "Saleh",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "email",
+        "component": "Field",
+        "props": {
+          "Label": "Email for your ticket",
+          "Value": "amal@example.com",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "passport",
+        "component": "Field",
+        "props": {
+          "Label": "Passport number",
+          "Value": "DEMO12345",
+          "Helper": "Sample identity · replace for testing"
+        }
+      },
+      {
+        "key": "continue",
+        "component": "Button",
+        "props": {
+          "Label": "Continue"
+        },
+        "to": "O06",
+        "state": "Style=Primary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O06",
+    "title": "Baggage",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O05"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Travel your way",
+          "Detail": "A 7 kg cabin bag is included.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "included",
+        "component": "Choice",
+        "props": {
+          "Label": "Cabin bag only",
+          "Detail": "Included · 7 kg"
+        },
+        "to": "O07",
+        "state": "State=Selected"
+      },
+      {
+        "key": "extra",
+        "component": "Choice",
+        "props": {
+          "Label": "Add 20 kg checked bag",
+          "Detail": "+90 LYD"
+        },
+        "to": "O21"
+      },
+      {
+        "key": "continue",
+        "component": "Button",
+        "props": {
+          "Label": "Continue with cabin bag"
+        },
+        "to": "O07",
+        "state": "Style=Primary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O07",
+    "title": "Review",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O06"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "One last look",
+          "Detail": "Please check names, dates and fare conditions.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey",
+        "props": {
+          "Origin": "Tripoli · MJI",
+          "Destination": "Tunis · TUN",
+          "Detail": "22 Oct 2026  ·  10:30–10:40  ·  1h 10m\nAll departure / arrival times are local."
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Amal Saleh · Economy Light",
+          "Details": "Flight and taxes                 620 LYD\nCabin bag                            Included\nBooking fee                            0 LYD\nNon-refundable · changes from 120 LYD",
+          "Total": "Total 620 LYD"
+        }
+      },
+      {
+        "key": "pay",
+        "component": "Button",
+        "props": {
+          "Label": "Continue to payment"
+        },
+        "to": "O08",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "edit",
+        "component": "Button",
+        "props": {
+          "Label": "Edit passenger"
+        },
+        "to": "O05",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O08",
+    "title": "Payment",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O07"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Secure payment",
+          "Detail": "Your ticket is issued after airline confirmation.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "card",
+        "component": "Field",
+        "props": {
+          "Label": "Card number",
+          "Value": "4242 4242 4242 4242",
+          "Helper": "Test card only"
+        }
+      },
+      {
+        "key": "expiry",
+        "component": "Field",
+        "props": {
+          "Label": "Expiry",
+          "Value": "12/28",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "cvv",
+        "component": "Field",
+        "props": {
+          "Label": "Security code",
+          "Value": "123",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "pay",
+        "component": "Button",
+        "props": {
+          "Label": "Pay 620 LYD"
+        },
+        "to": "O09",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "cancel",
+        "component": "Button",
+        "props": {
+          "Label": "Back to review"
+        },
+        "to": "O07",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O09",
+    "title": "Payment received",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Payment received",
+          "Detail": "We’re confirming your seat with the airline.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "art",
+        "art": "waiting-hourglass",
+        "width": 184
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Ticket not issued yet",
+          "Detail": "620 LYD received · Reference ORB-2048\nDo not pay again while we confirm."
+        },
+        "state": "State=Pending"
+      },
+      {
+        "key": "check",
+        "component": "Button",
+        "props": {
+          "Label": "Check ticket status"
+        },
+        "to": "O10",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Payment help"
+        },
+        "to": "O18",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O10",
+    "title": "Ticket issued",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "You’re going to Tunis.",
+          "Detail": "Ticket issued · Keep this for your journey.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "art",
+        "art": "orbit-departure",
+        "width": 260
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Booking confirmed",
+          "Detail": "Booking ORB-2048 · Example Air EA 214"
+        },
+        "state": "State=Success"
+      },
+      {
+        "key": "journey",
+        "component": "Journey",
+        "props": {
+          "Origin": "Tripoli · MJI",
+          "Destination": "Tunis · TUN",
+          "Detail": "22 Oct 2026  ·  10:30–10:40  ·  1h 10m\nAll departure / arrival times are local."
+        }
+      },
+      {
+        "key": "ticket",
+        "component": "Button",
+        "props": {
+          "Label": "View e-ticket"
+        },
+        "to": "O11",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "manage",
+        "component": "Button",
+        "props": {
+          "Label": "Manage booking"
+        },
+        "to": "O13",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O11",
+    "title": "E-ticket",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O13"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Your travel details",
+          "Detail": "E-ticket · Demo itinerary",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey",
+        "props": {
+          "Origin": "Tripoli · MJI",
+          "Destination": "Tunis · TUN",
+          "Detail": "22 Oct 2026  ·  10:30–10:40  ·  1h 10m\nAll departure / arrival times are local."
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Amal Saleh",
+          "Details": "Airline reference: AB7K2P\nTicket: 000-1234567890\nEconomy Light · Cabin bag 7 kg\nCheck-in opens 24 hours before departure\nPassport and entry requirements apply",
+          "Total": "Paid 620 LYD"
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "This is not a boarding pass",
+          "Detail": "Check in with the airline before departure."
+        },
+        "state": "State=Pending"
+      },
+      {
+        "key": "manage",
+        "component": "Button",
+        "props": {
+          "Label": "Manage booking"
+        },
+        "to": "O13",
+        "state": "Style=Primary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O12",
+    "title": "Payment uncertain",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Let’s check your payment",
+          "Detail": "The connection ended before we got a result.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Payment status unknown",
+          "Detail": "Do not pay again. We’ll check reference ORB-2048."
+        },
+        "state": "State=Unknown"
+      },
+      {
+        "key": "check",
+        "component": "Button",
+        "props": {
+          "Label": "Check payment status"
+        },
+        "to": "O09",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Get help"
+        },
+        "to": "O18",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O13",
+    "title": "Your bookings",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Good things ahead.",
+          "Detail": "Your trips, all together.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "trip",
+        "component": "List row",
+        "props": {
+          "Title": "Tripoli → Tunis",
+          "Detail": "22 Oct 2026 · ORB-2048",
+          "Value": "View"
+        },
+        "to": "O14"
+      },
+      {
+        "key": "new",
+        "component": "Button",
+        "props": {
+          "Label": "Find another flight"
+        },
+        "to": "O02",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "profile",
+        "component": "Button",
+        "props": {
+          "Label": "Preferences"
+        },
+        "to": "O20",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O14",
+    "title": "Manage booking",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O13"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Tripoli → Tunis",
+          "Detail": "Confirmed · ORB-2048",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey",
+        "props": {
+          "Origin": "Tripoli · MJI",
+          "Destination": "Tunis · TUN",
+          "Detail": "22 Oct 2026  ·  10:30–10:40  ·  1h 10m\nAll departure / arrival times are local."
+        }
+      },
+      {
+        "key": "ticket",
+        "component": "List row",
+        "props": {
+          "Title": "E-ticket",
+          "Detail": "View passenger and flight details",
+          "Value": "View"
+        },
+        "to": "O11"
+      },
+      {
+        "key": "change",
+        "component": "List row",
+        "props": {
+          "Title": "Change flight",
+          "Detail": "120 LYD fee + fare difference",
+          "Value": "Help"
+        },
+        "to": "O18"
+      },
+      {
+        "key": "cancel",
+        "component": "List row",
+        "props": {
+          "Title": "Cancel booking",
+          "Detail": "Review refund terms first",
+          "Value": "Review"
+        },
+        "to": "O15"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Contact support"
+        },
+        "to": "O18",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O15",
+    "title": "Cancellation review",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O14"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Before you cancel",
+          "Detail": "This Economy Light fare is non-refundable.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Refund estimate",
+          "Details": "Fare refund                              0 LYD\nRefundable taxes                       45 LYD\nCancellation handling                    0 LYD\nReturn to original payment method\nEstimated processing: 5–10 working days",
+          "Total": "Estimated refund 45 LYD"
+        }
+      },
+      {
+        "key": "keep",
+        "component": "Button",
+        "props": {
+          "Label": "Keep this trip"
+        },
+        "to": "O14",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "confirm",
+        "component": "Button",
+        "props": {
+          "Label": "Confirm cancellation"
+        },
+        "to": "O16",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O16",
+    "title": "Cancellation requested",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Cancellation requested",
+          "Detail": "We’ll email Amal when the airline confirms.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Request pending",
+          "Detail": "Booking ORB-2048 · Refund not sent yet.\nAvoid making a second request."
+        },
+        "state": "State=Pending"
+      },
+      {
+        "key": "check",
+        "component": "Button",
+        "props": {
+          "Label": "Check cancellation"
+        },
+        "to": "O22",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Contact support"
+        },
+        "to": "O18",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O17",
+    "title": "Price changed",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O03"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "The fare has changed",
+          "Detail": "Airline prices can move before payment.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Review updated price",
+          "Details": "Previous total                         620 LYD\nNew total                              660 LYD\nNo payment has been taken.",
+          "Total": "660 LYD"
+        }
+      },
+      {
+        "key": "search",
+        "component": "Button",
+        "props": {
+          "Label": "See current options"
+        },
+        "to": "O03",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "cancel",
+        "component": "Button",
+        "props": {
+          "Label": "Start a new search"
+        },
+        "to": "O02",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O18",
+    "title": "Support",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O13"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Let’s get you sorted",
+          "Detail": "Tell us your booking reference",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "info",
+        "component": "Status",
+        "props": {
+          "Title": "We can check this booking",
+          "Detail": "Ticket pending? Keep your payment reference.\nA confirmed payment is not an issued ticket."
+        },
+        "state": "State=Pending"
+      },
+      {
+        "key": "status",
+        "component": "List row",
+        "props": {
+          "Title": "Payment and ticket status",
+          "Detail": "View the latest result",
+          "Value": "Check"
+        },
+        "to": "O09"
+      },
+      {
+        "key": "message",
+        "component": "Button",
+        "props": {
+          "Label": "Request support"
+        },
+        "to": "O23",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "home",
+        "component": "Button",
+        "props": {
+          "Label": "Back to bookings"
+        },
+        "to": "O13",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O19",
+    "title": "Payment declined",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Payment didn’t go through",
+          "Detail": "No ticket has been booked.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Declined by payment provider",
+          "Detail": "No payment received. Check card details or use another card."
+        },
+        "state": "State=Error"
+      },
+      {
+        "key": "retry",
+        "component": "Button",
+        "props": {
+          "Label": "Edit payment details"
+        },
+        "to": "O08",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "back",
+        "component": "Button",
+        "props": {
+          "Label": "Return to review"
+        },
+        "to": "O07",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O20",
+    "title": "Preferences",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O02"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Make yourself at home",
+          "Detail": "Language, appearance and support.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "language",
+        "component": "List row",
+        "props": {
+          "Title": "العربية",
+          "Detail": "View the Arabic search",
+          "Value": "AR"
+        },
+        "to": "OAR"
+      },
+      {
+        "key": "dark",
+        "component": "List row",
+        "props": {
+          "Title": "Dark appearance",
+          "Detail": "A quieter canvas after hours",
+          "Value": "View"
+        },
+        "to": "ODK"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Get help"
+        },
+        "to": "O18",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "explore",
+        "component": "Button",
+        "props": {
+          "Label": "Explore"
+        },
+        "to": "O02",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O21",
+    "title": "Checked baggage",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O06"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Room for a little more",
+          "Detail": "Add 20 kg checked baggage for 90 LYD.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Updated total",
+          "Details": "Flight and taxes                      620 LYD\nChecked bag 20 kg                        90 LYD\nBooking fee                              0 LYD",
+          "Total": "710 LYD"
+        }
+      },
+      {
+        "key": "continue",
+        "component": "Button",
+        "props": {
+          "Label": "Continue with checked bag"
+        },
+        "to": "O24",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "remove",
+        "component": "Button",
+        "props": {
+          "Label": "Keep cabin bag only"
+        },
+        "to": "O07",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O22",
+    "title": "Cancelled",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Booking cancelled",
+          "Detail": "Your seat has been released.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Refund processing",
+          "Detail": "45 LYD to the original payment method.\nAllow 5–10 working days · ORB-2048."
+        },
+        "state": "State=Success"
+      },
+      {
+        "key": "new",
+        "component": "Button",
+        "props": {
+          "Label": "Plan another trip"
+        },
+        "to": "O02",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Refund support"
+        },
+        "to": "O18",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O23",
+    "title": "Support requested",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "We have your request",
+          "Detail": "Reference HELP-2048",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "A specialist will follow up",
+          "Detail": "We’ll reply to amal@example.com.\nKeep your booking and payment references."
+        },
+        "state": "State=Success"
+      },
+      {
+        "key": "back",
+        "component": "Button",
+        "props": {
+          "Label": "Back to bookings"
+        },
+        "to": "O13",
+        "state": "Style=Primary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O24",
+    "title": "Review with baggage",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O21"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "One last look",
+          "Detail": "Economy Light + 20 kg checked bag",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "journey",
+        "component": "Journey",
+        "props": {
+          "Origin": "Tripoli · MJI",
+          "Destination": "Tunis · TUN",
+          "Detail": "22 Oct 2026  ·  10:30–10:40  ·  1h 10m\nAll departure / arrival times are local."
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Amal Saleh",
+          "Details": "Flight and taxes                      620 LYD\nChecked bag 20 kg                        90 LYD\nCabin bag 7 kg                       Included\nNon-refundable · changes from 120 LYD",
+          "Total": "Total 710 LYD"
+        }
+      },
+      {
+        "key": "pay",
+        "component": "Button",
+        "props": {
+          "Label": "Continue to payment"
+        },
+        "to": "O25",
+        "state": "Style=Primary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O25",
+    "title": "Payment with baggage",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "back",
+        "component": "App bar",
+        "props": {
+          "Title": "Neptune Orbit",
+          "Back": "‹ Back"
+        },
+        "to": "O24"
+      },
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Secure payment",
+          "Detail": "Total includes one 20 kg checked bag.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "card",
+        "component": "Field",
+        "props": {
+          "Label": "Card number",
+          "Value": "4242 4242 4242 4242",
+          "Helper": "Test card only"
+        }
+      },
+      {
+        "key": "expiry",
+        "component": "Field",
+        "props": {
+          "Label": "Expiry",
+          "Value": "12/28",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "cvv",
+        "component": "Field",
+        "props": {
+          "Label": "Security code",
+          "Value": "123",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "pay",
+        "component": "Button",
+        "props": {
+          "Label": "Pay 710 LYD"
+        },
+        "to": "O27",
+        "state": "Style=Primary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O26",
+    "title": "Ticket with baggage",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "You’re going to Tunis.",
+          "Detail": "Payment received · Ticket issued",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Booking confirmed",
+          "Detail": "Paid 710 LYD · ORB-2049 · Amal Saleh"
+        },
+        "state": "State=Success"
+      },
+      {
+        "key": "journey",
+        "component": "Journey",
+        "props": {
+          "Origin": "Tripoli · MJI",
+          "Destination": "Tunis · TUN",
+          "Detail": "22 Oct 2026  ·  10:30–10:40  ·  1h 10m\nAll departure / arrival times are local."
+        }
+      },
+      {
+        "key": "summary",
+        "component": "Summary",
+        "props": {
+          "Title": "Baggage allowance",
+          "Details": "Cabin bag 7 kg + checked bag 20 kg\nExample Air EA 214 · Economy Light\nAirline reference: AB7K2Q\nTicket: 000-1234567891",
+          "Total": "Paid 710 LYD"
+        }
+      },
+      {
+        "key": "done",
+        "component": "Button",
+        "props": {
+          "Label": "Find another flight"
+        },
+        "to": "O02",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Get help"
+        },
+        "to": "O18",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "O27",
+    "title": "Payment received with baggage",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Payment received",
+          "Detail": "We’re confirming your seat with the airline.",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "art",
+        "art": "waiting-hourglass",
+        "width": 184
+      },
+      {
+        "key": "status",
+        "component": "Status",
+        "props": {
+          "Title": "Ticket not issued yet",
+          "Detail": "710 LYD received · Reference ORB-2049\nDo not pay again while we confirm."
+        },
+        "state": "State=Pending"
+      },
+      {
+        "key": "check",
+        "component": "Button",
+        "props": {
+          "Label": "Check ticket status"
+        },
+        "to": "O26",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "help",
+        "component": "Button",
+        "props": {
+          "Label": "Payment help"
+        },
+        "to": "O18",
+        "state": "Style=Secondary, State=Default"
+      }
+    ]
+  },
+  {
+    "key": "ADK",
+    "title": "Dark / Accounts",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Good morning, Amal",
+          "Detail": "",
+          "Eyebrow": "Clarity Bank"
+        }
+      },
+      {
+        "key": "balance",
+        "component": "Balance",
+        "to": "A14"
+      },
+      {
+        "key": "send",
+        "component": "Button",
+        "props": {
+          "Label": "Send money"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "A04"
+      },
+      {
+        "key": "activity",
+        "component": "List row",
+        "props": {
+          "Title": "Medina Market",
+          "Detail": "Card payment · Completed · Today",
+          "Value": "−64.000 LYD"
+        },
+        "to": "A14"
+      },
+      {
+        "key": "help-panel",
+        "component": "Illustrated panel",
+        "props": {
+          "Title": "Your bank.\nWithin reach.",
+          "Detail": "Support when you need it."
+        },
+        "to": "A18"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "A03"
+          },
+          {
+            "label": "Activity",
+            "to": "A14"
+          },
+          {
+            "label": "Cards",
+            "to": "A12"
+          },
+          {
+            "label": "Profile",
+            "to": "A16"
+          }
+        ]
+      }
+    ],
+    "appearance": "Dark"
+  },
+  {
+    "key": "AAR",
+    "title": "العربية / Accounts",
+    "brand": "Clarity",
+    "page": "3:24",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "صباح الخير، أمل",
+          "Detail": "",
+          "Eyebrow": "مصرف الوضوح"
+        }
+      },
+      {
+        "key": "balance",
+        "component": "Balance",
+        "props": {
+          "Label": "الرصيد المتاح",
+          "Amount": "12,480.000 LYD",
+          "Meta": "الحساب الجاري · 2148"
+        },
+        "to": "A14"
+      },
+      {
+        "key": "send",
+        "component": "Button",
+        "props": {
+          "Label": "إرسال أموال"
+        },
+        "to": "A04",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "activity",
+        "component": "List row",
+        "props": {
+          "Title": "سوق المدينة",
+          "Detail": "دفع بالبطاقة · مكتمل · اليوم",
+          "Value": "−64.000 LYD"
+        },
+        "to": "A14"
+      },
+      {
+        "key": "help-panel",
+        "component": "Illustrated panel",
+        "props": {
+          "Title": "مصرفك، بالقرب منك",
+          "Detail": "المساعدة متاحة عندما تحتاجها"
+        },
+        "to": "A18"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "حسابي",
+            "to": "A16"
+          },
+          {
+            "label": "البطاقات",
+            "to": "A12"
+          },
+          {
+            "label": "الحركات",
+            "to": "A14"
+          },
+          {
+            "label": "الرئيسية",
+            "to": "A03"
+          }
+        ]
+      }
+    ],
+    "locale": "ar"
+  },
+  {
+    "key": "NDK",
+    "title": "Dark / Accounts",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Good morning, Amal",
+          "Detail": "",
+          "Eyebrow": "Reserve Bank"
+        }
+      },
+      {
+        "key": "balance",
+        "component": "Balance",
+        "to": "N14"
+      },
+      {
+        "key": "send",
+        "component": "Button",
+        "props": {
+          "Label": "Send money"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "N04"
+      },
+      {
+        "key": "activity",
+        "component": "List row",
+        "props": {
+          "Title": "Medina Market",
+          "Detail": "Card payment · Completed · Today",
+          "Value": "−64.000 LYD"
+        },
+        "to": "N14"
+      },
+      {
+        "key": "help-panel",
+        "component": "Illustrated panel",
+        "props": {
+          "Title": "Your bank.\nWithin reach.",
+          "Detail": "Support when you need it."
+        },
+        "to": "N18"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Home",
+            "to": "N03"
+          },
+          {
+            "label": "Activity",
+            "to": "N14"
+          },
+          {
+            "label": "Cards",
+            "to": "N12"
+          },
+          {
+            "label": "Profile",
+            "to": "N16"
+          }
+        ]
+      }
+    ],
+    "appearance": "Dark"
+  },
+  {
+    "key": "NAR",
+    "title": "العربية / Accounts",
+    "brand": "Reserve",
+    "page": "3:25",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "صباح الخير، أمل",
+          "Detail": "",
+          "Eyebrow": "مصرف الثقة"
+        }
+      },
+      {
+        "key": "balance",
+        "component": "Balance",
+        "props": {
+          "Label": "الرصيد المتاح",
+          "Amount": "12,480.000 LYD",
+          "Meta": "الحساب الجاري · 2148"
+        },
+        "to": "N14"
+      },
+      {
+        "key": "send",
+        "component": "Button",
+        "props": {
+          "Label": "إرسال أموال"
+        },
+        "to": "N04",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "activity",
+        "component": "List row",
+        "props": {
+          "Title": "سوق المدينة",
+          "Detail": "دفع بالبطاقة · مكتمل · اليوم",
+          "Value": "−64.000 LYD"
+        },
+        "to": "N14"
+      },
+      {
+        "key": "help-panel",
+        "component": "Illustrated panel",
+        "props": {
+          "Title": "مصرفك، بالقرب منك",
+          "Detail": "المساعدة متاحة عندما تحتاجها"
+        },
+        "to": "N18"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "حسابي",
+            "to": "N16"
+          },
+          {
+            "label": "البطاقات",
+            "to": "N12"
+          },
+          {
+            "label": "الحركات",
+            "to": "N14"
+          },
+          {
+            "label": "الرئيسية",
+            "to": "N03"
+          }
+        ]
+      }
+    ],
+    "locale": "ar"
+  },
+  {
+    "key": "DDK",
+    "title": "Dark / Rider home",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Where are we going?",
+          "Detail": "A little closer to your next plan.",
+          "Eyebrow": "NEPTUNE DRIVE"
+        }
+      },
+      {
+        "key": "pickup",
+        "component": "Field",
+        "props": {
+          "Label": "Pickup",
+          "Value": "Martyrs Square",
+          "Helper": ""
+        },
+        "to": "D04"
+      },
+      {
+        "key": "destination",
+        "component": "Field",
+        "props": {
+          "Label": "Destination",
+          "Value": "Where to?",
+          "Helper": ""
+        },
+        "to": "D03"
+      },
+      {
+        "key": "art",
+        "art": "drive-street",
+        "width": 300
+      },
+      {
+        "key": "plan",
+        "component": "Button",
+        "props": {
+          "Label": "Plan a ride"
+        },
+        "state": "Style=Primary, State=Default",
+        "to": "D03"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "Ride",
+            "to": "D02"
+          },
+          {
+            "label": "Trips",
+            "to": "D12"
+          },
+          {
+            "label": "Help",
+            "to": "D14"
+          },
+          {
+            "label": "Profile",
+            "to": "D20"
+          }
+        ]
+      }
+    ],
+    "appearance": "Dark"
+  },
+  {
+    "key": "DAR",
+    "title": "العربية / Rider home",
+    "brand": "Drive",
+    "page": "3:26",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "إلى أين نذهب؟",
+          "Detail": "أقرب إلى خطوتك القادمة",
+          "Eyebrow": "نبتون درايف"
+        }
+      },
+      {
+        "key": "pickup",
+        "component": "Field",
+        "props": {
+          "Label": "موقع الانطلاق",
+          "Value": "ميدان الشهداء",
+          "Helper": ""
+        },
+        "to": "D04"
+      },
+      {
+        "key": "destination",
+        "component": "Field",
+        "props": {
+          "Label": "الوجهة",
+          "Value": "إلى أين؟",
+          "Helper": ""
+        },
+        "to": "D03"
+      },
+      {
+        "key": "art",
+        "art": "drive-street",
+        "width": 300
+      },
+      {
+        "key": "plan",
+        "component": "Button",
+        "props": {
+          "Label": "خطط لرحلتك"
+        },
+        "to": "D03",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "حسابي",
+            "to": "D20"
+          },
+          {
+            "label": "مساعدة",
+            "to": "D14"
+          },
+          {
+            "label": "رحلاتي",
+            "to": "D12"
+          },
+          {
+            "label": "رحلة",
+            "to": "D02"
+          }
+        ]
+      }
+    ],
+    "locale": "ar"
+  },
+  {
+    "key": "ODK",
+    "title": "Dark / Search",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "Where next?",
+          "Detail": "One way · 1 adult · Economy",
+          "Eyebrow": "NEPTUNE ORBIT"
+        }
+      },
+      {
+        "key": "from",
+        "component": "Field",
+        "props": {
+          "Label": "From",
+          "Value": "Tripoli · MJI",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "to",
+        "component": "Field",
+        "props": {
+          "Label": "To",
+          "Value": "Tunis · TUN",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "date",
+        "component": "Field",
+        "props": {
+          "Label": "Departure date",
+          "Value": "22 Oct 2026",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "search",
+        "component": "Button",
+        "props": {
+          "Label": "Search flights"
+        },
+        "to": "O03",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "props": {},
+        "slots": [
+          {
+            "label": "Explore",
+            "to": "O02"
+          },
+          {
+            "label": "Bookings",
+            "to": "O13"
+          },
+          {
+            "label": "Help",
+            "to": "O18"
+          },
+          {
+            "label": "Profile",
+            "to": "O20"
+          }
+        ]
+      }
+    ],
+    "appearance": "Dark"
+  },
+  {
+    "key": "OAR",
+    "title": "العربية / Search",
+    "brand": "Orbit",
+    "page": "3:27",
+    "items": [
+      {
+        "key": "heading",
+        "component": "Heading",
+        "props": {
+          "Title": "إلى أين هذه المرة؟",
+          "Detail": "ذهاب فقط · مسافر بالغ · اقتصادية",
+          "Eyebrow": "نبتون أوربت"
+        }
+      },
+      {
+        "key": "from",
+        "component": "Field",
+        "props": {
+          "Label": "من",
+          "Value": "طرابلس · MJI",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "to",
+        "component": "Field",
+        "props": {
+          "Label": "إلى",
+          "Value": "تونس · TUN",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "date",
+        "component": "Field",
+        "props": {
+          "Label": "تاريخ المغادرة",
+          "Value": "22 أكتوبر 2026",
+          "Helper": ""
+        }
+      },
+      {
+        "key": "search",
+        "component": "Button",
+        "props": {
+          "Label": "ابحث عن رحلة"
+        },
+        "to": "O03",
+        "state": "Style=Primary, State=Default"
+      },
+      {
+        "key": "navigation",
+        "component": "Navigation bar",
+        "slots": [
+          {
+            "label": "حسابي",
+            "to": "O20"
+          },
+          {
+            "label": "مساعدة",
+            "to": "O18"
+          },
+          {
+            "label": "حجوزاتي",
+            "to": "O13"
+          },
+          {
+            "label": "اكتشف",
+            "to": "O02"
+          }
+        ]
+      }
+    ],
+    "locale": "ar"
+  }
+]

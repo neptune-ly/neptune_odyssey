@@ -1,5 +1,7 @@
 # Neptune Odyssey
 
+**New design preview:** [Living Worlds / Odyssey 3](design/living-worlds/README.md) introduces an illustration-led system, interactive product journeys and opt-in Flutter/KMP themes. [Migration guide](docs/24-living-worlds-migration.md). Existing v2 defaults remain available.
+
 **A vendor-neutral, white-label banking design system by [Neptune.Fintech](https://neptune.ly).**
 
 One Material 3 + Material 3 Expressive core that any institution wears as its own — colour,
