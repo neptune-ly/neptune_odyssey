@@ -1,0 +1,51 @@
+/* Composed from the existing product-worlds recipe tokens, not another theme engine. */
+#servicing-lab{max-width:1440px;padding-block:30px 50px}
+#servicing-lab h1{font:700 clamp(30px,3.1vw,48px)/1.15 var(--product-font);letter-spacing:-.035em;margin:12px 0}
+#servicing-lab h2{font:700 23px/1.25 var(--product-font);margin:6px 0 16px}
+#servicing-lab h3{font-size:16px;margin:0 0 10px}
+#servicing-lab p{margin:8px 0 16px;color:var(--muted)}
+#servicing-lab button{min-height:48px;padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);font-weight:650}
+#servicing-lab button.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+#servicing-lab button:disabled{opacity:.52}
+.sv-intro{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.sv-intro>div:first-child{max-width:810px}.sv-art{width:245px;aspect-ratio:16/9;flex:none}.sv-art svg{display:block;width:100%;height:100%}
+.sv-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-block:18px 26px}
+.sv-toolbar [aria-pressed=true]{box-shadow:inset 0 -3px var(--accent);border-color:var(--accent)}
+.sv-clock{margin-inline-start:auto;color:var(--muted);font-size:13px}
+.sv-grid{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1.65fr);gap:24px;align-items:start}
+.sv-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:24px;min-width:0}
+.sv-customer{border-top:5px solid var(--accent);background:var(--product-bg)}
+.sv-kicker{font:700 11px/1.4 var(--font);letter-spacing:.10em;color:var(--accent);margin-bottom:12px}
+.sv-status{display:inline-block;border:1px solid currentColor;border-radius:99px;padding:5px 12px;font-size:12px;font-weight:650;color:var(--pending);margin:0 0 18px}
+.sv-status.positive{color:var(--positive)}.sv-status.negative{color:var(--negative)}
+.sv-money{display:block;font:700 clamp(26px,3vw,42px)/1.25 var(--product-font);margin:16px 0;letter-spacing:-.03em}
+.sv-row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;font-size:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+.sv-row>span:first-child{color:var(--muted)}.sv-row bdi{font-variant-numeric:tabular-nums}.sv-row>strong{max-width:65%;text-align:end;overflow-wrap:anywhere}
+.sv-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.sv-customer .sv-actions button{width:100%}
+.sv-consent{display:flex;gap:12px;align-items:flex-start;min-height:48px;font-size:14px;margin-top:20px;padding:12px;border-radius:12px;background:var(--tint)}
+.sv-consent input{width:22px;height:22px;flex:none;accent-color:var(--accent);margin:2px 0}
+.sv-note{border-inline-start:3px solid var(--accent);background:var(--tint);border-radius:8px;padding:12px 16px;margin-top:20px;font-size:13px}
+#servicing-lab .sv-note p{margin:4px 0}
+.sv-stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:20px 0;padding:0;list-style:none}
+.sv-stages li{padding:12px 8px;border-top:3px solid var(--line);font-size:12px;overflow-wrap:anywhere}
+.sv-stages li[data-complete=true]{border-color:var(--positive)}
+.sv-table-wrap{max-width:100%;overflow:auto}.sv-table{width:100%;border-collapse:collapse;text-align:start;font-size:14px}
+.sv-table th{font-size:12px;color:var(--muted);font-weight:600;padding:12px 8px;text-align:start;border-bottom:1px solid var(--line)}
+.sv-table td{padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.sv-table td label{display:flex;align-items:center;gap:8px;min-height:48px}.sv-table input{width:20px;height:20px;accent-color:var(--accent)}
+.sv-table small{display:block;color:var(--muted);font-size:11px}.sv-table bdi{white-space:normal;overflow-wrap:anywhere}
+.sv-field{display:grid;gap:8px;margin-top:20px;font-size:14px;font-weight:600}
+.sv-field textarea{font:400 15px/1.5 var(--font);color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:12px;min-height:90px;padding:12px;resize:vertical;max-width:100%;width:100%}
+.sv-field textarea:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.sv-events{margin-top:24px}.sv-events ol{margin:10px 0 0;padding-inline-start:22px;max-height:260px;overflow:auto;font-size:12px;line-height:1.8}
+.sv-event-id{font-family:ui-monospace,monospace;font-size:11px;color:var(--muted)}
+.sv-demo{font-size:12px;border-top:1px solid var(--line);padding-top:20px;margin-top:22px}
+#sv-message{min-height:26px;font-size:14px;font-weight:600;color:var(--pending)}
+#case-workspace:focus,#customer-state:focus{outline:2px solid var(--focus);outline-offset:5px}
+[dir=rtl] #servicing-lab h1,[dir=rtl] .sv-money{letter-spacing:0}[dir=rtl] .sv-kicker{letter-spacing:0}
+@media(max-width:900px){.sv-grid{grid-template-columns:minmax(0,1fr)}.sv-intro{align-items:flex-start}.sv-art{width:160px}.sv-clock{margin-inline-start:0}.sv-card{padding:20px}}
+@media(max-width:500px){#servicing-lab{padding-inline:16px}.sv-intro{display:block}.sv-art{width:190px;margin:12px auto}.sv-toolbar{gap:8px}.sv-toolbar button{flex:1}.sv-stages{grid-template-columns:1fr 1fr}.sv-table{font-size:12px}.sv-table th,.sv-table td{padding:10px 4px}.sv-actions button{flex:1;min-width:140px}.sv-row{gap:10px}.sv-money{font-size:30px}}
+
+/* Accessible control targets on this lab page. */
+body:has(#servicing-lab) .controls select,body:has(#servicing-lab) .check{min-height:48px}

@@ -1,0 +1,93 @@
+{
+  "project": "Neptune Odyssey 2.0",
+  "date": "2026-09-18",
+  "philosophy": "Distinct worlds. Shared trust.",
+  "figmaFile": "JuC8o1hJzoGv8G6EHGXoro",
+  "branch": "feat/odyssey-orbit-move-commerce-20260917",
+  "scope": {
+    "newEnglishMobileScreens": 64,
+    "representativeArabicScreens": 27,
+    "darkPreviews": 13,
+    "desktopWorkspaces": 3,
+    "originalSceneComponents": 5,
+    "motionFamilies": 3,
+    "motionVariants": 12
+  },
+  "entryPoints": {
+    "orbit": "310:78",
+    "moveRider": "313:384",
+    "moveDriver": "317:690",
+    "commerce": "319:75",
+    "arabicOrbit": "328:119",
+    "arabicMove": "328:430",
+    "arabicCommerce": "328:730",
+    "agencyWorkspace": "325:128",
+    "dispatchWorkspace": "325:267",
+    "commerceOperations": "325:371",
+    "motion": "333:888",
+    "servicingDelivery": "353:168",
+    "orbitAftercare": "343:980",
+    "orbitExpiredQuote": "343:1367",
+    "moveDriverSetup": "345:1056",
+    "moveExpiredDocument": "345:1433",
+    "arabicOrbitAftercare": "349:1023",
+    "arabicMoveDriverSetup": "349:1337"
+  },
+  "pages": {
+    "travelMobility": "268:33",
+    "commerce": "272:33",
+    "adaptiveArabic": "2:9",
+    "web": "54:3",
+    "illustration": "2:6",
+    "motion": "2:8",
+    "components": "2:5"
+  },
+  "scenes": {
+    "orbitDeparture": "302:689",
+    "moveStreet": "303:72",
+    "marketStudio": "304:72",
+    "orbitAftercare": "341:201",
+    "moveDriverOnboarding": "342:203"
+  },
+  "architecture": {
+    "originalWorlds": ["orbit", "current", "bloom", "atelier", "signal", "horizon"],
+    "productRecipes": {"travel": "voyage", "mobility": "pulse", "driver": "pulse", "commerce": "market"},
+    "productNameCaution": "Neptune Orbit is the travel product. It does not rename or replace the existing Orbit visual world."
+  },
+  "servicingBatch": {
+    "englishScreens": 13,
+    "arabicScreens": 13,
+    "darkPreviews": 4,
+    "readOnlyOverlays": 2,
+    "newScenes": 2,
+    "connectedFooterActions": 52,
+    "missingFooterActions": 0,
+    "invalidPrototypeDestinations": 0,
+    "arabicMoneyMismatches": 0,
+    "orbitScreens": ["343:980", "343:1082", "343:1155", "343:1225", "343:1298", "343:1367", "347:1136"],
+    "moveScreens": ["345:1056", "345:1151", "345:1214", "345:1277", "345:1340", "345:1433"],
+    "arabicScreensByOrder": ["349:1023", "349:1091", "349:1130", "349:1166", "349:1205", "349:1240", "349:1302", "349:1337", "349:1406", "349:1443", "349:1480", "349:1517", "349:1584"],
+    "darkScreens": ["351:1182", "351:1248", "351:1315", "351:1352"],
+    "arabicBoundary": "Driver approval explicitly links to the existing English driver workspace; broader Arabic parity is not complete.",
+    "browserBoundary": "New servicing policy and SVG sources are added; these new journeys are not yet connected to app.mjs."
+  },
+  "verification": {
+    "policyChecks": 51,
+    "browserChecks": 19,
+    "existingCheckScope": "Previous product-worlds batch results; not rerun in the servicing batch.",
+    "servicingPolicyChecks": 55,
+    "servicingPolicyPassed": 55,
+    "servicingPolicyFailed": 0,
+    "servicingTypecheck": "passed: strict ES2022 compile of servicing.ts plus its actual experience.ts dependency",
+    "servicingRuntime": {"node": "22.16.0", "typescript": "5.8.3"},
+    "testedBlobs": {
+      "experience.ts": "beff2a0dcaaa9a728c0b2a1ade269560ba71d3fc",
+      "servicing.ts": "f09be0dda8aed620ed006f72369c40792ab4a723",
+      "servicing.check.mjs": "535284faa306412731d27e787d158af583f357d4"
+    },
+    "repositoryWideCI": "not run locally",
+    "fullArabicParity": false,
+    "productionIntegrations": false,
+    "publishedPackages": false
+  }
+}

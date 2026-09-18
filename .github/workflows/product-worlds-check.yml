@@ -1,0 +1,30 @@
+name: Product worlds reference checks
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  policy-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check additive policy without altering the workspace
+        run: npm exec --yes --package=typescript@5.6.3 -- node packages/neptune_product_configs/test/experience.check.mjs
+      - name: Build offline reference
+        run: npm exec --yes --package=typescript@5.6.3 -- node tools/build-product-worlds.mjs
+      - name: Compile canonical servicing policies and build offline workspace
+        run: npm exec --yes --package=typescript@5.6.3 -- node tools/build-servicing-lab.mjs
+      - name: Test shared customer and operator servicing sessions
+        run: node --test tests/servicing-session.test.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: odyssey-product-worlds-reference
+          path: |
+            site/product-worlds/standalone.html
+            site/product-worlds/servicing-standalone.html
+          if-no-files-found: error
+# Manual review workflow only. It does not publish packages or deploy Pages.
+# The offline Chromium test is documented separately; it is not run in this job.
