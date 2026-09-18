@@ -25,7 +25,8 @@
     "codegen": "node tools/codegen.mjs",
     "codegen:check": "node tools/codegen.mjs --check",
     "contrast": "node tools/contrast-check.mjs",
-    "client-demo": "node tools/client-demo/generate.mjs"
+    "client-demo": "node tools/client-demo/generate.mjs",
+    "contract:check": "node tools/check-component-contract.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.21.5",
