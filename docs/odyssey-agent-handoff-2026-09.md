@@ -39,6 +39,19 @@ The 304-item Figma catalogue is **target scope**, not proof that 304 implementat
 - Keep numeric identifiers, amounts, PNRs, plates and similar identifiers logically ordered in RTL.
 - Do not publish packages or merge to main unless explicitly requested.
 
+## Current shipped parity
+
+As of 18 September 2026:
+
+- 89 registered web custom elements are parsed from `packages/neptune_web_ui/src/register.ts`.
+- 88 have canonical Figma component/component-set node mappings.
+- 1 is intentionally non-visual: `npt-toast-host`, a runtime host/queue API.
+- 0 shipped web tags are unclassified in the component contract.
+- Native Figma Code Connect is not enabled for the current Figma seat, so the authoritative fallback is the repo contract + canonical node IDs + Figma shared plugin metadata.
+- The 304-item Figma catalogue remains target inventory and must not be described as 304 shipped widgets.
+
+The component drift checker fails if web registration and the contract diverge, if a canonical Figma mapping lacks a node ID/name, or if a host API pretends to have a visual node.
+
 ## Component workflow
 
 Before changing or adding a component:
