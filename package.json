@@ -24,9 +24,12 @@
     "site:bundle": "node site/bundle/build.mjs",
     "codegen": "node tools/codegen.mjs",
     "codegen:check": "node tools/codegen.mjs --check",
+    "wrappers:generate": "node tools/generate-framework-wrappers.mjs",
+    "wrappers:check": "node tools/generate-framework-wrappers.mjs --check",
     "contrast": "node tools/contrast-check.mjs",
     "client-demo": "node tools/client-demo/generate.mjs",
-    "contract:check": "node tools/check-component-contract.mjs"
+    "contract:generate": "node tools/generate-component-contract.mjs",
+    "contract:check": "node tools/generate-component-contract.mjs --check && node tools/check-component-contract.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.21.5",

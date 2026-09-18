@@ -11,6 +11,8 @@ const reactSource = read("packages/neptune_react_ui/src/index.tsx");
 const vueSource = read("packages/neptune_vue_ui/src/index.ts");
 const svelteSource = read("packages/neptune_svelte_ui/src/index.ts");
 const reactNativeSource = read("packages/neptune_react_native_ui/src/index.ts");
+const figmaAudit = JSON.parse(read("contracts/odyssey-figma-audit.json"));
+const figmaByTag = new Map(figmaAudit.nodes.map((node) => [node.webTag, node]));
 
 const registered = [...registerSource.matchAll(/define\("([^"]+)"/g)].map((m) => m[1]).sort();
 const contracted = contract.components.map((c) => c.web.tag).sort();
@@ -32,13 +34,29 @@ if (!svelteSource.includes("@neptune.fintech/web-ui")) errors.push("Svelte no lo
 
 for (const c of contract.components) {
   if (!c.id || !c.category || !c.web?.tag) errors.push("Incomplete contract entry: " + JSON.stringify(c));
-  if (!c.flutter?.kind) errors.push(c.web.tag + ": missing Flutter parity kind");
+  if (!c.web?.className || !c.web?.source || !fs.existsSync(path.join(root, c.web.source))) errors.push(c.web.tag + ": missing exact web class/source");
+  if (!c.platforms?.flutter?.kind) errors.push(c.web.tag + ": missing Flutter parity kind");
   if (!c.figma?.status) errors.push(c.web.tag + ": missing Figma status");
   if (!["canonical", "host-api"].includes(c.figma.status)) errors.push(c.web.tag + ": invalid Figma status " + c.figma.status);
   if (c.figma.status === "canonical" && (!c.figma.nodeId || !c.figma.name)) errors.push(c.web.tag + ": canonical Figma mapping requires nodeId + name");
   if (c.figma.status === "host-api" && (c.figma.nodeId || c.figma.name)) errors.push(c.web.tag + ": host-api must not pretend to have a visual Figma node");
-  if (c.contract?.theme !== "tokens-only") errors.push(c.web.tag + ": theme contract must remain tokens-only");
+  if (c.requirements?.theme !== "tokens-only") errors.push(c.web.tag + ": theme contract must remain tokens-only");
+  if (!Array.isArray(c.requirements?.semanticTokens) || !Array.isArray(c.requirements?.sourceStateSignals) || !Array.isArray(c.requirements?.observedAttributes)) errors.push(c.web.tag + ": missing executable token/state requirements");
   if (!c.platforms?.react || !c.platforms?.vue || !c.platforms?.svelte || !c.platforms?.reactNative || !c.platforms?.kmp) errors.push(c.web.tag + ": incomplete cross-framework platform contract");
+  if (c.platforms?.react?.symbol !== c.web.className || c.platforms?.vue?.symbol !== c.web.className) errors.push(c.web.tag + ": generated framework symbol must equal web class name");
+  if (c.platforms?.svelte?.strategy !== "consume-registered-custom-element-directly") errors.push(c.web.tag + ": Svelte must remain native to web custom elements");
+  if (c.figma.status === "canonical") {
+    const audited = figmaByTag.get(c.web.tag);
+    if (!audited || audited.nodeId !== c.figma.nodeId || audited.page !== c.figma.page) errors.push(c.web.tag + ": Figma live-audit mapping drift");
+  }
+  if (c.platforms?.kmp?.status === "verified-native-symbol") {
+    const kmp = c.platforms.kmp;
+    if (!kmp.symbol || !kmp.source || !fs.existsSync(path.join(root, kmp.source)) || !read(kmp.source).includes(kmp.symbol)) errors.push(c.web.tag + ": verified KMP symbol/source does not exist");
+  } else if (c.platforms?.kmp?.symbol) errors.push(c.web.tag + ": unverified KMP mapping must not claim a symbol");
+  for (const key of ["webSurface", "webVisual", "react", "vue", "svelte"]) {
+    const location = c.tests?.[key];
+    if (!location || !fs.existsSync(path.join(root, location))) errors.push(c.web.tag + ": missing test location " + key);
+  }
 }
 
 const canonicalCount = contract.components.filter((c) => c.figma.status === "canonical").length;
@@ -55,6 +73,8 @@ if (contract.counts.reactTypedWrappers !== reactWrapped.length) errors.push("cou
 if (contract.counts.vueTypedWrappers !== vueWrapped.length) errors.push("counts.vueTypedWrappers mismatch");
 if (contract.counts.svelteNativeWebSurface !== registered.length) errors.push("counts.svelteNativeWebSurface mismatch");
 if (contract.counts.reactNativeMappedWebComponents !== rnExpected.length) errors.push("counts.reactNativeMappedWebComponents mismatch");
+const kmpVerified = contract.components.filter((c) => c.platforms?.kmp?.status === "verified-native-symbol").length;
+if (contract.counts.kmpVerifiedOneToOneSymbols !== kmpVerified) errors.push("counts.kmpVerifiedOneToOneSymbols mismatch");
 
 for (const entry of rnExpected) {
   const symbol = entry.platforms.reactNative.symbol;
@@ -70,3 +90,4 @@ const figmaStatus = contract.components.reduce((acc, c) => { acc[c.figma.status]
 console.log("Odyssey component contract OK: " + registered.length + " registered web components.");
 console.log("Figma status:", figmaStatus);
 console.log("React typed wrappers:", reactWrapped.length, "Vue:", vueWrapped.length, "React Native mapped:", rnExpected.length);
+console.log("KMP verified one-to-one symbols:", kmpVerified);
