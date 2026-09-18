@@ -32,8 +32,8 @@
     "figmaCanonical": 88,
     "figmaHostApi": 1,
     "figmaMissing": 0,
-    "reactTypedWrappers": 10,
-    "vueTypedWrappers": 10,
+    "reactTypedWrappers": 89,
+    "vueTypedWrappers": 89,
     "svelteNativeWebSurface": 89,
     "reactNativeMappedWebComponents": 4,
     "kmpReportedComponents": 78
@@ -646,12 +646,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptIconButton"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptIconButton"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -701,12 +703,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptFab"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptFab"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -756,12 +760,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSegmentedButton"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSegmentedButton"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -811,12 +817,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSegmentedOption"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSegmentedOption"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -866,12 +874,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptCheckbox"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptCheckbox"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -921,12 +931,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptRadio"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptRadio"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -976,12 +988,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSwitch"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSwitch"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1031,12 +1045,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSlider"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSlider"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1086,12 +1102,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptProgress"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptProgress"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1141,12 +1159,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSnackbar"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSnackbar"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1196,12 +1216,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTooltip"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTooltip"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1251,12 +1273,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptBanner"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptBanner"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1306,12 +1330,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptDialog"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptDialog"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1361,12 +1387,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptBottomSheet"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptBottomSheet"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1416,12 +1444,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptMenu"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptMenu"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1471,12 +1501,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptMenuItem"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptMenuItem"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1526,12 +1558,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptList"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptList"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1581,12 +1615,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptListItem"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptListItem"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1636,12 +1672,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptDivider"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptDivider"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1691,12 +1729,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTabs"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTabs"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1746,12 +1786,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTab"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTab"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1801,12 +1843,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAccordion"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAccordion"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1856,12 +1900,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAccordionItem"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAccordionItem"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1911,12 +1957,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAvatar"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAvatar"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -1966,12 +2014,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptNavRail"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptNavRail"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2021,12 +2071,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTopAppBar"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTopAppBar"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2076,12 +2128,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAmountInput"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAmountInput"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2131,12 +2185,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptCurrencyField"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptCurrencyField"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2186,12 +2242,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptIbanField"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptIbanField"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2241,12 +2299,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptOtpInput"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptOtpInput"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2296,12 +2356,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptPinInput"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptPinInput"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2351,12 +2413,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAmountKeypad"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAmountKeypad"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2406,12 +2470,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptCardArt"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptCardArt"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2461,12 +2527,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptCardRow"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptCardRow"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2516,12 +2584,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAddCard"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAddCard"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2571,12 +2641,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptCardControls"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptCardControls"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2626,12 +2698,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptStep"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptStep"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2681,12 +2755,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptStepper"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptStepper"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2736,12 +2812,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTransferReview"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTransferReview"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2791,12 +2869,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSuccess"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSuccess"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2846,12 +2926,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptReceipt"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptReceipt"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2901,12 +2983,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptBeneficiaryTile"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptBeneficiaryTile"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -2956,12 +3040,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptMethodRow"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptMethodRow"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3011,12 +3097,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptDataTable"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptDataTable"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3066,12 +3154,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptStatCard"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptStatCard"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3121,12 +3211,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSparkline"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSparkline"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3176,12 +3268,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptDonut"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptDonut"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3231,12 +3325,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptLimitMeter"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptLimitMeter"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3286,12 +3382,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTrend"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTrend"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3341,12 +3439,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSkeleton"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSkeleton"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3396,12 +3496,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptEmptyState"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptEmptyState"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3451,12 +3553,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAlert"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAlert"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3506,12 +3610,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptStatusChip"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptStatusChip"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3561,12 +3667,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptToast"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptToast"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3615,12 +3723,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptToastHost"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptToastHost"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3670,12 +3780,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptApprovalItem"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptApprovalItem"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3725,12 +3837,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptBatchCard"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptBatchCard"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3780,12 +3894,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAuditRow"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAuditRow"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3835,12 +3951,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptUserRow"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptUserRow"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3890,12 +4008,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptPermissionToggle"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptPermissionToggle"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -3945,12 +4065,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptWorkflowStatus"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptWorkflowStatus"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4000,12 +4122,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptAppShell"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptAppShell"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4055,12 +4179,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptPageHeader"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptPageHeader"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4110,12 +4236,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSection"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSection"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4165,12 +4293,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSideNav"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSideNav"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4220,12 +4350,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSideNavItem"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSideNavItem"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4275,12 +4407,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptSearchField"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptSearchField"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4330,12 +4464,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptToolbar"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptToolbar"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4385,12 +4521,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptQuickActions"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptQuickActions"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4440,12 +4578,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptQuickAction"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptQuickAction"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4495,12 +4635,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptMerchantRow"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptMerchantRow"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4550,12 +4692,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptVoucherCard"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptVoucherCard"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4605,12 +4749,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptQrPay"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptQrPay"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4660,12 +4806,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTopupRow"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTopupRow"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4715,12 +4863,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptTierBadge"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptTierBadge"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4770,12 +4920,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptDock"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptDock"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4825,12 +4977,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptDockItem"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptDockItem"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4880,12 +5034,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptOnboarding"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptOnboarding"
         },
         "svelte": {
           "status": "native-web-custom-element",
@@ -4935,12 +5091,14 @@
       },
       "platforms": {
         "react": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_react_ui/src/index.tsx"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_react_ui/src/index.tsx",
+          "symbol": "NptCta"
         },
         "vue": {
-          "status": "web-element-no-typed-wrapper",
-          "source": "packages/neptune_vue_ui/src/index.ts"
+          "status": "typed-wrapper",
+          "source": "packages/neptune_vue_ui/src/index.ts",
+          "symbol": "NptCta"
         },
         "svelte": {
           "status": "native-web-custom-element",
