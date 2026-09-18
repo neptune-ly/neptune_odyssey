@@ -1,0 +1,2699 @@
+{
+  "schemaVersion": 1,
+  "contractName": "Neptune Odyssey shipped component contract",
+  "generatedAt": "2026-09-18",
+  "repository": "neptune-ly/neptune_odyssey",
+  "baseBranch": "feat/odyssey-orbit-move-commerce-20260917",
+  "figma": {
+    "fileKey": "JuC8o1hJzoGv8G6EHGXoro",
+    "url": "https://www.figma.com/design/JuC8o1hJzoGv8G6EHGXoro"
+  },
+  "principles": [
+    "Distinct worlds. Shared trust.",
+    "A product is configuration, not a component fork.",
+    "No literal colour, radius or font values in implementation components.",
+    "Figma target inventory is not shipped coverage; this manifest tracks shipped component parity.",
+    "Do not mark a component canonical in Figma until it has a real semantic/state contract."
+  ],
+  "sources": {
+    "web": "packages/neptune_web_ui/src/register.ts",
+    "flutter": "packages/neptune_flutter_ui/COVERAGE.md",
+    "kmp": "packages/neptune_kmp_ui/README.md",
+    "ci": ".github/workflows/ci.yml"
+  },
+  "counts": {
+    "webRegistered": 89
+  },
+  "components": [
+    {
+      "id": "button",
+      "web": {
+        "tag": "npt-button",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneButton",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "canonical",
+        "nodeId": "18:16",
+        "name": "O2/Action"
+      },
+      "category": "actions",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "card",
+      "web": {
+        "tag": "npt-card",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "Card",
+        "kind": "themed-material",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "balance-card",
+      "web": {
+        "tag": "npt-balance-card",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneBalanceCard",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "canonical",
+        "nodeId": "31:42",
+        "name": "O2/Money summary"
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "transaction-row",
+      "web": {
+        "tag": "npt-transaction-row",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTransactionRow",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "canonical",
+        "nodeId": "20:2",
+        "name": "O2/Activity row"
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "text-field",
+      "web": {
+        "tag": "npt-text-field",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTextField",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "canonical",
+        "nodeId": "19:14",
+        "name": "O2/Field"
+      },
+      "category": "inputs-selection",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "chip",
+      "web": {
+        "tag": "npt-chip",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneChip",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "inputs-selection",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "badge",
+      "web": {
+        "tag": "npt-badge",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneBadge",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "inputs-selection",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "app-bar",
+      "web": {
+        "tag": "npt-app-bar",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAppBar",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "mapped-pattern",
+        "nodeId": "88:36",
+        "name": "O2K/Screen header"
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "nav-bar",
+      "web": {
+        "tag": "npt-nav-bar",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NavigationBar / NeptuneDock",
+        "kind": "themed-material-or-wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "nav-item",
+      "web": {
+        "tag": "npt-nav-item",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NavigationDestination / NeptuneDockItem",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "canonical",
+        "nodeId": "30:36",
+        "name": "O2/Navigation item"
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "icon-button",
+      "web": {
+        "tag": "npt-icon-button",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "IconButton",
+        "kind": "themed-material",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "actions",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "fab",
+      "web": {
+        "tag": "npt-fab",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "FloatingActionButton",
+        "kind": "themed-material",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "actions",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "segmented-button",
+      "web": {
+        "tag": "npt-segmented-button",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSegmented",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "actions",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "segmented-option",
+      "web": {
+        "tag": "npt-segmented-option",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSegment",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "actions",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "checkbox",
+      "web": {
+        "tag": "npt-checkbox",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneCheckbox",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "inputs-selection",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "radio",
+      "web": {
+        "tag": "npt-radio",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneRadioGroup / NeptuneRadioOption",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "inputs-selection",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "switch",
+      "web": {
+        "tag": "npt-switch",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSwitch",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "inputs-selection",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "slider",
+      "web": {
+        "tag": "npt-slider",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSlider",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "inputs-selection",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "progress",
+      "web": {
+        "tag": "npt-progress",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneProgressBar / NeptuneProgressRing",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "snackbar",
+      "web": {
+        "tag": "npt-snackbar",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "SnackBar / NeptuneToast",
+        "kind": "themed-material-or-wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "tooltip",
+      "web": {
+        "tag": "npt-tooltip",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTooltip",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "banner",
+      "web": {
+        "tag": "npt-banner",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneBanner",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "dialog",
+      "web": {
+        "tag": "npt-dialog",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "showNeptuneDialog / NeptuneDialogAction",
+        "kind": "wrapper-api",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "overlays",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "bottom-sheet",
+      "web": {
+        "tag": "npt-bottom-sheet",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "showNeptuneSheet",
+        "kind": "wrapper-api",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "overlays",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "menu",
+      "web": {
+        "tag": "npt-menu",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneMenu",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "overlays",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "menu-item",
+      "web": {
+        "tag": "npt-menu-item",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneMenuItem",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "overlays",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "list",
+      "web": {
+        "tag": "npt-list",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneListTile[]",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "list-item",
+      "web": {
+        "tag": "npt-list-item",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneListTile",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "divider",
+      "web": {
+        "tag": "npt-divider",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "Divider",
+        "kind": "themed-material",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "tabs",
+      "web": {
+        "tag": "npt-tabs",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTabs",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "tab",
+      "web": {
+        "tag": "npt-tab",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTabs item",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "accordion",
+      "web": {
+        "tag": "npt-accordion",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAccordion",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "accordion-item",
+      "web": {
+        "tag": "npt-accordion-item",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAccordionPanel",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "avatar",
+      "web": {
+        "tag": "npt-avatar",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAvatar",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "layout-display",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "nav-rail",
+      "web": {
+        "tag": "npt-nav-rail",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneNavRail",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "top-app-bar",
+      "web": {
+        "tag": "npt-top-app-bar",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAppBar variant",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "amount-input",
+      "web": {
+        "tag": "npt-amount-input",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAmountInput",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "currency-field",
+      "web": {
+        "tag": "npt-currency-field",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneCurrencyField",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "iban-field",
+      "web": {
+        "tag": "npt-iban-field",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneIbanField",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "otp-input",
+      "web": {
+        "tag": "npt-otp-input",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneOtpInput",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "pin-input",
+      "web": {
+        "tag": "npt-pin-input",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptunePinInput",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "amount-keypad",
+      "web": {
+        "tag": "npt-amount-keypad",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAmountKeypad",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "mapped-pattern",
+        "nodeId": "93:39",
+        "name": "O2K/Keypad / LTR"
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "card-art",
+      "web": {
+        "tag": "npt-card-art",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneCardArt",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "card-row",
+      "web": {
+        "tag": "npt-card-row",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAccountTile",
+        "kind": "wrapper-equivalent",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "add-card",
+      "web": {
+        "tag": "npt-add-card",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAddCard",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "card-controls",
+      "web": {
+        "tag": "npt-card-controls",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneCardControls",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "step",
+      "web": {
+        "tag": "npt-step",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneStepper item",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "stepper",
+      "web": {
+        "tag": "npt-stepper",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneStepper",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "transfer-review",
+      "web": {
+        "tag": "npt-transfer-review",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTransferReview",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "mapped-pattern",
+        "nodeId": "90:33",
+        "name": "O2K/Review summary"
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "success",
+      "web": {
+        "tag": "npt-success",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSuccess",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "mapped-pattern",
+        "nodeId": "124:89",
+        "name": "O2K/Outcome"
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "receipt",
+      "web": {
+        "tag": "npt-receipt",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneReceipt",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "mapped-pattern",
+        "nodeId": "124:89",
+        "name": "O2K/Outcome"
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "beneficiary-tile",
+      "web": {
+        "tag": "npt-beneficiary-tile",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneBeneficiaryTile",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "method-row",
+      "web": {
+        "tag": "npt-method-row",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneMethodRow",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "financial-money-movement",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "data-table",
+      "web": {
+        "tag": "npt-data-table",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneDataTable / NeptuneColumn",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "data-viz",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "stat-card",
+      "web": {
+        "tag": "npt-stat-card",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneStatCard",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "data-viz",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "sparkline",
+      "web": {
+        "tag": "npt-sparkline",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSparkline",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "data-viz",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "donut",
+      "web": {
+        "tag": "npt-donut",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneDonut",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "data-viz",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "limit-meter",
+      "web": {
+        "tag": "npt-limit-meter",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneLimitMeter",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "data-viz",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "trend",
+      "web": {
+        "tag": "npt-trend",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTrend",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "data-viz",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "skeleton",
+      "web": {
+        "tag": "npt-skeleton",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSkeleton / NeptuneShimmer",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "empty-state",
+      "web": {
+        "tag": "npt-empty-state",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneEmptyState",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "alert",
+      "web": {
+        "tag": "npt-alert",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAlert",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "status-chip",
+      "web": {
+        "tag": "npt-status-chip",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneStatusChip",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "toast",
+      "web": {
+        "tag": "npt-toast",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneToast",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "toast-host",
+      "web": {
+        "tag": "npt-toast-host",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "showNeptuneToast host",
+        "kind": "host-api",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "feedback-status",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "approval-item",
+      "web": {
+        "tag": "npt-approval-item",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneApprovalItem",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "corporate-operations",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "batch-card",
+      "web": {
+        "tag": "npt-batch-card",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneBatchCard",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "corporate-operations",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "audit-row",
+      "web": {
+        "tag": "npt-audit-row",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAuditRow",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "corporate-operations",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "user-row",
+      "web": {
+        "tag": "npt-user-row",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneUserRow",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "corporate-operations",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "permission-toggle",
+      "web": {
+        "tag": "npt-permission-toggle",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptunePermissionToggle",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "corporate-operations",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "workflow-status",
+      "web": {
+        "tag": "npt-workflow-status",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneWorkflowStatus",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "corporate-operations",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "app-shell",
+      "web": {
+        "tag": "npt-app-shell",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneAppShell",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "page-header",
+      "web": {
+        "tag": "npt-page-header",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptunePageHeader",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "mapped-pattern",
+        "nodeId": "88:36",
+        "name": "O2K/Screen header"
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "section",
+      "web": {
+        "tag": "npt-section",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSection",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "side-nav",
+      "web": {
+        "tag": "npt-side-nav",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSideNav",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "side-nav-item",
+      "web": {
+        "tag": "npt-side-nav-item",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSideNavItem",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "search-field",
+      "web": {
+        "tag": "npt-search-field",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneSearchField",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "mapped-pattern",
+        "nodeId": "89:57",
+        "name": "O2K/Field"
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "toolbar",
+      "web": {
+        "tag": "npt-toolbar",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneToolbar",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "quick-actions",
+      "web": {
+        "tag": "npt-quick-actions",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneQuickActions",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "wallet-pay",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "quick-action",
+      "web": {
+        "tag": "npt-quick-action",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneQuickAction",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "canonical",
+        "nodeId": "30:37",
+        "name": "O2/Quick action"
+      },
+      "category": "wallet-pay",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "merchant-row",
+      "web": {
+        "tag": "npt-merchant-row",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneMerchantRow",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "wallet-pay",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "voucher-card",
+      "web": {
+        "tag": "npt-voucher-card",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneVoucherCard",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "wallet-pay",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "qr-pay",
+      "web": {
+        "tag": "npt-qr-pay",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneQrPay",
+        "kind": "presentation-wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "wallet-pay",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "topup-row",
+      "web": {
+        "tag": "npt-topup-row",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTopupRow",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "wallet-pay",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "tier-badge",
+      "web": {
+        "tag": "npt-tier-badge",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneTierBadge",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "wallet-pay",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "dock",
+      "web": {
+        "tag": "npt-dock",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneDock",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "dock-item",
+      "web": {
+        "tag": "npt-dock-item",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneDockItem",
+        "kind": "composite-data",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "navigation-shell",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "onboarding",
+      "web": {
+        "tag": "npt-onboarding",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneOnboarding",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "onboarding",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    },
+    {
+      "id": "cta",
+      "web": {
+        "tag": "npt-cta",
+        "exported": true,
+        "source": "packages/neptune_web_ui/src/register.ts"
+      },
+      "flutter": {
+        "symbol": "NeptuneCta",
+        "kind": "wrapper",
+        "source": "packages/neptune_flutter_ui/COVERAGE.md"
+      },
+      "kmp": {
+        "status": "parity-required",
+        "source": "packages/neptune_kmp_ui/README.md"
+      },
+      "figma": {
+        "status": "missing-canonical",
+        "nodeId": null,
+        "name": null
+      },
+      "category": "actions",
+      "contract": {
+        "theme": "tokens-only",
+        "rtl": "required",
+        "dark": "required",
+        "reducedMotion": "required-where-animated",
+        "targetSize": "48px/dp minimum where interactive"
+      }
+    }
+  ]
+}
