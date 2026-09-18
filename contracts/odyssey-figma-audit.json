@@ -1,0 +1,1621 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18",
+  "fileKey": "JuC8o1hJzoGv8G6EHGXoro",
+  "source": "Live Figma Plugin API audit",
+  "nodes": [
+    {
+      "webTag": "npt-button",
+      "nodeId": "18:16",
+      "name": "O2/Action",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Label",
+          "type": "TEXT",
+          "defaultValue": "Continue"
+        },
+        {
+          "name": "Intent",
+          "type": "VARIANT",
+          "options": [
+            "Primary",
+            "Secondary",
+            "Danger"
+          ],
+          "defaultValue": "Primary"
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Pressed",
+            "Focus",
+            "Disabled",
+            "Loading"
+          ],
+          "defaultValue": "Default"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 14,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-card",
+      "nodeId": "466:618",
+      "name": "O2/Code/Card",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 4,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-balance-card",
+      "nodeId": "31:42",
+      "name": "O2/Money summary",
+      "nodeType": "COMPONENT_SET",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Label",
+          "type": "TEXT",
+          "defaultValue": "Available wallet balance"
+        },
+        {
+          "name": "Amount",
+          "type": "TEXT",
+          "defaultValue": "4,600.000"
+        },
+        {
+          "name": "Detail",
+          "type": "TEXT",
+          "defaultValue": "LYD · pending 250.000"
+        },
+        {
+          "name": "Identifier",
+          "type": "TEXT",
+          "defaultValue": "@amal.demo"
+        },
+        {
+          "name": "Product",
+          "type": "VARIANT",
+          "options": [
+            "Wallet",
+            "Bank"
+          ],
+          "defaultValue": "Wallet"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 10,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-transaction-row",
+      "nodeId": "20:2",
+      "name": "O2/Activity row",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Mark",
+          "type": "TEXT",
+          "defaultValue": "A"
+        },
+        {
+          "name": "Title",
+          "type": "TEXT",
+          "defaultValue": "Amal Ben Musa"
+        },
+        {
+          "name": "Subtitle",
+          "type": "TEXT",
+          "defaultValue": "Transfer · Completed"
+        },
+        {
+          "name": "Value",
+          "type": "TEXT",
+          "defaultValue": "−125.000"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-text-field",
+      "nodeId": "19:14",
+      "name": "O2/Field",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Label",
+          "type": "TEXT",
+          "defaultValue": "Recipient"
+        },
+        {
+          "name": "Value",
+          "type": "TEXT",
+          "defaultValue": "Amal Ben Musa"
+        },
+        {
+          "name": "Hint",
+          "type": "TEXT",
+          "defaultValue": "Confirm the full name before sending."
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Focus",
+            "Error"
+          ],
+          "defaultValue": "Default"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 15,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-chip",
+      "nodeId": "466:631",
+      "name": "O2/Code/Chip",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Variant",
+          "type": "VARIANT",
+          "options": [
+            "Assist",
+            "Filter",
+            "Input",
+            "Suggestion"
+          ],
+          "defaultValue": "Assist"
+        },
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 15,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-badge",
+      "nodeId": "466:640",
+      "name": "O2/Code/Badge",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Tone",
+          "type": "VARIANT",
+          "options": [
+            "Neutral",
+            "Positive",
+            "Pending",
+            "Negative"
+          ],
+          "defaultValue": "Neutral"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-app-bar",
+      "nodeId": "88:36",
+      "name": "O2K/Screen header",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Back",
+          "type": "TEXT",
+          "defaultValue": "←"
+        },
+        {
+          "name": "Title",
+          "type": "TEXT",
+          "defaultValue": "Transfer"
+        },
+        {
+          "name": "Utility",
+          "type": "TEXT",
+          "defaultValue": "Help"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-nav-bar",
+      "nodeId": "471:612",
+      "name": "O2/Code/Nav bar",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 10,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-nav-item",
+      "nodeId": "30:36",
+      "name": "O2/Navigation item",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Icon",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "29:31"
+        },
+        {
+          "name": "Label",
+          "type": "TEXT",
+          "defaultValue": "Home"
+        },
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-icon-button",
+      "nodeId": "467:611",
+      "name": "O2/Code/Icon button",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Style",
+          "type": "VARIANT",
+          "options": [
+            "Standard",
+            "Filled",
+            "Tonal",
+            "Outlined"
+          ],
+          "defaultValue": "Standard"
+        },
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-fab",
+      "nodeId": "467:621",
+      "name": "O2/Code/FAB",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "options": [
+            "Small",
+            "Medium",
+            "Large"
+          ],
+          "defaultValue": "Small"
+        },
+        {
+          "name": "Extended",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 9,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-segmented-button",
+      "nodeId": "467:622",
+      "name": "O2/Code/Segmented button",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 8,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-segmented-option",
+      "nodeId": "471:611",
+      "name": "O2/Code/Segmented option",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        },
+        {
+          "name": "Disabled",
+          "type": "VARIANT",
+          "options": [
+            "True",
+            "False"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 9,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-checkbox",
+      "nodeId": "466:655",
+      "name": "O2/Code/Checkbox",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Unchecked",
+            "Checked",
+            "Indeterminate",
+            "Disabled"
+          ],
+          "defaultValue": "Unchecked"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 14,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-radio",
+      "nodeId": "466:666",
+      "name": "O2/Code/Radio",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Unchecked",
+            "Checked",
+            "Disabled"
+          ],
+          "defaultValue": "Unchecked"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 10,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-switch",
+      "nodeId": "466:679",
+      "name": "O2/Code/Switch",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Off",
+            "On",
+            "Disabled"
+          ],
+          "defaultValue": "Off"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-slider",
+      "nodeId": "466:690",
+      "name": "O2/Code/Slider",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Disabled"
+          ],
+          "defaultValue": "Default"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 8,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-progress",
+      "nodeId": "466:712",
+      "name": "O2/Code/Progress",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Type",
+          "type": "VARIANT",
+          "options": [
+            "Linear",
+            "Circular"
+          ],
+          "defaultValue": "Linear"
+        },
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Determinate",
+            "Indeterminate"
+          ],
+          "defaultValue": "Determinate"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 8,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-snackbar",
+      "nodeId": "467:650",
+      "name": "O2/Code/Snackbar",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-tooltip",
+      "nodeId": "466:759",
+      "name": "O2/Code/Tooltip",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 2,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-banner",
+      "nodeId": "466:742",
+      "name": "O2/Code/Banner",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-dialog",
+      "nodeId": "467:629",
+      "name": "O2/Code/Dialog",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 9,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-bottom-sheet",
+      "nodeId": "467:636",
+      "name": "O2/Code/Bottom sheet",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 9,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-menu",
+      "nodeId": "467:644",
+      "name": "O2/Code/Menu",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-menu-item",
+      "nodeId": "467:648",
+      "name": "O2/Code/Menu item",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 2,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-list",
+      "nodeId": "471:633",
+      "name": "O2/Code/List",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 14,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-list-item",
+      "nodeId": "467:735",
+      "name": "O2/Code/List item",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-divider",
+      "nodeId": "466:698",
+      "name": "O2/Code/Divider",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 1,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-tabs",
+      "nodeId": "467:719",
+      "name": "O2/Code/Tabs",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 4,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-tab",
+      "nodeId": "467:718",
+      "name": "O2/Code/Tab",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-accordion",
+      "nodeId": "471:649",
+      "name": "O2/Code/Accordion",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-accordion-item",
+      "nodeId": "467:734",
+      "name": "O2/Code/Accordion item",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Expanded",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 9,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-avatar",
+      "nodeId": "466:697",
+      "name": "O2/Code/Avatar",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "options": [
+            "Small",
+            "Medium",
+            "Large"
+          ],
+          "defaultValue": "Small"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-nav-rail",
+      "nodeId": "467:673",
+      "name": "O2/Code/Nav rail",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 14,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-top-app-bar",
+      "nodeId": "467:672",
+      "name": "O2/Code/Top app bar",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Size",
+          "type": "VARIANT",
+          "options": [
+            "Small",
+            "Center",
+            "Medium",
+            "Large"
+          ],
+          "defaultValue": "Small"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 16,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-amount-input",
+      "nodeId": "468:605",
+      "name": "O2/Code/Amount input",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-currency-field",
+      "nodeId": "468:610",
+      "name": "O2/Code/Currency field",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-iban-field",
+      "nodeId": "468:614",
+      "name": "O2/Code/IBAN field",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-otp-input",
+      "nodeId": "468:618",
+      "name": "O2/Code/OTP input",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 18,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-pin-input",
+      "nodeId": "468:631",
+      "name": "O2/Code/PIN input",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-amount-keypad",
+      "nodeId": "93:39",
+      "name": "O2K/Keypad / LTR",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-card-art",
+      "nodeId": "468:651",
+      "name": "O2/Code/Card art",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-card-row",
+      "nodeId": "471:657",
+      "name": "O2/Code/Card row",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-add-card",
+      "nodeId": "471:662",
+      "name": "O2/Code/Add card",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-card-controls",
+      "nodeId": "468:656",
+      "name": "O2/Code/Card controls",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 13,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-step",
+      "nodeId": "471:677",
+      "name": "O2/Code/Step",
+      "nodeType": "COMPONENT_SET",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Future",
+            "Current",
+            "Complete"
+          ],
+          "defaultValue": "Future"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-stepper",
+      "nodeId": "468:669",
+      "name": "O2/Code/Stepper",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 14,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-transfer-review",
+      "nodeId": "90:33",
+      "name": "O2K/Review summary",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Recipient Label",
+          "type": "TEXT",
+          "defaultValue": "To"
+        },
+        {
+          "name": "Recipient Value",
+          "type": "TEXT",
+          "defaultValue": "Amal Ben Musa"
+        },
+        {
+          "name": "Source Label",
+          "type": "TEXT",
+          "defaultValue": "From"
+        },
+        {
+          "name": "Source Value",
+          "type": "TEXT",
+          "defaultValue": "Current account •2148"
+        },
+        {
+          "name": "Amount Label",
+          "type": "TEXT",
+          "defaultValue": "Amount"
+        },
+        {
+          "name": "Amount Value",
+          "type": "TEXT",
+          "defaultValue": "125.000 LYD"
+        },
+        {
+          "name": "Fee Label",
+          "type": "TEXT",
+          "defaultValue": "Fee"
+        },
+        {
+          "name": "Fee Value",
+          "type": "TEXT",
+          "defaultValue": "0.000 LYD"
+        },
+        {
+          "name": "Total Label",
+          "type": "TEXT",
+          "defaultValue": "Total debit"
+        },
+        {
+          "name": "Total Value",
+          "type": "TEXT",
+          "defaultValue": "125.000 LYD"
+        },
+        {
+          "name": "Reference Label",
+          "type": "TEXT",
+          "defaultValue": "Reference"
+        },
+        {
+          "name": "Reference Value",
+          "type": "TEXT",
+          "defaultValue": "DEMO-0916-001"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 15,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-success",
+      "nodeId": "471:678",
+      "name": "O2/Code/Success",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-receipt",
+      "nodeId": "471:683",
+      "name": "O2/Code/Receipt",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 17,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-beneficiary-tile",
+      "nodeId": "468:640",
+      "name": "O2/Code/Beneficiary tile",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-method-row",
+      "nodeId": "468:646",
+      "name": "O2/Code/Method row",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-data-table",
+      "nodeId": "468:681",
+      "name": "O2/Code/Data table",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 26,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-stat-card",
+      "nodeId": "468:706",
+      "name": "O2/Code/Stat card",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 4,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-sparkline",
+      "nodeId": "468:710",
+      "name": "O2/Code/Sparkline",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 8,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-donut",
+      "nodeId": "468:718",
+      "name": "O2/Code/Donut",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 4,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-limit-meter",
+      "nodeId": "468:722",
+      "name": "O2/Code/Limit meter",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-trend",
+      "nodeId": "468:727",
+      "name": "O2/Code/Trend",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 4,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-skeleton",
+      "nodeId": "466:750",
+      "name": "O2/Code/Skeleton",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-empty-state",
+      "nodeId": "466:755",
+      "name": "O2/Code/Empty state",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 4,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-alert",
+      "nodeId": "466:741",
+      "name": "O2/Code/Alert",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Tone",
+          "type": "VARIANT",
+          "options": [
+            "Info",
+            "Positive",
+            "Pending",
+            "Negative"
+          ],
+          "defaultValue": "Info"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 20,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-status-chip",
+      "nodeId": "466:724",
+      "name": "O2/Code/Status chip",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Tone",
+          "type": "VARIANT",
+          "options": [
+            "Neutral",
+            "Positive",
+            "Pending",
+            "Negative"
+          ],
+          "defaultValue": "Neutral"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-toast",
+      "nodeId": "466:747",
+      "name": "O2/Code/Toast",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-approval-item",
+      "nodeId": "468:734",
+      "name": "O2/Code/Approval item",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-batch-card",
+      "nodeId": "468:739",
+      "name": "O2/Code/Batch card",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-audit-row",
+      "nodeId": "468:744",
+      "name": "O2/Code/Audit row",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-user-row",
+      "nodeId": "468:750",
+      "name": "O2/Code/User row",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-permission-toggle",
+      "nodeId": "468:755",
+      "name": "O2/Code/Permission toggle",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-workflow-status",
+      "nodeId": "468:760",
+      "name": "O2/Code/Workflow status",
+      "nodeType": "COMPONENT",
+      "page": "05 · Data + Operations / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 15,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-app-shell",
+      "nodeId": "467:686",
+      "name": "O2/Code/App shell",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-page-header",
+      "nodeId": "467:696",
+      "name": "O2/Code/Page header",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-section",
+      "nodeId": "471:699",
+      "name": "O2/Code/Section",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-side-nav",
+      "nodeId": "471:711",
+      "name": "O2/Code/Side nav",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 13,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-side-nav-item",
+      "nodeId": "471:710",
+      "name": "O2/Code/Side nav item",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Selected",
+          "type": "VARIANT",
+          "options": [
+            "False",
+            "True"
+          ],
+          "defaultValue": "False"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-search-field",
+      "nodeId": "467:702",
+      "name": "O2/Code/Search field",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 4,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-toolbar",
+      "nodeId": "467:705",
+      "name": "O2/Code/Toolbar",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 12,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-quick-actions",
+      "nodeId": "468:772",
+      "name": "O2/Code/Quick actions",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 13,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-quick-action",
+      "nodeId": "30:37",
+      "name": "O2/Quick action",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [
+        {
+          "name": "Icon",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "29:40"
+        },
+        {
+          "name": "Label",
+          "type": "TEXT",
+          "defaultValue": "Add money"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-merchant-row",
+      "nodeId": "468:785",
+      "name": "O2/Code/Merchant row",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 6,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-voucher-card",
+      "nodeId": "468:791",
+      "name": "O2/Code/Voucher card",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-qr-pay",
+      "nodeId": "468:796",
+      "name": "O2/Code/QR pay",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 21,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-topup-row",
+      "nodeId": "468:816",
+      "name": "O2/Code/Topup row",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 5,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-tier-badge",
+      "nodeId": "468:821",
+      "name": "O2/Code/Tier badge",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-dock",
+      "nodeId": "468:824",
+      "name": "O2/Code/Dock",
+      "nodeType": "COMPONENT",
+      "page": "04 · Financial components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 14,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-dock-item",
+      "nodeId": "471:630",
+      "name": "O2/Code/Dock item",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 3,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-onboarding",
+      "nodeId": "471:728",
+      "name": "O2/Code/Onboarding",
+      "nodeType": "COMPONENT",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 23,
+        "hardcodedSolid": 0
+      }
+    },
+    {
+      "webTag": "npt-cta",
+      "nodeId": "471:759",
+      "name": "O2/Code/CTA",
+      "nodeType": "COMPONENT_SET",
+      "page": "03 · Core components / Shipped",
+      "variantAxes": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Pressed",
+            "Loading",
+            "Disabled"
+          ],
+          "defaultValue": "Default"
+        }
+      ],
+      "propertyError": null,
+      "tokenBindings": {
+        "boundSolid": 13,
+        "hardcodedSolid": 0
+      }
+    }
+  ]
+}

@@ -70,6 +70,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Component contract drift gate (web registration ↔ parity manifest)
+        run: node tools/generate-component-contract.mjs --check && node tools/check-component-contract.mjs
+      - name: Framework wrapper drift gate (React + Vue)
+        run: node tools/generate-framework-wrappers.mjs --check
       - name: Codegen drift gate (themes.css is the single source)
         run: node tools/codegen.mjs --check
       - name: KMP icon drift gate (icons.ts is the single source)
