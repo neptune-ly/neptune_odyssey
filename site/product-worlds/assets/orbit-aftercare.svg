@@ -1,0 +1,43 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<!-- Geometry exported from Odyssey component 341:201. Inline under data-recipe=voyage to inherit the existing recipe CSS variables. Decorative only, never a travel credential or refund signal. -->
+<g id="orbit-aftercare">
+<g id="architecture">
+<path d="M42 304V174C42 140.583 55.275 108.534 78.9045 84.9045C102.534 61.275 134.583 48 168 48C201.417 48 233.466 61.275 257.095 84.9045C280.725 108.534 294 140.583 294 174V304H42Z" fill="var(--tint,#E7F0FF)"/>
+<path d="M72 304V182C72 156.539 82.1143 132.121 100.118 114.118C118.121 96.1143 142.539 86 168 86C193.461 86 217.879 96.1143 235.882 114.118C253.886 132.121 264 156.539 264 182V304H72Z" fill="var(--hero,#73C7FF)"/>
+<path d="M72 242L178 178L264 242V304H72V242Z" fill="var(--accent,#1E63FF)"/>
+<path d="M178 178V304M72 245H264" stroke="var(--art-white,#FFFFFF)" stroke-width="8"/>
+<path d="M527 104C547.435 104 564 87.4345 564 67C564 46.5655 547.435 30 527 30C506.565 30 490 46.5655 490 67C490 87.4345 506.565 104 527 104Z" fill="var(--spark,#FFB454)"/>
+</g>
+<g id="folded-itinerary">
+<path d="M320 145L396 123L472 145L546 123V300L472 320L396 300L320 320V145Z" fill="var(--art-white,#FFFFFF)"/>
+<path d="M396 123L472 145V320L396 300V123Z" fill="var(--tint,#E7F0FF)"/>
+<path d="M352 261L396 218L441 228L494 177" stroke="var(--accent,#1E63FF)" stroke-width="7" stroke-linecap="round" stroke-dasharray="7 13"/>
+<path d="M352 272C358.075 272 363 267.075 363 261C363 254.925 358.075 250 352 250C345.925 250 341 254.925 341 261C341 267.075 345.925 272 352 272Z" fill="var(--art-ink,#111728)"/>
+<path d="M505 177C505 193 490 207 490 207C490 207 475 193 475 177C475 175.03 475.388 173.08 476.142 171.26C476.896 169.44 478.001 167.786 479.393 166.393C480.786 165.001 482.44 163.896 484.26 163.142C486.08 162.388 488.03 162 490 162C491.97 162 493.92 162.388 495.74 163.142C497.56 163.896 499.214 165.001 500.607 166.393C501.999 167.786 503.104 169.44 503.858 171.26C504.612 173.08 505 175.03 505 177Z" fill="var(--spark,#FFB454)"/>
+<path d="M490 181C492.761 181 495 178.761 495 176C495 173.239 492.761 171 490 171C487.239 171 485 173.239 485 176C485 178.761 487.239 181 490 181Z" fill="var(--art-white,#FFFFFF)"/>
+</g>
+<g id="luggage">
+<path d="M146 224V190C146 186.287 147.475 182.726 150.101 180.101C152.726 177.475 156.287 176 160 176C163.713 176 167.274 177.475 169.899 180.101C172.525 182.726 174 186.287 174 190V224" stroke="var(--art-ink,#111728)" stroke-width="9"/>
+<path d="M193 214H131C119.954 214 111 222.954 111 234V306C111 317.046 119.954 326 131 326H193C204.046 326 213 317.046 213 306V234C213 222.954 204.046 214 193 214Z" fill="var(--spark,#FFB454)"/>
+<path d="M133 236V300M161 236V300M189 236V300" stroke="var(--art-ink,#111728)" stroke-width="5" stroke-linecap="round"/>
+<path d="M131 341C135.971 341 140 336.971 140 332C140 327.029 135.971 323 131 323C126.029 323 122 327.029 122 332C122 336.971 126.029 341 131 341Z" fill="var(--art-ink,#111728)"/>
+<path d="M193 341C197.971 341 202 336.971 202 332C202 327.029 197.971 323 193 323C188.029 323 184 327.029 184 332C184 336.971 188.029 341 193 341Z" fill="var(--art-ink,#111728)"/>
+<path d="M204 230L225 239L219 259L200 250L204 230Z" fill="var(--accent,#1E63FF)"/>
+</g>
+<g id="flexible-ticket">
+<path d="M300 51H440V69C436.552 69 433.246 70.3696 430.808 72.8076C428.37 75.2456 427 78.5522 427 82C427 85.4478 428.37 88.7544 430.808 91.1924C433.246 93.6304 436.552 95 440 95V115H300V95C303.448 95 306.754 93.6304 309.192 91.1924C311.63 88.7544 313 85.4478 313 82C313 78.5522 311.63 75.2456 309.192 72.8076C306.754 70.3696 303.448 69 300 69V51Z" fill="var(--accent,#1E63FF)"/>
+<path d="M330 76H391M330 91H368" stroke="var(--art-white,#FFFFFF)" stroke-width="5" stroke-linecap="round"/>
+<path d="M414 57V110" stroke="var(--art-white,#FFFFFF)" stroke-width="2" stroke-dasharray="4 6"/>
+</g>
+<g id="return-path">
+<path d="M250 143C264 107 298 96 333 110" stroke="var(--art-ink,#111728)" stroke-width="8" stroke-linecap="round"/>
+<path d="M316 86L337 113L303 116" stroke="var(--art-ink,#111728)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="ground">
+<path d="M32 343H587" stroke="var(--art-ink,#111728)" stroke-width="6" stroke-linecap="round"/>
+<path d="M469 344V287C436 251 422 274 445 297L469 325M469 306C495 259 529 266 504 298L469 324" fill="var(--accent,#1E63FF)"/>
+<path d="M448 325L489 326L481 344H456L448 325Z" fill="var(--spark,#FFB454)"/>
+<path d="M580 158L588 177L609 179L593 193L598 213L580 203L563 213L567 193L552 179L572 177L580 158Z" fill="var(--accent,#1E63FF)"/>
+</g>
+</g>
+</svg>
