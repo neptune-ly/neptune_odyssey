@@ -8,7 +8,7 @@
 // draws, and that the raised dock and the tonal circle are still exactly what
 // a brandprint that names no shell gets.
 
-import 'dart:ui' show Tristate;
+import 'dart:ui' show SemanticsFlag;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -218,7 +218,9 @@ void main() {
         shell: NeptuneDockShell.register,
       )));
       final node = tester.getSemantics(find.bySemanticsLabel('Cards'));
-      expect(node.flagsCollection.isSelected, Tristate.isTrue);
+      // SemanticsFlag also supports the pinned Flutter 3.35 CI SDK.
+      // ignore: deprecated_member_use
+      expect(node.hasFlag(SemanticsFlag.isSelected), isTrue);
       expect(node.flagsCollection.isButton, isTrue);
       handle.dispose();
     });

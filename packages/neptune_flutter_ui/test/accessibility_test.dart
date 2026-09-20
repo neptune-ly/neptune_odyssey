@@ -6,7 +6,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'dart:ui' show Tristate, CheckedState;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
 
@@ -88,17 +87,18 @@ Widget _host(Widget child, {bool reducedMotion = false, bool withStrings = true}
 SemanticsNode _nodeWithLabel(WidgetTester tester, Pattern label) =>
     tester.getSemantics(find.bySemanticsLabel(label));
 
-/// Reads a flag through the non-deprecated [SemanticsNode.flagsCollection].
+/// Keep assertions compatible with the supported Flutter 3.35 SDK.
+// ignore_for_file: deprecated_member_use
 extension _Flags on SemanticsNode {
-  bool get isButton => flagsCollection.isButton;
-  bool get isTextField => flagsCollection.isTextField;
-  bool get isLiveRegion => flagsCollection.isLiveRegion;
-  bool get isSelected => flagsCollection.isSelected == Tristate.isTrue;
-  bool get isEnabled => flagsCollection.isEnabled == Tristate.isTrue;
-  bool get hasEnabledState => flagsCollection.isEnabled != Tristate.none;
-  bool get isChecked => flagsCollection.isChecked == CheckedState.isTrue;
-  bool get hasCheckedState => flagsCollection.isChecked != CheckedState.none;
-  bool get isExpanded => flagsCollection.isExpanded == Tristate.isTrue;
+  bool get isButton => hasFlag(SemanticsFlag.isButton);
+  bool get isTextField => hasFlag(SemanticsFlag.isTextField);
+  bool get isLiveRegion => hasFlag(SemanticsFlag.isLiveRegion);
+  bool get isSelected => hasFlag(SemanticsFlag.isSelected);
+  bool get isEnabled => hasFlag(SemanticsFlag.isEnabled);
+  bool get hasEnabledState => hasFlag(SemanticsFlag.hasEnabledState);
+  bool get isChecked => hasFlag(SemanticsFlag.isChecked);
+  bool get hasCheckedState => hasFlag(SemanticsFlag.hasCheckedState);
+  bool get isExpanded => hasFlag(SemanticsFlag.isExpanded);
 }
 
 void main() {
