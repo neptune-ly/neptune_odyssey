@@ -19,6 +19,9 @@ internal fun neptuneTypography(
     type: NptType,
     displayFamily: FontFamily?,
     textFamily: FontFamily?,
+    odyssey3: Boolean = false,
+    arabic: Boolean = false,
+    numericFamily: FontFamily? = textFamily,
 ): Typography {
     val w = type.displayFontWeight
 
@@ -27,7 +30,7 @@ internal fun neptuneTypography(
         fontWeight = w,
         fontSize = size.sp,
         lineHeight = lineHeight?.sp ?: TextUnit.Unspecified,
-        letterSpacing = if (tracked) (type.displayTracking * size).sp else TextUnit.Unspecified,
+        letterSpacing = if (odyssey3) 0.sp else if (tracked) (type.displayTracking * size).sp else TextUnit.Unspecified,
     )
 
     fun body(size: Int, weight: FontWeight = FontWeight.W400): TextStyle = TextStyle(
@@ -35,6 +38,35 @@ internal fun neptuneTypography(
         fontWeight = weight,
         fontSize = size.sp,
     )
+
+    if (odyssey3) {
+        val bodyLarge = if (arabic) 20 else 16
+        val bodyMedium = if (arabic) 18 else 14
+        val bodySmall = if (arabic) 16 else 12
+        val bodyLargeLine = if (arabic) 28 else 24
+        val bodyMediumLine = if (arabic) 24 else 20
+        val bodySmallLine = if (arabic) 22 else 16
+        fun o3Body(size: Int, line: Int, weight: FontWeight = FontWeight.W400): TextStyle =
+            body(size, weight).copy(lineHeight = line.sp, letterSpacing = 0.sp)
+
+        return Typography(
+            displayLarge = disp(40, 48),
+            displayMedium = disp(40, 48),
+            displaySmall = o3Body(36, 44, FontWeight.W600).copy(fontFamily = numericFamily),
+            headlineLarge = disp(32, 40),
+            headlineMedium = disp(32, 40),
+            headlineSmall = disp(24, 32),
+            titleLarge = o3Body(24, 32, FontWeight.W700),
+            titleMedium = o3Body(20, 28, FontWeight.W600),
+            titleSmall = o3Body(20, 28, FontWeight.W600),
+            bodyLarge = o3Body(bodyLarge, bodyLargeLine),
+            bodyMedium = o3Body(bodyMedium, bodyMediumLine),
+            bodySmall = o3Body(bodySmall, bodySmallLine),
+            labelLarge = o3Body(bodyMedium, bodyMediumLine, FontWeight.W600),
+            labelMedium = o3Body(bodyMedium, bodyMediumLine, FontWeight.W600),
+            labelSmall = o3Body(bodySmall, bodySmallLine, FontWeight.W600),
+        )
+    }
 
     return Typography(
         displayLarge = disp(57, lineHeight = 64, tracked = true),

@@ -23,7 +23,7 @@ plugins {
 
 allprojects {
     group = "ly.neptune.odyssey"
-    version = "0.5.0"
+    version = "3.0.0"
 }
 
 subprojects {

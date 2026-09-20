@@ -1,5 +1,10 @@
 # AGENTS.md — implementing Neptune Odyssey
 
+## Active edition: Odyssey 3.0
+
+For new visual work, [docs/ODYSSEY_3.md](docs/ODYSSEY_3.md) and [site/kit/v3/visual-compass.md](site/kit/v3/visual-compass.md) supersede the historical gradient/glass/motif doctrine below. Preserve vivid fields, warm paper, strong type and varied professional illustration. Source-backed product composition and typography survive the system. Keep accessibility, token ownership, private-client boundaries and real pixel verification. Legacy examples remain compatibility references. New APIs explicitly opt in with `odyssey3`; do not silently change NO1 defaults.
+
+
 You are turning **Neptune Odyssey** (the Neptune.Fintech white-label banking design system) into a real product (Flutter app, web app, or another surface). Read this before writing code.
 
 > **⚠️ Also read [`ODYSSEY_RULEBOOK.md`](./ODYSSEY_RULEBOOK.md)** — the

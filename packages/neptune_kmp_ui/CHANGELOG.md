@@ -1,3 +1,11 @@
+## 3.0.0 — the new Odyssey standard
+
+- Start the new design standard at 3.x; earlier 2.x packages belong to the first edition.
+- Publish the shared philosophy, expression/illustration guidance and portable public kit: DTCG tokens, CSS, typed adapters, fonts, icons, navigation snapshots and artwork provenance.
+- Add explicit Web `edition: "odyssey3"`, Flutter `NeptuneTheme.odyssey3` and KMP `odyssey3` foundation profiles. Preserve legacy NO1 defaults and tenant banking colours; share public Core/Drive/Orbit schemes, Arabic metrics, Hanken numeric roles, control shapes and reduced-motion timings.
+- Rebuild the public homepage with expressive/composed and EN/AR light/dark specimens. Preserve the classic catalogue with a clear edition notice.
+- GitHub source and kit release; registry publication is separately credential-gated. Native Figma inventory does not imply complete SDK widget parity. Client-specific assets remain private.
+
 # Changelog — neptune-odyssey-kmp
 
 ## 0.5.0 — the wrist scale (unpublished)

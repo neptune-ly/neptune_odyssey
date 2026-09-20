@@ -3,6 +3,11 @@ name: odyssey-ui
 description: Build or restyle Neptune Odyssey UI correctly — web components, the neptune_flutter_ui package, themes/brandprints, templates, or client white-label prototypes. Use whenever working on Odyssey widgets/components, brand theming, visual fidelity ("make it match the site"), the Flutter package, or a bank/client demo. Enforces the identity doctrine, the no-literals law, and pixel verification.
 ---
 
+## Active edition: Odyssey 3.0
+
+For new visual work, [docs/ODYSSEY_3.md](../../../docs/ODYSSEY_3.md) and [site/kit/v3/visual-compass.md](../../../site/kit/v3/visual-compass.md) supersede the historical gradient/glass/motif doctrine below. Preserve vivid fields, warm paper, strong type and varied professional illustration. Source-backed product composition and typography survive the system. Keep accessibility, token ownership, private-client boundaries and real pixel verification. Legacy examples remain compatibility references. New APIs explicitly opt in with `odyssey3`; do not silently change NO1 defaults.
+
+
 # Odyssey UI — do it right
 
 You are working on **Neptune Odyssey**, the white-label banking design system.

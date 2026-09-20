@@ -14,6 +14,17 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const resolved = JSON.parse(
   readFileSync(join(ROOT, 'packages/neptune_tokens/assets/tokens.resolved.json'), 'utf8'),
 );
+// Theme tests pin the generated 3.0 schemes to these native Figma fixtures.
+const edition3 = JSON.parse(readFileSync(
+  join(ROOT, 'packages/neptune_tokens/assets/odyssey3.figma-colors.json'), 'utf8',
+));
+for (const [product, modes] of Object.entries(edition3.schemes)) {
+  resolved.themes[`odyssey3/${product}`] = Object.fromEntries(
+    Object.entries(modes).map(([mode, roles]) => [mode, Object.fromEntries(
+      Object.entries(roles).map(([role, hex]) => [`md-sys-color-${role}`, { hex }]),
+    )]),
+  );
+}
 
 const lin = (c) => {
   const s = c / 255;

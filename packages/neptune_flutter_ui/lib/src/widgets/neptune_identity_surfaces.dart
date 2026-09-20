@@ -106,7 +106,8 @@ class NeptuneMotifLayer extends StatelessWidget {
         shaderCallback: (rect) => RadialGradient(
           center: _mirror(_originOf(identity.motif), rtl),
           radius: 1.1,
-          colors: const [Colors.white, Colors.white, Colors.transparent],
+          // dstIn reads only mask alpha; keep RGB theme-owned.
+          colors: [c.withValues(alpha: 1), c.withValues(alpha: 1), c.withValues(alpha: 0)],
           stops: const [0, 0.28, 1],
         ).createShader(rect),
         child: layer,

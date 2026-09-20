@@ -30,4 +30,4 @@ export type {
 export { NEPTUNE_VERSIONS, TOOLING_VERSIONS } from "./versions.js";
 
 /** Semantic version of the CLI (kept in lockstep with package.json). */
-export const CREATE_NEPTUNE_VERSION = "2.0.0";
+export const CREATE_NEPTUNE_VERSION = "3.0.0";

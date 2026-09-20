@@ -1,5 +1,10 @@
 # The Odyssey Rulebook — how to build Neptune Odyssey right
 
+## Active edition: Odyssey 3.0
+
+For new visual work, [docs/ODYSSEY_3.md](docs/ODYSSEY_3.md) and [site/kit/v3/visual-compass.md](site/kit/v3/visual-compass.md) supersede the historical gradient/glass/motif doctrine below. Preserve vivid fields, warm paper, strong type and varied professional illustration. Source-backed product composition and typography survive the system. Keep accessibility, token ownership, private-client boundaries and real pixel verification. Legacy examples remain compatibility references. New APIs explicitly opt in with `odyssey3`; do not silently change NO1 defaults.
+
+
 **Audience: every agent, chat, and human who touches this system.** This is the
 distilled doctrine from building the web kit, the Flutter package
 (`neptune_flutter_ui` 2.2 → 2.6), the desktop app, and the first client

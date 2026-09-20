@@ -49,7 +49,8 @@ class OklchGoldenTest {
     fun converterReproducesEveryResolvedRole() {
         // The roadmap promotion gate: the Kotlin math must reproduce
         // tokens.resolved.json (≤1 LSB) for every brand × mode × role.
-        assertTrue(goldenResolvedRoles.size == 4 * 2 * 37, "resolved-role fixture wrong size")
+        // Light schemes also carry card-gradient-start, card-gradient-end and on-card roles.
+        assertTrue(goldenResolvedRoles.size == 4 * (40 + 37), "resolved-role fixture wrong size")
         for (s in goldenResolvedRoles) {
             assertArgbClose(
                 expected = s.argb,

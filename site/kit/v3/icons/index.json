@@ -1,0 +1,477 @@
+{
+  "name": "Odyssey outline icons",
+  "viewBox": "0 0 24 24",
+  "strokeWidth": 1.8,
+  "icons": [
+    {
+      "name": "accounts",
+      "file": "accounts.svg",
+      "editable": true
+    },
+    {
+      "name": "arrow-down",
+      "file": "arrow-down.svg",
+      "editable": true
+    },
+    {
+      "name": "arrow-left",
+      "file": "arrow-left.svg",
+      "editable": true
+    },
+    {
+      "name": "arrow-right",
+      "file": "arrow-right.svg",
+      "editable": true
+    },
+    {
+      "name": "arrow-up",
+      "file": "arrow-up.svg",
+      "editable": true
+    },
+    {
+      "name": "atm",
+      "file": "atm.svg",
+      "editable": true
+    },
+    {
+      "name": "bell",
+      "file": "bell.svg",
+      "editable": true
+    },
+    {
+      "name": "bill",
+      "file": "bill.svg",
+      "editable": true
+    },
+    {
+      "name": "calendar",
+      "file": "calendar.svg",
+      "editable": true
+    },
+    {
+      "name": "camera",
+      "file": "camera.svg",
+      "editable": true
+    },
+    {
+      "name": "card",
+      "file": "card.svg",
+      "editable": true
+    },
+    {
+      "name": "card-add",
+      "file": "card-add.svg",
+      "editable": true
+    },
+    {
+      "name": "cash-stack",
+      "file": "cash-stack.svg",
+      "editable": true
+    },
+    {
+      "name": "category-tag",
+      "file": "category-tag.svg",
+      "editable": true
+    },
+    {
+      "name": "chart-line",
+      "file": "chart-line.svg",
+      "editable": true
+    },
+    {
+      "name": "chart-pie",
+      "file": "chart-pie.svg",
+      "editable": true
+    },
+    {
+      "name": "chat",
+      "file": "chat.svg",
+      "editable": true
+    },
+    {
+      "name": "chevron-down",
+      "file": "chevron-down.svg",
+      "editable": true
+    },
+    {
+      "name": "chevron-left",
+      "file": "chevron-left.svg",
+      "editable": true
+    },
+    {
+      "name": "chevron-right",
+      "file": "chevron-right.svg",
+      "editable": true
+    },
+    {
+      "name": "chevron-up",
+      "file": "chevron-up.svg",
+      "editable": true
+    },
+    {
+      "name": "clock",
+      "file": "clock.svg",
+      "editable": true
+    },
+    {
+      "name": "close",
+      "file": "close.svg",
+      "editable": true
+    },
+    {
+      "name": "coins",
+      "file": "coins.svg",
+      "editable": true
+    },
+    {
+      "name": "contactless",
+      "file": "contactless.svg",
+      "editable": true
+    },
+    {
+      "name": "copy",
+      "file": "copy.svg",
+      "editable": true
+    },
+    {
+      "name": "crypto",
+      "file": "crypto.svg",
+      "editable": true
+    },
+    {
+      "name": "dispute",
+      "file": "dispute.svg",
+      "editable": true
+    },
+    {
+      "name": "download",
+      "file": "download.svg",
+      "editable": true
+    },
+    {
+      "name": "edit",
+      "file": "edit.svg",
+      "editable": true
+    },
+    {
+      "name": "error",
+      "file": "error.svg",
+      "editable": true
+    },
+    {
+      "name": "exchange-rate",
+      "file": "exchange-rate.svg",
+      "editable": true
+    },
+    {
+      "name": "eye",
+      "file": "eye.svg",
+      "editable": true
+    },
+    {
+      "name": "eye-off",
+      "file": "eye-off.svg",
+      "editable": true
+    },
+    {
+      "name": "face-id",
+      "file": "face-id.svg",
+      "editable": true
+    },
+    {
+      "name": "filter",
+      "file": "filter.svg",
+      "editable": true
+    },
+    {
+      "name": "fingerprint",
+      "file": "fingerprint.svg",
+      "editable": true
+    },
+    {
+      "name": "globe",
+      "file": "globe.svg",
+      "editable": true
+    },
+    {
+      "name": "goal",
+      "file": "goal.svg",
+      "editable": true
+    },
+    {
+      "name": "home",
+      "file": "home.svg",
+      "editable": true
+    },
+    {
+      "name": "id-card",
+      "file": "id-card.svg",
+      "editable": true
+    },
+    {
+      "name": "info",
+      "file": "info.svg",
+      "editable": true
+    },
+    {
+      "name": "insurance",
+      "file": "insurance.svg",
+      "editable": true
+    },
+    {
+      "name": "invoice",
+      "file": "invoice.svg",
+      "editable": true
+    },
+    {
+      "name": "key",
+      "file": "key.svg",
+      "editable": true
+    },
+    {
+      "name": "language",
+      "file": "language.svg",
+      "editable": true
+    },
+    {
+      "name": "link",
+      "file": "link.svg",
+      "editable": true
+    },
+    {
+      "name": "loan",
+      "file": "loan.svg",
+      "editable": true
+    },
+    {
+      "name": "location",
+      "file": "location.svg",
+      "editable": true
+    },
+    {
+      "name": "lock",
+      "file": "lock.svg",
+      "editable": true
+    },
+    {
+      "name": "logout",
+      "file": "logout.svg",
+      "editable": true
+    },
+    {
+      "name": "mail",
+      "file": "mail.svg",
+      "editable": true
+    },
+    {
+      "name": "menu",
+      "file": "menu.svg",
+      "editable": true
+    },
+    {
+      "name": "minus",
+      "file": "minus.svg",
+      "editable": true
+    },
+    {
+      "name": "moon",
+      "file": "moon.svg",
+      "editable": true
+    },
+    {
+      "name": "more-horizontal",
+      "file": "more-horizontal.svg",
+      "editable": true
+    },
+    {
+      "name": "more-vertical",
+      "file": "more-vertical.svg",
+      "editable": true
+    },
+    {
+      "name": "otp",
+      "file": "otp.svg",
+      "editable": true
+    },
+    {
+      "name": "pdf",
+      "file": "pdf.svg",
+      "editable": true
+    },
+    {
+      "name": "phone",
+      "file": "phone.svg",
+      "editable": true
+    },
+    {
+      "name": "pie-budget",
+      "file": "pie-budget.svg",
+      "editable": true
+    },
+    {
+      "name": "plus",
+      "file": "plus.svg",
+      "editable": true
+    },
+    {
+      "name": "pos-terminal",
+      "file": "pos-terminal.svg",
+      "editable": true
+    },
+    {
+      "name": "qr-code",
+      "file": "qr-code.svg",
+      "editable": true
+    },
+    {
+      "name": "receipt",
+      "file": "receipt.svg",
+      "editable": true
+    },
+    {
+      "name": "receive",
+      "file": "receive.svg",
+      "editable": true
+    },
+    {
+      "name": "refresh",
+      "file": "refresh.svg",
+      "editable": true
+    },
+    {
+      "name": "refund",
+      "file": "refund.svg",
+      "editable": true
+    },
+    {
+      "name": "request",
+      "file": "request.svg",
+      "editable": true
+    },
+    {
+      "name": "savings",
+      "file": "savings.svg",
+      "editable": true
+    },
+    {
+      "name": "search",
+      "file": "search.svg",
+      "editable": true
+    },
+    {
+      "name": "security-shield",
+      "file": "security-shield.svg",
+      "editable": true
+    },
+    {
+      "name": "send",
+      "file": "send.svg",
+      "editable": true
+    },
+    {
+      "name": "settings",
+      "file": "settings.svg",
+      "editable": true
+    },
+    {
+      "name": "share",
+      "file": "share.svg",
+      "editable": true
+    },
+    {
+      "name": "shopping-bag",
+      "file": "shopping-bag.svg",
+      "editable": true
+    },
+    {
+      "name": "split-bill",
+      "file": "split-bill.svg",
+      "editable": true
+    },
+    {
+      "name": "star",
+      "file": "star.svg",
+      "editable": true
+    },
+    {
+      "name": "statement",
+      "file": "statement.svg",
+      "editable": true
+    },
+    {
+      "name": "success-check",
+      "file": "success-check.svg",
+      "editable": true
+    },
+    {
+      "name": "sun",
+      "file": "sun.svg",
+      "editable": true
+    },
+    {
+      "name": "support",
+      "file": "support.svg",
+      "editable": true
+    },
+    {
+      "name": "swap-exchange",
+      "file": "swap-exchange.svg",
+      "editable": true
+    },
+    {
+      "name": "tap-to-pay",
+      "file": "tap-to-pay.svg",
+      "editable": true
+    },
+    {
+      "name": "transfer",
+      "file": "transfer.svg",
+      "editable": true
+    },
+    {
+      "name": "trash",
+      "file": "trash.svg",
+      "editable": true
+    },
+    {
+      "name": "trending-down",
+      "file": "trending-down.svg",
+      "editable": true
+    },
+    {
+      "name": "trending-up",
+      "file": "trending-up.svg",
+      "editable": true
+    },
+    {
+      "name": "unlock",
+      "file": "unlock.svg",
+      "editable": true
+    },
+    {
+      "name": "upload",
+      "file": "upload.svg",
+      "editable": true
+    },
+    {
+      "name": "user",
+      "file": "user.svg",
+      "editable": true
+    },
+    {
+      "name": "users",
+      "file": "users.svg",
+      "editable": true
+    },
+    {
+      "name": "wallet",
+      "file": "wallet.svg",
+      "editable": true
+    },
+    {
+      "name": "warning",
+      "file": "warning.svg",
+      "editable": true
+    }
+  ]
+}

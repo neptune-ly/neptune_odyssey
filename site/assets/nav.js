@@ -4,7 +4,7 @@
 // and wires any [data-copy] button to copy its target text.
 (function () {
   var LINKS = [
-    ["index.html", "Home", "home"],
+    ["index.html", "Odyssey 3", "home"],
     ["get-started.html", "Get started", "get-started"],
     ["foundations.html", "Foundations", "foundations"],
     ["vs-material.html", "vs. Material", "vs-material"],
@@ -34,6 +34,10 @@
       '<button class="dnav__burger" aria-label="Menu" aria-expanded="false">☰</button>' +
       '<nav class="dnav__links" id="dnavLinks">' + links + "</nav>" +
       '<a class="dnav__gh" href="' + repo + '" target="_blank" rel="noopener">★ GitHub</a>';
+    var notice = document.createElement("aside");
+    notice.style.cssText = "padding:12px 24px;background:#F9E87A;color:#07315F;text-align:center;font:600 14px/1.5 system-ui";
+    notice.innerHTML = 'Classic catalogue · retained for existing integrations. <a href="index.html" style="color:inherit;text-decoration:underline">Explore Odyssey 3.0 and its new design kit →</a>';
+    nav.after(notice);
     var burger = nav.querySelector(".dnav__burger");
     var linksEl = nav.querySelector("#dnavLinks");
     burger.addEventListener("click", function () {

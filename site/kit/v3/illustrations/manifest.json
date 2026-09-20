@@ -1,0 +1,50 @@
+{
+  "name": "Odyssey art-direction proof package",
+  "status": "art-direction proof — not user-approved final artwork",
+  "assets": [
+    {
+      "id": "everyday-exchange-v1",
+      "file": "everyday-exchange-v1.png",
+      "promptAndQa": "everyday-exchange-v1.md",
+      "placement": "Expressive human narrative",
+      "crop": "3:2; preserve parcel and hands",
+      "format": "PNG raster",
+      "editable": false,
+      "userSignoff": "not recorded",
+      "note": "May carry soft shading from the proof study; it is not a claim of exact-flat or colour-perfect final compliance."
+    },
+    {
+      "id": "open-architecture-v1",
+      "file": "open-architecture-v1.png",
+      "promptAndQa": "open-architecture-v1.md",
+      "placement": "Composed environment / architecture",
+      "crop": "3:2; preserve arch and stair baseline",
+      "format": "PNG raster",
+      "editable": false,
+      "userSignoff": "not recorded",
+      "note": "May carry soft shading from the proof study; it is not a claim of exact-flat or colour-perfect final compliance."
+    },
+    {
+      "id": "drive-pickup-v2",
+      "file": "drive-pickup-v2.png",
+      "promptAndQa": "product-provenance.json",
+      "placement": "Drive / human pickup",
+      "crop": "342:190; preserve passenger, car and driver",
+      "format": "PNG raster",
+      "editable": false,
+      "userSignoff": "not recorded",
+      "note": "May carry soft shading from the proof study; it is not a claim of exact-flat or colour-perfect final compliance."
+    },
+    {
+      "id": "orbit-terrace-v2",
+      "file": "orbit-terrace-v2.png",
+      "promptAndQa": "product-provenance.json",
+      "placement": "Orbit / scenic travel",
+      "crop": "3:2; preserve traveler, suitcase and plane",
+      "format": "PNG raster",
+      "editable": false,
+      "userSignoff": "not recorded",
+      "note": "May carry soft shading from the proof study; it is not a claim of exact-flat or colour-perfect final compliance."
+    }
+  ]
+}

@@ -65,4 +65,4 @@ export function enabledFeatures(id: TenantId): string[] {
     .map(([k]) => k);
 }
 
-export const PRODUCT_CONFIGS_VERSION = "2.0.0";
+export const PRODUCT_CONFIGS_VERSION = "3.0.0";

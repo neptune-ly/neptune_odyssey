@@ -26,6 +26,6 @@ describe("@neptune.fintech/vue-ui surface", () => {
   });
 
   it("is version 1.0.0 (stable)", () => {
-    expect(VUE_UI_VERSION).toBe("2.0.0");
+    expect(VUE_UI_VERSION).toBe("3.0.0");
   });
 });

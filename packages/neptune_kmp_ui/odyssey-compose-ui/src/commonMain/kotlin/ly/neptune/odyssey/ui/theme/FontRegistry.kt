@@ -19,6 +19,10 @@ import ly.neptune.odyssey.ui.resources.bricolage_grotesque_500
 import ly.neptune.odyssey.ui.resources.bricolage_grotesque_600
 import ly.neptune.odyssey.ui.resources.bricolage_grotesque_700
 import ly.neptune.odyssey.ui.resources.bricolage_grotesque_800
+import ly.neptune.odyssey.ui.resources.beiruti_400
+import ly.neptune.odyssey.ui.resources.beiruti_500
+import ly.neptune.odyssey.ui.resources.beiruti_600
+import ly.neptune.odyssey.ui.resources.beiruti_700
 import ly.neptune.odyssey.ui.resources.hanken_grotesk_400
 import ly.neptune.odyssey.ui.resources.hanken_grotesk_500
 import ly.neptune.odyssey.ui.resources.hanken_grotesk_600
@@ -76,6 +80,12 @@ public object NeptuneFontRegistry {
 internal fun rememberNeptuneFontFamily(family: String): FontFamily? {
     NeptuneFontRegistry.customFor(family)?.let { return it }
     return when (family) {
+        "Beiruti" -> FontFamily(
+            Font(Res.font.beiruti_400, FontWeight.W400),
+            Font(Res.font.beiruti_500, FontWeight.W500),
+            Font(Res.font.beiruti_600, FontWeight.W600),
+            Font(Res.font.beiruti_700, FontWeight.W700),
+        )
         "Hanken Grotesk" -> FontFamily(
             Font(Res.font.hanken_grotesk_400, FontWeight.W400),
             Font(Res.font.hanken_grotesk_500, FontWeight.W500),

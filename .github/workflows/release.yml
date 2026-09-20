@@ -1,18 +1,46 @@
 name: Release
 
 # Publish on a version tag. Requires repo secrets:
-#   NPM_TOKEN          — npm automation token for the @neptune-odyssey scope
+#   NPM_TOKEN          — npm automation token for the @neptune.fintech scope
 #   PUB_CREDENTIALS    — contents of ~/.config/dart/pub-credentials.json (pub.dev)
 # No secrets touch any developer machine; publishing only happens from CI on a tag.
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*"
 
 jobs:
+  credentials:
+    name: Identify configured registry channels
+    runs-on: ubuntu-latest
+    outputs:
+      npm: ${{ steps.channels.outputs.npm }}
+      pub: ${{ steps.channels.outputs.pub }}
+    steps:
+      - id: channels
+        name: Report registry availability
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            echo "npm=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "npm=false" >> "$GITHUB_OUTPUT"
+            echo "npm publication skipped: NPM_TOKEN is not configured. The GitHub source release does not imply npm availability." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -n "$PUB_CREDENTIALS" ]; then
+            echo "pub=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pub=false" >> "$GITHUB_OUTPUT"
+            echo "pub.dev publication skipped: PUB_CREDENTIALS is not configured. The GitHub source release does not imply pub.dev availability." >> "$GITHUB_STEP_SUMMARY"
+          fi
   npm:
     name: Publish JS packages to npm
+    needs: credentials
+    if: needs.credentials.outputs.npm == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -45,6 +73,8 @@ jobs:
 
   pub_dev:
     name: Publish Flutter package to pub.dev
+    needs: credentials
+    if: needs.credentials.outputs.pub == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

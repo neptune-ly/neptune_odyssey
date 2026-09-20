@@ -81,4 +81,4 @@ export { applyTheme, registerAll } from "@neptune.fintech/web-ui";
 export type { ThemeInput, ModeOption, DirOption } from "@neptune.fintech/web-ui";
 export { buildTheme, brandprintFor, encode, decode } from "@neptune.fintech/tokens";
 
-export const VUE_UI_VERSION = "2.0.0";
+export const VUE_UI_VERSION = "3.0.0";

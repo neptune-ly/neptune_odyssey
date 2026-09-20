@@ -1,3 +1,11 @@
+# Odyssey 3.0 release status
+
+The 3.0.0 release distributes source and the public design kit through GitHub and the refreshed GitHub Pages site. npm, pub.dev and Maven Central are separate publication channels; 3.0.0 is not claimed live there without a successful registry job. The `Release` workflow skips an unconfigured registry with an explicit summary, and can be manually rerun once its credentials are configured. KMP Central retains its separate workflow. Sound assets remain unpublished pending their own review.
+
+The kit is `site/kit/v3`; create the release ZIP from that directory only. Do not upload historical local archives containing private client folders. Package metadata, generated token metadata, Flutter and KMP use 3.0.0. Release source is pinned by `v3.0.0`.
+
+---
+
 # Publishing Neptune Odyssey
 
 ## Status

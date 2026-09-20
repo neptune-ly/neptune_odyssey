@@ -1,0 +1,260 @@
+{
+  "$description": "drive product expression — light mode.",
+  "$extensions": {
+    "neptune.odyssey": {
+      "product": "drive",
+      "mode": "light",
+      "visibility": "public"
+    }
+  },
+  "color": {
+    "product": {
+      "ink": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.027450980392156862,
+            0.19215686274509805,
+            0.37254901960784315
+          ],
+          "hex": "#07315F"
+        }
+      },
+      "action": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.03137254901960784,
+            0.4196078431372549,
+            0.3764705882352941
+          ],
+          "hex": "#086B60"
+        }
+      },
+      "onAction": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#FFFFFF"
+        }
+      },
+      "signature": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.23137254901960785,
+            0.7568627450980392,
+            0.9333333333333333
+          ],
+          "hex": "#3BC1EE"
+        }
+      },
+      "paper": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9607843137254902,
+            0.9803921568627451,
+            0.9686274509803922
+          ],
+          "hex": "#F5FAF7"
+        }
+      },
+      "tint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8745098039215686,
+            0.9607843137254902,
+            0.9333333333333333
+          ],
+          "hex": "#DFF5EE"
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.3058823529411765,
+            0.41568627450980394,
+            0.3843137254901961
+          ],
+          "hex": "#4E6A62"
+        }
+      },
+      "line": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.803921568627451,
+            0.8627450980392157,
+            0.8352941176470589
+          ],
+          "hex": "#CDDCD5"
+        }
+      }
+    },
+    "semantic": {
+      "surface": {
+        "$type": "color",
+        "$value": "{color.base.surface}"
+      },
+      "surface-variant": {
+        "$type": "color",
+        "$value": "{color.base.surface-variant}"
+      },
+      "outline": {
+        "$type": "color",
+        "$value": "{color.base.outline}"
+      },
+      "surface-container-lowest": {
+        "$type": "color",
+        "$value": "{color.base.surface-container-lowest}"
+      },
+      "surface-container-low": {
+        "$type": "color",
+        "$value": "{color.base.surface-container-low}"
+      },
+      "surface-container": {
+        "$type": "color",
+        "$value": "{color.base.surface-container}"
+      },
+      "surface-container-high": {
+        "$type": "color",
+        "$value": "{color.base.surface-container-high}"
+      },
+      "surface-container-highest": {
+        "$type": "color",
+        "$value": "{color.base.surface-container-highest}"
+      },
+      "inverse-surface": {
+        "$type": "color",
+        "$value": "{color.base.inverse-surface}"
+      },
+      "inverse-on-surface": {
+        "$type": "color",
+        "$value": "{color.base.inverse-on-surface}"
+      },
+      "inverse-primary": {
+        "$type": "color",
+        "$value": "{color.base.inverse-primary}"
+      },
+      "scrim": {
+        "$type": "color",
+        "$value": "{color.base.scrim}"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{color.base.secondary}"
+      },
+      "on-secondary": {
+        "$type": "color",
+        "$value": "{color.base.on-secondary}"
+      },
+      "secondary-container": {
+        "$type": "color",
+        "$value": "{color.base.secondary-container}"
+      },
+      "on-secondary-container": {
+        "$type": "color",
+        "$value": "{color.base.on-secondary-container}"
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "{color.base.tertiary}"
+      },
+      "on-tertiary": {
+        "$type": "color",
+        "$value": "{color.base.on-tertiary}"
+      },
+      "tertiary-container": {
+        "$type": "color",
+        "$value": "{color.base.tertiary-container}"
+      },
+      "on-tertiary-container": {
+        "$type": "color",
+        "$value": "{color.base.on-tertiary-container}"
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.base.error}"
+      },
+      "on-error": {
+        "$type": "color",
+        "$value": "{color.base.on-error}"
+      },
+      "error-container": {
+        "$type": "color",
+        "$value": "{color.base.error-container}"
+      },
+      "on-error-container": {
+        "$type": "color",
+        "$value": "{color.base.on-error-container}"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{color.base.success}"
+      },
+      "on-success": {
+        "$type": "color",
+        "$value": "{color.base.on-success}"
+      },
+      "success-container": {
+        "$type": "color",
+        "$value": "{color.base.success-container}"
+      },
+      "on-success-container": {
+        "$type": "color",
+        "$value": "{color.base.on-success-container}"
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "{color.product.action}"
+      },
+      "on-primary": {
+        "$type": "color",
+        "$value": "{color.product.onAction}"
+      },
+      "primary-container": {
+        "$type": "color",
+        "$value": "{color.product.tint}"
+      },
+      "on-primary-container": {
+        "$type": "color",
+        "$value": "{color.product.ink}"
+      },
+      "background": {
+        "$type": "color",
+        "$value": "{color.product.paper}"
+      },
+      "on-background": {
+        "$type": "color",
+        "$value": "{color.product.ink}"
+      },
+      "on-surface": {
+        "$type": "color",
+        "$value": "{color.product.ink}"
+      },
+      "on-surface-variant": {
+        "$type": "color",
+        "$value": "{color.product.muted}"
+      },
+      "outline-variant": {
+        "$type": "color",
+        "$value": "{color.product.line}"
+      }
+    }
+  }
+}

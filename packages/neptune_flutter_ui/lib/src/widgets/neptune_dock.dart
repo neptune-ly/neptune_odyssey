@@ -153,7 +153,7 @@ class NeptuneDock extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: canvas.canvas,
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderRadius.circular(theme.extension<NptShape>()!.full),
           // The one shadow in this composition, and it earns its place: the
           // bar has to read as being IN FRONT of the content passing under it,
           // and on a pale page an opaque dark stadium with no shadow reads as
@@ -349,8 +349,8 @@ class _InkPillItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: item.active
                 ? canvas.onCanvas.withValues(alpha: 0.16)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(999),
+                : canvas.onCanvas.withValues(alpha: 0),
+            borderRadius: BorderRadius.circular(theme.extension<NptShape>()!.full),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -48,7 +48,7 @@ public fun NeptuneButton(
 ) {
     val feedback = NeptuneTheme.feedback
     val haptics: HapticFeedback = LocalHapticFeedback.current
-    val shape = NeptuneTheme.shape.rFull
+    val shape = NeptuneTheme.shape.rControl
     val enabled = onClick != null && !busy
     val handleClick: () -> Unit = {
         feedback.trigger(NptFeedbackCue.Tap, haptics)

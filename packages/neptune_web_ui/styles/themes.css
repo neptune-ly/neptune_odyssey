@@ -8,11 +8,16 @@
   --md-sys-color-primary-container: oklch(0.91 0.07 258); --md-sys-color-on-primary-container: oklch(0.22 0.13 258);
   --md-sys-color-secondary: oklch(0.5 0.06 258); --md-sys-color-on-secondary: oklch(0.99 0.02 258);
   --md-sys-color-secondary-container: oklch(0.92 0.035 258); --md-sys-color-on-secondary-container: oklch(0.25 0.05 258);
-  --md-sys-color-tertiary: oklch(0.55 0.1 200); --md-sys-color-on-tertiary: oklch(0.99 0.02 200);
+  --md-sys-color-tertiary: oklch(0.545 0.1 200); --md-sys-color-on-tertiary: oklch(0.99 0.02 200);
   --md-sys-color-tertiary-container: oklch(0.9 0.06 200); --md-sys-color-on-tertiary-container: oklch(0.24 0.08 200);
+  /* card-art identity — brightness-INVARIANT on purpose (defined here only, never
+     in the [data-mode="dark"] block, so the cascade pins it to the light tones).
+     A payment card depicts a physical instrument, not a themed UI surface, so it
+     must not invert the way primary/on-primary do for buttons. See ODYSSEY_RULEBOOK.md. */
+  --md-sys-color-card-gradient-start: oklch(0.48 0.15 258); --md-sys-color-card-gradient-end: oklch(0.545 0.1 200); --md-sys-color-on-card: oklch(0.99 0.02 258);
   --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
   --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
-  --md-sys-color-success: oklch(0.58 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
+  --md-sys-color-success: oklch(0.545 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
   --md-sys-color-success-container: oklch(0.9 0.07 152); --md-sys-color-on-success-container: oklch(0.26 0.1 152);
   --md-sys-color-background: oklch(0.985 0.006 258); --md-sys-color-on-background: oklch(0.16 0.02 258);
   --md-sys-color-surface: oklch(0.985 0.006 258); --md-sys-color-on-surface: oklch(0.16 0.02 258);
@@ -75,11 +80,13 @@
   --md-sys-color-primary-container: oklch(0.9 0.08 162); --md-sys-color-on-primary-container: oklch(0.24 0.1 162);
   --md-sys-color-secondary: oklch(0.52 0.05 162); --md-sys-color-on-secondary: oklch(0.99 0.02 162);
   --md-sys-color-secondary-container: oklch(0.91 0.04 162); --md-sys-color-on-secondary-container: oklch(0.26 0.05 162);
-  --md-sys-color-tertiary: oklch(0.62 0.12 86); --md-sys-color-on-tertiary: oklch(0.99 0.02 86);
+  --md-sys-color-tertiary: oklch(0.56 0.12 86); --md-sys-color-on-tertiary: oklch(0.99 0.02 86);
   --md-sys-color-tertiary-container: oklch(0.9 0.09 86); --md-sys-color-on-tertiary-container: oklch(0.3 0.09 86);
+  /* card-art identity — brightness-INVARIANT; see the neptune block above. */
+  --md-sys-color-card-gradient-start: oklch(0.5 0.12 162); --md-sys-color-card-gradient-end: oklch(0.56 0.12 86); --md-sys-color-on-card: oklch(0.99 0.02 162);
   --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
   --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
-  --md-sys-color-success: oklch(0.56 0.13 150); --md-sys-color-on-success: oklch(0.99 0.02 150);
+  --md-sys-color-success: oklch(0.545 0.13 150); --md-sys-color-on-success: oklch(0.99 0.02 150);
   --md-sys-color-success-container: oklch(0.9 0.07 150); --md-sys-color-on-success-container: oklch(0.26 0.1 150);
   --md-sys-color-background: oklch(0.985 0.01 150); --md-sys-color-on-background: oklch(0.18 0.02 150);
   --md-sys-color-surface: oklch(0.985 0.01 150); --md-sys-color-on-surface: oklch(0.18 0.02 150);
@@ -132,11 +139,13 @@
   --md-sys-color-primary-container: oklch(0.91 0.08 292); --md-sys-color-on-primary-container: oklch(0.26 0.16 292);
   --md-sys-color-secondary: oklch(0.54 0.06 292); --md-sys-color-on-secondary: oklch(0.99 0.02 292);
   --md-sys-color-secondary-container: oklch(0.92 0.04 292); --md-sys-color-on-secondary-container: oklch(0.28 0.06 292);
-  --md-sys-color-tertiary: oklch(0.6 0.16 350); --md-sys-color-on-tertiary: oklch(0.99 0.02 350);
+  --md-sys-color-tertiary: oklch(0.575 0.16 350); --md-sys-color-on-tertiary: oklch(0.99 0.02 350);
   --md-sys-color-tertiary-container: oklch(0.91 0.08 350); --md-sys-color-on-tertiary-container: oklch(0.3 0.13 350);
+  /* card-art identity — brightness-INVARIANT; see the neptune block above. */
+  --md-sys-color-card-gradient-start: oklch(0.52 0.18 292); --md-sys-color-card-gradient-end: oklch(0.575 0.16 350); --md-sys-color-on-card: oklch(0.99 0.02 292);
   --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
   --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
-  --md-sys-color-success: oklch(0.58 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
+  --md-sys-color-success: oklch(0.545 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
   --md-sys-color-success-container: oklch(0.9 0.07 152); --md-sys-color-on-success-container: oklch(0.26 0.1 152);
   --md-sys-color-background: oklch(0.985 0.008 300); --md-sys-color-on-background: oklch(0.16 0.02 300);
   --md-sys-color-surface: oklch(0.985 0.008 300); --md-sys-color-on-surface: oklch(0.16 0.02 300);
@@ -189,11 +198,13 @@
   --md-sys-color-primary-container: oklch(0.89 0.07 248); --md-sys-color-on-primary-container: oklch(0.2 0.12 248);
   --md-sys-color-secondary: oklch(0.5 0.05 248); --md-sys-color-on-secondary: oklch(0.99 0.02 248);
   --md-sys-color-secondary-container: oklch(0.91 0.035 250); --md-sys-color-on-secondary-container: oklch(0.24 0.05 248);
-  --md-sys-color-tertiary: oklch(0.66 0.12 85); --md-sys-color-on-tertiary: oklch(0.99 0.02 85);
+  --md-sys-color-tertiary: oklch(0.56 0.12 85); --md-sys-color-on-tertiary: oklch(0.99 0.02 85);
   --md-sys-color-tertiary-container: oklch(0.9 0.09 85); --md-sys-color-on-tertiary-container: oklch(0.32 0.09 85);
+  /* card-art identity — brightness-INVARIANT; see the neptune block above. */
+  --md-sys-color-card-gradient-start: oklch(0.42 0.13 248); --md-sys-color-card-gradient-end: oklch(0.56 0.12 85); --md-sys-color-on-card: oklch(0.99 0.02 248);
   --md-sys-color-error: oklch(0.52 0.2 27); --md-sys-color-on-error: oklch(0.99 0.02 27);
   --md-sys-color-error-container: oklch(0.92 0.07 27); --md-sys-color-on-error-container: oklch(0.28 0.16 27);
-  --md-sys-color-success: oklch(0.58 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
+  --md-sys-color-success: oklch(0.545 0.13 152); --md-sys-color-on-success: oklch(0.99 0.02 152);
   --md-sys-color-success-container: oklch(0.9 0.07 152); --md-sys-color-on-success-container: oklch(0.26 0.1 152);
   --md-sys-color-background: oklch(0.985 0.005 245); --md-sys-color-on-background: oklch(0.15 0.02 248);
   --md-sys-color-surface: oklch(0.985 0.005 245); --md-sys-color-on-surface: oklch(0.15 0.02 248);
@@ -244,3 +255,142 @@
 
 /* RTL font swap */
 [data-theme][dir="rtl"]{ --npt-font-display:var(--npt-font-display-ar); --npt-font-text:var(--npt-font-text-ar); --npt-font-num:var(--npt-font-text-ar); }
+
+/* ====== ODYSSEY 2 EXPRESSION PROFILE (OPT-IN) =============================
+   v1/NO1 defaults deliberately do not set data-odyssey. Product is an
+   expression choice, not a tenant fork: banking inherits the active tenant;
+   wallet/core, drive and orbit are public product profiles. */
+[data-odyssey="3"]{
+  --npt-o3-base-surface:#FFFFFF;
+  --npt-o3-base-surface-variant:#EBEFF3;
+  --npt-o3-base-outline:#728094;
+  --npt-o3-base-surface-container-lowest:#FFFFFF;
+  --npt-o3-base-surface-container-low:#F5F5F1;
+  --npt-o3-base-surface-container:#EEF1F2;
+  --npt-o3-base-surface-container-high:#E6ECEF;
+  --npt-o3-base-surface-container-highest:#DFE6EB;
+  --npt-o3-base-inverse-surface:#07315F;
+  --npt-o3-base-inverse-on-surface:#FFFFFF;
+  --npt-o3-base-inverse-primary:#3BC1EE;
+  --npt-o3-base-scrim:#071A2D;
+  --npt-o3-base-secondary:#375878;
+  --npt-o3-base-on-secondary:#FFFFFF;
+  --npt-o3-base-secondary-container:#DCEAF5;
+  --npt-o3-base-on-secondary-container:#10324E;
+  --npt-o3-base-tertiary:#784A21;
+  --npt-o3-base-on-tertiary:#FFFFFF;
+  --npt-o3-base-tertiary-container:#F8EBD5;
+  --npt-o3-base-on-tertiary-container:#422B12;
+  --npt-o3-base-error:#B5263D;
+  --npt-o3-base-on-error:#FFFFFF;
+  --npt-o3-base-error-container:#FFE6E9;
+  --npt-o3-base-on-error-container:#7E172D;
+  --npt-o3-base-success:#16623F;
+  --npt-o3-base-on-success:#FFFFFF;
+  --npt-o3-base-success-container:#DCF5E6;
+  --npt-o3-base-on-success-container:#0C4B2E;
+  --npt-o3-space-0:0; --npt-o3-space-1:4px; --npt-o3-space-2:8px; --npt-o3-space-3:12px; --npt-o3-space-4:16px; --npt-o3-space-5:20px; --npt-o3-space-6:24px; --npt-o3-space-8:32px; --npt-o3-space-10:40px; --npt-o3-space-12:48px; --npt-o3-space-16:64px;
+  --npt-o3-grid-mobile:24px; --npt-o3-grid-desktop:48px; --npt-o3-grid-max:1280px; --npt-o3-target-min:48px; --npt-o3-target-primary:56px; --npt-o3-disabled-opacity:1; --npt-o3-field-padding-block:3px; --npt-o3-input-size:var(--npt-text-body-lg); --npt-o3-keypad-size:24px; --npt-o3-icon-sm:20px; --npt-o3-icon-md:24px; --npt-o3-icon-lg:32px; --npt-o3-stroke-thin:1px; --npt-o3-stroke-regular:2px; --npt-o3-stroke-strong:3px;
+  --npt-o3-radius-xs:4px; --npt-o3-radius-sm:8px; --npt-o3-radius-md:16px; --npt-o3-radius-lg:24px; --npt-o3-radius-xl:32px; --npt-o3-radius-full:999px;
+  --npt-o3-control-radius:16px; --npt-o3-pocket-radius:24px; --npt-o3-capsule-radius:999px;
+  --npt-o3-field-cyan:#3BC1EE; --npt-o3-field-coral:#EB4E4D; --npt-o3-field-mint:#C9F3E8; --npt-o3-field-lemon:#F9E87A; --npt-o3-field-lilac:#DFD5FC; --npt-o3-field-ink:#07315F; --npt-o3-field-paper:#FAF9F5;
+  --npt-o3-content-on-bright:#07315F; --npt-o3-content-on-ink:#FAF9F5; --npt-o3-content-on-coral:#071A2D;
+  --npt-o3-font-en:'Hanken Grotesk'; --npt-o3-font-ar:'Beiruti'; --npt-o3-font-expressive:'Baloo 2'; --npt-o3-font-composed:'Hanken Grotesk'; --npt-o3-font-arabic:'Beiruti'; --npt-o3-font-numeric:'Hanken Grotesk';
+  --npt-o3-feedback:120ms; --npt-o3-navigate:200ms; --npt-o3-reveal:320ms; --npt-o3-celebrate:600ms;
+  --npt-dur-fast:var(--npt-o3-feedback); --npt-dur-standard:var(--npt-o3-navigate); --npt-dur-slow:var(--npt-o3-reveal);
+  /* Legacy 1/2/4 consumers share feedback/navigation/reveal, including reduced motion. */
+  --npt-dur-1:var(--npt-o3-feedback); --npt-dur-2:var(--npt-o3-navigate); --npt-dur-4:var(--npt-o3-reveal);
+  --npt-font-display:var(--npt-o3-font-en); --npt-font-text:var(--npt-o3-font-en); --npt-font-num:var(--npt-o3-font-en); --npt-display-weight:700;
+  --npt-corner-xs-base:var(--npt-o3-radius-xs); --npt-corner-sm-base:var(--npt-o3-radius-sm); --npt-corner-md-base:var(--npt-o3-radius-md); --npt-corner-lg-base:var(--npt-o3-radius-lg); --npt-corner-xl-base:var(--npt-o3-radius-xl); --npt-corner-2xl-base:var(--npt-o3-radius-xl); --npt-corner-full:var(--npt-o3-radius-full); --npt-shape-scale:1;
+  --npt-text-display:40px; --npt-leading-display:48px; --npt-text-display-md:40px; --npt-leading-display-md:48px; --npt-text-display-sm:36px; --npt-leading-display-sm:44px;
+  --npt-text-heading:32px; --npt-leading-heading:40px; --npt-text-headline:32px; --npt-leading-headline:40px; --npt-text-title:24px; --npt-leading-title:32px; --npt-text-title-lg:24px; --npt-leading-title-lg:32px; --npt-text-subtitle:20px; --npt-leading-subtitle:28px;
+  --npt-text-body:16px; --npt-leading-body:24px; --npt-text-body-lg:16px; --npt-leading-body-lg:24px; --npt-text-body-sm:14px; --npt-leading-body-sm:20px; --npt-text-label:14px; --npt-leading-label:20px; --npt-text-caption:12px; --npt-leading-caption:16px; --npt-text-amount:36px; --npt-leading-amount:44px;
+  --npt-font-weight-regular:400; --npt-font-weight-semibold:600; --npt-font-weight-bold:700; --npt-display-tracking:0em; --npt-label-tracking:0em;
+}
+[data-odyssey="3"][data-mode="dark"]{
+  --npt-o3-base-surface:#172A3E;
+  --npt-o3-base-surface-variant:#2B4055;
+  --npt-o3-base-outline:#8499AF;
+  --npt-o3-base-surface-container-lowest:#0B1622;
+  --npt-o3-base-surface-container-low:#132336;
+  --npt-o3-base-surface-container:#1D3146;
+  --npt-o3-base-surface-container-high:#253A50;
+  --npt-o3-base-surface-container-highest:#2F465E;
+  --npt-o3-base-inverse-surface:#F3F5F7;
+  --npt-o3-base-inverse-on-surface:#07315F;
+  --npt-o3-base-inverse-primary:#07315F;
+  --npt-o3-base-scrim:#000000;
+  --npt-o3-base-secondary:#B4D0E9;
+  --npt-o3-base-on-secondary:#10324E;
+  --npt-o3-base-secondary-container:#294761;
+  --npt-o3-base-on-secondary-container:#DCEAF5;
+  --npt-o3-base-tertiary:#F0CE9D;
+  --npt-o3-base-on-tertiary:#422B12;
+  --npt-o3-base-tertiary-container:#4F3921;
+  --npt-o3-base-on-tertiary-container:#F8EBD5;
+  --npt-o3-base-error:#FFB3C0;
+  --npt-o3-base-on-error:#650B20;
+  --npt-o3-base-error-container:#4A1E2C;
+  --npt-o3-base-on-error-container:#FFD9E0;
+  --npt-o3-base-success:#97E3B5;
+  --npt-o3-base-on-success:#083D24;
+  --npt-o3-base-success-container:#153D2B;
+  --npt-o3-base-on-success-container:#BEF5D1;
+}
+[data-odyssey="3"][data-reduced-motion="true"]{ --npt-o3-feedback:0ms; --npt-o3-navigate:0ms; --npt-o3-reveal:0ms; --npt-o3-celebrate:0ms; }
+/* Banking keeps tenant primary/action and derives the shared roles from its active M3 theme. */
+[data-odyssey="3"][data-product="banking"]{
+  --npt-o3-paper:var(--md-sys-color-background); --npt-o3-ink:var(--md-sys-color-on-background); --npt-o3-action:var(--md-sys-color-primary); --npt-o3-on-action:var(--md-sys-color-on-primary); --npt-o3-signature:var(--md-sys-color-tertiary); --npt-o3-tint:var(--md-sys-color-secondary-container); --npt-o3-muted:var(--md-sys-color-on-surface-variant); --npt-o3-line:var(--md-sys-color-outline-variant);
+  --npt-o3-pending:#795312; --npt-o3-pending-container:#FFF0CD; --npt-o3-info:#175788; --npt-o3-info-container:#E2F2FF; --npt-o3-focus:var(--md-sys-color-primary); --npt-o3-disabled:#E4E8ED; --npt-o3-on-disabled:#67768A;
+  --npt-font-display:var(--npt-o3-font-en); --npt-font-text:var(--npt-o3-font-en); --npt-font-num:var(--npt-o3-font-en); --npt-corner-xs-base:4px; --npt-corner-sm-base:8px; --npt-corner-md-base:16px; --npt-corner-lg-base:24px; --npt-corner-xl-base:32px;
+}
+[data-odyssey="3"][data-product="wallet"],[data-odyssey="3"][data-product="core"]{ --npt-o3-paper:#FAF9F5; --npt-o3-ink:#07315F; --npt-o3-action:#07315F; --npt-o3-on-action:#FFFFFF; --npt-o3-signature:#EB4E4D; --npt-o3-tint:#E3F4FB; --npt-o3-muted:#52657B; --npt-o3-line:#D9E1E8; --npt-o3-pending:#795312; --npt-o3-pending-container:#FFF0CD; --npt-o3-info:#175788; --npt-o3-info-container:#E2F2FF; --npt-o3-focus:#07315F; --npt-o3-disabled:#E4E8ED; --npt-o3-on-disabled:#67768A; }
+[data-odyssey="3"][data-product="drive"]{ --npt-o3-paper:#F5FAF7; --npt-o3-ink:#07315F; --npt-o3-action:#086B60; --npt-o3-on-action:#FFFFFF; --npt-o3-signature:#3BC1EE; --npt-o3-tint:#DFF5EE; --npt-o3-muted:#4E6A62; --npt-o3-line:#CDDCD5; --npt-o3-pending:#795312; --npt-o3-pending-container:#FFF0CD; --npt-o3-info:#175788; --npt-o3-info-container:#E2F2FF; --npt-o3-focus:#07315F; --npt-o3-disabled:#E4E8ED; --npt-o3-on-disabled:#67768A; }
+[data-odyssey="3"][data-product="orbit"]{ --npt-o3-paper:#F8F9FD; --npt-o3-ink:#07315F; --npt-o3-action:#3D49E6; --npt-o3-on-action:#FFFFFF; --npt-o3-signature:#EB4E4D; --npt-o3-tint:#EBEDFF; --npt-o3-muted:#59667F; --npt-o3-line:#D7DEED; --npt-o3-pending:#795312; --npt-o3-pending-container:#FFF0CD; --npt-o3-info:#175788; --npt-o3-info-container:#E2F2FF; --npt-o3-focus:#07315F; --npt-o3-disabled:#E4E8ED; --npt-o3-on-disabled:#67768A; }
+[data-odyssey="3"][data-product="wallet"][data-mode="dark"],[data-odyssey="3"][data-product="core"][data-mode="dark"]{ --npt-o3-paper:#0F1D2C; --npt-o3-ink:#F3F5F7; --npt-o3-action:#3BC1EE; --npt-o3-on-action:#07315F; --npt-o3-signature:#FFAAA3; --npt-o3-tint:#163D55; --npt-o3-muted:#B9C9D9; --npt-o3-line:#384E63; --npt-o3-pending:#EFD198; --npt-o3-pending-container:#44351B; --npt-o3-info:#A9D8F7; --npt-o3-info-container:#173C57; --npt-o3-focus:#F9E76C; --npt-o3-disabled:#324356; --npt-o3-on-disabled:#8E9DAE; }
+[data-odyssey="3"][data-product="drive"][data-mode="dark"]{ --npt-o3-paper:#0D211C; --npt-o3-ink:#E7F4EF; --npt-o3-action:#79DFCB; --npt-o3-on-action:#07352F; --npt-o3-signature:#3BC1EE; --npt-o3-tint:#123D36; --npt-o3-muted:#ABCBC2; --npt-o3-line:#355B4F; --npt-o3-pending:#EFD198; --npt-o3-pending-container:#44351B; --npt-o3-info:#A9D8F7; --npt-o3-info-container:#173C57; --npt-o3-focus:#F9E76C; --npt-o3-disabled:#324356; --npt-o3-on-disabled:#8E9DAE; }
+[data-odyssey="3"][data-product="orbit"][data-mode="dark"]{ --npt-o3-paper:#101629; --npt-o3-ink:#F0EFFF; --npt-o3-action:#A9B4FF; --npt-o3-on-action:#101633; --npt-o3-signature:#FFB3AC; --npt-o3-tint:#252E55; --npt-o3-muted:#BBC6E2; --npt-o3-line:#3B496A; --npt-o3-pending:#EFD198; --npt-o3-pending-container:#44351B; --npt-o3-info:#A9D8F7; --npt-o3-info-container:#173C57; --npt-o3-focus:#F9E76C; --npt-o3-disabled:#324356; --npt-o3-on-disabled:#8E9DAE; }
+/* Public expressions use the same distinct semantic roles as the native library. */
+[data-odyssey="3"][data-product="wallet"],[data-odyssey="3"][data-product="core"],[data-odyssey="3"][data-product="drive"],[data-odyssey="3"][data-product="orbit"]{
+  --md-sys-color-background:var(--npt-o3-paper);
+  --md-sys-color-on-background:var(--npt-o3-ink);
+  --md-sys-color-surface:var(--npt-o3-base-surface);
+  --md-sys-color-on-surface:var(--npt-o3-ink);
+  --md-sys-color-surface-variant:var(--npt-o3-base-surface-variant);
+  --md-sys-color-on-surface-variant:var(--npt-o3-muted);
+  --md-sys-color-outline:var(--npt-o3-base-outline);
+  --md-sys-color-outline-variant:var(--npt-o3-line);
+  --md-sys-color-surface-container-lowest:var(--npt-o3-base-surface-container-lowest);
+  --md-sys-color-surface-container-low:var(--npt-o3-base-surface-container-low);
+  --md-sys-color-surface-container:var(--npt-o3-base-surface-container);
+  --md-sys-color-surface-container-high:var(--npt-o3-base-surface-container-high);
+  --md-sys-color-surface-container-highest:var(--npt-o3-base-surface-container-highest);
+  --md-sys-color-inverse-surface:var(--npt-o3-base-inverse-surface);
+  --md-sys-color-inverse-on-surface:var(--npt-o3-base-inverse-on-surface);
+  --md-sys-color-inverse-primary:var(--npt-o3-base-inverse-primary);
+  --md-sys-color-scrim:var(--npt-o3-base-scrim);
+  --md-sys-color-secondary:var(--npt-o3-base-secondary);
+  --md-sys-color-on-secondary:var(--npt-o3-base-on-secondary);
+  --md-sys-color-secondary-container:var(--npt-o3-base-secondary-container);
+  --md-sys-color-on-secondary-container:var(--npt-o3-base-on-secondary-container);
+  --md-sys-color-tertiary:var(--npt-o3-base-tertiary);
+  --md-sys-color-on-tertiary:var(--npt-o3-base-on-tertiary);
+  --md-sys-color-tertiary-container:var(--npt-o3-base-tertiary-container);
+  --md-sys-color-on-tertiary-container:var(--npt-o3-base-on-tertiary-container);
+  --md-sys-color-error:var(--npt-o3-base-error);
+  --md-sys-color-on-error:var(--npt-o3-base-on-error);
+  --md-sys-color-error-container:var(--npt-o3-base-error-container);
+  --md-sys-color-on-error-container:var(--npt-o3-base-on-error-container);
+  --md-sys-color-success:var(--npt-o3-base-success);
+  --md-sys-color-on-success:var(--npt-o3-base-on-success);
+  --md-sys-color-success-container:var(--npt-o3-base-success-container);
+  --md-sys-color-on-success-container:var(--npt-o3-base-on-success-container);
+  --md-sys-color-primary:var(--npt-o3-action);
+  --md-sys-color-on-primary:var(--npt-o3-on-action);
+  --md-sys-color-primary-container:var(--npt-o3-tint);
+  --md-sys-color-on-primary-container:var(--npt-o3-ink);
+}
+[data-odyssey="3"][dir="rtl"]{
+  --npt-font-display:var(--npt-o3-font-ar); --npt-font-text:var(--npt-o3-font-ar); --npt-font-num:var(--npt-o3-font-numeric);
+  --npt-text-body:20px; --npt-leading-body:28px; --npt-text-body-lg:20px; --npt-leading-body-lg:28px; --npt-text-body-sm:18px; --npt-leading-body-sm:24px; --npt-text-label:18px; --npt-leading-label:24px; --npt-text-caption:16px; --npt-leading-caption:22px;
+}

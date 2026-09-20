@@ -401,7 +401,7 @@ class _KeypadCellState extends State<_KeypadCell> {
               // The press bloom is the ink itself at low alpha, so it belongs
               // to whatever ground the pad is on — brand canvas or paper —
               // without the pad being told which.
-              color: _down ? widget.ink.withValues(alpha: 0.14) : Colors.transparent,
+              color: widget.ink.withValues(alpha: _down ? 0.14 : 0),
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,

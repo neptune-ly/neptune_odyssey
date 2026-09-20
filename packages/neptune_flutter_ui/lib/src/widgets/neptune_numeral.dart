@@ -52,7 +52,7 @@ class NeptuneNumeral extends StatelessWidget {
   /// direction at a single point and still lets adjacent weak characters
   /// join the run — the failure mode that shows up with grouped IBANs and
   /// amounts followed by a currency word.
-  static String isolated(String value) => '⁦$value⁩';
+  static String isolated(String value) => '\u2066$value\u2069';
 
   @override
   Widget build(BuildContext context) {

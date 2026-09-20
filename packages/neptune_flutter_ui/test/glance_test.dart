@@ -65,7 +65,7 @@ void main() {
     });
 
     test('lerp interpolates every field', () {
-      final a = NptGlance.standard;
+      const a = NptGlance.standard;
       final b = a.copyWith(figure: 40, rowGap: 10);
       final mid = a.lerp(b, 0.5);
       expect(mid.figure, 35);

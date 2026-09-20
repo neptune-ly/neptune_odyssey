@@ -47,6 +47,6 @@ describe("@neptune.fintech/react-ui surface", () => {
   });
 
   it("is version 1.0.0 (stable)", () => {
-    expect(REACT_UI_VERSION).toBe("2.0.0");
+    expect(REACT_UI_VERSION).toBe("3.0.0");
   });
 });

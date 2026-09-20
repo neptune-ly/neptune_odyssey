@@ -40,6 +40,7 @@ public data class NptShape(
     public val xl: Dp,
     public val xxl: Dp,
     public val full: Dp = 9999.dp,
+    public val control: Dp = full,
 ) {
     public val rXs: RoundedCornerShape get() = RoundedCornerShape(xs)
     public val rSm: RoundedCornerShape get() = RoundedCornerShape(sm)
@@ -48,6 +49,7 @@ public data class NptShape(
     public val rXl: RoundedCornerShape get() = RoundedCornerShape(xl)
     public val rXxl: RoundedCornerShape get() = RoundedCornerShape(xxl)
     public val rFull: RoundedCornerShape get() = RoundedCornerShape(full)
+    public val rControl: RoundedCornerShape get() = RoundedCornerShape(control)
 }
 
 /**
@@ -57,7 +59,8 @@ public data class NptShape(
  * Families are carried by NAME (the system-wide vocabulary shared with the
  * web tokens and the brandprint registry); [NeptuneFontRegistry] resolves a
  * name to a loaded [androidx.compose.ui.text.font.FontFamily]. Under RTL the
- * web maps `num` → `text-ar`, so [numAr] normally mirrors [textAr].
+ * [numAr] normally mirrors [textAr]; Odyssey 3 keeps isolated numeric runs
+ * in Hanken Grotesk for stable financial alignment.
  */
 @Immutable
 public data class NptType(
@@ -96,6 +99,7 @@ public data class NptMotion(
     public val standardMs: Int,
     public val slowMs: Int,
     public val glassBlur: Dp,
+    public val celebrateMs: Int = slowMs,
 )
 
 /** Tenant density lever (R6): comfortable (1.0) or compact (0.82). */

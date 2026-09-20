@@ -1,0 +1,36 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-09-20",
+  "stage1": [
+    {
+      "key": "drive-art",
+      "prompt": "Use case: illustration-story. Create one premium editorial illustration for Neptune Drive, a North African urban mobility app, landscape 3:2. A warm human pickup moment: one adult woman holding a phone at a Tripoli Mediterranean curb, a compact cyan car arriving at a gentle diagonal, driver visible subtly through side window. Confident natural adult proportions, believable car perspective and anatomy, expressive restrained gestures. Two adults total. Clean sophisticated flat vector-like drawing by a professional editorial illustrator: crisp variable navy #07315F outlines, deliberate solid shapes, warm paper #FAF9F5, bold cyan #3BC1EE, small coral #EB4E4D and lemon #F9E87A accents, pale mint #C9F3E8 architectural planes. Foreground subject grouped centrally, broad simple pavement and soft warm paper open sky, clear silhouettes at mobile card scale. Rich composition with a strong diagonal car and complementary upright person, not a generic stock blob scene. No text, logos, labels, UI, watermarks, stars, smiley mascots, gradients, texture noise or 3D. The whole scene must fit with breathing room and remain readable in a wide 342x190 card crop."
+    },
+    {
+      "key": "orbit-art",
+      "prompt": "Use case: illustration-story. Create one premium editorial travel illustration for Neptune Orbit flight booking app, landscape 3:2. Panoramic sunlit Mediterranean harbour seen from a high airport terrace, one small adult traveler with coral cabin suitcase in foreground facing a luminous cyan sea and layered ivory coastal city, one elegantly drawn plane far overhead on an ascending diagonal. Sophisticated flat editorial drawing, crisp navy #07315F lines with selective line weight, warm paper #FAF9F5 structures, broad cyan #3BC1EE sea/sky colour fields, lemon #F9E87A sunlight plane, mint #C9F3E8 foliage, coral #EB4E4D luggage, tiny lilac #DFD5FC shadows. Strong foreground-middle-distance layers, believable architecture and adult anatomy, distinctive wide scenic perspective and calm sense of possibility. Professional travel magazine craft, bold elegant shapes, controlled detail that reads at 342x190 mobile feature crop. No text, labels, logos, UI, watermarks, gradients, textures, floating cards, balloons, confetti, mascots, huge hands or repeated bank illustration motifs."
+    }
+  ],
+  "selection": {
+    "drive": "drive-pickup-v2.png",
+    "orbit": "orbit-terrace-v2.png"
+  },
+  "review": "V1 studies were too detailed and realistic; v2 redrawn against the accepted everyday-exchange reference. V2 professionally rendered by image model, inspected for anatomy, composition and small-size readability. Not individually user-approved.",
+  "figma": {
+    "drive": {
+      "hash": "85d6773b9e6448068e114bc63b4b54a721574bdd",
+      "source": "315:24057"
+    },
+    "orbit": {
+      "hash": "0141f381c93307b9308d1d1a80a864de8fd14f78",
+      "source": "315:24058"
+    }
+  },
+  "stage2": {
+    "referenceOrder": [
+      "Product v1 scene",
+      "direction-reset/everyday-exchange-v1.png"
+    ],
+    "prompt": "STYLE CORRECTION. Image 1 is the scene to redraw; Image 2 is the exact drawing-language reference. Keep Image 1's basic scene, person count, human actions, car or suitcase and wide composition. Completely redraw it in Image 2's bold, simple editorial line-art language: heavy clean deep-navy outlines, simple faces with small oval eyes and no realistic modelling, broad flat colour shapes, dramatically reduce background micro-detail, no realistic shading, no gradients, no paint/photographic texture. Restrict to navy #07315F, cyan #3BC1EE, coral #EB4E4D, lemon #F9E87A, mint #C9F3E8, lilac #DFD5FC, warm paper #FAF9F5 and warm human skin tone. At most 4 simplified background architectural shapes. Professional vector-style illustration for a 342px-wide mobile feature, excellent anatomy and coherent object perspective. Adult humans remain confident and warm, not baby-like. No text, logos, UI, watermarks. Make the line weight and abstraction clearly belong to Image 2. Scene of Image 1, graphic drawing language of Image 2."
+  }
+}

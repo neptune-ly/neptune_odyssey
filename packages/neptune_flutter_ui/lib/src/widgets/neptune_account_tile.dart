@@ -130,7 +130,9 @@ class NeptuneAccountTile extends StatelessWidget {
     // the row is given, because a rule that stops short of the edge is a box
     // drawn on three sides.
     return Material(
-      color: ruled ? Colors.transparent : scheme.surfaceContainerLow,
+      color: ruled
+          ? scheme.surfaceContainerLow.withValues(alpha: 0)
+          : scheme.surfaceContainerLow,
       shape: ruled
           ? const RoundedRectangleBorder()
           : RoundedRectangleBorder(borderRadius: shape.rMd),

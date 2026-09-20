@@ -1,0 +1,2116 @@
+{
+  "name": "Odyssey component inventory",
+  "status": "inventory only — not editable cross-tool components",
+  "figma": {
+    "file": "https://www.figma.com/design/0Z2HlDHC3VKVujjzqDCDqP/",
+    "editableSource": "native Figma only"
+  },
+  "counts": {
+    "plannedFamilies": 91,
+    "rootVerifiedNativeFamilies": 91,
+    "semanticVariants": 377,
+    "physicalVariants": 657
+  },
+  "limits": [
+    "Native Figma verification does not establish SDK parity.",
+    "Planned axes and properties can exceed the currently authored native variants.",
+    "No bank-product or private journey data is included.",
+    "This manifest does not export editable component masters."
+  ],
+  "families": [
+    {
+      "id": "button",
+      "category": "actions",
+      "plannedAxes": {
+        "Variant": [
+          "Filled",
+          "Elevated",
+          "Tonal",
+          "Outlined",
+          "Text"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Pressed",
+          "Disabled",
+          "Loading"
+        ]
+      },
+      "plannedVariants": 30,
+      "plannedProperties": "Label, leading icon swap/visibility",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "30:258",
+        "pageId": "30:77",
+        "semanticVariants": 30,
+        "physicalVariants": 30
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "card",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Variant": [
+          "Elevated",
+          "Filled",
+          "Outlined"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Content slot",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "174:19839",
+        "pageId": "174:19826",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Root inspected corrected EN-light and AR-dark native proofs and live component APIs. SDK parity and host runtime behavior remain pending."
+    },
+    {
+      "id": "balance-card",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Hero": [
+          "Balance cards",
+          "Ledger band",
+          "Pocket",
+          "Compact"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Label, balance, currency, account",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "31:534",
+        "pageId": "31:502",
+        "semanticVariants": 4,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "transaction-row",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Content properties follow public API",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "67:245",
+        "pageId": "62:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "text-field",
+      "category": "inputs-selection",
+      "plannedAxes": {
+        "State": [
+          "Empty",
+          "Filled",
+          "Focus",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 5,
+      "plannedProperties": "Label/value/placeholder/error; native semantics",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "27:748",
+        "pageId": "27:719",
+        "semanticVariants": 5,
+        "physicalVariants": 5
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "chip",
+      "category": "inputs-selection",
+      "plannedAxes": {
+        "Variant": [
+          "Assist",
+          "Filter",
+          "Input",
+          "Suggestion"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 12,
+      "plannedProperties": "Label, selected boolean, icon swap",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "30:288",
+        "pageId": "30:259",
+        "semanticVariants": 12,
+        "physicalVariants": 24
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "badge",
+      "category": "inputs-selection",
+      "plannedAxes": {
+        "Tone": [
+          "Primary",
+          "Success",
+          "Error",
+          "Neutral"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Value",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "30:297",
+        "pageId": "30:259",
+        "semanticVariants": 4,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "app-bar",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Content properties follow public API",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "64:232",
+        "pageId": "62:2",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "nav-bar",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Items": [
+          "Three",
+          "Four",
+          "Five"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Nestednavitems",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "63:1093",
+        "pageId": "62:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "nav-item",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Active": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Label + icon",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "63:40",
+        "pageId": "62:2",
+        "semanticVariants": 2,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "icon-button",
+      "category": "actions",
+      "plannedAxes": {
+        "Variant": [
+          "Standard",
+          "Filled",
+          "Tonal",
+          "Outlined"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ],
+        "Selected": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 24,
+      "plannedProperties": "Accessible label, icon swap",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "33:402",
+        "pageId": "31:276",
+        "semanticVariants": 24,
+        "physicalVariants": 24
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "fab",
+      "category": "actions",
+      "plannedAxes": {
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "Extended": [
+          "False",
+          "True"
+        ],
+        "State": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 12,
+      "plannedProperties": "Label, icon swap; small visual inside48target",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:23861",
+        "pageId": "270:267",
+        "semanticVariants": 12,
+        "physicalVariants": 24
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "segmented-button",
+      "category": "actions",
+      "plannedAxes": {
+        "Selection": [
+          "Single",
+          "Multiple"
+        ],
+        "Count": [
+          "Two",
+          "Three",
+          "Four"
+        ]
+      },
+      "plannedVariants": 6,
+      "plannedProperties": "Nested options with paired EN/Arabic label defaults and icon slot/visibility",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "116:726",
+        "pageId": "116:2",
+        "semanticVariants": 6,
+        "physicalVariants": 12
+      },
+      "sdkParity": "Root inspected native EN light and AR dark proofs after selection-indicator repair; host owns group selection. SDK parity remains pending."
+    },
+    {
+      "id": "segmented-option",
+      "category": "actions",
+      "plannedAxes": {
+        "Selected": [
+          "False",
+          "True"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 6,
+      "plannedProperties": "Label EN/Arabic, icon swap and visibility; selected-state indicator is automatic",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "116:75",
+        "pageId": "116:2",
+        "semanticVariants": 6,
+        "physicalVariants": 12
+      },
+      "sdkParity": "Root inspected native EN light and AR dark proofs after selection-indicator repair; host owns group selection. SDK parity remains pending."
+    },
+    {
+      "id": "checkbox",
+      "category": "inputs-selection",
+      "plannedAxes": {
+        "Value": [
+          "Unchecked",
+          "Checked",
+          "Indeterminate"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 9,
+      "plannedProperties": "Label and helper",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "29:33",
+        "pageId": "29:2",
+        "semanticVariants": 9,
+        "physicalVariants": 18
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "radio",
+      "category": "inputs-selection",
+      "plannedAxes": {
+        "Value": [
+          "Unchecked",
+          "Checked"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 6,
+      "plannedProperties": "Label",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "29:54",
+        "pageId": "29:2",
+        "semanticVariants": 6,
+        "physicalVariants": 12
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "switch",
+      "category": "inputs-selection",
+      "plannedAxes": {
+        "Value": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 6,
+      "plannedProperties": "Label",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "29:79",
+        "pageId": "29:2",
+        "semanticVariants": 6,
+        "physicalVariants": 12
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "slider",
+      "category": "inputs-selection",
+      "plannedAxes": {
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Value/range/label",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "30:311",
+        "pageId": "30:259",
+        "semanticVariants": 9,
+        "physicalVariants": 18
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "progress",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Variant": [
+          "Linear",
+          "Circular"
+        ],
+        "State": [
+          "Determinate",
+          "Indeterminate"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Value + spoken status",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "148:23",
+        "pageId": "148:2",
+        "semanticVariants": 4,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "snackbar",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Action": [
+          "None",
+          "Undo"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Message EN/AR and optional Undo action",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "149:1366",
+        "pageId": "148:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "tooltip",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Label EN/AR",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "149:1398",
+        "pageId": "148:2",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "banner",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Message EN/AR and action",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "149:1393",
+        "pageId": "148:2",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "dialog",
+      "category": "overlays",
+      "plannedAxes": {
+        "Purpose": [
+          "Confirm",
+          "Destructive",
+          "Information"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Headline/content/actions",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "98:4135",
+        "pageId": "98:3986",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "bottom-sheet",
+      "category": "overlays",
+      "plannedAxes": {
+        "Detent": [
+          "Half",
+          "Full"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Content/draghandle/actions",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "178:464",
+        "pageId": "172:19504",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Root inspected corrected EN-light and AR-dark native proofs and live component APIs. SDK parity and host runtime behavior remain pending."
+    },
+    {
+      "id": "menu",
+      "category": "overlays",
+      "plannedAxes": {
+        "Density": [
+          "Standard",
+          "Grouped"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Nesteditems",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "175:20174",
+        "pageId": "172:19504",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Root inspected corrected EN-light and AR-dark native proofs and live component APIs. SDK parity and host runtime behavior remain pending."
+    },
+    {
+      "id": "menu-item",
+      "category": "overlays",
+      "plannedAxes": {
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Label/icon/trailing",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "175:19960",
+        "pageId": "172:19504",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Root inspected corrected EN-light and AR-dark native proofs and live component APIs. SDK parity and host runtime behavior remain pending."
+    },
+    {
+      "id": "list",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Style": [
+          "Divided",
+          "Plain"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Nesteditems",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "174:19932",
+        "pageId": "174:19826",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Root inspected corrected EN-light and AR-dark native proofs and live component APIs. SDK parity and host runtime behavior remain pending."
+    },
+    {
+      "id": "list-item",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Interactive": [
+          "False",
+          "True"
+        ],
+        "Supporting": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Headline/supporting/icon/trailing",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "103:3390",
+        "pageId": "103:3293",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "divider",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Inset": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Noninteractive",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "174:19847",
+        "pageId": "174:19826",
+        "semanticVariants": 2,
+        "physicalVariants": 3
+      },
+      "sdkParity": "Root inspected corrected EN-light and AR-dark native proofs and live component APIs. SDK parity and host runtime behavior remain pending."
+    },
+    {
+      "id": "tabs",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Nested Tab instances",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:20239",
+        "pageId": "184:266",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs and live property bindings; nested native instances and direction-aware content swaps verified. SDK runtime parity remains pending."
+    },
+    {
+      "id": "tab",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Active": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Label EN/Arabic, icon swap and visibility",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:115",
+        "pageId": "184:266",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs and live property bindings; nested native instances and direction-aware content swaps verified. SDK runtime parity remains pending."
+    },
+    {
+      "id": "accordion",
+      "category": "layout-display",
+      "plannedAxes": {
+        "State": [
+          "Collapsed",
+          "Expanded"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Nested Accordion item instances",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:20507",
+        "pageId": "184:266",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs and live property bindings; nested native instances and direction-aware content swaps verified. SDK runtime parity remains pending."
+    },
+    {
+      "id": "accordion-item",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Expanded": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Summary EN/Arabic and content EN/Arabic swaps",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:20401",
+        "pageId": "184:266",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs and live property bindings; nested native instances and direction-aware content swaps verified. SDK runtime parity remains pending."
+    },
+    {
+      "id": "avatar",
+      "category": "layout-display",
+      "plannedAxes": {
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "Content": [
+          "Initials",
+          "Icon"
+        ]
+      },
+      "plannedVariants": 6,
+      "plannedProperties": "Name, initials, optional image",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "63:23",
+        "pageId": "62:2",
+        "semanticVariants": 6,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "nav-rail",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Expanded": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Nested nav items",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20653",
+        "pageId": "194:20426",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "top-app-bar",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Title, show leading, show trailing",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20834",
+        "pageId": "194:20426",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "amount-input",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "State": [
+          "Empty",
+          "Filled",
+          "Focus",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 5,
+      "plannedProperties": "Amount/currency/suffix",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "79:74",
+        "pageId": "27:719",
+        "semanticVariants": 4,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "currency-field",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "State": [
+          "Empty",
+          "Filled",
+          "Focus",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 5,
+      "plannedProperties": "Label EN/AR, value, currency, helper EN/AR and visibility",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:82",
+        "pageId": "185:2",
+        "semanticVariants": 5,
+        "physicalVariants": 10
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs, native property bindings, helper override/hide specimen, masked PIN states and keypad. Runtime formatting/validation/secure capture and SDK parity remain pending."
+    },
+    {
+      "id": "iban-field",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "State": [
+          "Empty",
+          "Filled",
+          "Focus",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 5,
+      "plannedProperties": "Label, value, helper EN/AR, error helper EN/AR and visibility",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:20184",
+        "pageId": "185:2",
+        "semanticVariants": 5,
+        "physicalVariants": 10
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs, native property bindings, helper override/hide specimen, masked PIN states and keypad. Runtime formatting/validation/secure capture and SDK parity remain pending."
+    },
+    {
+      "id": "otp-input",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "State": [
+          "Empty",
+          "Partial",
+          "Complete",
+          "Error",
+          "Disabled"
+        ],
+        "Masked": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 10,
+      "plannedProperties": "Length/value/helper",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "79:2185",
+        "pageId": "27:719",
+        "semanticVariants": 4,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "pin-input",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "State": [
+          "Empty",
+          "Partial",
+          "Complete",
+          "Error",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 5,
+      "plannedProperties": "Helper EN/AR, error helper EN/AR and visibility",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:20360",
+        "pageId": "185:2",
+        "semanticVariants": 5,
+        "physicalVariants": 10
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs, native property bindings, helper override/hide specimen, masked PIN states and keypad. Runtime formatting/validation/secure capture and SDK parity remain pending."
+    },
+    {
+      "id": "amount-keypad",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Value",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "186:20636",
+        "pageId": "185:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Root inspected corrected EN-light/AR-dark proofs, native property bindings, helper override/hide specimen, masked PIN states and keypad. Runtime formatting/validation/secure capture and SDK parity remain pending."
+    },
+    {
+      "id": "card-art",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Variant": [
+          "Standard",
+          "Premium"
+        ],
+        "Selected": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Scheme EN/AR, holder EN/AR, last four, expiry",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20572",
+        "pageId": "194:20427",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "card-row",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Interactive": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Label EN/AR, scheme EN/AR, last four, brand icon",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20801",
+        "pageId": "194:20427",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "add-card",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Action text EN/AR",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20871",
+        "pageId": "194:20427",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "card-controls",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Frozen": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Freeze icon; Frozen variant owns localized status and action",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:21045",
+        "pageId": "194:20427",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "step",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "State": [
+          "Future",
+          "Current",
+          "Complete"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Label/number",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:15",
+        "pageId": "215:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native fresh defaults, editable properties and rendered layouts verified; SDK state/pixel parity remains pending."
+    },
+    {
+      "id": "stepper",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Active": [
+          "First",
+          "Middle",
+          "Last"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Steps",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:28",
+        "pageId": "215:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native fresh defaults, editable properties and rendered layouts verified; SDK state/pixel parity remains pending."
+    },
+    {
+      "id": "transfer-review",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Content properties follow public API",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:35",
+        "pageId": "215:2",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Native fresh defaults, editable properties and rendered layouts verified; SDK state/pixel parity remains pending."
+    },
+    {
+      "id": "success",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Content properties follow public API",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:44",
+        "pageId": "215:2",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Native fresh defaults, editable properties and rendered layouts verified; SDK state/pixel parity remains pending."
+    },
+    {
+      "id": "receipt",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Status": [
+          "Confirmed",
+          "Pending",
+          "Reversed"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Amount/currency/date/recipient/reference",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:69",
+        "pageId": "215:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native fresh defaults, editable properties and rendered layouts verified; SDK state/pixel parity remains pending."
+    },
+    {
+      "id": "beneficiary-tile",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Favorite": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Name/account",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:82",
+        "pageId": "215:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Native fresh defaults, editable properties and rendered layouts verified; SDK state/pixel parity remains pending."
+    },
+    {
+      "id": "method-row",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Recommended": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Title/subtitle",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:97",
+        "pageId": "215:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Native fresh defaults, editable properties and rendered layouts verified; SDK state/pixel parity remains pending."
+    },
+    {
+      "id": "data-table",
+      "category": "data-viz",
+      "plannedAxes": {
+        "Density": [
+          "Comfortable",
+          "Dense"
+        ],
+        "State": [
+          "Populated",
+          "Empty",
+          "Loading",
+          "Error"
+        ]
+      },
+      "plannedVariants": 8,
+      "plannedProperties": "Columns/rows/caption; responsive overflow contract",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:188",
+        "pageId": "252:2",
+        "semanticVariants": 8,
+        "physicalVariants": 16
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "stat-card",
+      "category": "data-viz",
+      "plannedAxes": {
+        "Trend": [
+          "Up",
+          "Down",
+          "None"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Label/value/unit/delta",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:22652",
+        "pageId": "252:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "sparkline",
+      "category": "data-viz",
+      "plannedAxes": {
+        "Trend": [
+          "Up",
+          "Down",
+          "Flat"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Points/accessibledescription",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:22682",
+        "pageId": "252:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "donut",
+      "category": "data-viz",
+      "plannedAxes": {
+        "Segments": [
+          "Two",
+          "Three",
+          "Four"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Values/label/legend",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23151",
+        "pageId": "252:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "limit-meter",
+      "category": "data-viz",
+      "plannedAxes": {
+        "Status": [
+          "Normal",
+          "Warning",
+          "Limit reached"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Label/value/amount",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23182",
+        "pageId": "252:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "trend",
+      "category": "data-viz",
+      "plannedAxes": {
+        "Direction": [
+          "Up",
+          "Down",
+          "Flat"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Accessible value",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23201",
+        "pageId": "252:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "skeleton",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Variant": [
+          "Text",
+          "Circle",
+          "Rectangle"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Width/height/lines",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:21507",
+        "pageId": "215:21498",
+        "semanticVariants": 3,
+        "physicalVariants": 3
+      },
+      "sdkParity": "Fresh native instances and representative EN/AR light/dark renders verified; SDK parity remains pending."
+    },
+    {
+      "id": "empty-state",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Reason": [
+          "First use",
+          "No results",
+          "No access",
+          "Unavailable"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Title/body/action/art slot",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:21591",
+        "pageId": "215:21498",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Fresh native instances and representative EN/AR light/dark renders verified; SDK parity remains pending."
+    },
+    {
+      "id": "alert",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Tone": [
+          "Info",
+          "Success",
+          "Pending",
+          "Error"
+        ],
+        "Dismissible": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 8,
+      "plannedProperties": "Title/body/action",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:21832",
+        "pageId": "215:21498",
+        "semanticVariants": 8,
+        "physicalVariants": 16
+      },
+      "sdkParity": "Fresh native instances and representative EN/AR light/dark renders verified; SDK parity remains pending."
+    },
+    {
+      "id": "status-chip",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Status": [
+          "Neutral",
+          "Success",
+          "Pending",
+          "Failed",
+          "Unknown",
+          "Reversed"
+        ]
+      },
+      "plannedVariants": 6,
+      "plannedProperties": "Text + icon",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "68:254",
+        "pageId": "62:2",
+        "semanticVariants": 6,
+        "physicalVariants": 12
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "toast",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Tone": [
+          "Info",
+          "Success",
+          "Error"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Message; live status",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:21881",
+        "pageId": "215:21498",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Fresh native instances and representative EN/AR light/dark renders verified; SDK parity remains pending."
+    },
+    {
+      "id": "toast-host",
+      "category": "feedback-status",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Content properties follow public API",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "215:21900",
+        "pageId": "215:21498",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Fresh native instances and representative EN/AR light/dark renders verified; SDK parity remains pending."
+    },
+    {
+      "id": "approval-item",
+      "category": "corporate-operations",
+      "plannedAxes": {
+        "Status": [
+          "Awaiting",
+          "Approved",
+          "Rejected"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Maker, amount, title",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:22776",
+        "pageId": "253:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "batch-card",
+      "category": "corporate-operations",
+      "plannedAxes": {
+        "State": [
+          "Review",
+          "Validated",
+          "Warnings",
+          "Errors"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Totals, count, approval requirement",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23054",
+        "pageId": "253:2",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "audit-row",
+      "category": "corporate-operations",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Content properties follow public API",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23210",
+        "pageId": "253:2",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "user-row",
+      "category": "corporate-operations",
+      "plannedAxes": {
+        "Status": [
+          "Active",
+          "Suspended"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Name/role/email/avatar",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23258",
+        "pageId": "253:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "permission-toggle",
+      "category": "corporate-operations",
+      "plannedAxes": {
+        "Checked": [
+          "False",
+          "True"
+        ],
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Label/description",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23389",
+        "pageId": "253:2",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "workflow-status",
+      "category": "corporate-operations",
+      "plannedAxes": {
+        "State": [
+          "In progress",
+          "Approved",
+          "Blocked"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Steps/active",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "254:23543",
+        "pageId": "253:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Native defaults, applicable text properties and recursive bounds verified; SDK and exhaustive content/state pixel parity remain pending."
+    },
+    {
+      "id": "app-shell",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Viewport": [
+          "Mobile",
+          "Tablet",
+          "Desktop"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Navrail/content/header",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "236:22603",
+        "pageId": "234:1135",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Authored native viewport/action variants, locale defaults and content edits verified; SDK and remaining responsive state/pixel parity pending."
+    },
+    {
+      "id": "page-header",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Actions": [
+          "None",
+          "One",
+          "Multiple"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Title/subtitle/actionslot",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "237:464",
+        "pageId": "234:1135",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Authored native viewport/action variants, locale defaults and content edits verified; SDK and remaining responsive state/pixel parity pending."
+    },
+    {
+      "id": "section",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Content properties follow public API",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "237:22703",
+        "pageId": "234:1135",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Authored native viewport/action variants, locale defaults and content edits verified; SDK and remaining responsive state/pixel parity pending."
+    },
+    {
+      "id": "side-nav",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Nested side-nav items",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20740",
+        "pageId": "194:20426",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "side-nav-item",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Active": [
+          "False",
+          "True"
+        ],
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Label EN/AR, icon swap, trailing content swap/visibility",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20512",
+        "pageId": "194:20426",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "search-field",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "State": [
+          "Empty",
+          "Filled",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Query EN/Arabic, placeholder EN/Arabic, search icon and clear action",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "132:89",
+        "pageId": "132:8",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "toolbar",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Variant": [
+          "Default"
+        ]
+      },
+      "plannedVariants": 1,
+      "plannedProperties": "Start, center and end action swaps with paired EN/Arabic defaults",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "194:20904",
+        "pageId": "194:20426",
+        "semanticVariants": 1,
+        "physicalVariants": 2
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "quick-actions",
+      "category": "wallet-pay",
+      "plannedAxes": {
+        "Shell": [
+          "Tiles",
+          "Rule grid",
+          "Pocket"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Nestedactions",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:24061",
+        "pageId": "270:267",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "quick-action",
+      "category": "wallet-pay",
+      "plannedAxes": {
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Label + icon",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:23910",
+        "pageId": "270:267",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "merchant-row",
+      "category": "wallet-pay",
+      "plannedAxes": {
+        "Pending": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Name/category/time/amount",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "270:657",
+        "pageId": "270:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "voucher-card",
+      "category": "wallet-pay",
+      "plannedAxes": {
+        "State": [
+          "Available",
+          "Redeemed",
+          "Expired"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Title/value/code/expiry",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:488",
+        "pageId": "270:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "qr-pay",
+      "category": "wallet-pay",
+      "plannedAxes": {
+        "State": [
+          "Ready",
+          "Waiting",
+          "Expired"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Merchant/amount/currency; illustrative payload only",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:609",
+        "pageId": "270:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "topup-row",
+      "category": "wallet-pay",
+      "plannedAxes": {
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Provider/amount",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:626",
+        "pageId": "270:2",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "tier-badge",
+      "category": "wallet-pay",
+      "plannedAxes": {
+        "Tone": [
+          "Neutral",
+          "Primary",
+          "Premium"
+        ]
+      },
+      "plannedVariants": 3,
+      "plannedProperties": "Tier label",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:645",
+        "pageId": "270:2",
+        "semanticVariants": 3,
+        "physicalVariants": 6
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "dock",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Shell": [
+          "Floating",
+          "Band",
+          "Rule",
+          "Raised",
+          "Ink",
+          "Segmented",
+          "Action"
+        ],
+        "Direction": [
+          "LTR",
+          "RTL"
+        ],
+        "Current": [
+          "First",
+          "Second",
+          "Third",
+          "Fourth"
+        ]
+      },
+      "plannedVariants": 10,
+      "plannedProperties": "Nesteditems",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:24331",
+        "pageId": "270:267",
+        "semanticVariants": 10,
+        "physicalVariants": 20
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "dock-item",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Active": [
+          "False",
+          "True"
+        ],
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Label + icon",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:24162",
+        "pageId": "270:267",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "onboarding",
+      "category": "onboarding",
+      "plannedAxes": {
+        "State": [
+          "Introduction",
+          "Active step",
+          "Verification",
+          "Complete"
+        ]
+      },
+      "plannedVariants": 4,
+      "plannedProperties": "Steps/eyebrow/supporting",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:702",
+        "pageId": "270:2",
+        "semanticVariants": 4,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "cta",
+      "category": "actions",
+      "plannedAxes": {
+        "Variant": [
+          "Primary",
+          "Secondary"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Pressed",
+          "Disabled",
+          "Loading"
+        ]
+      },
+      "plannedVariants": 12,
+      "plannedProperties": "Label, arrowboolean",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "271:24596",
+        "pageId": "270:267",
+        "semanticVariants": 12,
+        "physicalVariants": 24
+      },
+      "sdkParity": "Figma native structure verified; SDK parity remains pending."
+    },
+    {
+      "id": "payment-card",
+      "category": "financial-money-movement",
+      "plannedAxes": {
+        "Status": [
+          "Active",
+          "Frozen"
+        ]
+      },
+      "plannedVariants": 2,
+      "plannedProperties": "Card label, contactless icon, masked PAN, cardholder, expiry",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "73:1395",
+        "pageId": "31:502",
+        "semanticVariants": 2,
+        "physicalVariants": 4
+      },
+      "sdkParity": "Figma native structure verified; no declared SDK contract or parity evidence."
+    },
+    {
+      "id": "dock-destination",
+      "category": "navigation-shell",
+      "plannedAxes": {
+        "Shell": [
+          "Raised",
+          "Ink",
+          "Segmented",
+          "Action"
+        ],
+        "Active": [
+          "True",
+          "False"
+        ]
+      },
+      "plannedVariants": 8,
+      "plannedProperties": "Icon + Label + Show label; Ink visibility follows Active",
+      "status": "native-verified-sdk-parity-pending",
+      "nativeVerification": {
+        "verified": true,
+        "setId": "348:1378",
+        "pageId": "270:267",
+        "semanticVariants": 8,
+        "physicalVariants": 8
+      },
+      "sdkParity": "Native Figma destination contract; SDK widget parity remains pending."
+    }
+  ]
+}

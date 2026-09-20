@@ -219,8 +219,8 @@ describe("web-ui · exported surface", () => {
     }
   });
 
-  it("WEB_UI_VERSION is current (2.4.0)", () => {
-    expect(kit.WEB_UI_VERSION).toBe("2.4.0");
+  it("WEB_UI_VERSION matches the release", () => {
+    expect(kit.WEB_UI_VERSION).toBe("3.0.0");
   });
 });
 

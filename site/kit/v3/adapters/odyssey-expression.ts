@@ -1,0 +1,28 @@
+// Generated expression foundations. Semantic action/status colours remain in the core theme.
+export const odysseyExpression = {
+  "fields": {
+    "cyan": "#3BC1EE",
+    "coral": "#EB4E4D",
+    "mint": "#C9F3E8",
+    "lemon": "#F9E87A",
+    "lilac": "#DFD5FC",
+    "ink": "#07315F",
+    "paper": "#FAF9F5"
+  },
+  "content": {
+    "on-bright": "#07315F",
+    "on-ink": "#FAF9F5",
+    "on-coral": "#071A2D"
+  },
+  "shape": {
+    "control": 16,
+    "pocket": 24,
+    "capsule": 999
+  },
+  "fonts": {
+    "expressive": "Baloo 2",
+    "composed": "Hanken Grotesk",
+    "arabic": "Beiruti",
+    "numeric": "Hanken Grotesk"
+  }
+} as const;

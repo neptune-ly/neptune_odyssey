@@ -32,6 +32,11 @@ import 'glance.dart';
 import 'identity.dart';
 import 'page_transitions.dart';
 import 'numerals.dart';
+import 'generated/brand_data.g.dart';
+
+/// Public Odyssey 3 expression choices. Banking preserves the active tenant
+/// scheme; wallet uses core navy, while Drive and Orbit use public profiles.
+enum NeptuneOdyssey3Product { banking, wallet, drive, orbit }
 
 /// A face the HOST bundles as a Flutter asset, applied at assembly.
 ///
@@ -89,6 +94,264 @@ class NptHostFont {
 class NeptuneTheme {
   NeptuneTheme._();
 
+  /// Opt in to Odyssey 3 after assembling a normal tenant theme.
+  /// Existing widgets consume the revised [ColorScheme]; v1 and NO1 callers
+  /// never reach this method and therefore remain byte-for-byte unchanged.
+  static ThemeData odyssey3(ThemeData base,
+      {NeptuneOdyssey3Product product = NeptuneOdyssey3Product.banking,
+      bool arabic = false,
+      bool reducedMotion = false}) {
+    if (product == NeptuneOdyssey3Product.banking) {
+      return _odyssey3Foundations(base, base.colorScheme,
+          arabic: arabic, reducedMotion: reducedMotion);
+    }
+    final productKey =
+        product == NeptuneOdyssey3Product.wallet ? 'core' : product.name;
+    final roles = genOdyssey3Schemes[productKey]![
+        base.brightness == Brightness.dark ? 'dark' : 'light']!;
+    Color c(String name) => roles[name]!;
+    final scheme = base.colorScheme.copyWith(
+      primary: c('primary'),
+      onPrimary: c('on-primary'),
+      primaryContainer: c('primary-container'),
+      onPrimaryContainer: c('on-primary-container'),
+      secondary: c('secondary'),
+      onSecondary: c('on-secondary'),
+      secondaryContainer: c('secondary-container'),
+      onSecondaryContainer: c('on-secondary-container'),
+      tertiary: c('tertiary'),
+      onTertiary: c('on-tertiary'),
+      tertiaryContainer: c('tertiary-container'),
+      onTertiaryContainer: c('on-tertiary-container'),
+      error: c('error'),
+      onError: c('on-error'),
+      errorContainer: c('error-container'),
+      onErrorContainer: c('on-error-container'),
+      surface: c('surface'),
+      onSurface: c('on-surface'),
+      // Keep the complete legacy role contract alongside modern surface roles.
+      // ignore: deprecated_member_use
+      surfaceVariant: c('surface-variant'),
+      onSurfaceVariant: c('on-surface-variant'),
+      surfaceContainerLowest: c('surface-container-lowest'),
+      surfaceContainerLow: c('surface-container-low'),
+      surfaceContainer: c('surface-container'),
+      surfaceContainerHigh: c('surface-container-high'),
+      surfaceContainerHighest: c('surface-container-highest'),
+      outline: c('outline'),
+      outlineVariant: c('outline-variant'),
+      inverseSurface: c('inverse-surface'),
+      onInverseSurface: c('inverse-on-surface'),
+      inversePrimary: c('inverse-primary'),
+      scrim: c('scrim'),
+      // Keep the complete legacy role contract alongside modern surface roles.
+      // ignore: deprecated_member_use
+      background: c('background'),
+      // Keep the complete legacy role contract alongside modern surface roles.
+      // ignore: deprecated_member_use
+      onBackground: c('on-background'),
+    );
+    final colors = base.extension<NptColors>();
+    final fieldFill = scheme.brightness == Brightness.light
+        ? scheme.surfaceContainerLowest
+        : scheme.surfaceContainerHighest;
+    InputBorder? fieldBorder(InputBorder? border, Color color,
+        {double? width}) {
+      if (border == null) return null;
+      return border.copyWith(
+          borderSide: border.borderSide.copyWith(color: color, width: width));
+    }
+
+    final outlinedStyle = base.outlinedButtonTheme.style ?? const ButtonStyle();
+    final outlinedSide =
+        outlinedStyle.side?.resolve(<WidgetState>{}) ?? BorderSide.none;
+    return _odyssey3Foundations(
+        base.copyWith(
+          colorScheme: scheme,
+          scaffoldBackgroundColor: c('background'),
+          canvasColor: c('background'),
+          textTheme: base.textTheme.apply(
+            bodyColor: scheme.onSurface,
+            displayColor: scheme.onSurface,
+          ),
+          primaryTextTheme: base.primaryTextTheme.apply(
+            bodyColor: scheme.onPrimary,
+            displayColor: scheme.onPrimary,
+          ),
+          appBarTheme:
+              base.appBarTheme.copyWith(backgroundColor: c('background')),
+          cardTheme: base.cardTheme.copyWith(color: scheme.surfaceContainerLow),
+          floatingActionButtonTheme: base.floatingActionButtonTheme.copyWith(
+            backgroundColor: scheme.primary,
+            foregroundColor: scheme.onPrimary,
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: outlinedStyle.copyWith(
+              side: WidgetStatePropertyAll(
+                outlinedSide.copyWith(color: scheme.outline),
+              ),
+            ),
+          ),
+          navigationBarTheme: base.navigationBarTheme.copyWith(
+            backgroundColor: scheme.surfaceContainer,
+            indicatorColor: scheme.secondaryContainer,
+          ),
+          inputDecorationTheme: base.inputDecorationTheme.copyWith(
+            fillColor: fieldFill,
+            border:
+                fieldBorder(base.inputDecorationTheme.border, scheme.outline),
+            enabledBorder: fieldBorder(
+                base.inputDecorationTheme.enabledBorder, scheme.outline),
+            focusedBorder: fieldBorder(
+                base.inputDecorationTheme.focusedBorder, scheme.primary,
+                width: 2),
+            errorBorder: fieldBorder(
+                base.inputDecorationTheme.errorBorder, scheme.error),
+            focusedErrorBorder: fieldBorder(
+                base.inputDecorationTheme.focusedErrorBorder, scheme.error,
+                width: 2),
+            disabledBorder: fieldBorder(
+              base.inputDecorationTheme.disabledBorder,
+              scheme.onSurface.withValues(alpha: 0.12),
+            ),
+          ),
+          extensions: colors == null
+              ? base.extensions.values
+              : [
+                  ...base.extensions.values
+                      .where((extension) => extension is! NptColors),
+                  colors.copyWith(
+                    success: c('success'),
+                    onSuccess: c('on-success'),
+                    successContainer: c('success-container'),
+                    onSuccessContainer: c('on-success-container'),
+                  ),
+                ],
+        ),
+        scheme,
+        arabic: arabic,
+        reducedMotion: reducedMotion);
+  }
+
+  static ThemeData _odyssey3Foundations(ThemeData base, ColorScheme scheme,
+      {required bool arabic, required bool reducedMotion}) {
+    final oldMotion = base.extension<NptMotion>() ??
+        const NptMotion(
+          standard: Curves.easeOut,
+          emphasized: Curves.easeOut,
+          spring: Curves.easeOut,
+          fast: Duration(milliseconds: 120),
+          durationStandard: Duration(milliseconds: 200),
+          slow: Duration(milliseconds: 320),
+          celebrate: Duration(milliseconds: 600),
+          glassBlur: 0,
+        );
+    final modes = genOdyssey3Foundation['motionMs'] as Map;
+    final durations = modes[reducedMotion ? 'reduced' : 'full'] as Map;
+    Duration duration(String role) =>
+        Duration(milliseconds: durations[role] as int);
+    final motion = oldMotion.copyWith(
+      fast: duration('feedback'),
+      durationStandard: duration('navigate'),
+      slow: duration('reveal'),
+      celebrate: duration('celebrate'),
+    );
+    const shape =
+        NptShape(xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 32, full: 999);
+    const type = NptType(
+      display: 'Hanken Grotesk',
+      text: 'Hanken Grotesk',
+      num: 'Hanken Grotesk',
+      displayAr: 'Beiruti',
+      textAr: 'Beiruti',
+      numAr: 'Hanken Grotesk',
+      displayWeight: 700,
+      displayTracking: 0,
+    );
+    final extensions = [
+      ...base.extensions.values.where((value) =>
+          value is! NptShape && value is! NptType && value is! NptMotion),
+      shape,
+      type,
+      motion,
+    ];
+    InputBorder? fieldShape(InputBorder? border) => border is OutlineInputBorder
+        ? border.copyWith(borderRadius: shape.rSm)
+        : border;
+    final text = _odyssey3TextTheme(scheme, type, arabic);
+    final label = WidgetStatePropertyAll<TextStyle?>(text.labelLarge);
+    final buttonShape = WidgetStatePropertyAll<OutlinedBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(shape.md)));
+    ButtonStyle buttonStyle(ButtonStyle? style) =>
+        (style ?? const ButtonStyle()).copyWith(
+          shape: buttonShape,
+          textStyle: label,
+          minimumSize: const WidgetStatePropertyAll(Size(64, 56)),
+        );
+    return base.copyWith(
+      textTheme: text,
+      primaryTextTheme: text.apply(
+          bodyColor: scheme.onPrimary, displayColor: scheme.onPrimary),
+      cardTheme: base.cardTheme
+          .copyWith(shape: RoundedRectangleBorder(borderRadius: shape.rLg)),
+      floatingActionButtonTheme: base.floatingActionButtonTheme
+          .copyWith(shape: RoundedRectangleBorder(borderRadius: shape.rXs)),
+      filledButtonTheme: FilledButtonThemeData(
+          style: buttonStyle(base.filledButtonTheme.style)),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+          style: buttonStyle(base.outlinedButtonTheme.style)),
+      textButtonTheme:
+          TextButtonThemeData(style: buttonStyle(base.textButtonTheme.style)),
+      navigationBarTheme: base.navigationBarTheme.copyWith(
+          indicatorShape: RoundedRectangleBorder(borderRadius: shape.rSm)),
+      chipTheme: base.chipTheme
+          .copyWith(shape: RoundedRectangleBorder(borderRadius: shape.rSm)),
+      inputDecorationTheme: base.inputDecorationTheme.copyWith(
+        border: fieldShape(base.inputDecorationTheme.border),
+        enabledBorder: fieldShape(base.inputDecorationTheme.enabledBorder),
+        focusedBorder: fieldShape(base.inputDecorationTheme.focusedBorder),
+        errorBorder: fieldShape(base.inputDecorationTheme.errorBorder),
+        focusedErrorBorder:
+            fieldShape(base.inputDecorationTheme.focusedErrorBorder),
+        disabledBorder: fieldShape(base.inputDecorationTheme.disabledBorder),
+      ),
+      extensions: extensions,
+    );
+  }
+
+  static TextTheme _odyssey3TextTheme(
+      ColorScheme scheme, NptType type, bool arabic) {
+    final family = arabic ? type.textAr : type.text;
+    TextStyle style(double size, double line, FontWeight weight) => _face(
+        type,
+        family,
+        TextStyle(fontSize: size, height: line / size, fontWeight: weight));
+    final body = arabic ? 20.0 : 16.0;
+    final small = arabic ? 18.0 : 14.0;
+    final label = arabic ? 18.0 : 14.0;
+    return TextTheme(
+      displayLarge: style(40, 48, FontWeight.w700),
+      displayMedium: style(40, 48, FontWeight.w700),
+      displaySmall: _face(
+          type,
+          type.num,
+          const TextStyle(
+              fontSize: 36, height: 44 / 36, fontWeight: FontWeight.w600)),
+      headlineLarge: style(32, 40, FontWeight.w700),
+      headlineMedium: style(32, 40, FontWeight.w700),
+      headlineSmall: style(24, 32, FontWeight.w700),
+      titleLarge: style(24, 32, FontWeight.w700),
+      titleMedium: style(20, 28, FontWeight.w600),
+      titleSmall: style(20, 28, FontWeight.w600),
+      bodyLarge: style(body, arabic ? 28 : 24, FontWeight.w400),
+      bodyMedium: style(small, arabic ? 24 : 20, FontWeight.w400),
+      labelLarge: style(label, arabic ? 24 : 20, FontWeight.w600),
+      labelMedium: style(label, arabic ? 24 : 20, FontWeight.w600),
+      labelSmall: style(arabic ? 16 : 12, arabic ? 22 : 16, FontWeight.w600),
+      bodySmall: style(arabic ? 16 : 12, arabic ? 22 : 16, FontWeight.w400),
+    ).apply(bodyColor: scheme.onSurface, displayColor: scheme.onSurface);
+  }
+
   /// Debug/test escape hatch. When true, the theme references registry font
   /// families by name only and skips the `google_fonts` runtime loader (which
   /// would otherwise fetch from the network). Production leaves this false so
@@ -116,7 +379,8 @@ class NeptuneTheme {
     NptFeedback? feedback,
     NptHostFont? hostFont,
   }) =>
-      _forBrand(brand, Brightness.light, arabic, density, numerals, feedback, hostFont);
+      _forBrand(brand, Brightness.light, arabic, density, numerals, feedback,
+          hostFont);
 
   /// Dark theme for a reference brand id. See [light] for the other params.
   static ThemeData dark(
@@ -127,7 +391,8 @@ class NeptuneTheme {
     NptFeedback? feedback,
     NptHostFont? hostFont,
   }) =>
-      _forBrand(brand, Brightness.dark, arabic, density, numerals, feedback, hostFont);
+      _forBrand(brand, Brightness.dark, arabic, density, numerals, feedback,
+          hostFont);
 
   /// Build a theme from a `NO1-…` brandprint. Defaults brightness to the
   /// brandprint's `defaultDark` flag unless [brightness] is given.
@@ -172,7 +437,8 @@ class NeptuneTheme {
     /// hands and therefore is not ours to re-derive.
     NptBrandScheme? scheme,
   }) {
-    final mode = brightness ?? (cfg.defaultDark ? Brightness.dark : Brightness.light);
+    final mode =
+        brightness ?? (cfg.defaultDark ? Brightness.dark : Brightness.light);
     // AN EXPLICIT SCHEME SHORT-CIRCUITS THE REFERENCE MATCH TOO. A brand that
     // handed over its own palette must get its own palette, and a seed pair
     // that happened to land near a reference brand's would otherwise have
@@ -270,8 +536,8 @@ class NeptuneTheme {
     //
     // The generated path rides the tertiary SEED, which on this path does not
     // exist as a card colour: a shipped Material scheme's `tertiary` is an
-    // accent role and a bank may put anything in it. Nuran's is `0x1f767680`,
-    // a 12%-alpha grey — an iOS system fill pasted in — so a card gradient
+    // accent role and a tenant may put anything in it, including a translucent
+    // system fill, so a card gradient
     // ending there would be a translucent smudge over whatever sat behind it.
     // `secondary` is the role a hand-written scheme reliably fills with the
     // brand's second colour, and it is what the bank's own card art uses.
@@ -359,8 +625,10 @@ class NeptuneTheme {
       NptFeedback? feedback,
       NptHostFont? hostFont) {
     final isLight = mode == Brightness.light;
-    final primary = Oklch(cfg.primary.l, cfg.primary.c, cfg.primary.h.toDouble());
-    final tertiary = Oklch(cfg.tertiary.l, cfg.tertiary.c, cfg.tertiary.h.toDouble());
+    final primary =
+        Oklch(cfg.primary.l, cfg.primary.c, cfg.primary.h.toDouble());
+    final tertiary =
+        Oklch(cfg.tertiary.l, cfg.tertiary.c, cfg.tertiary.h.toDouble());
     // With `accentOnTertiary` the tertiary seed is a direction accent and
     // nothing else: every Material role - `tertiary*` and the card gradient
     // included - is ramped from the primary seed, so the accent has no path
@@ -736,11 +1004,13 @@ class NeptuneTheme {
     );
   }
 
-  static TextTheme _buildTextTheme(ColorScheme scheme, NptType type, bool arabic) {
+  static TextTheme _buildTextTheme(
+      ColorScheme scheme, NptType type, bool arabic) {
     final display = arabic ? type.displayAr : type.display;
     final text = arabic ? type.textAr : type.text;
     final w = type.displayFontWeight;
-    TextStyle disp(double size, {double? height, double? letterSpacing}) => _face(
+    TextStyle disp(double size, {double? height, double? letterSpacing}) =>
+        _face(
           type,
           display,
           TextStyle(
@@ -813,7 +1083,8 @@ class NeptuneTheme {
   /// setting it in the default face. The digits still line up without a brand.
   static TextStyle moneyStyle(BuildContext context, {TextStyle? base}) {
     final type = Theme.of(context).extension<NptType>();
-    final b = base ?? Theme.of(context).textTheme.titleLarge ?? const TextStyle();
+    final b =
+        base ?? Theme.of(context).textTheme.titleLarge ?? const TextStyle();
     const tabular = [FontFeature.tabularFigures()];
     if (type == null) return b.copyWith(fontFeatures: tabular);
     final rtl = Directionality.maybeOf(context) == TextDirection.rtl;
@@ -850,7 +1121,8 @@ class NeptuneTheme {
   static String? _matchReferenceBrand(Seed primary, Seed tertiary) {
     for (final brand in kBrands) {
       final cfg = brandConfig[brand]!;
-      if (_seedClose(cfg.primary, primary) && _seedClose(cfg.tertiary, tertiary)) {
+      if (_seedClose(cfg.primary, primary) &&
+          _seedClose(cfg.tertiary, tertiary)) {
         return brand;
       }
     }

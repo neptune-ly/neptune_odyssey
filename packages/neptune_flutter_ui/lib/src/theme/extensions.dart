@@ -86,10 +86,12 @@ class NptColors extends ThemeExtension<NptColors> {
     return NptColors(
       success: Color.lerp(success, other.success, t)!,
       onSuccess: Color.lerp(onSuccess, other.onSuccess, t)!,
-      successContainer: Color.lerp(successContainer, other.successContainer, t)!,
+      successContainer:
+          Color.lerp(successContainer, other.successContainer, t)!,
       onSuccessContainer:
           Color.lerp(onSuccessContainer, other.onSuccessContainer, t)!,
-      cardGradientStart: Color.lerp(cardGradientStart, other.cardGradientStart, t)!,
+      cardGradientStart:
+          Color.lerp(cardGradientStart, other.cardGradientStart, t)!,
       cardGradientEnd: Color.lerp(cardGradientEnd, other.cardGradientEnd, t)!,
       onCard: Color.lerp(onCard, other.onCard, t)!,
       accent: Color.lerp(accent, other.accent, t)!,
@@ -267,7 +269,8 @@ class NptType extends ThemeExtension<NptType> {
       textAr: pick.textAr,
       numAr: pick.numAr,
       displayWeight: pick.displayWeight,
-      displayTracking: displayTracking + (other.displayTracking - displayTracking) * t,
+      displayTracking:
+          displayTracking + (other.displayTracking - displayTracking) * t,
       bundled: pick.bundled,
       fontFamilyFallback: pick.fontFamilyFallback,
     );
@@ -283,6 +286,7 @@ class NptMotion extends ThemeExtension<NptMotion> {
   final Duration fast;
   final Duration durationStandard;
   final Duration slow;
+  final Duration celebrate;
   final double glassBlur;
 
   const NptMotion({
@@ -293,6 +297,7 @@ class NptMotion extends ThemeExtension<NptMotion> {
     required this.durationStandard,
     required this.slow,
     required this.glassBlur,
+    this.celebrate = Duration.zero,
   });
 
   @override
@@ -303,6 +308,7 @@ class NptMotion extends ThemeExtension<NptMotion> {
     Duration? fast,
     Duration? durationStandard,
     Duration? slow,
+    Duration? celebrate,
     double? glassBlur,
   }) =>
       NptMotion(
@@ -312,6 +318,7 @@ class NptMotion extends ThemeExtension<NptMotion> {
         fast: fast ?? this.fast,
         durationStandard: durationStandard ?? this.durationStandard,
         slow: slow ?? this.slow,
+        celebrate: celebrate ?? this.celebrate,
         glassBlur: glassBlur ?? this.glassBlur,
       );
 
@@ -321,7 +328,8 @@ class NptMotion extends ThemeExtension<NptMotion> {
     final pick = t < 0.5 ? this : other;
     Duration ld(Duration a, Duration b) => Duration(
         microseconds:
-            (a.inMicroseconds + (b.inMicroseconds - a.inMicroseconds) * t).round());
+            (a.inMicroseconds + (b.inMicroseconds - a.inMicroseconds) * t)
+                .round());
     return NptMotion(
       standard: pick.standard,
       emphasized: pick.emphasized,
@@ -329,6 +337,7 @@ class NptMotion extends ThemeExtension<NptMotion> {
       fast: ld(fast, other.fast),
       durationStandard: ld(durationStandard, other.durationStandard),
       slow: ld(slow, other.slow),
+      celebrate: ld(celebrate, other.celebrate),
       glassBlur: glassBlur + (other.glassBlur - glassBlur) * t,
     );
   }

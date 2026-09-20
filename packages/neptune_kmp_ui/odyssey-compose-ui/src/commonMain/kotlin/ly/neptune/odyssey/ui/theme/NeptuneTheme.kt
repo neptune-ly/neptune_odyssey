@@ -33,6 +33,8 @@ import ly.neptune.odyssey.tokens.Brandprint
 import ly.neptune.odyssey.tokens.BrandprintConfig
 import ly.neptune.odyssey.tokens.Oklch
 import ly.neptune.odyssey.tokens.brandConfigs
+import ly.neptune.odyssey.tokens.generated.genOdyssey3Foundation
+import ly.neptune.odyssey.tokens.generated.genOdyssey3Schemes
 import ly.neptune.odyssey.tokens.generated.genSchemes
 import ly.neptune.odyssey.tokens.generatePaletteArgb
 import ly.neptune.odyssey.tokens.matchReferenceBrand
@@ -56,6 +58,9 @@ internal val LocalNptFeedback: ProvidableCompositionLocal<NptFeedback> = nptLoca
  * (tests, previews). Every animated Odyssey composable respects it. */
 public val LocalNptReducedMotion: ProvidableCompositionLocal<Boolean> =
     staticCompositionLocalOf { false }
+
+/** Explicit opt-in expression choices. Null preserves the v1/NO1 theme. */
+public enum class NeptuneOdyssey3Product { Banking, Wallet, Drive, Orbit }
 
 // --- resolution (pure, testable) ----------------------------------------------
 
@@ -136,7 +141,54 @@ private fun successFromRoles(roles: Map<String, Int>): NptColors = NptColors(
 /** Resolve the full theme spec for [cfg]. Reference-brand seeds (within the
  * brandprint quantisation tolerance) use the pinned canonical palette
  * byte-identically; custom seeds generate through the v1 OKLCH ramp. */
-internal fun resolveNeptuneTheme(cfg: BrandprintConfig, dark: Boolean): ResolvedNeptuneTheme {
+private fun odyssey3Roles(
+    product: NeptuneOdyssey3Product?,
+    dark: Boolean,
+): Map<String, Int>? {
+    if (product == null || product == NeptuneOdyssey3Product.Banking) return null
+    val key = if (product == NeptuneOdyssey3Product.Wallet) "core" else product.name.lowercase()
+    return genOdyssey3Schemes.getValue(key).getValue(if (dark) "dark" else "light")
+}
+
+/** O3 foundations are independent of tenant v1 corners and faces. */
+private val odyssey3Shape = NptShape(
+    xs = 4.dp, sm = 8.dp, md = 16.dp, lg = 24.dp, xl = 32.dp, xxl = 32.dp,
+    full = 999.dp, control = 16.dp,
+)
+
+@Suppress("UNCHECKED_CAST")
+private val odyssey3Fonts: Map<String, String>
+    get() = genOdyssey3Foundation.getValue("fonts") as Map<String, String>
+
+private fun odyssey3Type(): NptType = NptType(
+    display = odyssey3Fonts.getValue("en"),
+    text = odyssey3Fonts.getValue("en"),
+    num = odyssey3Fonts.getValue("en"),
+    displayAr = odyssey3Fonts.getValue("ar"),
+    textAr = odyssey3Fonts.getValue("ar"),
+    numAr = odyssey3Fonts.getValue("numeric"),
+    displayWeight = 700,
+    displayTracking = 0.0,
+)
+
+@Suppress("UNCHECKED_CAST")
+private fun odyssey3Motion(base: NptMotion, reduced: Boolean): NptMotion {
+    val modes = genOdyssey3Foundation.getValue("motionMs") as Map<String, Map<String, Int>>
+    val durations = modes.getValue(if (reduced) "reduced" else "full")
+    return base.copy(
+        fastMs = durations.getValue("feedback"),
+        standardMs = durations.getValue("navigate"),
+        slowMs = durations.getValue("reveal"),
+        celebrateMs = durations.getValue("celebrate"),
+    )
+}
+
+internal fun resolveNeptuneTheme(
+    cfg: BrandprintConfig,
+    dark: Boolean,
+    odyssey3: NeptuneOdyssey3Product? = null,
+    reducedMotion: Boolean = false,
+): ResolvedNeptuneTheme {
     val ref = matchReferenceBrand(cfg.primary, cfg.tertiary)
     val roles: Map<String, Int>
     val shape: NptShape
@@ -168,12 +220,15 @@ internal fun resolveNeptuneTheme(cfg: BrandprintConfig, dark: Boolean): Resolved
             displayTracking = cfg.displayTracking,
         )
     }
+    val isOdyssey3 = odyssey3 != null
+    val odyssey3Roles = odyssey3Roles(odyssey3, dark)
+    val resolvedRoles = odyssey3Roles ?: roles
     return ResolvedNeptuneTheme(
-        colorScheme = schemeFromRoles(roles, dark),
-        colors = successFromRoles(roles),
-        shape = shape,
-        type = type,
-        motion = motionFor(cfg.motion),
+        colorScheme = schemeFromRoles(resolvedRoles, dark),
+        colors = successFromRoles(resolvedRoles),
+        shape = if (isOdyssey3) odyssey3Shape else shape,
+        type = if (isOdyssey3) odyssey3Type() else type,
+        motion = motionFor(cfg.motion).let { if (isOdyssey3) odyssey3Motion(it, reducedMotion) else it },
         identity = identityFor(cfg),
     )
 }
@@ -200,17 +255,21 @@ public fun NeptuneTheme(
     numerals: NeptuneNumeralStyle = NeptuneNumeralStyle.Latin,
     feedback: NptFeedback? = null,
     reducedMotion: Boolean? = null,
+    odyssey3: NeptuneOdyssey3Product? = null,
     content: @Composable () -> Unit,
 ) {
     val isDark = dark ?: (config.defaultDark || isSystemInDarkTheme())
     val isArabic = arabic ?: config.defaultRtl
-    val spec = remember(config, isDark) { resolveNeptuneTheme(config, isDark) }
+    val reduced = reducedMotion ?: rememberSystemReducedMotion()
+    val spec = remember(config, isDark, odyssey3, reduced) {
+        resolveNeptuneTheme(config, isDark, odyssey3, reduced)
+    }
     val displayFamily = rememberNeptuneFontFamily(if (isArabic) spec.type.displayAr else spec.type.display)
     val textFamily = rememberNeptuneFontFamily(if (isArabic) spec.type.textAr else spec.type.text)
-    val typography = remember(spec, isArabic, displayFamily, textFamily) {
-        neptuneTypography(spec.type, displayFamily, textFamily)
+    val numericFamily = rememberNeptuneFontFamily(spec.type.num)
+    val typography = remember(spec, isArabic, displayFamily, textFamily, numericFamily) {
+        neptuneTypography(spec.type, displayFamily, textFamily, odyssey3 = odyssey3 != null, arabic = isArabic, numericFamily = numericFamily)
     }
-    val reduced = reducedMotion ?: rememberSystemReducedMotion()
     MaterialTheme(
         colorScheme = spec.colorScheme,
         typography = typography,
@@ -257,6 +316,7 @@ public fun NeptuneTheme(
     numerals: NeptuneNumeralStyle = NeptuneNumeralStyle.Latin,
     feedback: NptFeedback? = null,
     reducedMotion: Boolean? = null,
+    odyssey3: NeptuneOdyssey3Product? = null,
     content: @Composable () -> Unit,
 ) {
     val config = remember(brand) {
@@ -266,7 +326,10 @@ public fun NeptuneTheme(
             requireNotNull(brandConfigs[brand]) { "unknown reference brand: $brand" }
         }
     }
-    NeptuneTheme(config, dark, arabic, density, numerals, feedback, reducedMotion, content)
+    NeptuneTheme(
+        config = config, dark = dark, arabic = arabic, density = density, numerals = numerals,
+        feedback = feedback, odyssey3 = odyssey3, reducedMotion = reducedMotion, content = content,
+    )
 }
 
 // --- the accessor object --------------------------------------------------------

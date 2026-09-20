@@ -30,6 +30,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CSS = join(ROOT, 'packages/neptune_tokens/assets/themes.css');
+const OUT_WEB_CSS = join(ROOT, 'packages/neptune_web_ui/styles/themes.css');
 const TOKENS = join(ROOT, 'packages/neptune_tokens/assets/tokens.json');
 const OUT_RESOLVED = join(ROOT, 'packages/neptune_tokens/assets/tokens.resolved.json');
 const OUT_RESOLVED_TS = join(ROOT, 'packages/neptune_tokens/src/data/resolved.generated.ts');
@@ -166,6 +167,66 @@ function parseBrand(brand) {
 const data = Object.fromEntries(BRANDS.map((b) => [b, parseBrand(b)]));
 const tokens = JSON.parse(readFileSync(TOKENS, 'utf8'));
 
+// Odyssey 3 is opt-in expression data, intentionally outside NO1. Profiles
+// are public product vocabulary only; tenant/bank identities stay in callers.
+function o3Block(product, mode) {
+  const needle = `data-product="${product}"][data-mode="${mode}"]`;
+  const i = mode === 'light'
+    ? css.indexOf(`data-product="${product}"]`)
+    : css.indexOf(needle);
+  if (i < 0) throw new Error(`Odyssey 3 profile not found: ${product}`);
+  const start = css.indexOf('{', i);
+  const end = css.indexOf('}', start);
+  return css.slice(start + 1, end);
+}
+function parseO3(product, mode) {
+  const body = o3Block(product, mode);
+  const colors = Object.fromEntries([...body.matchAll(/--npt-o3-([a-z-]+)\s*:\s*(#[0-9A-Fa-f]{6})/g)].map((m) => [m[1], m[2].toUpperCase()]));
+  if (Object.keys(colors).length !== 15) throw new Error(`Odyssey 3 ${product}/${mode} must define 15 semantic colors`);
+  return colors;
+}
+const O3 = Object.fromEntries(['core', 'drive', 'orbit'].map((p) => [p, {
+  light: parseO3(p, 'light'),
+  dark: parseO3(p, 'dark'),
+}]));
+// Shared surfaces/status roles remain distinct; product colours only override
+// the roles that are actually aliased to product modes in the native library.
+const O3_BASE = Object.fromEntries(['light', 'dark'].map((mode) => {
+  const body = block(mode === 'light' ? '[data-odyssey="3"]' : '[data-odyssey="3"][data-mode="dark"]');
+  const roles = Object.fromEntries([...body.matchAll(/--npt-o3-base-([a-z-]+)\s*:\s*(#[0-9A-Fa-f]{6})/g)].map((m) => [m[1], m[2].toUpperCase()]));
+  if (Object.keys(roles).length !== 28) throw new Error(`Odyssey 3 ${mode} must define 28 shared roles`);
+  return [mode, roles];
+}));
+const O3_COLOR_ALIASES = {
+  primary: 'action', 'on-primary': 'on-action', 'primary-container': 'tint', 'on-primary-container': 'ink',
+  background: 'paper', 'on-background': 'ink', 'on-surface': 'ink', 'on-surface-variant': 'muted', 'outline-variant': 'line',
+};
+const O3_SCHEMES = Object.fromEntries(Object.entries(O3).map(([product, modes]) => [product,
+  Object.fromEntries(Object.entries(modes).map(([mode, profile]) => [mode, {
+    ...O3_BASE[mode], ...Object.fromEntries(Object.entries(O3_COLOR_ALIASES).map(([role, key]) => [role, profile[key]])),
+  }])),
+]));
+const O3_FOUNDATION = {
+  fields: {
+    cyan: '#3BC1EE', coral: '#EB4E4D', mint: '#C9F3E8', lemon: '#F9E87A',
+    lilac: '#DFD5FC', ink: '#07315F', paper: '#FAF9F5',
+  },
+  content: { 'on-bright': '#07315F', 'on-ink': '#FAF9F5', 'on-coral': '#071A2D' },
+  shape: { control: 16, pocket: 24, capsule: 999 },
+  fonts: {
+    en: 'Hanken Grotesk', ar: 'Beiruti', expressive: 'Baloo 2',
+    composed: 'Hanken Grotesk', arabic: 'Beiruti', numeric: 'Hanken Grotesk',
+  },
+  extras: Object.fromEntries(['light', 'dark'].map((mode) => [mode, Object.fromEntries(
+    ['pending', 'pending-container', 'info', 'info-container', 'disabled', 'on-disabled']
+      .map((key) => [key, O3.core[mode][key]]),
+  )])),
+  motionMs: {
+    full: { feedback: 120, navigate: 200, reveal: 320, celebrate: 600 },
+    reduced: { feedback: 0, navigate: 0, reveal: 0, celebrate: 0 },
+  },
+};
+
 // --- emit tokens.resolved.json ---------------------------------------------------
 
 function emitResolved() {
@@ -286,6 +347,22 @@ function emitDart() {
   L.push('};');
   L.push('');
 
+  L.push('/// Opt-in Odyssey 3 public expression roles (core, drive, orbit).');
+  L.push('/// These do not alter v1 or NO1 defaults.');
+  L.push('const Map<String, Map<String, Map<String, Color>>> genOdyssey3 = {');
+  for (const [product, modes] of Object.entries(O3)) {
+    L.push(`  '${product}': {${Object.entries(modes).map(([mode, colors]) => `'${mode}': {${Object.entries(colors).map(([k, v]) => `'${k}': Color(0xFF${v.slice(1)}),`).join(' ')}},`).join(' ')}},`);
+  }
+  L.push('};');
+  L.push('/// Complete native public semantic palettes, separate from illustration accents.');
+  L.push('const Map<String, Map<String, Map<String, Color>>> genOdyssey3Schemes = {');
+  for (const [product, modes] of Object.entries(O3_SCHEMES)) {
+    L.push(`  '${product}': {${Object.entries(modes).map(([mode, colors]) => `'${mode}': {${Object.entries(colors).map(([k, v]) => `'${k}': Color(0xFF${v.slice(1)}),`).join(' ')}},`).join(' ')}},`);
+  }
+  L.push('};');
+  L.push(`const Map<String, Object> genOdyssey3Foundation = ${JSON.stringify(O3_FOUNDATION)};`);
+  L.push('');
+
   L.push('/// success / on / container / on-container per brand × mode.');
   L.push('final Map<String, ((Color, Color, Color, Color), (Color, Color, Color, Color))> genSuccess = {');
   for (const b of BRANDS) {
@@ -392,6 +469,9 @@ function emitTs() {
   return (
     '// GENERATED by tools/codegen.mjs — DO NOT EDIT. Source: themes.css\n' +
     `export const odysseyTokens = ${JSON.stringify(brands, null, 2)} as const;\n` +
+    `export const odyssey3Expressions = ${JSON.stringify(O3, null, 2)} as const;\n` +
+    `export const odyssey3Schemes = ${JSON.stringify(O3_SCHEMES, null, 2)} as const;\n` +
+    `export const odyssey3Foundation = ${JSON.stringify(O3_FOUNDATION, null, 2)} as const;\n` +
     'export type OdysseyBrand = keyof typeof odysseyTokens;\n'
   );
 }
@@ -402,6 +482,14 @@ function emitTs() {
 
 const kd = (n) => (Number.isInteger(n) ? `${n}.0` : `${n}`);
 const kq = (s) => `"${s}"`;
+const klit = (value) => {
+  if (typeof value === 'string') return kq(value);
+  if (typeof value === 'number') return String(value);
+  if (value && typeof value === 'object') {
+    return `mapOf(${Object.entries(value).map(([key, child]) => `${kq(key)} to ${klit(child)}`).join(', ')})`;
+  }
+  throw new Error(`Unsupported Kotlin literal: ${String(value)}`);
+};
 
 function emitKotlin() {
   const L = [];
@@ -446,6 +534,21 @@ function emitKotlin() {
     L.push(roleLines(b, 'dark'));
     L.push('        ),');
     L.push('    ),');
+  }
+  L.push(')');
+  L.push('');
+
+  L.push('/** Opt-in Odyssey 3 public expression roles. v1/NO1 stay unchanged. */');
+  L.push('public val genOdyssey3: Map<String, Map<String, Map<String, Int>>> = mapOf(');
+  for (const [product, modes] of Object.entries(O3)) {
+    L.push(`    ${kq(product)} to mapOf(${Object.entries(modes).map(([mode, colors]) => `${kq(mode)} to mapOf(${Object.entries(colors).map(([k, v]) => `${kq(k)} to 0xFF${v.slice(1)}.toInt()`).join(', ')})`).join(', ')}),`);
+  }
+  L.push(')');
+  L.push(`public val genOdyssey3Foundation: Map<String, Any> = ${klit(O3_FOUNDATION)}`);
+  L.push('/** Complete native public semantic palettes, separate from illustration accents. */');
+  L.push('public val genOdyssey3Schemes: Map<String, Map<String, Map<String, Int>>> = mapOf(');
+  for (const [product, modes] of Object.entries(O3_SCHEMES)) {
+    L.push(`    ${kq(product)} to mapOf(${Object.entries(modes).map(([mode, colors]) => `${kq(mode)} to mapOf(${Object.entries(colors).map(([k, v]) => `${kq(k)} to 0xFF${v.slice(1)}.toInt()`).join(', ')})`).join(', ')}),`);
   }
   L.push(')');
   L.push('');
@@ -800,6 +903,7 @@ function emitGlanceAndroid(mode) {
 // --- run ---------------------------------------------------------------------------
 
 const outputs = [
+  [OUT_WEB_CSS, css],
   [OUT_RESOLVED, emitResolved()],
   [OUT_RESOLVED_TS, emitResolvedTs()],
   [OUT_DART, emitDart()],

@@ -1,10 +1,50 @@
+// Tests pin every cross-platform role, including legacy Material aliases.
+// ignore_for_file: deprecated_member_use
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
 
+import 'package:neptune_flutter_ui/src/theme/generated/brand_data.g.dart';
+
 const _goldenTriton = 'NO1-AYB4AKKeeABWDBIaIiw4B_YBAAABAQEBAQAAyA';
+
+Map<String, Color> _odyssey3ColorRoles(ColorScheme scheme) => {
+      'primary': scheme.primary,
+      'on-primary': scheme.onPrimary,
+      'primary-container': scheme.primaryContainer,
+      'on-primary-container': scheme.onPrimaryContainer,
+      'secondary': scheme.secondary,
+      'on-secondary': scheme.onSecondary,
+      'secondary-container': scheme.secondaryContainer,
+      'on-secondary-container': scheme.onSecondaryContainer,
+      'tertiary': scheme.tertiary,
+      'on-tertiary': scheme.onTertiary,
+      'tertiary-container': scheme.tertiaryContainer,
+      'on-tertiary-container': scheme.onTertiaryContainer,
+      'error': scheme.error,
+      'on-error': scheme.onError,
+      'error-container': scheme.errorContainer,
+      'on-error-container': scheme.onErrorContainer,
+      'background': scheme.background,
+      'on-background': scheme.onBackground,
+      'surface': scheme.surface,
+      'on-surface': scheme.onSurface,
+      'surface-variant': scheme.surfaceVariant,
+      'on-surface-variant': scheme.onSurfaceVariant,
+      'outline': scheme.outline,
+      'outline-variant': scheme.outlineVariant,
+      'surface-container-lowest': scheme.surfaceContainerLowest,
+      'surface-container-low': scheme.surfaceContainerLow,
+      'surface-container': scheme.surfaceContainer,
+      'surface-container-high': scheme.surfaceContainerHigh,
+      'surface-container-highest': scheme.surfaceContainerHighest,
+      'inverse-surface': scheme.inverseSurface,
+      'inverse-on-surface': scheme.onInverseSurface,
+      'inverse-primary': scheme.inversePrimary,
+      'scrim': scheme.scrim,
+    };
 
 /// A seed set no reference brand matches, so the custom (generated) path runs.
 const _custom = BrandprintConfig(
@@ -45,9 +85,157 @@ void main() {
       expect(theme.colorScheme.primary.toARGB32(), 0xFF7EDBAE);
     });
 
+    test('Odyssey 3 maps every public colour role and success extension', () {
+      for (final product in [
+        NeptuneOdyssey3Product.wallet,
+        NeptuneOdyssey3Product.drive,
+        NeptuneOdyssey3Product.orbit,
+      ]) {
+        for (final brightness in Brightness.values) {
+          final base = brightness == Brightness.light
+              ? NeptuneTheme.light('neptune')
+              : NeptuneTheme.dark('neptune');
+          final theme = NeptuneTheme.odyssey3(base, product: product);
+          final key =
+              product == NeptuneOdyssey3Product.wallet ? 'core' : product.name;
+          final expected = Map.of(genOdyssey3Schemes[key]![brightness.name]!)
+            ..removeWhere((role, _) => role.contains('success'));
+
+          expect(_odyssey3ColorRoles(theme.colorScheme), expected);
+          expect(theme.extension<NptShape>()!.md, 16);
+          expect(theme.extension<NptType>()!.text, 'Hanken Grotesk');
+          final colors = theme.extension<NptColors>()!;
+          final roles = genOdyssey3Schemes[key]![brightness.name]!;
+          expect(colors.success, roles['success']);
+          expect(colors.onSuccess, roles['on-success']);
+          expect(colors.successContainer, roles['success-container']);
+          expect(colors.onSuccessContainer, roles['on-success-container']);
+        }
+      }
+    });
+
+    test('Odyssey 3 banking keeps its palette and gains foundations', () {
+      final base = NeptuneTheme.dark('triton');
+      final theme = NeptuneTheme.odyssey3(base, reducedMotion: true);
+      expect(theme.colorScheme, base.colorScheme);
+      expect(theme.extension<NptShape>()!.xs, 4);
+      expect(theme.extension<NptShape>()!.full, 999);
+      expect(theme.extension<NptType>()!.displayAr, 'Beiruti');
+      expect(theme.extension<NptMotion>()!.fast, Duration.zero);
+      expect(theme.extension<NptMotion>()!.celebrate, Duration.zero);
+    });
+
+    testWidgets('Odyssey 3 rethemes assembled Material widgets',
+        (tester) async {
+      for (final product in [
+        NeptuneOdyssey3Product.wallet,
+        NeptuneOdyssey3Product.drive,
+        NeptuneOdyssey3Product.orbit,
+      ]) {
+        for (final brightness in Brightness.values) {
+          final base = brightness == Brightness.light
+              ? NeptuneTheme.light('neptune')
+              : NeptuneTheme.dark('neptune');
+          final theme = NeptuneTheme.odyssey3(base, product: product);
+          final scheme = theme.colorScheme;
+
+          await tester.pumpWidget(MaterialApp(
+            theme: theme,
+            themeAnimationDuration: Duration.zero,
+            home: Scaffold(
+              appBar: AppBar(title: const Text('Odyssey 3')),
+              body: Column(children: [
+                const Card(child: SizedBox(height: 48)),
+                const TextField(decoration: InputDecoration(labelText: 'Name')),
+                OutlinedButton(onPressed: () {}, child: const Text('Continue')),
+              ]),
+              bottomNavigationBar: NavigationBar(
+                destinations: const [
+                  NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+                  NavigationDestination(
+                      icon: Icon(Icons.person), label: 'Profile'),
+                ],
+              ),
+            ),
+          ));
+
+          expect(theme.appBarTheme.backgroundColor, scheme.background);
+          expect(theme.cardTheme.color, scheme.surfaceContainerLow);
+          expect(
+              theme.floatingActionButtonTheme.backgroundColor, scheme.primary);
+          expect(theme.navigationBarTheme.backgroundColor,
+              scheme.surfaceContainer);
+          expect(theme.navigationBarTheme.indicatorColor,
+              scheme.secondaryContainer);
+          expect(
+              theme.inputDecorationTheme.fillColor,
+              brightness == Brightness.light
+                  ? scheme.surfaceContainerLowest
+                  : scheme.surfaceContainerHighest);
+          expect(theme.inputDecorationTheme.enabledBorder!.borderSide.color,
+              scheme.outline);
+          expect(theme.inputDecorationTheme.focusedBorder!.borderSide.color,
+              scheme.primary);
+          expect(theme.inputDecorationTheme.errorBorder!.borderSide.color,
+              scheme.error);
+          expect(theme.textTheme.bodyMedium!.color, scheme.onSurface);
+          expect(tester.takeException(), isNull,
+              reason: '$product ${brightness.name}');
+        }
+      }
+    });
+
+    testWidgets('Odyssey 3 Arabic foundations reach captured button styles',
+        (tester) async {
+      final base = NeptuneTheme.light('triton');
+      final theme = NeptuneTheme.odyssey3(base, arabic: true);
+      expect(theme.colorScheme, base.colorScheme);
+      expect(theme.textTheme.titleLarge!.fontSize, 24);
+      expect(theme.textTheme.titleMedium!.fontSize, 20);
+      expect(theme.textTheme.displaySmall!.fontSize, 36);
+      expect(theme.textTheme.displaySmall!.fontFamily, 'Hanken Grotesk');
+      expect(theme.textTheme.bodyLarge!.fontSize, 20);
+      expect(theme.textTheme.bodyLarge!.height, 28 / 20);
+      expect(theme.textTheme.bodySmall!.fontSize, 16);
+      expect(theme.textTheme.bodySmall!.height, 22 / 16);
+      final border =
+          theme.inputDecorationTheme.enabledBorder! as NeptuneFieldBorder;
+      expect(border.borderRadius, BorderRadius.circular(8));
+      expect(border.isOutline, isFalse);
+      await tester.pumpWidget(MaterialApp(
+        theme: theme,
+        home: Scaffold(
+            body: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Center(
+              child:
+                  FilledButton(onPressed: () {}, child: const Text('متابعة'))),
+        )),
+      ));
+      await tester.pumpAndSettle();
+      final rich = tester.widget<RichText>(find.descendant(
+        of: find.byType(FilledButton),
+        matching: find.byType(RichText),
+      ));
+      expect(rich.text.style!.fontFamily, 'Beiruti');
+      expect(rich.text.style!.fontSize, 18);
+      expect(rich.text.style!.height, 24 / 18);
+      expect(tester.getSize(find.byType(FilledButton)).height, 56);
+      final shape = theme.filledButtonTheme.style!.shape!.resolve({})!
+          as RoundedRectangleBorder;
+      expect(shape.borderRadius, BorderRadius.circular(16));
+      expect(theme.extension<NptType>()!.numAr, 'Hanken Grotesk');
+
+      final plain = NeptuneTheme.odyssey3(ThemeData(), reducedMotion: true);
+      final motion = plain.extension<NptMotion>()!;
+      expect(
+          [motion.fast, motion.durationStandard, motion.slow, motion.celebrate],
+          everyElement(Duration.zero));
+    });
+
     test('fromBrandprint(goldenTriton) == light(triton) primary', () {
-      final fromBp =
-          NeptuneTheme.fromBrandprint(_goldenTriton, brightness: Brightness.light);
+      final fromBp = NeptuneTheme.fromBrandprint(_goldenTriton,
+          brightness: Brightness.light);
       final fromBrand = NeptuneTheme.light('triton');
       expect(fromBp.colorScheme.primary.toARGB32(),
           fromBrand.colorScheme.primary.toARGB32());
@@ -93,8 +281,14 @@ void main() {
     for (final (name, theme) in [
       ('light(proteus)', NeptuneTheme.light('proteus')),
       ('dark(proteus)', NeptuneTheme.dark('proteus')),
-      ('custom light', NeptuneTheme.fromConfig(_custom, brightness: Brightness.light)),
-      ('custom dark', NeptuneTheme.fromConfig(_custom, brightness: Brightness.dark)),
+      (
+        'custom light',
+        NeptuneTheme.fromConfig(_custom, brightness: Brightness.light)
+      ),
+      (
+        'custom dark',
+        NeptuneTheme.fromConfig(_custom, brightness: Brightness.dark)
+      ),
     ]) {
       test('$name is a finished bank theme', () {
         final scheme = theme.colorScheme;
@@ -141,7 +335,8 @@ void main() {
         // All three button families carry the label captured at assembly:
         // unset, TextButton alone would read the LOCALIZED labelLarge at
         // build time (M3 height 1.43) and sit on a different line box.
-        final captured = theme.filledButtonTheme.style!.textStyle!.resolve(<WidgetState>{});
+        final captured =
+            theme.filledButtonTheme.style!.textStyle!.resolve(<WidgetState>{});
         expect(captured?.fontFamily, theme.textTheme.labelLarge?.fontFamily);
         for (final style in [
           theme.outlinedButtonTheme.style,
@@ -152,7 +347,9 @@ void main() {
       });
     }
 
-    test('the DARK theme brand canvas is the LIGHT primary (reference + custom)', () {
+    test(
+        'the DARK theme brand canvas is the LIGHT primary (reference + custom)',
+        () {
       expect(NeptuneTheme.dark('proteus').extension<NptBrandCanvas>()!.canvas,
           NeptuneTheme.light('proteus').colorScheme.primary);
       expect(
@@ -213,10 +410,12 @@ void main() {
         expect(identity('guilloche').motif, NptMotifKind.guilloche);
       });
 
-      testWidgets('NeptuneMotifLayer under motif none paints no strokes', (tester) async {
+      testWidgets('NeptuneMotifLayer under motif none paints no strokes',
+          (tester) async {
         await tester.pumpWidget(MaterialApp(
           theme: NeptuneTheme.fromConfig(withMotif('none')),
-          home: const Scaffold(body: SizedBox.expand(child: NeptuneMotifLayer())),
+          home:
+              const Scaffold(body: SizedBox.expand(child: NeptuneMotifLayer())),
         ));
         await tester.pump();
         // The layer builds (the widget contract holds) and its painter has
@@ -224,9 +423,11 @@ void main() {
         // the zero strength is what keeps every existing strength<=0 guard
         // short-circuiting too.
         expect(find.byType(NeptuneMotifLayer), findsOneWidget);
-        expect(Theme.of(tester.element(find.byType(NeptuneMotifLayer)))
-            .extension<NptIdentity>()!
-            .motifStrength, 0);
+        expect(
+            Theme.of(tester.element(find.byType(NeptuneMotifLayer)))
+                .extension<NptIdentity>()!
+                .motifStrength,
+            0);
       });
     });
 
@@ -249,7 +450,8 @@ void main() {
             accentOnTertiary: on,
           );
 
-      test('without the flag the accent IS the primary, reference and custom', () {
+      test('without the flag the accent IS the primary, reference and custom',
+          () {
         for (final theme in [
           NeptuneTheme.light('proteus'),
           NeptuneTheme.dark('proteus'),
@@ -263,9 +465,13 @@ void main() {
       });
 
       for (final mode in Brightness.values) {
-        test('${mode.name}: with the flag the tertiary seed is the accent and reaches no Material role', () {
-          final theme = NeptuneTheme.fromConfig(flagged(true), brightness: mode);
-          final plain = NeptuneTheme.fromConfig(flagged(false), brightness: mode);
+        test(
+            '${mode.name}: with the flag the tertiary seed is the accent and reaches no Material role',
+            () {
+          final theme =
+              NeptuneTheme.fromConfig(flagged(true), brightness: mode);
+          final plain =
+              NeptuneTheme.fromConfig(flagged(false), brightness: mode);
           final colors = theme.extension<NptColors>()!;
           final scheme = theme.colorScheme;
 
@@ -278,8 +484,8 @@ void main() {
           // midnight — ramped per mode it came out vermilion in light and
           // salmon in dark, and the pre-login mark, the primary CTA and the
           // lead verb all changed colour with the phone's setting.
-          final plainLight =
-              NeptuneTheme.fromConfig(flagged(false), brightness: Brightness.light);
+          final plainLight = NeptuneTheme.fromConfig(flagged(false),
+              brightness: Brightness.light);
           expect(colors.accent, plainLight.colorScheme.tertiary);
           expect(colors.onAccent, plainLight.colorScheme.onTertiary);
           expect(colors.accent, isNot(scheme.primary));
@@ -287,8 +493,10 @@ void main() {
           // And the red is nowhere in chrome: the tertiary roles and the card
           // gradient are ramped from the primary seed instead.
           expect(scheme.tertiary, isNot(plain.colorScheme.tertiary));
-          expect(scheme.tertiaryContainer, isNot(plain.colorScheme.tertiaryContainer));
-          expect(colors.cardGradientEnd, isNot(plain.extension<NptColors>()!.cardGradientEnd));
+          expect(scheme.tertiaryContainer,
+              isNot(plain.colorScheme.tertiaryContainer));
+          expect(colors.cardGradientEnd,
+              isNot(plain.extension<NptColors>()!.cardGradientEnd));
           for (final role in [
             scheme.primary,
             scheme.tertiary,
@@ -304,14 +512,18 @@ void main() {
           expect(scheme.surface, plain.colorScheme.surface);
           expect(colors.success, plain.extension<NptColors>()!.success);
           // The pre-login canvas is still the primary, not the accent.
-          expect(theme.extension<NptBrandCanvas>()!.canvas,
-              NeptuneTheme.fromConfig(flagged(true), brightness: Brightness.light)
+          expect(
+              theme.extension<NptBrandCanvas>()!.canvas,
+              NeptuneTheme.fromConfig(flagged(true),
+                      brightness: Brightness.light)
                   .colorScheme
                   .primary);
         });
       }
 
-      test('a config that resolves to a pinned reference scheme re-points the accent only', () {
+      test(
+          'a config that resolves to a pinned reference scheme re-points the accent only',
+          () {
         final ref = brandConfig['proteus']!;
         final cfg = BrandprintConfig(
           primary: ref.primary,
@@ -329,20 +541,25 @@ void main() {
           motion: ref.motion,
           accentOnTertiary: true,
         );
-        final theme = NeptuneTheme.fromConfig(cfg, brightness: Brightness.light);
+        final theme =
+            NeptuneTheme.fromConfig(cfg, brightness: Brightness.light);
         expect(theme.colorScheme, NeptuneTheme.light('proteus').colorScheme,
             reason: 'a pinned scheme is never regenerated');
-        expect(theme.extension<NptColors>()!.accent, theme.colorScheme.tertiary);
+        expect(
+            theme.extension<NptColors>()!.accent, theme.colorScheme.tertiary);
       });
 
       test('the appended shell and hero names ride NptIdentity as given', () {
-        final id = NeptuneTheme.fromConfig(flagged(true)).extension<NptIdentity>()!;
+        final id =
+            NeptuneTheme.fromConfig(flagged(true)).extension<NptIdentity>()!;
         expect(id.loginShell, 'lockup-rule');
         expect(id.dashboardHero, 'chevron-summary');
         expect(id.motif, NptMotifKind.none);
       });
 
-      testWidgets('NeptuneCta paints the accent - and only the forward CTA does', (tester) async {
+      testWidgets(
+          'NeptuneCta paints the accent - and only the forward CTA does',
+          (tester) async {
         Future<Color?> ctaFill(ThemeData theme, {bool tonal = false}) async {
           await tester.pumpWidget(MaterialApp(
             theme: theme,
@@ -367,16 +584,19 @@ void main() {
           return material.color;
         }
 
-        final flaggedTheme = NeptuneTheme.fromConfig(flagged(true), brightness: Brightness.light);
+        final flaggedTheme = NeptuneTheme.fromConfig(flagged(true),
+            brightness: Brightness.light);
         final accent = flaggedTheme.extension<NptColors>()!.accent;
         expect(await ctaFill(flaggedTheme), accent);
         expect(accent, isNot(flaggedTheme.colorScheme.primary));
         // The tonal variant is chrome, not direction: no accent.
-        expect(await ctaFill(flaggedTheme, tonal: true), flaggedTheme.colorScheme.secondaryContainer);
+        expect(await ctaFill(flaggedTheme, tonal: true),
+            flaggedTheme.colorScheme.secondaryContainer);
         // A plain FilledButton next to it stays on the primary - the accent
         // is spent on the forward CTA and nowhere else the theme paints.
         expect(flaggedTheme.filledButtonTheme.style?.backgroundColor, isNull,
-            reason: 'FilledButton falls through to Material primary, never to the accent');
+            reason:
+                'FilledButton falls through to Material primary, never to the accent');
 
         // No flag: the CTA is the primary, as it has always been.
         final plain = NeptuneTheme.light('proteus');
@@ -409,11 +629,13 @@ void main() {
         expect(d.whiteGround, isTrue);
         expect(d.accentOnTertiary, isTrue);
         expect(d.defaultDark, isFalse);
-        expect(Brandprint.decode(Brandprint.encode(grounded(false))).whiteGround,
+        expect(
+            Brandprint.decode(Brandprint.encode(grounded(false))).whiteGround,
             isFalse);
       });
 
-      test('light: the ground, the app bar and the field fill are tone 100', () {
+      test('light: the ground, the app bar and the field fill are tone 100',
+          () {
         final theme = NeptuneTheme.fromConfig(grounded(true));
         final plain = NeptuneTheme.fromConfig(grounded(false));
         final white = theme.colorScheme.surfaceContainerLowest;
@@ -433,8 +655,8 @@ void main() {
       });
 
       test('dark: untouched - there is no white to be', () {
-        final theme =
-            NeptuneTheme.fromConfig(grounded(true), brightness: Brightness.dark);
+        final theme = NeptuneTheme.fromConfig(grounded(true),
+            brightness: Brightness.dark);
         expect(theme.scaffoldBackgroundColor, theme.colorScheme.surface);
         expect(theme.inputDecorationTheme.fillColor,
             theme.colorScheme.surfaceContainerHighest);
@@ -448,7 +670,8 @@ void main() {
             // A deliberately square family, and an xxl that is still past the
             // half-height clamp on a 48dp button - which is the whole reason
             // this is a lever and not a reading of `corners`.
-            corners: const Corners(xs: 6, sm: 10, md: 12, lg: 16, xl: 20, xxl: 28),
+            corners:
+                const Corners(xs: 6, sm: 10, md: 12, lg: 16, xl: 20, xxl: 28),
             displayWeight: _custom.displayWeight,
             displayTracking: _custom.displayTracking,
             fontDisplay: _custom.fontDisplay,

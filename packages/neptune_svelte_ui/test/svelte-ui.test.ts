@@ -18,6 +18,6 @@ describe("@neptune.fintech/svelte-ui surface", () => {
 
   it("re-exports buildTheme and is stable v2.0.0", () => {
     expect(buildTheme("neptune").brand).toBe("neptune");
-    expect(SVELTE_UI_VERSION).toBe("2.0.0");
+    expect(SVELTE_UI_VERSION).toBe("3.0.0");
   });
 });
