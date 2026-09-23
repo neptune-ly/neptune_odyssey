@@ -118,7 +118,17 @@ class NeptuneSearchField extends StatelessWidget {
                 cursorColor: scheme.primary,
                 decoration: InputDecoration(
                   isDense: true,
+                  // The pill Container is the field's only chrome. The theme's
+                  // inputDecorationTheme supplies per-state borders and a fill
+                  // that would outrank `border` alone and draw a second box
+                  // around just the text area, so every state is cleared here.
+                  filled: false,
                   border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
                   hintText: hint ?? NeptuneAccessibility.of(context).search,
                   hintStyle: text.bodyLarge?.copyWith(
                     color: scheme.onSurfaceVariant.withValues(alpha: 0.7),
