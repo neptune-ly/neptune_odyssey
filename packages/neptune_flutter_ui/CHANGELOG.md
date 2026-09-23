@@ -1,3 +1,7 @@
+## 3.0.1
+
+- `NeptuneSearchField` no longer draws a border or a second fill inside its pill. The theme's per-state input borders (enabled/focused/error) and `filled` outranked the field's own `border: InputBorder.none`, boxing just the text area; every border state and the fill are now cleared on the inner `TextField`. No other visual change, and the NO1 defaults are untouched.
+
 ## 3.0.0 — the new Odyssey standard
 
 - Start the new design standard at 3.x; earlier 2.x packages belong to the first edition.
