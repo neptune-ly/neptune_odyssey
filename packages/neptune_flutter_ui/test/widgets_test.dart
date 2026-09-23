@@ -245,6 +245,36 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('search field draws no border or fill of its own inside the pill',
+      (tester) async {
+    await tester.pumpWidget(_host(const NeptuneSearchField(hint: 'Search')));
+    InputDecoration decoration() => tester
+        .widget<InputDecorator>(find.descendant(
+            of: find.byType(NeptuneSearchField),
+            matching: find.byType(InputDecorator)))
+        .decoration;
+
+    void expectBorderless() {
+      final d = decoration();
+      expect(d.filled, isFalse);
+      for (final border in [
+        d.border,
+        d.enabledBorder,
+        d.focusedBorder,
+        d.disabledBorder,
+        d.errorBorder,
+        d.focusedErrorBorder,
+      ]) {
+        expect(border, InputBorder.none);
+      }
+    }
+
+    expectBorderless();
+    await tester.tap(find.byType(TextField));
+    await tester.pump();
+    expectBorderless();
+  });
+
   testWidgets('structural widgets build (data-table / shell-nav / card-controls / toast)',
       (tester) async {
     await tester.pumpWidget(_host(Column(
