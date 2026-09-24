@@ -81,6 +81,11 @@ class NeptuneA11yStrings {
   final String close;
   final String remove;
 
+  /// The search field's clear button: "clear". Optional so hosts that already
+  /// build their own strings keep compiling; they fall back to English until
+  /// they pass one.
+  final String clear;
+
   /// "from", "to", "fee", "total" - transfer review rows.
   final String from;
   final String to;
@@ -176,6 +181,7 @@ class NeptuneA11yStrings {
     required this.down,
     required this.money,
     this.currencyName = _currencyNameEn,
+    this.clear = 'clear',
   });
 
   /// The English fallback. Used when no [NeptuneAccessibility] is above the
@@ -207,6 +213,7 @@ class NeptuneA11yStrings {
         search = 'Search',
         close = 'close',
         remove = 'remove',
+        clear = 'clear',
         from = 'From',
         to = 'To',
         fee = 'Fee',

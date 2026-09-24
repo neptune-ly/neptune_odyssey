@@ -77,23 +77,71 @@ class NeptunePageHeader extends StatelessWidget {
 /// A themed pill search field (web `<npt-search-field>`): a rounded
 /// surface-container with a leading magnifier and a borderless [TextField].
 /// Theme-only, RTL-safe.
-class NeptuneSearchField extends StatelessWidget {
+///
+/// A clear button sits at the inline end whenever there is text. It empties
+/// the field, reports `''` through [onChanged] and drops the keyboard: leaving
+/// it up over an empty query hides the list the customer just went back to.
+/// Set [showClearButton] to false to never show it.
+class NeptuneSearchField extends StatefulWidget {
   final String? hint;
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
+
+  /// Whether the clear button appears while the field has text. It never
+  /// appears on an empty field, whatever this says.
+  final bool showClearButton;
 
   const NeptuneSearchField({
     super.key,
     this.hint,
     this.onChanged,
     this.controller,
+    this.showClearButton = true,
   });
+
+  @override
+  State<NeptuneSearchField> createState() => _NeptuneSearchFieldState();
+}
+
+class _NeptuneSearchFieldState extends State<NeptuneSearchField> {
+  /// Owned only when the host passes no controller: the clear button has to
+  /// read the text, so there is always a controller to listen to.
+  TextEditingController? _ownController;
+
+  TextEditingController get _controller =>
+      widget.controller ?? (_ownController ??= TextEditingController());
+
+  @override
+  void didUpdateWidget(NeptuneSearchField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller == null && widget.controller != null) {
+      _ownController?.dispose();
+      _ownController = null;
+    } else if (oldWidget.controller != null && widget.controller == null) {
+      // Carry the text over rather than blanking the field under the user.
+      _ownController =
+          TextEditingController.fromValue(oldWidget.controller!.value);
+    }
+  }
+
+  @override
+  void dispose() {
+    _ownController?.dispose();
+    super.dispose();
+  }
+
+  void _clear() {
+    _controller.clear();
+    widget.onChanged?.call('');
+    FocusScope.of(context).unfocus();
+  }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final shape = Theme.of(context).extension<NptShape>()!;
     final text = Theme.of(context).textTheme;
+    final a11y = NeptuneAccessibility.of(context);
 
     return Container(
       constraints: const BoxConstraints(minHeight: 48),
@@ -110,10 +158,10 @@ class NeptuneSearchField extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Semantics(
-              label: hint ?? NeptuneAccessibility.of(context).search,
+              label: widget.hint ?? a11y.search,
               child: TextField(
-                controller: controller,
-                onChanged: onChanged,
+                controller: _controller,
+                onChanged: widget.onChanged,
                 style: text.bodyLarge?.copyWith(color: scheme.onSurface),
                 cursorColor: scheme.primary,
                 decoration: InputDecoration(
@@ -129,7 +177,7 @@ class NeptuneSearchField extends StatelessWidget {
                   disabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
                   focusedErrorBorder: InputBorder.none,
-                  hintText: hint ?? NeptuneAccessibility.of(context).search,
+                  hintText: widget.hint ?? a11y.search,
                   hintStyle: text.bodyLarge?.copyWith(
                     color: scheme.onSurfaceVariant.withValues(alpha: 0.7),
                   ),
@@ -139,6 +187,21 @@ class NeptuneSearchField extends StatelessWidget {
               ),
             ),
           ),
+          if (widget.showClearButton)
+            // In the Row, not over the pill: long text stops short of the
+            // button instead of running underneath it.
+            ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _controller,
+              builder: (context, value, _) {
+                if (value.text.isEmpty) return const SizedBox.shrink();
+                return IconButton(
+                  icon: const Icon(Icons.close, size: 18),
+                  color: scheme.onSurfaceVariant,
+                  tooltip: a11y.clear,
+                  onPressed: _clear,
+                );
+              },
+            ),
         ],
       ),
     );

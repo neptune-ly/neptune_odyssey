@@ -1,3 +1,8 @@
+## Unreleased
+
+- `NeptuneSearchField` shows a clear (✕) button at its inline end whenever it has text, typed or set by the host controller. Tapping it empties the field, reports `''` through `onChanged` and drops the keyboard. Pass `showClearButton: false` to never show it. The widget is now stateful and owns a controller when the host passes none.
+- `NeptuneA11yStrings.clear` labels that button. It is optional (default `'clear'`), so hosts that build their own strings keep compiling and should pass a localised value.
+
 ## 3.0.1
 
 - `NeptuneSearchField` no longer draws a border or a second fill inside its pill. The theme's per-state input borders (enabled/focused/error) and `filled` outranked the field's own `border: InputBorder.none`, boxing just the text area; every border state and the fill are now cleared on the inner `TextField`. No other visual change, and the NO1 defaults are untouched.
