@@ -275,6 +275,51 @@ void main() {
     expectBorderless();
   });
 
+  testWidgets('search field shows a clear button only while it has text',
+      (tester) async {
+    final changes = <String>[];
+    await tester.pumpWidget(
+        _host(NeptuneSearchField(hint: 'Search', onChanged: changes.add)));
+    final clear = find.byIcon(Icons.close);
+    expect(clear, findsNothing);
+
+    await tester.showKeyboard(find.byType(TextField));
+    await tester.enterText(find.byType(TextField), 'rent');
+    await tester.pump();
+    expect(clear, findsOneWidget);
+    expect(find.byTooltip('clear'), findsOneWidget);
+
+    await tester.tap(clear);
+    await tester.pump();
+    expect(find.text('rent'), findsNothing);
+    expect(changes.last, '');
+    expect(clear, findsNothing);
+    expect(tester.testTextInput.isVisible, isFalse);
+  });
+
+  testWidgets('search field clear button clears a host controller',
+      (tester) async {
+    final controller = TextEditingController(text: 'rent');
+    addTearDown(controller.dispose);
+    await tester
+        .pumpWidget(_host(NeptuneSearchField(controller: controller)));
+    // Text set by the host, not typed, still earns the button.
+    expect(find.byIcon(Icons.close), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pump();
+    expect(controller.text, isEmpty);
+  });
+
+  testWidgets('showClearButton: false hides the clear button even with text',
+      (tester) async {
+    final controller = TextEditingController(text: 'rent');
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(_host(
+        NeptuneSearchField(controller: controller, showClearButton: false)));
+    expect(find.byIcon(Icons.close), findsNothing);
+  });
+
   testWidgets('structural widgets build (data-table / shell-nav / card-controls / toast)',
       (tester) async {
     await tester.pumpWidget(_host(Column(
