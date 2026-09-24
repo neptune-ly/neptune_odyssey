@@ -1,4 +1,4 @@
-## Unreleased
+## 3.0.2
 
 - `NeptuneSearchField` shows a clear (✕) button at its inline end whenever it has text, typed or set by the host controller. Tapping it empties the field, reports `''` through `onChanged` and drops the keyboard. Pass `showClearButton: false` to never show it. The widget is now stateful and owns a controller when the host passes none.
 - `NeptuneA11yStrings.clear` labels that button. It is optional (default `'clear'`), so hosts that build their own strings keep compiling and should pass a localised value.
