@@ -24,7 +24,7 @@ void main() {
     test('pocket-drift kept index 6, drift-depth moved to 7', () {
       expect(kLoginShells.indexOf('pocket-drift'), 6);
       expect(kLoginShells.indexOf('drift-depth'), 7);
-      expect(kLoginShells.length, 8);
+      expect(kLoginShells.length, 9, reason: 'field-paper was appended at 8');
     });
 
     test('the registry is a WHOLE BYTE, not a packed field', () {

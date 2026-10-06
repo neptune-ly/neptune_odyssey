@@ -307,6 +307,13 @@ enum NeptuneAlertTone { info, success, warning, danger }
 /// An inline tonal alert (web `<npt-alert>`): a tinted background (alpha-blended
 /// by [tone]), a leading accent bar + icon, and an optional title above the
 /// message. Theme-only, RTL-safe.
+///
+/// UNDER THE RULED REGISTER (`NptIdentity.ruledRegister`) it is a flat NOTICE:
+/// one tonal ground (`secondaryContainer`) for every tone, no accent bar, and
+/// the tone carried by the glyph and the title alone, set on a title row with
+/// the message beneath at body size. Information is ink; success, warning and
+/// danger are their own roles. A tone is never carried by a wash of colour
+/// behind the words, so it survives every ground a brand puts a notice on.
 class NeptuneAlert extends StatelessWidget {
   final String message;
   final NeptuneAlertTone tone;
@@ -356,6 +363,64 @@ class NeptuneAlert extends StatelessWidget {
       NeptuneAlertTone.danger => strings.error,
     };
     final spoken = [toneWord, if (title != null) title!, message].join(': ');
+    final ruled =
+        Theme.of(context).extension<NptIdentity>()?.ruledRegister ?? false;
+    if (ruled) {
+      final tint = tone == NeptuneAlertTone.info ? scheme.onSurface : accent;
+      final glyph = Icon(icon ?? _defaultIcon(), size: 24, color: tint);
+      return Semantics(
+        liveRegion: true,
+        label: spoken,
+        excludeSemantics: true,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsetsDirectional.all(16),
+          decoration: BoxDecoration(
+            color: scheme.secondaryContainer,
+            borderRadius: shape.rMd,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (title != null) ...[
+                Row(
+                  children: [
+                    glyph,
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        title!,
+                        style: text.labelLarge?.copyWith(color: tint),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  message,
+                  style: text.bodyLarge?.copyWith(color: scheme.onSurface),
+                ),
+              ] else
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    glyph,
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        message,
+                        style:
+                            text.bodyLarge?.copyWith(color: scheme.onSurface),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Semantics(
       liveRegion: true,

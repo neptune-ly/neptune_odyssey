@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import '../theme/feedback.dart';
+import '../theme/identity.dart';
 
 /// A branded checkbox: a 22dp rounded ([NptShape.xs]) box that fills with
 /// [ColorScheme.primary] and shows an [ColorScheme.onPrimary] check when
@@ -480,6 +481,12 @@ class NeptuneSegment<T> {
 /// [ColorScheme.onSecondaryContainer] content; the rest use
 /// [ColorScheme.onSurfaceVariant]. RTL-safe; uses [IntrinsicHeight] so its
 /// stretched [Row] is well-bounded.
+///
+/// UNDER THE RULED REGISTER (`NptIdentity.ruledRegister`) it is a soft
+/// rectangle, not a capsule: a track of the brand's `md` corner in
+/// `secondaryContainer`, and the selected segment a raised field (the page's
+/// own lightest tone, `sm` corner) with full-strength ink. A capsule is
+/// reserved for chips and badges; a two-way choice is a control.
 class NeptuneSegmented<T> extends StatelessWidget {
   /// The segments to render, in order.
   final List<NeptuneSegment<T>> segments;
@@ -504,12 +511,15 @@ class NeptuneSegmented<T> extends StatelessWidget {
     final motion = Theme.of(context).extension<NptMotion>()!;
     final text = Theme.of(context).textTheme;
     final enabled = onChanged != null;
-    final radius = BorderRadius.circular(shape.full);
+    final ruled =
+        Theme.of(context).extension<NptIdentity>()?.ruledRegister ?? false;
+    final radius = ruled ? shape.rMd : BorderRadius.circular(shape.full);
+    final segmentRadius = ruled ? shape.rSm : radius;
 
     return Container(
       padding: const EdgeInsetsDirectional.all(4),
       decoration: BoxDecoration(
-        color: scheme.surfaceContainer,
+        color: ruled ? scheme.secondaryContainer : scheme.surfaceContainer,
         borderRadius: radius,
       ),
       // Equal-width segments when the parent bounds our width; shrink-wrapped
@@ -534,7 +544,8 @@ class NeptuneSegmented<T> extends StatelessWidget {
                         scheme: scheme,
                         text: text,
                         motion: motion,
-                        pill: radius,
+                        pill: segmentRadius,
+                        ruled: ruled,
                       ),
                     )
                   else
@@ -545,7 +556,8 @@ class NeptuneSegmented<T> extends StatelessWidget {
                       scheme: scheme,
                       text: text,
                       motion: motion,
-                      pill: radius,
+                      pill: segmentRadius,
+                      ruled: ruled,
                     ),
               ],
             ),
@@ -566,6 +578,10 @@ class _SegmentButton<T> extends StatelessWidget {
   final NptMotion motion;
   final BorderRadius pill;
 
+  /// The ruled register's segment: a raised field with full ink instead of a
+  /// tonal pill. See [NeptuneSegmented].
+  final bool ruled;
+
   const _SegmentButton({
     required this.segment,
     required this.selected,
@@ -574,13 +590,14 @@ class _SegmentButton<T> extends StatelessWidget {
     required this.text,
     required this.motion,
     required this.pill,
+    this.ruled = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final enabled = onTap != null;
     final fg = selected
-        ? scheme.onSecondaryContainer
+        ? (ruled ? scheme.onSurface : scheme.onSecondaryContainer)
         : (enabled
             ? scheme.onSurfaceVariant
             : scheme.onSurface.withValues(alpha: 0.38));
@@ -597,7 +614,14 @@ class _SegmentButton<T> extends StatelessWidget {
         curve: motion.standard,
         decoration: BoxDecoration(
           color: selected
-              ? scheme.secondaryContainer
+              // The raised field is the same tone a text field is filled with
+              // (see `fieldFill` in the theme): lightest in light, one lift
+              // above the track in dark.
+              ? (ruled
+                  ? (scheme.brightness == Brightness.light
+                      ? scheme.surfaceContainerLowest
+                      : scheme.surfaceContainerHighest)
+                  : scheme.secondaryContainer)
               : scheme.surface.withValues(alpha: 0),
           borderRadius: pill,
         ),
