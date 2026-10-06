@@ -64,6 +64,12 @@ const List<String> kLoginShells = [
   // would still carry byte 6 and would now decode as `pocket-drift`; those
   // builds were never distributed, and any such string must be re-minted.
   'drift-depth',
+  // 3.1.0, index 8. The pre-login moment as a FIELD on PAPER: the bank's own
+  // colour as a header band carrying its lockup, warm paper under it, one
+  // piece of editorial art, a headline and two calls to action. Nothing moves
+  // and nothing is suspended - it is the shell a bank picks when it wants a
+  // customer to meet it the way they meet a well-set page.
+  'field-paper',
 ];
 
 /// Append-only dashboard-hero registry. The last two (2.24.0):
@@ -91,6 +97,13 @@ const List<String> kDashboardHeroes = [
   // ONE figure at display scale, a reveal control beside it, and a row of
   // VERBS under it. Every other entry here is a noun.
   'pocket-balance',
+  // 3.1.0, index 8. The balance as a FIELD: the account's position set on a
+  // card of the brand's own light field colour (`primaryContainer`), with a
+  // currency switch on it and the figure at display scale, then the verbs as
+  // tonal tiles and a ruled ledger of movements. Where `statement-ledger`
+  // states the position in the brand's full-bleed ink, this one states it on
+  // paper, in colour a customer can read at arm's length.
+  'balance-field',
 ];
 
 /// Append-only content-tone registry.
@@ -173,12 +186,20 @@ const List<String> kNavShells = [
 ///   actions divided by hairlines, like a column header in a ledger.
 /// * `rule-grid` - each action in its own hairline cell, and the FIRST action
 ///   - the one that moves the customer forward - carries the brand accent.
+/// * `tonal-tiles` (3.1.0) - soft-rectangle tonal tiles, the first one filled
+///   in `secondary`.
 ///
-/// FOUR ENTRIES MAX, for the same reason as [kNavShells].
+/// FOUR ENTRIES MAX, for the same reason as [kNavShells]. This is the fourth.
 const List<String> kActionRows = [
   'filled-circles',
   'register-rows',
   'rule-grid',
+  // 3.1.0, index 3 - THE LAST SLOT of the two-bit field. Soft-rectangle tiles:
+  // each action a tile of the brand's `secondaryContainer`, the mark over its
+  // caption, and the FIRST action filled in `secondary`. Peers keep full-strength
+  // ink on a ground that is plainly on (never the neutral tonal grey), the lead
+  // is told apart by fill.
+  'tonal-tiles',
 ];
 
 /// An OKLCH seed colour (perceptual lightness, chroma, hue degrees).

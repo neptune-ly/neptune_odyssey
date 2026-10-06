@@ -880,9 +880,13 @@ class NeptuneTheme {
     final resolvedTextFamily =
         type.bundled ? bodyFamily : _gf(bodyFamily).fontFamily;
 
+    // THE RULED REGISTER'S FIELD TAKES THE SAME CORNER AS ITS BUTTON (`md`).
+    // A ruled brand draws controls as soft rectangles of one corner; a field
+    // one step squarer than the button beside it is a second shape nobody
+    // chose. Every other brand keeps `sm`, so no existing field moves.
     NeptuneFieldBorder field(Color color, {double width = 1}) =>
         NeptuneFieldBorder(
-          borderRadius: shape.rSm,
+          borderRadius: ruledRegister ? shape.rMd : shape.rSm,
           borderSide: BorderSide(color: color, width: width),
         );
 

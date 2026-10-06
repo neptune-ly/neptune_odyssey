@@ -38,6 +38,16 @@ enum NeptuneQuickActionShell {
   /// FIRST action — the one that moves the customer forward — marked in the
   /// brand's accent. The host orders its actions so the forward one leads.
   ruleGrid,
+
+  /// A soft-rectangle TILE per action, the mark over its caption. Every peer is
+  /// the brand's `secondaryContainer` with `onSecondaryContainer` ink — a ground
+  /// that is plainly on, never the neutral ramp's grey — and the FIRST action,
+  /// the one that moves the customer forward, is filled in `secondary` with
+  /// `onSecondary` ink. Rank is carried by fill, as in every other shell.
+  ///
+  /// The corner is the brand's `xl`: a tile is a pocket, not a control, so it
+  /// takes the large step rather than the button's `md`.
+  tonalTiles,
 }
 
 /// Carries the row's composition down to each [NeptuneQuickAction], so the
@@ -112,7 +122,66 @@ class NeptuneQuickAction extends StatelessWidget {
         _buildBare(context, lead: scope?.lead ?? false),
       NeptuneQuickActionShell.ruleGrid =>
         _buildCell(context, lead: scope?.lead ?? false),
+      NeptuneQuickActionShell.tonalTiles =>
+        _buildTile(context, lead: scope?.lead ?? false),
     };
+  }
+
+  /// The tonal tile. See [NeptuneQuickActionShell.tonalTiles].
+  Widget _buildTile(BuildContext context, {required bool lead}) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final shape = theme.extension<NptShape>()!;
+    final fill = lead ? scheme.secondary : scheme.secondaryContainer;
+    final ink = lead ? scheme.onSecondary : scheme.onSecondaryContainer;
+    final radius = shape.rXl;
+
+    return Semantics(
+      button: true,
+      enabled: onTap != null,
+      label: label,
+      excludeSemantics: true,
+      onTap: onTap,
+      child: Material(
+        color: fill,
+        borderRadius: radius,
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: radius,
+          child: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(
+                horizontal: 8, vertical: 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 28,
+                  child: Center(
+                    child: NeptuneIconSlot(
+                      icon: icon,
+                      iconWidget: iconWidget,
+                      size: 24,
+                      color: ink,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // Full-strength ink under an enabled control, the lead told
+                // apart by weight as well as fill - see `_buildBare`.
+                //
+                // TWO LINES, not one: four tiles share a 360dp row, which is
+                // 72dp each, and a caption like "Cards store" does not fit in
+                // the 56 that leaves. The grid sets every tile in a row to the
+                // tallest, so a wrapped caption costs one line and no neighbour
+                // is shorter.
+                _caption(theme.textTheme, ink, bold: lead, maxLines: 2),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   /// The quiet register: the mark and its label on the page itself, no chip
@@ -229,10 +298,11 @@ class NeptuneQuickAction extends StatelessWidget {
     );
   }
 
-  Widget _caption(TextTheme textTheme, Color color, {bool bold = false}) =>
+  Widget _caption(TextTheme textTheme, Color color,
+          {bool bold = false, int maxLines = 1}) =>
       Text(
         label,
-        maxLines: 1,
+        maxLines: maxLines,
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
         style: textTheme.labelMedium
@@ -405,8 +475,10 @@ class NeptuneQuickActions extends StatelessWidget {
           (start + perRow) < actions.length ? start + perRow : actions.length;
       final slice = actions.sublist(start, end);
 
-      final gridded = shell == NeptuneQuickActionShell.ruleGrid;
+      final gridded = shell == NeptuneQuickActionShell.ruleGrid ||
+          shell == NeptuneQuickActionShell.tonalTiles;
       final ruled = shell == NeptuneQuickActionShell.registerRows;
+      final gap = shell == NeptuneQuickActionShell.tonalTiles ? 8.0 : 10.0;
 
       final cells = <Widget>[
         for (final (i, action) in slice.indexed) ...[
@@ -414,7 +486,7 @@ class NeptuneQuickActions extends StatelessWidget {
           // them, so it is drawn here rather than as a border on both.
           if (ruled && i > 0)
             Container(width: 1, color: _registerRule(scheme)),
-          if (gridded && i > 0) const SizedBox(width: 10),
+          if (gridded && i > 0) SizedBox(width: gap),
           Expanded(
             child: _QuickActionShellScope(
               shell: shell,
@@ -425,7 +497,7 @@ class NeptuneQuickActions extends StatelessWidget {
         ],
         // Pad the final row so trailing cells keep their natural width.
         for (var i = slice.length; i < perRow; i++) ...[
-          if (gridded) const SizedBox(width: 10),
+          if (gridded) SizedBox(width: gap),
           const Expanded(child: SizedBox.shrink()),
         ],
       ];
@@ -442,10 +514,18 @@ class NeptuneQuickActions extends StatelessWidget {
                   children: cells,
                 ),
               )
-            : Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: cells,
-              ),
+            : shell == NeptuneQuickActionShell.tonalTiles
+                // Tiles are one height whatever their caption wraps to.
+                ? IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: cells,
+                    ),
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: cells,
+                  ),
       );
     }
 

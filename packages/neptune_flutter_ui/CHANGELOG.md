@@ -1,3 +1,23 @@
+## Unreleased (3.1.0)
+
+The levers behind Nuran's Odyssey 3 design. Nothing here moves a brandprint that already exists: the three registry
+entries are appended, and the three widget changes sit behind `ruledRegister`, which no shipped brand sets.
+
+- **Three registry names, appended.** `kLoginShells[8] = 'field-paper'` (the pre-login moment as a brand-colour header band over
+  warm paper, with one piece of editorial art), `kDashboardHeroes[8] = 'balance-field'` (the balance as a field of the brand's
+  own light colour, a currency switch on it, tonal tiles and a ruled ledger under it) and `kActionRows[3] = 'tonal-tiles'`
+  (the last slot of the two-bit field). They are names for hosts to build templates for; the library draws no login shell or
+  hero. Every string already in the wild decodes to the same names (asserted).
+- **`NeptuneQuickActionShell.tonalTiles`.** A soft-rectangle tile per action at the brand's `xl` corner: peers in
+  `secondaryContainer` with `onSecondaryContainer` ink, the first action filled in `secondary` with `onSecondary` ink.
+  Equal-height tiles, an 8dp gutter, a 48dp minimum target. A caption wraps to a second line rather than ending in an
+  ellipsis: four tiles share a 360dp row, which is 72dp each.
+- **`ruledRegister` now reaches three more things.** A text field takes the brand's `md` corner (the same corner as the ruled
+  button beside it) instead of `sm`; `NeptuneSegmented` is a soft rectangle of `md` with a raised `sm` segment instead of a
+  capsule; `NeptuneAlert` is one flat tonal notice (`secondaryContainer`, no accent bar, the tone on the glyph and the title,
+  information in ink). All three are unchanged for a brand that does not set the flag.
+- Tests: `ruled_register_notice_and_tiles_test.dart`; `brandprint_merge_ordinal_test.dart` now expects nine login shells.
+
 ## 3.0.2
 
 - `NeptuneSearchField` shows a clear (✕) button at its inline end whenever it has text, typed or set by the host controller. Tapping it empties the field, reports `''` through `onChanged` and drops the keyboard. Pass `showClearButton: false` to never show it. The widget is now stateful and owns a controller when the host passes none.
