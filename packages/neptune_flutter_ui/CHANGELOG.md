@@ -1,4 +1,6 @@
-## Unreleased (3.1.0)
+## 3.1.0 (6 Oct 2026)
+
+- **`NeptuneStepper` labels wrap between words, never inside one** (#9). A label no longer breaks mid-word; the node columns shrink to their content.
 
 The levers behind Nuran's Odyssey 3 design. Nothing here moves a brandprint that already exists: the three registry
 entries are appended, and the three widget changes sit behind `ruledRegister`, which no shipped brand sets.
