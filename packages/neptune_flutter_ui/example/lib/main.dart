@@ -116,6 +116,38 @@ class _ExampleAppState extends State<ExampleApp> {
       await Future<void>.delayed(const Duration(milliseconds: 250));
     }
 
+    // NeptuneStepper at the 360dp phone width, 100% and 200% text, 2-5 steps:
+    // the sizes that used to split a label inside a word. Every brand, light and
+    // dark, LTR and RTL, one viewport at a time.
+    final stepperScroll = ScrollController();
+    for (var b = 0; b < _brands.length; b++) {
+      for (final dark in [false, true]) {
+        for (final rtl in [false, true]) {
+          setState(() {
+            _brandIndex = b;
+            _mode = dark ? ThemeMode.dark : ThemeMode.light;
+            _rtl = rtl;
+          });
+          await Future<void>.delayed(const Duration(milliseconds: 600));
+          _nav.currentState!.push(MaterialPageRoute<void>(
+              builder: (_) => StepperSizesRoute(controller: stepperScroll)));
+          await Future<void>.delayed(const Duration(milliseconds: 800));
+          // One viewport per step, so a short window skips none of the page.
+          final scroll = stepperScroll.position;
+          for (var off = 0.0;; off += scroll.viewportDimension) {
+            final at = off.clamp(0.0, scroll.maxScrollExtent);
+            scroll.jumpTo(at);
+            await Future<void>.delayed(const Duration(milliseconds: 250));
+            await _capture('$kShotsDir/stepper_${_brands[b]}_'
+                '${dark ? 'dark' : 'light'}_${rtl ? 'rtl' : 'ltr'}_${at.toInt()}.png');
+            if (at >= scroll.maxScrollExtent) break;
+          }
+          _nav.currentState!.pop();
+          await Future<void>.delayed(const Duration(milliseconds: 250));
+        }
+      }
+    }
+
     // Arabic/RTL proof (Triton — Reem Kufi / Tajawal).
     setState(() {
       _brandIndex = 1;
@@ -1252,4 +1284,70 @@ class TemplateRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Scaffold(body: templateBuilders()[id]!(context));
+}
+
+/// SHOTS only: [NeptuneStepper] at the 360dp phone width, at 100% and 200% text,
+/// for 2 to 5 steps - the sizes where a label used to be split inside a word.
+/// English under LTR, Arabic under RTL.
+class StepperSizesRoute extends StatelessWidget {
+  final ScrollController controller;
+
+  const StepperSizesRoute({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    final arabic = Directionality.of(context) == TextDirection.rtl;
+    final flows = arabic
+        ? const [
+            ['المستفيدين', 'المحفظة'],
+            ['المستفيدين', 'مراجعة التحويل', 'تم'],
+            ['المستفيدين', 'المبلغ', 'مراجعة التحويل', 'تم'],
+            ['المستفيدين', 'المبلغ', 'مراجعة التحويل', 'الحسابات', 'تم'],
+          ]
+        : const [
+            ['Beneficiary', 'Confirmation'],
+            ['Beneficiary', 'Review transfer', 'Done'],
+            ['Beneficiary', 'Amount', 'Review transfer', 'Done'],
+            ['Beneficiary', 'Amount', 'Review transfer', 'Payment', 'Done'],
+          ];
+
+    // A Column, not a ListView: the harness reads maxScrollExtent once, and a
+    // lazy list only estimates it. Full width, or a vertical scroll view parks
+    // the 360dp column at the left edge under RTL.
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          controller: controller,
+          padding: const EdgeInsetsDirectional.symmetric(vertical: 8),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final scale in [1.0, 2.0])
+                  for (final steps in flows) ...[
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.symmetric(horizontal: 8),
+                      child: Text('${steps.length} · ${(scale * 100).toInt()}%',
+                          style: Theme.of(context).textTheme.labelMedium),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: 360,
+                      child: MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(textScaler: TextScaler.linear(scale)),
+                        child: NeptuneStepper(steps: steps, active: 1),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

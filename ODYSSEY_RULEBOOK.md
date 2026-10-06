@@ -168,6 +168,7 @@ Hard rules — CI enforces the first one by grepping `lib/src/widgets`:
 | `SizedBox` size is overridden by tight constraints (`Expanded` parent) → `CustomPaint` paints **outside its bounds** | wrap in `Center`/`Align` to loosen (see `NeptuneCreditScoreGauge`) |
 | `Positioned.fill` outside a `Stack` | only valid as a `Stack` child |
 | Trailing text in rows overflowing at ≤430dp width | `Flexible` + ellipsis; stack action rows on narrow widths |
+| A fixed-width `SizedBox` around a wrapping label: the engine breaks a word wider than the box at the grapheme (`Review` → `Revie`/`w`, `المحفظة` → `المحفظ`/`ة`), and no `maxLines`/ellipsis makes that safe | size the box from the measured text (`TextPainter.minIntrinsicWidth` = longest word, `maxIntrinsicWidth` = one line) under the same style, text scaler and bold-text setting the `Text` uses; when the longest words cannot sit side by side, change the layout (stack) rather than squeeze (see `NeptuneStepper`, `stepper_label_wrap_test.dart`) |
 
 ## 5 · Verification doctrine — no claim without pixels
 
