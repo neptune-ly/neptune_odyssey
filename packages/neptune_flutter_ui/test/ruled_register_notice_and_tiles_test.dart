@@ -14,6 +14,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:neptune_flutter_ui/neptune_flutter_ui.dart';
 
@@ -172,6 +173,38 @@ void main() {
           .toSet();
       expect(heights.length, 1, reason: 'one row, one tile height');
       expect(heights.single, greaterThanOrEqualTo(48));
+    });
+
+    testWidgets('a caption that does not fit wraps to a second line, one height',
+        (tester) async {
+      final theme = NeptuneTheme.fromConfig(_cfg(action: 'tonal-tiles'));
+      await tester.pumpWidget(host(
+          theme,
+          SizedBox(
+            width: 336,
+            child: NeptuneQuickActions(
+                shell: NeptuneQuickActionShell.tonalTiles,
+                actions: [
+                  // Two short words: under the test's square font a long one is wider
+                  // than any tile whatever the wrap.
+                  for (final label in ['Send', 'Top up', 'QR', 'More'])
+                    NeptuneQuickAction(
+                        icon: Icons.circle_outlined, label: label, onTap: () {}),
+                ]),
+          )));
+      final long = tester.renderObject<RenderParagraph>(find.text('Top up'));
+      final short = tester.renderObject<RenderParagraph>(find.text('Send'));
+      expect(long.didExceedMaxLines, isFalse,
+          reason: 'the caption is wrapped, not cut with an ellipsis');
+      expect(long.size.height, greaterThan(short.size.height * 1.5));
+      final heights = tester
+          .widgetList<Material>(find.descendant(
+              of: find.byType(NeptuneQuickActions),
+              matching: find.byType(Material)))
+          .where((m) => m.color != null && m.borderRadius != null)
+          .map((m) => tester.getSize(find.byWidget(m)).height)
+          .toSet();
+      expect(heights.length, 1, reason: 'the row stays one height');
     });
 
     testWidgets('mirrors under RTL: the lead is on the right', (tester) async {

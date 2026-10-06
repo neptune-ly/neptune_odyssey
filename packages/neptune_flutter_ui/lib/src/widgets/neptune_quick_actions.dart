@@ -169,7 +169,13 @@ class NeptuneQuickAction extends StatelessWidget {
                 const SizedBox(height: 8),
                 // Full-strength ink under an enabled control, the lead told
                 // apart by weight as well as fill - see `_buildBare`.
-                _caption(theme.textTheme, ink, bold: lead),
+                //
+                // TWO LINES, not one: four tiles share a 360dp row, which is
+                // 72dp each, and a caption like "Cards store" does not fit in
+                // the 56 that leaves. The grid sets every tile in a row to the
+                // tallest, so a wrapped caption costs one line and no neighbour
+                // is shorter.
+                _caption(theme.textTheme, ink, bold: lead, maxLines: 2),
               ],
             ),
           ),
@@ -292,10 +298,11 @@ class NeptuneQuickAction extends StatelessWidget {
     );
   }
 
-  Widget _caption(TextTheme textTheme, Color color, {bool bold = false}) =>
+  Widget _caption(TextTheme textTheme, Color color,
+          {bool bold = false, int maxLines = 1}) =>
       Text(
         label,
-        maxLines: 1,
+        maxLines: maxLines,
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
         style: textTheme.labelMedium

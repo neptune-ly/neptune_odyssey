@@ -10,7 +10,8 @@ entries are appended, and the three widget changes sit behind `ruledRegister`, w
   hero. Every string already in the wild decodes to the same names (asserted).
 - **`NeptuneQuickActionShell.tonalTiles`.** A soft-rectangle tile per action at the brand's `xl` corner: peers in
   `secondaryContainer` with `onSecondaryContainer` ink, the first action filled in `secondary` with `onSecondary` ink.
-  Equal-height tiles, an 8dp gutter, a 48dp minimum target.
+  Equal-height tiles, an 8dp gutter, a 48dp minimum target. A caption wraps to a second line rather than ending in an
+  ellipsis: four tiles share a 360dp row, which is 72dp each.
 - **`ruledRegister` now reaches three more things.** A text field takes the brand's `md` corner (the same corner as the ruled
   button beside it) instead of `sm`; `NeptuneSegmented` is a soft rectangle of `md` with a raised `sm` segment instead of a
   capsule; `NeptuneAlert` is one flat tonal notice (`secondaryContainer`, no accent bar, the tone on the glyph and the title,
