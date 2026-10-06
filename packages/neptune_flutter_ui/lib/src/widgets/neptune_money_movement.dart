@@ -1,5 +1,7 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../theme/accessibility.dart';
@@ -12,6 +14,12 @@ import '../theme/neptune_theme.dart';
 /// use [ColorScheme.outlineVariant]. Spoken as one stop - "step 2 of 4,
 /// Review, 1 of 4 steps done" - and re-announced as the customer advances.
 /// Theme-only, RTL-safe.
+///
+/// A label is as wide as its own text needs and wraps only between words: each
+/// column is sized from the measured label, never narrower than its longest
+/// word, and the connectors take what is left. When the longest words of every
+/// step cannot sit side by side (four or five steps at large text on a phone)
+/// the steps stack down the page instead of splitting a word or overflowing.
 class NeptuneStepper extends StatelessWidget {
   final List<String> steps;
   final int active;
@@ -22,6 +30,22 @@ class NeptuneStepper extends StatelessWidget {
     required this.active,
   });
 
+  static const _nodeSize = 32.0;
+
+  // The column a step is given when its label asks for less (web `.step`
+  // `min-inline-size`), so the nodes keep room around them.
+  static const _stepRoom = 56.0;
+
+  // Where a label wraps when it has the room: the 80dp it used to be boxed to
+  // (web `.label` `max-inline-size`), grown with the text so large type keeps
+  // its line count.
+  static const _wrapAt = 80.0;
+
+  // The shortest connector worth drawing between two nodes, margins included
+  // (web `.connector` `min-inline-size` 16px plus its 4px margins): any less
+  // reads as a hyphen between the nodes.
+  static const _connectorMin = 24.0;
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -30,7 +54,8 @@ class NeptuneStepper extends StatelessWidget {
     final text = Theme.of(context).textTheme;
     final strings = NeptuneAccessibility.of(context);
 
-    final children = <Widget>[];
+    final nodes = <Widget>[];
+    final styles = <TextStyle?>[];
     for (var i = 0; i < steps.length; i++) {
       final state = i < active
           ? _StepState.done
@@ -58,65 +83,164 @@ class NeptuneStepper extends StatelessWidget {
       // The active node reads as an outlined ring (primary outline, hollow fill).
       final isActive = state == _StepState.active;
 
-      final node = Container(
-        width: 32,
-        height: 32,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: isActive ? scheme.surface : fill,
-          shape: BoxShape.circle,
-          border: Border.all(color: border, width: 2),
+      nodes.add(
+        Container(
+          width: _nodeSize,
+          height: _nodeSize,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: isActive ? scheme.surface : fill,
+            shape: BoxShape.circle,
+            border: Border.all(color: border, width: 2),
+          ),
+          child: state == _StepState.done
+              ? Icon(Icons.check, size: 18, color: fg)
+              // At large text the numeral outgrows the circle it sits in.
+              : FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '${i + 1}',
+                    style: text.labelLarge?.copyWith(
+                      fontFamily: type.num,
+                      color: isActive ? scheme.primary : fg,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
         ),
-        child: state == _StepState.done
-            ? Icon(Icons.check, size: 18, color: fg)
-            : Text(
-                '${i + 1}',
-                style: text.labelLarge?.copyWith(
-                  fontFamily: type.num,
-                  color: isActive ? scheme.primary : fg,
-                  fontWeight: FontWeight.w600,
+      );
+      styles.add(
+        text.labelSmall?.copyWith(
+          color: isActive ? scheme.onSurface : scheme.onSurfaceVariant,
+          fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+        ),
+      );
+    }
+
+    // The engine splits a word that is wider than its box, so the layout is
+    // driven by what each label needs: `least` is its longest word, `ideal` the
+    // width past which it stops getting shorter (held to the wrap measure so a
+    // long label wraps instead of crowding the connectors out).
+    final scaler = MediaQuery.textScalerOf(context);
+    final measure = _wrapAt * scaler.scale(14) / 14;
+    final defaults = DefaultTextStyle.of(context).style;
+    final bold = MediaQuery.boldTextOf(context);
+    final least = <double>[];
+    final ideal = <double>[];
+    var leastTotal = 0.0;
+    var spareTotal = 0.0;
+    for (var i = 0; i < steps.length; i++) {
+      // `Text` paints under the platform's bold-text setting, so this must too.
+      var style = defaults.merge(styles[i]);
+      if (bold) {
+        style = style.merge(const TextStyle(fontWeight: FontWeight.bold));
+      }
+      final painter = TextPainter(
+        text: TextSpan(text: steps[i], style: style),
+        textDirection: Directionality.of(context),
+        textScaler: scaler,
+      )..layout();
+      final shortest = math.max(_nodeSize, painter.minIntrinsicWidth);
+      final wanted = math.max(
+        shortest,
+        math.max(_stepRoom, math.min(painter.maxIntrinsicWidth, measure)),
+      );
+      painter.dispose();
+      least.add(shortest);
+      ideal.add(wanted);
+      leastTotal += shortest;
+      spareTotal += wanted - shortest;
+    }
+
+    BoxDecoration line(int i) => BoxDecoration(
+          color: i < active ? scheme.primary : scheme.outlineVariant,
+          borderRadius: shape.rXs,
+        );
+
+    final last = steps.length - 1;
+    final body = LayoutBuilder(
+      builder: (context, constraints) {
+        final room = constraints.maxWidth - last * _connectorMin - leastTotal;
+
+        if (room < 0) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (var i = 0; i <= last; i++)
+                Stack(
+                  children: [
+                    if (i < last)
+                      PositionedDirectional(
+                        start: _nodeSize / 2 - 1,
+                        top: _nodeSize + 4,
+                        bottom: 4,
+                        width: 2,
+                        child: DecoratedBox(decoration: line(i)),
+                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        nodes[i],
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.only(
+                                bottom: i < last ? 20 : 0),
+                            child: ConstrainedBox(
+                              constraints:
+                                  const BoxConstraints(minHeight: _nodeSize),
+                              child: Align(
+                                alignment: AlignmentDirectional.centerStart,
+                                child: Text(steps[i], style: styles[i]),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+            ],
+          );
+        }
+
+        // Every column starts at its longest word and grows toward its ideal
+        // width by the same share of what each can still gain.
+        final grow = spareTotal <= room ? 1.0 : room / spareTotal;
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (var i = 0; i <= last; i++) ...[
+              SizedBox(
+                width: least[i] + (ideal[i] - least[i]) * grow,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    nodes[i],
+                    const SizedBox(height: 8),
+                    Text(
+                      steps[i],
+                      textAlign: TextAlign.center,
+                      style: styles[i],
+                    ),
+                  ],
                 ),
               ),
-      );
-
-      final label = SizedBox(
-        width: 80,
-        child: Text(
-          steps[i],
-          textAlign: TextAlign.center,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: text.labelSmall?.copyWith(
-            color: isActive ? scheme.onSurface : scheme.onSurfaceVariant,
-            fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-          ),
-        ),
-      );
-
-      children.add(
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [node, const SizedBox(height: 8), label],
-        ),
-      );
-
-      // Connector between this node and the next.
-      if (i < steps.length - 1) {
-        final done = i < active;
-        children.add(
-          Expanded(
-            child: Container(
-              height: 2,
-              margin: const EdgeInsetsDirectional.only(top: 15, start: 4, end: 4),
-              decoration: BoxDecoration(
-                color: done ? scheme.primary : scheme.outlineVariant,
-                borderRadius: shape.rXs,
-              ),
-            ),
-          ),
+              // Connector between this node and the next.
+              if (i < last)
+                Expanded(
+                  child: Container(
+                    height: 2,
+                    margin: const EdgeInsetsDirectional.only(
+                        top: 15, start: 4, end: 4),
+                    decoration: line(i),
+                  ),
+                ),
+            ],
+          ],
         );
-      }
-    }
+      },
+    );
 
     final current = active.clamp(0, steps.isEmpty ? 0 : steps.length - 1);
     final spoken = steps.isEmpty
@@ -128,10 +252,7 @@ class NeptuneStepper extends StatelessWidget {
       liveRegion: true,
       label: spoken,
       excludeSemantics: true,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
-      ),
+      child: body,
     );
   }
 }
