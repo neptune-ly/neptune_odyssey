@@ -1,12 +1,9 @@
 name: Update goldens (Linux)
 # The CI golden job renders on Linux; goldens made on a Mac differ by a few pixels of font hinting.
-# Run this once on a branch to regenerate the named test's goldens on the same runner CI uses.
+# Commit a test file name into .github/golden-request.txt on a branch to regenerate the named test's goldens on the same runner CI uses.
 on:
-  workflow_dispatch:
-    inputs:
-      test:
-        description: Test file under packages/neptune_flutter_ui/test
-        required: true
+  push:
+    paths: ['.github/golden-request.txt']
 permissions:
   contents: write
 jobs:
@@ -23,10 +20,10 @@ jobs:
       - working-directory: packages/neptune_flutter_ui
         run: |
           flutter pub get
-          flutter test --update-goldens "test/${{ inputs.test }}"
+          flutter test --update-goldens "test/$(cat ../../.github/golden-request.txt)"
       - run: |
           git config user.name "golden-bot"
           git config user.email "golden-bot@users.noreply.github.com"
           git add -A packages/neptune_flutter_ui/test
-          git diff --cached --quiet || git commit -m "test: regenerate ${{ inputs.test }} goldens on the Linux CI runner"
+          git diff --cached --quiet || git commit -m "test: regenerate $(cat .github/golden-request.txt) goldens on the Linux CI runner"
           git push
