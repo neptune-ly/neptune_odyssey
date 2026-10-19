@@ -103,7 +103,8 @@ void main() {
     });
 
     test('every action-row name has a shell behind it', () {
-      expect(kActionRows.length, NeptuneQuickActionShell.values.length);
+      // `boxedTiles` (3.2.0) is the one shell with no wire name.
+      expect(kActionRows.length, NeptuneQuickActionShell.values.length - 1);
     });
   });
 

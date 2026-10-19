@@ -52,7 +52,11 @@ void main() {
   group('the navShell lever', () {
     test('every wire name in the registry has a shell behind it', () {
       expect(kNavShells.length, NeptuneDockShell.values.length);
-      expect(kActionRows.length, NeptuneQuickActionShell.values.length);
+      // `boxedTiles` (3.2.0) is the one shell with no wire name: the two-bit
+      // field is full, so a host opts in by passing it.
+      expect(kActionRows.length, NeptuneQuickActionShell.values.length - 1);
+      expect(NeptuneQuickActionShell.values.last,
+          NeptuneQuickActionShell.boxedTiles);
     });
 
     test('both levers survive the wire, and default to what exists today', () {

@@ -44,6 +44,9 @@ export 'src/widgets/neptune_transaction_row.dart';
 export 'src/widgets/neptune_primary_button.dart';
 export 'src/widgets/neptune_account_tile.dart';
 export 'src/widgets/neptune_quick_actions.dart';
+// 3.2.0 - the flat Material 3 Expressive top bar and the account-number row.
+export 'src/widgets/neptune_top_bar.dart';
+export 'src/widgets/neptune_account_number.dart';
 export 'src/widgets/neptune_onboarding.dart';
 export 'src/widgets/neptune_buttons.dart';
 export 'src/widgets/neptune_stat_card.dart';
