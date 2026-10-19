@@ -1,7 +1,10 @@
 // © 2026 Neptune.Fintech (neptune.ly) · Neptune Odyssey Community License v1.0
 
+import 'dart:ui' show lerpDouble;
+
 import 'package:flutter/material.dart';
 
+import '../theme/accessibility.dart';
 import '../theme/extensions.dart';
 import 'neptune_icon_slot.dart';
 
@@ -48,6 +51,23 @@ enum NeptuneQuickActionShell {
   /// The corner is the brand's `xl`: a tile is a pocket, not a control, so it
   /// takes the large step rather than the button's `md`.
   tonalTiles,
+
+  /// 3.2.0. BOXED TILES FOR A ROW THAT SITS ON A COLOURED BAND: a rounded
+  /// square per action, the mark over its caption, every action a peer.
+  ///
+  /// The fill is flat and tonal - the row's [NeptuneQuickActions.ink] at the
+  /// Material 3 state-layer opacity - so it re-tones with whatever ground the
+  /// host draws the band in, and there is no gradient, blur or shadow glow. The
+  /// corner is the brand's `xl` at rest and `lg` while pressed, and the press
+  /// is a spring on the brand's own [NptMotion.spring] (nothing moves under
+  /// reduced motion). Tiles are at least 80dp tall, so the target clears 48dp
+  /// at any text size, and the row reflows to two columns when the customer's
+  /// text scale makes four unreadable.
+  ///
+  /// NOT A WIRE NAME. `kActionRows` is a two-bit field and its four slots are
+  /// spent, so a brandprint cannot say `boxed-tiles`; a host opts in by passing
+  /// this shell. Every brand that does not is unchanged.
+  boxedTiles,
 }
 
 /// Carries the row's composition down to each [NeptuneQuickAction], so the
@@ -56,10 +76,12 @@ enum NeptuneQuickActionShell {
 class _QuickActionShellScope extends InheritedWidget {
   final NeptuneQuickActionShell shell;
   final bool lead;
+  final Color? ink;
 
   const _QuickActionShellScope({
     required this.shell,
     required this.lead,
+    required this.ink,
     required super.child,
   });
 
@@ -68,7 +90,7 @@ class _QuickActionShellScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(_QuickActionShellScope old) =>
-      old.shell != shell || old.lead != lead;
+      old.shell != shell || old.lead != lead || old.ink != ink;
 }
 
 /// A single quick action: a circular tonal icon chip above a short label.
@@ -124,6 +146,13 @@ class NeptuneQuickAction extends StatelessWidget {
         _buildCell(context, lead: scope?.lead ?? false),
       NeptuneQuickActionShell.tonalTiles =>
         _buildTile(context, lead: scope?.lead ?? false),
+      NeptuneQuickActionShell.boxedTiles => _BoxedTile(
+          icon: icon,
+          iconWidget: iconWidget,
+          label: label,
+          onTap: onTap,
+          ink: scope?.ink,
+        ),
     };
   }
 
@@ -412,6 +441,112 @@ class NeptuneQuickAction extends StatelessWidget {
   }
 }
 
+/// The boxed tile of [NeptuneQuickActionShell.boxedTiles]. Stateful only for the
+/// press: the spring runs on a [TweenAnimationBuilder] so a release mid-press
+/// continues from where the tile is rather than snapping.
+class _BoxedTile extends StatefulWidget {
+  final IconData? icon;
+  final Widget? iconWidget;
+  final String label;
+  final VoidCallback? onTap;
+  final Color? ink;
+
+  const _BoxedTile({
+    required this.icon,
+    required this.iconWidget,
+    required this.label,
+    required this.onTap,
+    required this.ink,
+  });
+
+  /// Material 3 state-layer opacities, over the ink: the resting tonal fill
+  /// and the pressed one.
+  static const double restOpacity = 0.14;
+  static const double pressedOpacity = 0.20;
+
+  static const double minHeight = 80;
+
+  @override
+  State<_BoxedTile> createState() => _BoxedTileState();
+}
+
+class _BoxedTileState extends State<_BoxedTile> {
+  bool _down = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final shape = theme.extension<NptShape>()!;
+    final motion = theme.extension<NptMotion>()!;
+    final ink = widget.ink ?? theme.colorScheme.onSurface;
+
+    return Semantics(
+      button: true,
+      enabled: widget.onTap != null,
+      label: widget.label,
+      excludeSemantics: true,
+      onTap: widget.onTap,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween<double>(end: _down ? 1 : 0),
+        duration: NeptuneAccessibility.duration(context, motion.fast),
+        curve: motion.spring,
+        builder: (context, t, _) {
+          // The brand spring may overshoot 0..1: the corner may follow it a
+          // little past the pressed shape, the fill and the scale may not.
+          final press = t.clamp(0.0, 1.0);
+          final radius =
+              BorderRadius.lerp(shape.rXl, shape.rLg, t.clamp(0.0, 1.2))!;
+          return Transform.scale(
+            scale: 1 - 0.04 * press,
+            child: Material(
+              color: ink.withValues(
+                alpha: lerpDouble(
+                    _BoxedTile.restOpacity, _BoxedTile.pressedOpacity, press),
+              ),
+              shape: RoundedRectangleBorder(borderRadius: radius),
+              clipBehavior: Clip.antiAlias,
+              animationDuration: Duration.zero,
+              child: InkWell(
+                onTap: widget.onTap,
+                onHighlightChanged: (down) => setState(() => _down = down),
+                customBorder: RoundedRectangleBorder(borderRadius: radius),
+                child: ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(minHeight: _BoxedTile.minHeight),
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.symmetric(
+                        horizontal: 4, vertical: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        NeptuneIconSlot(
+                          icon: widget.icon,
+                          iconWidget: widget.iconWidget,
+                          size: 24,
+                          color: ink,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          widget.label,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.labelMedium
+                              ?.copyWith(color: ink),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
 /// THE REGISTER'S RULES ARE THE BANK'S INK, NOT THE NEUTRAL RAMP'S.
 ///
 /// `outlineVariant` is a grey — `#D1D5DC` on the bank this shell was designed
@@ -456,18 +591,30 @@ class NeptuneQuickActions extends StatelessWidget {
   /// byte-identical.
   final bool accentLead;
 
+  /// The ink of the ground the row sits on, for
+  /// [NeptuneQuickActionShell.boxedTiles]: the tile's tonal fill is this colour at a state-layer
+  /// opacity, and its mark and caption are drawn in it. A row on a coloured
+  /// band passes the band's on-colour; null (the default) is the page's
+  /// `onSurface`. No other shell reads it.
+  final Color? ink;
+
   const NeptuneQuickActions({
     super.key,
     required this.actions,
     this.columns = 4,
     this.shell = NeptuneQuickActionShell.filledCircles,
     this.accentLead = true,
+    this.ink,
   });
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final perRow = columns < 1 ? 1 : columns;
+    final boxed = shell == NeptuneQuickActionShell.boxedTiles;
+    // Four boxed tiles share a phone's width: at a large text scale a caption
+    // has 60dp to fit in, so the row reflows to two columns instead.
+    final reflow = boxed && MediaQuery.textScalerOf(context).scale(12) > 16;
+    final perRow = reflow ? 2 : (columns < 1 ? 1 : columns);
 
     final rows = <Widget>[];
     for (var start = 0; start < actions.length; start += perRow) {
@@ -475,10 +622,10 @@ class NeptuneQuickActions extends StatelessWidget {
           (start + perRow) < actions.length ? start + perRow : actions.length;
       final slice = actions.sublist(start, end);
 
-      final gridded = shell == NeptuneQuickActionShell.ruleGrid ||
-          shell == NeptuneQuickActionShell.tonalTiles;
+      final tiled = shell == NeptuneQuickActionShell.tonalTiles || boxed;
+      final gridded = shell == NeptuneQuickActionShell.ruleGrid || tiled;
       final ruled = shell == NeptuneQuickActionShell.registerRows;
-      final gap = shell == NeptuneQuickActionShell.tonalTiles ? 8.0 : 10.0;
+      final gap = tiled ? 8.0 : 10.0;
 
       final cells = <Widget>[
         for (final (i, action) in slice.indexed) ...[
@@ -491,6 +638,7 @@ class NeptuneQuickActions extends StatelessWidget {
             child: _QuickActionShellScope(
               shell: shell,
               lead: accentLead && start + i == 0,
+              ink: ink,
               child: action,
             ),
           ),
@@ -502,7 +650,7 @@ class NeptuneQuickActions extends StatelessWidget {
         ],
       ];
 
-      if (rows.isNotEmpty) rows.add(const SizedBox(height: 16));
+      if (rows.isNotEmpty) rows.add(SizedBox(height: boxed ? 8 : 16));
       rows.add(
         // The register strip's dividers run the full height of the tallest
         // cell, which needs a bounded height — a stretched Row in an
@@ -514,7 +662,7 @@ class NeptuneQuickActions extends StatelessWidget {
                   children: cells,
                 ),
               )
-            : shell == NeptuneQuickActionShell.tonalTiles
+            : tiled
                 // Tiles are one height whatever their caption wraps to.
                 ? IntrinsicHeight(
                     child: Row(

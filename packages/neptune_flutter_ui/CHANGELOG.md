@@ -1,3 +1,32 @@
+## 3.2.0 (19 Oct 2026)
+
+What Nuran built app-side for its Material 3 Expressive pass, moved into the design system. Nothing here changes a brand
+that does not opt in: every new lever defaults to what exists today, and no brandprint string moves.
+
+- **`NeptuneQuickActionShell.boxedTiles`.** Rounded-square tiles for a quick-action row that sits on a coloured band: every action
+  a peer, the 24dp mark over a `labelMedium` caption (two lines, never a mid-word break), at least 80dp tall. The fill is flat and
+  tonal - `NeptuneQuickActions(ink:)` at the state-layer opacity (14% at rest, 20% pressed), so it re-tones with the band; no
+  gradient, blur or shadow. The corner is the brand's `xl` at rest and `lg` while pressed, and the press is a spring on the brand's
+  own `NptMotion.spring` over `NptMotion.fast` (a 4% scale-down; immediate under reduced motion). Two columns at a large text
+  scale. RTL mirrors. **It has no wire name**: `kActionRows` is a two-bit field and its four slots are spent, so a host opts in by
+  passing the shell (`nav_and_action_shells_test` now asserts `boxedTiles` is the one shell outside the registry). Goldens: four
+  reference brands x light/LTR and dark/RTL, plus a ruled-register brand.
+- **`NeptuneTopBar` and `NeptuneSliverTopBar`** - the flat Material 3 Expressive top bar, one set of numbers for both: a 64dp small
+  bar for `Scaffold.appBar`, and a pinned sliver whose title stands at headline size (`NeptuneTopBarSize.medium` 112dp or `.large`
+  128dp, the `size` lever) and cross-fades into the small title on the scroll offset. Flat: the page's surface, no tint, no elevation
+  on scroll. `background`/`foreground` for a bar on a band, `clearAtRest` to let the band show until content scrolls under,
+  `leading` (a 48dp slot the host fills: the library owns no back-button icon) and 48dp `actions`. Not `NeptuneAppBar`, which stays
+  the lightweight non-Material row.
+- **`NeptuneAccountNumber`, `groupedAccountNumber`, `maskedAccountNumber`.** An IBAN or account number in groups of four, in Western
+  digits and one LTR run inside an Arabic page, 16sp or more, semibold, tabular, wrapping at a group boundary. One 48dp target: tap or
+  long-press copies the RAW value and calls `onCopied` (the host's haptic and toast). `masked` draws it hidden and speaks no digit;
+  `copyable: false` is for a number the app must not hand out. Every spoken string (`copyLabel`, `hiddenLabel`) comes from the host.
+- **Stays app-side, candidates for a later minor:** the card tile and its tone families (they read the app's card entity and network
+  resolver; the family-to-container-pair mapping is generic and small once the entity is not), the assist-chip status pill (one
+  caller), the spring-press wrapper beyond the tile (one caller).
+- Tests: `boxed_tiles_top_bar_account_number_test.dart` (flatness, tile heights, reflow, RTL, spring and reduced motion, bar metrics and
+  collapse, RTL leading, copy/mask/semantics, goldens under `test/goldens/`, compared with a 0.5% tolerance).
+
 ## 3.1.0 (6 Oct 2026)
 
 - **`NeptuneStepper` labels wrap between words, never inside one** (#9). A label no longer breaks mid-word; the node columns shrink to their content.
