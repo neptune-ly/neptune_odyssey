@@ -69,12 +69,30 @@ class NeptuneButton extends StatelessWidget {
       case NeptuneButtonStyle.filled:
         button = hasIcon
             ? FilledButton.icon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label))
-            : FilledButton(onPressed: onTap, child: busy ? spinner(scheme.onPrimary) : Text(label));
+            : FilledButton(
+                onPressed: onTap,
+                // Busy is not disabled: the button keeps its own colours while it works, so the spinner always sits on
+                // the ground it was chosen for (onPrimary on primary), whatever the customer's palette is. The grey
+                // disabled ground put a dark spinner on dark grey as soon as the personalised colour moved.
+                style: busy
+                    ? FilledButton.styleFrom(
+                        disabledBackgroundColor: scheme.primary,
+                        disabledForegroundColor: scheme.onPrimary,
+                      )
+                    : null,
+                child: busy ? spinner(scheme.onPrimary) : Text(label),
+              );
       case NeptuneButtonStyle.tonal:
         button = hasIcon
             ? FilledButton.tonalIcon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label))
             : FilledButton.tonal(
                 onPressed: onTap,
+                style: busy
+                    ? FilledButton.styleFrom(
+                        disabledBackgroundColor: scheme.secondaryContainer,
+                        disabledForegroundColor: scheme.onSecondaryContainer,
+                      )
+                    : null,
                 child: busy ? spinner(scheme.onSecondaryContainer) : Text(label),
               );
       case NeptuneButtonStyle.outlined:
