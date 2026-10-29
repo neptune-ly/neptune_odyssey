@@ -328,7 +328,7 @@ class NeptuneQuickAction extends StatelessWidget {
   }
 
   Widget _caption(TextTheme textTheme, Color color,
-          {bool bold = false, int maxLines = 1}) =>
+          {bool bold = false, int maxLines = 2}) =>
       Text(
         label,
         maxLines: maxLines,
@@ -425,9 +425,11 @@ class NeptuneQuickAction extends StatelessWidget {
             ),
           ),
         const SizedBox(height: 8),
+        // Two lines in every style, as the tile does: at 130% text an Arabic
+        // caption ("متجر الكروت") was cut to an ellipsis on a phone on its side.
         Text(
           label,
-          maxLines: 1,
+          maxLines: 2,
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           style: textTheme.labelMedium?.copyWith(
