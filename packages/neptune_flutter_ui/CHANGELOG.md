@@ -1,3 +1,14 @@
+## 3.2.2 (30 Oct 2026)
+
+Built on 3.2.1 (the busy-button fix), not on main.
+
+- **Dialog and sheet barriers say "close".** `showNeptuneDialog` and `showNeptuneSheet` pass the host's
+  `NeptuneAccessibility.close` as the barrier label. Material's Arabic default is "reject", which on a bank's
+  confirmation reads as an answer.
+- **A destructive primary action is filled in `error` / `onError`.** It was drawn in `primary`, so "Remove"
+  looked like "Confirm".
+- **Dialog headline is `headlineSmall`**, the M3 dialog headline role (was `titleLarge`).
+
 ## 3.2.0 (19 Oct 2026)
 
 What Nuran built app-side for its Material 3 Expressive pass, moved into the design system. Nothing here changes a brand

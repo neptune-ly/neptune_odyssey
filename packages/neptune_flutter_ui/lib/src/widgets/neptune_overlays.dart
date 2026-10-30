@@ -46,7 +46,7 @@ class NeptuneDialogAction {
 ///
 /// The card uses [ColorScheme.surfaceContainerHigh], the brand `rLg` radius and
 /// 24dp padding. When [icon] is given it sits in a [ColorScheme.primaryContainer]
-/// circle above the title. [title] uses `titleLarge`; [message] uses
+/// circle above the title. [title] uses `headlineSmall` (the M3 dialog headline); [message] uses
 /// `bodyMedium` in [ColorScheme.onSurfaceVariant]; an optional [content] widget
 /// renders below. The [actions] row sits at the end — when omitted a single
 /// 'OK' button is added. Theme-only, RTL-safe.
@@ -60,6 +60,9 @@ Future<T?> showNeptuneDialog<T>({
 }) {
   return showDialog<T>(
     context: context,
+    // Material's Arabic barrier label is "رفض" ("reject"): on a bank's
+    // confirmation that reads as an answer. The host's word for close.
+    barrierLabel: NeptuneAccessibility.of(context).close,
     builder: (context) => _NeptuneDialog<T>(
       title: title,
       message: message,
@@ -142,7 +145,7 @@ class _NeptuneDialog<T> extends StatelessWidget {
               child: Text(
                 title,
                 textAlign: icon != null ? TextAlign.center : TextAlign.start,
-                style: text.titleLarge?.copyWith(color: scheme.onSurface),
+                style: text.headlineSmall?.copyWith(color: scheme.onSurface),
               ),
             ),
             if (message != null) ...[
@@ -186,6 +189,14 @@ class _DialogActions<T> extends StatelessWidget {
         action.onPressed?.call();
       }
 
+      if (action.primary && action.destructive) {
+        return FilledButton(
+          onPressed: onTap,
+          style: FilledButton.styleFrom(
+              backgroundColor: scheme.error, foregroundColor: scheme.onError),
+          child: Text(action.label),
+        );
+      }
       if (action.primary) {
         return FilledButton(onPressed: onTap, child: Text(action.label));
       }
@@ -230,6 +241,7 @@ Future<T?> showNeptuneSheet<T>({
 
   return showModalBottomSheet<T>(
     context: context,
+    barrierLabel: NeptuneAccessibility.of(context).close,
     isScrollControlled: isScrollControlled,
     backgroundColor: scheme.surfaceContainerLow,
     elevation: 0,
