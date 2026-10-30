@@ -1,3 +1,10 @@
+## 3.2.3 (30 Oct 2026)
+
+- **`NeptuneDialog` is public**, with `busyIndicator` (drawn in place of the actions while a request runs), and
+  `NeptuneDialogAction.closes` (false: the action runs and the host closes the dialog when the answer arrives). A host
+  that must rebuild a dialog while it waits (sign out, remove a device, a reason typed into a field) draws THIS dialog
+  instead of a copy of it.
+
 ## 3.2.2 (30 Oct 2026)
 
 Built on 3.2.1 (the busy-button fix), not on main.

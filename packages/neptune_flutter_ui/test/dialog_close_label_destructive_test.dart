@@ -45,4 +45,32 @@ void main() {
     final b = tester.widget<FilledButton>(find.byType(FilledButton));
     expect(b.style!.backgroundColor!.resolve({}), error);
   });
+
+  testWidgets('an action that does not close keeps the dialog; busy hides actions',
+      (tester) async {
+    final ctx = await pump(tester);
+    var ran = 0;
+    showDialog<void>(
+      context: ctx,
+      builder: (_) => StatefulBuilder(
+        builder: (c, set) => NeptuneDialog<Object>(
+          title: 'Sign out?',
+          busyIndicator: ran > 0 ? const Text('BUSY') : null,
+          actions: [
+            NeptuneDialogAction(
+                label: 'Sign out',
+                primary: true,
+                closes: false,
+                onPressed: () => set(() => ran++)),
+          ],
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sign out'));
+    await tester.pumpAndSettle();
+    expect(ran, 1);
+    expect(find.text('BUSY'), findsOneWidget);
+    expect(find.text('Sign out'), findsNothing);
+  });
 }

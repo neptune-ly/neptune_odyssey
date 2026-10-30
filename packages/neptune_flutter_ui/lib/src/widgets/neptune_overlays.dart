@@ -33,11 +33,17 @@ class NeptuneDialogAction {
   /// Whether this is a destructive action (error-coloured).
   final bool destructive;
 
+  /// Whether tapping closes the dialog before [onPressed] runs. False for an
+  /// action whose request the dialog waits on ([NeptuneDialog.busyIndicator]):
+  /// the host closes it when the answer arrives.
+  final bool closes;
+
   const NeptuneDialogAction({
     required this.label,
     this.onPressed,
     this.primary = false,
     this.destructive = false,
+    this.closes = true,
   });
 }
 
@@ -63,7 +69,7 @@ Future<T?> showNeptuneDialog<T>({
     // Material's Arabic barrier label is "رفض" ("reject"): on a bank's
     // confirmation that reads as an answer. The host's word for close.
     barrierLabel: NeptuneAccessibility.of(context).close,
-    builder: (context) => _NeptuneDialog<T>(
+    builder: (context) => NeptuneDialog<T>(
       title: title,
       message: message,
       content: content,
@@ -73,21 +79,27 @@ Future<T?> showNeptuneDialog<T>({
   );
 }
 
-/// The internal branded [Dialog] body built by [showNeptuneDialog].
-class _NeptuneDialog<T> extends StatelessWidget {
+/// The branded [Dialog] body built by [showNeptuneDialog]. Public so a host
+/// that must rebuild it while a request runs (a sign-out that waits on the
+/// server) draws the same dialog inside its own builder instead of a copy.
+class NeptuneDialog<T> extends StatelessWidget {
   final String title;
   final String? message;
   final Widget? content;
   final List<NeptuneDialogAction>? actions;
   final IconData? icon;
 
-  const _NeptuneDialog({
+  /// Drawn in place of the actions while the dialog waits on a request.
+  final Widget? busyIndicator;
+
+  const NeptuneDialog({
     super.key,
     required this.title,
     this.message,
     this.content,
     this.actions,
     this.icon,
+    this.busyIndicator,
   });
 
   @override
@@ -161,7 +173,9 @@ class _NeptuneDialog<T> extends StatelessWidget {
               content!,
             ],
             const SizedBox(height: 24),
-            _DialogActions<T>(actions: resolved),
+            busyIndicator != null
+                ? Center(child: busyIndicator)
+                : _DialogActions<T>(actions: resolved),
           ],
         ),
       ),
@@ -183,9 +197,11 @@ class _DialogActions<T> extends StatelessWidget {
       // Pop first, then run the caller's handler. Primary actions resolve
       // truthy; the rest resolve with their label so callers can branch.
       void onTap() {
-        Navigator.of(context).pop<T?>(
-          action.primary ? (true as T?) : (action.label as T?),
-        );
+        if (action.closes) {
+          Navigator.of(context).pop<T?>(
+            action.primary ? (true as T?) : (action.label as T?),
+          );
+        }
         action.onPressed?.call();
       }
 
