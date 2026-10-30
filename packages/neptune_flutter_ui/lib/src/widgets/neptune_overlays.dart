@@ -131,47 +131,63 @@ class NeptuneDialog<T> extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (icon != null) ...[
-              Align(
-                alignment: AlignmentDirectional.center,
-                child: ExcludeSemantics(
-                  child: Container(
-                    width: 56,
-                    height: 56,
-                    alignment: AlignmentDirectional.center,
-                    decoration: BoxDecoration(
-                      color: scheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(shape.full),
+            // Everything above the actions scrolls, so the actions stay in
+            // reach at 200% text and a long message never overflows.
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (icon != null) ...[
+                      Align(
+                        alignment: AlignmentDirectional.center,
+                        child: ExcludeSemantics(
+                          child: Container(
+                            width: 56,
+                            height: 56,
+                            alignment: AlignmentDirectional.center,
+                            decoration: BoxDecoration(
+                              color: scheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(shape.full),
+                            ),
+                            child: Icon(icon,
+                                size: 28, color: scheme.onPrimaryContainer),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                    // The dialog's title is its heading and the first thing focus
+                    // lands on, so a modal is never a silent surprise.
+                    Semantics(
+                      header: true,
+                      child: Text(
+                        title,
+                        textAlign:
+                            icon != null ? TextAlign.center : TextAlign.start,
+                        style: text.headlineSmall
+                            ?.copyWith(color: scheme.onSurface),
+                      ),
                     ),
-                    child:
-                        Icon(icon, size: 28, color: scheme.onPrimaryContainer),
-                  ),
+                    if (message != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        message!,
+                        textAlign:
+                            icon != null ? TextAlign.center : TextAlign.start,
+                        style: text.bodyMedium
+                            ?.copyWith(color: scheme.onSurfaceVariant),
+                      ),
+                    ],
+                    if (content != null) ...[
+                      const SizedBox(height: 16),
+                      content!,
+                    ],
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
-            ],
-            // The dialog's title is its heading and the first thing focus
-            // lands on, so a modal is never a silent surprise.
-            Semantics(
-              header: true,
-              child: Text(
-                title,
-                textAlign: icon != null ? TextAlign.center : TextAlign.start,
-                style: text.headlineSmall?.copyWith(color: scheme.onSurface),
-              ),
             ),
-            if (message != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                message!,
-                textAlign: icon != null ? TextAlign.center : TextAlign.start,
-                style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-              ),
-            ],
-            if (content != null) ...[
-              const SizedBox(height: 16),
-              content!,
-            ],
             const SizedBox(height: 24),
             busyIndicator != null
                 ? Center(child: busyIndicator)
@@ -395,14 +411,14 @@ class NeptuneMenu extends StatelessWidget {
                 : Icon(
                     item.icon,
                     size: 20,
-                    color:
-                        item.destructive ? scheme.error : scheme.onSurfaceVariant,
+                    color: item.destructive
+                        ? scheme.error
+                        : scheme.onSurfaceVariant,
                   ),
             style: MenuItemButton.styleFrom(
               foregroundColor:
                   item.destructive ? scheme.error : scheme.onSurface,
-              padding:
-                  const EdgeInsetsDirectional.symmetric(horizontal: 16),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
               minimumSize: const Size(0, 48),
               textStyle: text.bodyLarge,
             ),

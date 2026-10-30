@@ -1,3 +1,9 @@
+## 3.2.4 (30 Oct 2026)
+
+- **A dialog's body scrolls.** Icon, headline, message and content sit in one scroll view above the actions, so a long
+  message at 200% text no longer overflows and the actions stay in reach (Material's AlertDialog did this; the Neptune
+  dialog did not, which showed the day the money-authorisation alert moved onto it).
+
 ## 3.2.3 (30 Oct 2026)
 
 - **`NeptuneDialog` is public**, with `busyIndicator` (drawn in place of the actions while a request runs), and

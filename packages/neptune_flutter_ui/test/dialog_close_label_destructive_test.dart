@@ -73,4 +73,30 @@ void main() {
     expect(find.text('BUSY'), findsOneWidget);
     expect(find.text('Sign out'), findsNothing);
   });
+
+  testWidgets('a long message at 200% text scrolls, the actions stay',
+      (tester) async {
+    tester.view.physicalSize = const Size(400, 700);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    late BuildContext ctx;
+    await tester.pumpWidget(MaterialApp(
+      theme: NeptuneTheme.light('neptune'),
+      builder: (c, child) => MediaQuery(
+          data: MediaQuery.of(c).copyWith(textScaler: const TextScaler.linear(2)),
+          child: child!),
+      home: Builder(builder: (c) {
+        ctx = c;
+        return const Scaffold();
+      }),
+    ));
+    showNeptuneDialog<Object>(
+        context: ctx,
+        title: 'Stop this payment?',
+        message: List.filled(40, 'Your bank will never ask for this code.').join(' '),
+        actions: const [NeptuneDialogAction(label: 'Stop it', primary: true)]);
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(find.text('Stop it').hitTestable(), findsOneWidget);
+  });
 }
