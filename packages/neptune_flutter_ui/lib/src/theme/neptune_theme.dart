@@ -11,11 +11,10 @@
 // Since 2.24.0 the ThemeData that comes back is FINISHED: app bar, floating
 // action button, every input-decoration state and the pre-login brand canvas
 // are set from tokens here, so a host has nothing left to patch after
-// assembly. A host that bundles its own faces passes `hostFont:` and the
-// google_fonts loader is never consulted.
+// assembly. A host that bundles its own faces passes `hostFont:`; there is no
+// runtime font loader (3.2.7).
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../brandprint/codec.dart';
 import '../color/oklch.dart';
@@ -353,11 +352,8 @@ class NeptuneTheme {
   }
 
   /// Debug/test escape hatch. When true, the theme references registry font
-  /// families by name only and skips the `google_fonts` runtime loader (which
-  /// would otherwise fetch from the network). Production leaves this false so
-  /// the real brand faces load and render. Tests that assemble a theme WITHOUT
-  /// `hostFont:` flip it true to stay offline; a theme assembled with a host
-  /// font never reaches the loader and does not need it.
+  /// No effect since 3.2.7, which has no runtime font loader. Kept so hosts
+  /// and tests that set it still compile.
   static bool debugSkipFontLoading = false;
 
   /// Light theme for a reference brand id ('neptune'|'triton'|'nereid'|'proteus').
@@ -873,9 +869,8 @@ class NeptuneTheme {
             fontFamilyFallback: hostFont.fallback,
           );
     final textTheme = _buildTextTheme(scheme, type, arabic);
-    // The default body family for any text the textTheme doesn't name. A
-    // registry family resolves through google_fonts so it is an actually-loaded
-    // family, not just a name; a bundled one IS the name.
+    // The default body family for any text the textTheme doesn't name: named
+    // whether bundled or registry (the host bundles it).
     final bodyFamily = arabic ? type.textAr : type.text;
     final resolvedTextFamily =
         type.bundled ? bodyFamily : _gf(bodyFamily).fontFamily;
@@ -1055,25 +1050,21 @@ class NeptuneTheme {
   }
 
   /// A [TextStyle] in [family] for the given type set: by name (with the
-  /// host's fallback chain) when the faces are bundled, through the
-  /// google_fonts loader when they are registry families.
+  /// host's fallback chain) when the faces are bundled, by bare name when
+  /// they are registry families.
   static TextStyle _face(NptType type, String family, TextStyle base) =>
       type.bundled
           ? base.copyWith(
               fontFamily: family, fontFamilyFallback: type.fontFamilyFallback)
           : _gf(family, base);
 
-  /// Resolve a family name to an actually-loaded [TextStyle] via `google_fonts`.
-  /// All Neptune brand faces (Latin + Arabic) are Google Fonts; an unknown
-  /// custom name falls back to a plain `fontFamily` reference.
-  static TextStyle _gf(String family, [TextStyle base = const TextStyle()]) {
-    if (debugSkipFontLoading) return base.copyWith(fontFamily: family);
-    try {
-      return GoogleFonts.getFont(family, textStyle: base);
-    } catch (_) {
-      return base.copyWith(fontFamily: family);
-    }
-  }
+  /// A registry family by name. Since 3.2.7 Odyssey ships no runtime font
+  /// loader: `google_fonts` kept its whole 1,500-family catalogue in every
+  /// host's binary (7.3 MB of Dart code in the bank apps, which bundle their
+  /// faces and pass `hostFont:`, so they never used it). A host that wants a
+  /// registry face bundles it under that family name.
+  static TextStyle _gf(String family, [TextStyle base = const TextStyle()]) =>
+      base.copyWith(fontFamily: family);
 
   /// A money/number text style for the active theme: the brand `num` family with
   /// tabular figures so digits stay column-aligned. Direction-aware — under RTL

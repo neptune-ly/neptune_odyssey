@@ -1,3 +1,9 @@
+## 3.2.7 (31 Oct 2026)
+
+- **No runtime font loader; `google_fonts` is gone.** Its one call kept the whole registry catalogue in every host
+  binary (7.3 MB of compiled Dart in the bank apps). Registry families are now named only, so a host bundles the
+  faces it uses (the bank apps already do, via `hostFont:`). `debugSkipFontLoading` stays and is now a no-op.
+
 ## 3.2.6 (31 Oct 2026)
 
 - **A `NeptuneButton` label that wraps stays centred.** At 200% text a two-line label was set at the reading edge and
