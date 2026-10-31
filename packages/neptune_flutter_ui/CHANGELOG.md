@@ -1,3 +1,8 @@
+## 3.2.6 (31 Oct 2026)
+
+- **A `NeptuneButton` label that wraps stays centred.** At 200% text a two-line label was set at the reading edge and
+  ran into the stadium's curve.
+
 ## 3.2.5 (31 Oct 2026)
 
 - **`NeptunePocketBalance`'s reveal control is a named tap target.** Its accessible name is now the button's own tooltip.

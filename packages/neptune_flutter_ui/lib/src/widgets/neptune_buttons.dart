@@ -68,7 +68,7 @@ class NeptuneButton extends StatelessWidget {
     switch (variant) {
       case NeptuneButtonStyle.filled:
         button = hasIcon
-            ? FilledButton.icon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label))
+            ? FilledButton.icon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label, textAlign: TextAlign.center))
             : FilledButton(
                 onPressed: onTap,
                 // Busy is not disabled: the button keeps its own colours while it works, so the spinner always sits on
@@ -80,11 +80,11 @@ class NeptuneButton extends StatelessWidget {
                         disabledForegroundColor: scheme.onPrimary,
                       )
                     : null,
-                child: busy ? spinner(scheme.onPrimary) : Text(label),
+                child: busy ? spinner(scheme.onPrimary) : Text(label, textAlign: TextAlign.center),
               );
       case NeptuneButtonStyle.tonal:
         button = hasIcon
-            ? FilledButton.tonalIcon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label))
+            ? FilledButton.tonalIcon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label, textAlign: TextAlign.center))
             : FilledButton.tonal(
                 onPressed: onTap,
                 style: busy
@@ -93,16 +93,16 @@ class NeptuneButton extends StatelessWidget {
                         disabledForegroundColor: scheme.onSecondaryContainer,
                       )
                     : null,
-                child: busy ? spinner(scheme.onSecondaryContainer) : Text(label),
+                child: busy ? spinner(scheme.onSecondaryContainer) : Text(label, textAlign: TextAlign.center),
               );
       case NeptuneButtonStyle.outlined:
         button = hasIcon
-            ? OutlinedButton.icon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label))
-            : OutlinedButton(onPressed: onTap, child: busy ? spinner(scheme.primary) : Text(label));
+            ? OutlinedButton.icon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label, textAlign: TextAlign.center))
+            : OutlinedButton(onPressed: onTap, child: busy ? spinner(scheme.primary) : Text(label, textAlign: TextAlign.center));
       case NeptuneButtonStyle.text:
         button = hasIcon
-            ? TextButton.icon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label))
-            : TextButton(onPressed: onTap, child: busy ? spinner(scheme.primary) : Text(label));
+            ? TextButton.icon(onPressed: onTap, icon: Icon(icon, size: 20), label: Text(label, textAlign: TextAlign.center))
+            : TextButton(onPressed: onTap, child: busy ? spinner(scheme.primary) : Text(label, textAlign: TextAlign.center));
     }
 
     return expand ? SizedBox(width: double.infinity, child: button) : button;

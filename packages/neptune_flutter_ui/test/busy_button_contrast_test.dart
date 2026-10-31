@@ -19,4 +19,17 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
   }
+
+  for (final style in NeptuneButtonStyle.values) {
+    testWidgets('a label that wraps stays centred in the button ($style)', (tester) async {
+      await tester.pumpWidget(MaterialApp(
+        theme: ThemeData(useMaterial3: true),
+        home: Scaffold(
+            body: NeptuneButton(
+                label: 'Make another transaction', variant: style, onPressed: () {})),
+      ));
+      expect(tester.widget<Text>(find.text('Make another transaction')).textAlign,
+          TextAlign.center);
+    });
+  }
 }
