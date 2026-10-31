@@ -1,3 +1,8 @@
+## 3.2.5 (31 Oct 2026)
+
+- **`NeptunePocketBalance`'s reveal control is a named tap target.** Its accessible name is now the button's own tooltip.
+  A `Semantics(button, label)` wrapped round the `IconButton` made two nodes, and the tappable one had no name.
+
 ## 3.2.4 (30 Oct 2026)
 
 - **A dialog's body scrolls.** Icon, headline, message and content sit in one scroll view above the actions, so a long

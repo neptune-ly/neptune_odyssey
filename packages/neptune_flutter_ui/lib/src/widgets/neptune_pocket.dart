@@ -715,10 +715,11 @@ class _NeptunePocketBalanceState extends State<NeptunePocketBalance> {
             // than a type gap's worth of padding on each side, and adding to
             // it pushed the eye a thumb's width clear of the figure it acts
             // on — two objects instead of one line.
-            Semantics(
-              button: true,
-              label: widget.revealLabel,
-              child: IconButton(
+            // The name rides the button's own node (its tooltip). A Semantics
+            // wrapped round it made a second node, and the button inside it
+            // was a nameless tap target.
+            IconButton(
+                tooltip: widget.revealLabel,
                 onPressed: () => widget.onRevealChanged!(!widget.revealed),
                 iconSize: 22,
                 color: scheme.onSurfaceVariant,
@@ -732,7 +733,6 @@ class _NeptunePocketBalanceState extends State<NeptunePocketBalance> {
                     ? Icons.visibility_off_outlined
                     : Icons.visibility_outlined),
               ),
-            ),
           ],
         ],
       ),

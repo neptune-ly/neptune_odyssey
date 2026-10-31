@@ -275,6 +275,15 @@ void main() {
       }
     });
 
+    testWidgets('the reveal control is a NAMED tap target', (t) async {
+      final h = t.ensureSemantics();
+      await t.pumpWidget(_host(
+          NeptuneTheme.fromConfig(_base, brightness: Brightness.light),
+          hero(onReveal: (_) {})));
+      await expectLater(t, meetsGuideline(labeledTapTargetGuideline));
+      h.dispose();
+    });
+
     testWidgets('hidden shows a stand-in, not the figure', (t) async {
       await t.pumpWidget(_host(
           NeptuneTheme.fromConfig(_base, brightness: Brightness.light),
