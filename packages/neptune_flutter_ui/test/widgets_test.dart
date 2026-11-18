@@ -118,6 +118,26 @@ void main() {
     }
   });
 
+  testWidgets('card art draws the host number in the face ink and style, and the mask without one', (tester) async {
+    Color? ink;
+    TextStyle? style;
+    await tester.pumpWidget(_host(NeptuneCardArt(
+      holder: 'LINA ATIYA',
+      last4: '4821',
+      number: (i, s) {
+        ink = i;
+        style = s;
+        return const Text('host number');
+      },
+    )));
+    expect(find.text('host number'), findsOneWidget);
+    expect(find.text('•••• •••• •••• 4821'), findsNothing);
+    expect(ink, isNotNull);
+    expect(style?.color, ink);
+    await tester.pumpWidget(_host(const NeptuneCardArt(holder: 'LINA ATIYA', last4: '4821')));
+    expect(find.text('•••• •••• •••• 4821'), findsOneWidget);
+  });
+
   testWidgets('NeptuneAppBar + NeptuneDock build', (tester) async {
     await tester.pumpWidget(_host(
       Column(

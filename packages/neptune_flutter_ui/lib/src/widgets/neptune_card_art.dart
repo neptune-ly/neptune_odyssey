@@ -49,6 +49,10 @@ class NeptuneCardArt extends StatelessWidget {
   /// Tap handler; when non-null the whole card becomes an [InkWell].
   final VoidCallback? onTap;
 
+  /// Draws the number in place of the masked last four, in the face's own ink and number style - the host's
+  /// show/copy control for a card whose full number may be shown. Null draws the mask exactly as before.
+  final Widget Function(Color ink, TextStyle style)? number;
+
   const NeptuneCardArt({
     super.key,
     required this.holder,
@@ -59,6 +63,7 @@ class NeptuneCardArt extends StatelessWidget {
     this.selected = false,
     this.brandMark,
     this.onTap,
+    this.number,
   });
 
   @override
@@ -193,14 +198,15 @@ class NeptuneCardArt extends StatelessWidget {
                         // the FRONT of the line, so an Arabic customer read
                         // "4471 •••• •••• ••••" and the one part of the
                         // number that means anything was in the wrong place.
-                        NeptuneNumeral(
-                          '•••• •••• •••• $last4',
-                          style: numberStyle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          semanticsLabel: NeptuneAccessibility.maskedNumber(
-                              context, '•••• •••• •••• $last4'),
-                        ),
+                        number?.call(onCard, numberStyle) ??
+                            NeptuneNumeral(
+                              '•••• •••• •••• $last4',
+                              style: numberStyle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              semanticsLabel: NeptuneAccessibility.maskedNumber(
+                                  context, '•••• •••• •••• $last4'),
+                            ),
                         // Bottom row: holder + expiry block.
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,

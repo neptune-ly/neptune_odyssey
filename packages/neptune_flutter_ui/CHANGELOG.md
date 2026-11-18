@@ -1,3 +1,9 @@
+## 3.2.8 (18 Nov 2026)
+
+- **`NeptuneCardArt.number`**: a host can draw the card number in place of the masked last four, in the face's own
+  ink and number style (the bank apps' show/copy control for a card whose full number may be shown). Null draws the
+  mask exactly as before, so nothing moves for a host that does not pass it.
+
 ## 3.2.7 (31 Oct 2026)
 
 - **No runtime font loader; `google_fonts` is gone.** Its one call kept the whole registry catalogue in every host
